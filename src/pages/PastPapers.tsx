@@ -62,16 +62,16 @@ const PastPapers: React.FC = () => {
       </div>
 
       {/* Filters */}
-      <div className="flex flex-col md:flex-row items-center justify-between gap-4 py-4 px-8 bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-800 rounded-3xl shadow-sm">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-4 py-4 px-8 bg-white/60 backdrop-blur-xl border border-white rounded-3xl shadow-sm">
         <div className="flex flex-wrap items-center gap-4">
-          <div className="flex items-center gap-2 px-3 py-2 bg-neutral-50 dark:bg-neutral-800 rounded-xl text-neutral-500">
+          <div className="flex items-center gap-2 px-3 py-2 bg-neutral-50 rounded-xl text-neutral-500">
             <Filter size={18} />
             <span className="text-xs font-bold uppercase">Filter By:</span>
           </div>
           <select 
             value={filterYear}
             onChange={(e) => setFilterYear(e.target.value)}
-            className="bg-transparent font-bold text-sm outline-none cursor-pointer"
+            className="bg-transparent font-black text-sm outline-none cursor-pointer text-neutral-700"
           >
             {years.map(y => <option key={y} value={y}>{y}</option>)}
           </select>
@@ -79,7 +79,7 @@ const PastPapers: React.FC = () => {
           <select 
             value={filterDifficulty}
             onChange={(e) => setFilterDifficulty(e.target.value)}
-            className="bg-transparent font-bold text-sm outline-none cursor-pointer capitalize"
+            className="bg-transparent font-black text-sm outline-none cursor-pointer capitalize text-neutral-700"
           >
             {difficulties.map(d => <option key={d} value={d}>{d}</option>)}
           </select>
@@ -90,7 +90,7 @@ const PastPapers: React.FC = () => {
           <input 
             type="text" 
             placeholder="Search papers..."
-            className="w-full pl-10 pr-4 py-2 border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 rounded-xl text-sm"
+            className="w-full pl-10 pr-4 py-2 border border-neutral-100 bg-white rounded-xl text-sm font-bold text-neutral-700 placeholder:text-neutral-300 shadow-sm outline-none focus:ring-2 focus:ring-amber-500/20"
           />
         </div>
       </div>
@@ -108,24 +108,24 @@ const PastPapers: React.FC = () => {
               transition={{ delay: idx * 0.05 }}
               className="group"
             >
-              <div className="h-full bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-800 p-8 rounded-[2rem] hover:ring-2 hover:ring-amber-500/20 transition-all flex flex-col">
+              <div className="h-full bg-white/60 backdrop-blur-xl border border-white p-8 rounded-[2rem] hover:ring-2 hover:ring-amber-500/20 transition-all flex flex-col shadow-sm hover:shadow-2xl">
                 <div className="flex justify-between items-start mb-6">
-                  <div className="w-12 h-12 rounded-2xl bg-amber-50 dark:bg-amber-900/20 flex items-center justify-center text-amber-600">
+                  <div className="w-12 h-12 rounded-2xl bg-amber-50 flex items-center justify-center text-amber-600 shadow-sm border border-amber-100">
                     <Calendar size={24} />
                   </div>
                   <div className={cn(
-                    "px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest",
-                    paper.difficulty === 'easy' ? "bg-green-50 text-green-600" :
-                    paper.difficulty === 'hard' ? "bg-red-50 text-red-600" :
-                    "bg-blue-50 text-blue-600"
+                    "px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border shadow-sm",
+                    paper.difficulty === 'easy' ? "bg-green-50 text-green-600 border-green-100" :
+                    paper.difficulty === 'hard' ? "bg-red-50 text-red-600 border-red-100" :
+                    "bg-blue-50 text-blue-600 border-blue-100"
                   )}>
                     {paper.difficulty}
                   </div>
                 </div>
 
-                <div className="flex-1">
-                  <h3 className="text-xl font-extrabold mb-2 group-hover:text-amber-500 transition-colors">{paper.title}</h3>
-                  <p className="text-neutral-500 text-sm mb-6">{paper.subject} • Grade {paper.grade_level}</p>
+                <div className="flex-1 text-left">
+                  <h3 className="text-xl font-extrabold mb-2 group-hover:text-amber-500 transition-colors text-neutral-900 uppercase tracking-tight">{paper.title}</h3>
+                  <p className="text-neutral-500 text-sm mb-6 font-medium">{paper.subject} • Grade {paper.grade_level}</p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3 mt-6">
@@ -133,7 +133,7 @@ const PastPapers: React.FC = () => {
                     href={paper.pdf_url} 
                     target="_blank" 
                     rel="noreferrer"
-                    className="flex items-center justify-center gap-2 bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 py-3 rounded-xl text-xs font-black uppercase tracking-widest hover:opacity-90 transition-all"
+                    className="flex items-center justify-center gap-2 bg-neutral-900 text-white py-3 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-black transition-all shadow-lg"
                   >
                     Question <ExternalLink size={14} />
                   </a>
@@ -142,8 +142,8 @@ const PastPapers: React.FC = () => {
                     target="_blank" 
                     rel="noreferrer"
                     className={cn(
-                      "flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-black uppercase tracking-widest border border-neutral-200 dark:border-neutral-700 transition-all",
-                      !paper.answer_pdf_url ? "opacity-30 cursor-not-allowed" : "hover:bg-neutral-50 dark:hover:bg-neutral-800"
+                      "flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-black uppercase tracking-widest border border-neutral-100 transition-all shadow-sm bg-white",
+                      !paper.answer_pdf_url ? "opacity-30 cursor-not-allowed" : "hover:bg-neutral-50 text-neutral-600"
                     )}
                   >
                     Answers {paper.answer_pdf_url ? <Download size={14} /> : <AlertCircle size={14} />}
@@ -164,13 +164,13 @@ const PastPapers: React.FC = () => {
       )}
 
       {/* Info card */}
-      <div className="bg-amber-50 dark:bg-amber-900/10 border border-amber-100 dark:border-amber-900/20 p-8 rounded-[2rem] flex items-center gap-6">
-         <div className="hidden sm:flex shrink-0 w-16 h-16 bg-white dark:bg-neutral-900 rounded-full items-center justify-center shadow-sm">
+      <div className="bg-amber-50/60 backdrop-blur-xl border border-amber-100 p-8 rounded-[2rem] flex items-center gap-6 shadow-sm">
+         <div className="hidden sm:flex shrink-0 w-16 h-16 bg-white rounded-full items-center justify-center shadow-md border border-amber-50">
            <Star className="text-amber-500" />
          </div>
-         <div>
-           <h4 className="font-bold text-amber-900 dark:text-amber-100">Practice Makes Perfect</h4>
-           <p className="text-sm text-amber-800/70 dark:text-amber-400/70">
+         <div className="text-left">
+           <h4 className="font-black text-amber-900 uppercase tracking-tight">Practice Makes Perfect</h4>
+           <p className="text-sm text-amber-800/70 font-medium leading-relaxed">
              Experts recommend solving at least 5 years of past papers to get a strong sense of the exam pattern 
              and timing. Use the timed mock mode in your individual chapter sections for better results.
            </p>

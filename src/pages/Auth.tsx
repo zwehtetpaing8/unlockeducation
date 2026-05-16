@@ -58,23 +58,23 @@ const Auth: React.FC = () => {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white dark:bg-neutral-900 p-8 md:p-12 rounded-[2.5rem] border border-neutral-100 dark:border-neutral-800 shadow-2xl relative overflow-hidden"
+        className="bg-white/60 backdrop-blur-2xl p-8 md:p-12 rounded-[2.5rem] border border-white shadow-2xl relative overflow-hidden"
       >
         <div className="text-center mb-10 relative z-10">
           <div className="w-16 h-16 bg-blue-600 rounded-3xl mx-auto mb-6 flex items-center justify-center text-white shadow-xl shadow-blue-600/30">
             <Lock size={28} />
           </div>
-          <h1 className="text-4xl font-black mb-3 text-neutral-900 dark:text-neutral-50 tracking-tighter uppercase leading-none">
+          <h1 className="text-4xl font-black mb-3 text-neutral-900 tracking-tighter uppercase leading-none">
             {isLogin ? 'Hello Again' : 'Join Elite'}
           </h1>
-          <p className="text-neutral-500 dark:text-neutral-400 font-medium text-sm max-w-[240px] mx-auto leading-relaxed">
+          <p className="text-neutral-500 font-medium text-sm max-w-[240px] mx-auto leading-relaxed">
             {isLogin 
               ? 'Access your lessons and track your global rank.' 
               : 'Unlock the complete mathematics curriculum today.'}
           </p>
         </div>
 
-        <form onSubmit={handleAuth} className="space-y-6 relative z-10">
+        <form onSubmit={handleAuth} className="space-y-6 relative z-10 text-left">
           {!isLogin && (
             <div className="space-y-2">
               <label className="text-[10px] font-black uppercase tracking-widest ml-1 text-neutral-400">Full Name</label>
@@ -86,7 +86,7 @@ const Auth: React.FC = () => {
                   placeholder="Burmese Student"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className="w-full pl-12 pr-4 py-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800 border-none ring-1 ring-neutral-100 dark:ring-neutral-800 focus:ring-2 focus:ring-blue-600 transition-all outline-none font-bold"
+                  className="w-full pl-12 pr-4 py-4 rounded-2xl bg-white border border-neutral-100 focus:ring-2 focus:ring-blue-600 transition-all outline-none font-bold text-neutral-900 placeholder:text-neutral-300 shadow-sm"
                 />
               </div>
             </div>
@@ -102,7 +102,7 @@ const Auth: React.FC = () => {
                 placeholder="you@domain.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full pl-12 pr-4 py-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800 border-none ring-1 ring-neutral-100 dark:ring-neutral-800 focus:ring-2 focus:ring-blue-600 transition-all outline-none font-bold"
+                className="w-full pl-12 pr-4 py-4 rounded-2xl bg-white border border-neutral-100 focus:ring-2 focus:ring-blue-600 transition-all outline-none font-bold text-neutral-900 placeholder:text-neutral-300 shadow-sm"
               />
             </div>
           </div>
@@ -117,7 +117,7 @@ const Auth: React.FC = () => {
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full pl-12 pr-4 py-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800 border-none ring-1 ring-neutral-100 dark:ring-neutral-800 focus:ring-2 focus:ring-blue-600 transition-all outline-none font-bold"
+                className="w-full pl-12 pr-4 py-4 rounded-2xl bg-white border border-neutral-100 focus:ring-2 focus:ring-blue-600 transition-all outline-none font-bold text-neutral-900 placeholder:text-neutral-300 shadow-sm"
               />
             </div>
           </div>
@@ -127,13 +127,12 @@ const Auth: React.FC = () => {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               className={cn(
-                "p-4 rounded-2xl text-xs font-bold flex items-start gap-4",
+                "p-4 rounded-2xl text-xs font-bold flex items-start gap-4 shadow-sm",
                 error.includes('Success') 
-                  ? "bg-emerald-50 text-emerald-700 border border-emerald-100" 
-                  : "bg-red-50 text-red-700 border border-red-100"
+                  ? "bg-emerald-50 text-emerald-600 border border-emerald-100" 
+                  : "bg-red-50 text-red-600 border border-red-100"
               )}
             >
-              <Info size={16} className="shrink-0 mt-0.5" />
               <p className="leading-relaxed">{error}</p>
             </motion.div>
           )}
@@ -141,7 +140,7 @@ const Auth: React.FC = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-neutral-900 dark:bg-blue-600 hover:bg-neutral-800 dark:hover:bg-blue-700 text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs shadow-2xl transition-all flex items-center justify-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed group"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs shadow-2xl transition-all flex items-center justify-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed group"
           >
             {loading ? <Loader2 className="animate-spin" size={20} /> : (isLogin ? 'Enter Workspace' : 'Initialize Account')}
             {!loading && <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />}
@@ -149,7 +148,7 @@ const Auth: React.FC = () => {
         </form>
 
         <div className="mt-10 text-center relative z-10">
-          <p className="text-neutral-400 text-xs font-bold">
+          <p className="text-neutral-400 text-xs font-bold uppercase tracking-tighter">
             {isLogin ? "NEW TO THE ACADEMY?" : "ALREADY ENROLLED?"}
             <button
               onClick={() => setIsLogin(!isLogin)}
