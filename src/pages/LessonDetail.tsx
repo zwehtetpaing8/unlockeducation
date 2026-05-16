@@ -59,18 +59,6 @@ const LessonDetail: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto pb-32">
-      {/* Lesson Header Navigation */}
-      <div className="flex items-center justify-between mb-10 sticky top-16 md:top-20 z-30 py-4 bg-white/60 backdrop-blur-md px-4 border-b border-white/20 shadow-sm rounded-b-2xl">
-        <Link 
-          to={chapter ? `/grade/${chapter.grade_id}/chapter/${chapter.id}` : '/'}
-          className="inline-flex items-center gap-3 text-sm font-black text-neutral-400 hover:text-blue-600 transition-all group uppercase tracking-widest"
-        >
-          <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-          <span className="hidden sm:inline text-left">Chapter Overview</span>
-          <span className="sm:hidden">Back</span>
-        </Link>
-      </div>
-
       {/* Lesson Content Area */}
       <article className="bg-white/60 backdrop-blur-2xl rounded-[2.5rem] p-6 md:p-16 border border-white shadow-2xl relative overflow-hidden text-left">
         <div className="mb-12 relative z-10">

@@ -3,13 +3,12 @@ import { useParams, Link } from 'react-router-dom';
 import { curriculumService } from '../services/curriculum';
 import { Chapter } from '../types';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowLeft, BookOpen, ChevronRight, Loader2, Sparkles, X, LayoutList, Target, Award, ArrowRight, GraduationCap } from 'lucide-react';
+import { ArrowLeft, BookOpen, ChevronRight, Loader2, Sparkles, LayoutList, Target, Award, ArrowRight, GraduationCap } from 'lucide-react';
 
 const GradeDetail: React.FC = () => {
   const { level } = useParams<{ level: string }>();
   const [chapters, setChapters] = useState<Chapter[]>([]);
   const [loading, setLoading] = useState(true);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     if (level) {
@@ -94,12 +93,6 @@ const GradeDetail: React.FC = () => {
                 <LayoutList className="text-blue-600" />
                 Chapter List
               </h2>
-              <button 
-                onClick={() => setIsSidebarOpen(true)} 
-                className="lg:hidden p-3 bg-white border border-neutral-100 rounded-xl text-xs font-black uppercase tracking-widest shadow-sm"
-              >
-                Jump to
-              </button>
             </div>
 
             <div className="grid grid-cols-1 gap-6">
@@ -179,50 +172,6 @@ const GradeDetail: React.FC = () => {
         {/* Right Sidebar - Sticky on Desktop */}
         <div className="hidden lg:block lg:col-span-4 transition-all">
           <div className="sticky top-24 space-y-8">
-             {/* Mobile Chapter Drawer Sidebar logic is at the top of return */}
-            <AnimatePresence>
-                {isSidebarOpen && (
-                  <>
-                    <motion.div 
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      onClick={() => setIsSidebarOpen(false)}
-                      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] lg:hidden"
-                    />
-                    <motion.div 
-                      initial={{ y: '100%' }}
-                      animate={{ y: 0 }}
-                      exit={{ y: '100%' }}
-                      transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                      className="fixed inset-x-0 bottom-0 bg-white/90 backdrop-blur-2xl rounded-t-[2.5rem] z-[70] p-8 lg:hidden max-h-[80vh] overflow-y-auto shadow-2xl border-t border-white"
-                    >
-                      <div className="flex justify-between items-center mb-6">
-                        <h3 className="text-xl font-black text-neutral-900 uppercase tracking-tighter">Chapter Quick Jump</h3>
-                        <button onClick={() => setIsSidebarOpen(false)} className="p-2 bg-neutral-100 rounded-full">
-                          <X size={20} />
-                        </button>
-                      </div>
-                      <div className="grid grid-cols-1 gap-2">
-                        {chapters.map((ch) => (
-                          <a 
-                            key={ch.id}
-                            href={`#ch-${ch.chapter_number}`}
-                            onClick={() => setIsSidebarOpen(false)}
-                            className="flex items-center gap-4 p-4 rounded-2xl hover:bg-white transition-colors"
-                          >
-                            <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-xs">
-                              {ch.chapter_number}
-                            </div>
-                            <span className="font-bold text-sm text-neutral-700">{ch.title}</span>
-                          </a>
-                        ))}
-                      </div>
-                    </motion.div>
-                  </>
-                )}
-              </AnimatePresence>
-
             {/* Learning Goals */}
             <div className="bg-blue-600/90 backdrop-blur-2xl rounded-[2.5rem] p-10 text-white shadow-2xl border border-white/20 relative overflow-hidden">
               <div className="absolute top-0 right-0 p-8 opacity-10">
@@ -244,25 +193,6 @@ const GradeDetail: React.FC = () => {
                       <p className="text-xs text-blue-100 leading-relaxed font-medium">{item.desc}</p>
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Quick Menu */}
-            <div className="bg-white/60 backdrop-blur-xl border border-white rounded-[2.5rem] p-10 shadow-sm">
-              <h3 className="text-[10px] font-black uppercase tracking-widest text-neutral-400 mb-8">Navigation</h3>
-              <div className="space-y-2 text-left">
-                {chapters.map(ch => (
-                  <a 
-                    key={ch.id}
-                    href={`#ch-${ch.chapter_number}`}
-                    className="flex items-center gap-4 p-3 rounded-2xl hover:bg-white transition-all group"
-                  >
-                    <div className="w-8 h-8 rounded-lg bg-neutral-50 text-neutral-400 group-hover:bg-blue-600 group-hover:text-white flex items-center justify-center font-black text-xs transition-colors border border-neutral-100">
-                      {ch.chapter_number}
-                    </div>
-                    <span className="font-bold text-sm text-neutral-500 group-hover:text-blue-600 truncate transition-colors">{ch.title}</span>
-                  </a>
                 ))}
               </div>
             </div>
