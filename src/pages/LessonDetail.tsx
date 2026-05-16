@@ -8,6 +8,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import { MathRenderer } from '../components/ui/MathRenderer';
+import { ImageCarousel } from '../components/ui/ImageCarousel';
 import { 
   ArrowLeft, ChevronLeft, ChevronRight, 
   Bookmark, BookmarkCheck, Share2, 
@@ -140,10 +141,27 @@ const LessonDetail: React.FC = () => {
           <div className="h-1.5 w-24 bg-blue-600 rounded-full shadow-lg shadow-blue-600/30" />
         </div>
 
-        <div className="markdown-body relative z-10 text-neutral-800 font-medium">
+        <div className="markdown-body relative z-10 text-neutral-800 font-medium pb-20">
           <ReactMarkdown
             remarkPlugins={[remarkMath]}
             rehypePlugins={[rehypeKatex]}
+            components={{
+              code(props) {
+                const { node, className, children, ...rest } = props;
+                const match = /language-(\w+)/.exec(className || '');
+                const isBlock = !!match;
+                
+                if (isBlock && match[1] === 'carousel') {
+                  const images = String(children).trim().split('\n').map(img => img.trim());
+                  return <ImageCarousel images={images} />;
+                }
+                return <code className={className} {...rest}>{children}</code>;
+              },
+              // Customize headers for better consistency
+              h1: ({ children }) => <h2 className="text-3xl font-black text-neutral-900 mt-12 mb-6 uppercase tracking-tight border-l-4 border-blue-600 pl-4">{children}</h2>,
+              h2: ({ children }) => <h3 className="text-2xl font-black text-neutral-800 mt-10 mb-4 uppercase tracking-tighter">{children}</h3>,
+              hr: () => <hr className="my-12 border-neutral-100" />
+            }}
           >
             {lesson.content}
           </ReactMarkdown>
@@ -181,13 +199,6 @@ const LessonDetail: React.FC = () => {
         <button className="p-1 hover:text-blue-600 transition-colors text-neutral-400">
           <Settings size={20} />
         </button>
-        <div className="h-4 w-px bg-neutral-100" />
-        <div className="flex flex-col items-center">
-            <span className="text-[10px] font-black uppercase text-neutral-400 mb-1 leading-none">Lesson Progress</span>
-            <div className="w-24 h-1.5 bg-neutral-100 rounded-full overflow-hidden">
-                <div className="h-full bg-blue-600 w-2/3 shadow-[0_0_10px_rgba(37,99,235,0.5)]" />
-            </div>
-        </div>
         <div className="h-4 w-px bg-neutral-100" />
         <button className="p-1 hover:text-blue-600 transition-colors text-neutral-400">
           <Maximize size={20} />

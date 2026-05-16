@@ -140,11 +140,6 @@ const GradeDetail: React.FC = () => {
                             <ChevronRight size={24} className="group-hover:translate-x-1 transition-transform" />
                           </div>
                         </div>
-                        
-                        {/* Progress background effect */}
-                        <div className="absolute bottom-0 left-0 h-1 bg-blue-600/20 w-full overflow-hidden">
-                          <div className="h-full bg-blue-600 w-0 group-hover:w-full transition-all duration-1000" />
-                        </div>
                       </Link>
                     </motion.div>
                   ))}
@@ -251,9 +246,6 @@ const GradeDetail: React.FC = () => {
                   </div>
                 ))}
               </div>
-              <button className="w-full mt-10 bg-white text-blue-600 py-4 rounded-2xl font-black uppercase tracking-widest text-[10px] hover:bg-white/90 transition-colors shadow-lg">
-                Track My Progress
-              </button>
             </div>
 
             {/* Quick Menu */}

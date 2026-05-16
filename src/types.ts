@@ -24,6 +24,7 @@ export interface Chapter {
   title: string;
   description: string;
   order_index: number;
+  created_at?: string;
 }
 
 export interface Section {
@@ -41,6 +42,7 @@ export interface Lesson {
   type: 'theory' | 'exercise' | 'summary' | 'formula';
   content: string;
   order_index: number;
+  created_at?: string;
 }
 
 export interface Quiz {
@@ -68,7 +70,7 @@ export interface PastPaper {
   title: string;
   pdf_url: string;
   answer_pdf_url: string | null;
-  difficulty: 'easy' | 'medium' | 'hard';
+  section: 'A' | 'B' | 'C' | 'D' | 'Full Paper';
 }
 
 export interface Progress {

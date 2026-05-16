@@ -13,10 +13,11 @@ const PastPapers: React.FC = () => {
   const [papers, setPapers] = useState<PastPaper[]>([]);
   const [loading, setLoading] = useState(true);
   const [filterYear, setFilterYear] = useState<string>('All Years');
-  const [filterDifficulty, setFilterDifficulty] = useState<string>('All');
+  const [filterSection, setFilterSection] = useState<string>('All');
+  const [searchQuery, setSearchQuery] = useState<string>('');
   
   const years = ['All Years', '2023', '2022', '2021', '2020', '2019'];
-  const difficulties = ['All', 'easy', 'medium', 'hard'];
+  const sections = ['All', 'A', 'B', 'C', 'D', 'Full Paper'];
 
   useEffect(() => {
     fetchPapers();
@@ -35,8 +36,10 @@ const PastPapers: React.FC = () => {
 
   const filteredPapers = papers.filter(p => {
     const matchYear = filterYear === 'All Years' || p.year.toString() === filterYear;
-    const matchDiff = filterDifficulty === 'All' || p.difficulty === filterDifficulty;
-    return matchYear && matchDiff;
+    const matchSection = filterSection === 'All' || p.section === filterSection;
+    const matchSearch = p.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                       p.subject.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchYear && matchSection && matchSearch;
   });
 
   return (
@@ -77,11 +80,11 @@ const PastPapers: React.FC = () => {
           </select>
           <div className="w-px h-4 bg-neutral-200" />
           <select 
-            value={filterDifficulty}
-            onChange={(e) => setFilterDifficulty(e.target.value)}
+            value={filterSection}
+            onChange={(e) => setFilterSection(e.target.value)}
             className="bg-transparent font-black text-sm outline-none cursor-pointer capitalize text-neutral-700"
           >
-            {difficulties.map(d => <option key={d} value={d}>{d}</option>)}
+            {sections.map(s => <option key={s} value={s}>{s === 'All' ? 'All Sections' : `Section ${s}`}</option>)}
           </select>
         </div>
 
@@ -90,6 +93,8 @@ const PastPapers: React.FC = () => {
           <input 
             type="text" 
             placeholder="Search papers..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-10 pr-4 py-2 border border-neutral-100 bg-white rounded-xl text-sm font-bold text-neutral-700 placeholder:text-neutral-300 shadow-sm outline-none focus:ring-2 focus:ring-amber-500/20"
           />
         </div>
@@ -115,11 +120,13 @@ const PastPapers: React.FC = () => {
                   </div>
                   <div className={cn(
                     "px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border shadow-sm",
-                    paper.difficulty === 'easy' ? "bg-green-50 text-green-600 border-green-100" :
-                    paper.difficulty === 'hard' ? "bg-red-50 text-red-600 border-red-100" :
-                    "bg-blue-50 text-blue-600 border-blue-100"
+                    paper.section === 'A' ? "bg-green-50 text-green-600 border-green-100" :
+                    paper.section === 'B' ? "bg-blue-50 text-blue-600 border-blue-100" :
+                    paper.section === 'C' ? "bg-purple-50 text-purple-600 border-purple-100" :
+                    paper.section === 'D' ? "bg-amber-50 text-amber-600 border-amber-100" :
+                    "bg-neutral-50 text-neutral-600 border-neutral-100"
                   )}>
-                    {paper.difficulty}
+                    Section {paper.section}
                   </div>
                 </div>
 
