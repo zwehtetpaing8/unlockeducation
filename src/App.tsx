@@ -23,13 +23,7 @@ import Profile from './pages/Profile';
 
 // Helper for protected routes
 const ProtectedRoute = ({ children, adminOnly = false }: { children: React.ReactNode, adminOnly?: boolean }) => {
-  const { user, profile, loading } = useAuth();
-
-  if (loading) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
-  if (!user) return <Navigate to="/auth" />;
-  if (adminOnly && profile?.role !== 'admin' && profile?.role !== 'teacher') {
-    return <Navigate to="/" />;
-  }
+  // Authentication is temporarily disabled
   return <>{children}</>;
 };
 

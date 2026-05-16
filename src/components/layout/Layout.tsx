@@ -78,26 +78,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
             </div>
 
             <div className="flex items-center gap-3 md:gap-5">
-              {user ? (
-                <div className="flex items-center gap-4">
-                  <Link to="/profile" className="flex items-center gap-2 group">
-                    <div className="w-9 h-9 rounded-full bg-white border-2 border-white shadow-md flex items-center justify-center text-xs font-black overflow-hidden group-hover:border-blue-500 transition-all">
-                      {profile?.avatar_url ? (
-                        <img src={profile.avatar_url} alt="Profile" className="w-full h-full object-cover" />
-                      ) : (
-                        <User size={18} />
-                      )}
-                    </div>
-                  </Link>
-                </div>
-              ) : (
-                <Link 
-                  to="/auth" 
-                  className="bg-neutral-900 text-white px-5 py-2.5 rounded-xl text-sm font-black transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-neutral-900/10"
-                >
-                  Join
-                </Link>
-              )}
+              {/* Auth links hidden temporarily */}
             </div>
           </div>
         </div>
@@ -166,26 +147,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
               )}
 
               <div className="absolute bottom-8 left-6 right-6">
-                {user ? (
-                   <button 
-                    onClick={() => {
-                      signOut();
-                      toggleSidebar();
-                    }}
-                    className="flex w-full items-center justify-center gap-3 p-4 rounded-2xl font-bold bg-red-50 text-red-600 hover:bg-red-100 transition-all"
-                  >
-                    <LogOut size={20} />
-                    <span>Sign Out</span>
-                  </button>
-                ) : (
-                  <Link 
-                    to="/auth" 
-                    onClick={toggleSidebar}
-                    className="flex items-center justify-center p-4 rounded-2xl font-bold bg-blue-600 text-white shadow-lg shadow-blue-600/20"
-                  >
-                    Start Learning
-                  </Link>
-                )}
+                {/* Sign in/out hidden temporarily */}
               </div>
             </motion.div>
           </>
@@ -204,7 +166,6 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
             { id: 'home', icon: HomeIcon, path: '/', label: 'Home' },
             { id: 'grade12', icon: GraduationCap, path: '/grade/12', label: 'Maths' },
             { id: 'papers', icon: FileText, path: '/past-papers', label: 'Papers' },
-            { id: 'profile', icon: User, path: '/profile', label: 'Me' }
           ].map((item) => (
             <Link 
               key={item.id} 

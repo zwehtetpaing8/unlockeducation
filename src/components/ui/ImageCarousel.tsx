@@ -24,7 +24,7 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
       <AnimatePresence mode="wait">
         <motion.img
           key={currentIndex}
-          src={images[currentIndex]}
+          src={images[currentIndex].startsWith('http') || images[currentIndex].startsWith('/') ? images[currentIndex] : `/${images[currentIndex]}`}
           alt={`Slide ${currentIndex + 1}`}
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}

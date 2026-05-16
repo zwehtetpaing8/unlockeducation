@@ -1,14 +1,15 @@
 import express from "express";
 import path from "path";
-import { fileURLToPath } from "url";
 import { createServer as createViteServer } from "vite";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 async function startServer() {
   const app = express();
   const PORT = 3000;
+
+  // Simple API health check
+  app.get("/api/health", (req, res) => {
+    res.json({ status: "ok" });
+  });
 
   // Vite middleware for development
   if (process.env.NODE_ENV !== "production") {
@@ -19,7 +20,7 @@ async function startServer() {
     app.use(vite.middlewares);
   } else {
     // In production, serve from the dist folder
-    const distPath = path.join(process.cwd(), "dist");
+    const distPath = path.resolve(process.cwd(), "dist");
     app.use(express.static(distPath));
 
     // Handle SPA fallback - send all requests to index.html
@@ -29,7 +30,7 @@ async function startServer() {
   }
 
   app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Server running on port ${PORT}`);
   });
 }
 
