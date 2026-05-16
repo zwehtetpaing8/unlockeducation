@@ -49,72 +49,75 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
   return (
     <div className={cn("min-h-screen transition-colors duration-300", isDarkMode ? "dark bg-neutral-950 text-neutral-100" : "bg-neutral-50 text-neutral-900")}>
       {/* Navbar */}
-      <nav className="sticky top-0 z-40 w-full border-b border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md">
+      <nav className="sticky top-0 z-40 w-full border-b border-neutral-200/50 dark:border-neutral-800/50 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             <div className="flex items-center gap-4">
               <button 
                 onClick={toggleSidebar}
-                className="p-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 lg:hidden"
+                className="p-2 rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors lg:hidden"
+                aria-label="Toggle Menu"
               >
                 {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
-              <Link to="/" className="flex items-center gap-2">
-                <div className="bg-blue-600 p-1.5 rounded-lg">
+              <Link to="/" className="flex items-center gap-2.5 group">
+                <div className="bg-blue-600 p-2 rounded-xl shadow-lg shadow-blue-600/20 group-hover:scale-105 transition-transform">
                   <BookOpen className="text-white" size={20} />
                 </div>
-                <span className="font-bold text-xl tracking-tight">Unlock Education</span>
+                <span className="font-black text-xl tracking-tighter text-neutral-900 dark:text-neutral-50">UNLOCK</span>
               </Link>
             </div>
 
-            <div className="hidden lg:flex items-center gap-6">
+            <div className="hidden lg:flex items-center gap-8">
               {navItems.map((item) => (
                 <Link
                   key={item.path}
                   to={item.path}
                   className={cn(
-                    "text-sm font-medium hover:text-blue-600 transition-colors",
-                    location.pathname === item.path ? "text-blue-600" : "text-neutral-600 dark:text-neutral-400"
+                    "text-sm font-bold tracking-tight transition-all relative py-1",
+                    location.pathname === item.path 
+                      ? "text-blue-600 dark:text-blue-400" 
+                      : "text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-50"
                   )}
                 >
                   {item.name}
+                  {location.pathname === item.path && (
+                    <motion.div 
+                      layoutId="activeNav"
+                      className="absolute -bottom-1 left-0 right-0 h-0.5 bg-blue-600 dark:bg-blue-400 rounded-full"
+                    />
+                  )}
                 </Link>
               ))}
             </div>
 
-            <div className="flex items-center gap-2 md:gap-4">
+            <div className="flex items-center gap-3 md:gap-5">
               <button 
                 onClick={toggleDarkMode}
-                className="p-2 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500"
+                className="p-2.5 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500 dark:text-neutral-400 transition-colors"
+                aria-label="Toggle Color Theme"
               >
-                {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+                {isDarkMode ? <Sun size={20} className="text-amber-400" /> : <Moon size={20} />}
               </button>
               
               {user ? (
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-4">
                   <Link to="/profile" className="flex items-center gap-2 group">
-                    <div className="w-8 h-8 rounded-full bg-neutral-200 dark:bg-neutral-700 flex items-center justify-center text-xs font-bold overflow-hidden border border-neutral-300 dark:border-neutral-600">
+                    <div className="w-9 h-9 rounded-full bg-neutral-100 dark:bg-neutral-800 border-2 border-white dark:border-neutral-900 shadow-sm flex items-center justify-center text-xs font-black overflow-hidden group-hover:border-blue-500 transition-all">
                       {profile?.avatar_url ? (
                         <img src={profile.avatar_url} alt="Profile" className="w-full h-full object-cover" />
                       ) : (
-                        profile?.full_name?.[0] || 'U'
+                        <User size={18} />
                       )}
                     </div>
                   </Link>
-                  <button 
-                    onClick={() => signOut()}
-                    className="hidden sm:flex items-center gap-2 text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-red-500"
-                  >
-                    <LogOut size={18} />
-                    <span>Logout</span>
-                  </button>
                 </div>
               ) : (
                 <Link 
                   to="/auth" 
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all"
+                  className="bg-neutral-900 dark:bg-neutral-50 text-white dark:text-neutral-900 px-5 py-2.5 rounded-xl text-sm font-black transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-neutral-900/10 dark:shadow-none"
                 >
-                  Sign In
+                  Join
                 </Link>
               )}
             </div>
@@ -123,7 +126,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       </nav>
 
       {/* Sidebar Overlay */}
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {isSidebarOpen && (
           <>
             <motion.div 
@@ -131,40 +134,42 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={toggleSidebar}
-              className="fixed inset-0 bg-neutral-900/40 backdrop-blur-sm z-40 lg:hidden"
+              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[100] lg:hidden"
             />
             <motion.div 
               initial={{ x: '-100%' }}
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed left-0 top-0 bottom-0 w-72 bg-white dark:bg-neutral-900 z-50 p-6 lg:hidden shadow-2xl"
+              className="fixed left-0 top-0 bottom-0 w-[85%] max-w-[320px] bg-white dark:bg-neutral-900 z-[101] p-6 lg:hidden"
             >
-              <div className="flex justify-between items-center mb-8">
-                <Link to="/" className="flex items-center gap-2" onClick={toggleSidebar}>
-                  <BookOpen className="text-blue-600" size={24} />
-                  <span className="font-bold text-xl">Unlock Education</span>
+              <div className="flex justify-between items-center mb-10">
+                <Link to="/" className="flex items-center gap-2.5" onClick={toggleSidebar}>
+                  <div className="bg-blue-600 p-1.5 rounded-lg">
+                    <BookOpen className="text-white" size={20} />
+                  </div>
+                  <span className="font-black text-xl tracking-tighter">UNLOCK</span>
                 </Link>
-                <button onClick={toggleSidebar} className="p-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800">
+                <button onClick={toggleSidebar} className="p-2 rounded-full bg-neutral-100 dark:bg-neutral-800">
                   <X size={20} />
                 </button>
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-1.5">
                 {navItems.map((item) => (
                   <Link
                     key={item.path}
                     to={item.path}
                     onClick={toggleSidebar}
                     className={cn(
-                      "flex items-center gap-3 px-4 py-3 rounded-xl transition-all",
+                      "flex items-center gap-4 px-4 py-4 rounded-2xl transition-all font-bold",
                       location.pathname === item.path 
-                        ? "bg-blue-50 text-blue-600 dark:bg-blue-900/20" 
-                        : "text-neutral-600 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-800/50"
+                        ? "bg-blue-600 text-white shadow-lg shadow-blue-600/20" 
+                        : "text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800"
                     )}
                   >
-                    <item.icon size={20} />
-                    <span className="font-medium">{item.name}</span>
+                    <item.icon size={22} className={cn(location.pathname === item.path ? "text-white" : "text-neutral-400")} />
+                    <span>{item.name}</span>
                   </Link>
                 ))}
               </div>
@@ -174,22 +179,69 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                    <Link
                       to="/admin"
                       onClick={toggleSidebar}
-                      className="flex items-center gap-3 px-4 py-3 rounded-xl text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-900/10 transition-all"
+                      className="flex items-center gap-4 px-4 py-4 rounded-2xl text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/10 transition-all font-bold"
                     >
-                      <ShieldCheck size={20} />
-                      <span className="font-medium">Admin Dashboard</span>
+                      <ShieldCheck size={22} />
+                      <span>Admin Dashboard</span>
                     </Link>
                 </div>
               )}
+
+              <div className="absolute bottom-8 left-6 right-6">
+                {user ? (
+                   <button 
+                    onClick={() => {
+                      signOut();
+                      toggleSidebar();
+                    }}
+                    className="flex w-full items-center justify-center gap-3 p-4 rounded-2xl font-bold bg-red-50 dark:bg-red-900/10 text-red-600 dark:text-red-400 hover:bg-red-100 transition-all"
+                  >
+                    <LogOut size={20} />
+                    <span>Sign Out</span>
+                  </button>
+                ) : (
+                  <Link 
+                    to="/auth" 
+                    onClick={toggleSidebar}
+                    className="flex items-center justify-center p-4 rounded-2xl font-bold bg-blue-600 text-white shadow-lg shadow-blue-600/20"
+                  >
+                    Start Learning
+                  </Link>
+                )}
+              </div>
             </motion.div>
           </>
         )}
       </AnimatePresence>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-24 md:pb-8">
         {children}
       </main>
+
+      {/* Bottom Navigation for Mobile */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-[60] bg-white/80 dark:bg-neutral-900/80 backdrop-blur-xl border-t border-neutral-200 dark:border-neutral-800 px-6 py-3 pb-safe-area-inset-bottom">
+        <div className="flex justify-between items-center max-w-md mx-auto">
+          {[
+            { id: 'home', icon: HomeIcon, path: '/', label: 'Home' },
+            { id: 'grade12', icon: GraduationCap, path: '/grade/12', label: 'Maths' },
+            { id: 'papers', icon: FileText, path: '/past-papers', label: 'Papers' },
+            { id: 'profile', icon: User, path: '/profile', label: 'Me' }
+          ].map((item) => (
+            <Link 
+              key={item.id} 
+              to={item.path}
+              className={cn(
+                "flex flex-col items-center gap-1 transition-all",
+                location.pathname === item.path ? "text-blue-600 dark:text-blue-400 scale-110" : "text-neutral-400"
+              )}
+            >
+              <item.icon size={22} className={cn(location.pathname === item.path ? "fill-blue-600/10" : "")} />
+              <span className="text-[10px] font-black uppercase tracking-tighter">{item.label}</span>
+            </Link>
+          ))}
+        </div>
+      </div>
 
       {/* Footer */}
       <footer className="border-t border-neutral-200 dark:border-neutral-800 mt-20 bg-white dark:bg-neutral-900">
