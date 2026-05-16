@@ -113,12 +113,23 @@ const LessonDetail: React.FC = () => {
       </article>
 
       {/* Bottom Floating Progress/Controls for Mobile */}
-      <div className="fixed bottom-24 left-1/2 -translate-x-1/2 flex items-center bg-white/80 backdrop-blur-xl border border-white rounded-3xl py-3 px-8 shadow-2xl z-40 gap-6">
-        <button className="p-1 hover:text-blue-600 transition-colors text-neutral-400">
+      <div className="fixed bottom-10 left-1/2 -translate-x-1/2 flex items-center bg-white/90 backdrop-blur-2xl border border-neutral-200/50 rounded-full py-3 px-8 shadow-[0_20px_50px_rgba(0,0,0,0.15)] z-50 gap-6">
+        <button 
+          onClick={() => navigate(chapter ? `/grade/${chapter.grade_id}/chapter/${chapter.id}` : '/')}
+          className="p-2 hover:bg-neutral-100 rounded-full transition-colors text-neutral-600 flex items-center gap-2"
+          title="Back to Chapter"
+        >
+          <ArrowLeft size={20} />
+          <span className="text-xs font-bold uppercase tracking-widest hidden sm:inline">Back</span>
+        </button>
+        
+        <div className="h-6 w-px bg-neutral-200" />
+        
+        <button className="p-2 hover:bg-neutral-100 rounded-full transition-colors text-neutral-600">
           <Settings size={20} />
         </button>
-        <div className="h-4 w-px bg-neutral-100" />
-        <button className="p-1 hover:text-blue-600 transition-colors text-neutral-400">
+        
+        <button className="p-2 hover:bg-neutral-100 rounded-full transition-colors text-neutral-600">
           <Maximize size={20} />
         </button>
       </div>

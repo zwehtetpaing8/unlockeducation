@@ -17,28 +17,52 @@
   line-height: 1.75;
 }
 
-.prose h1, .prose h2, .prose h3 {
-  letter-spacing: -0.02em;
-  margin-top: 2em;
-  margin-bottom: 1em;
+.markdown-body {
+  font-size: 1.125rem;
+  color: #374151;
 }
 
-.prose p {
-  margin-top: 1.25em;
+@media (max-width: 640px) {
+  .markdown-body {
+    font-size: 1rem;
+  }
+}
+
+.markdown-body h1, .markdown-body h2, .markdown-body h3 {
+  letter-spacing: -0.02em;
+  margin-top: 2.5em;
   margin-bottom: 1.25em;
+  color: #111827;
+  font-weight: 800;
+}
+
+.markdown-body p {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  line-height: 1.8;
+}
+
+.markdown-body strong {
+  color: #111827;
+  font-weight: 700;
 }
 
 .katex {
-  font-size: 1.1em !important;
+  font-size: 1.15em !important;
 }
 
 .katex-display {
-  padding: 1.5rem 0;
+  padding: 2rem 0;
   overflow-x: auto;
   overflow-y: hidden;
+  margin: 1.5rem 0;
 }
 
 /* Markdown Specifics */
+.markdown-body ul, .markdown-body ol {
+  margin: 1.5rem 0;
+}
+
 .markdown-body ul {
   list-style-type: none;
   padding-left: 0;
@@ -46,16 +70,19 @@
 
 .markdown-body ul li {
   position: relative;
-  padding-left: 1.5rem;
-  margin-bottom: 0.75rem;
+  padding-left: 1.75rem;
+  margin-bottom: 1rem;
 }
 
 .markdown-body ul li::before {
-  content: "•";
+  content: "";
   position: absolute;
   left: 0;
-  color: #2563eb;
-  font-weight: bold;
+  top: 0.6em;
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: #2563eb;
+  border-radius: 50%;
 }
 
 .markdown-body input[type="checkbox"] {
