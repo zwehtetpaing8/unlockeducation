@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
   Menu, X, BookOpen, GraduationCap, FileText, 
-  Search, User, LogOut, Sun, Moon, Home as HomeIcon,
+  Search, User, LogOut, Home as HomeIcon,
   ShieldCheck
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
@@ -11,30 +11,10 @@ import { motion, AnimatePresence } from 'motion/react';
 
 export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = React.useState(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('theme');
-      if (saved) return saved === 'dark';
-      return window.matchMedia('(prefers-color-scheme: dark)').matches;
-    }
-    return false;
-  });
   const { user, profile, signOut } = useAuth();
   const location = useLocation();
 
-  React.useEffect(() => {
-    const root = window.document.documentElement;
-    if (isDarkMode) {
-      root.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      root.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  }, [isDarkMode]);
-
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
-  const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
 
   const navItems = [
     { name: 'Home', path: '/', icon: HomeIcon },
@@ -47,7 +27,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
   const isAdmin = profile?.role === 'admin' || profile?.role === 'teacher';
 
   return (
-    <div className={cn("min-h-screen transition-colors duration-300", isDarkMode ? "dark bg-neutral-950 text-neutral-100" : "bg-neutral-50 text-neutral-900")}>
+    <div className="min-h-screen transition-colors duration-300 dark bg-neutral-950 text-neutral-100">
       {/* Navbar */}
       <nav className="sticky top-0 z-40 w-full border-b border-neutral-200/50 dark:border-neutral-800/50 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -92,14 +72,6 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
             </div>
 
             <div className="flex items-center gap-3 md:gap-5">
-              <button 
-                onClick={toggleDarkMode}
-                className="p-2.5 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500 dark:text-neutral-400 transition-colors"
-                aria-label="Toggle Color Theme"
-              >
-                {isDarkMode ? <Sun size={20} className="text-amber-400" /> : <Moon size={20} />}
-              </button>
-              
               {user ? (
                 <div className="flex items-center gap-4">
                   <Link to="/profile" className="flex items-center gap-2 group">
