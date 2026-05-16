@@ -154,7 +154,7 @@ INSERT INTO chapters (grade_id, chapter_number, title, description) VALUES
 
 -- Chapter 1 Introduction Lesson
 INSERT INTO lessons (chapter_id, title, type, content, order_index)
-SELECT id, 'The Mysterious World of Complex Numbers', 'theory', '# The Mysterious World of Complex Numbers
+SELECT id, 'Introduction', 'theory', '# Introduction
 
 ```carousel
 image1.jpg
@@ -259,8 +259,8 @@ image17.jpg
 Real numbers များသည် ကိန်းမျဉ်း (Number line) တစ်ခုပေါ်တွင်သာ တည်ရှိကြသည်။ သို့သော် ကိန်းထွေးများမှာမူ **Complex Plane** ဟုခေါ်သော လုံးဝခြားနားသည့် ကမ္ဘာတစ်ခုတွင် တည်ရှိကြသည်။
 
 ကိန်းဂဏန်းများသည် ဘယ်နှင့် ညာသို့သာ ရွေ့လျားနိုင်ခြင်း မဟုတ်တော့ဘဲ အောက်ပါအတိုင်း ရွေ့လျားနိုင်လာသည် -
-- **အလျားလိုက် (Horizontally)** $\rightarrow$ Real Axis
-- **ဒေါင်လိုက် (Vertically)** $\rightarrow$ Imaginary Axis
+- **အလျားလိုက် (Horizontally)** $\\rightarrow$ Real Axis
+- **ဒေါင်လိုက် (Vertically)** $\\rightarrow$ Imaginary Axis
 
 ![Complex Plane Diagram](https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Complex_number_illustration.svg/1200px-Complex_number_illustration.svg.png)
 

@@ -98,7 +98,7 @@ Consider the function $f(x) = x^2$. We can find the derivative:
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
       {/* Sidebar Nav */}
       <div className="lg:col-span-1 space-y-2">
-        <h2 className="text-xl font-extrabold mb-6 px-4">Admin Hub</h2>
+        <h2 className="text-lg sm:text-xl font-extrabold mb-6 px-4">Admin Hub</h2>
         {[
           { id: 'lessons', label: 'Lessons & Modules', icon: BookOpen },
           { id: 'past-papers', label: 'Past Papers', icon: FileText },
@@ -124,7 +124,7 @@ Consider the function $f(x) = x^2$. We can find the derivative:
       <div className="lg:col-span-3 space-y-8">
         <div className="bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-800 rounded-3xl p-8 shadow-sm">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-            <h3 className="text-2xl font-extrabold">Lesson Content Manager</h3>
+            <h3 className="text-xl sm:text-2xl font-extrabold">Lesson Content Manager</h3>
             <div className="flex items-center gap-2">
               <button 
                 onClick={() => setPreviewMode(!previewMode)}

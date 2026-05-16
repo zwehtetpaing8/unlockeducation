@@ -24,7 +24,28 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
     { name: 'Past Papers', path: '/past-papers', icon: FileText },
   ];
 
-  const isAdmin = profile?.role === 'admin' || profile?.role === 'teacher';
+const isAdmin = profile?.role === 'admin' || profile?.role === 'teacher';
+  const logoUrl = import.meta.env.VITE_APP_LOGO_URL;
+
+  const Logo = () => (
+    <Link to="/" className="flex items-center gap-2.5 group">
+      {logoUrl ? (
+        <img 
+          src={logoUrl} 
+          alt="Unlock Education Logo" 
+          className="h-9 w-auto object-contain group-hover:scale-105 transition-transform"
+          referrerPolicy="no-referrer"
+        />
+      ) : (
+        <>
+          <div className="bg-blue-600 p-2 rounded-xl shadow-lg shadow-blue-600/20 group-hover:scale-105 transition-transform">
+            <BookOpen className="text-white" size={20} />
+          </div>
+          <span className="font-black text-xl tracking-tighter text-neutral-900 uppercase">UNLOCK</span>
+        </>
+      )}
+    </Link>
+  );
 
   return (
     <div className="min-h-screen transition-colors duration-300 bg-white text-neutral-900 overflow-x-hidden relative">
@@ -46,12 +67,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
               >
                 {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
-              <Link to="/" className="flex items-center gap-2.5 group">
-                <div className="bg-blue-600 p-2 rounded-xl shadow-lg shadow-blue-600/20 group-hover:scale-105 transition-transform">
-                  <BookOpen className="text-white" size={20} />
-                </div>
-                <span className="font-black text-xl tracking-tighter text-neutral-900 uppercase">UNLOCK</span>
-              </Link>
+              <Logo />
             </div>
 
             <div className="hidden lg:flex items-center gap-8">
@@ -103,12 +119,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
               className="fixed left-0 top-0 bottom-0 w-[85%] max-w-[320px] bg-white/80 backdrop-blur-2xl z-[101] p-6 lg:hidden border-r border-white/20 shadow-2xl"
             >
               <div className="flex justify-between items-center mb-10">
-                <Link to="/" className="flex items-center gap-2.5" onClick={toggleSidebar}>
-                  <div className="bg-blue-600 p-1.5 rounded-lg">
-                    <BookOpen className="text-white" size={20} />
-                  </div>
-                  <span className="font-black text-xl tracking-tighter">UNLOCK</span>
-                </Link>
+                <Logo />
                 <button onClick={toggleSidebar} className="p-2 rounded-full bg-neutral-100">
                   <X size={20} />
                 </button>
@@ -188,8 +199,19 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-left">
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center gap-2 mb-4">
-                <BookOpen className="text-blue-600" size={24} />
-                <span className="font-bold text-xl">Unlock Education</span>
+                {logoUrl ? (
+                  <img 
+                    src={logoUrl} 
+                    alt="Unlock Education Logo" 
+                    className="h-8 w-auto object-contain"
+                    referrerPolicy="no-referrer"
+                  />
+                ) : (
+                  <>
+                    <BookOpen className="text-blue-600" size={24} />
+                    <span className="font-bold text-xl">Unlock Education</span>
+                  </>
+                )}
               </div>
               <p className="text-neutral-500 max-w-sm">
                 Empowering Myanmar high school students with quality mathematics education. 

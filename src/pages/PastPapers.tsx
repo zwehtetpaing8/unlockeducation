@@ -50,7 +50,7 @@ const PastPapers: React.FC = () => {
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-500 rounded-full text-xs font-bold uppercase tracking-widest mb-6">
              Exam Prep Center
           </div>
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
+          <h1 className="text-xl sm:text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
             Level Up with <br />
             <span className="text-amber-500">Past Exam Papers</span>
           </h1>

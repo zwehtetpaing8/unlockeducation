@@ -96,7 +96,7 @@ export const curriculumService = {
         {
           id: 'lesson-c1-intro',
           chapter_id: chapterId,
-          title: 'The Mysterious World of Complex Numbers',
+          title: 'Introduction',
           type: 'theory',
           content: chapter1IntroContent,
           order_index: 1,
@@ -136,7 +136,7 @@ export const curriculumService = {
       return {
         id: 'lesson-c1-intro',
         chapter_id: 'chapter-c1-g12',
-        title: 'The Mysterious World of Complex Numbers',
+        title: 'Introduction',
         type: 'theory',
         content: chapter1IntroContent,
         order_index: 1,
@@ -177,7 +177,7 @@ export const curriculumService = {
       if (chapterData && chapterData.grade_id.toString() === '12' && chapterData.chapter_number === 1) {
         return {
           ...data,
-          title: 'The Mysterious World of Complex Numbers',
+          title: 'Introduction',
           content: chapter1IntroContent
         };
       }
@@ -187,7 +187,7 @@ export const curriculumService = {
   },
 };
 
-const chapter1IntroContent = `# The Mysterious World of Complex Numbers
+const chapter1IntroContent = `# Introduction
 
 \`\`\`carousel
 1.jpg
@@ -240,7 +240,7 @@ $$x^2 = -1$$
 
 မဖြစ်နိုင်ဟု ထင်ရသော ညီမျှခြင်းကို ဖြေရှင်းရန်အတွက် သင်္ချာပညာရှင်များသည် သင်္ကေတအသစ်တစ်ခုကို သတ်မှတ်ခဲ့ကြသည် -
 
-$$i = \sqrt{-1}$$
+$$i = \\sqrt{-1}$$
 
 ဤ $i$ သင်္ကေတကို **Imaginary Unit** ဟု ခေါ်ဆိုပြီး ၎င်းသည် ကိန်းထွေများ၏ အခြေခံအုတ်မြစ် ဖြစ်သည်။
 

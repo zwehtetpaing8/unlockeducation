@@ -8,6 +8,9 @@ import {
   ChevronLeft, Loader2
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import ReactMarkdown from 'react-markdown';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 import { cn } from '../lib/utils';
 
 const QuizPage: React.FC = () => {
@@ -120,8 +123,13 @@ const QuizPage: React.FC = () => {
 
             {/* Question Card */}
             <div className="bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-800 p-8 rounded-[2rem] shadow-sm">
-              <h3 className="text-2xl font-bold mb-8 leading-relaxed">
-                {currentQuestion.question_text}
+              <h3 className="text-lg sm:text-2xl font-bold mb-8 leading-relaxed">
+                <ReactMarkdown 
+                  remarkPlugins={[remarkMath]}
+                  rehypePlugins={[rehypeKatex]}
+                >
+                  {currentQuestion.question_text}
+                </ReactMarkdown>
               </h3>
 
               <div className="space-y-3">
@@ -136,7 +144,14 @@ const QuizPage: React.FC = () => {
                         : "border-neutral-100 dark:border-neutral-800 hover:border-neutral-200 dark:hover:border-neutral-700"
                     )}
                   >
-                    <span>{option}</span>
+                    <span>
+                      <ReactMarkdown 
+                        remarkPlugins={[remarkMath]}
+                        rehypePlugins={[rehypeKatex]}
+                      >
+                        {option}
+                      </ReactMarkdown>
+                    </span>
                     <div className={cn(
                       "w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all",
                       selectedOption === i ? "border-blue-600 bg-blue-600 text-white" : "border-neutral-200 dark:border-neutral-700"

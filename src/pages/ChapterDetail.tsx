@@ -56,7 +56,7 @@ const ChapterDetail: React.FC = () => {
 
       <div className="space-y-10">
         <div className="flex items-center gap-3 px-4">
-          <h2 className="text-2xl font-black uppercase tracking-tighter text-neutral-900 leading-none">Lesson Modules</h2>
+          <h2 className="text-lg sm:text-2xl font-black uppercase tracking-tighter text-neutral-900 leading-none">Lesson Modules</h2>
           <div className="h-px flex-1 bg-neutral-100 ml-4" />
         </div>
 
@@ -98,7 +98,7 @@ const ChapterDetail: React.FC = () => {
                      )}>{lesson.type}</span>
                      <span className="text-[9px] font-black uppercase tracking-widest text-neutral-400">Section {idx + 1}</span>
                   </div>
-                  <h4 className="text-2xl font-black group-hover:text-blue-600 transition-colors text-neutral-900 uppercase tracking-tight leading-tight">{lesson.title}</h4>
+                  <h4 className="text-lg sm:text-2xl font-black group-hover:text-blue-600 transition-colors text-neutral-900 uppercase tracking-tight leading-tight">{lesson.title}</h4>
                 </div>
               </Link>
             </motion.div>

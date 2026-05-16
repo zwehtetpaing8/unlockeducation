@@ -46,7 +46,7 @@ const Profile: React.FC = () => {
             {profile?.full_name?.[0] || 'U'}
           </div>
           <div className="flex-1 text-center md:text-left">
-            <h1 className="text-4xl font-extrabold mb-2 text-neutral-900">{profile?.full_name}</h1>
+            <h1 className="text-xl sm:text-4xl font-extrabold mb-2 text-neutral-900">{profile?.full_name}</h1>
             <p className="text-neutral-500 mb-4">{profile?.email}</p>
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
               <div className="bg-blue-50 px-4 py-2 rounded-xl text-blue-600 text-sm font-bold flex items-center gap-2 border border-blue-100 shadow-sm">
@@ -69,7 +69,7 @@ const Profile: React.FC = () => {
         {/* Bookmarks Section */}
         <div className="space-y-6">
           <div className="flex items-center justify-between px-4">
-            <h2 className="text-2xl font-extrabold flex items-center gap-2 text-neutral-900">
+            <h2 className="text-lg sm:text-2xl font-extrabold flex items-center gap-2 text-neutral-900">
               <BookmarksIcon size={24} className="text-blue-600" />
               Saved Lessons
             </h2>
@@ -118,7 +118,7 @@ const Profile: React.FC = () => {
 
         {/* Recent Analytics / Progress */}
         <div className="space-y-6">
-          <h2 className="text-2xl font-extrabold px-4 text-left text-neutral-900">Learning Path</h2>
+          <h2 className="text-lg sm:text-2xl font-extrabold px-4 text-left text-neutral-900">Learning Path</h2>
           <div className="bg-blue-50/50 backdrop-blur-md rounded-[2.5rem] p-8 h-full flex flex-col items-center justify-center text-center border border-blue-100/50 shadow-sm">
             <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mb-6 shadow-md">
               <History size={32} className="text-blue-600 opacity-20" />

@@ -63,7 +63,7 @@ const GradeDetail: React.FC = () => {
                 <div className="bg-blue-600 p-4 rounded-[1.5rem] text-white shadow-2xl shadow-blue-600/30">
                   <Sparkles size={28} />
                 </div>
-                <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-neutral-900 uppercase leading-none">
+                <h1 className="text-2xl md:text-7xl font-black tracking-tighter text-neutral-900 uppercase leading-none">
                   Grade {level}
                 </h1>
               </div>
@@ -126,7 +126,7 @@ const GradeDetail: React.FC = () => {
                                <span className="w-1 h-1 rounded-full bg-neutral-200" />
                                <span className="text-[10px] font-black uppercase tracking-widest text-neutral-400">Chapter {chapter.chapter_number}</span>
                             </div>
-                            <h3 className="text-xl md:text-3xl font-black mb-2 group-hover:text-blue-600 transition-colors leading-tight text-neutral-900 truncate">{chapter.title}</h3>
+                            <h3 className="text-lg md:text-3xl font-black mb-2 group-hover:text-blue-600 transition-colors leading-tight text-neutral-900 truncate">{chapter.title}</h3>
                             <p className="text-neutral-500 leading-relaxed font-medium line-clamp-1 max-w-2xl text-sm md:text-base">{chapter.description}</p>
                           </div>
                           <div className="hidden md:flex items-center justify-center w-14 h-14 rounded-full bg-white border border-neutral-50 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-sm">

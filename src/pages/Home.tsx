@@ -58,7 +58,7 @@ const Home: React.FC = () => {
               <PlayCircle size={16} />
               <span>Made for Myanmar Students</span>
             </div>
-            <h1 className="text-5xl md:text-8xl font-black tracking-tighter mb-8 leading-[0.9] text-neutral-900 uppercase">
+            <h1 className="text-3xl md:text-8xl font-black tracking-tighter mb-8 leading-[0.9] text-neutral-900 uppercase">
               Master <br />
               <span className="text-blue-600">Curriculum</span>
             </h1>
@@ -145,7 +145,7 @@ const Home: React.FC = () => {
       <section className="px-4 md:px-0">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div className="max-w-xl text-left">
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4 text-neutral-900 uppercase">Level UP</h2>
+            <h2 className="text-2xl sm:text-4xl md:text-6xl font-black tracking-tighter mb-4 text-neutral-900 uppercase">Level UP</h2>
             <p className="text-neutral-500 text-lg font-medium">
               Select your current grade level to begin your journey. 
               Our curriculum is updated for 2024.
@@ -208,7 +208,7 @@ const Home: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center relative z-10">
           <div className="text-left">
             <div className="bg-blue-600 h-1 w-12 rounded-full mb-8" />
-            <h2 className="text-4xl md:text-7xl font-black tracking-tighter mb-12 uppercase leading-[0.9]">
+            <h2 className="text-2xl sm:text-4xl md:text-7xl font-black tracking-tighter mb-12 uppercase leading-[0.9]">
               Built for <br />
               <span className="text-blue-500">Excellence</span>
             </h2>

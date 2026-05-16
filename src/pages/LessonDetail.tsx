@@ -15,7 +15,6 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { cn } from '../lib/utils';
-import 'katex/dist/katex.min.css';
 
 const LessonDetail: React.FC = () => {
   const { lessonId } = useParams<{ lessonId: string }>();
@@ -76,7 +75,12 @@ const LessonDetail: React.FC = () => {
           </div>
           
           <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black tracking-tighter mb-8 text-neutral-900 uppercase leading-tight">
-            {lesson.title}
+            <ReactMarkdown 
+              remarkPlugins={[remarkMath]}
+              rehypePlugins={[rehypeKatex]}
+            >
+              {lesson.title}
+            </ReactMarkdown>
           </h1>
           
           <div className="h-1.5 w-24 bg-blue-600 rounded-full shadow-lg shadow-blue-600/30" />
@@ -99,8 +103,8 @@ const LessonDetail: React.FC = () => {
                 return <code className={className} {...rest}>{children}</code>;
               },
               // Customize headers for better consistency
-              h1: ({ children }) => <h2 className="text-3xl font-black text-neutral-900 mt-12 mb-6 uppercase tracking-tight border-l-4 border-blue-600 pl-4">{children}</h2>,
-              h2: ({ children }) => <h3 className="text-2xl font-black text-neutral-800 mt-10 mb-4 uppercase tracking-tighter">{children}</h3>,
+              h1: ({ children }) => <h2 className="text-lg sm:text-3xl font-black text-neutral-900 mt-12 mb-6 uppercase tracking-tight border-l-4 border-blue-600 pl-4">{children}</h2>,
+              h2: ({ children }) => <h3 className="text-base sm:text-2xl font-black text-neutral-800 mt-10 mb-4 uppercase tracking-tighter">{children}</h3>,
               hr: () => <hr className="my-12 border-neutral-100" />
             }}
           >

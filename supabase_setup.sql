@@ -59,5 +59,5 @@ VALUES
 
 -- Add a sample lesson for Chapter 1 (Complex Numbers)
 INSERT INTO lessons (chapter_id, title, type, content, order_index)
-SELECT id, 'Introduction to i', 'theory', '# Complex Numbers\n\nThe number $i$ is defined as $\sqrt{-1}$...', 1
+SELECT id, 'Introduction', 'theory', '# Introduction\n\nThe number $i$ is defined as $\\sqrt{-1}$...', 1
 FROM chapters WHERE grade_id = 12 AND chapter_number = 1 LIMIT 1;
