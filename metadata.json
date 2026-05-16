@@ -1,0 +1,8 @@
+{
+  "name": "Unlock Education",
+  "description": "A comprehensive, mobile-first learning platform for Myanmar Grade 10-12 students, featuring chapter-wise lessons, practice quizzes, and matriculation past papers with LaTeX math rendering.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
