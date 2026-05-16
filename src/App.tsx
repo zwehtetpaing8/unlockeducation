@@ -20,6 +20,8 @@ import QuizPage from './pages/QuizPage';
 import PastPapers from './pages/PastPapers';
 import AdminDashboard from './pages/AdminDashboard';
 import Profile from './pages/Profile';
+import TermsOfService from './pages/TermsOfService';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 // Helper for protected routes
 const ProtectedRoute = ({ children, adminOnly = false }: { children: React.ReactNode, adminOnly?: boolean }) => {
@@ -44,6 +46,8 @@ export default function App() {
             <Route path="/quiz/:quizId" element={<ProtectedRoute><QuizPage /></ProtectedRoute>} />
             <Route path="/past-papers" element={<PastPapers />} />
             <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+            <Route path="/terms" element={<TermsOfService />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
 
             {/* Admin Routes */}
             <Route path="/admin/*" element={
