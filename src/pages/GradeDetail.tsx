@@ -71,7 +71,7 @@ const GradeDetail: React.FC = () => {
               className="fixed inset-x-0 bottom-0 bg-white dark:bg-neutral-900 rounded-t-[2.5rem] z-[70] p-8 lg:hidden max-h-[80vh] overflow-y-auto"
             >
               <div className="flex justify-between items-center mb-6">
-                <h3 className="text-xl font-black">Chapter Menu</h3>
+                <h3 className="text-xl font-black text-neutral-900 dark:text-neutral-50">Chapter Menu</h3>
                 <button onClick={() => setIsSidebarOpen(false)} className="p-2 bg-neutral-100 dark:bg-neutral-800 rounded-full">
                   <X size={20} />
                 </button>
@@ -84,7 +84,7 @@ const GradeDetail: React.FC = () => {
                     onClick={() => setIsSidebarOpen(false)}
                     className="flex items-center gap-4 p-4 rounded-2xl hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors"
                   >
-                    <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-xs">
+                    <div className="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-xs">
                       {ch.chapter_number}
                     </div>
                     <span className="font-bold text-sm">{ch.title}</span>
@@ -145,7 +145,7 @@ const GradeDetail: React.FC = () => {
               <div className="bg-blue-600 p-3 rounded-2xl text-white shadow-lg shadow-blue-200 dark:shadow-none">
                 <Sparkles size={24} />
               </div>
-              <h1 className="text-4xl md:text-5xl font-black tracking-tight">Grade {level} <br className="md:hidden" /> Mathematics</h1>
+              <h1 className="text-4xl md:text-5xl font-black tracking-tight text-neutral-900 dark:text-neutral-50">Grade {level} <br className="md:hidden" /> Mathematics</h1>
             </div>
             <p className="text-neutral-500 dark:text-neutral-400 text-lg max-w-2xl leading-relaxed font-medium">
               Explore the full curriculum for Grade {level}. Each chapter includes theory,
@@ -175,7 +175,7 @@ const GradeDetail: React.FC = () => {
                     className="group block bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-800 p-8 md:p-10 rounded-[2.5rem] shadow-sm hover:shadow-2xl transition-all hover:border-blue-300 dark:hover:border-blue-900 overflow-hidden relative"
                   >
                     <div className="flex flex-col md:flex-row md:items-center gap-8 relative z-10">
-                      <div className="w-20 h-20 shrink-0 rounded-3xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-100 dark:border-neutral-700 flex items-center justify-center font-black text-3xl group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-all shadow-sm">
+                      <div className="w-20 h-20 shrink-0 rounded-3xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-100 dark:border-neutral-800 flex items-center justify-center font-black text-3xl group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-all shadow-sm text-neutral-900 dark:text-neutral-100">
                         {chapter.chapter_number}
                       </div>
                       <div className="flex-1">
@@ -184,7 +184,7 @@ const GradeDetail: React.FC = () => {
                            <span className="w-1 h-1 rounded-full bg-neutral-200" />
                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-neutral-400">Section {chapter.chapter_number}</span>
                         </div>
-                        <h3 className="text-2xl font-black mb-3 group-hover:text-blue-600 transition-colors leading-tight">{chapter.title}</h3>
+                        <h3 className="text-2xl font-black mb-3 group-hover:text-blue-600 transition-colors leading-tight text-neutral-900 dark:text-neutral-50">{chapter.title}</h3>
                         <p className="text-neutral-500 dark:text-neutral-400 leading-relaxed font-medium line-clamp-2 max-w-2xl">{chapter.description}</p>
                       </div>
                       <div className="flex items-center gap-6">

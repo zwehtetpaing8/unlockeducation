@@ -123,7 +123,7 @@ const LessonDetail: React.FC = () => {
             <PlayCircle size={14} />
             <span>{lesson.type}</span>
           </div>
-          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">{lesson.title}</h1>
+          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4 text-neutral-900 dark:text-neutral-50">{lesson.title}</h1>
           <div className="h-1 w-20 bg-blue-600 rounded-full" />
         </div>
 

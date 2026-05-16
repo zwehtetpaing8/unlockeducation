@@ -14,21 +14,21 @@ const Home: React.FC = () => {
       title: 'Grade 10', 
       chapters: 10, 
       description: 'Foundational concepts in Algebra, Geometry, and Trigonometry.',
-      color: 'bg-emerald-50 text-emerald-600 border-emerald-100'
+      color: 'bg-emerald-50 text-emerald-600 border-emerald-100 dark:bg-emerald-900/10 dark:text-emerald-400 dark:border-emerald-900/20'
     },
     { 
       level: 11, 
       title: 'Grade 11', 
       chapters: 11, 
       description: 'Advanced functions, Coordinate Geometry, and Calculus basics.',
-      color: 'bg-blue-50 text-blue-600 border-blue-100'
+      color: 'bg-blue-50 text-blue-600 border-blue-100 dark:bg-blue-900/10 dark:text-blue-400 dark:border-blue-900/20'
     },
     { 
       level: 12, 
       title: 'Grade 12', 
       chapters: 11, 
       description: 'Matriculation exam focus with Complex Numbers, Integrals, and more.',
-      color: 'bg-purple-50 text-purple-600 border-purple-100'
+      color: 'bg-purple-50 text-purple-600 border-purple-100 dark:bg-purple-900/10 dark:text-purple-400 dark:border-purple-900/20'
     }
   ];
 
@@ -53,7 +53,7 @@ const Home: React.FC = () => {
               <PlayCircle size={14} />
               <span>Learn Math Anytime, Anywhere</span>
             </div>
-            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 leading-[1.1]">
+            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 leading-[1.1] text-neutral-900 dark:text-neutral-50">
               Master Myanmar <br />
               <span className="text-blue-600">Maths Curriculum</span>
             </h1>
@@ -115,8 +115,8 @@ const Home: React.FC = () => {
       {/* Grades Overview */}
       <section>
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-extrabold mb-4">Choose Your Grade</h2>
-          <p className="text-neutral-500 max-w-2xl mx-auto">
+          <h2 className="text-3xl font-extrabold mb-4 text-neutral-900 dark:text-neutral-50">Choose Your Grade</h2>
+          <p className="text-neutral-500 dark:text-neutral-400 max-w-2xl mx-auto">
             Select your grade level to access the full curriculum, 
             chapter-by-chapter lessons, and practice materials.
           </p>

@@ -58,7 +58,7 @@ const Auth: React.FC = () => {
         className="bg-white dark:bg-neutral-900 p-8 rounded-3xl border border-neutral-100 dark:border-neutral-800 shadow-xl"
       >
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-extrabold mb-2">
+          <h1 className="text-3xl font-extrabold mb-2 text-neutral-900 dark:text-neutral-50">
             {isLogin ? 'Welcome Back' : 'Create Account'}
           </h1>
           <p className="text-neutral-500 dark:text-neutral-400 text-sm">
@@ -71,7 +71,7 @@ const Auth: React.FC = () => {
         <form onSubmit={handleAuth} className="space-y-4">
           {!isLogin && (
             <div className="space-y-1">
-              <label className="text-sm font-semibold ml-1">Full Name</label>
+              <label className="text-sm font-semibold ml-1 text-neutral-700 dark:text-neutral-300">Full Name</label>
               <div className="relative">
                 <User size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" />
                 <input
@@ -87,7 +87,7 @@ const Auth: React.FC = () => {
           )}
 
           <div className="space-y-1">
-            <label className="text-sm font-semibold ml-1">Email Address</label>
+            <label className="text-sm font-semibold ml-1 text-neutral-700 dark:text-neutral-300">Email Address</label>
             <div className="relative">
               <Mail size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" />
               <input
@@ -102,7 +102,7 @@ const Auth: React.FC = () => {
           </div>
 
           <div className="space-y-1">
-            <label className="text-sm font-semibold ml-1">Password</label>
+            <label className="text-sm font-semibold ml-1 text-neutral-700 dark:text-neutral-300">Password</label>
             <div className="relative">
               <Lock size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" />
               <input

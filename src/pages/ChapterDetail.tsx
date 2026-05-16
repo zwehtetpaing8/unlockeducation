@@ -59,7 +59,7 @@ const ChapterDetail: React.FC = () => {
             <div className="w-16 h-16 rounded-2xl bg-blue-600 flex items-center justify-center text-white font-bold text-2xl mb-6">
               {chapter.chapter_number}
             </div>
-            <h1 className="text-3xl font-extrabold mb-4">{chapter.title}</h1>
+            <h1 className="text-3xl font-extrabold mb-4 text-neutral-900 dark:text-neutral-50">{chapter.title}</h1>
             <p className="text-neutral-500 dark:text-neutral-400 mb-8 leading-relaxed">
               {chapter.description}
             </p>
@@ -74,7 +74,7 @@ const ChapterDetail: React.FC = () => {
         <div className="lg:col-span-2">
           <div className="flex items-center gap-2 mb-8 px-4">
             <LayoutList size={20} className="text-blue-600" />
-            <h2 className="text-2xl font-extrabold tracking-tight">Lesson Modules</h2>
+            <h2 className="text-2xl font-extrabold tracking-tight text-neutral-900 dark:text-neutral-50">Lesson Modules</h2>
           </div>
 
           <div className="space-y-4">
@@ -91,9 +91,9 @@ const ChapterDetail: React.FC = () => {
                 >
                   <div className={cn(
                     "w-12 h-12 rounded-xl flex items-center justify-center shrink-0 transition-colors",
-                    lesson.type === 'theory' ? "bg-blue-50 text-blue-600" :
-                    lesson.type === 'exercise' ? "bg-green-50 text-green-600" :
-                    "bg-purple-50 text-purple-600"
+                    lesson.type === 'theory' ? "bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400" :
+                    lesson.type === 'exercise' ? "bg-green-50 text-green-600 dark:bg-green-900/20 dark:text-green-400" :
+                    "bg-purple-50 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400"
                   )}>
                     {lesson.type === 'theory' ? <PlayCircle size={24} /> : 
                      lesson.type === 'exercise' ? <FileText size={24} /> : 
@@ -104,7 +104,7 @@ const ChapterDetail: React.FC = () => {
                     <div className="flex items-center gap-2 mb-1">
                        <span className="text-[10px] font-black uppercase tracking-[0.2em] opacity-40">{lesson.type}</span>
                     </div>
-                    <h4 className="text-lg font-bold truncate group-hover:text-blue-600 transition-colors">{lesson.title}</h4>
+                    <h4 className="text-lg font-bold truncate group-hover:text-blue-600 transition-colors text-neutral-900 dark:text-neutral-50">{lesson.title}</h4>
                   </div>
 
                   <div className="shrink-0 flex items-center gap-2">
