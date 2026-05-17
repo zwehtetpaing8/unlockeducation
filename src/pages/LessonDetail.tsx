@@ -62,7 +62,7 @@ const LessonDetail: React.FC = () => {
   if (!lesson) return <div>Lesson not found</div>;
 
   return (
-    <div className="max-w-4xl mx-auto pb-40">
+    <div className="max-w-4xl mx-auto pb-20">
       {/* Breadcrumbs */}
       <nav className="mb-4 px-4 flex items-center justify-between">
          <Link 
@@ -98,7 +98,7 @@ const LessonDetail: React.FC = () => {
             </div>
           </div>
           
-          <h1 className="text-3xl sm:text-5xl md:text-7xl font-black tracking-tight mb-4 text-slate-900 uppercase leading-[0.95] break-words">
+          <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-black tracking-tight mb-4 text-slate-900 uppercase leading-[1.1] md:leading-[0.95] break-words">
             <ReactMarkdown 
               remarkPlugins={[remarkMath]}
               rehypePlugins={[rehypeKatex]}
