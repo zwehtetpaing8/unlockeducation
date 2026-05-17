@@ -34,40 +34,26 @@ const PastPapers: React.FC = () => {
 
   const fetchPapers = async () => {
     setLoading(true);
-    const { data } = await supabase
-      .from('past_papers')
-      .select('*')
-      .order('year', { ascending: false });
-    
-    if (data && data.length > 0) {
-      setPapers(data);
-    } else {
-      // Fallback to static data if DB is empty
-      setPapers([
-        {
-          id: '2024-math-d',
-          year: 2024,
-          subject: 'Mathematics',
-          grade_level: 12,
-          title: 'Section D Problems (Solved)',
-          pdf_url: '',
-          answer_pdf_url: '',
-          section: 'D',
-          content: paper2024SectionD
-        },
-        {
-          id: '2023-math-a',
-          year: 2023,
-          subject: 'Mathematics',
-          grade_level: 12,
-          title: 'Section A: Multiple Choice',
-          pdf_url: 'https://example.com/2023-math-a.pdf',
-          answer_pdf_url: 'https://example.com/2023-math-a-ans.pdf',
-          section: 'A'
-        }
-      ]);
+    try {
+      const { data, error } = await supabase
+        .from('past_papers')
+        .select('*')
+        .order('year', { ascending: false });
+      
+      if (error) {
+        console.warn('Supabase fetch failed, using fallback data:', error);
+        setPapers(FALLBACK_PAPERS);
+      } else if (data && data.length > 0) {
+        setPapers(data);
+      } else {
+        setPapers(FALLBACK_PAPERS);
+      }
+    } catch (err) {
+      console.error('Error fetching papers:', err);
+      setPapers(FALLBACK_PAPERS);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const filteredPapers = papers.filter(p => {
@@ -317,6 +303,94 @@ const PastPapers: React.FC = () => {
                                return <pre className={className}>{children}</pre>;
                             }
                           }
+
+                          if (lang === 'diagram-q1') {
+                            return (
+                              <div className="my-8 flex flex-col items-center gap-4 bg-slate-50/50 p-8 rounded-[2rem] border border-slate-100">
+                                <svg width="400" height="200" viewBox="0 0 400 200" className="max-w-full overflow-visible">
+                                  <defs>
+                                    <marker id="arrow" markerWidth="10" markerHeight="10" refX="0" refY="3" orientation="auto" markerUnits="strokeWidth">
+                                      <path d="M0,0 L0,6 L9,3 z" fill="#283593" />
+                                    </marker>
+                                  </defs>
+                                  <path d="M 50 150 L 350 150" stroke="#283593" strokeWidth="3" markerEnd="url(#arrow)" />
+                                  <text x="360" y="155" fill="#283593" className="text-[12px] font-black italic">l</text>
+                                  
+                                  <circle cx="100" cy="150" r="4" fill="#283593" />
+                                  <text x="100" y="175" textAnchor="middle" className="text-[10px] font-bold" fill="#283593">P(2,5,-1)</text>
+                                  
+                                  <circle cx="300" cy="150" r="4" fill="#283593" />
+                                  <text x="300" y="175" textAnchor="middle" className="text-[10px] font-bold" fill="#283593">Q(1,9,-3)</text>
+                                  
+                                  <circle cx="210" cy="150" r="4" fill="#283593" />
+                                  <text x="215" y="165" className="text-[12px] font-black" fill="#283593">B</text>
+                                  
+                                  <circle cx="210" cy="50" r="4" fill="#283593" />
+                                  <text x="210" y="35" textAnchor="middle" className="text-[12px] font-bold" fill="#283593">A(5,2,2)</text>
+                                  
+                                  <line x1="210" y1="50" x2="210" y2="150" stroke="#00897B" strokeWidth="3" />
+                                  <path d="M 210 130 H 230 V 150" fill="none" stroke="#00897B" strokeWidth="1" />
+                                  
+                                  <g transform="translate(250, 90)">
+                                    <rect x="0" y="0" width="60" height="24" rx="6" fill="#f0fff9" stroke="#00897B" strokeWidth="1" />
+                                    <text x="30" y="16" stroke="none" fill="#00897B" textAnchor="middle" className="text-[10px] font-black uppercase tracking-tighter">AB ⊥ l</text>
+                                  </g>
+                                </svg>
+                              </div>
+                            );
+                          }
+
+                          if (lang === 'diagram-sphere') {
+                            try {
+                              const data = JSON.parse(rawContent);
+                              return (
+                                <div className="my-8 flex flex-col items-center gap-4 bg-slate-50/50 p-8 rounded-[2rem] border border-slate-100">
+                                  <svg width="400" height="250" viewBox="0 0 400 250" className="max-w-full overflow-visible">
+                                    <defs>
+                                      <radialGradient id="sphereGrad">
+                                        <stop offset="0%" stopColor="#ffffff" />
+                                        <stop offset="100%" stopColor="#e8eaf6" />
+                                      </radialGradient>
+                                    </defs>
+                                    
+                                    {/* Plane */}
+                                    <path d="M 50 180 L 300 180 L 360 140 L 110 140 Z" fill="#283593" fillOpacity="0.9" stroke="#1a237e" strokeWidth="2" />
+                                    <text x="130" y="165" fill="white" className="text-[10px] font-black tracking-tight">{data.equation}</text>
+                                    
+                                    {/* Shadow */}
+                                    <ellipse cx="235" cy="160" rx="50" ry="12" fill="black" fillOpacity="0.1" />
+                                    
+                                    {/* Sphere */}
+                                    <circle cx="235" cy="80" r="65" fill="url(#sphereGrad)" stroke="#283593" strokeWidth="1.5" />
+                                    <ellipse cx="235" cy="80" rx="65" ry="20" fill="none" stroke="#283593" strokeWidth="0.5" strokeDasharray="4 2" opacity="0.3" />
+                                    <ellipse cx="235" cy="80" rx="20" ry="65" fill="none" stroke="#283593" strokeWidth="0.5" strokeDasharray="4 2" opacity="0.3" />
+
+                                    {/* Center */}
+                                    <circle cx="235" cy="80" r="3" fill="#283593" />
+                                    <text x="235" y="70" textAnchor="middle" className="text-[12px] font-black" fill="#283593">C({data.center})</text>
+                                    
+                                    {/* Radius */}
+                                    <line x1="235" y1="80" x2="235" y2="160" stroke="#f9a825" strokeWidth="4" />
+                                    <text x="245" y="125" className="text-[14px] font-black italic" fill="#f9a825">r</text>
+                                    
+                                    {/* Right angle */}
+                                    <path d="M 235 145 H 250 V 160" fill="none" stroke="#f9a825" strokeWidth="1.5" />
+                                    
+                                    {/* Point */}
+                                    <circle cx="235" cy="160" r="4" fill="#f9a825" />
+                                    <text x="290" y="175" className="text-[10px] font-black uppercase tracking-widest" fill="#f9a825">touching point</text>
+
+                                    <g transform="translate(10, 30)">
+                                      <rect x="0" y="0" width="80" height="24" rx="6" fill="#fffbeb" stroke="#f9a825" strokeWidth="1" />
+                                      <text x="40" y="16" stroke="none" fill="#f9a825" textAnchor="middle" className="text-[9px] font-black uppercase tracking-tighter">r ⊥ Plane</text>
+                                    </g>
+                                  </svg>
+                                </div>
+                              );
+                            } catch (e) {
+                              return <pre>{children}</pre>;
+                            }
+                          }
                         }
                         
                         return <code className={className}>{children}</code>;
@@ -355,18 +429,21 @@ const PastPapers: React.FC = () => {
 
 const paper2024SectionD = `
 # 2024 Matriculation Exam - Section D
-## Analytical Solid Geometry (Chapter 3)
+## Chapter 3 • Analytical Solid Geometry
 
 ---
 
 ### Question 1
 Point $A$ has coordinates $(5,2,2)$ and the line $l$ passes through the points $(2,5,-1)$ and $(1,9,-3)$. Point $B$ lies on $l$ such that line $AB$ is perpendicular to $l$. Find the distance between points $A$ and $B$.
 
+\`\`\`diagram-q1
+\`\`\`
+
 \`\`\`note
 {
   "type": "tip",
   "title": "Solution",
-  "content": "$A=(5,2,2)$.\\n\\nLet $P$ be the point $(2,5,-1)$ and $Q$ be the point $(1,9,-3)$.\\nDirection vector of line $l$ is:\\n$\\\\langle l\\\\rangle = \\\\langle PQ\\\\rangle = \\\\langle 1-2, 9-5, -3-(-1)\\\\rangle = \\\\langle -1,4,-2\\\\rangle$.\\n\\nSince point $B$ lies on $l$:\\n$B = (x,y,z) = (2-k, 5+4k, -1-2k)$ for some real number $k$.\\n\\nTherefore,\\n$\\\\langle AB\\\\rangle = \\\\langle (2-k)-5, (5+4k)-2, (-1-2k)-2\\\\rangle = \\\\langle -3-k, 3+4k, -3-2k\\\\rangle$.\\n\\nSince $AB \\\\bot l$:\\n$\\\\langle AB\\\\rangle \\\\cdot \\\\langle l\\\\rangle = 0$\\n$-1(-3-k) + 4(3+4k) - 2(-3-2k) = 0$\\n$3+k + 12+16k + 6+4k = 0$\\n$21k + 21 = 0 \\\\Rightarrow k = -1$.\\n\\nThe distance between $A$ and $B$ is:\\n$AB = \\\\sqrt{(3+k)^2 + (-3-4k)^2 + (3+2k)^2}$\\n$AB = \\\\sqrt{(3-1)^2 + (-3+4)^2 + (3-2)^2}$\\n$AB = \\\\sqrt{2^2 + 1^2 + 1^2} = \\\\sqrt{6}$."
+  "content": "$A=(5,2,2)$.\\n\\nLet $P$ be the point $(2,5,-1)$ and $Q$ be the point $(1,9,-3)$.\\n$$\\\\langle l\\\\rangle = \\\\langle PQ\\\\rangle = \\\\langle -1,4,-2\\\\rangle.$$\\n\\nSince point $B$ lies on $l$,\\n$B=(x,y,z)=(2-k,5+4k,-1-2k)$ for some real number $k$.\\n\\nTherefore,\\n$\\\\langle AB\\\\rangle=\\\\langle 3+k,-3-4k,3+2k\\\\rangle$.\\n\\nSince $AB \\\\bot l$,\\n$$\\\\begin{aligned} -3-k-12-16k-6-4k&=0\\\\ k&=-1 \\\\end{aligned}$$\\n\\nThe distance between $A$ and $B$ is\\n$$\\\\begin{aligned} AB&=\\\\sqrt{(3+k)^2+(-3-4k)^2+(3+2k)^2}\\\\ &=\\\\sqrt{(3-1)^2+(-3+4)^2+(3-2)^2}\\\\ &=\\\\sqrt{2^2+1^2+1^2}\\\\ &=\\\\sqrt{6}. \\\\end{aligned}$$"
 }
 \`\`\`
 
@@ -383,11 +460,18 @@ Point $A$ has coordinates $(5,2,2)$ and the line $l$ passes through the points $
 ### Question 2
 Find the equation of the sphere with center $(5,-6,-2)$ and touching the plane $3x-y-2z=17$.
 
+\`\`\`diagram-sphere
+{
+  "center": "5,-6,-2",
+  "equation": "3x-y-2z=17"
+}
+\`\`\`
+
 \`\`\`note
 {
   "type": "tip",
   "title": "Solution",
-  "content": "Directed values of the line (radius) passing through the center $(5,-6,-2)$ and perpendicular to the plane $3x-y-2z=17$ are:\\n$\\\\langle 3,-1,-2\\\\rangle$.\\n\\nCoordinates of the points on this line (radius) are:\\n$(x,y,z) = (5+3k, -6-k, -2-2k)$ for some real number $k$.\\n\\nIf one of these points is on the plane:\\n$3(5+3k) - (-6-k) - 2(-2-2k) = 17$\\n$15+9k + 6+k + 4+4k = 17$\\n$25+14k = 17 \\\\Rightarrow 14k = -8 \\\\Rightarrow k = -\\\\frac{4}{7}$.\\n\\nSo the tangential point of the plane and the sphere is:\\n$(x,y,z) = (5+3(-4/7), -6-(-4/7), -2-2(-4/7)) = (\\\\frac{23}{7}, -\\\\frac{38}{7}, -\\\\frac{6}{7})$.\\n\\nThe radius of the sphere is:\\n$r = \\\\sqrt{(5-\\\\frac{23}{7})^2 + (-6+\\\\frac{38}{7})^2 + (-2+\\\\frac{6}{7})^2}$\\n$r = \\\\sqrt{(\\\\frac{12}{7})^2 + (-\\\\frac{4}{7})^2 + (-\\\\frac{8}{7})^2} = \\\\sqrt{\\\\frac{144+16+64}{49}} = \\\\frac{\\\\sqrt{224}}{7} = \\\\frac{4\\\\sqrt{14}}{7}$.\\n\\nTherefore, the equation of the sphere is:\\n$(x-5)^2 + (y+6)^2 + (z+2)^2 = \\\\frac{32}{7}$."
+  "content": "Directed values of the line (radius) passes through the center $(5,-6,-2)$ and perpendicular to the plane $3x-y-2z=17$ are\\n$$\\\\langle 3,-1,-2\\\\rangle.$$\\n\\nCoordinates of the points on this line (radius) are\\n$(x,y,z)=(5+3k,-6-k,-2-2k)$ for some real number $k$.\\n\\nIf one of these points is on the plane,\\n$$\\\\begin{aligned} 3(5+3k)-(6-k)-2(2-2k)&=17\\\\ k&=-\\\\frac{4}{7} \\\\end{aligned}$$\\n\\nSo the tangential point of the plane and the sphere is\\n$$\\\\left(\\\\frac{23}{7},-\\\\frac{38}{7},-\\\\frac{6}{7}\\\\right).$$\\n\\nThe radius of the sphere is\\n$$\\\\begin{aligned} r&=\\\\sqrt{\\\\left(5-\\\\frac{23}{7}\\\\right)^2+\\\\left(-6+\\\\frac{38}{7}\\\\right)^2+\\\\left(-2+\\\\frac{6}{7}\\\\right)^2}\\\\ &=\\\\frac{\\\\sqrt{224}}{7}\\\\ &=\\\\frac{4\\\\sqrt{14}}{7}. \\\\end{aligned}$$\\n\\nTherefore, the equation of the sphere is\\n$$(x-5)^2+(y+6)^2+(z+2)^2=\\\\frac{32}{7}.$$"
 }
 \`\`\`
 
@@ -404,11 +488,18 @@ Find the equation of the sphere with center $(5,-6,-2)$ and touching the plane $
 ### Question 3
 Find the equation of the sphere with center $(1,2,-1)$ and touching the plane $2x+y+z-9=0$.
 
+\`\`\`diagram-sphere
+{
+  "center": "1,2,-1",
+  "equation": "2x+y+z-9=0"
+}
+\`\`\`
+
 \`\`\`note
 {
   "type": "tip",
   "title": "Solution",
-  "content": "Directed values of the line (radius) passing through the center $(1,2,-1)$ and perpendicular to the plane $2x+y+z-9=0$ are:\\n$\\\\langle 2,1,1\\\\rangle$.\\n\\nCoordinates of the points on this line (radius) are:\\n$(x,y,z) = (1+2k, 2+k, -1+k)$ for some real number $k$.\\n\\nIf one of these points is on the plane:\\n$2(1+2k) + (2+k) + (-1+k) - 9 = 0$\\n$2+4k+2+k-1+k-9 = 0$\\n$6k - 6 = 0 \\\\Rightarrow k = 1$.\\n\\nSo the tangential point of the plane and the sphere is:\\n$(x,y,z) = (1+2(1), 2+1, -1+1) = (3,3,0)$.\\n\\nThe radius of the sphere is:\\n$r = \\\\sqrt{(3-1)^2 + (3-2)^2 + (0+1)^2} = \\\\sqrt{2^2+1^2+1^2} = \\\\sqrt{6}$.\\n\\nTherefore, the equation of the sphere is:\\n$(x-1)^2 + (y-2)^2 + (z+1)^2 = 6$."
+  "content": "Directed values of the line (radius) passes through the center $(1,2,-1)$ and perpendicular to the plane $2x+y+z-9=0$ are\\n$$\\\\langle 2,1,1\\\\rangle.$$\\n\\nCoordinates of the points on this line (radius) are\\n$(x,y,z)=(1+2k,2+k,-1+k)$ for some real number $k$.\\n\\nIf one of these points is on the plane,\\n$$\\\\begin{aligned} 2(1+2k)+(2+k)+(-1+k)-9&=0\\\\ 6k-6&=0\\\\ k&=1. \\\\end{aligned}$$\\n\\nSo the tangential point of the plane and the sphere is\\n$(3,3,0)$.\\n\\nThe radius of the sphere is\\n$$\\\\begin{aligned} r&=\\\\sqrt{(3-1)^2+(3-2)^2+(0+1)^2}\\\\ &=\\\\sqrt{2^2+1^2+1^2}\\\\ &=\\\\sqrt{6}. \\\\end{aligned}$$\\n\\nTherefore, the equation of the sphere is\\n$$(x-1)^2+(y-2)^2+(z+1)^2=6.$$"
 }
 \`\`\`
 
@@ -421,7 +512,7 @@ Find the equation of the sphere with center $(0,2,0)$ and touching the plane $2x
 {
   "type": "tip",
   "title": "Solution",
-  "content": "Directed values of the line (radius) passing through the center $(0,2,0)$ and perpendicular to the plane $2x-4y+4z+10=0$ are:\\n$\\\\langle 2,-4,4\\\\rangle$.\\n\\nCoordinates of points on this line are:\\n$(x,y,z) = (2k, 2-4k, 4k)$ for some real number $k$.\\n\\nIf one of these points is on the plane:\\n$2(2k) - 4(2-4k) + 4(4k) + 10 = 0$\\n$4k - 8 + 16k + 16k + 10 = 0$\\n$36k + 2 = 0 \\\\Rightarrow k = -\\\\frac{1}{18}$.\\n\\nSo the tangential point is:\\n$(x,y,z) = (2(-1/18), 2-4(-1/18), 4(-1/18)) = (-\\\\frac{1}{9}, \\\\frac{20}{9}, -\\\\frac{2}{9})$.\\n\\nThe radius of the sphere is:\\n$r = \\\\sqrt{(-\\\\frac{1}{9}-0)^2 + (\\\\frac{20}{9}-2)^2 + (-\\\\frac{2}{9}-0)^2} = \\\\sqrt{\\\\frac{1}{81} + \\\\frac{4}{81} + \\\\frac{4}{81}} = \\\\sqrt{\\\\frac{9}{81}} = \\\\frac{1}{3}$.\\n\\nTherefore, the equation of the sphere is:\\n$x^2 + (y-2)^2 + z^2 = \\\\frac{1}{9}$."
+  "content": "Directed values of the line (radius) passes through the center $(0,2,0)$ and perpendicular to the plane $2x-4y+4z+10=0$ are\\n$$\\\\langle 2,-4,4\\\\rangle.$$\\n\\nCoordinates of the points on this line (radius) are\\n$(x,y,z)=(2k,2-4k,4k)$ for some real number $k$.\\n\\nIf one of these points is on the plane,\\n$$\\\\begin{aligned} 2(2k)-4(2-4k)+4(4k)+10&=0\\\\ 36k+2&=0\\\\ k&=-\\\\frac{1}{18}. \\\\end{aligned}$$\\n\\nSo the tangential point of the plane and the sphere is\\n$$\\\\left(-\\\\frac{1}{9},\\\\frac{20}{9},-\\\\frac{2}{9}\\\\right).$$\\n\\nThe radius of the sphere is\\n$$\\\\begin{aligned} r&=\\\\sqrt{\\\\left(-\\\\frac{1}{9}-0\\\\right)^2+\\\\left(\\\\frac{20}{9}-2\\\\right)^2+\\\\left(-\\\\frac{2}{9}-0\\\\right)^2}\\\\ &=\\\\sqrt{\\\\frac{1}{81}+\\\\frac{4}{81}+\\\\frac{4}{81}}\\\\ &=\\\\frac{1}{3}. \\\\end{aligned}$$\\n\\nTherefore, the equation of the sphere is\\n$$x^2+(y-2)^2+z^2=\\\\frac{1}{9}.$$"
 }
 \`\`\`
 
@@ -434,7 +525,7 @@ Find the equation of the sphere with center $(3,6,-4)$ and touching the plane $2
 {
   "type": "tip",
   "title": "Solution",
-  "content": "Directed values of the line (radius) passing through $(3,6,-4)$ and perpendicular to plane $2x-2y-z-10=0$ are:\\n$\\\\langle 2,-2,-1\\\\rangle$.\\n\\nPoint coordinates: $(x,y,z) = (3+2k, 6-2k, -4-k)$.\\n\\nMeeting the plane:\\n$2(3+2k) - 2(6-2k) - (-4-k) - 10 = 0$\\n$6+4k-12+4k+4+k-10 = 0$\\n$9k - 12 = 0 \\\\Rightarrow k = \\\\frac{4}{3}$.\\n\\nTangential point:\\n$(x,y,z) = (3+2(4/3), 6-2(4/3), -4-4/3) = (\\\\frac{17}{3}, \\\\frac{10}{3}, -\\\\frac{16}{3})$.\\n\\nRadius $r = \\\\sqrt{(\\\\frac{17}{3}-3)^2 + (\\\\frac{10}{3}-6)^2 + (-\\\\frac{16}{3}+4)^2} = \\\\sqrt{(\\\\frac{8}{3})^2 + (-\\\\frac{8}{3})^2 + (-\\\\frac{4}{3})^2} = \\\\sqrt{\\\\frac{64+64+16}{9}} = \\\\sqrt{\\\\frac{144}{9}} = 4$.\\n\\nEquation of the sphere is:\\n$(x-3)^2 + (y-6)^2 + (z+4)^2 = 16$."
+  "content": "Directed values of the line (radius) passes through the center $(3,6,-4)$ and perpendicular to the plane $2x-2y-z-10=0$ are\\n$$\\\\langle 2,-2,-1\\\\rangle.$$\\n\\nCoordinates of the points on this line (radius) are\\n$(x,y,z)=(3+2k,6-2k,-4-k)$ for some real number $k$.\\n\\nIf one of these points is on the plane,\\n$$\\\\begin{aligned} 2(3+2k)-2(6-2k)-(-4-k)-10&=0\\\\ 9k-12&=0\\\\ k&=\\\\frac{4}{3}. \\\\end{aligned}$$\\n\\nSo the tangential point of the plane and the sphere is\\n$$\\\\left(\\\\frac{17}{3},\\\\frac{10}{3},-\\\\frac{16}{3}\\\\right).$$\\n\\nThe radius of the sphere is\\n$$\\\\begin{aligned} r&=\\\\sqrt{\\\\left(\\\\frac{17}{3}-3\\\\right)^2+\\\\left(\\\\frac{10}{3}-6\\\\right)^2+\\\\left(-\\\\frac{16}{3}+4\\\\right)^2}\\\\ &=\\\\sqrt{\\\\left(\\\\frac{8}{3}\\\\right)^2+\\\\left(-\\\\frac{8}{3}\\\\right)^2+\\\\left(-\\\\frac{4}{3}\\\\right)^2}\\\\ &=4. \\\\end{aligned}$$\\n\\nTherefore, the equation of the sphere is\\n$$(x-3)^2+(y-6)^2+(z+4)^2=16.$$"
 }
 \`\`\`
 
@@ -447,10 +538,34 @@ Find the equation of the sphere with center $(1,2,-1)$ and touching the plane $2
 {
   "type": "tip",
   "title": "Solution",
-  "content": "Directed values of line: $\\\\langle 2,1,1\\\\rangle$.\\nCoordinates: $(x,y,z) = (1+2k, 2+k, -1+k)$.\\n\\nMeeting the plane:\\n$2(1+2k) + (2+k) + (-1+k) = 5$\\n$2+4k+2+k-1+k = 5$\\n$6k + 3 = 5 \\\\Rightarrow 6k = 2 \\\\Rightarrow k = \\\\frac{1}{3}$.\\n\\nTangential point:\\n$(x,y,z) = (1+2/3, 2+1/3, -1+1/3) = (\\\\frac{5}{3}, \\\\frac{7}{3}, -\\\\frac{2}{3})$.\\n\\nRadius $r = \\\\sqrt{(\\\\frac{5}{3}-1)^2 + (\\\\frac{7}{3}-2)^2 + (-\\\\frac{2}{3}+1)^2} = \\\\sqrt{(\\\\frac{2}{3})^2 + (\\\\frac{1}{3})^2 + (\\\\frac{1}{3})^2} = \\\\sqrt{\\\\frac{6}{9}} = \\\\frac{\\\\sqrt{6}}{3}$.\\n\\nEquation of sphere:\\n$(x-1)^2 + (y-2)^2 + (z+1)^2 = \\\\frac{2}{3}$."
+  "content": "Directed values of the line (radius) passes through the center $(1,2,-1)$ and perpendicular to the plane $2x+y+z=5$ are\\n$$\\\\langle 2,1,1\\\\rangle.$$\\n\\nCoordinates of the points on this line (radius) are\\n$(x,y,z)=(1+2k,2+k,-1+k)$ for some real number $k$.\\n\\nIf one of these points is on the plane,\\n$$\\\\begin{aligned} 2(1+2k)+(2+k)+(-1+k)&=5\\\\ 6k+3&=5\\\\ k&=\\\\frac{1}{3}. \\\\end{aligned}$$\\n\\nSo the tangential point of the plane and the sphere is\\n$$\\\\left(\\\\frac{5}{3},\\\\frac{7}{3},-\\\\frac{2}{3}\\\\right).$$\\n\\nThe radius of the sphere is\\n$$\\\\begin{aligned} r&=\\\\sqrt{\\\\left(\\\\frac{5}{3}-1\\\\right)^2+\\\\left(\\\\frac{7}{3}-2\\\\right)^2+\\\\left(-\\\\frac{2}{3}+1\\\\right)^2}\\\\ &=\\\\sqrt{\\\\left(\\\\frac{2}{3}\\\\right)^2+\\\\left(\\\\frac{1}{3}\\\\right)^2+\\\\left(\\\\frac{1}{3}\\\\right)^2}\\\\ &=\\\\frac{\\\\sqrt{6}}{3}. \\\\end{aligned}$$\\n\\nTherefore, the equation of the sphere is\\n$$(x-1)^2+(y-2)^2+(z+1)^2=\\\\frac{2}{3}.$$"
 }
 \`\`\`
 `;
+
+const FALLBACK_PAPERS: PastPaper[] = [
+  {
+    id: '2024-math-d',
+    year: 2024,
+    subject: 'Mathematics',
+    grade_level: 12,
+    title: 'Section D Problems (Solved)',
+    pdf_url: '',
+    answer_pdf_url: '',
+    section: 'D',
+    content: paper2024SectionD
+  },
+  {
+    id: '2023-math-full',
+    year: 2023,
+    subject: 'Mathematics',
+    grade_level: 12,
+    title: 'General Mathematics Full Paper',
+    pdf_url: 'https://example.com/2023-math.pdf',
+    answer_pdf_url: 'https://example.com/2023-math-ans.pdf',
+    section: 'Full Paper'
+  }
+];
 
 export default PastPapers;
 

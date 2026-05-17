@@ -59,8 +59,14 @@
 .markdown-body ol, 
 .markdown-body blockquote,
 .markdown-body pre,
-.markdown-body table {
-  @apply max-w-full;
+.markdown-body table,
+.markdown-body > div {
+  @apply max-w-full overflow-x-auto overflow-y-hidden;
+}
+
+.markdown-body img,
+.markdown-body svg {
+  @apply max-w-full h-auto;
 }
 
 .markdown-body p {
@@ -72,12 +78,45 @@
 }
 
 .katex {
+  @apply opacity-95;
   font-size: 1.1em !important;
-  @apply opacity-90;
+}
+
+@media (max-width: 768px) {
+  .katex {
+    font-size: 1em !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .katex {
+    font-size: 0.9em !important;
+  }
 }
 
 .katex-display {
-  @apply py-4 px-4 overflow-x-auto overflow-y-hidden my-4 bg-slate-50/50 rounded-3xl border border-slate-100;
+  @apply py-6 px-4 overflow-x-auto overflow-y-hidden my-6 bg-slate-50/80 rounded-[2rem] border border-slate-100 shadow-inner;
+  /* Ensure smooth horizontal scrolling on mobile */
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+}
+
+@media (max-width: 640px) {
+  .katex-display {
+    @apply px-3 py-4 my-4 rounded-3xl;
+    font-size: 0.95em;
+  }
+}
+
+/* Specific fix for block equations that might still overflow */
+.katex-display > .katex {
+  @apply min-w-min;
+  white-space: nowrap;
+}
+
+/* Custom alignment for math blocks if needed */
+.katex-display .base {
+  @apply py-1;
 }
 
 /* List Styles */
