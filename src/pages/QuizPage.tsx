@@ -76,13 +76,13 @@ const QuizPage: React.FC = () => {
     return `${m}:${s < 10 ? '0' : ''}${s}`;
   };
 
-  if (loading) return <div className="flex justify-center py-20"><Loader2 className="animate-spin" /></div>;
-  if (!quiz || questions.length === 0) return <div className="text-center py-20">Quiz content not found.</div>;
+  if (loading) return <div className="flex justify-center py-20"><Loader2 className="animate-spin text-blue-600" size={40} /></div>;
+  if (!quiz || questions.length === 0) return <div className="text-center py-20 bg-white rounded-3xl border border-slate-100 p-8">Quiz content not found.</div>;
 
   const currentQuestion = questions[currentIdx];
 
   return (
-    <div className="max-w-3xl mx-auto py-8">
+    <div className="max-w-3xl mx-auto py-4 md:py-12">
       <AnimatePresence mode="wait">
         {!showResults ? (
           <motion.div
@@ -93,90 +93,102 @@ const QuizPage: React.FC = () => {
             className="space-y-8"
           >
             {/* Header */}
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white">
-                  <Brain size={20} />
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 px-4 md:px-0">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-2xl bg-slate-900 flex items-center justify-center text-white shadow-lg">
+                  <Brain size={24} />
                 </div>
-                <div>
-                  <h2 className="font-bold">{quiz.title}</h2>
-                  <p className="text-xs text-neutral-400">Question {currentIdx + 1} of {questions.length}</p>
+                <div className="space-y-1">
+                  <h2 className="text-lg font-black uppercase tracking-tight text-slate-900">{quiz.title}</h2>
+                  <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest">Question {currentIdx + 1} of {questions.length}</p>
                 </div>
               </div>
               <div className={cn(
-                "flex items-center gap-2 px-4 py-2 rounded-xl font-mono font-bold",
-                timeLeft < 60 ? "bg-red-50 text-red-600 animate-pulse" : "bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300"
+                "flex items-center gap-3 px-6 py-3 rounded-2xl font-black text-sm uppercase tracking-widest shadow-sm border transition-all",
+                timeLeft < 60 ? "bg-red-50 text-red-600 border-red-100 animate-pulse" : "bg-white text-slate-900 border-slate-100"
               )}>
-                <Timer size={18} />
+                <Timer size={18} className={timeLeft < 60 ? "text-red-500" : "text-blue-600"} />
                 {formatTime(timeLeft)}
               </div>
             </div>
 
             {/* Progress Bar */}
-            <div className="h-2 w-full bg-neutral-100 dark:bg-neutral-800 rounded-full overflow-hidden">
-              <motion.div 
-                className="h-full bg-blue-600"
-                initial={{ width: 0 }}
-                animate={{ width: `${((currentIdx) / questions.length) * 100}%` }}
-              />
+            <div className="px-4 md:px-0">
+               <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden shadow-inner">
+                  <motion.div 
+                    className="h-full bg-blue-600 rounded-full"
+                    initial={{ width: 0 }}
+                    animate={{ width: `${((currentIdx) / questions.length) * 100}%` }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                  />
+               </div>
             </div>
 
             {/* Question Card */}
-            <div className="bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-800 p-8 rounded-[2rem] shadow-sm">
-              <h3 className="text-lg sm:text-2xl font-bold mb-8 leading-relaxed">
-                <ReactMarkdown 
-                  remarkPlugins={[remarkMath]}
-                  rehypePlugins={[rehypeKatex]}
-                >
-                  {currentQuestion.question_text}
-                </ReactMarkdown>
-              </h3>
+            <div className="bg-white border border-slate-100 p-6 md:p-12 rounded-[2.5rem] shadow-xl relative overflow-hidden group">
+              <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+                 <Brain size={120} />
+              </div>
+              
+              <div className="relative z-10 text-left">
+                <div className="markdown-body mb-10">
+                   <ReactMarkdown 
+                     remarkPlugins={[remarkMath]}
+                     rehypePlugins={[rehypeKatex]}
+                     components={{
+                        p: ({children}) => <p className="text-xl md:text-3xl font-black text-slate-900 leading-tight uppercase tracking-tight">{children}</p>
+                     }}
+                   >
+                     {currentQuestion.question_text}
+                   </ReactMarkdown>
+                </div>
 
-              <div className="space-y-3">
-                {currentQuestion.options.map((option, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setSelectedOption(i)}
-                    className={cn(
-                      "w-full p-5 rounded-2xl border text-left font-medium transition-all flex items-center justify-between group",
-                      selectedOption === i 
-                        ? "border-blue-600 bg-blue-50/50 dark:bg-blue-900/10 text-blue-600 ring-2 ring-blue-600/10" 
-                        : "border-neutral-100 dark:border-neutral-800 hover:border-neutral-200 dark:hover:border-neutral-700"
-                    )}
-                  >
-                    <span>
-                      <ReactMarkdown 
-                        remarkPlugins={[remarkMath]}
-                        rehypePlugins={[rehypeKatex]}
-                      >
-                        {option}
-                      </ReactMarkdown>
-                    </span>
-                    <div className={cn(
-                      "w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all",
-                      selectedOption === i ? "border-blue-600 bg-blue-600 text-white" : "border-neutral-200 dark:border-neutral-700"
-                    )}>
-                      {selectedOption === i && <CheckCircle2 size={14} />}
-                    </div>
-                  </button>
-                ))}
+                <div className="grid grid-cols-1 gap-3">
+                  {currentQuestion.options.map((option, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setSelectedOption(i)}
+                      className={cn(
+                        "w-full p-6 rounded-2xl border text-left font-black transition-all flex items-center justify-between group/opt active:scale-[0.99] uppercase tracking-tight",
+                        selectedOption === i 
+                          ? "border-blue-600 bg-blue-50/50 text-blue-600 ring-4 ring-blue-600/5 shadow-lg shadow-blue-600/10" 
+                          : "border-slate-100 bg-slate-50/30 hover:border-blue-200 hover:bg-slate-50"
+                      )}
+                    >
+                      <span className="flex-1">
+                        <ReactMarkdown 
+                          remarkPlugins={[remarkMath]}
+                          rehypePlugins={[rehypeKatex]}
+                        >
+                          {option}
+                        </ReactMarkdown>
+                      </span>
+                      <div className={cn(
+                        "w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all shrink-0 ml-4",
+                        selectedOption === i ? "border-blue-600 bg-blue-600 text-white" : "border-slate-200 group-hover/opt:border-blue-300"
+                      )}>
+                        {selectedOption === i && <CheckCircle2 size={14} />}
+                      </div>
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
 
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col sm:flex-row justify-between items-center bg-slate-50/50 p-4 rounded-3xl border border-slate-100 gap-4">
                <button 
                 onClick={() => navigate(-1)}
-                className="flex items-center gap-2 text-neutral-400 font-bold hover:text-neutral-600"
+                className="flex items-center gap-2 text-slate-400 font-black uppercase tracking-widest text-[10px] hover:text-slate-600 transition-colors px-4 py-2"
                >
-                 <ChevronLeft size={18} /> Exit Quiz
+                 <ChevronLeft size={16} /> Exit Quiz
                </button>
                <button
                  disabled={selectedOption === null}
                  onClick={handleNext}
-                 className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-2xl font-bold shadow-lg shadow-blue-200 dark:shadow-none transition-all flex items-center gap-2 disabled:opacity-50"
+                 className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-10 py-5 rounded-2xl font-black shadow-xl shadow-blue-600/20 transition-all flex items-center justify-center gap-3 disabled:opacity-50 active:scale-95 btn-premium whitespace-nowrap"
                >
-                 {currentIdx === questions.length - 1 ? 'Finish Quiz' : 'Next Question'}
-                 <ArrowRight size={20} />
+                 {currentIdx === questions.length - 1 ? 'Finish Assessment' : 'Continue Step'}
+                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                </button>
             </div>
           </motion.div>
@@ -185,40 +197,43 @@ const QuizPage: React.FC = () => {
             key="results"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="text-center space-y-8"
+            className="text-center space-y-8 px-4"
           >
-            <div className="bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-800 p-12 rounded-[3rem] shadow-xl">
-              <div className="w-24 h-24 bg-amber-50 dark:bg-amber-900/20 rounded-full flex items-center justify-center text-amber-500 mx-auto mb-8">
+            <div className="bg-white border border-slate-100 p-8 md:p-20 rounded-[3rem] shadow-2xl relative overflow-hidden">
+               <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top_right,rgba(37,99,235,0.05),transparent)]" />
+               
+              <div className="w-24 h-24 bg-amber-50 rounded-[2rem] flex items-center justify-center text-amber-500 mx-auto mb-8 shadow-xl shadow-amber-500/10 active:rotate-12 transition-transform">
                 <Trophy size={48} />
               </div>
-              <h2 className="text-4xl font-black mb-2">Quiz Completed!</h2>
-              <p className="text-neutral-500 dark:text-neutral-400 mb-8">Here is how you performed in {quiz.title}</p>
               
-              <div className="grid grid-cols-2 gap-4 max-w-sm mx-auto mb-10">
-                <div className="bg-neutral-50 dark:bg-neutral-800 p-6 rounded-2xl">
-                  <p className="text-3xl font-black text-blue-600">{score}/{questions.length}</p>
-                  <p className="text-xs font-bold text-neutral-400 uppercase tracking-widest mt-1">Score</p>
+              <h2 className="text-4xl md:text-6xl font-black mb-4 uppercase tracking-tight text-slate-900 leading-[0.9]">Assessment <br /><span className="text-blue-600 font-black">Completed</span></h2>
+              <p className="text-slate-400 font-black uppercase tracking-widest text-[10px] mb-12">Performance analysis for {quiz.title}</p>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md mx-auto mb-12">
+                <div className="bg-slate-50/80 backdrop-blur-sm p-8 rounded-3xl border border-white shadow-sm flex flex-col items-center">
+                  <p className="text-5xl font-black text-blue-600 tracking-tighter leading-none">{score}/{questions.length}</p>
+                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-4">Total Correct</p>
                 </div>
-                <div className="bg-neutral-50 dark:bg-neutral-800 p-6 rounded-2xl">
-                  <p className="text-3xl font-black text-emerald-600">
+                <div className="bg-slate-50/80 backdrop-blur-sm p-8 rounded-3xl border border-white shadow-sm flex flex-col items-center">
+                  <p className="text-5xl font-black text-emerald-600 tracking-tighter leading-none">
                     {Math.round((score / questions.length) * 100)}%
                   </p>
-                  <p className="text-xs font-bold text-neutral-400 uppercase tracking-widest mt-1">Accuracy</p>
+                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-4">Accuracy Level</p>
                 </div>
               </div>
 
-              <div className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md mx-auto">
                 <button 
                   onClick={() => window.location.reload()}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl transition-all"
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-5 rounded-2xl transition-all shadow-xl shadow-blue-600/20 active:scale-95 uppercase tracking-widest text-xs btn-premium"
                 >
                   Retry Quiz
                 </button>
                 <button 
                   onClick={() => navigate(-1)}
-                  className="w-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 font-bold py-4 rounded-2xl transition-all"
+                  className="w-full bg-slate-900 text-white font-black py-5 rounded-2xl transition-all shadow-xl shadow-slate-900/10 active:scale-95 uppercase tracking-widest text-xs"
                 >
-                  Return to Chapter
+                  Continue Curriculum
                 </button>
               </div>
             </div>
