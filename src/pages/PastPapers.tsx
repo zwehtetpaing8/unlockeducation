@@ -508,6 +508,13 @@ Find the equation of the sphere with center $(1,2,-1)$ and touching the plane $2
 ### Question 4
 Find the equation of the sphere with center $(0,2,0)$ and touching the plane $2x-4y+4z+10=0$.
 
+\`\`\`diagram-sphere
+{
+  "center": "0,2,0",
+  "equation": "2x-4y+4z+10=0"
+}
+\`\`\`
+
 \`\`\`note
 {
   "type": "tip",
@@ -521,6 +528,13 @@ Find the equation of the sphere with center $(0,2,0)$ and touching the plane $2x
 ### Question 5
 Find the equation of the sphere with center $(3,6,-4)$ and touching the plane $2x-2y-z-10=0$.
 
+\`\`\`diagram-sphere
+{
+  "center": "3,6,-4",
+  "equation": "2x-2y-z-10=0"
+}
+\`\`\`
+
 \`\`\`note
 {
   "type": "tip",
@@ -533,6 +547,13 @@ Find the equation of the sphere with center $(3,6,-4)$ and touching the plane $2
 
 ### Question 6
 Find the equation of the sphere with center $(1,2,-1)$ and touching the plane $2x+y+z=5$.
+
+\`\`\`diagram-sphere
+{
+  "center": "1,2,-1",
+  "equation": "2x+y+z=5"
+}
+\`\`\`
 
 \`\`\`note
 {
