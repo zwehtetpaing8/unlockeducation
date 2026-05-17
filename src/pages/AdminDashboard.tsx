@@ -95,23 +95,23 @@ Consider the function $f(x) = x^2$. We can find the derivative:
 `;
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+    <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 pb-24">
       {/* Sidebar Nav */}
       <div className="lg:col-span-1 space-y-2">
-        <h2 className="text-lg sm:text-xl font-extrabold mb-6 px-4">Admin Hub</h2>
+        <h2 className="text-2xl font-black uppercase tracking-tight mb-8 px-4 text-slate-900">Admin Control</h2>
         {[
-          { id: 'lessons', label: 'Lessons & Modules', icon: BookOpen },
-          { id: 'past-papers', label: 'Past Papers', icon: FileText },
-          { id: 'grades', label: 'Grade Settings', icon: Layers },
+          { id: 'lessons', label: 'Lessons', icon: BookOpen },
+          { id: 'past-papers', label: 'Exam Papers', icon: FileText },
+          { id: 'grades', label: 'Curriculum', icon: Layers },
         ].map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id as any)}
             className={cn(
-              "w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all",
+              "w-full flex items-center gap-4 px-6 py-4 rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all",
               activeTab === tab.id 
-                ? "bg-blue-600 text-white shadow-lg shadow-blue-200 dark:shadow-none" 
-                : "text-neutral-500 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                ? "bg-slate-900 text-white shadow-xl shadow-slate-900/20" 
+                : "text-slate-500 hover:bg-slate-100"
             )}
           >
             <tab.icon size={18} />
@@ -122,15 +122,15 @@ Consider the function $f(x) = x^2$. We can find the derivative:
 
       {/* Main Panel */}
       <div className="lg:col-span-3 space-y-8">
-        <div className="bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-800 rounded-3xl p-8 shadow-sm">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-            <h3 className="text-xl sm:text-2xl font-extrabold">Lesson Content Manager</h3>
-            <div className="flex items-center gap-2">
+        <div className="bg-white border border-slate-100 rounded-[2.5rem] p-6 md:p-12 shadow-xl">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
+            <h3 className="text-xl md:text-3xl font-black uppercase tracking-tight text-slate-900">Module Editor</h3>
+            <div className="flex flex-wrap items-center gap-2">
               <button 
                 onClick={() => setPreviewMode(!previewMode)}
                 className={cn(
-                  "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold border transition-all",
-                  previewMode ? "bg-amber-50 text-amber-600 border-amber-200" : "bg-neutral-50 text-neutral-600 border-neutral-200"
+                  "flex items-center gap-2 px-5 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest border transition-all active:scale-95",
+                  previewMode ? "bg-amber-50 text-amber-600 border-amber-200" : "bg-slate-50 text-slate-600 border-slate-100 hover:bg-slate-100"
                 )}
               >
                 {previewMode ? <Edit3 size={16} /> : <Eye size={16} />}
@@ -138,9 +138,9 @@ Consider the function $f(x) = x^2$. We can find the derivative:
               </button>
               <button 
                 onClick={() => setContent(sampleMarkdown)}
-                className="px-4 py-2 rounded-lg text-sm font-bold bg-neutral-100 dark:bg-neutral-800 text-neutral-400 border border-transparent hover:border-neutral-200"
+                className="px-5 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest bg-slate-900 text-white hover:bg-slate-800 transition-all active:scale-95"
               >
-                Insert Sample LaTeX
+                Load Sample
               </button>
             </div>
           </div>
