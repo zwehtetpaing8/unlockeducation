@@ -27,28 +27,27 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
   const isAdmin = profile?.role === 'admin' || profile?.role === 'teacher';
   const logoUrl = import.meta.env.VITE_APP_LOGO_URL || '/unlockedu.png';
 
-  const Logo = ({ className }: { className?: string }) => (
-    <Link to="/" className={cn("flex items-center gap-3 transition-all hover:scale-105 active:scale-95", className)}>
-      <img 
-        src={logoUrl} 
-        alt="Unlock Education" 
-        className="h-10 md:h-14 lg:h-16 w-auto object-contain drop-shadow-sm"
-        referrerPolicy="no-referrer"
-        onError={(e) => {
-          // Fallback to text if image fails
-          const target = e.target as HTMLImageElement;
-          target.style.display = 'none';
-          const parent = target.parentElement;
-          if (parent) {
-            const span = document.createElement('span');
-            span.className = 'font-black text-2xl md:text-3xl tracking-tighter text-slate-900 uppercase leading-none';
-            span.innerHTML = 'UNLOCK<span class="text-blue-600">.EDU</span>';
-            parent.appendChild(span);
-          }
-        }}
-      />
-    </Link>
-  );
+  const Logo = ({ className }: { className?: string }) => {
+    const [imageError, setImageError] = useState(false);
+
+    return (
+      <Link to="/" className={cn("flex items-center gap-3 transition-all hover:scale-105 active:scale-95", className)}>
+        {!imageError ? (
+          <img 
+            src={logoUrl} 
+            alt="Unlock Education" 
+            className="h-10 md:h-14 lg:h-16 w-auto object-contain drop-shadow-sm"
+            referrerPolicy="no-referrer"
+            onError={() => setImageError(true)}
+          />
+        ) : (
+          <span className="font-black text-2xl md:text-3xl tracking-tighter text-slate-900 uppercase leading-none">
+            UNLOCK<span className="text-blue-600">.EDU</span>
+          </span>
+        )}
+      </Link>
+    );
+  };
 
   return (
     <div className="min-h-screen transition-colors duration-300 bg-slate-50/30 text-neutral-900 overflow-x-hidden relative selection:bg-blue-100 selection:text-blue-900">

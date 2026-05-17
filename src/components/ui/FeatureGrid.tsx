@@ -36,13 +36,13 @@ export const FeatureCard: React.FC<FeatureCardProps> = ({ title, description, ic
       
       <div className="flex-1">
         <p className={cn(
-          "text-[13px] md:text-sm text-slate-500 font-bold leading-[1.6] break-words overflow-wrap-anywhere transition-all duration-300",
-          !isExpanded && "line-clamp-2"
+          "text-[13px] md:text-sm text-slate-500 font-medium leading-[1.6] break-words overflow-wrap-anywhere transition-all duration-300",
+          !isExpanded && "line-clamp-4"
         )}>
           {description}
         </p>
         
-        {description.length > 60 && (
+        {description.length > 100 && (
           <button 
             onClick={() => setIsExpanded(!isExpanded)}
             className={`mt-4 text-[10px] font-black uppercase tracking-widest ${theme.text} hover:opacity-80 transition-all flex items-center gap-1`}

@@ -134,7 +134,7 @@ const LessonDetail: React.FC = () => {
                       const data = JSON.parse(rawContent);
                       return <ComplexPlane points={data.points} />;
                     } catch (e) {
-                      return <pre className={className} {...rest}>{children}</pre>;
+                      return <pre className={className}>{children}</pre>;
                     }
                   }
 
@@ -143,7 +143,7 @@ const LessonDetail: React.FC = () => {
                       const events = JSON.parse(rawContent);
                       return <Timeline events={events} />;
                     } catch (e) {
-                      return <pre className={className} {...rest}>{children}</pre>;
+                      return <pre className={className}>{children}</pre>;
                     }
                   }
 
@@ -158,7 +158,7 @@ const LessonDetail: React.FC = () => {
                         </FeatureGrid>
                       );
                     } catch (e) {
-                      return <pre className={className} {...rest}>{children}</pre>;
+                      return <pre className={className}>{children}</pre>;
                     }
                   }
 
@@ -173,12 +173,12 @@ const LessonDetail: React.FC = () => {
                         </NoteCard>
                       );
                     } catch (e) {
-                      return <pre className={className} {...rest}>{children}</pre>;
+                      return <pre className={className}>{children}</pre>;
                     }
                   }
                 }
                 
-                return <code className={className} {...rest}>{children}</code>;
+                return <code className={className}>{children}</code>;
               },
               h1: ({ children }) => <h2 className="text-xl md:text-4xl font-black text-slate-900 mt-8 mb-4 uppercase tracking-tight leading-none">{children}</h2>,
               h2: ({ children }) => <h3 className="text-lg md:text-3xl font-black text-slate-800 mt-6 mb-3 uppercase tracking-tight leading-none">{children}</h3>,

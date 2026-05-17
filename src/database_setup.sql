@@ -157,12 +157,12 @@ INSERT INTO lessons (chapter_id, title, type, content, order_index)
 SELECT id, 'Introduction', 'theory', '# Introduction
 
 ```carousel
-image1.jpg
-image2.jpg
-image3.jpg
-image4.jpg
-image5.jpg
-image6.jpg
+1.jpg
+2.jpg
+3.jpg
+4.jpg
+5.jpg
+6.jpg
 ```
 
 “အနှုတ်ကိန်းတစ်ခု၏ နှစ်ထပ်ကိန်းရင်းကို ကျွန်ုပ်တို့ အမှန်တကယ် ရှာဖွေနိုင်ပါသလား?”
@@ -183,11 +183,11 @@ $$x^2 = -1$$
 # A Mathematical Mystery That Changed the World
 
 ```carousel
-image7.jpg
-image8.jpg
-image9.jpg
-image10.jpg
-image11.jpg
+7.jpg
+8.jpg
+9.jpg
+10.jpg
+11.jpg
 ```
 
 ၁၆ ရာစုအတွင်း သင်္ချာပညာရှင်များသည် ခက်ခဲသော အက္ခရာသင်္ချာ ညီမျှခြင်းများကို ဖြေရှင်းရန် ကြိုးပမ်းနေကြသည်။ ထိုပုစ္ဆာများကို ဖြေရှင်းရင်း Gerolamo Cardano သည် ထူးဆန်းသော အရာတစ်ခုနှင့် ကြုံတွေ့ခဲ့ရသည် — ၎င်းမှာ အနှုတ်ကိန်းများ၏ နှစ်ထပ်ကိန်းရင်းများ ပါဝင်နေခြင်းပင် ဖြစ်သည်။
@@ -248,12 +248,12 @@ $$i^8 = i^4 \cdot i^4 = 1 \cdot 1 = 1$$
 # Seeing Numbers in a New Dimension
 
 ```carousel
-image12.jpg
-image13.jpg
-image14.jpg
-image15.jpg
-image16.jpg
-image17.jpg
+12.jpg
+13.jpg
+14.jpg
+15.jpg
+16.jpg
+17.jpg
 ```
 
 Real numbers များသည် ကိန်းမျဉ်း (Number line) တစ်ခုပေါ်တွင်သာ တည်ရှိကြသည်။ သို့သော် ကိန်းထွေးများမှာမူ **Complex Plane** ဟုခေါ်သော လုံးဝခြားနားသည့် ကမ္ဘာတစ်ခုတွင် တည်ရှိကြသည်။
@@ -271,11 +271,11 @@ Real numbers များသည် ကိန်းမျဉ်း (Number line) 
 # Why Complex Numbers Matter Today
 
 ```carousel
-image18.jpg
-image19.jpg
-image20.jpg
-image21.jpg
-image22.jpg
+18.jpg
+19.jpg
+20.jpg
+21.jpg
+22.jpg
 ```
 
 ကိန်းထွေးများသည် စာသင်ခန်းထဲမှ သီအိုရီသက်သက်သာ မဟုတ်ပါ။ ၎င်းတို့ကို အောက်ပါကဏ္ဍများတွင် လက်တွေ့အသုံးပြုနေကြသည် -
@@ -309,3 +309,122 @@ image22.jpg
 $$x^2 = -1$$
 သင်္ချာလောက၏ အကြီးကျယ်ဆုံးသော ရှာဖွေတွေ့ရှိမှုများသည် သာမန်အတွေးအခေါ်များ ရပ်တန့်သွားသည့် နေရာမှပင် စတင်လေ့ရှိပါသည်။', 1 
 FROM chapters WHERE grade_id = 12 AND chapter_number = 1;
+
+-- 10. 2024 Interactive Past Paper
+INSERT INTO past_papers (year, subject, grade_level, title, pdf_url, section, content) VALUES
+(2024, 'Mathematics', 12, 'Section D Questions (Solved)', '', 'D', '# 2024 Matriculation Exam - Section D
+## Analytical Solid Geometry (Chapter 3)
+
+```note
+{
+  "type": "definition",
+  "title": "Question 1",
+  "content": "Point $A$ has coordinates $(5,2,2)$ and the line $l$ passes through the points $(2,5,-1)$ and $(1,9,-3)$. Point $B$ lies on $l$ such that line $AB$ is perpendicular to $l$. Find the distance between points $A$ and $B$."
+}
+```
+
+```note
+{
+  "type": "tip",
+  "title": "Solution",
+  "content": "Let $P$ be $(2,5,-1)$ and $Q$ be $(1,9,-3)$.\n\nThe direction vector of line $l$ is:\n$\\langle l \\rangle = \\langle PQ \\rangle = \\langle 1-2, 9-5, -3-(-1) \\rangle = \\langle -1, 4, -2 \\rangle$.\n\nSince point $B$ lies on $l$, its coordinates can be written using parameter $k$:\n$B = (2-k, 5+4k, -1-2k)$.\n\nThe vector $\\langle AB \\rangle$ is:\n$\\langle AB \\rangle = \\langle (2-k)-5, (5+4k)-2, (-1-2k)-2 \\rangle = \\langle -3-k, 3+4k, -3-2k \\rangle$.\n\nSince $AB \\perp l$, their dot product is zero:\n$\\langle AB \\rangle \\cdot \\langle l \\rangle = 0$\n$(-1)(-3-k) + (4)(3+4k) + (-2)(-3-2k) = 0$\n$3+k + 12+16k + 6+4k = 0$\n$21 + 21k = 0$\n$k = -1$.\n\nSubstitute $k = -1$ into $\\langle AB \\rangle$:\n$\\langle AB \\rangle = \\langle -3-(-1), 3+4(-1), -3-2(-1) \\rangle = \\langle -2, -1, -1 \\rangle$.\n\nThe distance $AB$ is the magnitude of vector $\\langle AB \\rangle$:\n$AB = \\sqrt{(-2)^2 + (-1)^2 + (-1)^2} = \\sqrt{4+1+1} = \\sqrt{6}$."
+}
+```
+
+```note
+{
+  "type": "info",
+  "title": "Algorithm",
+  "content": "1. Write coordinates of $B$ using parameter $k$.\n2. Find direction vector of $l$.\n3. Form vector $\\langle AB \\rangle$.\n4. Apply orthogonality condition: $\\langle AB \\rangle \\cdot \\langle l \\rangle = 0$.\n5. Solve for $k$ and calculate distance."
+}
+```
+
+---
+
+```note
+{
+  "type": "definition",
+  "title": "Question 2",
+  "content": "Find the equation of the sphere with center $(5,-6,-2)$ and touching the plane $3x-y-2z=17$."
+}
+```
+
+```note
+{
+  "type": "tip",
+  "title": "Solution",
+  "content": "The normal vector of the plane $\\langle 3, -1, -2 \\rangle$ is parallel to the radius $r$.\n\nThe perpendicular distance from center $(5, -6, -2)$ to the plane $3x - y - 2z - 17 = 0$ is the radius $r$:\n\n$r = \\frac{|3(5) - 1(-6) - 2(-2) - 17|}{\\sqrt{3^2 + (-1)^2 + (-2)^2}}$\n$r = \\frac{|15 + 6 + 4 - 17|}{\\sqrt{9 + 1 + 4}}$\n$r = \\frac{8}{\\sqrt{14}}$.\n\nThe equation of the sphere is:\n$(x-5)^2 + (y+6)^2 + (z+2)^2 = r^2$\n$(x-5)^2 + (y+6)^2 + (z+2)^2 = \\frac{64}{14} = \\frac{32}{7}$."
+}
+```
+
+---
+
+```note
+{
+  "type": "definition",
+  "title": "Question 3",
+  "content": "Find the equation of the sphere with center $(1,2,-1)$ and touching the plane $2x+y+z-9=0$."
+}
+```
+
+```note
+{
+  "type": "tip",
+  "title": "Solution",
+  "content": "Radius $r = \\frac{|2(1) + 1(2) + 1(-1) - 9|}{\\sqrt{2^2 + 1^2 + 1^2}}$\n$r = \\frac{|2 + 2 - 1 - 9|}{\\sqrt{6}} = \\frac{|-6|}{\\sqrt{6}} = \\frac{6}{\\sqrt{6}} = \\sqrt{6}$.\n\nEquation:\n$(x-1)^2 + (y-2)^2 + (z+1)^2 = (\\sqrt{6})^2$\n$(x-1)^2 + (y-2)^2 + (z+1)^2 = 6$."
+}
+```
+
+---
+
+```note
+{
+  "type": "definition",
+  "title": "Question 4",
+  "content": "Find the equation of the sphere with center $(0,2,0)$ and touching the plane $2x-4y+4z+10=0$."
+}
+```
+
+```note
+{
+  "type": "tip",
+  "title": "Solution",
+  "content": "Radius $r = \\frac{|2(0) - 4(2) + 4(0) + 10|}{\\sqrt{2^2 + (-4)^2 + 4^2}}$\n$r = \\frac{|-8 + 10|}{\\sqrt{4 + 16 + 16}} = \\frac{2}{\\sqrt{36}} = \\frac{2}{6} = \\frac{1}{3}$.\n\nEquation:\n$x^2 + (y-2)^2 + z^2 = (1/3)^2$\n$x^2 + (y-2)^2 + z^2 = 1/9$."
+}
+```
+
+---
+
+```note
+{
+  "type": "definition",
+  "title": "Question 5",
+  "content": "Find the equation of the sphere with center $(3,6,-4)$ and touching the plane $2x-2y-z-10=0$."
+}
+```
+
+```note
+{
+  "type": "tip",
+  "title": "Solution",
+  "content": "Radius $r = \\frac{|2(3) - 2(6) - 1(-4) - 10|}{\\sqrt{2^2 + (-2)^2 + (-1)^2}}$\n$r = \\frac{|6 - 12 + 4 - 10|}{\\sqrt{9}} = \\frac{|-12|}{3} = 4$.\n\nEquation:\n$(x-3)^2 + (y-6)^2 + (z+4)^2 = 16$."
+}
+```
+
+---
+
+```note
+{
+  "type": "definition",
+  "title": "Question 6",
+  "content": "Find the equation of the sphere with center $(1,2,-1)$ and touching the plane $2x+y+z=5$."
+}
+```
+
+```note
+{
+  "type": "tip",
+  "title": "Solution",
+  "content": "Radius $r = \\frac{|2(1) + 1(2) + 1(-1) - 5|}{\\sqrt{2^2 + 1^2 + 1^2}}$\n$r = \\frac{|2 + 2 - 1 - 5|}{\\sqrt{6}} = \\frac{2}{\\sqrt{6}}$.\n\nEquation:\n$(x-1)^2 + (y-2)^2 + (z+1)^2 = (2/\\sqrt{6})^2$\n$(x-1)^2 + (y-2)^2 + (z+1)^2 = 4/6 = 2/3$."
+}
+```');

@@ -105,7 +105,6 @@ export const ComplexPlane: React.FC<ComplexPlaneProps> = ({
                   cy={cy}
                   r="6"
                   fill={color}
-                  className="shadow-lg"
                 />
                 <motion.text
                   initial={{ opacity: 0, y: 10 }}

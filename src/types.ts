@@ -71,6 +71,7 @@ export interface PastPaper {
   pdf_url: string;
   answer_pdf_url: string | null;
   section: 'A' | 'B' | 'C' | 'D' | 'Full Paper';
+  content?: string; // Markdown content for interactive papers
 }
 
 export interface Progress {
