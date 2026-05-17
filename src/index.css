@@ -36,7 +36,7 @@
 
 /* Custom Markdown & Math Styles */
 .markdown-body {
-  @apply text-[16px] md:text-[18px] leading-[1.6] text-slate-700 font-normal break-words;
+  @apply text-[15px] md:text-[18px] leading-[1.6] text-slate-700 font-normal break-words;
   overflow-wrap: anywhere;
   word-break: break-word;
 }
@@ -103,8 +103,8 @@
 
 @media (max-width: 640px) {
   .katex-display {
-    @apply px-3 py-4 my-4 rounded-3xl;
-    font-size: 0.95em;
+    @apply px-2 py-4 my-4 rounded-2xl;
+    font-size: 0.9em;
   }
 }
 

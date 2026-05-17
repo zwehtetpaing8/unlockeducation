@@ -216,10 +216,10 @@ const PastPapers: React.FC = () => {
             className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10 bg-slate-900/90 backdrop-blur-md"
           >
             <motion.div 
-              initial={{ scale: 0.9, y: 20 }}
+              initial={{ scale: 0.95, y: 20 }}
               animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-              className="bg-white w-full max-w-5xl h-full rounded-[3rem] shadow-2xl relative overflow-hidden flex flex-col pt-10"
+              exit={{ scale: 0.95, y: 20 }}
+              className="bg-white w-full max-w-5xl h-full rounded-3xl md:rounded-[3rem] shadow-2xl relative overflow-hidden flex flex-col pt-10"
             >
               <button 
                 onClick={() => setSelectedPaper(null)}
@@ -228,7 +228,7 @@ const PastPapers: React.FC = () => {
                 <X size={24} />
               </button>
 
-              <div className="flex-1 overflow-y-auto px-6 md:px-16 pb-20 custom-scrollbar text-left">
+              <div className="flex-1 overflow-y-auto px-4 md:px-16 pb-20 custom-scrollbar text-left">
                 <header className="mb-12">
                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-[10px] font-black uppercase tracking-[0.2em] border border-blue-100 mb-4">
                      Paper Review • {selectedPaper.year} • Section {selectedPaper.section}

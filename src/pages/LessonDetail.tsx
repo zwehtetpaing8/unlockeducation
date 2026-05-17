@@ -62,7 +62,7 @@ const LessonDetail: React.FC = () => {
   if (!lesson) return <div>Lesson not found</div>;
 
   return (
-    <div className="max-w-4xl mx-auto pb-20">
+    <div className="max-w-4xl mx-auto pb-56">
       {/* Breadcrumbs */}
       <nav className="mb-4 px-4 flex items-center justify-between">
          <Link 
@@ -80,8 +80,8 @@ const LessonDetail: React.FC = () => {
       </nav>
 
       {/* Lesson Content Area */}
-      <article className="bg-white border border-slate-100 rounded-[2.5rem] p-4 md:p-10 md:pt-12 shadow-xl relative overflow-hidden text-left">
-        <div className="mb-8 relative z-10 px-2 md:px-0">
+      <article className="bg-white border border-slate-100 rounded-3xl md:rounded-[2.5rem] p-4 md:p-10 md:pt-12 shadow-xl relative overflow-hidden text-left">
+        <div className="mb-8 relative z-10 px-0">
           <div className="flex items-center gap-3 mb-4">
             <div className={cn(
               "px-3 py-1 rounded-xl text-[9px] font-black uppercase tracking-widest border shadow-sm flex items-center gap-2",
@@ -98,7 +98,7 @@ const LessonDetail: React.FC = () => {
             </div>
           </div>
           
-          <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-black tracking-tight mb-4 text-slate-900 uppercase leading-[1.1] md:leading-[0.95] break-words">
+          <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-black tracking-tight mb-4 text-slate-900 uppercase leading-[1.2] md:leading-[0.95] break-words">
             <ReactMarkdown 
               remarkPlugins={[remarkMath]}
               rehypePlugins={[rehypeKatex]}
@@ -194,7 +194,7 @@ const LessonDetail: React.FC = () => {
       </article>
 
       {/* Bottom Floating Progress/Controls for Mobile */}
-      <div className="fixed bottom-10 left-1/2 -translate-x-1/2 flex items-center bg-slate-900/90 backdrop-blur-xl border border-slate-800 rounded-[2rem] py-3 px-6 shadow-2xl z-50 gap-6 text-white translate-y-0 hover:-translate-y-1 transition-all">
+      <div className="fixed bottom-32 left-1/2 -translate-x-1/2 flex items-center bg-slate-900/95 backdrop-blur-xl border border-slate-800 rounded-[2rem] py-3 px-6 shadow-2xl z-[60] gap-6 text-white translate-y-0 hover:-translate-y-1 transition-all">
         <button 
           onClick={() => navigate(chapter ? `/grade/${chapter.grade_id}/chapter/${chapter.id}` : '/')}
           className="p-2 hover:bg-white/10 rounded-xl transition-colors shrink-0 flex items-center gap-2 group"

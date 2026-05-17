@@ -195,7 +195,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       </main>
 
       {/* Bottom Navigation for Mobile */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl border-t border-slate-100 px-8 py-3 pb-safe">
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-[70] bg-white/90 backdrop-blur-xl border-t border-slate-100 px-8 py-3 pb-safe">
         <div className="flex justify-between items-center max-w-sm mx-auto">
           {[
             { id: 'home', icon: HomeIcon, path: '/', label: 'Home' },

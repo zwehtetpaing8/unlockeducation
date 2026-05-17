@@ -82,7 +82,7 @@ const QuizPage: React.FC = () => {
   const currentQuestion = questions[currentIdx];
 
   return (
-    <div className="max-w-3xl mx-auto py-4 md:py-12">
+    <div className="max-w-3xl mx-auto py-4 md:py-12 pb-32">
       <AnimatePresence mode="wait">
         {!showResults ? (
           <motion.div
@@ -125,7 +125,7 @@ const QuizPage: React.FC = () => {
             </div>
 
             {/* Question Card */}
-            <div className="bg-white border border-slate-100 p-6 md:p-12 rounded-[2.5rem] shadow-xl relative overflow-hidden group">
+            <div className="bg-white border border-slate-100 p-6 md:p-12 rounded-3xl md:rounded-[2.5rem] shadow-xl relative overflow-hidden group">
               <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
                  <Brain size={120} />
               </div>
@@ -136,7 +136,7 @@ const QuizPage: React.FC = () => {
                      remarkPlugins={[remarkMath]}
                      rehypePlugins={[rehypeKatex]}
                      components={{
-                        p: ({children}) => <p className="text-xl md:text-3xl font-black text-slate-900 leading-tight uppercase tracking-tight">{children}</p>
+                        p: ({children}) => <p className="text-xl md:text-3xl font-black text-slate-900 leading-tight uppercase tracking-tight break-words">{children}</p>
                      }}
                    >
                      {currentQuestion.question_text}
