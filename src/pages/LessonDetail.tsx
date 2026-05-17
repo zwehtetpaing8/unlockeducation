@@ -16,6 +16,11 @@ import {
 import { useAuth } from '../contexts/AuthContext';
 import { cn } from '../lib/utils';
 
+import { ComplexPlane } from '../components/ui/ComplexPlane';
+import { Timeline } from '../components/ui/Timeline';
+import { FeatureCard, FeatureGrid } from '../components/ui/FeatureGrid';
+import { NoteCard } from '../components/ui/NoteCard';
+
 const LessonDetail: React.FC = () => {
   const { lessonId } = useParams<{ lessonId: string }>();
   const [lesson, setLesson] = useState<Lesson | null>(null);
@@ -59,7 +64,7 @@ const LessonDetail: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto pb-40">
       {/* Breadcrumbs */}
-      <nav className="mb-8 px-4 flex items-center justify-between">
+      <nav className="mb-4 px-4 flex items-center justify-between">
          <Link 
             to={chapter ? `/grade/${chapter.grade_id}/chapter/${chapter.id}` : "/"}
             className="inline-flex items-center gap-2 text-[10px] font-black text-slate-400 hover:text-blue-600 uppercase tracking-[0.2em] transition-all group"
@@ -75,9 +80,9 @@ const LessonDetail: React.FC = () => {
       </nav>
 
       {/* Lesson Content Area */}
-      <article className="bg-white border border-slate-100 rounded-[2.5rem] p-6 md:p-16 md:pt-20 shadow-xl relative overflow-hidden text-left">
-        <div className="mb-12 relative z-10">
-          <div className="flex items-center gap-3 mb-6">
+      <article className="bg-white border border-slate-100 rounded-[2.5rem] p-4 md:p-10 md:pt-12 shadow-xl relative overflow-hidden text-left">
+        <div className="mb-8 relative z-10 px-2 md:px-0">
+          <div className="flex items-center gap-3 mb-4">
             <div className={cn(
               "px-3 py-1 rounded-xl text-[9px] font-black uppercase tracking-widest border shadow-sm flex items-center gap-2",
               lesson.type === 'theory' ? "bg-blue-50 text-blue-600 border-blue-100" :
@@ -93,7 +98,7 @@ const LessonDetail: React.FC = () => {
             </div>
           </div>
           
-          <h1 className="text-3xl sm:text-5xl md:text-7xl font-black tracking-tight mb-8 text-slate-900 uppercase leading-[0.95]">
+          <h1 className="text-3xl sm:text-5xl md:text-7xl font-black tracking-tight mb-4 text-slate-900 uppercase leading-[0.95] break-words">
             <ReactMarkdown 
               remarkPlugins={[remarkMath]}
               rehypePlugins={[rehypeKatex]}
@@ -112,18 +117,72 @@ const LessonDetail: React.FC = () => {
             components={{
               code(props) {
                 const { node, className, children, ...rest } = props;
-                const match = /language-(\w+)/.exec(className || '');
+                const match = /language-([\w-]+)/.exec(className || '');
                 const isBlock = !!match;
                 
-                if (isBlock && match[1] === 'carousel') {
-                  const images = String(children).trim().split('\n').map(img => img.trim());
-                  return <ImageCarousel images={images} />;
+                if (isBlock) {
+                  const lang = match[1];
+                  const rawContent = String(children).trim();
+
+                  if (lang === 'carousel') {
+                    const images = rawContent.split('\n').map(img => img.trim());
+                    return <ImageCarousel images={images} />;
+                  }
+
+                  if (lang === 'complex-plane') {
+                    try {
+                      const data = JSON.parse(rawContent);
+                      return <ComplexPlane points={data.points} />;
+                    } catch (e) {
+                      return <pre className={className} {...rest}>{children}</pre>;
+                    }
+                  }
+
+                  if (lang === 'timeline') {
+                    try {
+                      const events = JSON.parse(rawContent);
+                      return <Timeline events={events} />;
+                    } catch (e) {
+                      return <pre className={className} {...rest}>{children}</pre>;
+                    }
+                  }
+
+                  if (lang === 'features') {
+                    try {
+                      const data = JSON.parse(rawContent);
+                      return (
+                        <FeatureGrid>
+                          {data.map((item: any, i: number) => (
+                            <FeatureCard key={i} {...item} />
+                          ))}
+                        </FeatureGrid>
+                      );
+                    } catch (e) {
+                      return <pre className={className} {...rest}>{children}</pre>;
+                    }
+                  }
+
+                  if (lang === 'note') {
+                    try {
+                      const data = JSON.parse(rawContent);
+                      return (
+                        <NoteCard type={data.type} title={data.title}>
+                          <ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>
+                            {data.content}
+                          </ReactMarkdown>
+                        </NoteCard>
+                      );
+                    } catch (e) {
+                      return <pre className={className} {...rest}>{children}</pre>;
+                    }
+                  }
                 }
+                
                 return <code className={className} {...rest}>{children}</code>;
               },
-              h1: ({ children }) => <h2 className="text-2xl md:text-4xl font-black text-slate-900 mt-16 mb-8 uppercase tracking-tight leading-none">{children}</h2>,
-              h2: ({ children }) => <h3 className="text-xl md:text-3xl font-black text-slate-800 mt-12 mb-6 uppercase tracking-tight leading-none">{children}</h3>,
-              hr: () => <hr className="my-16 border-slate-100" />
+              h1: ({ children }) => <h2 className="text-xl md:text-4xl font-black text-slate-900 mt-8 mb-4 uppercase tracking-tight leading-none">{children}</h2>,
+              h2: ({ children }) => <h3 className="text-lg md:text-3xl font-black text-slate-800 mt-6 mb-3 uppercase tracking-tight leading-none">{children}</h3>,
+              hr: () => <hr className="my-8 border-slate-100" />
             }}
           >
             {lesson.content}

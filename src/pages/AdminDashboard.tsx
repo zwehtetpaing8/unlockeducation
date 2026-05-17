@@ -221,13 +221,13 @@ Consider the function $f(x) = x^2$. We can find the derivative:
                   </ReactMarkdown>
                 </div>
               ) : (
-                <textarea 
-                  value={content}
-                  onChange={e => setContent(e.target.value)}
-                  placeholder="Supports Markdown and Inline/Block LaTeX ($...$ or $$...$$)"
-                  className="w-full min-h-[400px] p-4 bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-b-xl outline-none focus:ring-2 focus:ring-blue-600 font-mono text-sm leading-relaxed"
-                  required
-                />
+                  <textarea 
+                    value={content}
+                    onChange={e => setContent(e.target.value)}
+                    placeholder="Supports Markdown and Inline/Block LaTeX ($...$ or $$...$$)"
+                    className="w-full min-h-[400px] p-4 bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-b-xl outline-none focus:ring-2 focus:ring-blue-600 font-mono text-sm leading-relaxed overflow-x-auto"
+                    required
+                  />
               )}
             </div>
 

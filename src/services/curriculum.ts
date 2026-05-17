@@ -107,7 +107,7 @@ export const curriculumService = {
           chapter_id: chapterId,
           title: 'Basic Operations and Properties',
           type: 'theory',
-          content: '# Basic Operations\n\nContent coming soon...',
+          content: chapter1BasicContent,
           order_index: 2,
           created_at: new Date().toISOString()
         }
@@ -149,7 +149,7 @@ export const curriculumService = {
         chapter_id: 'chapter-c1-g12',
         title: 'Basic Operations and Properties',
         type: 'theory',
-        content: '# Basic Operations\n\nContent coming soon...',
+        content: chapter1BasicContent,
         order_index: 2,
         created_at: new Date().toISOString()
       };
@@ -187,123 +187,220 @@ export const curriculumService = {
   },
 };
 
-const chapter1IntroContent = `# Introduction
+const chapter1IntroContent = `# 📘 Introduction to Complex Numbers — A Journey Through Time
 
-\`\`\`carousel
-1.jpg
-2.jpg
-3.jpg
-4.jpg
-5.jpg
-6.jpg
-\`\`\`
+Complex Numbers ဆိုသည်မှာ သင်္ချာလောက၏ စိတ်လှုပ်ရှားစရာ အကောင်းဆုံးနှင့် အဆန်းကြယ်ဆုံး စိတ်ကူးစိတ်သန်းများထဲမှ တစ်ခုဖြစ်ပါသည်။ အစပိုင်းတွင် ထူးဆန်းသည်ဟု ထင်ရသော်လည်း၊ ၎င်းတို့၏ စွမ်းအားမှာ သိပ္ပံနှင့် နည်းပညာလောကအတွက် မရှိမဖြစ်လိုအပ်လှပါသည်။ ဤသင်ခန်းစာတွင် ကျွန်ုပ်တို့သည် သာမန် Real Numbers များ၏ နယ်ပယ်မှကျော်လွန်၍ အနှုတ်ကိန်းများ၏ Square Root တန်ဖိုးများကိုပါ အဓိပ္ပာယ်ဖွင့်ဆိုနိုင်မည့် ပိုမိုကျယ်ပြန့်သော Universe သစ်ဆီသို့ အတူတကွ ခရီးစတင်ကြပါမည်။
 
-### A Puzzling Question
-“Can we really find the square root of a negative number?”
-
-ရာစုနှစ်ပေါင်းများစွာတိုင်အောင် သင်္ချာပညာရှင်များသည် အချို့သော ပုစ္ဆာများကို ဖြေရှင်းရန် လုံးဝမဖြစ်နိုင်ဟု ယုံကြည်ခဲ့ကြသည်။ ထိုသို့ မဖြစ်နိုင်ဟု ထင်ရသော ပုစ္ဆာများထဲမှ တစ်ခုမှာ အောက်ပါအတိုင်း ဖြစ်သည် -
-
-$$x^2 = -1$$
-
-ဤအချက်ကို သေချာစွာ စဉ်းစားကြည့်ပါ။
-* မည်သည့် အပေါင်းကိန်းကိုမဆို နှစ်ထပ်တင်လျှင် အပေါင်းကိန်းသာ ရရှိသည်။
-* မည်သည့် အနှုတ်ကိန်းကိုမဆို နှစ်ထပ်တင်လျှင်လည်း အပေါင်းကိန်းသာ ရရှိပြန်သည်။
-
-သို့ဆိုလျှင် ကိန်းတစ်ခုကို ၎င်းကိုယ်တိုင်နှင့် ပြန်လည်မြှောက်ပါက မည်သို့သော နည်းလမ်းဖြင့် $-1$ ရရှိနိုင်ပါမည်နည်း။ အစပိုင်းတွင် ဤအချက်သည် ယုတ္တိမတန်သလို၊ မဖြစ်နိုင်သလို၊ အဓိပ္ပာယ်ပင် မရှိဟု ထင်ရသည်။ သို့သော် ဤနက်နဲသော ညီမျှခြင်းတစ်ခုတည်းကပင် သင်္ချာလောက၏ အလှပဆုံးနှင့် အစွမ်းထက်ဆုံး စိတ်ကူးစိတ်သန်းတစ်ခုဖြစ်သည့် **ကိန်းထွေများ (Complex Numbers)** ဆီသို့ တံခါးဖွင့်ပေးခဲ့ပါသည်။
+သင်္ချာပညာရှင်များသည် Complex Numbers များကို အပျော်သက်သက် တီထွင်ခဲ့ကြခြင်းမဟုတ်ဘဲ၊ လက်တွေ့ဘဝတွင် ကြုံတွေ့ရသော Algebra ဆိုင်ရာ ပြဿနာများကို ဖြေရှင်းရန် ကြိုးပမ်းရာမှ သဘာဝအလျောက် ပေါ်ထွက်လာခဲ့ခြင်းဖြစ်ပါသည်။ ဤရှာဖွေတွေ့ရှိမှုက သင်္ချာနယ်ပယ်တစ်ခုလုံးကို ပုံသဏ္ဌာန်သစ်ဖြင့် ပြန်လည်အသက်သွင်းစေခဲ့ပါသည်။
 
 ---
 
-## 1. The Secret that Changed the World of Mathematics
+### 🌍 Why Did Complex Numbers Arise?
 
-\`\`\`carousel
-7.jpg
-8.jpg
-9.jpg
-10.jpg
-11.jpg
-\`\`\`
+၁၅၀၀ ပြည့်နှစ်များအတွင်း သင်္ချာပညာရှင်များသည် Polynomial Equations များ၊ အထူးသဖြင့် Cubic Equations များကို ဖြေရှင်းရန် အလွန်ခက်ခဲစွာ ကြိုးပမ်းခဲ့ကြရပါသည်။ Real Numbers များသည် ပြဿနာအတော်များများအတွက် အဆင်ပြေသော်လည်း၊ အချို့သော Algebraic Formulas များကို တွက်ချက်ရာတွင် Traditional Number Line ပေါ်တွင် အဓိပ္ပာယ်မရှိသော $\sqrt{-1}$ ကဲ့သို့သော Expression များ ပေါ်ထွက်လာခဲ့ပါသည်။
 
-16 ရာစုအတွင်း သင်္ချာပညာရှင်များသည် ခက်ခဲသော အက္ခရာသင်္ချာ ညီမျှခြင်းများကို ဖြေရှင်းရန် ကြိုးပမ်းနေကြသည်။ ထိုစဉ်က Gerolamo Cardano သည် အနှုတ်ကိန်းများ၏ နှစ်ထပ်ကိန်းရင်းများ ပါဝင်နေသော ထူးဆန်းသော ရလဒ်များကို စတင်တွေ့ရှိခဲ့သည်။
-
-အစပိုင်းတွင် ထိုကိန်းများကို သင်္ချာလောက၏ "တစ္ဆေများ" ကဲ့သို့ သတ်မှတ်ခဲ့ကြပြီး လက်တွေ့တွင် တည်ရှိနေပုံမရသောကြောင့် “စိတ်ကူးယဉ်ကိန်းများ” (Imaginary Numbers) ဟု ခေါ်ဆိုခဲ့ကြသည်။ နောက်ပိုင်းတွင် Leonhard Euler နှင့် Carl Friedrich Gauss ကဲ့သို့သော ပညာရှင်များသည် ဤကိန်းများ၏ အရေးပါပုံကို သက်သေပြခဲ့ကြသည်။
-
-### Practical Applications
-ဤကိန်းများသည် စိတ်ကူးယဉ်သက်သက် မဟုတ်ဘဲ အောက်ပါကဏ္ဍများတွင် အဓိကမဏ္ဍိုင် ဖြစ်လာခဲ့သည် -
-* **လျှပ်စစ်ဓာတ်အား (Electricity):** Alternating current (AC) များကို တွက်ချက်ခြင်း။
-* **အသံနှင့် လှိုင်းများ (Sound & Waves):** အသံလှိုင်းနှင့် လှိုင်းအချက်ပြမှုများကို စီမံခြင်း။
-* **ကွမ်တမ် ရူပဗေဒ (Quantum Physics):** အက်တမ်အဆင့်ရှိ ဖြစ်စဉ်များကို ရှင်းပြခြင်း။
-* **ခေတ်သစ် အင်ဂျင်နီယာပညာ:** လေယာဉ်ဒီဇိုင်းမှအစ ကွန်ပျူတာ ဂရပ်ဖစ်အထိ။
+Algebra ကို အပြည့်အစုံ ခြုံငုံဖြေရှင်းနိုင်ရန်နှင့် Equations များကို တစ်သမတ်တည်း တွက်ချက်နိုင်ရန်အတွက် သင်္ချာပညာရှင်များသည် ဤ "Imaginary Quantities" များကို လက်ခံအသုံးပြုရန် ဖိအားပေးခြင်း ခံခဲ့ရပါသည်။ ဤသို့ဖြင့် Complex Number ဟူသော တော်လှန်ရေးအယူအဆတစ်ခု မွေးဖွားလာခဲ့ပါသည်။
 
 ---
 
-## 2. Introduction to the Imaginary Unit
+### 🕰️ Timeline: The Development of Complex Numbers
 
-မဖြစ်နိုင်ဟု ထင်ရသော ညီမျှခြင်းကို ဖြေရှင်းရန်အတွက် သင်္ချာပညာရှင်များသည် သင်္ကေတအသစ်တစ်ခုကို သတ်မှတ်ခဲ့ကြသည် -
+Complex Numbers များ၏ သမိုင်းကြောင်းမှာ အလွန်ပင် စိတ်ဝင်စားဖွယ်ရာ ကောင်းလှပါသည်။
 
-$$i = \\sqrt{-1}$$
+\`\`\`timeline
+[
+  {
+    "year": "1st Century CE",
+    "title": "Heron of Alexandria",
+    "description": "Geometric Problem တစ်ခုကို တွက်ချက်စဉ် Square root of negative number ကို စတင်ရင်ဆိုင်ခဲ့ရသည်။"
+  },
+  {
+    "year": "1545",
+    "title": "Gerolamo Cardano",
+    "description": "Cubic Equation များဖြေရှင်းရာတွင် i ပါဝင်သည့် Expressions များကို စတင်ကိုင်တွယ်ခဲ့သည်။"
+  },
+  {
+    "year": "1637",
+    "title": "René Descartes",
+    "description": "ဤကိန်းများကို 'Imaginary' (စိတ်ကူးယဉ်) ဟု အမည်တပ်ခဲ့သူ ဖြစ်သည်။"
+  },
+  {
+    "year": "18th Century",
+    "title": "Leonhard Euler",
+    "description": "i = √-1 သင်္ကေတနှင့် Euler's Formula ကို မိတ်ဆက်ခဲ့သည်။"
+  },
+  {
+    "year": "19th Century",
+    "title": "Gauss & Cauchy",
+    "description": "Complex Numbers များကို စနစ်တကျ သင်္ချာဆိုင်ရာ အရာဝတ္ထုများအဖြစ် တည်ဆောက်ခဲ့ကြသည်။"
+  }
+]
+\`\`\`
 
-ဤ $i$ သင်္ကေတကို **Imaginary Unit** ဟု ခေါ်ဆိုပြီး ၎င်းသည် ကိန်းထွေများ၏ အခြေခံအုတ်မြစ် ဖြစ်သည်။
+---
 
-### General Form of Complex Numbers
-ကိန်းထွေတစ်ခုကို ပုံမှန်အားဖြင့် အောက်ပါအတိုင်း ဖော်ပြလေ့ရှိသည် -
+\`\`\`note
+{
+  "type": "definition",
+  "title": "The Imaginary Unit",
+  "content": "$$i = \\sqrt{-1}$$ \n\nဤ $i$ သင်္ကေတကို **Imaginary Unit** ဟု ခေါ်ဆိုပြီး ၎င်းသည် ကိန်းထွေများ၏ အခြေခံအုတ်မြစ် ဖြစ်သည်။ $i$ ၏ အဓိကဂုဏ်သတ္တိမှာ $i^2 = -1$ ဖြစ်သည်။"
+}
+\`\`\`
+
+## 📐 1. The Standard Form
+
+Complex Number တစ်ခုကို ပုံမှန်အားဖြင့် အောက်ပါ Form ဖြင့် ရေးသားနိုင်ပါသည် -
 
 $$z = a + bi$$
 
 ### Definitions:
-* **$a$ (Real Part):** ကိန်းစစ်အပိုင်း ဖြစ်ပြီး $Re(z)$ ဟု ရေးသားသည်။
-* **$b$ (Imaginary Part):** စိတ်ကူးယဉ်အပိုင်း ဖြစ်ပြီး $Im(z)$ ဟု ရေးသားသည်။
+* **a (Real Part):** ကိန်းစစ်အပိုင်း ဖြစ်ပြီး $Re(z)$ ဟု ရေးသားသည်။
+* **b (Imaginary Part):** စိတ်ကူးယဉ်အပိုင်း ဖြစ်ပြီး $Im(z)$ ဟု ရေးသားသည်။
 
-*ဥပမာ - $z = 3 + 4i$ တွင် Real Part မှာ 3 ဖြစ်ပြီး Imaginary Part မှာ 4 ဖြစ်သည်။*
+ဥပမာ - $z = 3 + 4i$ တွင် Real Part မှာ 3 ဖြစ်ပြီး Imaginary Part မှာ 4 ဖြစ်သည်။
+
+\`\`\`complex-plane
+{
+  "points": [
+    { "x": 3, "y": 4, "label": "z = 3 + 4i", "color": "#2563eb" },
+    { "x": -2, "y": 2, "label": "w = -2 + 2i", "color": "#10b981" },
+    { "x": 0, "y": -3, "label": "-3i", "color": "#8b5cf6" }
+  ]
+}
+\`\`\`
 
 ---
 
-## 3. Values of $i$ and the Cycle Pattern
+## ⚡ 2. Powers of $i$ (Cycle Pattern)
 
-$i$ ကို အထပ်ထပ်မြှောက်သွားလျှင် မြန်မာစာသင်ခန်းများတွင် အလွန်အရေးကြီးသော ပုံသေနည်း (4) မျိုး ရရှိပါလိမ့်မည် -
+$i$ ကို အထပ်ထပ်မြှောက်သွားလျှင် အောက်ပါအတိုင်း Cycle တစ်ခု ရရှိပါလိမ့်မည် -
 
 *   **$i^1 = i$**
 *   **$i^2 = -1$**
 *   **$i^3 = -i$**
 *   **$i^4 = 1$**
 
-ဤရလဒ်သည် 4 ကြိမ်တိုင်းတွင် တစ်ပတ်ပြန်လည်နေသဖြင့် မည်သည့် $i^n$ တန်ဖိုးကိုမဆို လွယ်ကူစွာ ရှာဖွေနိုင်မည် ဖြစ်သည်။
+\`\`\`note
+{
+  "type": "tip",
+  "title": "Quick Trick",
+  "content": "မည်သည့် $i^n$ ကိုမဆို ရှာလိုလျှင် $n$ ကို 4 နှင့်စား၍ အကြွင်းကိုကြည့်ပါ။ \n- အကြွင်း 1 ဆိုလျှင် $i$ \n- အကြွင်း 2 ဆိုလျှင် $-1$ \n- အကြွင်း 3 ဆိုလျှင် $-i$ \n- အကြွင်း 0 ဆိုလျှင် $1$ ဖြစ်သည်။"
+}
+\`\`\`
 
 ---
 
-## 4. Viewing Numbers from a New Dimension
-
-\`\`\`carousel
-12.jpg
-13.jpg
-14.jpg
-15.jpg
-16.jpg
-17.jpg
-\`\`\`
+## 🌐 3. The Complex Plane (Argand Diagram)
 
 ကိန်းစစ် (Real numbers) များသည် ကိန်းမျဉ်း (Number line) ပေါ်တွင်သာ ရှိသော်လည်း ကိန်းထွေများမှာမူ **Complex Plane** ဟုခေါ်သော ပြင်ညီတစ်ခုပေါ်တွင် တည်ရှိကြသည်။
 
-*   **Horizontal Axis:** Real Axis
-*   **Vertical Axis:** Imaginary Axis
-
-![Complex Plane Diagram](https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Complex_number_illustration.svg/1200px-Complex_number_illustration.svg.png)
-
-ဤစနစ်သစ်ကြောင့် အက္ခရာသင်္ချာသည် ဂျီသြမေတြီနှင့် ပေါင်းစပ်သွားပြီး ညီမျှခြင်းများသည် လှပသော ပုံသဏ္ဌာန်များနှင့် လှုပ်ရှားမှုများအဖြစ်သို့ ပြောင်းလဲသွားသည်။
+*   **Horizontal Axis:** Real Axis (ကိန်းစစ်ဝင်ရိုး)
+*   **Vertical Axis:** Imaginary Axis (စိတ်ကူးယဉ်ဝင်ရိုး)
 
 ---
 
-## 5. Topics We Will Study in this Chapter
+### 🚀 4. Why Are Complex Numbers Important?
 
-သင်္ချာဘာသာရပ်၏ ဤအခန်းကဏ္ဍတွင် အောက်ပါအခြေခံမှ အဆင့်မြင့်သင်ခန်းစာများကို အဆင့်ဆင့် လေ့လာသွားမည် ဖြစ်သည် -
+\`\`\`features
+[
+  {
+    "title": "Electrical Engineering",
+    "description": "AC Circuits များတွင် Voltage နှင့် Current များကို တိကျစွာ ကိုယ်စားပြု တွက်ချက်ရာ၌ အသုံးပြုသည်။",
+    "iconName": "Zap",
+    "color": "amber"
+  },
+  {
+    "title": "Quantum Mechanics",
+    "description": "အက်တမ်နှင့် အက်တမ်အောက်အမှုန်များ၏ ရူပဗေဒ ဖြစ်စဉ်များကို နားလည်ရန် မရှိမဖြစ် လိုအပ်သည်။",
+    "iconName": "Atom",
+    "color": "blue"
+  },
+  {
+    "title": "Computer Science",
+    "description": "Computer Graphics နှင့် Algorithms များတွင် ရှုပ်ထွေးသော လှည့်ပတ်မှုများကို တွက်ချက်ရန် အသုံးပြုသည်။",
+    "iconName": "Monitor",
+    "color": "emerald"
+  },
+  {
+    "title": "Signal Processing",
+    "description": "အချက်ပြ လှိုင်းများကို ခွဲခြမ်းစိတ်ဖြာရာတွင် အဓိက လက်နက်တစ်ခု ဖြစ်သည်။",
+    "iconName": "Radio",
+    "color": "rose"
+  }
+]
+\`\`\`
+
+---
+
+### 📚 5. Topics in this Chapter
+
 * Pure Imaginary Unit နှင့် ၎င်း၏ ဂုဏ်သတ္တိများ
 * Complex Numbers များ၏ ပေါင်း၊ နှုတ်၊ မြှောက်၊ စားခြင်း
 * Trigonometric Form (Polar Form) သို့ ပြောင်းလဲခြင်း
 * ကိန်းထွေများ၏ နှစ်ထပ်ကိန်းရင်းနှင့် အထပ်ကိန်းရင်းများ ရှာဖွေခြင်း
 
-### Concluding Thoughts
-သင်္ချာလောက၏ အကြီးကျယ်ဆုံးသော ရှာဖွေတွေ့ရှိမှုများသည် သာမန်အတွေးအခေါ်များ ရပ်တန့်သွားသည့် နေရာမှပင် စတင်လေ့ရှိပါသည်။ ဤအခန်းသည် သင့်အား ကိန်းဂဏန်းများ၏ ကမ္ဘာသစ်တစ်ခုဆီသို့ ခေါ်ဆောင်သွားမည်ဟု မျှော်လင့်ပါသည်။
-
 ---
 
 **$$x^2 = -1$$**
-*မဖြစ်နိုင်ရာမှ... အစစ်အမှန် ဖြစ်လာခြင်း။*`;
+မဖြစ်နိုင်ရာမှ... အစစ်အမှန် ဖြစ်လာခြင်း။`;
+
+const chapter1BasicContent = `# 🛠️ Basic Operations and Properties
+
+Complex Numbers များကို Real Numbers များကဲ့သို့ပင် ပေါင်းခြင်း၊ နှုတ်ခြင်း၊ မြှောက်ခြင်းနှင့် စားခြင်းတို့ကို ဆောင်ရွက်နိုင်ပါသည်။ သို့သော် အချို့သော နည်းဥပဒေများကို သတိပြုရန် လိုအပ်ပါသည်။
+
+## 1. Addition and Subtraction
+
+Complex numbers နှစ်ခုကို ပေါင်းလျှင် (သို့) နှုတ်လျှင် Real parts အချင်းချင်းနှင့် Imaginary parts အချင်းချင်းကို သီးခြားစီ ဆောင်ရွက်ရပါမည်။
+
+**Formula:**
+$$(a + bi) \\pm (c + di) = (a \\pm c) + (b \\pm d)i$$
+
+\`\`\`note
+{
+  "type": "info",
+  "title": "Example",
+  "content": "If $z = 3 + 2i$ and $w = 1 + 5i$, then \n\n$z + w = (3+1) + (2+5)i = 4 + 7i$"
+}
+\`\`\`
+
+---
+
+## 2. Multiplication
+
+Complex numbers နှစ်ခုကို မြှောက်ရာတွင် Polynomial များမြှောက်သကဲ့သို့ (FOIL method) အသုံးပြုနိုင်ပါသည်။ သို့သော် $i^2 = -1$ ဖြစ်သည်ကို မမေ့ပါနှင့်။
+
+**Formula:**
+$$(a + bi)(c + di) = ac + adi + bci + bdi^2$$
+$$= (ac - bd) + (ad + bc)i$$
+
+---
+
+## 3. Conjugate of a Complex Number
+
+ကိန်းထွေ $z = a + bi$ ၏ **Conjugate** မှာ $\\bar{z} = a - bi$ ဖြစ်သည်။ ၎င်းသည် Complex plane ပေါ်တွင် Real axis ကို အခြေခံ၍ Mirror image (မှန်ပြန်ပုံရိပ်) ဖြစ်သည်။
+
+\`\`\`complex-plane
+{
+  "points": [
+    { "x": 2, "y": 3, "label": "z = 2 + 3i", "color": "#2563eb" },
+    { "x": 2, "y": -3, "label": "z̄ = 2 - 3i", "color": "#f43f5e" }
+  ]
+}
+\`\`\`
+
+---
+
+## 4. Division
+
+Complex numbers များကို စားရာတွင် ပိုင်းခြေ (denominator) ရှိ $i$ ကို ဖျောက်ရန်အတွက် ပိုင်းခြေ၏ Conjugate နှင့် အပေါ်အောက် မြှောက်ပေးရပါမည်။
+
+---
+
+\`\`\`note
+{
+  "type": "warning",
+  "title": "Important Property",
+  "content": "$$z \\cdot \\bar{z} = (a + bi)(a - bi) = a^2 + b^2$$ \n\nဤရလဒ်သည် အမြဲတမ်း 'Real Number' ဖြစ်ပြီး Non-negative ဖြစ်သည်။"
+}
+\`\`\`
+`;

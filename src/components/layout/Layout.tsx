@@ -28,11 +28,11 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
   const logoUrl = import.meta.env.VITE_APP_LOGO_URL || '/unlockedu.png';
 
   const Logo = ({ className }: { className?: string }) => (
-    <Link to="/" className={cn("flex items-center gap-3 transition-opacity hover:opacity-90", className)}>
+    <Link to="/" className={cn("flex items-center gap-3 transition-all hover:scale-105 active:scale-95", className)}>
       <img 
         src={logoUrl} 
         alt="Unlock Education" 
-        className="h-8 md:h-10 w-auto object-contain"
+        className="h-10 md:h-14 lg:h-16 w-auto object-contain drop-shadow-sm"
         referrerPolicy="no-referrer"
         onError={(e) => {
           // Fallback to text if image fails
@@ -41,8 +41,8 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
           const parent = target.parentElement;
           if (parent) {
             const span = document.createElement('span');
-            span.className = 'font-black text-xl tracking-tighter text-blue-600 uppercase';
-            span.textContent = 'UNLOCK';
+            span.className = 'font-black text-2xl md:text-3xl tracking-tighter text-slate-900 uppercase leading-none';
+            span.innerHTML = 'UNLOCK<span class="text-blue-600">.EDU</span>';
             parent.appendChild(span);
           }
         }}

@@ -11,6 +11,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { Layout } from './components/layout/Layout';
+import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import Auth from './pages/Auth';
 import GradeDetail from './pages/GradeDetail';
@@ -33,6 +34,7 @@ export default function App() {
   return (
     <AuthProvider>
       <Router>
+        <ScrollToTop />
         <Layout>
           <Routes>
             {/* Public Routes */}
@@ -42,6 +44,7 @@ export default function App() {
             {/* Student Routes */}
             <Route path="/grade/:level" element={<GradeDetail />} />
             <Route path="/grade/:level/chapter/:chapterId" element={<ChapterDetail />} />
+            <Route path="/grade/:level/chapter/:chapterId/lesson/:lessonId" element={<ProtectedRoute><LessonDetail /></ProtectedRoute>} />
             <Route path="/lesson/:lessonId" element={<ProtectedRoute><LessonDetail /></ProtectedRoute>} />
             <Route path="/quiz/:quizId" element={<ProtectedRoute><QuizPage /></ProtectedRoute>} />
             <Route path="/past-papers" element={<PastPapers />} />

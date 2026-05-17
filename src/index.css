@@ -36,25 +36,35 @@
 
 /* Custom Markdown & Math Styles */
 .markdown-body {
-  @apply text-[17px] leading-[1.8] text-slate-700 font-normal;
+  @apply text-[16px] md:text-[18px] leading-[1.6] text-slate-700 font-normal break-words;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
-@media (max-width: 640px) {
-  .markdown-body {
-    @apply text-[16px] leading-[1.7];
-  }
+.overflow-wrap-anywhere {
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .markdown-body h1, .markdown-body h2, .markdown-body h3 {
-  @apply font-black tracking-tight text-neutral-900 mt-12 mb-6 uppercase;
+  @apply font-black tracking-tight text-neutral-900 mt-6 mb-3 uppercase;
 }
 
-.markdown-body h1 { @apply text-3xl md:text-5xl; }
-.markdown-body h2 { @apply text-2xl md:text-3xl border-l-4 border-blue-600 pl-4; }
-.markdown-body h3 { @apply text-xl md:text-2xl; }
+.markdown-body h1 { @apply text-xl md:text-5xl; }
+.markdown-body h2 { @apply text-lg md:text-3xl border-l-4 border-blue-600 pl-4 py-1; }
+.markdown-body h3 { @apply text-base md:text-2xl py-1; }
+
+.markdown-body p, 
+.markdown-body ul, 
+.markdown-body ol, 
+.markdown-body blockquote,
+.markdown-body pre,
+.markdown-body table {
+  @apply max-w-full;
+}
 
 .markdown-body p {
-  @apply mb-6;
+  @apply mb-4;
 }
 
 .markdown-body strong {
@@ -67,12 +77,12 @@
 }
 
 .katex-display {
-  @apply py-8 px-4 overflow-x-auto overflow-y-hidden my-6 bg-slate-50/50 rounded-3xl border border-slate-100;
+  @apply py-4 px-4 overflow-x-auto overflow-y-hidden my-4 bg-slate-50/50 rounded-3xl border border-slate-100;
 }
 
 /* List Styles */
 .markdown-body ul, .markdown-body ol {
-  @apply my-8 space-y-3;
+  @apply my-4 space-y-2;
 }
 
 .markdown-body ul {
@@ -89,7 +99,11 @@
 }
 
 .markdown-body blockquote {
-  @apply border-l-4 border-blue-600 bg-blue-50/50 py-6 px-8 rounded-r-3xl italic text-slate-600 my-10;
+  @apply border-l-4 border-blue-600 bg-blue-50/50 py-4 px-8 rounded-r-3xl text-slate-600 my-6;
+}
+
+.markdown-body hr {
+  @apply my-6 border-slate-100;
 }
 
 /* Scrollbar styling */

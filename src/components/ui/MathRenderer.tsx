@@ -8,7 +8,11 @@ interface MathRendererProps {
 
 export const MathRenderer: React.FC<MathRendererProps> = ({ formula, block = false }) => {
   if (block) {
-    return <BlockMath math={formula} />;
+    return (
+      <div className="overflow-x-auto overflow-y-hidden my-4 py-2 custom-scrollbar">
+        <BlockMath math={formula} />
+      </div>
+    );
   }
   return <InlineMath math={formula} />;
 };
