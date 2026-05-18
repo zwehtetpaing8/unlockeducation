@@ -62,7 +62,7 @@ const LessonDetail: React.FC = () => {
   if (!lesson) return <div>Lesson not found</div>;
 
   return (
-    <div className="max-w-4xl mx-auto pb-56">
+    <div className="max-w-4xl mx-auto pb-24">
       {/* Breadcrumbs */}
       <nav className="mb-4 px-4 flex items-center justify-between">
          <Link 
@@ -193,28 +193,6 @@ const LessonDetail: React.FC = () => {
         <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/5 blur-[100px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
       </article>
 
-      {/* Bottom Floating Progress/Controls for Mobile */}
-      <div className="fixed bottom-32 left-1/2 -translate-x-1/2 flex items-center bg-slate-900/95 backdrop-blur-xl border border-slate-800 rounded-[2rem] py-3 px-6 shadow-2xl z-[60] gap-6 text-white translate-y-0 hover:-translate-y-1 transition-all">
-        <button 
-          onClick={() => navigate(chapter ? `/grade/${chapter.grade_id}/chapter/${chapter.id}` : '/')}
-          className="p-2 hover:bg-white/10 rounded-xl transition-colors shrink-0 flex items-center gap-2 group"
-          title="Back to Chapter"
-        >
-          <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
-          <span className="text-[10px] font-black uppercase tracking-widest hidden sm:inline">Module List</span>
-        </button>
-        
-        <div className="h-4 w-px bg-slate-800 shrink-0" />
-        
-        <div className="flex items-center gap-2 px-2 shrink-0">
-           <PlayCircle size={18} className="text-blue-500" />
-           <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Lesson Mode</span>
-        </div>
-        
-        <button className="p-2 hover:bg-white/10 rounded-xl transition-colors shrink-0">
-          <Settings size={18} />
-        </button>
-      </div>
     </div>
   );
 };

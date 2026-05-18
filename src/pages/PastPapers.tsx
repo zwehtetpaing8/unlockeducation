@@ -4,7 +4,8 @@ import { PastPaper } from '../types';
 import { 
   FileText, Search, Filter, Download, 
   ExternalLink, Calendar, Star, Loader2,
-  ChevronRight, AlertCircle, Award, X, Maximize2
+  ChevronRight, AlertCircle, Award, X, Maximize2,
+  CheckCircle2, XCircle
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../lib/utils';
@@ -17,6 +18,106 @@ import { ComplexPlane } from '../components/ui/ComplexPlane';
 import { Timeline } from '../components/ui/Timeline';
 import { FeatureCard, FeatureGrid } from '../components/ui/FeatureGrid';
 
+interface MCQData {
+  question: string;
+  options: string[];
+  correctIndex: number;
+  explanation?: string;
+}
+
+const MultipleChoiceQuestion: React.FC<{ data: MCQData }> = ({ data }) => {
+  const [selected, setSelected] = useState<number | null>(null);
+  const [showAnswer, setShowAnswer] = useState(false);
+
+  return (
+    <div className="my-8 bg-slate-50/50 p-6 md:p-8 rounded-[2rem] border border-slate-100 space-y-6">
+      <div className="text-xl font-black text-slate-900 leading-tight">
+         <ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>
+           {data.question}
+         </ReactMarkdown>
+      </div>
+      <div className="grid gap-3">
+        {data.options.map((opt, i) => {
+          const isCorrect = i === data.correctIndex;
+          const isSelected = selected === i;
+          
+          let stateStyles = "border-slate-200 bg-white hover:border-blue-300";
+          if (showAnswer) {
+            if (isCorrect) stateStyles = "border-green-500 bg-green-50 text-green-700 ring-2 ring-green-100";
+            else if (isSelected) stateStyles = "border-red-300 bg-red-50 text-red-600";
+          } else if (isSelected) {
+            stateStyles = "border-blue-500 bg-blue-50 text-blue-700";
+          }
+
+          return (
+            <button
+              key={i}
+              onMouseDown={() => !showAnswer && setSelected(i)}
+              className={cn(
+                "w-full p-6 rounded-2xl border text-left transition-all flex items-center justify-between group active:scale-[0.99]",
+                stateStyles
+              )}
+            >
+              <div className="flex items-center gap-4">
+                <span className={cn(
+                  "w-10 h-10 rounded-xl flex items-center justify-center text-xs font-black transition-colors",
+                  isSelected ? "bg-white/50 text-current" : "bg-slate-100 text-slate-400 group-hover:text-blue-500"
+                )}>
+                  {String.fromCharCode(65 + i)}
+                </span>
+                <span className="font-bold text-lg">
+                  <ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>
+                    {opt}
+                  </ReactMarkdown>
+                </span>
+              </div>
+              <div className="shrink-0">
+                {showAnswer && isCorrect && <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white shadow-lg shadow-green-500/20"><CheckCircle2 size={18} /></div>}
+                {showAnswer && isSelected && !isCorrect && <div className="w-8 h-8 rounded-full bg-red-500 flex items-center justify-center text-white shadow-lg shadow-red-500/20"><XCircle size={18} /></div>}
+              </div>
+            </button>
+          );
+        })}
+      </div>
+      <div className="flex justify-between items-center pt-6 border-t border-slate-100">
+        <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest italic">
+          {showAnswer ? "Solution revealed below" : "Select one option to continue"}
+        </p>
+        {!showAnswer ? (
+          <button 
+            disabled={selected === null}
+            onClick={() => setShowAnswer(true)}
+            className="px-8 py-4 bg-slate-900 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-800 disabled:opacity-50 transition-all active:scale-95 shadow-xl shadow-slate-900/10"
+          >
+            Verify Choice
+          </button>
+        ) : (
+          <div className="flex items-center gap-6">
+            <div className={cn(
+              "text-[10px] font-black uppercase tracking-widest px-6 py-3 rounded-xl border flex items-center gap-2",
+              selected === data.correctIndex 
+                ? "bg-green-50 text-green-700 border-green-100" 
+                : "bg-red-50 text-red-700 border-red-100"
+            )}>
+              {selected === data.correctIndex ? (
+                <>Excellent Performance</>
+              ) : (
+                <>Critical Review Needed</>
+              )}
+            </div>
+            <button 
+              onClick={() => { setShowAnswer(false); setSelected(null); }}
+              className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-600 hover:text-blue-700 transition-colors"
+            >
+              Try Again
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
 const PastPapers: React.FC = () => {
   const [papers, setPapers] = useState<PastPaper[]>([]);
   const [loading, setLoading] = useState(true);
@@ -25,7 +126,7 @@ const PastPapers: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedPaper, setSelectedPaper] = useState<PastPaper | null>(null);
   
-  const years = ['All Years', '2024', '2023', '2022', '2021', '2020', '2019'];
+  const years = ['All Years', '2026', '2024', '2023', '2022', '2021', '2020', '2019'];
   const sections = ['All', 'A', 'B', 'C', 'D', 'Full Paper'];
 
   useEffect(() => {
@@ -219,17 +320,17 @@ const PastPapers: React.FC = () => {
               initial={{ scale: 0.95, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 20 }}
-              className="bg-white w-full max-w-5xl h-full rounded-3xl md:rounded-[3rem] shadow-2xl relative overflow-hidden flex flex-col pt-10"
+              className="bg-white w-full max-w-5xl h-full rounded-3xl md:rounded-[3rem] shadow-2xl relative overflow-hidden flex flex-col pt-6 md:pt-10"
             >
               <button 
                 onClick={() => setSelectedPaper(null)}
-                className="absolute top-6 right-6 p-3 bg-slate-50 text-slate-400 hover:text-rose-500 hover:bg-rose-50 rounded-2xl transition-all z-20"
+                className="absolute top-4 right-4 md:top-6 md:right-6 p-2 md:p-3 bg-slate-50 text-slate-400 hover:text-rose-500 hover:bg-rose-50 rounded-xl md:rounded-2xl transition-all z-20"
               >
-                <X size={24} />
+                <X size={20} className="md:w-6 md:h-6" />
               </button>
 
-              <div className="flex-1 overflow-y-auto px-4 md:px-16 pb-20 custom-scrollbar text-left">
-                <header className="mb-12">
+              <div className="flex-1 overflow-y-auto px-4 md:px-16 pb-20 mt-12 md:mt-0 custom-scrollbar text-left">
+                <header className="mb-8 md:mb-12">
                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-[10px] font-black uppercase tracking-[0.2em] border border-blue-100 mb-4">
                      Paper Review • {selectedPaper.year} • Section {selectedPaper.section}
                    </div>
@@ -301,6 +402,15 @@ const PastPapers: React.FC = () => {
                               );
                             } catch (e) {
                                return <pre className={className}>{children}</pre>;
+                            }
+                          }
+
+                          if (lang === 'mcq') {
+                            try {
+                              const data = JSON.parse(rawContent);
+                              return <MultipleChoiceQuestion data={data} />;
+                            } catch (e) {
+                              return <pre className={className}>{children}</pre>;
                             }
                           }
 
@@ -426,6 +536,26 @@ const PastPapers: React.FC = () => {
     </div>
   );
 };
+
+const paper2026SectionA = `
+# 2026 Matriculation Exam - Section A
+## Chapter 3 • Analytical Solid Geometry
+
+---
+
+\`\`\`mcq
+{
+  "question": "The equation of the plane that is parallel to the plane $4x-3y+2z=5$ and passing through the point $(5,1,-7)$ is:",
+  "options": [
+    "$4x-3y+2z=3$",
+    "$4x-4y+2z=3$",
+    "$4x-3y+2z=-3$",
+    "$3x-4y+2z=3$"
+  ],
+  "correctIndex": 0
+}
+\`\`\`
+`;
 
 const paper2024SectionD = `
 # 2024 Matriculation Exam - Section D
@@ -565,6 +695,17 @@ Find the equation of the sphere with center $(1,2,-1)$ and touching the plane $2
 `;
 
 const FALLBACK_PAPERS: PastPaper[] = [
+  {
+    id: '2026-math-a',
+    year: 2026,
+    subject: 'Mathematics',
+    grade_level: 12,
+    title: 'Section A Multiple Choice',
+    pdf_url: '',
+    answer_pdf_url: '',
+    section: 'A',
+    content: paper2026SectionA
+  },
   {
     id: '2024-math-d',
     year: 2024,

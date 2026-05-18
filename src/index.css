@@ -79,18 +79,18 @@
 
 .katex {
   @apply opacity-95;
-  font-size: 1.1em !important;
+  font-size: 1.05em !important;
 }
 
 @media (max-width: 768px) {
   .katex {
-    font-size: 1em !important;
+    font-size: 0.95em !important;
   }
 }
 
 @media (max-width: 480px) {
   .katex {
-    font-size: 0.9em !important;
+    font-size: 0.85em !important;
   }
 }
 
@@ -99,19 +99,26 @@
   /* Ensure smooth horizontal scrolling on mobile */
   -webkit-overflow-scrolling: touch;
   max-width: 100%;
+  display: block;
+  touch-action: pan-x;
 }
 
 @media (max-width: 640px) {
   .katex-display {
-    @apply px-2 py-4 my-4 rounded-2xl;
-    font-size: 0.9em;
+    @apply px-3 py-5 my-4 rounded-3xl;
+    font-size: 0.85em;
   }
 }
 
 /* Specific fix for block equations that might still overflow */
 .katex-display > .katex {
-  @apply min-w-min;
-  white-space: nowrap;
+  @apply min-w-0;
+  display: block;
+}
+
+.katex-html {
+  @apply overflow-x-auto overflow-y-hidden;
+  max-width: 100%;
 }
 
 /* Custom alignment for math blocks if needed */

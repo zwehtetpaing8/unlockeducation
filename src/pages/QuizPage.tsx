@@ -125,18 +125,18 @@ const QuizPage: React.FC = () => {
             </div>
 
             {/* Question Card */}
-            <div className="bg-white border border-slate-100 p-6 md:p-12 rounded-3xl md:rounded-[2.5rem] shadow-xl relative overflow-hidden group">
+            <div className="bg-white border border-slate-100 p-5 md:p-12 rounded-3xl md:rounded-[2.5rem] shadow-xl relative overflow-hidden group">
               <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
                  <Brain size={120} />
               </div>
               
               <div className="relative z-10 text-left">
-                <div className="markdown-body mb-10">
+                <div className="markdown-body mb-8 md:mb-10">
                    <ReactMarkdown 
                      remarkPlugins={[remarkMath]}
                      rehypePlugins={[rehypeKatex]}
                      components={{
-                        p: ({children}) => <p className="text-xl md:text-3xl font-black text-slate-900 leading-tight uppercase tracking-tight break-words">{children}</p>
+                        p: ({children}) => <p className="text-lg sm:text-xl md:text-3xl font-black text-slate-900 leading-tight uppercase tracking-tight break-words">{children}</p>
                      }}
                    >
                      {currentQuestion.question_text}
