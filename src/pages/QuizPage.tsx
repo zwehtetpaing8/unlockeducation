@@ -82,25 +82,25 @@ const QuizPage: React.FC = () => {
   const currentQuestion = questions[currentIdx];
 
   return (
-    <div className="max-w-3xl mx-auto py-4 md:py-12 pb-32">
+    <div className="max-w-screen-2xl mx-auto py-4 md:py-12 pb-32 px-0 sm:px-4">
       <AnimatePresence mode="wait">
         {!showResults ? (
           <motion.div
             key="quiz"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
             className="space-y-8"
           >
             {/* Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 px-4 md:px-0">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 px-4 sm:px-8 md:px-12">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-2xl bg-slate-900 flex items-center justify-center text-white shadow-lg">
                   <Brain size={24} />
                 </div>
                 <div className="space-y-1">
-                  <h2 className="text-lg font-black uppercase tracking-tight text-slate-900">{quiz.title}</h2>
-                  <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest">Question {currentIdx + 1} of {questions.length}</p>
+                  <h2 className="text-xl md:text-2xl font-black uppercase tracking-tight text-slate-900">{quiz.title}</h2>
+                  <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest">Assessment • Question {currentIdx + 1} of {questions.length}</p>
                 </div>
               </div>
               <div className={cn(
@@ -113,7 +113,7 @@ const QuizPage: React.FC = () => {
             </div>
 
             {/* Progress Bar */}
-            <div className="px-4 md:px-0">
+            <div className="px-4 sm:px-8 md:px-12 mb-4">
                <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden shadow-inner">
                   <motion.div 
                     className="h-full bg-blue-600 rounded-full"
@@ -125,25 +125,25 @@ const QuizPage: React.FC = () => {
             </div>
 
             {/* Question Card */}
-            <div className="bg-white border border-slate-100 p-5 md:p-12 rounded-3xl md:rounded-[2.5rem] shadow-xl relative overflow-hidden group">
+            <div className="bg-white border-y md:border border-slate-100 px-3 py-10 sm:p-16 lg:p-24 md:rounded-[2rem] shadow-sm relative overflow-hidden group">
               <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
                  <Brain size={120} />
               </div>
               
-              <div className="relative z-10 text-left">
-                <div className="markdown-body mb-8 md:mb-10">
+              <div className="relative z-10 text-left max-w-5xl">
+                <div className="markdown-body mb-10 md:mb-16">
                    <ReactMarkdown 
                      remarkPlugins={[remarkMath]}
                      rehypePlugins={[rehypeKatex]}
                      components={{
-                        p: ({children}) => <p className="text-lg sm:text-xl md:text-3xl font-black text-slate-900 leading-tight uppercase tracking-tight break-words">{children}</p>
+                        p: ({children}) => <p className="text-xl md:text-4xl font-black text-slate-900 leading-tight uppercase tracking-tight break-words">{children}</p>
                      }}
                    >
                      {currentQuestion.question_text}
                    </ReactMarkdown>
                 </div>
 
-                <div className="grid grid-cols-1 gap-3">
+                <div className="grid grid-cols-1 gap-4">
                   {currentQuestion.options.map((option, i) => (
                     <button
                       key={i}

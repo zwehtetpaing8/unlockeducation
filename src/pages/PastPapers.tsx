@@ -317,20 +317,20 @@ const PastPapers: React.FC = () => {
             className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10 bg-slate-900/90 backdrop-blur-md"
           >
             <motion.div 
-              initial={{ scale: 0.95, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.95, y: 20 }}
-              className="bg-white w-full max-w-5xl h-full rounded-3xl md:rounded-[3rem] shadow-2xl relative overflow-hidden flex flex-col pt-6 md:pt-10"
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.98 }}
+              className="bg-white w-full h-full md:h-[98vh] md:max-w-[98vw] md:rounded-3xl shadow-2xl relative overflow-hidden flex flex-col pt-6 md:pt-12"
             >
               <button 
                 onClick={() => setSelectedPaper(null)}
-                className="absolute top-4 right-4 md:top-6 md:right-6 p-2 md:p-3 bg-slate-50 text-slate-400 hover:text-rose-500 hover:bg-rose-50 rounded-xl md:rounded-2xl transition-all z-20"
+                className="absolute top-4 right-4 md:top-6 md:right-8 p-2 md:p-4 bg-slate-900 text-white hover:bg-slate-800 rounded-2xl transition-all z-20 shadow-xl"
               >
-                <X size={20} className="md:w-6 md:h-6" />
+                <X size={24} />
               </button>
 
-              <div className="flex-1 overflow-y-auto px-4 md:px-16 pb-20 mt-12 md:mt-0 custom-scrollbar text-left">
-                <header className="mb-8 md:mb-12">
+              <div className="flex-1 overflow-y-auto px-3 sm:px-8 md:px-16 lg:px-24 pb-24 mt-12 md:mt-4 custom-scrollbar text-left">
+                <header className="mb-10 md:mb-20 max-w-6xl">
                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-[10px] font-black uppercase tracking-[0.2em] border border-blue-100 mb-4">
                      Paper Review • {selectedPaper.year} • Section {selectedPaper.section}
                    </div>

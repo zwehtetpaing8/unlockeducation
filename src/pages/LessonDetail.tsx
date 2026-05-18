@@ -62,9 +62,9 @@ const LessonDetail: React.FC = () => {
   if (!lesson) return <div>Lesson not found</div>;
 
   return (
-    <div className="max-w-4xl mx-auto pb-24">
+    <div className="max-w-screen-2xl mx-auto pb-24 px-0 sm:px-4">
       {/* Breadcrumbs */}
-      <nav className="mb-4 px-4 flex items-center justify-between">
+      <nav className="mb-4 px-4 sm:px-6 lg:px-10 flex items-center justify-between">
          <Link 
             to={chapter ? `/grade/${chapter.grade_id}/chapter/${chapter.id}` : "/"}
             className="inline-flex items-center gap-2 text-[10px] font-black text-slate-400 hover:text-blue-600 uppercase tracking-[0.2em] transition-all group"
@@ -80,8 +80,8 @@ const LessonDetail: React.FC = () => {
       </nav>
 
       {/* Lesson Content Area */}
-      <article className="bg-white border border-slate-100 rounded-3xl md:rounded-[2.5rem] p-4 md:p-10 md:pt-12 shadow-xl relative overflow-hidden text-left">
-        <div className="mb-8 relative z-10 px-0">
+      <article className="bg-white border-y md:border border-slate-100 px-4 py-10 sm:p-12 md:p-16 lg:p-24 md:rounded-[2.5rem] shadow-sm relative overflow-hidden text-left">
+        <div className="mb-10 relative z-10 px-0 max-w-6xl">
           <div className="flex items-center gap-3 mb-4">
             <div className={cn(
               "px-3 py-1 rounded-xl text-[9px] font-black uppercase tracking-widest border shadow-sm flex items-center gap-2",
