@@ -118,6 +118,79 @@ const MultipleChoiceQuestion: React.FC<{ data: MCQData }> = ({ data }) => {
   );
 };
 
+const TouchingPlaneDiagram: React.FC<{ centerLabel?: string, equation?: string }> = ({ centerLabel, equation }) => {
+  return (
+    <div className="my-12 flex flex-col items-center gap-6 bg-slate-50/30 p-8 md:p-16 rounded-[4rem] border border-slate-100 shadow-sm overflow-visible">
+      <svg width="480" height="360" viewBox="0 0 480 360" className="max-w-full overflow-visible drop-shadow-2xl">
+        <defs>
+          <radialGradient id="sphereBall" cx="35%" cy="35%" r="65%">
+            <stop offset="0%" stopColor="#FFFFFF" />
+            <stop offset="50%" stopColor="#FAFAFF" />
+            <stop offset="100%" stopColor="#283593" stopOpacity={0.2} />
+          </radialGradient>
+          <linearGradient id="planeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#1a237e" />
+            <stop offset="100%" stopColor="#5c6bc0" />
+          </linearGradient>
+          <filter id="shadowBlur" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="6" />
+          </filter>
+        </defs>
+
+        {/* Global Ground Shadow */}
+        <ellipse cx="240" cy="280" rx="140" ry="25" fill="black" opacity="0.08" filter="url(#shadowBlur)" />
+        
+        {/* Plane Shadow */}
+        <path d="M 65 265 L 385 265 L 445 225 L 125 225 Z" fill="black" opacity="0.12" transform="translate(4, 4)" />
+        
+        {/* The Plane (Prism Blue) */}
+        <path d="M 60 260 L 380 260 L 440 220 L 120 220 Z" fill="url(#planeGrad)" stroke="#1a237e" strokeWidth="1.5" />
+        
+        {/* Highlight on front edge of plane */}
+        <line x1="60" y1="260" x2="380" y2="260" stroke="white" strokeWidth="1" strokeOpacity="0.3" />
+
+        {/* Touching Area Highlight (Gold) */}
+        <ellipse cx="240" cy="240" rx="45" ry="12" fill="#F9A825" opacity="0.15" />
+
+        {/* Sphere Body */}
+        <circle cx="240" cy="115" r="125" fill="url(#sphereBall)" stroke="#283593" strokeWidth="2.5" />
+        
+        {/* Latitude/Longitude dashed lines */}
+        <ellipse cx="240" cy="115" rx="125" ry="38" fill="none" stroke="#283593" strokeWidth="0.8" strokeDasharray="6 4" opacity="0.25" />
+        <ellipse cx="240" cy="115" rx="38" ry="125" fill="none" stroke="#283593" strokeWidth="0.8" strokeDasharray="6 4" opacity="0.2" />
+
+        {/* Radius (Prism Gold) */}
+        <line x1="240" y1="115" x2="240" y2="240" stroke="#F9A825" strokeWidth="5" strokeLinecap="round" />
+        
+        {/* Labels Box for r ⊥ Plane */}
+        <g transform="translate(60, 185)">
+          <rect x="0" y="0" width="85" height="22" rx="6" fill="white" stroke="#F9A825" strokeWidth="1.5" shadow-sm />
+          <text x="42.5" y="14" textAnchor="middle" className="text-[9px] font-black tracking-tighter" fill="#F9A825">r ⊥ Plane</text>
+        </g>
+        
+        {/* Right Angle Symbol */}
+        <path d="M 240 215 H 265 V 240" fill="none" stroke="#F9A825" strokeWidth="1.5" opacity="0.8" />
+
+        {/* Center Point */}
+        <circle cx="240" cy="115" r="5" fill="#283593" />
+        {centerLabel && (
+          <text x="240" y="100" textAnchor="middle" className="text-[13px] font-black" fill="#1e293b">C({centerLabel})</text>
+        )}
+
+        {/* Touching Point */}
+        <circle cx="240" cy="240" r="5" fill="#F9A825" />
+        <text x="250" y="255" className="text-[10px] font-black tracking-[0.2em] uppercase" fill="#F9A825">TOUCHING POINT</text>
+        
+        {/* Equation on plane */}
+        {equation && (
+          <text x="155" y="240" textAnchor="middle" fill="white" className="text-[10px] font-black italic tracking-wide" opacity="0.95">{equation}</text>
+        )}
+      </svg>
+      <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.3em] italic">Standard Figure: Normal relation of sphere center to plane</p>
+    </div>
+  );
+};
+
 const PastPapers: React.FC = () => {
   const [papers, setPapers] = useState<PastPaper[]>([]);
   const [loading, setLoading] = useState(true);
@@ -453,50 +526,7 @@ const PastPapers: React.FC = () => {
                           if (lang === 'diagram-sphere') {
                             try {
                               const data = JSON.parse(rawContent);
-                              return (
-                                <div className="my-8 flex flex-col items-center gap-4 bg-slate-50/50 p-8 rounded-[2rem] border border-slate-100">
-                                  <svg width="400" height="250" viewBox="0 0 400 250" className="max-w-full overflow-visible">
-                                    <defs>
-                                      <radialGradient id="sphereGrad">
-                                        <stop offset="0%" stopColor="#ffffff" />
-                                        <stop offset="100%" stopColor="#e8eaf6" />
-                                      </radialGradient>
-                                    </defs>
-                                    
-                                    {/* Plane */}
-                                    <path d="M 50 180 L 300 180 L 360 140 L 110 140 Z" fill="#283593" fillOpacity="0.9" stroke="#1a237e" strokeWidth="2" />
-                                    <text x="130" y="165" fill="white" className="text-[10px] font-black tracking-tight">{data.equation}</text>
-                                    
-                                    {/* Shadow */}
-                                    <ellipse cx="235" cy="160" rx="50" ry="12" fill="black" fillOpacity="0.1" />
-                                    
-                                    {/* Sphere */}
-                                    <circle cx="235" cy="80" r="65" fill="url(#sphereGrad)" stroke="#283593" strokeWidth="1.5" />
-                                    <ellipse cx="235" cy="80" rx="65" ry="20" fill="none" stroke="#283593" strokeWidth="0.5" strokeDasharray="4 2" opacity="0.3" />
-                                    <ellipse cx="235" cy="80" rx="20" ry="65" fill="none" stroke="#283593" strokeWidth="0.5" strokeDasharray="4 2" opacity="0.3" />
-
-                                    {/* Center */}
-                                    <circle cx="235" cy="80" r="3" fill="#283593" />
-                                    <text x="235" y="70" textAnchor="middle" className="text-[12px] font-black" fill="#283593">C({data.center})</text>
-                                    
-                                    {/* Radius */}
-                                    <line x1="235" y1="80" x2="235" y2="160" stroke="#f9a825" strokeWidth="4" />
-                                    <text x="245" y="125" className="text-[14px] font-black italic" fill="#f9a825">r</text>
-                                    
-                                    {/* Right angle */}
-                                    <path d="M 235 145 H 250 V 160" fill="none" stroke="#f9a825" strokeWidth="1.5" />
-                                    
-                                    {/* Point */}
-                                    <circle cx="235" cy="160" r="4" fill="#f9a825" />
-                                    <text x="290" y="175" className="text-[10px] font-black uppercase tracking-widest" fill="#f9a825">touching point</text>
-
-                                    <g transform="translate(10, 30)">
-                                      <rect x="0" y="0" width="80" height="24" rx="6" fill="#fffbeb" stroke="#f9a825" strokeWidth="1" />
-                                      <text x="40" y="16" stroke="none" fill="#f9a825" textAnchor="middle" className="text-[9px] font-black uppercase tracking-tighter">r ⊥ Plane</text>
-                                    </g>
-                                  </svg>
-                                </div>
-                              );
+                              return <TouchingPlaneDiagram centerLabel={data.center} equation={data.equation} />;
                             } catch (e) {
                               return <pre>{children}</pre>;
                             }
