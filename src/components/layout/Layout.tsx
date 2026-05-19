@@ -18,9 +18,9 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 
   const navItems = [
     { name: 'Home', path: '/', icon: HomeIcon },
-    { name: 'Grade 10', path: '/grade/10', icon: GraduationCap },
-    { name: 'Grade 11', path: '/grade/11', icon: GraduationCap },
-    { name: 'Grade 12', path: '/grade/12', icon: GraduationCap },
+    { name: 'Grade 10', path: '/lessons/10', icon: GraduationCap },
+    { name: 'Grade 11', path: '/lessons/11', icon: GraduationCap },
+    { name: 'Grade 12', path: '/lessons/12', icon: GraduationCap },
     { name: 'Past Papers', path: '/past-papers', icon: FileText },
   ];
 
@@ -199,7 +199,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
         <div className="flex justify-between items-center max-w-sm mx-auto">
           {[
             { id: 'home', icon: HomeIcon, path: '/', label: 'Home' },
-            { id: 'grade12', icon: GraduationCap, path: '/grade/12', label: 'Lessons' },
+            { id: 'grade12', icon: GraduationCap, path: '/lessons/12', label: 'Lessons' },
             { id: 'papers', icon: FileText, path: '/past-papers', label: 'Papers' },
             { id: 'profile', icon: User, path: '/profile', label: 'Account' },
           ].map((item) => (
@@ -240,9 +240,9 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
             <div>
               <h4 className="font-bold text-slate-900 mb-6 uppercase tracking-wider text-xs">Curriculum</h4>
               <ul className="space-y-4 text-sm font-medium text-slate-500">
-                <li><Link to="/grade/10" className="hover:text-blue-600 transition-colors">Grade 10</Link></li>
-                <li><Link to="/grade/11" className="hover:text-blue-600 transition-colors">Grade 11</Link></li>
-                <li><Link to="/grade/12" className="hover:text-blue-600 transition-colors">Grade 12</Link></li>
+                <li><Link to="/lessons/10" className="hover:text-blue-600 transition-colors">Grade 10</Link></li>
+                <li><Link to="/lessons/11" className="hover:text-blue-600 transition-colors">Grade 11</Link></li>
+                <li><Link to="/lessons/12" className="hover:text-blue-600 transition-colors">Grade 12</Link></li>
                 <li><Link to="/past-papers" className="hover:text-blue-600 transition-colors">Past Papers</Link></li>
               </ul>
             </div>

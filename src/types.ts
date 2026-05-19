@@ -40,6 +40,7 @@ export interface Lesson {
   chapter_id: string;
   title: string;
   type: 'theory' | 'exercise' | 'summary' | 'formula';
+  chapter?: string; // NEW FIELD: "Chapter 1: Vectors"
   content: string;
   order_index: number;
   created_at?: string;
@@ -70,8 +71,15 @@ export interface PastPaper {
   title: string;
   pdf_url: string;
   answer_pdf_url: string | null;
-  section: 'A' | 'B' | 'C' | 'D' | 'Full Paper';
-  content?: string; // Markdown content for interactive papers
+  section: 'A' | 'Section A Multiple Choice' | 'B' | 'C' | 'D' | 'Full Paper';
+  chapter?: string; // NEW FIELD: "Chapter 1: Vectors"
+  /** Corresponds to question_text in Data Entry Spec */
+  content?: string; 
+  /** Corresponds to solution_text in Data Entry Spec */
+  solution_content?: string; 
+  question_type?: 'MCQ' | 'LongForm';
+  options?: { id: string; text: string }[];
+  correct_answer_id?: string;
 }
 
 export interface Progress {

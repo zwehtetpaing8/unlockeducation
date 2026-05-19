@@ -45,15 +45,20 @@ CREATE TABLE lessons (
 
 -- 5. Past Papers
 CREATE TABLE past_papers (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  id TEXT PRIMARY KEY, -- Changed to TEXT to support custom IDs like 2026A_Q01
   year INTEGER NOT NULL,
   subject TEXT NOT NULL,
   grade_level INTEGER NOT NULL,
   title TEXT NOT NULL,
   pdf_url TEXT NOT NULL,
   answer_pdf_url TEXT,
-  explanation TEXT,
-  section TEXT DEFAULT 'Full Paper' CHECK (section IN ('A', 'B', 'C', 'D', 'Full Paper')),
+  chapter TEXT, -- NEW FIELD: "Chapter 1: Vectors"
+  content TEXT, -- Markdown question text
+  solution_content TEXT, -- Markdown solution text
+  question_type TEXT DEFAULT 'LongForm', -- 'MCQ' or 'LongForm'
+  options JSONB, -- Array of {id, text}
+  correct_answer_id TEXT, -- ID of the correct option
+  section TEXT DEFAULT 'Full Paper' CHECK (section IN ('A', 'Section A Multiple Choice', 'B', 'C', 'D', 'Full Paper')),
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
@@ -310,121 +315,9 @@ $$x^2 = -1$$
 သင်္ချာလောက၏ အကြီးကျယ်ဆုံးသော ရှာဖွေတွေ့ရှိမှုများသည် သာမန်အတွေးအခေါ်များ ရပ်တန့်သွားသည့် နေရာမှပင် စတင်လေ့ရှိပါသည်။', 1 
 FROM chapters WHERE grade_id = 12 AND chapter_number = 1;
 
--- 10. 2024 Interactive Past Paper
-INSERT INTO past_papers (year, subject, grade_level, title, pdf_url, section, content) VALUES
-(2024, 'Mathematics', 12, 'Section D Questions (Solved)', '', 'D', '# 2024 Matriculation Exam - Section D
-## Analytical Solid Geometry (Chapter 3)
+-- 10. 2026 Real Past Paper Data
+INSERT INTO past_papers (id, year, subject, grade_level, title, pdf_url, section, chapter, content, solution_content) VALUES
+('2026A_Q01', 2026, 'General Mathematics', 12, 'Complex Numbers - Division', '#', 'Section A Multiple Choice', 'Chapter 1: Complex Numbers', 
+ 'If $z_1=6-17i$, $z_2=3-bi$ and $z_1/z_2= 4-3i$, then $b$ is: \n\n (A) 1 \n (B) 2 \n (C) 3 \n (D) 4',
+ 'Given: \n $z_1 = 6 - 17i$ \n $z_2 = 3 - bi$ \n $\\frac{z_1}{z_2} = 4 - 3i$ \n\n We can write the relationship as: \n $z_1 = z_2(4 - 3i)$ \n\n Substitute the values: \n $6 - 17i = (3 - bi)(4 - 3i)$ \n\n Expand the right side: \n $$ \\begin{aligned} 6 - 17i &= 3(4) - 3(3i) - (bi)(4) + (bi)(3i) \\\\ 6 - 17i &= 12 - 9i - 4bi + 3bi^2 \\\\ 6 - 17i &= 12 - 9i - 4bi - 3b \\\\ 6 - 17i &= (12 - 3b) + (-9 - 4b)i \\end{aligned} $$ \n\n Equating the real parts: \n $$ \\begin{aligned} 6 &= 12 - 3b \\\\ 3b &= 6 \\\\ b &= 2 \\end{aligned} $$ \n\n (Equating imaginary parts for verification: $-17 = -9 - 4b \\implies 4b = 8 \\implies b = 2$) \n\n Therefore, the value of $b$ is **2**. \n\n Correct Option: **(B)**');
 
-```note
-{
-  "type": "definition",
-  "title": "Question 1",
-  "content": "Point $A$ has coordinates $(5,2,2)$ and the line $l$ passes through the points $(2,5,-1)$ and $(1,9,-3)$. Point $B$ lies on $l$ such that line $AB$ is perpendicular to $l$. Find the distance between points $A$ and $B$."
-}
-```
-
-```note
-{
-  "type": "tip",
-  "title": "Solution",
-  "content": "Let $P$ be $(2,5,-1)$ and $Q$ be $(1,9,-3)$.\n\nThe direction vector of line $l$ is:\n$\\langle l \\rangle = \\langle PQ \\rangle = \\langle 1-2, 9-5, -3-(-1) \\rangle = \\langle -1, 4, -2 \\rangle$.\n\nSince point $B$ lies on $l$, its coordinates can be written using parameter $k$:\n$B = (2-k, 5+4k, -1-2k)$.\n\nThe vector $\\langle AB \\rangle$ is:\n$\\langle AB \\rangle = \\langle (2-k)-5, (5+4k)-2, (-1-2k)-2 \\rangle = \\langle -3-k, 3+4k, -3-2k \\rangle$.\n\nSince $AB \\perp l$, their dot product is zero:\n$\\langle AB \\rangle \\cdot \\langle l \\rangle = 0$\n$(-1)(-3-k) + (4)(3+4k) + (-2)(-3-2k) = 0$\n$3+k + 12+16k + 6+4k = 0$\n$21 + 21k = 0$\n$k = -1$.\n\nSubstitute $k = -1$ into $\\langle AB \\rangle$:\n$\\langle AB \\rangle = \\langle -3-(-1), 3+4(-1), -3-2(-1) \\rangle = \\langle -2, -1, -1 \\rangle$.\n\nThe distance $AB$ is the magnitude of vector $\\langle AB \\rangle$:\n$AB = \\sqrt{(-2)^2 + (-1)^2 + (-1)^2} = \\sqrt{4+1+1} = \\sqrt{6}$."
-}
-```
-
-```note
-{
-  "type": "info",
-  "title": "Algorithm",
-  "content": "1. Write coordinates of $B$ using parameter $k$.\n2. Find direction vector of $l$.\n3. Form vector $\\langle AB \\rangle$.\n4. Apply orthogonality condition: $\\langle AB \\rangle \\cdot \\langle l \\rangle = 0$.\n5. Solve for $k$ and calculate distance."
-}
-```
-
----
-
-```note
-{
-  "type": "definition",
-  "title": "Question 2",
-  "content": "Find the equation of the sphere with center $(5,-6,-2)$ and touching the plane $3x-y-2z=17$."
-}
-```
-
-```note
-{
-  "type": "tip",
-  "title": "Solution",
-  "content": "The normal vector of the plane $\\langle 3, -1, -2 \\rangle$ is parallel to the radius $r$.\n\nThe perpendicular distance from center $(5, -6, -2)$ to the plane $3x - y - 2z - 17 = 0$ is the radius $r$:\n\n$r = \\frac{|3(5) - 1(-6) - 2(-2) - 17|}{\\sqrt{3^2 + (-1)^2 + (-2)^2}}$\n$r = \\frac{|15 + 6 + 4 - 17|}{\\sqrt{9 + 1 + 4}}$\n$r = \\frac{8}{\\sqrt{14}}$.\n\nThe equation of the sphere is:\n$(x-5)^2 + (y+6)^2 + (z+2)^2 = r^2$\n$(x-5)^2 + (y+6)^2 + (z+2)^2 = \\frac{64}{14} = \\frac{32}{7}$."
-}
-```
-
----
-
-```note
-{
-  "type": "definition",
-  "title": "Question 3",
-  "content": "Find the equation of the sphere with center $(1,2,-1)$ and touching the plane $2x+y+z-9=0$."
-}
-```
-
-```note
-{
-  "type": "tip",
-  "title": "Solution",
-  "content": "Radius $r = \\frac{|2(1) + 1(2) + 1(-1) - 9|}{\\sqrt{2^2 + 1^2 + 1^2}}$\n$r = \\frac{|2 + 2 - 1 - 9|}{\\sqrt{6}} = \\frac{|-6|}{\\sqrt{6}} = \\frac{6}{\\sqrt{6}} = \\sqrt{6}$.\n\nEquation:\n$(x-1)^2 + (y-2)^2 + (z+1)^2 = (\\sqrt{6})^2$\n$(x-1)^2 + (y-2)^2 + (z+1)^2 = 6$."
-}
-```
-
----
-
-```note
-{
-  "type": "definition",
-  "title": "Question 4",
-  "content": "Find the equation of the sphere with center $(0,2,0)$ and touching the plane $2x-4y+4z+10=0$."
-}
-```
-
-```note
-{
-  "type": "tip",
-  "title": "Solution",
-  "content": "Radius $r = \\frac{|2(0) - 4(2) + 4(0) + 10|}{\\sqrt{2^2 + (-4)^2 + 4^2}}$\n$r = \\frac{|-8 + 10|}{\\sqrt{4 + 16 + 16}} = \\frac{2}{\\sqrt{36}} = \\frac{2}{6} = \\frac{1}{3}$.\n\nEquation:\n$x^2 + (y-2)^2 + z^2 = (1/3)^2$\n$x^2 + (y-2)^2 + z^2 = 1/9$."
-}
-```
-
----
-
-```note
-{
-  "type": "definition",
-  "title": "Question 5",
-  "content": "Find the equation of the sphere with center $(3,6,-4)$ and touching the plane $2x-2y-z-10=0$."
-}
-```
-
-```note
-{
-  "type": "tip",
-  "title": "Solution",
-  "content": "Radius $r = \\frac{|2(3) - 2(6) - 1(-4) - 10|}{\\sqrt{2^2 + (-2)^2 + (-1)^2}}$\n$r = \\frac{|6 - 12 + 4 - 10|}{\\sqrt{9}} = \\frac{|-12|}{3} = 4$.\n\nEquation:\n$(x-3)^2 + (y-6)^2 + (z+4)^2 = 16$."
-}
-```
-
----
-
-```note
-{
-  "type": "definition",
-  "title": "Question 6",
-  "content": "Find the equation of the sphere with center $(1,2,-1)$ and touching the plane $2x+y+z=5$."
-}
-```
-
-```note
-{
-  "type": "tip",
-  "title": "Solution",
-  "content": "Radius $r = \\frac{|2(1) + 1(2) + 1(-1) - 5|}{\\sqrt{2^2 + 1^2 + 1^2}}$\n$r = \\frac{|2 + 2 - 1 - 5|}{\\sqrt{6}} = \\frac{2}{\\sqrt{6}}$.\n\nEquation:\n$(x-1)^2 + (y-2)^2 + (z+1)^2 = (2/\\sqrt{6})^2$\n$(x-1)^2 + (y-2)^2 + (z+1)^2 = 4/6 = 2/3$."
-}
-```');

@@ -87,6 +87,42 @@ export const curriculumService = {
   },
 
   /**
+   * Fetches all lessons for all chapters in a specific grade level
+   */
+  async getAllLessonsByGrade(gradeId: string | number): Promise<Lesson[]> {
+    // 1. Get all chapters for this grade
+    const chapters = await this.getChaptersByGrade(gradeId);
+    const chapterIds = chapters.map(c => c.id);
+
+    if (chapterIds.length === 0) return [];
+
+    // 2. Fetch all lessons belonging to these chapters
+    const { data, error } = await supabase
+      .from('lessons')
+      .select('*')
+      .in('chapter_id', chapterIds)
+      .order('order_index', { ascending: true });
+
+    if (error) {
+      console.error('Error fetching all lessons:', error);
+      return [];
+    }
+
+    let lessons = data || [];
+
+    // 3. Handle Mock Data for Grade 12
+    if (gradeId.toString() === '12') {
+      const mockLessonsC1 = await this.getLessonsByChapter('chapter-c1-g12');
+      // Merge and ensure no duplicates if they already exist in DB
+      const existingIds = new Set(lessons.map(l => l.id));
+      const filteredMock = mockLessonsC1.filter(l => !existingIds.has(l.id));
+      lessons = [...filteredMock, ...lessons];
+    }
+
+    return lessons;
+  },
+
+  /**
    * Fetches lessons for a specific chapter
    */
   async getLessonsByChapter(chapterId: string): Promise<Lesson[]> {

@@ -15,6 +15,7 @@ import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import Auth from './pages/Auth';
 import GradeDetail from './pages/GradeDetail';
+import Lessons from './pages/Lessons';
 import ChapterDetail from './pages/ChapterDetail';
 import LessonDetail from './pages/LessonDetail';
 import QuizPage from './pages/QuizPage';
@@ -44,6 +45,7 @@ export default function App() {
             
             {/* Student Routes */}
             <Route path="/grade/:level" element={<GradeDetail />} />
+            <Route path="/lessons/:level" element={<Lessons />} />
             <Route path="/grade/:level/chapter/:chapterId" element={<ChapterDetail />} />
             <Route path="/grade/:level/chapter/:chapterId/lesson/:lessonId" element={<ProtectedRoute><LessonDetail /></ProtectedRoute>} />
             <Route path="/lesson/:lessonId" element={<ProtectedRoute><LessonDetail /></ProtectedRoute>} />
