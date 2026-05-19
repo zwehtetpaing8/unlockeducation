@@ -99,7 +99,21 @@ const SECTION_D_QUESTIONS: Question[] = [
     title: "Question 1 (2025)",
     tag: "Line Distance",
     question: "Point $A$ has coordinates $(7,-1,8)$ and line $l$ is defined by the Cartesian equation $\\frac{x-3}{1}=\\frac{y+1}{2}=z$. Point $B$ lies on $l$ such that line $AB$ is perpendicular to $l$. Find the distance between $A$ and $B$.",
-    solution: "$A=(7,-1,8)$.\\n\\nCartesian equation of the line $l$ is $\\\\frac{x-3}{1}=\\\\frac{y+1}{2}=z.$\\n\\nThus, the directed values of line $l$ are $\\\\langle l\\\\rangle=\\\\langle 1,2,1\\\\rangle.$\\n\\nSince point $B$ lies on $l$, $B=(x,y,z)=(3+k,-1+2k,k)$ for some real number $k$.\\n\\nTherefore, $\\\\langle AB\\\\rangle=\\\\langle k-4,2k,k-8\\\\rangle.$\\n\\nSince $AB\\\\bot l$,\\n$$\\\\begin{aligned} (k-4)+2(2k)+(k-8)&=0\\\\ 6k-12&=0\\\\ k&=2. \\\\end{aligned}$$\\n\\nThe distance between $A$ and $B$ is\\n$$\\\\begin{aligned} AB&=\\\\sqrt{(k-4)^2+(2k)^2+(k-8)^2}\\\\ &=\\\\sqrt{(2-4)^2+4^2+(2-8)^2}\\\\ &=\\\\sqrt{4+16+36}\\\\ &=2\\\\sqrt{14}. \\\\end{aligned}$$",
+    solution: `$A=(7,-1,8)$.
+
+Cartesian equation of the line $l$ is $\\frac{x-3}{1}=\\frac{y+1}{2}=z.$
+
+Thus, the directed values of line $l$ are $\\langle l\\rangle=\\langle 1,2,1\\rangle.$
+
+Since point $B$ lies on $l$, $B=(x,y,z)=(3+k,-1+2k,k)$ for some real number $k$.
+
+Therefore, $\\langle AB\\rangle=\\langle k-4,2k,k-8\\rangle.$
+
+Since $AB\\bot l$,
+$$\\begin{aligned} (k-4)+2(2k)+(k-8)&=0\\\\ 6k-12&=0\\\\ k&=2. \\end{aligned}$$
+
+The distance between $A$ and $B$ is
+$$\\begin{aligned} AB&=\\sqrt{(k-4)^2+(2k)^2+(k-8)^2}\\\\ &=\\sqrt{(2-4)^2+4^2+(2-8)^2}\\\\ &=\\sqrt{4+16+36}\\\\ &=2\\sqrt{14}. \\end{aligned}$$`,
     algorithm: [
       "From the Cartesian equation of line $l$, find the directed values of line $l$, $\\langle l\\rangle$.",
       "Since $B$ lies on line $l$, write the coordinates of $B$ using a parameter $k$.",
@@ -113,7 +127,22 @@ const SECTION_D_QUESTIONS: Question[] = [
     title: "Question 2 (2025)",
     tag: "Perpendicular Lines",
     question: "Find the equation of the line passing through the point $(-1,5,4)$ and perpendicular to the line $(x,y,z)=(1+2k,-2+k,1-k)$. Find also the point of intersection of two lines.",
-    solution: "Let $A=(-1,5,4)$. The given line is $(x,y,z)=(1+2k,-2+k,1-k)$.\\n\\nThus, the directed values of this line are $\\\\langle l_1\\\\rangle=\\\\langle 2,1,-1\\\\rangle.$\\n\\nLet $B$ be the point of intersection of the two lines. Since $B$ lies on $l_1$, $B=(1+2k,-2+k,1-k)$ for some real number $k$.\\n\\nTherefore, the directed values of the required line are $\\\\langle AB\\\\rangle=\\\\langle 2+2k,-7+k,-3-k\\\\rangle.$\\n\\nSince the two lines are perpendicular,\\n$$\\\\begin{aligned} \\\\langle AB\\\\rangle\\\\cdot\\\\langle l_1\\\\rangle&=0\\\\ 2(2+2k)+(-7+k)-(-3-k)&=0\\\\ 6k&=0\\\\ k&=0. \\\\end{aligned}$$\\n\\nSo the point of intersection is $B=(1,-2,1)$.\\n\\nThe directed values of the required line are $\\\\langle AB\\\\rangle=\\\\langle 2,-7,-3\\\\rangle.$\\n\\nTherefore, the equation of the required line is $(x,y,z)=(-1+2t,5-7t,4-3t), \\\\quad t\\\\in\\\\mathbf{R}$.",
+    solution: `Let $A=(-1,5,4)$. The given line is $(x,y,z)=(1+2k,-2+k,1-k)$.
+
+Thus, the directed values of this line are $\\langle l_1\\rangle=\\langle 2,1,-1\\rangle.$
+
+Let $B$ be the point of intersection of the two lines. Since $B$ lies on $l_1$, $B=(1+2k,-2+k,1-k)$ for some real number $k$.
+
+Therefore, the directed values of the required line are $\\langle AB\\rangle=\\langle 2+2k,-7+k,-3-k\\rangle.$
+
+Since the two lines are perpendicular,
+$$\\begin{aligned} \\langle AB\\rangle\\cdot\\langle l_1\\rangle&=0\\\\ 2(2+2k)+(-7+k)-(-3-k)&=0\\\\ 6k&=0\\\\ k&=0. \\end{aligned}$$
+
+So the point of intersection is $B=(1,-2,1)$.
+
+The directed values of the required line are $\\langle AB\\rangle=\\langle 2,-7,-3\\rangle.$
+
+Therefore, the equation of the required line is $(x,y,z)=(-1+2t,5-7t,4-3t), \\quad t\\in\\mathbf{R}$.`,
     algorithm: [
       "Find the directed values of the given line.",
       "Let the point of intersection be $B$, a general point on the given line.",
@@ -128,7 +157,18 @@ const SECTION_D_QUESTIONS: Question[] = [
     tag: "Sphere & Plane",
     question: "Find the equation of the sphere with center $(2,2,2)$ and touching the plane $x-2y+2z+5=0$.",
     diagramData: { center: "2,2,2", equation: "x-2y+2z+5=0" },
-    solution: "Directed values of the line (radius) passing through the center $(2,2,2)$ and perpendicular to the plane $x-2y+2z+5=0$ are $\\\\langle 1,-2,2\\\\rangle.$\\n\\nCoordinates of the points on this line (radius) are $(x,y,z)=(2+k,2-2k,2+2k)$ for some real number $k$.\\n\\nIf one of these points is on the plane,\\n$$\\\\begin{aligned} (2+k)-2(2-2k)+2(2+2k)+5&=0\\\\ 9k+7&=0\\\\ k&=-\\\\frac{7}{9}. \\\\end{aligned}$$\\n\\nSo the touching point is $(\\\\frac{11}{9},\\\\frac{32}{9},\\\\frac{4}{9})$.\\n\\nThe radius of the sphere is $r = \\\\frac{7}{3}.$\\n\\nTherefore, the equation of the sphere is $(x-2)^2+(y-2)^2+(z-2)^2=\\\\frac{49}{9}$.",
+    solution: `Directed values of the line (radius) passing through the center $(2,2,2)$ and perpendicular to the plane $x-2y+2z+5=0$ are $\\langle 1,-2,2\\rangle.$
+
+Coordinates of the points on this line (radius) are $(x,y,z)=(2+k,2-2k,2+2k)$ for some real number $k$.
+
+If one of these points is on the plane,
+$$\\begin{aligned} (2+k)-2(2-2k)+2(2+2k)+5&=0\\\\ 9k+7&=0\\\\ k&=-\\frac{7}{9}. \\end{aligned}$$
+
+So the touching point is $(\\frac{11}{9},\\frac{32}{9},\\frac{4}{9})$.
+
+The radius of the sphere is $r = \\frac{7}{3}.$
+
+Therefore, the equation of the sphere is $(x-2)^2+(y-2)^2+(z-2)^2=\\frac{49}{9}$.`,
     algorithm: [
       "Since the sphere touches the plane, the radius is perpendicular to the plane.",
       "Use the plane normal vector $\\langle 1,-2,2\\rangle$ as the radius direction.",
@@ -143,7 +183,18 @@ const SECTION_D_QUESTIONS: Question[] = [
     tag: "Sphere & Plane",
     question: "Find the equation of the sphere with center $(2,1,-1)$ and touching the plane $x+3y+2z-17=0$.",
     diagramData: { center: "2,1,-1", equation: "x+3y+2z-17=0" },
-    solution: "Directed values of the line (radius) passing through the center $(2,1,-1)$ and perpendicular to the plane $x+3y+2z-17=0$ are $\\\\langle 1,3,2\\\\rangle.$\\n\\nCoordinates of the points on this line (radius) are $(x,y,z)=(2+k,1+3k,-1+2k)$ for some real number $k$.\\n\\nIf one of these points is on the plane,\\n$$\\\\begin{aligned} (2+k)+3(1+3k)+2(-1+2k)-17&=0\\\\ 14k-14&=0\\\\ k&=1. \\\\end{aligned}$$\\n\\nSo the tangential point of the plane and the sphere is $(3,4,1).$\\n\\nThe radius is $r = \\\\sqrt{(3-2)^2+(4-1)^2+(1+1)^2} = \\\\sqrt{14}.$\\n\\nTherefore, the equation of the sphere is $(x-2)^2+(y-1)^2+(z+1)^2=14$.",
+    solution: `Directed values of the line (radius) passing through the center $(2,1,-1)$ and perpendicular to the plane $x+3y+2z-17=0$ are $\\langle 1,3,2\\rangle.$
+
+Coordinates of the points on this line (radius) are $(x,y,z)=(2+k,1+3k,-1+2k)$ for some real number $k$.
+
+If one of these points is on the plane,
+$$\\begin{aligned} (2+k)+3(1+3k)+2(-1+2k)-17&=0\\\\ 14k-14&=0\\\\ k&=1. \\end{aligned}$$
+
+So the tangential point of the plane and the sphere is $(3,4,1).$
+
+The radius is $r = \\sqrt{(3-2)^2+(4-1)^2+(1+1)^2} = \\sqrt{14}.$
+
+Therefore, the equation of the sphere is $(x-2)^2+(y-1)^2+(z+1)^2=14$.`,
     algorithm: [
       "Since the sphere touches the plane, the radius is perpendicular to the plane.",
       "Use the plane normal vector $\\langle 1,3,2\\rangle$ as the radius direction.",
@@ -158,7 +209,18 @@ const SECTION_D_QUESTIONS: Question[] = [
     tag: "Sphere & Plane",
     question: "Find the equation of the sphere with center $(0,1,0)$ and touching the plane $x+2y-2z=11$.",
     diagramData: { center: "0,1,0", equation: "x+2y-2z=11" },
-    solution: "Directed values of the line (radius) passing through the center $(0,1,0)$ and perpendicular to the plane $x+2y-2z=11$ are $\\\\langle 1,2,-2\\\\rangle.$\\n\\nCoordinates of the points on this line (radius) are $(x,y,z)=(k,1+2k,-2k)$ for some real number $k$.\\n\\nIf one of these points is on the plane,\\n$$\\\\begin{aligned} k+2(1+2k)-2(-2k)&=11\\\\ 9k+2&=11\\\\ k&=1. \\\\end{aligned}$$\\n\\nSo the tangential point of the plane and the sphere is $(1,3,-2).$\\n\\nThe radius is $r = \\\\sqrt{(1-0)^2+(3-1)^2+(-2-0)^2} = 3.\\n\\nTherefore, the equation of the sphere is $x^2+(y-1)^2+z^2=9$.",
+    solution: `Directed values of the line (radius) passing through the center $(0,1,0)$ and perpendicular to the plane $x+2y-2z=11$ are $\\langle 1,2,-2\\rangle.$
+
+Coordinates of the points on this line (radius) are $(x,y,z)=(k,1+2k,-2k)$ for some real number $k$.
+
+If one of these points is on the plane,
+$$\\begin{aligned} k+2(1+2k)-2(-2k)&=11\\\\ 9k+2&=11\\\\ k&=1. \\\\end{aligned}$$
+
+So the tangential point of the plane and the sphere is $(1,3,-2).$
+
+The radius is $r = \\sqrt{(1-0)^2+(3-1)^2+(-2-0)^2} = 3.
+
+Therefore, the equation of the sphere is $x^2+(y-1)^2+z^2=9$.`,
     algorithm: [
       "Since the sphere touches the plane, the radius is perpendicular to the plane.",
       "Use the plane normal vector $\\langle 1,2,-2\\rangle$ as the radius direction.",
@@ -173,7 +235,18 @@ const SECTION_D_QUESTIONS: Question[] = [
     tag: "Sphere & Plane",
     question: "Find the equation of the sphere with center $(1,1,2)$ and touching the plane $2x-2y+z=5$.",
     diagramData: { center: "1,1,2", equation: "2x-2y+z=5" },
-    solution: "Directed values of the line (radius) passing through the center $(1,1,2)$ and perpendicular to the plane $2x-2y+z=5$ are $\\\\langle 2,-2,1\\\\rangle.$\\n\\nCoordinates of the points on this line (radius) are $(x,y,z)=(1+2k,1-2k,2+k)$ for some real number $k$.\\n\\nIf one of these points is on the plane,\\n$$\\\\begin{aligned} 2(1+2k)-2(1-2k)+(2+k)&=5\\\\ 9k+2&=5\\\\ k&=\\\\frac{1}{3}. \\\\end{aligned}$$\\n\\nSo the tangential point of the plane and the sphere is $(\\\\frac{5}{3},\\\\frac{1}{3},\\\\frac{7}{3}).$\\n\\nThe radius is $r = \\\\sqrt{(\\\\frac{5}{3}-1)^2+(\\\\frac{1}{3}-1)^2+(\\\\frac{7}{3}-2)^2} = 1.\\n\\nTherefore, the equation of the sphere is $(x-1)^2+(y-1)^2+(z-2)^2=1$.",
+    solution: `Directed values of the line (radius) passing through the center $(1,1,2)$ and perpendicular to the plane $2x-2y+z=5$ are $\\langle 2,-2,1\\rangle.$
+
+Coordinates of the points on this line (radius) are $(x,y,z)=(1+2k,1-2k,2+k)$ for some real number $k$.
+
+If one of these points is on the plane,
+$$\\begin{aligned} 2(1+2k)-2(1-2k)+(2+k)&=5\\\\ 9k+2&=5\\\\ k&=\\frac{1}{3}. \\\\end{aligned}$$
+
+So the tangential point of the plane and the sphere is $(\\frac{5}{3},\\frac{1}{3},\\frac{7}{3}).$
+
+The radius is $r = \\sqrt{(\\frac{5}{3}-1)^2+(\\frac{1}{3}-1)^2+(\\frac{7}{3}-2)^2} = 1.
+
+Therefore, the equation of the sphere is $(x-1)^2+(y-1)^2+(z-2)^2=1$.`,
     algorithm: [
       "Since the sphere touches the plane, the radius is perpendicular to the plane.",
       "Use the plane normal vector $\\langle 2,-2,1\\rangle$ as the radius direction.",
@@ -188,7 +261,18 @@ const SECTION_D_QUESTIONS: Question[] = [
     tag: "Sphere & Plane",
     question: "Find the equation of the sphere with center $(1,1,1)$ and touching the plane $x-2y+2z+5=0$.",
     diagramData: { center: "1,1,1", equation: "x-2y+2z+5=0" },
-    solution: "Directed values of the line (radius) passing through the center $(1,1,1)$ and perpendicular to the plane $x-2y+2z+5=0$ are $\\\\langle 1,-2,2\\\\rangle.$\\n\\nCoordinates of the points on this line (radius) are $(x,y,z)=(1+k,1-2k,1+2k)$ for some real number $k$.\\n\\nIf one of these points is on the plane,\\n$$\\\\begin{aligned} (1+k)-2(1-2k)+2(1+2k)+5&=0\\\\ 9k+6&=0\\\\ k&=-\\\\frac{2}{3}. \\\\end{aligned}$$\\n\\nSo the tangential point of the plane and the sphere is $(\\\\frac{1}{3},\\\\frac{7}{3},-\\\\frac{1}{3}).$\\n\\nThe radius is $r = \\\\sqrt{(\\\\frac{1}{3}-1)^2+(\\\\frac{7}{3}-1)^2+(-\\\\frac{1}{3}-1)^2} = 2.\\n\\nTherefore, the equation of the sphere is $(x-1)^2+(y-1)^2+(z-1)^2=4$.",
+    solution: `Directed values of the line (radius) passing through the center $(1,1,1)$ and perpendicular to the plane $x-2y+2z+5=0$ are $\\langle 1,-2,2\\rangle.$
+
+Coordinates of the points on this line (radius) are $(x,y,z)=(1+k,1-2k,1+2k)$ for some real number $k$.
+
+If one of these points is on the plane,
+$$\\begin{aligned} (1+k)-2(1-2k)+2(1+2k)+5&=0\\\\ 9k+6&=0\\\\ k&=-\\frac{2}{3}. \\\\end{aligned}$$
+
+So the tangential point of the plane and the sphere is $(\\frac{1}{3},\\frac{7}{3},-\\frac{1}{3}).$
+
+The radius is $r = \\sqrt{(\\frac{1}{3}-1)^2+(\\frac{7}{3}-1)^2+(-\\frac{1}{3}-1)^2} = 2.
+
+Therefore, the equation of the sphere is $(x-1)^2+(y-1)^2+(z-1)^2=4$.`,
     algorithm: [
       "Since the sphere touches the plane, the radius is perpendicular to the plane.",
       "Use the plane normal vector $\\langle 1,-2,2\\rangle$ as the radius direction.",
@@ -202,7 +286,20 @@ const SECTION_D_QUESTIONS: Question[] = [
     title: "Question 8 (2024)",
     tag: "Line Distance",
     question: "Point $A$ has coordinates $(5,2,2)$ and the line $l$ passes through the points $(2,5,-1)$ and $(1,9,-3)$. Point $B$ lies on $l$ such that line $AB$ is perpendicular to $l$. Find the distance between points $A$ and $B$.",
-    solution: "$A=(5,2,2)$.\\n\\nLet $P$ be the point $(2,5,-1)$ and $Q$ be the point $(1,9,-3)$.\\n$$\\\\langle l\\\\rangle = \\\\langle PQ\\\\rangle = \\\\langle -1,4,-2\\\\rangle.$$\\n\\nSince point $B$ lies on $l$, $B=(x,y,z)=(2-k,5+4k,-1-2k)$ for some real number $k$.\\n\\nTherefore, $\\\\langle AB\\\\rangle=\\\\langle 3+k,-3-4k,3+2k\\\\rangle$.\\n\\nSince $AB \\\\bot l$,\\n$$\\\\begin{aligned} -3-k-12-16k-6-4k&=0\\\\ k&=-1 \\\\end{aligned}$$\\n\\nThe distance between $A$ and $B$ is\\n$$\\\\begin{aligned} AB&=\\\\sqrt{(3+k)^2+(-3-4k)^2+(3+2k)^2}\\\\ &=\\\\sqrt{(3-1)^2+(-3+4)^2+(3-2)^2}\\\\ &=\\\\sqrt{2^2+1^2+1^2}\\\\ &=\\\\sqrt{6}. \\\\end{aligned}$$",
+    solution: `$A=(5,2,2)$.
+
+Let $P$ be the point $(2,5,-1)$ and $Q$ be the point $(1,9,-3)$.
+$$\\langle l\\rangle = \\langle PQ\\rangle = \\langle -1,4,-2\\rangle.$$
+
+Since point $B$ lies on $l$, $B=(x,y,z)=(2-k,5+4k,-1-2k)$ for some real number $k$.
+
+Therefore, $\\langle AB\\rangle=\\langle 3+k,-3-4k,3+2k\\rangle$.
+
+Since $AB \\bot l$,
+$$\\begin{aligned} -3-k-12-16k-6-4k&=0\\\\ k&=-1 \\\\end{aligned}$$
+
+The distance between $A$ and $B$ is
+$$\\begin{aligned} AB&=\\sqrt{(3+k)^2+(-3-4k)^2+(3+2k)^2}\\\\ &=\\sqrt{(3-1)^2+(-3+4)^2+(3-2)^2}\\\\ &=\\sqrt{2^2+1^2+1^2}\\\\ &=\\sqrt{6}. \\\\end{aligned}$$`,
     algorithm: [
       "Since $B$ lies on line $l$, write the coordinates of $B$ using a parameter $k$.",
       "Find the direction vector of line $l$ from the two given points.",
@@ -217,7 +314,16 @@ const SECTION_D_QUESTIONS: Question[] = [
     tag: "Sphere & Plane",
     question: "Find the equation of the sphere with center $(5,-6,-2)$ and touching the plane $3x-y-2z=17$.",
     diagramData: { center: "5,-6,-2", equation: "3x-y-2z=17" },
-    solution: "Directed values of the line (radius) passes through the center $(5,-6,-2)$ and perpendicular to the plane $3x-y-2z=17$ are $\\\\langle 3,-1,-2\\\\rangle.$\\n\\nCoordinates of the points on this line (radius) are $(x,y,z)=(5+3k,-6-k,-2-2k)$ for some real number $k$.\\n\\nIf one of these points is on the plane,\\n$$\\\\begin{aligned} 3(5+3k)-(-6-k)-2(-2-2k)&=17\\\\ 15+9k+6+k+4+4k&=17\\\\ 14k+25&=17\\\\ 14k&=-8\\\\ k&=-4/7. \\\\end{aligned}$$\\n\\nThe radius is $r = \\\\frac{4\\\\sqrt{14}}{7}$.\\n\\nEquation: $(x-5)^2+(y+6)^2+(z+2)^2=\\\\frac{32}{7}$.",
+    solution: `Directed values of the line (radius) passes through the center $(5,-6,-2)$ and perpendicular to the plane $3x-y-2z=17$ are $\\langle 3,-1,-2\\rangle.$
+
+Coordinates of the points on this line (radius) are $(x,y,z)=(5+3k,-6-k,-2-2k)$ for some real number $k$.
+
+If one of these points is on the plane,
+$$\\begin{aligned} 3(5+3k)-(-6-k)-2(-2-2k)&=17\\\\ 15+9k+6+k+4+4k&=17\\\\ 14k+25&=17\\\\ 14k&=-8\\\\ k&=-4/7. \\\\end{aligned}$$
+
+The radius is $r = \\frac{4\\sqrt{14}}{7}$.
+
+Equation: $(x-5)^2+(y+6)^2+(z+2)^2=\\frac{32}{7}$.`,
     algorithm: [
       "Since the sphere touches the plane, the radius is perpendicular to the plane.",
       "Use the plane normal vector $\\langle 3,-1,-2\\rangle$ as the radius direction.",
@@ -232,7 +338,11 @@ const SECTION_D_QUESTIONS: Question[] = [
     tag: "Sphere & Plane",
     question: "Find the equation of the sphere with center $(1,2,-1)$ and touching the plane $2x+y+z-9=0$.",
     diagramData: { center: "1,2,-1", equation: "2x+y+z-9=0" },
-    solution: "Normal vector $\\\\langle 2,1,1\\\\rangle$.\\nLine: $(1+2k, 2+k, -1+k)$.\\nSubstitute: $2(1+2k)+(2+k)+(-1+k)-9=0 \\\\implies 6k-6=0 \\\\implies k=1$.\\nRadius: $r = \\\\sqrt{2^2+1^2+1^2} = \\\\sqrt{6}$.\\nEquation: $(x-1)^2+(y-2)^2+(z+1)^2=6$.",
+    solution: `Normal vector $\\langle 2,1,1\\rangle$.
+Line: $(1+2k, 2+k, -1+k)$.
+Substitute: $2(1+2k)+(2+k)+(-1+k)-9=0 \\implies 6k-6=0 \\implies k=1$.
+Radius: $r = \\sqrt{2^2+1^2+1^2} = \\sqrt{6}$.
+Equation: $(x-1)^2+(y-2)^2+(z+1)^2=6$.`,
     algorithm: [
       "Since the sphere touches the plane, the radius is perpendicular to the plane.",
       "Use the plane normal vector $\\langle 2,1,1\\rangle$ as the radius direction.",
@@ -247,7 +357,11 @@ const SECTION_D_QUESTIONS: Question[] = [
     tag: "Sphere & Plane",
     question: "Find the equation of the sphere with center $(0,2,0)$ and touching the plane $2x-4y+4z+10=0$.",
     diagramData: { center: "0,2,0", equation: "2x-4y+4z+10=0" },
-    solution: "Normal vector $\\\\langle 2,-4,4\\\\rangle$.\\nLine: $(2k, 2-4k, 4k)$.\\nSubstitute: $2(2k)-4(2-4k)+4(4k)+10=0 \\\\implies 4k-8+16k+16k+10=0 \\\\implies 36k+2=0 \\\\implies k=-1/18$.\\nRadius: $r = \\\\sqrt{(2/18)^2+(4/18)^2+(4/18)^2} = \\\\sqrt{36/324} = 1/3$.\\nEquation: $x^2+(y-2)^2+z^2=1/9$.",
+    solution: `Normal vector $\\langle 2,-4,4\\rangle$.
+Line: $(2k, 2-4k, 4k)$.
+Substitute: $2(2k)-4(2-4k)+4(4k)+10=0 \\implies 4k-8+16k+16k+10=0 \\implies 36k+2=0 \\implies k=-1/18$.
+Radius: $r = \\sqrt{(2/18)^2+(4/18)^2+(4/18)^2} = \\sqrt{36/324} = 1/3$.
+Equation: $x^2+(y-2)^2+z^2=1/9$.`,
     algorithm: [
       "Since the sphere touches the plane, the radius is perpendicular to the plane.",
       "Use the plane normal vector $\\langle 2,-4,4\\rangle$ as the radius direction.",
@@ -262,7 +376,11 @@ const SECTION_D_QUESTIONS: Question[] = [
     tag: "Sphere & Plane",
     question: "Find the equation of the sphere with center $(3,6,-4)$ and touching the plane $2x-2y-z-10=0$.",
     diagramData: { center: "3,6,-4", equation: "2x-2y-z-10=0" },
-    solution: "Normal vector $\\\\langle 2,-2,-1\\\\rangle$.\\nLine: $(3+2k, 6-2k, -4-k)$.\\nSubstitute: $2(3+2k)-2(6-2k)-(-4-k)-10=0 \\\\implies 6+4k-12+4k+4+k-10=0 \\\\implies 9k-12=0 \\\\implies k=4/3$.\\nRadius: $r = \\\\sqrt{(8/3)^2+(-8/3)^2+(-4/3)^2} = \\\\sqrt{64/9+64/9+16/9} = \\\\sqrt{144/9} = 4$.\\nEquation: $(x-3)^2+(y-6)^2+(z+4)^2=16$.",
+    solution: `Normal vector $\\langle 2,-2,-1\\rangle$.
+Line: $(3+2k, 6-2k, -4-k)$.
+Substitute: $2(3+2k)-2(6-2k)-(-4-k)-10=0 \\implies 6+4k-12+4k+4+k-10=0 \\implies 9k-12=0 \\implies k=4/3$.
+Radius: $r = \\sqrt{(8/3)^2+(-8/3)^2+(-4/3)^2} = \\sqrt{64/9+64/9+16/9} = \\sqrt{144/9} = 4$.
+Equation: $(x-3)^2+(y-6)^2+(z+4)^2=16$.`,
     algorithm: [
       "Since the sphere touches the plane, the radius is perpendicular to the plane.",
       "Use the plane normal vector $\\langle 2,-2,-1\\rangle$ as the radius direction.",
@@ -277,7 +395,11 @@ const SECTION_D_QUESTIONS: Question[] = [
     tag: "Sphere & Plane",
     question: "Find the equation of the sphere with center $(1,2,-1)$ and touching the plane $2x+y+z=5$.",
     diagramData: { center: "1,2,-1", equation: "2x+y+z=5" },
-    solution: "Normal vector $\\\\langle 2,1,1\\\\rangle$.\\nLine: $(1+2k, 2+k, -1+k)$.\\nSubstitute: $2(1+2k)+(2+k)+(-1+k)=5 \\\\implies 6k+3=5 \\\\implies k=1/3$.\\nRadius: $r = \\\\sqrt{(2/3)^2+(1/3)^2+(1/3)^2} = \\\\sqrt{6}/3$.\\nEquation: $(x-1)^2+(y-2)^2+(z+1)^2=2/3$.",
+    solution: `Normal vector $\\langle 2,1,1\\rangle$.
+Line: $(1+2k, 2+k, -1+k)$.
+Substitute: $2(1+2k)+(2+k)+(-1+k)=5 \\implies 6k+3=5 \\implies k=1/3$.
+Radius: $r = \\sqrt{(2/3)^2+(1/3)^2+(1/3)^2} = \\sqrt{6}/3$.
+Equation: $(x-1)^2+(y-2)^2+(z+1)^2=2/3$.`,
     algorithm: [
       "Since the sphere touches the plane, the radius is perpendicular to the plane.",
       "Use the plane normal vector $\\langle 2,1,1\\rangle$ as the radius direction.",
