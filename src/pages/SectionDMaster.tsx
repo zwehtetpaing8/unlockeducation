@@ -514,17 +514,6 @@ const QuestionCard: React.FC<{ question: Question }> = ({ question }) => {
                     </ol>
                   </NoteCard>
                 </div>
-
-                {/* Verified Badge */}
-                <div className="pt-12 border-t border-slate-50 flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center text-green-500">
-                    <CheckCircle2 size={24} />
-                  </div>
-                  <div className="space-y-0.5">
-                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-900">Expert Verified</p>
-                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-300">New 2024 Standards</p>
-                  </div>
-                </div>
               </motion.div>
             )}
           </AnimatePresence>
