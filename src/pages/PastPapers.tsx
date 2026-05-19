@@ -10,6 +10,7 @@ import {
   Clock,
   BookOpen,
   ArrowRight,
+  ChevronDown,
   Download,
   Eye,
   EyeOff,
@@ -30,6 +31,7 @@ import 'katex/dist/katex.min.css';
 const QuestionBlock: React.FC<{ paper: PastPaper; index: number }> = ({ paper, index }) => {
   const [showSolution, setShowSolution] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [isOptionsOpen, setIsOptionsOpen] = useState(false);
   const isCorrect = selectedOption === paper.correct_answer_id;
 
   const handleOptionSelect = (optionId: string) => {
@@ -43,7 +45,10 @@ const QuestionBlock: React.FC<{ paper: PastPaper; index: number }> = ({ paper, i
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="bg-white border-y sm:border border-slate-100 rounded-none sm:rounded-[2rem] overflow-hidden hover:border-blue-200 transition-all shadow-sm flex flex-col"
+      className={cn(
+        "bg-white border-y sm:border border-slate-100 rounded-none sm:rounded-[2rem] hover:border-blue-200 transition-all shadow-sm flex flex-col relative",
+        isOptionsOpen ? "z-30" : "z-0"
+      )}
     >
       {/* Question Header */}
       <div className="p-4 md:p-8 flex flex-col sm:flex-row sm:items-center justify-between bg-white border-b border-slate-50 gap-4">
@@ -56,20 +61,13 @@ const QuestionBlock: React.FC<{ paper: PastPaper; index: number }> = ({ paper, i
               Question {index + 1}
             </h3>
             <p className="text-[9px] md:text-[10px] font-black text-slate-400 uppercase tracking-widest truncate">
-              {paper.year} <span className="mx-1.5 opacity-30">|</span> 
-              {paper.section} 
-              {paper.chapter && (
-                <>
-                  <span className="mx-1.5 opacity-30">|</span> 
-                  {paper.chapter.replace('Chapter ', 'Ch ')}
-                </>
-              )}
+              {paper.year} · {paper.section.toUpperCase().startsWith('SECTION') ? paper.section.toUpperCase().split(' ').slice(0, 2).join(' ') : `SECTION ${paper.section.toUpperCase()}`} · {paper.question_type} {paper.chapter && ` · CH${paper.chapter.match(/\d+/)?.[0] || ''}`}
             </p>
           </div>
         </div>
         <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
            <span className="px-2.5 py-1 bg-slate-50 border border-slate-100 rounded-lg text-[8px] md:text-[9px] font-black uppercase tracking-widest text-slate-500 whitespace-nowrap">
-             {paper.subject}
+             {paper.chapter}
            </span>
            {paper.question_type === 'MCQ' && (
              <span className="px-2.5 py-1 bg-blue-50 text-blue-600 rounded-lg text-[8px] md:text-[9px] font-black uppercase tracking-widest border border-blue-100 whitespace-nowrap">
@@ -82,7 +80,7 @@ const QuestionBlock: React.FC<{ paper: PastPaper; index: number }> = ({ paper, i
       {/* Question Content */}
       <div className="px-4 py-8 md:p-10 space-y-8">
         <div className="prose prose-slate max-w-none prose-p:leading-relaxed prose-p:text-slate-600 prose-headings:text-slate-900 prose-headings:font-black prose-headings:uppercase prose-headings:tracking-tight">
-          <div className="markdown-body text-lg font-medium leading-relaxed">
+          <div className="markdown-body text-lg font-medium leading-relaxed text-slate-900">
             <ReactMarkdown
               remarkPlugins={[remarkMath]}
               rehypePlugins={[[rehypeKatex, { output: 'htmlAndMathml', throwOnError: false }]]}
@@ -92,56 +90,83 @@ const QuestionBlock: React.FC<{ paper: PastPaper; index: number }> = ({ paper, i
           </div>
         </div>
 
-        {/* MCQ Options */}
+        {/* MCQ Dropdown Options */}
         {paper.question_type === 'MCQ' && paper.options && (
-          <div className="flex flex-col gap-3 sm:gap-4 mt-8">
-            {paper.options.map((option) => {
-              const isSelected = selectedOption === option.id;
-              const isOptionCorrect = option.id === paper.correct_answer_id;
-              
-              let buttonStyle = "bg-white border-slate-100 text-slate-700 hover:border-blue-200 hover:bg-blue-50/30";
-              
-              if (selectedOption) {
-                if (isOptionCorrect) {
-                  buttonStyle = "bg-emerald-500 border-emerald-500 text-white shadow-lg shadow-emerald-500/20";
-                } else if (isSelected) {
-                  buttonStyle = "bg-red-500 border-red-500 text-white shadow-lg shadow-red-500/20";
-                } else {
-                  buttonStyle = "bg-white border-slate-100 text-slate-300 opacity-50";
-                }
-              }
-
-              return (
-                <button
-                  key={option.id}
-                  onClick={() => handleOptionSelect(option.id)}
+          <div className="mt-8 space-y-3">
+             <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-2">
+                Your Answer Selection
+             </label>
+             <div className="relative">
+                <button 
+                  onClick={() => setIsOptionsOpen(!isOptionsOpen)}
                   disabled={!!selectedOption}
                   className={cn(
-                    "relative flex items-center gap-4 p-5 md:p-6 rounded-2xl border-2 transition-all text-left group w-full",
-                    buttonStyle
+                    "w-full flex items-center justify-between p-5 rounded-2xl border-2 transition-all text-left group",
+                    selectedOption 
+                      ? (isCorrect ? "bg-emerald-500 border-emerald-500 text-white shadow-lg shadow-emerald-500/20" : "bg-red-500 border-red-500 text-white shadow-lg shadow-red-500/20")
+                      : "bg-white border-slate-100 text-slate-900 hover:border-blue-200 hover:bg-slate-50/50"
                   )}
                 >
-                  <div className={cn(
-                    "w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center font-black text-xs md:text-sm shrink-0 transition-all",
-                    selectedOption && isOptionCorrect ? "bg-white/20 text-white" :
-                    selectedOption && isSelected && !isOptionCorrect ? "bg-white/20 text-white" :
-                    "bg-slate-50 group-hover:bg-blue-100 text-slate-400 group-hover:text-blue-600"
-                  )}>
-                    {option.id}
+                  <div className="flex items-center gap-4">
+                    <div className={cn(
+                      "w-10 h-10 rounded-xl flex items-center justify-center font-black text-sm",
+                      selectedOption ? "bg-white/20 text-white" : "bg-blue-600 text-white"
+                    )}>
+                      {selectedOption || '?'}
+                    </div>
+                    <span className="font-bold text-sm md:text-base uppercase tracking-tight">
+                      {selectedOption ? (isCorrect ? 'Correct Answer Selected' : 'Incorrect Answer') : 'Select the correct option...'}
+                    </span>
                   </div>
-                  <div className="flex-1 font-bold text-base md:text-lg leading-snug">
-                    <ReactMarkdown
-                      remarkPlugins={[remarkMath]}
-                      rehypePlugins={[[rehypeKatex, { output: 'htmlAndMathml', throwOnError: false }]]}
-                    >
-                      {option.text}
-                    </ReactMarkdown>
-                  </div>
+                  <ChevronDown className={cn("transition-transform duration-300", isOptionsOpen && "rotate-180")} size={20} />
                 </button>
-              );
-            })}
+
+                <AnimatePresence>
+                  {isOptionsOpen && !selectedOption && (
+                    <>
+                      {/* Invisible backdrop to close dropdown on click outside */}
+                      <div 
+                        className="fixed inset-0 z-10" 
+                        onClick={() => setIsOptionsOpen(false)}
+                      />
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.95, y: -10 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                        className="absolute z-20 left-0 right-0 mt-3 bg-white border border-slate-200 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden max-h-[400px] overflow-y-auto custom-scrollbar"
+                      >
+                        <div className="p-2 border-b border-slate-50 bg-slate-50/50">
+                          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-3 py-1">
+                            Choose the correct answer
+                          </p>
+                        </div>
+                        {paper.options.map((option) => (
+                          <button
+                            key={option.id}
+                            onClick={() => { handleOptionSelect(option.id); setIsOptionsOpen(false); }}
+                            className="w-full flex items-start gap-4 p-5 md:p-6 hover:bg-blue-50/80 transition-colors border-b border-slate-50 last:border-none text-left active:bg-blue-100/50 group"
+                          >
+                            <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center font-black text-slate-400 group-hover:text-blue-600 transition-colors shrink-0 mt-1">
+                              {option.id}
+                            </div>
+                            <div className="flex-1 font-bold text-base md:text-lg leading-snug pt-1 text-slate-700 group-hover:text-slate-900 transition-colors">
+                              <ReactMarkdown
+                                remarkPlugins={[remarkMath]}
+                                rehypePlugins={[[rehypeKatex, { output: 'htmlAndMathml', throwOnError: false }]]}
+                              >
+                                {option.text}
+                              </ReactMarkdown>
+                            </div>
+                          </button>
+                        ))}
+                      </motion.div>
+                    </>
+                  )}
+                </AnimatePresence>
+             </div>
           </div>
         )}
+
 
         <div className="pt-4 flex flex-col md:flex-row gap-4">
           <button
@@ -310,8 +335,7 @@ const PastPapers: React.FC = () => {
           transition={{ delay: 0.1 }}
           className="text-4xl md:text-7xl font-black text-slate-900 uppercase tracking-tighter leading-[0.85]"
         >
-          Past Paper <br />
-          <span className="text-blue-600">Mastery Library</span>
+          Past Papers
         </motion.h1>
         
         <motion.p 
@@ -329,36 +353,17 @@ const PastPapers: React.FC = () => {
         <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
           <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
             {/* Year Selector */}
-            <div className="overflow-x-auto no-scrollbar pb-2 md:pb-0">
-              <div className="flex items-center gap-2 md:bg-white md:p-1 md:rounded-2xl md:border md:border-slate-100">
-                <div className="hidden md:flex items-center px-4 py-2 text-xs font-black text-slate-400 uppercase tracking-widest border-r border-slate-50">
+            <div className="w-full md:w-auto">
+              <div className="flex items-center gap-2 bg-white p-1 rounded-2xl border border-slate-100">
+                <div className="flex items-center px-4 py-2 text-xs font-black text-slate-400 uppercase tracking-widest border-r border-slate-50 whitespace-nowrap">
                   <Calendar size={14} className="mr-2" /> Year
                 </div>
                 
-                {/* Mobile Tabs */}
-                <div className="flex md:hidden gap-2">
-                  {years.map(year => (
-                    <button
-                      key={year}
-                      onClick={() => setSelectedYear(year)}
-                      className={cn(
-                        "px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest whitespace-nowrap border transition-all",
-                        selectedYear === year 
-                          ? "bg-blue-600 text-white border-blue-600 shadow-lg" 
-                          : "bg-white text-slate-500 border-slate-100"
-                      )}
-                    >
-                      {year}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Desktop Dropdown */}
-                <div className="hidden md:block">
+                <div className="flex-1 md:block">
                   <select 
                     value={selectedYear}
                     onChange={(e) => setSelectedYear(e.target.value)}
-                    className="pl-4 pr-10 py-2 bg-transparent text-sm font-black uppercase tracking-widest text-slate-700 outline-none cursor-pointer appearance-none"
+                    className="w-full pl-4 pr-10 py-2 bg-transparent text-sm font-black uppercase tracking-widest text-slate-700 outline-none cursor-pointer appearance-none"
                   >
                     {years.map(y => <option key={y} value={y}>{y === 'All' ? 'Every Year' : y}</option>)}
                   </select>
@@ -367,38 +372,38 @@ const PastPapers: React.FC = () => {
             </div>
 
             {/* Chapter Selector */}
-            <div className="overflow-x-auto no-scrollbar pb-2 md:pb-0">
-              <div className="flex items-center gap-2 md:bg-white md:p-1 md:rounded-2xl md:border md:border-slate-100">
-                <div className="hidden md:flex items-center px-4 py-2 text-xs font-black text-slate-400 uppercase tracking-widest border-r border-slate-50">
+            <div className="w-full md:w-auto">
+              <div className="flex items-center gap-2 bg-white p-1 rounded-2xl border border-slate-100">
+                <div className="flex items-center px-4 py-2 text-xs font-black text-slate-400 uppercase tracking-widest border-r border-slate-50 whitespace-nowrap">
                   <BookOpen size={14} className="mr-2" /> Chapter
                 </div>
                 
-                {/* Mobile Scrollable Tabs for Chapters */}
-                <div className="flex md:hidden gap-2">
-                  {chapters.map(chapter => (
-                    <button
-                      key={chapter}
-                      onClick={() => setSelectedChapter(chapter)}
-                      className={cn(
-                        "px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest whitespace-nowrap border transition-all",
-                        selectedChapter === chapter 
-                          ? "bg-blue-600 text-white border-blue-600 shadow-lg" 
-                          : "bg-white text-slate-500 border-slate-100"
-                      )}
-                    >
-                      {chapter}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Desktop Dropdown */}
-                <div className="hidden md:block min-w-[150px]">
+                <div className="flex-1 md:block min-w-[150px]">
                   <select 
                     value={selectedChapter}
                     onChange={(e) => setSelectedChapter(e.target.value)}
                     className="w-full pl-4 pr-10 py-2 bg-transparent text-sm font-black uppercase tracking-widest text-slate-700 outline-none cursor-pointer appearance-none"
                   >
                     {chapters.map(c => <option key={c} value={c}>{c === 'All' ? 'All Chapters' : c}</option>)}
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            {/* Section Selector */}
+            <div className="w-full md:w-auto">
+              <div className="flex items-center gap-2 bg-white p-1 rounded-2xl border border-slate-100">
+                <div className="flex items-center px-4 py-2 text-xs font-black text-slate-400 uppercase tracking-widest border-r border-slate-50 whitespace-nowrap">
+                  <Filter size={14} className="mr-2" /> Section
+                </div>
+                
+                <div className="flex-1 md:block min-w-[150px]">
+                  <select 
+                    value={selectedSection}
+                    onChange={(e) => setSelectedSection(e.target.value)}
+                    className="w-full pl-4 pr-10 py-2 bg-transparent text-sm font-black uppercase tracking-widest text-slate-700 outline-none cursor-pointer appearance-none"
+                  >
+                    {sections.map(s => <option key={s.id} value={s.id}>{s.label}</option>)}
                   </select>
                 </div>
               </div>
@@ -416,27 +421,6 @@ const PastPapers: React.FC = () => {
               className="w-full pl-12 pr-4 py-3.5 bg-white border border-slate-100 rounded-2xl text-sm font-bold text-slate-900 placeholder:text-slate-300 outline-none focus:border-blue-600 shadow-sm transition-all"
             />
           </div>
-        </div>
-
-        {/* Section Tabs - Directly below year selector */}
-        <div className="flex flex-wrap gap-2 pb-2">
-          {sections.map(section => (
-            <button
-              key={section.id}
-              onClick={() => setSelectedSection(section.id)}
-              className={cn(
-                "px-6 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest border transition-all flex items-center gap-2",
-                selectedSection === section.id
-                  ? "bg-slate-900 text-white border-slate-900 shadow-xl shadow-slate-900/10"
-                  : "bg-white text-slate-500 border-slate-100 hover:border-slate-300"
-              )}
-            >
-              {section.label}
-              {selectedSection === section.id && (
-                <motion.div layoutId="activeDot" className="w-1 h-1 bg-blue-400 rounded-full" />
-              )}
-            </button>
-          ))}
         </div>
       </section>
 
