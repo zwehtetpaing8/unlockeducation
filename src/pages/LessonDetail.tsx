@@ -62,8 +62,9 @@ const LessonDetail: React.FC = () => {
   if (!lesson) return <div>Lesson not found</div>;
 
   return (
-    <div className="max-w-screen-2xl mx-auto pb-24 px-0 sm:px-4">
-      {/* Breadcrumbs */}
+    <div className="min-h-screen bg-white">
+      <div className="max-w-screen-2xl mx-auto pb-24 px-0 sm:px-4 pt-12">
+        {/* Breadcrumbs */}
       <nav className="mb-4 px-4 sm:px-6 lg:px-10 flex items-center justify-between">
          <Link 
             to={chapter ? `/grade/${chapter.grade_id}/chapter/${chapter.id}` : "/"}
@@ -194,6 +195,7 @@ const LessonDetail: React.FC = () => {
       </article>
 
     </div>
+  </div>
   );
 };
 

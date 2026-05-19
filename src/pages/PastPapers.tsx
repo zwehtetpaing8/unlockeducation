@@ -43,35 +43,44 @@ const QuestionBlock: React.FC<{ paper: PastPaper; index: number }> = ({ paper, i
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="bg-white border border-slate-100 rounded-[2rem] overflow-hidden hover:border-blue-200 transition-all shadow-sm flex flex-col"
+      className="bg-white border-y sm:border border-slate-100 rounded-none sm:rounded-[2rem] overflow-hidden hover:border-blue-200 transition-all shadow-sm flex flex-col"
     >
       {/* Question Header */}
-      <div className="p-6 md:p-8 flex items-center justify-between bg-slate-50/50 border-b border-slate-50">
-        <div className="flex items-center gap-4">
-          <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white font-black text-sm shadow-lg shadow-blue-500/20">
+      <div className="p-4 md:p-8 flex flex-col sm:flex-row sm:items-center justify-between bg-white border-b border-slate-50 gap-4">
+        <div className="flex items-center gap-3 min-w-0">
+          <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white font-black text-sm shadow-lg shadow-blue-500/20 shrink-0">
             {index + 1}
           </div>
-          <div>
-            <h3 className="font-black text-slate-900 uppercase tracking-tight">Question {index + 1}</h3>
-            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-              {paper.year} • {paper.section} {paper.chapter && `• ${paper.chapter}`}
+          <div className="min-w-0">
+            <h3 className="font-black text-slate-900 uppercase tracking-tight text-sm md:text-base truncate">
+              Question {index + 1}
+            </h3>
+            <p className="text-[9px] md:text-[10px] font-black text-slate-400 uppercase tracking-widest truncate">
+              {paper.year} <span className="mx-1.5 opacity-30">|</span> 
+              {paper.section} 
+              {paper.chapter && (
+                <>
+                  <span className="mx-1.5 opacity-30">|</span> 
+                  {paper.chapter.replace('Chapter ', 'Ch ')}
+                </>
+              )}
             </p>
           </div>
         </div>
-        <div className="flex items-center gap-2">
-           <span className="px-3 py-1 bg-white border border-slate-100 rounded-lg text-[9px] font-black uppercase tracking-widest text-slate-500">
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
+           <span className="px-2.5 py-1 bg-slate-50 border border-slate-100 rounded-lg text-[8px] md:text-[9px] font-black uppercase tracking-widest text-slate-500 whitespace-nowrap">
              {paper.subject}
            </span>
            {paper.question_type === 'MCQ' && (
-             <span className="px-3 py-1 bg-blue-50 text-blue-600 rounded-lg text-[9px] font-black uppercase tracking-widest border border-blue-100">
-               Interactive
+             <span className="px-2.5 py-1 bg-blue-50 text-blue-600 rounded-lg text-[8px] md:text-[9px] font-black uppercase tracking-widest border border-blue-100 whitespace-nowrap">
+               Interactive MCQ
              </span>
            )}
         </div>
       </div>
 
       {/* Question Content */}
-      <div className="p-6 md:p-10 space-y-8">
+      <div className="px-4 py-8 md:p-10 space-y-8">
         <div className="prose prose-slate max-w-none prose-p:leading-relaxed prose-p:text-slate-600 prose-headings:text-slate-900 prose-headings:font-black prose-headings:uppercase prose-headings:tracking-tight">
           <div className="markdown-body text-lg font-medium leading-relaxed">
             <ReactMarkdown
@@ -85,7 +94,7 @@ const QuestionBlock: React.FC<{ paper: PastPaper; index: number }> = ({ paper, i
 
         {/* MCQ Options */}
         {paper.question_type === 'MCQ' && paper.options && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+          <div className="flex flex-col gap-3 sm:gap-4 mt-8">
             {paper.options.map((option) => {
               const isSelected = selectedOption === option.id;
               const isOptionCorrect = option.id === paper.correct_answer_id;
@@ -108,19 +117,19 @@ const QuestionBlock: React.FC<{ paper: PastPaper; index: number }> = ({ paper, i
                   onClick={() => handleOptionSelect(option.id)}
                   disabled={!!selectedOption}
                   className={cn(
-                    "relative flex items-center gap-4 p-4 md:p-6 rounded-2xl border-2 transition-all text-left group",
+                    "relative flex items-center gap-4 p-5 md:p-6 rounded-2xl border-2 transition-all text-left group w-full",
                     buttonStyle
                   )}
                 >
                   <div className={cn(
-                    "w-8 h-8 md:w-10 md:h-10 rounded-xl flex items-center justify-center font-black text-xs md:text-sm shrink-0 transition-all",
-                    selectedOption && isOptionCorrect ? "bg-white/20" :
-                    selectedOption && isSelected && !isOptionCorrect ? "bg-white/20" :
+                    "w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center font-black text-xs md:text-sm shrink-0 transition-all",
+                    selectedOption && isOptionCorrect ? "bg-white/20 text-white" :
+                    selectedOption && isSelected && !isOptionCorrect ? "bg-white/20 text-white" :
                     "bg-slate-50 group-hover:bg-blue-100 text-slate-400 group-hover:text-blue-600"
                   )}>
                     {option.id}
                   </div>
-                  <div className="flex-1 font-bold text-sm md:text-base">
+                  <div className="flex-1 font-bold text-base md:text-lg leading-snug">
                     <ReactMarkdown
                       remarkPlugins={[remarkMath]}
                       rehypePlugins={[[rehypeKatex, { output: 'htmlAndMathml', throwOnError: false }]]}
@@ -283,9 +292,10 @@ const PastPapers: React.FC = () => {
   }, [papers, selectedYear, selectedChapter, selectedSection, searchQuery]);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
-      {/* 1. Header & Title Section */}
-      <section className="space-y-4">
+    <div className="min-h-screen bg-white">
+      <div className="max-w-7xl mx-auto px-0 sm:px-6 lg:px-8 py-12 space-y-10">
+        {/* 1. Header & Title Section */}
+      <section className="space-y-4 px-4 sm:px-0">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -315,7 +325,7 @@ const PastPapers: React.FC = () => {
       </section>
 
       {/* 2. Interactive Selectors & Search Container */}
-      <section className="space-y-6">
+      <section className="space-y-6 px-4 sm:px-0">
         <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
           <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
             {/* Year Selector */}
@@ -500,7 +510,7 @@ const PastPapers: React.FC = () => {
       </section>
 
       {/* 4. Support Card */}
-      <footer className="bg-slate-900 rounded-[3rem] p-10 md:p-16 relative overflow-hidden text-center md:text-left">
+      <footer className="bg-slate-900 rounded-none sm:rounded-[3rem] p-10 md:p-16 relative overflow-hidden text-center md:text-left mx-0 sm:mx-0">
         <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-10">
           <div className="space-y-4 max-w-xl">
              <h4 className="text-2xl md:text-4xl font-black text-white uppercase tracking-tight">Need Offline Access?</h4>
@@ -513,6 +523,7 @@ const PastPapers: React.FC = () => {
         <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-[100px]" />
       </footer>
     </div>
+  </div>
   );
 };
 

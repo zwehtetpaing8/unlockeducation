@@ -38,14 +38,9 @@ const GradeDetail: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen">
-      {/* Dynamic Background */}
-      <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 -right-20 w-[500px] h-[500px] bg-blue-600/5 blur-[120px] rounded-full" />
-        <div className="absolute -bottom-20 -left-20 w-[600px] h-[600px] bg-purple-600/5 blur-[140px] rounded-full" />
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12">
+    <div className="min-h-screen bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12">
         {/* Left Content */}
         <div className="lg:col-span-8 space-y-12">
           {/* Header Section */}
@@ -185,6 +180,7 @@ const GradeDetail: React.FC = () => {
         </div>
       </div>
     </div>
+  </div>
   );
 };
 

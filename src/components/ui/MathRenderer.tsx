@@ -9,7 +9,7 @@ interface MathRendererProps {
 export const MathRenderer: React.FC<MathRendererProps> = ({ formula, block = false }) => {
   if (block) {
     return (
-      <div className="overflow-x-auto overflow-y-hidden my-4 py-2 custom-scrollbar">
+      <div className="katex-display-wrapper">
         <BlockMath math={formula} />
       </div>
     );
