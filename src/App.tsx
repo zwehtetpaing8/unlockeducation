@@ -19,6 +19,7 @@ import ChapterDetail from './pages/ChapterDetail';
 import LessonDetail from './pages/LessonDetail';
 import QuizPage from './pages/QuizPage';
 import PastPapers from './pages/PastPapers';
+import SectionDMaster from './pages/SectionDMaster';
 import AdminDashboard from './pages/AdminDashboard';
 import Profile from './pages/Profile';
 import TermsOfService from './pages/TermsOfService';
@@ -48,6 +49,7 @@ export default function App() {
             <Route path="/lesson/:lessonId" element={<ProtectedRoute><LessonDetail /></ProtectedRoute>} />
             <Route path="/quiz/:quizId" element={<ProtectedRoute><QuizPage /></ProtectedRoute>} />
             <Route path="/past-papers" element={<PastPapers />} />
+            <Route path="/section-d" element={<SectionDMaster />} />
             <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
             <Route path="/terms" element={<TermsOfService />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />

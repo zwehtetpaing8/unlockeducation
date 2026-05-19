@@ -5,10 +5,11 @@ import {
   FileText, Search, Filter, Download, 
   ExternalLink, Calendar, Star, Loader2,
   ChevronRight, AlertCircle, Award, X, Maximize2,
-  CheckCircle2, XCircle
+  CheckCircle2, XCircle, Brain
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../lib/utils';
+import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
@@ -186,7 +187,6 @@ const TouchingPlaneDiagram: React.FC<{ centerLabel?: string, equation?: string }
           <text x="155" y="240" textAnchor="middle" fill="white" className="text-[10px] font-black italic tracking-wide" opacity="0.95">{equation}</text>
         )}
       </svg>
-      <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.3em] italic">Standard Figure: Normal relation of sphere center to plane</p>
     </div>
   );
 };
@@ -254,6 +254,29 @@ const PastPapers: React.FC = () => {
             Practice with actual previous years' papers and expert-curated solutions. 
             Optimized for the new 2024 curriculum standards.
           </p>
+
+          <Link 
+            to="/section-d"
+            className="group relative flex flex-col md:flex-row items-center gap-6 p-1 bg-slate-900 rounded-[2.5rem] overflow-hidden shadow-2xl transition-all hover:scale-[1.01] active:scale-95"
+          >
+            <div className="flex-1 p-6 md:p-8 space-y-4">
+              <div className="flex items-center gap-2">
+                 <span className="px-3 py-1 bg-amber-500 text-white rounded-full text-[9px] font-black uppercase tracking-widest">Mastery Collection</span>
+                 <span className="w-1.5 h-1.5 bg-slate-700 rounded-full" />
+                 <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">13 Intensive Problems</span>
+              </div>
+              <h3 className="text-2xl md:text-4xl font-black text-white uppercase tracking-tight">Section D Mastery Collection</h3>
+              <p className="text-slate-400 text-sm md:text-base font-medium max-w-lg">
+                We've consolidated all Section D questions into a single deep-dive interface with interactive diagrams.
+              </p>
+            </div>
+            <div className="shrink-0 p-8 md:pr-12">
+               <div className="w-16 h-16 rounded-[1.5rem] bg-white flex items-center justify-center text-slate-900 shadow-xl group-hover:bg-amber-500 group-hover:text-white transition-colors">
+                  <Brain size={32} />
+               </div>
+            </div>
+            <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl" />
+          </Link>
         </div>
       </header>
 
@@ -724,7 +747,157 @@ Find the equation of the sphere with center $(1,2,-1)$ and touching the plane $2
 \`\`\`
 `;
 
+const paper2025SectionD = `
+# 2025 Matriculation Exam - Section D
+## Chapter 3 • Analytical Solid Geometry
+
+---
+
+### Question 1
+Point $A$ has coordinates $(7,-1,8)$ and line $l$ is defined by the Cartesian equation $\\frac{x-3}{1}=\\frac{y+1}{2}=z$. Point $B$ lies on $l$ such that line $AB$ is perpendicular to $l$. Find the distance between $A$ and $B$.
+
+\`\`\`note
+{
+  "type": "tip",
+  "title": "Solution",
+  "content": "$A=(7,-1,8)$.\\n\\nCartesian equation of the line $l$ is $\\\\frac{x-3}{1}=\\\\frac{y+1}{2}=z.$\\n\\nThus, the directed values of line $l$ are $\\\\langle l\\\\rangle=\\\\langle 1,2,1\\\\rangle.$\\n\\nSince point $B$ lies on $l$, $B=(x,y,z)=(3+k,-1+2k,k)$ for some real number $k$.\\n\\nTherefore, $\\\\langle AB\\\\rangle=\\\\langle k-4,2k,k-8\\\\rangle.$\\n\\nSince $AB\\\\bot l$,\\n$$\\\\begin{aligned} (k-4)+2(2k)+(k-8)&=0\\\\ 6k-12&=0\\\\ k&=2. \\\\end{aligned}$$\\n\\nThe distance between $A$ and $B$ is\\n$$\\\\begin{aligned} AB&=\\\\sqrt{(k-4)^2+(2k)^2+(k-8)^2}\\\\ &=\\\\sqrt{(2-4)^2+4^2+(2-8)^2}\\\\ &=\\\\sqrt{4+16+36}\\\\ &=2\\\\sqrt{14}. \\\\end{aligned}$$"
+}
+\`\`\`
+
+\`\`\`note
+{
+  "type": "info",
+  "title": "Algorithm",
+  "content": "1. From the Cartesian equation of line $l$, find the directed values of line $l$, $\\\\langle l\\\\rangle$.\\n2. Since $B$ lies on line $l$, write the coordinates of $B$ using a parameter $k$.\\n3. Find the vector $\\\\langle AB\\\\rangle$ using point $A$ and point $B$.\\n4. Since $AB$ is perpendicular to $l$, use the dot product condition $\\\\langle AB\\\\rangle\\\\cdot\\\\langle l\\\\rangle=0$.\\n5. Solve for $k$, then substitute it into the distance formula to find $AB$."
+}
+\`\`\`
+
+---
+
+### Question 2
+Find the equation of the line passing through the point $(-1,5,4)$ and perpendicular to the line $(x,y,z)=(1+2k,-2+k,1-k)$. Find also the point of intersection of two lines.
+
+\`\`\`note
+{
+  "type": "tip",
+  "title": "Solution",
+  "content": "Let $A=(-1,5,4)$. The given line is $(x,y,z)=(1+2k,-2+k,1-k)$.\\n\\nThus, the directed values of this line are $\\\\langle l_1\\\\rangle=\\\\langle 2,1,-1\\\\rangle.$\\n\\nLet $B$ be the point of intersection of the two lines. Since $B$ lies on $l_1$, $B=(1+2k,-2+k,1-k)$ for some real number $k$.\\n\\nTherefore, the directed values of the required line are $\\\\langle AB\\\\rangle=\\\\langle 2+2k,-7+k,-3-k\\\\rangle.$\\n\\nSince the two lines are perpendicular,\\n$$\\\\begin{aligned} \\\\langle AB\\\\rangle\\\\cdot\\\\langle l_1\\\\rangle&=0\\\\ 2(2+2k)+(-7+k)-(-3-k)&=0\\\\ 6k&=0\\\\ k&=0. \\\\end{aligned}$$\\n\\nSo the point of intersection is $B=(1,-2,1)$.\\n\\nThe directed values of the required line are $\\\\langle AB\\\\rangle=\\\\langle 2,-7,-3\\\\rangle.$\\n\\nTherefore, the equation of the required line is $(x,y,z)=(-1+2t,5-7t,4-3t), \\\\quad t\\\\in\\\\mathbf{R}$."
+}
+\`\`\`
+
+---
+
+### Question 3
+Find the equation of the sphere with center $(2,2,2)$ and touching the plane $x-2y+2z+5=0$.
+
+\`\`\`diagram-sphere
+{
+  "center": "2,2,2",
+  "equation": "x-2y+2z+5=0"
+}
+\`\`\`
+
+\`\`\`note
+{
+  "type": "tip",
+  "title": "Solution",
+  "content": "Directed values of the line (radius) passing through the center $(2,2,2)$ and perpendicular to the plane $x-2y+2z+5=0$ are $\\\\langle 1,-2,2\\\\rangle.$\\n\\nCoordinates of the points on this line (radius) are $(x,y,z)=(2+k,2-2k,2+2k)$ for some real number $k$.\\n\\nIf one of these points is on the plane,\\n$$\\\\begin{aligned} (2+k)-2(2-2k)+2(2+2k)+5&=0\\\\ 9k+7&=0\\\\ k&=-\\\\frac{7}{9}. \\\\end{aligned}$$\\n\\nSo the touching point is $(\\\\frac{11}{9},\\\\frac{32}{9},\\\\frac{4}{9})$.\\n\\nThe radius of the sphere is $r = \\\\frac{7}{3}.$\\n\\nTherefore, the equation of the sphere is $(x-2)^2+(y-2)^2+(z-2)^2=\\\\frac{49}{9}$."
+}
+\`\`\`
+
+---
+
+### Question 4
+Find the equation of the sphere with center $(2,1,-1)$ and touching the plane $x+3y+2z-17=0$.
+
+\`\`\`diagram-sphere
+{
+  "center": "2,1,-1",
+  "equation": "x+3y+2z-17=0"
+}
+\`\`\`
+
+\`\`\`note
+{
+  "type": "tip",
+  "title": "Solution",
+  "content": "Using the same algorithm as above with normal vector $\\\\langle 1,3,2\\\\rangle$ and center $(2,1,-1)$:\\n\\n$$(2+k)+3(1+3k)+2(-1+k)-17=0 \\\\implies 14k=14 \\\\implies k=1.$$\\n\\nTouching point: $(3,4,1)$.\\n\\nRadius: $r = \\\\sqrt{1^2+3^2+2^2} = \\\\sqrt{14}.$\\n\\nEquation: $(x-2)^2+(y-1)^2+(z+1)^2=14$."
+}
+\`\`\`
+
+---
+
+### Question 5
+Find the equation of the sphere with center $(0,1,0)$ and touching the plane $x+2y-2z=11$.
+
+\`\`\`diagram-sphere
+{
+  "center": "0,1,0",
+  "equation": "x+2y-2z=11"
+}
+\`\`\`
+
+\`\`\`note
+{
+  "type": "tip",
+  "title": "Solution",
+  "content": "Normal vector $\\\\langle 1,2,-2\\\\rangle$.\\n\\nCoordinates: $(k, 1+2k, -2k)$.\\n\\nSubstitute into plane: $k + 2(1+2k) - 2(-2k) = 11 \\\\implies 9k+2=11 \\\\implies k=1$.\\n\\nRadius: $r = \\\\sqrt{1^2+2^2+(-2)^2} = 3$.\\n\\nEquation: $x^2+(y-1)^2+z^2=9$."
+}
+\`\`\`
+
+---
+
+### Question 6
+Find the equation of the sphere with center $(1,1,2)$ and touching the plane $2x-2y+z=5$.
+
+\`\`\`diagram-sphere
+{
+  "center": "1,1,2",
+  "equation": "2x-2y+z=5"
+}
+\`\`\`
+
+\`\`\`note
+{
+  "type": "tip",
+  "title": "Solution",
+  "content": "Normal vector $\\\\langle 2,-2,1\\\\rangle$.\\n\\nCoordinates: $(1+2k, 1-2k, 2+k)$.\\n\\nSubstitute: $2(1+2k)-2(1-2k)+(2+k)=5 \\\\implies 9k+2=5 \\\\implies k=1/3$.\\n\\nRadius: $r = \\\\sqrt{(2/3)^2+(-2/3)^2+(1/3)^2} = 1$.\\n\\nEquation: $(x-1)^2+(y-1)^2+(z-2)^2=1$."
+}
+\`\`\`
+
+---
+
+### Question 7
+Find the equation of the sphere with center $(1,1,1)$ and touching the plane $x-2y+2z+5=0$.
+
+\`\`\`diagram-sphere
+{
+  "center": "1,1,1",
+  "equation": "x-2y+2z+5=0"
+}
+\`\`\`
+
+\`\`\`note
+{
+  "type": "tip",
+  "title": "Solution",
+  "content": "Normal vector $\\\\langle 1,-2,2\\\\rangle$.\\n\\nLine: $(1+k, 1-2k, 1+2k)$.\\n\\nPlane: $(1+k)-2(1-2k)+2(1+2k)+5=0 \\\\implies 9k+6=0 \\\\implies k=-2/3$.\\n\\nRadius: $r = \\\\sqrt{(-2/3)^2+(4/3)^2+(-4/3)^2} = 2$.\\n\\nEquation: $(x-1)^2+(y-1)^2+(z-1)^2=4$."
+}
+\`\`\`
+`;
+
 const FALLBACK_PAPERS: PastPaper[] = [
+  {
+    id: 'master-section-d',
+    year: 2025,
+    subject: 'Mathematics',
+    grade_level: 12,
+    title: 'Section D Problems (Solved)',
+    pdf_url: '',
+    answer_pdf_url: '',
+    section: 'D',
+    content: paper2025SectionD + '\n\n---\n\n' + paper2024SectionD
+  },
   {
     id: '2026-math-a',
     year: 2026,
@@ -735,17 +908,6 @@ const FALLBACK_PAPERS: PastPaper[] = [
     answer_pdf_url: '',
     section: 'A',
     content: paper2026SectionA
-  },
-  {
-    id: '2024-math-d',
-    year: 2024,
-    subject: 'Mathematics',
-    grade_level: 12,
-    title: 'Section D Problems (Solved)',
-    pdf_url: '',
-    answer_pdf_url: '',
-    section: 'D',
-    content: paper2024SectionD
   },
   {
     id: '2023-math-full',
