@@ -35,7 +35,6 @@ const QuestionBlock: React.FC<{ paper: PastPaper; index: number }> = ({ paper, i
   const isCorrect = selectedOption === paper.correct_answer_id;
 
   const handleOptionSelect = (optionId: string) => {
-    if (selectedOption) return; // Already answered
     setSelectedOption(optionId);
     setShowSolution(true); // Automatically show solution after answering
   };
@@ -47,7 +46,7 @@ const QuestionBlock: React.FC<{ paper: PastPaper; index: number }> = ({ paper, i
       viewport={{ once: true }}
       className={cn(
         "bg-white border-y sm:border border-slate-100 rounded-none sm:rounded-[2rem] hover:border-blue-200 transition-all shadow-sm flex flex-col relative",
-        isOptionsOpen ? "z-30" : "z-0"
+        isOptionsOpen ? "z-30 shadow-xl" : "z-0"
       )}
     >
       {/* Question Header */}
@@ -82,8 +81,8 @@ const QuestionBlock: React.FC<{ paper: PastPaper; index: number }> = ({ paper, i
         <div className="prose prose-slate max-w-none prose-p:leading-relaxed prose-p:text-slate-600 prose-headings:text-slate-900 prose-headings:font-black prose-headings:uppercase prose-headings:tracking-tight">
           <div className="markdown-body text-lg font-medium leading-relaxed text-slate-900">
             <ReactMarkdown
-              remarkPlugins={[remarkMath]}
-              rehypePlugins={[[rehypeKatex, { output: 'htmlAndMathml', throwOnError: false }]]}
+               remarkPlugins={[remarkMath]}
+               rehypePlugins={[[rehypeKatex, { output: 'htmlAndMathml', throwOnError: false }]]}
             >
               {paper.content || ''}
             </ReactMarkdown>
@@ -93,72 +92,130 @@ const QuestionBlock: React.FC<{ paper: PastPaper; index: number }> = ({ paper, i
         {/* MCQ Dropdown Options */}
         {paper.question_type === 'MCQ' && paper.options && (
           <div className="mt-8 space-y-3">
-             <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-2">
+             <label className="text-xs font-bold text-slate-500 px-2 tracking-wide block">
                 Your Answer Selection
              </label>
              <div className="relative">
                 <button 
                   onClick={() => setIsOptionsOpen(!isOptionsOpen)}
-                  disabled={!!selectedOption}
                   className={cn(
-                    "w-full flex items-center justify-between p-5 rounded-2xl border-2 transition-all text-left group",
+                    "w-full flex items-center justify-between p-4 md:p-5 rounded-2xl border-2 transition-all text-left group cursor-pointer shadow-sm relative z-30",
                     selectedOption 
-                      ? (isCorrect ? "bg-emerald-500 border-emerald-500 text-white shadow-lg shadow-emerald-500/20" : "bg-red-500 border-red-500 text-white shadow-lg shadow-red-500/20")
-                      : "bg-white border-slate-100 text-slate-900 hover:border-blue-200 hover:bg-slate-50/50"
+                      ? (isCorrect 
+                          ? "bg-emerald-50/70 border-emerald-300 text-emerald-950 hover:bg-emerald-50" 
+                          : "bg-red-50/70 border-red-300 text-red-950 hover:bg-red-50")
+                      : "bg-white border-slate-150 text-slate-800 hover:border-blue-300 hover:bg-slate-50/80"
                   )}
                 >
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-4 min-w-0 flex-1">
                     <div className={cn(
-                      "w-10 h-10 rounded-xl flex items-center justify-center font-black text-sm",
-                      selectedOption ? "bg-white/20 text-white" : "bg-blue-600 text-white"
+                      "w-10 h-10 rounded-xl flex items-center justify-center font-black text-sm shrink-0 transition-colors shadow-sm",
+                      selectedOption 
+                        ? (isCorrect ? "bg-emerald-600 text-white" : "bg-red-600 text-white") 
+                        : "bg-blue-600 text-white"
                     )}>
                       {selectedOption || '?'}
                     </div>
-                    <span className="font-bold text-sm md:text-base uppercase tracking-tight">
-                      {selectedOption ? (isCorrect ? 'Correct Answer Selected' : 'Incorrect Answer') : 'Select the correct option...'}
-                    </span>
+                    <div className="flex-1 min-w-0 pr-2">
+                      {selectedOption ? (
+                        <div className="space-y-1">
+                          <span className={cn(
+                            "text-[10px] font-black uppercase tracking-wider block",
+                            isCorrect ? "text-emerald-600" : "text-red-600"
+                          )}>
+                            {isCorrect ? 'Correct Option Selected' : 'Incorrect Option Selected (Click to change)'}
+                          </span>
+                          <div className={cn(
+                            "font-bold text-sm md:text-base leading-snug truncate",
+                            isCorrect ? "text-emerald-800" : "text-red-800"
+                          )}>
+                            <ReactMarkdown
+                              remarkPlugins={[remarkMath]}
+                              rehypePlugins={[[rehypeKatex, { output: 'htmlAndMathml', throwOnError: false }]]}
+                            >
+                              {paper.options.find(o => o.id === selectedOption)?.text || ''}
+                            </ReactMarkdown>
+                          </div>
+                        </div>
+                      ) : (
+                        <span className="font-bold text-sm md:text-base text-slate-700 tracking-tight">
+                          Select the correct option...
+                        </span>
+                      )}
+                    </div>
                   </div>
-                  <ChevronDown className={cn("transition-transform duration-300", isOptionsOpen && "rotate-180")} size={20} />
+                  <ChevronDown className={cn("transition-transform duration-300 text-slate-400 group-hover:text-slate-600 shrink-0", isOptionsOpen && "rotate-180")} size={20} />
                 </button>
 
                 <AnimatePresence>
-                  {isOptionsOpen && !selectedOption && (
+                  {isOptionsOpen && (
                     <>
                       {/* Invisible backdrop to close dropdown on click outside */}
                       <div 
-                        className="fixed inset-0 z-10" 
+                        className="fixed inset-0 z-20 cursor-default" 
                         onClick={() => setIsOptionsOpen(false)}
                       />
                       <motion.div
                         initial={{ opacity: 0, scale: 0.95, y: -10 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95, y: -10 }}
-                        className="absolute z-20 left-0 right-0 mt-3 bg-white border border-slate-200 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden max-h-[400px] overflow-y-auto custom-scrollbar"
+                        transition={{ duration: 0.15 }}
+                        className="absolute z-30 left-0 right-0 mt-3 bg-white border border-slate-200 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden max-h-[400px] overflow-y-auto custom-scrollbar"
                       >
-                        <div className="p-2 border-b border-slate-50 bg-slate-50/50">
-                          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-3 py-1">
-                            Choose the correct answer
+                        <div className="p-3 border-b border-slate-100 bg-slate-50/50 flex justify-between items-center sticky top-0 bg-white z-10">
+                          <p className="text-xs font-black text-slate-400 uppercase tracking-widest px-2">
+                            Select an Answer
                           </p>
+                          {selectedOption && (
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setSelectedOption(null);
+                                setIsOptionsOpen(false);
+                              }}
+                              className="text-[10px] font-black text-blue-600 uppercase tracking-wider bg-blue-50 hover:bg-blue-100 px-2.5 py-1 rounded-lg transition-colors cursor-pointer"
+                            >
+                              Reset Selection
+                            </button>
+                          )}
                         </div>
-                        {paper.options.map((option) => (
-                          <button
-                            key={option.id}
-                            onClick={() => { handleOptionSelect(option.id); setIsOptionsOpen(false); }}
-                            className="w-full flex items-start gap-4 p-5 md:p-6 hover:bg-blue-50/80 transition-colors border-b border-slate-50 last:border-none text-left active:bg-blue-100/50 group"
-                          >
-                            <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center font-black text-slate-400 group-hover:text-blue-600 transition-colors shrink-0 mt-1">
-                              {option.id}
-                            </div>
-                            <div className="flex-1 font-bold text-base md:text-lg leading-snug pt-1 text-slate-700 group-hover:text-slate-900 transition-colors">
-                              <ReactMarkdown
-                                remarkPlugins={[remarkMath]}
-                                rehypePlugins={[[rehypeKatex, { output: 'htmlAndMathml', throwOnError: false }]]}
+                        <div className="p-2">
+                          {paper.options.map((option) => {
+                            const isSelected = selectedOption === option.id;
+                            const isOptionCorrect = option.id === paper.correct_answer_id;
+                            return (
+                              <button
+                                key={option.id}
+                                onClick={() => { handleOptionSelect(option.id); setIsOptionsOpen(false); }}
+                                className={cn(
+                                  "w-full flex items-start gap-4 p-4 rounded-2xl transition-all text-left mb-1 last:mb-0 group cursor-pointer border border-transparent",
+                                  isSelected 
+                                    ? (isOptionCorrect 
+                                        ? "bg-emerald-50/70 border-emerald-200 text-emerald-950" 
+                                        : "bg-red-50/70 border-red-200 text-red-950")
+                                    : "hover:bg-slate-50 text-slate-700 hover:text-slate-900"
+                                )}
                               >
-                                {option.text}
-                              </ReactMarkdown>
-                            </div>
-                          </button>
-                        ))}
+                                <div className={cn(
+                                  "w-10 h-10 rounded-xl border flex items-center justify-center font-black transition-all shrink-0 mt-0.5 shadow-sm",
+                                  isSelected
+                                    ? (isOptionCorrect ? "bg-emerald-500 border-emerald-500 text-white" : "bg-red-500 border-red-500 text-white")
+                                    : "bg-slate-50 border-slate-100 text-slate-400 group-hover:text-blue-600 group-hover:border-blue-100 group-hover:bg-blue-50/50"
+                                )}>
+                                  {option.id}
+                                </div>
+                                <div className="flex-1 font-bold text-sm md:text-base leading-snug pt-2">
+                                  <ReactMarkdown
+                                    remarkPlugins={[remarkMath]}
+                                    rehypePlugins={[[rehypeKatex, { output: 'htmlAndMathml', throwOnError: false }]]}
+                                  >
+                                    {option.text}
+                                  </ReactMarkdown>
+                                </div>
+                              </button>
+                            );
+                          })}
+                        </div>
                       </motion.div>
                     </>
                   )}
@@ -257,7 +314,7 @@ const PastPapers: React.FC = () => {
     { id: 'C', label: 'Section C' },
     { id: 'D', label: 'Section D' },
     { id: 'Full Paper', label: 'Full Paper' },
-    { id: 'All', label: 'All sections' }
+    { id: 'All', label: 'All Sections' }
   ];
 
   // Derive unique chapters from data
@@ -354,16 +411,16 @@ const PastPapers: React.FC = () => {
           <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
             {/* Year Selector */}
             <div className="w-full md:w-auto">
-              <div className="flex items-center gap-2 bg-white p-1 rounded-2xl border border-slate-100">
-                <div className="flex items-center px-4 py-2 text-xs font-black text-slate-400 uppercase tracking-widest border-r border-slate-50 whitespace-nowrap">
-                  <Calendar size={14} className="mr-2" /> Year
+              <div className="flex items-center gap-2 bg-white p-1 rounded-2xl border border-slate-100 shadow-sm focus-within:border-blue-300 transition-all">
+                <div className="flex items-center px-4 py-2 text-xs font-bold text-slate-500 border-r border-slate-50 whitespace-nowrap">
+                  <Calendar size={14} className="mr-2 text-blue-500" /> Year
                 </div>
                 
                 <div className="flex-1 md:block">
                   <select 
                     value={selectedYear}
                     onChange={(e) => setSelectedYear(e.target.value)}
-                    className="w-full pl-4 pr-10 py-2 bg-transparent text-sm font-black uppercase tracking-widest text-slate-700 outline-none cursor-pointer appearance-none"
+                    className="w-full pl-4 pr-10 py-2 bg-transparent text-sm font-bold text-slate-700 outline-none cursor-pointer appearance-none hover:text-blue-600 transition-colors"
                   >
                     {years.map(y => <option key={y} value={y}>{y === 'All' ? 'Every Year' : y}</option>)}
                   </select>
@@ -373,16 +430,16 @@ const PastPapers: React.FC = () => {
 
             {/* Chapter Selector */}
             <div className="w-full md:w-auto">
-              <div className="flex items-center gap-2 bg-white p-1 rounded-2xl border border-slate-100">
-                <div className="flex items-center px-4 py-2 text-xs font-black text-slate-400 uppercase tracking-widest border-r border-slate-50 whitespace-nowrap">
-                  <BookOpen size={14} className="mr-2" /> Chapter
+              <div className="flex items-center gap-2 bg-white p-1 rounded-2xl border border-slate-100 shadow-sm focus-within:border-blue-300 transition-all">
+                <div className="flex items-center px-4 py-2 text-xs font-bold text-slate-500 border-r border-slate-50 whitespace-nowrap">
+                  <BookOpen size={14} className="mr-2 text-blue-500" /> Chapter
                 </div>
                 
                 <div className="flex-1 md:block min-w-[150px]">
                   <select 
                     value={selectedChapter}
                     onChange={(e) => setSelectedChapter(e.target.value)}
-                    className="w-full pl-4 pr-10 py-2 bg-transparent text-sm font-black uppercase tracking-widest text-slate-700 outline-none cursor-pointer appearance-none"
+                    className="w-full pl-4 pr-10 py-2 bg-transparent text-sm font-bold text-slate-700 outline-none cursor-pointer appearance-none hover:text-blue-600 transition-colors"
                   >
                     {chapters.map(c => <option key={c} value={c}>{c === 'All' ? 'All Chapters' : c}</option>)}
                   </select>
@@ -392,16 +449,16 @@ const PastPapers: React.FC = () => {
 
             {/* Section Selector */}
             <div className="w-full md:w-auto">
-              <div className="flex items-center gap-2 bg-white p-1 rounded-2xl border border-slate-100">
-                <div className="flex items-center px-4 py-2 text-xs font-black text-slate-400 uppercase tracking-widest border-r border-slate-50 whitespace-nowrap">
-                  <Filter size={14} className="mr-2" /> Section
+              <div className="flex items-center gap-2 bg-white p-1 rounded-2xl border border-slate-100 shadow-sm focus-within:border-blue-300 transition-all">
+                <div className="flex items-center px-4 py-2 text-xs font-bold text-slate-500 border-r border-slate-50 whitespace-nowrap">
+                  <Filter size={14} className="mr-2 text-blue-500" /> Section
                 </div>
                 
                 <div className="flex-1 md:block min-w-[150px]">
                   <select 
                     value={selectedSection}
                     onChange={(e) => setSelectedSection(e.target.value)}
-                    className="w-full pl-4 pr-10 py-2 bg-transparent text-sm font-black uppercase tracking-widest text-slate-700 outline-none cursor-pointer appearance-none"
+                    className="w-full pl-4 pr-10 py-2 bg-transparent text-sm font-bold text-slate-700 outline-none cursor-pointer appearance-none hover:text-blue-600 transition-colors"
                   >
                     {sections.map(s => <option key={s.id} value={s.id}>{s.label}</option>)}
                   </select>
@@ -524,7 +581,7 @@ const MOCK_PAPERS: PastPaper[] = [
     section: 'Section A Multiple Choice',
     chapter: 'Chapter 1: Complex Numbers',
     question_type: 'MCQ',
-    content: 'If $z_1=6-17i$, $z_2=3-bi$ and $z_1/z_2= 4-3i$, then $b$ is:',
+    content: 'If $z_1=6-17i$, $z_2=3-bi$ and $\\frac{z_1}{z_2}= 4-3i$, then $b$ is:',
     options: [
       { id: 'A', text: '1' },
       { id: 'B', text: '2' },

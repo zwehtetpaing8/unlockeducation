@@ -25,6 +25,8 @@ const LessonDetail: React.FC = () => {
   const { lessonId } = useParams<{ lessonId: string }>();
   const [lesson, setLesson] = useState<Lesson | null>(null);
   const [chapter, setChapter] = useState<Chapter | null>(null);
+  const [siblings, setSiblings] = useState<Lesson[]>([]);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -35,6 +37,17 @@ const LessonDetail: React.FC = () => {
     }
   }, [lessonId]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalScroll > 0) {
+        setScrollProgress((window.scrollY / totalScroll) * 100);
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const fetchLessonData = async (id: string) => {
     setLoading(true);
     try {
@@ -43,6 +56,10 @@ const LessonDetail: React.FC = () => {
         setLesson(data);
         const chapterData = await curriculumService.getChapterById(data.chapter_id);
         setChapter(chapterData);
+        // Fetch sibling lessons in the same chapter to provide previous / next buttons
+        const lessonsData = await curriculumService.getLessonsByChapter(data.chapter_id);
+        const sortedSiblings = [...lessonsData].sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
+        setSiblings(sortedSiblings);
       }
     } catch (error) {
       console.error('Error fetching lesson:', error);
@@ -59,143 +76,285 @@ const LessonDetail: React.FC = () => {
     );
   }
 
-  if (!lesson) return <div>Lesson not found</div>;
+  if (!lesson) return <div className="p-8 text-center text-slate-500 font-bold">Lesson not found</div>;
+
+  const currentIndex = siblings.findIndex(s => s.id === lesson.id);
+  const prevLesson = currentIndex > 0 ? siblings[currentIndex - 1] : null;
+  const nextLesson = currentIndex < siblings.length - 1 ? siblings[currentIndex + 1] : null;
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-screen-2xl mx-auto pb-24 px-0 sm:px-4 pt-12">
-        {/* Breadcrumbs */}
-      <nav className="mb-4 px-4 sm:px-6 lg:px-10 flex items-center justify-between">
-         <Link 
-            to={chapter ? `/grade/${chapter.grade_id}/chapter/${chapter.id}` : "/"}
-            className="inline-flex items-center gap-2 text-[10px] font-black text-slate-400 hover:text-blue-600 uppercase tracking-[0.2em] transition-all group"
-         >
-            <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
-            Module List
-         </Link>
-         {chapter && (
-            <div className="text-[10px] font-black text-slate-300 uppercase tracking-widest hidden sm:block">
-               Grade {chapter.grade_id} • Chapter {chapter.chapter_number}
-            </div>
-         )}
-      </nav>
+    <div className="min-h-screen bg-slate-50/50">
+      {/* Scroll Reading Progress Bar */}
+      <div className="fixed top-0 left-0 right-0 h-1 bg-slate-100/80 z-50">
+        <div 
+          className="h-full bg-blue-600 rounded-r-full transition-all duration-75"
+          style={{ width: `${scrollProgress}%` }}
+        />
+      </div>
 
-      {/* Lesson Content Area */}
-      <article className="bg-white border-y md:border border-slate-100 px-4 py-10 sm:p-12 md:p-16 lg:p-24 md:rounded-[2.5rem] shadow-sm relative overflow-hidden text-left">
-        <div className="mb-10 relative z-10 px-0 max-w-6xl">
-          <div className="flex items-center gap-3 mb-4">
-            <div className={cn(
-              "px-3 py-1 rounded-xl text-[9px] font-black uppercase tracking-widest border shadow-sm flex items-center gap-2",
-              lesson.type === 'theory' ? "bg-blue-50 text-blue-600 border-blue-100" :
-              lesson.type === 'exercise' ? "bg-emerald-50 text-emerald-600 border-emerald-100" :
-              "bg-purple-50 text-purple-600 border-purple-100"
-            )}>
-              <div className={cn("w-1.5 h-1.5 rounded-full", 
-                lesson.type === 'theory' ? "bg-blue-600" :
-                lesson.type === 'exercise' ? "bg-emerald-600" :
-                "bg-purple-600"
-              )} />
-              {lesson.type}
+      <div className="max-w-4xl mx-auto pb-24 px-4 sm:px-6 pt-8">
+        {/* Breadcrumbs Navigation */}
+        <nav className="mb-6 flex items-center justify-between">
+          <Link 
+            to={chapter ? `/grade/${chapter.grade_id}/chapter/${chapter.id}` : "/"}
+            className="inline-flex items-center gap-2 text-xs font-black text-slate-400 hover:text-blue-600 uppercase tracking-widest transition-all group"
+          >
+            <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
+            Back to Chapter
+          </Link>
+          {chapter && (
+            <div className="text-xs font-bold text-slate-400 tracking-wide">
+              Grade {chapter.grade_id} • Chapter {chapter.chapter_number}
             </div>
-          </div>
+          )}
+        </nav>
+
+        {/* Main Clean Lesson Content Area (Overflow-visible is key to protect KaTeX equations) */}
+        <article className="bg-white border border-slate-100 p-6 sm:p-12 md:p-16 rounded-[2rem] shadow-sm relative overflow-visible text-left">
           
-          <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-black tracking-tight mb-4 text-slate-900 uppercase leading-[1.2] md:leading-[0.95] break-words">
-            <ReactMarkdown 
+          {/* Lesson Header Area */}
+          <div className="mb-10 relative z-10">
+            <div className="flex items-center gap-3 mb-4">
+              <span className={cn(
+                "px-3 py-1 rounded-xl text-[10px] font-extrabold uppercase tracking-widest border shadow-xs flex items-center gap-2",
+                lesson.type === 'theory' ? "bg-blue-50 text-blue-600 border-blue-100" :
+                lesson.type === 'exercise' ? "bg-emerald-50 text-emerald-600 border-emerald-100" :
+                "bg-purple-50 text-purple-600 border-purple-100"
+              )}>
+                <div className={cn("w-1.5 h-1.5 rounded-full animate-pulse", 
+                  lesson.type === 'theory' ? "bg-blue-600" :
+                  lesson.type === 'exercise' ? "bg-emerald-600" :
+                  "bg-purple-600"
+                )} />
+                {lesson.type}
+              </span>
+            </div>
+            
+            {/* Main Title - No uppercase, natural elegant casing */}
+            <h1 className="text-2xl sm:text-3xl md:text-5xl font-black text-slate-900 leading-tight tracking-tight mb-4 break-words">
+              <ReactMarkdown 
+                remarkPlugins={[remarkMath]}
+                rehypePlugins={[rehypeKatex]}
+              >
+                {lesson.title}
+              </ReactMarkdown>
+            </h1>
+            
+            <div className="h-1 w-20 bg-blue-600 rounded-full mt-4" />
+          </div>
+
+          {/* Core Body Container */}
+          <div className="markdown-body relative z-10 text-slate-800 pb-10">
+            <ReactMarkdown
               remarkPlugins={[remarkMath]}
               rehypePlugins={[rehypeKatex]}
+              components={{
+                code(props) {
+                  const { className, children } = props;
+                  const match = /language-([\w-]+)/.exec(className || '');
+                  const isBlock = !!match;
+                  
+                  if (isBlock) {
+                    const lang = match[1];
+                    const rawContent = String(children).trim();
+
+                    if (lang === 'carousel') {
+                      const images = rawContent.split('\n').map(img => img.trim());
+                      return <ImageCarousel images={images} />;
+                    }
+
+                    if (lang === 'complex-plane') {
+                      try {
+                        const data = JSON.parse(rawContent);
+                        return <ComplexPlane points={data.points} />;
+                      } catch (e) {
+                        return <pre className={className}>{children}</pre>;
+                      }
+                    }
+
+                    if (lang === 'timeline') {
+                      try {
+                        const events = JSON.parse(rawContent);
+                        return <Timeline events={events} />;
+                      } catch (e) {
+                        return <pre className={className}>{children}</pre>;
+                      }
+                    }
+
+                    if (lang === 'features') {
+                      try {
+                        const data = JSON.parse(rawContent);
+                        return (
+                          <FeatureGrid>
+                            {data.map((item: any, i: number) => (
+                              <FeatureCard key={i} {...item} />
+                            ))}
+                          </FeatureGrid>
+                        );
+                      } catch (e) {
+                        return <pre className={className}>{children}</pre>;
+                      }
+                    }
+
+                    if (lang === 'note') {
+                      try {
+                        const data = JSON.parse(rawContent);
+                        
+                        // Definition and callout styling config
+                        const noteTypeStyles: Record<string, {
+                          bg: string;
+                          border: string;
+                          text: string;
+                          titleColor: string;
+                          badgeBg: string;
+                          badgeText: string;
+                          icon: string;
+                        }> = {
+                          definition: {
+                            bg: "bg-emerald-50/65 border-emerald-200",
+                            border: "border-l-4 border-emerald-500",
+                            text: "text-slate-850",
+                            titleColor: "text-emerald-950",
+                            badgeBg: "bg-emerald-100/80",
+                            badgeText: "text-emerald-800",
+                            icon: "📖"
+                          },
+                          tip: {
+                            bg: "bg-amber-50/65 border-amber-200",
+                            border: "border-l-4 border-amber-500",
+                            text: "text-slate-850",
+                            titleColor: "text-amber-950",
+                            badgeBg: "bg-amber-100/80",
+                            badgeText: "text-amber-800",
+                            icon: "💡"
+                          },
+                          warning: {
+                            bg: "bg-rose-50/65 border-rose-200",
+                            border: "border-l-4 border-rose-500",
+                            text: "text-slate-850",
+                            titleColor: "text-rose-950",
+                            badgeBg: "bg-rose-100/80",
+                            badgeText: "text-rose-800",
+                            icon: "⚠️"
+                          },
+                          info: {
+                            bg: "bg-blue-50/65 border-blue-200",
+                            border: "border-l-4 border-blue-500",
+                            text: "text-slate-850",
+                            titleColor: "text-blue-950",
+                            badgeBg: "bg-blue-100/80",
+                            badgeText: "text-blue-800",
+                            icon: "ℹ️"
+                          }
+                        };
+
+                        const selectedStyle = noteTypeStyles[data.type] || noteTypeStyles.info;
+
+                        return (
+                          <div className={cn(
+                            "p-5 md:p-6 rounded-r-2xl border-y border-r shadow-xs my-8 transition-all flex flex-col gap-3 overflow-visible",
+                            selectedStyle.bg,
+                            selectedStyle.border
+                          )}>
+                            <div className="flex flex-wrap items-center gap-2 mb-1">
+                              <span className="text-xl shrink-0">{selectedStyle.icon}</span>
+                              <span className={cn(
+                                "text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-lg shrink-0",
+                                selectedStyle.badgeBg,
+                                selectedStyle.badgeText
+                              )}>
+                                {data.type || 'NOTE'}
+                              </span>
+                              <h4 className={cn("font-extrabold text-sm md:text-base leading-snug", selectedStyle.titleColor)}>
+                                {data.title}
+                              </h4>
+                            </div>
+                            <div className="text-slate-800 text-[15px] md:text-base overflow-visible">
+                              <ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>
+                                {data.content}
+                              </ReactMarkdown>
+                            </div>
+                          </div>
+                        );
+                      } catch (e) {
+                        return <pre className={className}>{children}</pre>;
+                      }
+                    }
+                  }
+                  
+                  return <code className={className}>{children}</code>;
+                },
+                // Un-forced capitalization in elements
+                h1: ({ children }) => <h2 className="text-lg md:text-3xl font-black text-slate-900 mt-10 mb-4 tracking-tight leading-snug">{children}</h2>,
+                h2: ({ children }) => <h3 className="text-base md:text-2xl font-black text-slate-800 mt-8 mb-3 tracking-tight leading-snug">{children}</h3>,
+                hr: () => <hr className="my-8 border-slate-100" />
+              }}
             >
-              {lesson.title}
+              {lesson.content}
             </ReactMarkdown>
-          </h1>
-          
-          <div className="h-1.5 w-24 bg-blue-600 rounded-full" />
-        </div>
+          </div>
 
-        <div className="markdown-body relative z-10 text-slate-800 pb-10">
-          <ReactMarkdown
-            remarkPlugins={[remarkMath]}
-            rehypePlugins={[rehypeKatex]}
-            components={{
-              code(props) {
-                const { node, className, children, ...rest } = props;
-                const match = /language-([\w-]+)/.exec(className || '');
-                const isBlock = !!match;
-                
-                if (isBlock) {
-                  const lang = match[1];
-                  const rawContent = String(children).trim();
+          {/* Sibling Navigation Deck */}
+          <div className="mt-16 pt-8 border-t border-slate-100 flex flex-col sm:flex-row gap-4 items-stretch justify-between relative z-10">
+            {prevLesson ? (
+              <Link 
+                to={`/lesson/${prevLesson.id}`}
+                className="flex-1 group p-5 rounded-2xl border border-slate-100 hover:border-blue-200 bg-slate-50/20 hover:bg-slate-50/50 transition-all text-left flex items-center gap-4 cursor-pointer"
+              >
+                <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 flex items-center justify-center shrink-0 shadow-xs group-hover:-translate-x-1 transition-transform">
+                  <ChevronLeft className="text-slate-400 group-hover:text-slate-600" size={18} />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-0.5">Previous Lesson</p>
+                  <h4 className="font-bold text-sm text-slate-700 line-clamp-1 group-hover:text-blue-600 transition-colors">
+                    {prevLesson.title}
+                  </h4>
+                </div>
+              </Link>
+            ) : (
+              <div className="flex-1 hidden sm:block" />
+            )}
 
-                  if (lang === 'carousel') {
-                    const images = rawContent.split('\n').map(img => img.trim());
-                    return <ImageCarousel images={images} />;
-                  }
+            {nextLesson ? (
+              <Link 
+                to={`/lesson/${nextLesson.id}`}
+                className="flex-1 group p-5 rounded-2xl border border-slate-100 hover:border-blue-200 bg-slate-50/20 hover:bg-slate-50/50 transition-all text-right flex items-center justify-end gap-4 cursor-pointer"
+              >
+                <div className="min-w-0 text-right">
+                  <p className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-0.5">Next Lesson</p>
+                  <h4 className="font-bold text-sm text-slate-700 line-clamp-1 group-hover:text-blue-600 transition-colors">
+                    {nextLesson.title}
+                  </h4>
+                </div>
+                <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 flex items-center justify-center shrink-0 shadow-xs group-hover:translate-x-1 transition-transform">
+                  <ChevronRight className="text-slate-400 group-hover:text-slate-600" size={18} />
+                </div>
+              </Link>
+            ) : chapter ? (
+              <Link 
+                to={`/grade/${chapter.grade_id}/chapter/${chapter.id}`}
+                className="flex-1 group p-5 rounded-2xl border border-slate-100 hover:border-blue-200 bg-slate-50/20 hover:bg-slate-50/50 transition-all text-right flex items-center justify-end gap-4 cursor-pointer"
+              >
+                <div className="min-w-0 text-right">
+                  <p className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-0.5">End of Chapter</p>
+                  <h4 className="font-bold text-sm text-slate-700 line-clamp-1 group-hover:text-blue-600 transition-colors">
+                    Return to Chapter Modules
+                  </h4>
+                </div>
+                <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 flex items-center justify-center shrink-0 shadow-xs group-hover:translate-x-1 transition-transform">
+                  <ArrowLeft className="rotate-180 text-slate-450 group-hover:text-slate-600" size={16} />
+                </div>
+              </Link>
+            ) : (
+              <div className="flex-1 hidden sm:block" />
+            )}
+          </div>
 
-                  if (lang === 'complex-plane') {
-                    try {
-                      const data = JSON.parse(rawContent);
-                      return <ComplexPlane points={data.points} />;
-                    } catch (e) {
-                      return <pre className={className}>{children}</pre>;
-                    }
-                  }
-
-                  if (lang === 'timeline') {
-                    try {
-                      const events = JSON.parse(rawContent);
-                      return <Timeline events={events} />;
-                    } catch (e) {
-                      return <pre className={className}>{children}</pre>;
-                    }
-                  }
-
-                  if (lang === 'features') {
-                    try {
-                      const data = JSON.parse(rawContent);
-                      return (
-                        <FeatureGrid>
-                          {data.map((item: any, i: number) => (
-                            <FeatureCard key={i} {...item} />
-                          ))}
-                        </FeatureGrid>
-                      );
-                    } catch (e) {
-                      return <pre className={className}>{children}</pre>;
-                    }
-                  }
-
-                  if (lang === 'note') {
-                    try {
-                      const data = JSON.parse(rawContent);
-                      return (
-                        <NoteCard type={data.type} title={data.title}>
-                          <ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>
-                            {data.content}
-                          </ReactMarkdown>
-                        </NoteCard>
-                      );
-                    } catch (e) {
-                      return <pre className={className}>{children}</pre>;
-                    }
-                  }
-                }
-                
-                return <code className={className}>{children}</code>;
-              },
-              h1: ({ children }) => <h2 className="text-xl md:text-4xl font-black text-slate-900 mt-8 mb-4 uppercase tracking-tight leading-none">{children}</h2>,
-              h2: ({ children }) => <h3 className="text-lg md:text-3xl font-black text-slate-800 mt-6 mb-3 uppercase tracking-tight leading-none">{children}</h3>,
-              hr: () => <hr className="my-8 border-slate-100" />
-            }}
-          >
-            {lesson.content}
-          </ReactMarkdown>
-        </div>
-
-        {/* Floating background gradient */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/5 blur-[100px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
-      </article>
-
+          {/* Floating background gradient */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/5 blur-[100px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+        </article>
+      </div>
     </div>
-  </div>
   );
 };
 
