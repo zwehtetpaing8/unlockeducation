@@ -38,7 +38,7 @@ const Profile: React.FC = () => {
   if (loading) return <div className="flex justify-center py-20"><Loader2 className="animate-spin" /></div>;
 
   return (
-    <div className="max-w-4xl mx-auto space-y-12 pb-24">
+    <div className="max-w-4xl mx-auto space-y-12 pb-12">
       {/* Profile Header */}
       <div className="bg-white border border-slate-100 rounded-[3rem] p-8 md:p-16 shadow-xl relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl" />

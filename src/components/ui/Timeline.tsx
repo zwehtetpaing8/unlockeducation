@@ -19,12 +19,8 @@ export const Timeline: React.FC<TimelineProps> = ({ events }) => {
       
       <div className="space-y-12">
         {events.map((event, index) => (
-          <motion.div 
+          <div 
             key={index}
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: index * 0.1 }}
             className={`relative flex items-start md:items-center ${index % 2 === 0 ? 'md:flex-row-reverse' : 'md:flex-row'}`}
           >
             {/* Dot on line */}
@@ -45,7 +41,7 @@ export const Timeline: React.FC<TimelineProps> = ({ events }) => {
                 </p>
               </div>
             </div>
-          </motion.div>
+          </div>
         ))}
       </div>
     </div>

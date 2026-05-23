@@ -26,7 +26,6 @@ const LessonDetail: React.FC = () => {
   const [lesson, setLesson] = useState<Lesson | null>(null);
   const [chapter, setChapter] = useState<Chapter | null>(null);
   const [siblings, setSiblings] = useState<Lesson[]>([]);
-  const [scrollProgress, setScrollProgress] = useState(0);
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -36,17 +35,6 @@ const LessonDetail: React.FC = () => {
       fetchLessonData(lessonId);
     }
   }, [lessonId]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
-      if (totalScroll > 0) {
-        setScrollProgress((window.scrollY / totalScroll) * 100);
-      }
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const fetchLessonData = async (id: string) => {
     setLoading(true);
@@ -70,7 +58,7 @@ const LessonDetail: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="h-[60vh] flex items-center justify-center">
         <Loader2 className="animate-spin text-blue-600" size={40} />
       </div>
     );
@@ -83,16 +71,8 @@ const LessonDetail: React.FC = () => {
   const nextLesson = currentIndex < siblings.length - 1 ? siblings[currentIndex + 1] : null;
 
   return (
-    <div className="min-h-screen bg-slate-50/50">
-      {/* Scroll Reading Progress Bar */}
-      <div className="fixed top-0 left-0 right-0 h-1 bg-slate-100/80 z-50">
-        <div 
-          className="h-full bg-blue-600 rounded-r-full transition-all duration-75"
-          style={{ width: `${scrollProgress}%` }}
-        />
-      </div>
-
-      <div className="max-w-4xl mx-auto pb-24 px-4 sm:px-6 pt-8">
+    <div className="w-full">
+      <div className="max-w-4xl mx-auto pb-12 px-4 sm:px-6 pt-8">
         {/* Breadcrumbs Navigation */}
         <nav className="mb-6 flex items-center justify-between">
           <Link 
@@ -252,7 +232,7 @@ const LessonDetail: React.FC = () => {
 
                         return (
                           <div className={cn(
-                            "p-5 md:p-6 rounded-r-2xl border-y border-r shadow-xs my-8 transition-all flex flex-col gap-3 overflow-visible",
+                            "w-full max-w-full min-w-0 p-5 md:p-6 rounded-r-2xl border-y border-r shadow-xs my-8 transition-all flex flex-col gap-3 overflow-visible",
                             selectedStyle.bg,
                             selectedStyle.border
                           )}>
@@ -269,8 +249,14 @@ const LessonDetail: React.FC = () => {
                                 {data.title}
                               </h4>
                             </div>
-                            <div className="text-slate-800 text-[15px] md:text-base overflow-visible">
-                              <ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>
+                            <div className="text-slate-800 text-[15px] md:text-base overflow-visible overflow-wrap-anywhere break-words whitespace-normal">
+                              <ReactMarkdown 
+                                remarkPlugins={[remarkMath]} 
+                                rehypePlugins={[rehypeKatex]}
+                                components={{
+                                  p: ({ children }) => <p className="mb-2 leading-relaxed overflow-wrap-anywhere break-words">{children}</p>
+                                }}
+                              >
                                 {data.content}
                               </ReactMarkdown>
                             </div>

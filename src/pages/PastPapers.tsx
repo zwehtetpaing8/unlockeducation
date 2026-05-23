@@ -374,8 +374,8 @@ const PastPapers: React.FC = () => {
   }, [papers, selectedYear, selectedChapter, selectedSection, searchQuery]);
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-7xl mx-auto px-0 sm:px-6 lg:px-8 py-12 space-y-10">
+    <div className="bg-white">
+      <div className="max-w-7xl mx-auto px-0 sm:px-6 lg:px-8 py-12 space-y-10 pb-12">
         {/* 1. Header & Title Section */}
       <section className="space-y-4 px-4 sm:px-0">
         <motion.div 

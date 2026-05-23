@@ -9,7 +9,7 @@ const TermsOfService: React.FC = () => {
   }, []);
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8 md:py-12 text-left min-h-screen pb-24">
+    <div className="max-w-4xl mx-auto px-4 py-4 md:py-8 text-left pb-12">
       <Link 
         to="/" 
         className="inline-flex items-center gap-2 text-[10px] font-black text-slate-400 hover:text-blue-600 mb-12 transition-all group uppercase tracking-[0.2em]"

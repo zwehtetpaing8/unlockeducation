@@ -43,8 +43,8 @@ const ChapterDetail: React.FC = () => {
   if (!chapter) return <div className="p-8 text-center bg-white rounded-3xl border border-slate-100">Chapter not found</div>;
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12 pb-32">
+    <div className="bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12 pb-12">
         {/* Chapter Header */}
       <header className="space-y-8">
         <Link 

@@ -295,16 +295,6 @@ $$z = a + bi$$
 
 ဥပမာ - $z = 3 + 4i$ တွင် Real Part မှာ 3 ဖြစ်ပြီး Imaginary Part မှာ 4 ဖြစ်သည်။
 
-\`\`\`complex-plane
-{
-  "points": [
-    { "x": 3, "y": 4, "label": "z = 3 + 4i", "color": "#2563eb" },
-    { "x": -2, "y": 2, "label": "w = -2 + 2i", "color": "#10b981" },
-    { "x": 0, "y": -3, "label": "-3i", "color": "#8b5cf6" }
-  ]
-}
-\`\`\`
-
 ---
 
 ## 2. Powers of $i$ (Cycle Pattern)
@@ -370,15 +360,13 @@ $i$ ကို အထပ်ထပ်မြှောက်သွားလျှင
 
 ### 5. Topics in this Chapter
 
-* Pure Imaginary Unit နှင့် ၎င်း၏ ဂုဏ်သတ္တိများ
-* Complex Numbers များ၏ ပေါင်း၊ နှုတ်၊ မြှောက်၊ စားခြင်း
-* Trigonometric Form (Polar Form) သို့ ပြောင်းလဲခြင်း
-* ကိန်းထွေများ၏ နှစ်ထပ်ကိန်းရင်းနှင့် အထပ်ကိန်းရင်းများ ရှာဖွေခြင်း
+* Pure Imaginary Unit i
+* Complex Number
+* Operations on Complex Numbers
+* Trgonometric Form 
+* Roots of Complex Numbers
 
----
-
-**$$x^2 = -1$$**
-မဖြစ်နိုင်ရာမှ... အစစ်အမှန် ဖြစ်လာခြင်း။`;
+---`;
 
 const chapter1BasicContent = `# Basic Operations and Properties
 
@@ -414,15 +402,6 @@ $$= (ac - bd) + (ad + bc)i$$
 ## 3. Conjugate of a Complex Number
 
 ကိန်းထွေ $z = a + bi$ ၏ **Conjugate** မှာ $\\bar{z} = a - bi$ ဖြစ်သည်။ ၎င်းသည် Complex plane ပေါ်တွင် Real axis ကို အခြေခံ၍ Mirror image (မှန်ပြန်ပုံရိပ်) ဖြစ်သည်။
-
-\`\`\`complex-plane
-{
-  "points": [
-    { "x": 2, "y": 3, "label": "z = 2 + 3i", "color": "#2563eb" },
-    { "x": 2, "y": -3, "label": "z̄ = 2 - 3i", "color": "#f43f5e" }
-  ]
-}
-\`\`\`
 
 ---
 

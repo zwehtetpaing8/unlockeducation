@@ -95,7 +95,7 @@ Consider the function $f(x) = x^2$. We can find the derivative:
 `;
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 pb-24">
+    <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 pb-12">
       {/* Sidebar Nav */}
       <div className="lg:col-span-1 space-y-2">
         <h2 className="text-2xl font-black uppercase tracking-tight mb-8 px-4 text-slate-900">Admin Control</h2>

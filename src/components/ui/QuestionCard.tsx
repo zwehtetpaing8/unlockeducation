@@ -26,10 +26,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({ question, diagramRen
   const [isOpen, setIsOpen] = React.useState(false);
 
   return (
-    <motion.article 
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+    <article 
       className="bg-white border-y md:border border-slate-100 px-4 py-8 sm:p-10 md:p-12 lg:p-16 md:rounded-[2.5rem] shadow-sm relative overflow-hidden text-left my-8"
     >
       {/* Index Badge */}
@@ -139,6 +136,6 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({ question, diagramRen
           </AnimatePresence>
         </div>
       </div>
-    </motion.article>
+    </article>
   );
 };

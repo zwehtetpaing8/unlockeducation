@@ -50,7 +50,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
   };
 
   return (
-    <div className="min-h-screen transition-colors duration-300 bg-slate-50/30 text-neutral-900 overflow-x-hidden relative selection:bg-blue-100 selection:text-blue-900">
+    <div className="min-h-screen flex flex-col transition-colors duration-300 bg-slate-50/30 text-neutral-900 overflow-x-hidden relative selection:bg-blue-100 selection:text-blue-900">
       {/* Background Decor */}
       <div className="fixed inset-0 -z-10 pointer-events-none overflow-hidden sm:block hidden">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-100/40 rounded-full blur-[120px]" />
@@ -190,7 +190,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       </AnimatePresence>
 
       {/* Main Content */}
-      <main className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-10 py-8 md:py-12 pb-32 relative">
+      <main className="flex-1 w-full max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-10 py-6 md:py-12 pb-16 md:pb-24 relative">
         {children}
       </main>
 
@@ -224,12 +224,12 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       </div>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-slate-100 mt-20">
-        <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 text-left">
-            <div className="col-span-1 md:col-span-2 space-y-6">
+      <footer className="bg-white border-t border-slate-100 mt-10 md:mt-20 shrink-0">
+        <div className="max-w-7xl mx-auto px-4 py-10 md:py-16 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 text-left">
+            <div className="col-span-1 sm:col-span-2 space-y-4 md:space-y-6">
               <Logo />
-              <p className="text-slate-500 max-w-sm leading-relaxed">
+              <p className="text-slate-500 max-w-sm leading-relaxed text-xs sm:text-sm">
                 Empowering Myanmar high school students with world-class mathematics education. 
                 Premium content, interactive learning, and exam mastery.
               </p>
@@ -238,8 +238,8 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
               </div>
             </div>
             <div>
-              <h4 className="font-bold text-slate-900 mb-6 uppercase tracking-wider text-xs">Curriculum</h4>
-              <ul className="space-y-4 text-sm font-medium text-slate-500">
+              <h4 className="font-bold text-slate-900 mb-3 md:mb-6 uppercase tracking-wider text-[10px] md:text-xs">Curriculum</h4>
+              <ul className="space-y-2 md:space-y-4 text-xs md:text-sm font-medium text-slate-500">
                 <li><Link to="/lessons/10" className="hover:text-blue-600 transition-colors">Grade 10</Link></li>
                 <li><Link to="/lessons/11" className="hover:text-blue-600 transition-colors">Grade 11</Link></li>
                 <li><Link to="/lessons/12" className="hover:text-blue-600 transition-colors">Grade 12</Link></li>
@@ -247,8 +247,8 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
               </ul>
             </div>
             <div>
-              <h4 className="font-bold text-slate-900 mb-6 uppercase tracking-wider text-xs">Platform</h4>
-              <ul className="space-y-4 text-sm font-medium text-slate-500">
+              <h4 className="font-bold text-slate-900 mb-3 md:mb-6 uppercase tracking-wider text-[10px] md:text-xs">Platform</h4>
+              <ul className="space-y-2 md:space-y-4 text-xs md:text-sm font-medium text-slate-500">
                 <li><Link to="/profile" className="hover:text-blue-600 transition-colors">My Profile</Link></li>
                 <li><Link to="/terms" className="hover:text-blue-600 transition-colors">Terms</Link></li>
                 <li><Link to="/privacy" className="hover:text-blue-600 transition-colors">Privacy Policy</Link></li>
@@ -256,7 +256,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
               </ul>
             </div>
           </div>
-          <div className="border-t border-slate-50 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-6 text-[11px] font-semibold text-slate-400 uppercase tracking-widest">
+          <div className="border-t border-slate-50 mt-10 md:mt-16 pt-6 md:pt-8 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6 text-[10px] md:text-[11px] font-semibold text-slate-400 uppercase tracking-widest">
             <p>© 2024 Unlock Education. All rights reserved.</p>
             <div className="flex items-center gap-4">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />

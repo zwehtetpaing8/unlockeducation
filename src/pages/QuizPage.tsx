@@ -82,7 +82,7 @@ const QuizPage: React.FC = () => {
   const currentQuestion = questions[currentIdx];
 
   return (
-    <div className="max-w-screen-2xl mx-auto py-4 md:py-12 pb-32 px-0 sm:px-4">
+    <div className="max-w-screen-2xl mx-auto py-4 md:py-12 pb-12 px-0 sm:px-4">
       <AnimatePresence mode="wait">
         {!showResults ? (
           <motion.div

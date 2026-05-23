@@ -95,7 +95,7 @@ const SectionDMaster: React.FC = () => {
   );
 
   return (
-    <div className="max-w-screen-2xl mx-auto pb-24 px-4 sm:px-6">
+    <div className="max-w-screen-2xl mx-auto pb-12 px-4 sm:px-6">
       {/* Header */}
       <header className="mb-12 space-y-6">
         <Link 

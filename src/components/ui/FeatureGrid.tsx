@@ -27,16 +27,16 @@ export const FeatureCard: React.FC<FeatureCardProps> = ({ title, description, ic
   return (
     <motion.div 
       whileHover={{ y: -8, scale: 1.02 }}
-      className="bg-white border border-slate-100 p-6 md:p-8 rounded-[2.5rem] shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden relative group h-full flex flex-col"
+      className="bg-white border border-slate-100 p-5 sm:p-6 md:p-8 rounded-[2.5rem] shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden relative group h-full flex flex-col min-w-0 w-full"
     >
-      <div className={`w-14 h-14 md:w-16 md:h-16 ${theme.bg} ${theme.text} rounded-3xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-500`}>
-        <Icon size={28} />
+      <div className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 ${theme.bg} ${theme.text} rounded-3xl flex items-center justify-center mb-5 sm:mb-6 group-hover:rotate-12 transition-transform duration-500 shrink-0`}>
+        <Icon size={24} className="md:w-7 md:h-7" />
       </div>
-      <h4 className="text-lg md:text-xl font-black text-slate-900 mb-4 uppercase tracking-tight break-words leading-tight">{title}</h4>
+      <h4 className="text-base sm:text-lg md:text-xl font-black text-slate-900 mb-3 sm:mb-4 uppercase tracking-tight break-words whitespace-normal leading-tight min-w-0">{title}</h4>
       
-      <div className="flex-1">
+      <div className="flex-1 min-w-0">
         <p className={cn(
-          "text-[13px] md:text-sm text-slate-500 font-medium leading-[1.6] break-words overflow-wrap-anywhere transition-all duration-300",
+          "text-xs sm:text-[13px] md:text-sm text-slate-500 font-medium leading-[1.6] break-words whitespace-normal transition-all duration-300 min-w-0",
           !isExpanded && "line-clamp-4"
         )}>
           {description}

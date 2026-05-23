@@ -36,9 +36,9 @@
 /* Custom Markdown & Math Styles */
 .markdown-body {
   @apply text-[15px] md:text-[18px] leading-[1.6] text-slate-700 font-normal;
-  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
   word-wrap: break-word;
-  word-break: normal;
+  word-break: break-word;
   hyphens: auto;
 }
 

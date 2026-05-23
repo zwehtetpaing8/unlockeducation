@@ -72,8 +72,8 @@ const Lessons: React.FC = () => {
   }, [filteredLessons]);
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
+    <div className="bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12 pb-12">
         {/* 1. Header Section */}
       <header className="space-y-6">
         <Link 
@@ -217,51 +217,45 @@ const Lessons: React.FC = () => {
                     {/* Lesson Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                       {chapterLessons.map((lesson, idx) => (
-                        <motion.div
+                        <Link 
                           key={lesson.id}
-                          initial={{ opacity: 0, y: 10 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          viewport={{ once: true }}
+                          to={`/grade/${level}/chapter/${chapter.id}/lesson/${lesson.id}`}
+                          className="group flex flex-col p-6 bg-white border border-slate-100 rounded-[2.5rem] hover:border-blue-200 hover:shadow-2xl transition-all h-full active:scale-[0.98] shadow-sm hover:-translate-y-1"
                         >
-                          <Link 
-                            to={`/grade/${level}/chapter/${chapter.id}/lesson/${lesson.id}`}
-                            className="group flex flex-col p-6 bg-white border border-slate-100 rounded-[2.5rem] hover:border-blue-200 hover:shadow-2xl transition-all h-full active:scale-[0.98] shadow-sm hover:-translate-y-1"
-                          >
-                            <div className="flex items-start justify-between mb-10">
-                              <div className={cn(
-                                "w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 transition-all group-hover:scale-110",
-                                lesson.type === 'theory' ? "bg-blue-50 text-blue-600" :
-                                lesson.type === 'exercise' ? "bg-emerald-50 text-emerald-600" :
-                                "bg-purple-50 text-purple-600"
-                              )}>
-                                {lesson.type === 'theory' ? <PlayCircle size={24} /> : 
-                                 lesson.type === 'exercise' ? <FileText size={24} /> : 
-                                 <Award size={24} />}
-                              </div>
-                              <div className="w-10 h-10 rounded-full border border-slate-50 flex items-center justify-center text-slate-200 group-hover:bg-blue-600 group-hover:text-white transition-all">
-                                <ChevronRight size={20} />
-                              </div>
+                          <div className="flex items-start justify-between mb-10">
+                            <div className={cn(
+                              "w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 transition-all group-hover:scale-110",
+                              lesson.type === 'theory' ? "bg-blue-50 text-blue-600" :
+                              lesson.type === 'exercise' ? "bg-emerald-50 text-emerald-600" :
+                              "bg-purple-50 text-purple-600"
+                            )}>
+                              {lesson.type === 'theory' ? <PlayCircle size={24} /> : 
+                               lesson.type === 'exercise' ? <FileText size={24} /> : 
+                               <Award size={24} />}
                             </div>
-                            
-                            <div className="space-y-4">
-                              <div className="flex items-center gap-2">
-                                 <span className={cn(
-                                   "text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded-md border",
-                                   lesson.type === 'theory' ? "bg-blue-50 text-blue-600 border-blue-100" :
-                                   lesson.type === 'exercise' ? "bg-emerald-50 text-emerald-600 border-emerald-100" :
-                                   "bg-purple-50 text-purple-600 border-purple-100"
-                                 )}>{lesson.type}</span>
-                                 <span className="text-[8px] font-black uppercase tracking-widest text-slate-300">Module {idx + 1}</span>
-                              </div>
-                              <h3 className="text-xl font-black text-slate-900 group-hover:text-blue-600 transition-colors uppercase tracking-tight leading-tight line-clamp-2">{lesson.title}</h3>
+                            <div className="w-10 h-10 rounded-full border border-slate-50 flex items-center justify-center text-slate-200 group-hover:bg-blue-600 group-hover:text-white transition-all">
+                              <ChevronRight size={20} />
                             </div>
+                          </div>
+                          
+                          <div className="space-y-4">
+                            <div className="flex items-center gap-2">
+                               <span className={cn(
+                                 "text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded-md border",
+                                 lesson.type === 'theory' ? "bg-blue-50 text-blue-600 border-blue-100" :
+                                 lesson.type === 'exercise' ? "bg-emerald-50 text-emerald-600 border-emerald-100" :
+                                 "bg-purple-50 text-purple-600 border-purple-100"
+                               )}>{lesson.type}</span>
+                               <span className="text-[8px] font-black uppercase tracking-widest text-slate-300">Module {idx + 1}</span>
+                            </div>
+                            <h3 className="text-xl font-black text-slate-900 group-hover:text-blue-600 transition-colors uppercase tracking-tight leading-tight line-clamp-2">{lesson.title}</h3>
+                          </div>
 
-                            <div className="mt-8 pt-6 border-t border-slate-50 flex items-center justify-between">
-                               <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Master Topic</span>
-                               <span className="px-3 py-1 bg-slate-50 rounded-lg text-[9px] font-black text-slate-400 uppercase tracking-widest group-hover:bg-blue-600 group-hover:text-white transition-all">Study</span>
-                            </div>
-                          </Link>
-                        </motion.div>
+                          <div className="mt-8 pt-6 border-t border-slate-50 flex items-center justify-between">
+                             <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Master Topic</span>
+                             <span className="px-3 py-1 bg-slate-50 rounded-lg text-[9px] font-black text-slate-400 uppercase tracking-widest group-hover:bg-blue-600 group-hover:text-white transition-all">Study</span>
+                          </div>
+                        </Link>
                       ))}
                     </div>
                   </div>
