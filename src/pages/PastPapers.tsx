@@ -590,6 +590,27 @@ const MOCK_PAPERS: PastPaper[] = [
     ],
     correct_answer_id: 'B',
     solution_content: 'Given: \n $z_1 = 6 - 17i$ \n $z_2 = 3 - bi$ \n $\\frac{z_1}{z_2} = 4 - 3i$ \n\n We can write the relationship as: \n $z_1 = z_2(4 - 3i)$ \n\n Substitute the values: \n $6 - 17i = (3 - bi)(4 - 3i)$ \n\n Expand the right side: \n $$ \\begin{aligned} 6 - 17i &= 3(4) - 3(3i) - (bi)(4) + (bi)(3i) \\\\ 6 - 17i &= 12 - 9i - 4bi + 3bi^2 \\\\ 6 - 17i &= 12 - 9i - 4bi - 3b \\\\ 6 - 17i &= (12 - 3b) + (-9 - 4b)i \\end{aligned} $$ \n\n Equating the real parts: \n $$ \\begin{aligned} 6 &= 12 - 3b \\\\ 3b &= 6 \\\\ b &= 2 \\end{aligned} $$ \n\n (Equating imaginary parts for verification: $-17 = -9 - 4b \\implies 4b = 8 \\implies b = 2$) \n\n Therefore, the value of $b$ is **2**. \n\n Correct Option: **(B)**'
+  },
+  {
+    id: '2026A_Q02',
+    year: 2026,
+    subject: 'General Mathematics',
+    grade_level: 12,
+    title: 'Complex Numbers - Multiplication',
+    pdf_url: '#',
+    answer_pdf_url: null,
+    section: 'Section A Multiple Choice',
+    chapter: 'Chapter 1: Complex Numbers',
+    question_type: 'MCQ',
+    content: 'If $z_1=(2,-3)$ and $z_2=(-2,1)$, then $z_1z_2$ is:',
+    options: [
+      { id: 'A', text: '$(1,8)$' },
+      { id: 'B', text: '$(1,-8)$' },
+      { id: 'C', text: '$(-1,8)$' },
+      { id: 'D', text: '$(-1,-8)$' }
+    ],
+    correct_answer_id: 'C',
+    solution_content: 'Given: \n\n$z_1=(2,-3)=2-3i$ \n\n$z_2=(-2,1)=-2+i$ \n\nNow multiply: \n\n$$\\begin{aligned} z_1z_2 &= (2-3i)(-2+i) \\\\ &= -4+2i+6i-3i^2 \\\\ &= -4+8i+3 \\\\ &= -1+8i \\end{aligned}$$ \n\nTherefore, $z_1z_2=(-1,8)$. \n\nCorrect Option: **(C)**'
   }
 ];
 
