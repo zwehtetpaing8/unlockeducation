@@ -178,7 +178,10 @@ const LessonDetail: React.FC = () => {
 
                     if (lang === 'note') {
                       try {
-                        const data = JSON.parse(rawContent);
+                        // Pre-process rawContent to safely escape LaTeX backslashes (like \frac, \begin, \pm, \sqrt)
+                        // so they do not break JSON parsing as invalid JSON escape sequences.
+                        const fixedContent = rawContent.replace(/\\(?![n"])/g, '\\\\');
+                        const data = JSON.parse(fixedContent);
                         
                         // Definition and callout styling config
                         const noteTypeStyles: Record<string, {
@@ -232,7 +235,7 @@ const LessonDetail: React.FC = () => {
 
                         return (
                           <div className={cn(
-                            "w-full max-w-full min-w-0 p-5 md:p-6 rounded-r-2xl border-y border-r shadow-xs my-8 transition-all flex flex-col gap-3 overflow-visible",
+                            "w-full max-w-full min-w-0 p-5 md:p-6 rounded-r-2xl border-y border-r shadow-xs my-8 transition-all flex flex-col gap-3 overflow-hidden md:overflow-visible",
                             selectedStyle.bg,
                             selectedStyle.border
                           )}>

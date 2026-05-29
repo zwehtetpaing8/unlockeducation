@@ -321,33 +321,3 @@ INSERT INTO past_papers (id, year, subject, grade_level, title, pdf_url, section
  'If $z_1=6-17i$, $z_2=3-bi$ and $\frac{z_1}{z_2}= 4-3i$, then $b$ is: \n\n (A) 1 \n (B) 2 \n (C) 3 \n (D) 4',
  'Given: \n $z_1 = 6 - 17i$ \n $z_2 = 3 - bi$ \n $\\frac{z_1}{z_2} = 4 - 3i$ \n\n We can write the relationship as: \n $z_1 = z_2(4 - 3i)$ \n\n Substitute the values: \n $6 - 17i = (3 - bi)(4 - 3i)$ \n\n Expand the right side: \n $$ \\begin{aligned} 6 - 17i &= 3(4) - 3(3i) - (bi)(4) + (bi)(3i) \\\\ 6 - 17i &= 12 - 9i - 4bi + 3bi^2 \\\\ 6 - 17i &= 12 - 9i - 4bi - 3b \\\\ 6 - 17i &= (12 - 3b) + (-9 - 4b)i \\end{aligned} $$ \n\n Equating the real parts: \n $$ \\begin{aligned} 6 &= 12 - 3b \\\\ 3b &= 6 \\\\ b &= 2 \\end{aligned} $$ \n\n (Equating imaginary parts for verification: $-17 = -9 - 4b \\implies 4b = 8 \\implies b = 2$) \n\n Therefore, the value of $b$ is **2**. \n\n Correct Option: **(B)**');
 
-INSERT INTO past_papers (
-  id,
-  year,
-  subject,
-  grade_level,
-  title,
-  pdf_url,
-  section,
-  chapter,
-  content,
-  solution_content,
-  question_type,
-  options,
-  correct_answer_id
-) VALUES (
-  '2026A_Q02',
-  2026,
-  'General Mathematics',
-  12,
-  'Complex Numbers - Multiplication',
-  '#',
-  'Section A Multiple Choice',
-  'Chapter 1: Complex Numbers',
-  'If $z_1=(2,-3)$ and $z_2=(-2,1)$, then $z_1z_2$ is:',
-  'Given: \n\n$z_1=(2,-3)=2-3i$ \n\n$z_2=(-2,1)=-2+i$ \n\nNow multiply: \n\n$$\\begin{aligned} z_1z_2 &= (2-3i)(-2+i) \\\\ &= -4+2i+6i-3i^2 \\\\ &= -4+8i+3 \\\\ &= -1+8i \\end{aligned}$$ \n\nTherefore, $z_1z_2=(-1,8)$. \n\nCorrect Option: **(C)**',
-  'MCQ',
-  '[{"id":"A","text":"$(1,8)$"},{"id":"B","text":"$(1,-8)$"},{"id":"C","text":"$(-1,8)$"},{"id":"D","text":"$(-1,-8)$"}]'::jsonb,
-  'C'
-);
-

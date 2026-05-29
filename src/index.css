@@ -79,10 +79,28 @@
   @apply text-neutral-900 font-bold;
 }
 
+.markdown-body {
+  max-width: 100%;
+  overflow-x: hidden;
+  word-break: break-word;
+}
+
 .katex {
   @apply opacity-95;
   font-size: 1.05em !important;
-  white-space: normal !important; /* Allow inline math to wrap */
+  white-space: nowrap !important; /* Prevent internal span wrapping that breaks symbol drawing */
+  word-break: normal !important;
+  word-wrap: normal !important;
+  overflow-wrap: normal !important;
+}
+
+span.katex {
+  display: inline-block !important; /* Force inline-block to respect max-width and allow horizontal scroll if wide */
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  vertical-align: middle;
+  -webkit-overflow-scrolling: touch;
 }
 
 @media (max-width: 768px) {
@@ -99,7 +117,6 @@
 
 .katex-display {
   @apply py-6 px-4 my-6 bg-slate-50/80 rounded-[2rem] border border-slate-100 shadow-inner;
-  /* Allow block math to wrap at operators */
   max-width: 100%;
   display: block;
   overflow-x: auto;
@@ -108,22 +125,17 @@
   -webkit-overflow-scrolling: touch;
 }
 
-/* Smart Line Breaking for Display Math */
+/* Let the display equation behave as a single block that can scroll horizontally on mobile without breaking layouts */
 .katex-display > .katex {
   display: inline-block;
-  white-space: normal !important;
+  white-space: nowrap !important;
   text-align: left;
   max-width: 100%;
 }
 
-/* Force wrapping at binary operators/relations */
-.katex-display .mbin, .katex-display .mrel {
-  white-space: normal;
-}
-
 .katex-display .base {
   display: inline-block;
-  white-space: normal !important;
+  white-space: nowrap !important;
   margin-top: 0.25em;
   margin-bottom: 0.25em;
 }
@@ -136,13 +148,12 @@
   }
   
   .katex-display > .katex {
-    width: 100%;
-    overflow-x: auto;
+    width: auto;
+    overflow-x: visible;
   }
 
-  /* Extreme scaling for huge math blocks if wrapping fails */
   .katex-display .base {
-    max-width: 100%;
+    max-width: none;
   }
 }
 

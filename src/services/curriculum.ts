@@ -141,7 +141,7 @@ export const curriculumService = {
         {
           id: 'lesson-c1-basic',
           chapter_id: chapterId,
-          title: 'Basic Operations and Properties',
+          title: 'Pure Imaginary Unit i',
           type: 'theory',
           content: chapter1BasicContent,
           order_index: 2,
@@ -183,7 +183,7 @@ export const curriculumService = {
       return {
         id: 'lesson-c1-basic',
         chapter_id: 'chapter-c1-g12',
-        title: 'Basic Operations and Properties',
+        title: 'Pure Imaginary Unit i',
         type: 'theory',
         content: chapter1BasicContent,
         order_index: 2,
@@ -233,7 +233,8 @@ Complex Numbers ဆိုသည်မှာ သင်္ချာလောက၏
 
 ### Why Did Complex Numbers Arise?
 
-၁၅၀၀ ပြည့်နှစ်များအတွင်း သင်္ချာပညာရှင်များသည် Polynomial Equations များ၊ အထူးသဖြင့် Cubic Equations များကို ဖြေရှင်းရန် အလွန်ခက်ခဲစွာ ကြိုးပမ်းခဲ့ကြရပါသည်။ Real Numbers များသည် ပြဿနာအတော်များများအတွက် အဆင်ပြေသော်လည်း၊ အချို့သော Algebraic Formulas များကို တွက်ချက်ရာတွင် Traditional Number Line ပေါ်တွင် အဓိပ္ပာယ်မရှိသော $\sqrt{-1}$ ကဲ့သို့သော Expression များ ပေါ်ထွက်လာခဲ့ပါသည်။
+၁၅၀၀ ပြည့်နှစ်များအတွင်း သင်္ချာပညာရှင်များသည် Polynomial Equations များ၊ အထူးသဖြင့် Cubic Equations များကို ဖြေရှင်းရန် အလွန်ခက်ခဲစွာ ကြိုးပမ်းခဲ့ကြရပါသည်။ Real Numbers များသည် ပြဿနာအတော်များများအတွက် အဆင်ပြေသော်လည်း၊ အချို့သော Algebraic Formulas များကို တွက်ချက်ရာတွင် Traditional Number Line ပေါ်တွင် အဓိပ္ပာယ်မရှိသော $\\sqrt{-1}$ ကဲ့သို့သော Expression များ ပေါ်ထွက်လာခဲ့ပါသည်။
+Cubic Equation ဖြေရှင်းမှု ပုံသေနည်း (Cardano's Formula) ကို အသုံးပြုသည့်အခါ အနှုတ်ကိန်းများ၏ Square Root ကို ရှောင်လွှဲ၍မရ ဖြစ်လာခဲ့ပါသည်။ ဤသို့ဖြင့် Real Numbers စနစ်တစ်ခုတည်းနှင့် မလုံလောက်တော့ဘဲ၊ သင်္ချာနယ်ပယ်တိုးတက်ရန် $\\sqrt{-1}$ ကို တရားဝင် တည်ဆောက်သတ်မှတ်ရန် လိုအပ်လာခဲ့သည်။
 
 Algebra ကို အပြည့်အစုံ ခြုံငုံဖြေရှင်းနိုင်ရန်နှင့် Equations များကို တစ်သမတ်တည်း တွက်ချက်နိုင်ရန်အတွက် သင်္ချာပညာရှင်များသည် ဤ "Imaginary Quantities" များကို လက်ခံအသုံးပြုရန် ဖိအားပေးခြင်း ခံခဲ့ရပါသည်။ ဤသို့ဖြင့် Complex Number ဟူသော တော်လှန်ရေးအယူအဆတစ်ခု မွေးဖွားလာခဲ့ပါသည်။
 
@@ -320,9 +321,8 @@ $i$ ကို အထပ်ထပ်မြှောက်သွားလျှင
 
 ကိန်းစစ် (Real numbers) များသည် ကိန်းမျဉ်း (Number line) ပေါ်တွင်သာ ရှိသော်လည်း ကိန်းထွေများမှာမူ **Complex Plane** ဟုခေါ်သော ပြင်ညီတစ်ခုပေါ်တွင် တည်ရှိကြသည်။
 
-*   **Horizontal Axis:** Real Axis (ကိန်းစစ်ဝင်ရိုး)
-*   **Vertical Axis:** Imaginary Axis (စိတ်ကူးယဉ်ဝင်ရိုး)
-
+*   **Horizontal Axis:** Real Axis 
+*   **Vertical Axis:** Imaginary Axis 
 ---
 
 ### 4. Why Are Complex Numbers Important?
@@ -363,59 +363,297 @@ $i$ ကို အထပ်ထပ်မြှောက်သွားလျှင
 * Pure Imaginary Unit i
 * Complex Number
 * Operations on Complex Numbers
-* Trgonometric Form 
+* Trigonometric Form 
 * Roots of Complex Numbers
 
 ---`;
 
-const chapter1BasicContent = `# Basic Operations and Properties
+const chapter1BasicContent = `# Pure Imaginary Unit $i$
 
-Complex Numbers များကို Real Numbers များကဲ့သို့ပင် ပေါင်းခြင်း၊ နှုတ်ခြင်း၊ မြှောက်ခြင်းနှင့် စားခြင်းတို့ကို ဆောင်ရွက်နိုင်ပါသည်။ သို့သော် အချို့သော နည်းဥပဒေများကို သတိပြုရန် လိုအပ်ပါသည်။
+### 💡 Motivation
+Consider the equation:
+$$x^2+4=0$$
 
-## 1. Addition and Subtraction
+It is equivalent to:
+$$x^2=-4$$
 
-Complex numbers နှစ်ခုကို ပေါင်းလျှင် (သို့) နှုတ်လျှင် Real parts အချင်းချင်းနှင့် Imaginary parts အချင်းချင်းကို သီးခြားစီ ဆောင်ရွက်ရပါမည်။
+In the real number system this equation has **no solution**, since the square of a real number cannot be negative.
 
-**Formula:**
-$$(a + bi) \\pm (c + di) = (a \\pm c) + (b \\pm d)i$$
+---
+
+\`\`\`note
+{
+  "type": "definition",
+  "title": "Pure Imaginary Unit i",
+  "content": "The **pure imaginary unit** is denoted by $i$ and is defined by:\\n\\n$$i=\\\\sqrt{-1}, \\\\qquad i^2=-1$$\\n\\nThis new symbol allows us to work with square roots of negative numbers."
+}
+\`\`\`
+
+---
+
+### 🔍 Concept Check
+Solve the equation $x^2 + 4 = 0$.
+
+**Solution:**
+From $x^2 + 4 = 0$, we get:
+$$
+\\begin{aligned}
+  x^2 &= -4 \\\\
+      &= 4(-1) \\\\
+      &= 4i^2 \\\\
+      &= (\\pm \\sqrt{4}\\,i)^2
+\\end{aligned}
+$$
+
+Therefore,
+$$\\boxed{x=\\pm 2i}$$
+
+---
+
+### 📊 Pattern Recognition
+The same idea can be used for other negative numbers:
+
+$$
+\\begin{aligned}
+  x^2 = -9 &\\implies x^2 = (\\pm\\sqrt{9}\\,i)^2 \\implies x=\\pm3i \\\\
+  x^2 = -16 &\\implies x^2 = (\\pm\\sqrt{16}\\,i)^2 \\implies x=\\pm4i \\\\
+  x^2 = -81 &\\implies x^2 = (\\pm\\sqrt{81}\\,i)^2 \\implies x=\\pm9i \\\\
+  x^2 = -7 &\\implies x^2 = (\\pm\\sqrt{7}\\,i)^2 \\implies x=\\pm\\sqrt{7}\\,i
+\\end{aligned}
+$$
+
+---
 
 \`\`\`note
 {
   "type": "info",
-  "title": "Example",
-  "content": "If $z = 3 + 2i$ and $w = 1 + 5i$, then \\n\\n$z + w = (3+1) + (2+5)i = 4 + 7i$"
+  "title": "General Rule",
+  "content": "For any positive real number $n$:\\n\\n$$-n=n(-1)=ni^2=(\\\\pm\\\\sqrt{n}\\\\,i)^2$$\\n\\nTherefore, if $x^2=-n$, then:\\n\\n$$\\\\boxed{x=\\\\pm\\\\sqrt{n}\\\\,i}$$"
 }
 \`\`\`
 
 ---
 
-## 2. Multiplication
+### 📝 Example 1
+Solve:
+$$x^2-2x+5=0$$
 
-Complex numbers နှစ်ခုကို မြှောက်ရာတွင် Polynomial များမြှောက်သကဲ့သို့ (FOIL method) အသုံးပြုနိုင်ပါသည်။ သို့သော် $i^2 = -1$ ဖြစ်သည်ကို မမေ့ပါနှင့်။
+#### 💡 Perfect Square Method (ပုံစံရှိသော ညီမျှခြင်းကို Perfect Square ပြောင်းနည်း)
+\`\`\`note
+{
+  "type": "tip",
+  "title": "$ax^2+bx+c=0$ ပုံစံရှိသော ညီမျှခြင်းကို Perfect Square ပြောင်းနည်း",
+  "content": "1. $x^2$ ၏ မြှောက်ဖော်ကိန်း $a$ ကို $1$ ဖြစ်အောင်လုပ်ပါ။\\n2. ကိန်းသေ $c$ ကို R.H.S (ညာဘက်ခြမ်း) သို့ပို့ပါ။\\n3. အလယ်ကိန်း $b$ ၏ မြှောက်ဖော်ကိန်းကို $2$ ဖြင့်စားပါ။\\n4. ရလာသောအဖြေကို $2$ ထပ်တင်ပြီး ညီမျှခြင်းနှစ်ဖက်စလုံးတွင် ပေါင်းပါ။"
+}
+\`\`\`
 
-**Formula:**
-$$(a + bi)(c + di) = ac + adi + bci + bdi^2$$
-$$= (ac - bd) + (ad + bc)i$$
+#### 🔍 Solution:
+$$
+\\begin{aligned}
+  x^2-2x &= -5 \\\\
+  x^2-2x+1 &= -5+1 \\\\
+  (x-1)^2 &= -4 \\\\
+  x-1 &= \\pm2i \\\\
+  x &= 1\\pm2i
+\\end{aligned}
+$$
 
 ---
 
-## 3. Conjugate of a Complex Number
+### 📝 Example 2
+Solve $x^2+2x+3=0$ and check your answer.
 
-ကိန်းထွေ $z = a + bi$ ၏ **Conjugate** မှာ $\\bar{z} = a - bi$ ဖြစ်သည်။ ၎င်းသည် Complex plane ပေါ်တွင် Real axis ကို အခြေခံ၍ Mirror image (မှန်ပြန်ပုံရိပ်) ဖြစ်သည်။
+#### 🔍 Solution:
+$$
+\\begin{aligned}
+  x^2+2x &= -3 \\\\
+  x^2+2x+1 &= -3+1 \\\\
+  (x+1)^2 &= -2 \\\\
+  x+1 &= \\pm\\sqrt{2}\\,i \\\\
+  x &= -1\\pm\\sqrt{2}\\,i
+\\end{aligned}
+$$
+
+#### 📊 Check / တွက်ချက်မှု တိုက်ဆိုင်စစ်ဆေးခြင်း:
+
+For $x=-1+\\sqrt{2}\\,i$:
+$$
+\\begin{aligned}
+  x^2+2x+3
+  &=(-1+\\sqrt{2}\\,i)^2+2(-1+\\sqrt{2}\\,i)+3\\\\
+  &=(1-2\\sqrt{2}\\,i-2)-2+2\\sqrt{2}\\,i+3\\\\
+  &=0
+\\end{aligned}
+$$
+
+For $x=-1-\\sqrt{2}\\,i$:
+$$
+\\begin{aligned}
+  x^2+2x+3
+  &=(-1-\\sqrt{2}\\,i)^2+2(-1-\\sqrt{2}\\,i)+3\\\\
+  &=(1+2\\sqrt{2}\\,i-2)-2-2\\sqrt{2}\\,i+3\\\\
+  &=0
+\\end{aligned}
+$$
 
 ---
 
-## 4. Division
+### ✏️ Exercise 1.1
 
-Complex numbers များကို စားရာတွင် ပိုင်းခြေ (denominator) ရှိ $i$ ကို ဖျောက်ရန်အတွက် ပိုင်းခြေ၏ Conjugate နှင့် အပေါ်အောက် မြှောက်ပေးရပါမည်။
+\`\`\`note
+{
+  "type": "info",
+  "title": "Exercise 1.1 Questions",
+  "content": "**1. Solve the following equations.**\\n* (a) $x^2-6x+10=0$\\n* (b) $-2x^2+4x-3=0$\\n* (c) $5x^2-2x+1=0$\\n* (d) $3x^2+7x+5=0$\\n\\n**2. Solve the following equations and check your answers.**\\n* (a) $x^2-2x+4=0$\\n* (b) $x^2-4x+5=0$\\n\\n**3. Find the value of $i^n$ for every positive integer $n$, where $i^2=-1$, $i^3=i^2i$, $i^4=i^2i^2$, etc.**"
+}
+\`\`\`
+
+---
+
+### 🗝️ Solutions to Exercise 1.1
+
+<details class="bg-slate-50 p-4 rounded-xl border border-slate-200 my-4 cursor-pointer">
+<summary class="font-extrabold text-blue-600 select-none">Show/Hide Solutions for Q1</summary>
+
+<div class="mt-4 space-y-6">
+
+**1. Solve the following equations.**
+
+**(a)** $x^2-6x+10=0$
+$$
+\\begin{aligned}
+  x^2-6x &= -10\\\\
+  x^2-6x+9 &= -10+9\\\\
+  (x-3)^2 &= -1\\\\
+  x-3 &= \\pm i\\\\
+  x &= 3\\pm i
+\\end{aligned}
+$$
+
+**(b)** $-2x^2+4x-3=0$
+$$
+\\begin{aligned}
+  x^2-2x+\\frac{3}{2} &= 0\\\\
+  x^2-2x &= -\\frac{3}{2}\\\\
+  x^2-2x+1 &= -\\frac{3}{2}+1\\\\
+  (x-1)^2 &= -\\frac{1}{2}\\\\
+  x &= 1\\pm\\frac{\\sqrt{2}}{2}i
+\\end{aligned}
+$$
+
+**(c)** $5x^2-2x+1=0$
+$$
+\\begin{aligned}
+  x^2-\\frac{2}{5}x &= -\\frac{1}{5}\\\\
+  x^2-\\frac{2}{5}x+\\frac{1}{25} &= -\\frac{1}{5}+\\frac{1}{25}\\\\
+  \\left(x-\\frac{1}{5}\\right)^2 &= -\\frac{4}{25}\\\\
+  x-\\frac{1}{5} &= \\pm\\frac{2}{5}i\\\\
+  x &= \\frac{1}{5}\\pm \\frac{2}{5}i
+\\end{aligned}
+$$
+
+**(d)** $3x^2+7x+5=0$
+$$
+\\begin{aligned}
+  x^2+\\frac{7}{3}x &= -\\frac{5}{3}\\\\
+  x^2+\\frac{7}{3}x+\\frac{49}{36} &= -\\frac{5}{3}+\\frac{49}{36}\\\\
+  \\left(x+\\frac{7}{6}\\right)^2 &= -\\frac{11}{36}\\\\
+  x+\\frac{7}{6} &= \\pm\\frac{\\sqrt{11}}{6}i\\\\
+  x &= -\\frac{7}{6}\\pm \\frac{\\sqrt{11}}{6}i
+\\end{aligned}
+$$
+
+</div>
+</details>
+
+<details class="bg-slate-50 p-4 rounded-xl border border-slate-200 my-4 cursor-pointer">
+<summary class="font-extrabold text-blue-600 select-none">Show/Hide Solutions for Q2 (With Checks)</summary>
+
+<div class="mt-4 space-y-6">
+
+**2. Solve the following equations and check your answers.**
+
+**(a)** $x^2-2x+4=0$
+$$
+\\begin{aligned}
+  x^2-2x &= -4\\\\
+  x^2-2x+1 &= -4+1\\\\
+  (x-1)^2 &= -3\\\\
+  x-1 &= \\pm\\sqrt{3}\\,i\\\\
+  x &= 1+\\sqrt{3}\\,i \\quad \\text{or} \\quad x=1-\\sqrt{3}\\,i
+\\end{aligned}
+$$
+
+**Check:**
+For $1+\\sqrt{3}\\,i$:
+$$
+(1+\\sqrt{3}\\,i)^2-2(1+\\sqrt{3}\\,i)+4 = (1+2\\sqrt{3}\\,i-3)-2-2\\sqrt{3}\\,i+4 = 0
+$$
+For $1-\\sqrt{3}\\,i$:
+$$
+(1-\\sqrt{3}\\,i)^2-2(1-\\sqrt{3}\\,i)+4 = (1-2\\sqrt{3}\\,i-3)-2+2\\sqrt{3}\\,i+4 = 0
+$$
+
+**(b)** $x^2-4x+5=0$
+$$
+\\begin{aligned}
+  x^2-4x &= -5\\\\
+  x^2-4x+4 &= -5+4\\\\
+  (x-2)^2 &= -1\\\\
+  x-2 &= \\pm i\\\\
+  x &= 2+i \\quad \\text{or} \\quad x=2-i
+\\end{aligned}
+$$
+
+**Check:**
+For $2+i$:
+$$
+(2+i)^2-4(2+i)+5 = (4+4i-1)-8-4i+5 = 0
+$$
+For $2-i$:
+$$
+(2-i)^2-4(2-i)+5 = (4-4i-1)-8+4i+5 = 0
+$$
+
+</div>
+</details>
+
+<details class="bg-slate-50 p-4 rounded-xl border border-slate-200 my-4 cursor-pointer">
+<summary class="font-extrabold text-blue-600 select-none">Show/Hide Solutions for Q3 (Powers of i)</summary>
+
+<div class="mt-4 space-y-4">
+
+**3. Find the value of $i^n$ for every positive integer $n$.**
+
+**Solution:**
+$$i^0 = 1$$
+
+$$
+\\begin{alignedat}{2}
+  i^1 &= i \\qquad\\qquad & i^5 &= i^4i = i \\\\
+  i^2 &= -1 \\qquad\\qquad & i^6 &= i^4i^2 = -1 \\\\
+  i^3 &= i^2i = -i \\qquad\\qquad & i^7 &= i^4i^3 = -i \\\\
+  i^4 &= i^2i^2 = 1 \\qquad\\qquad & i^8 &= i^4i^4 = 1
+\\end{alignedat}
+$$
+
+**General Pattern Rules:**
+* If $n$ is divisible by 4 (remainder = 0) $\\implies i^n=1$
+* If $n$ has a remainder of 1 when divided by 4 $\\implies i^n=i$
+* If $n$ has a remainder of 2 when divided by 4 $\\implies i^n=-1$
+* If $n$ has a remainder of 3 when divided by 4 $\\implies i^n=-i$
+
+</div>
+</details>
 
 ---
 
 \`\`\`note
 {
-  "type": "warning",
-  "title": "Important Property",
-  "content": "$$z \\cdot \\\\bar{z} = (a + bi)(a - bi) = a^2 + b^2$$ \\n\\nဤရလဒ်သည် အမြဲတမ်း 'Real Number' ဖြစ်ပြီး Non-negative ဖြစ်သည်။"
+  "type": "tip",
+  "title": "Note: Sum of Four Consecutive Powers",
+  "content": "Any four consecutive powers of $i$ always have a sum of $0$. \\n\\nFor example:\\n* $i^0+i^1+i^2+i^3 = 1+i-1-i = 0$\\n* $i^1+i^2+i^3+i^4 = i-1-i+1 = 0$\\n* $i^2+i^3+i^4+i^5 = -1-i+1+i = 0$"
 }
 \`\`\`
 `;
+
