@@ -10,6 +10,7 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import ReactMarkdown from 'react-markdown';
 import remarkMath from 'remark-math';
+import rehypeRaw from 'rehype-raw';
 import rehypeKatex from 'rehype-katex';
 import { cn } from '../lib/utils';
 
@@ -134,7 +135,7 @@ const QuizPage: React.FC = () => {
                 <div className="markdown-body mb-10 md:mb-16">
                    <ReactMarkdown 
                      remarkPlugins={[remarkMath]}
-                     rehypePlugins={[rehypeKatex]}
+                     rehypePlugins={[rehypeRaw, rehypeKatex]}
                      components={{
                         p: ({children}) => <p className="text-xl md:text-4xl font-black text-slate-900 leading-tight uppercase tracking-tight break-words">{children}</p>
                      }}
@@ -158,7 +159,7 @@ const QuizPage: React.FC = () => {
                       <span className="flex-1">
                         <ReactMarkdown 
                           remarkPlugins={[remarkMath]}
-                          rehypePlugins={[rehypeKatex]}
+                          rehypePlugins={[rehypeRaw, rehypeKatex]}
                         >
                           {option}
                         </ReactMarkdown>

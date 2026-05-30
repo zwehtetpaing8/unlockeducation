@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Brain, ChevronDown } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkMath from 'remark-math';
+import rehypeRaw from 'rehype-raw';
 import rehypeKatex from 'rehype-katex';
 import { NoteCard } from './NoteCard';
 import { cn } from '../../lib/utils';
@@ -72,7 +73,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({ question, diagramRen
             <div className={cn("markdown-body", !isOpen && "text-white")}>
               <ReactMarkdown 
                 remarkPlugins={[remarkMath]} 
-                rehypePlugins={[[rehypeKatex, { output: 'htmlAndMathml', throwOnError: false }]]}
+                rehypePlugins={[rehypeRaw, [rehypeKatex, { output: 'htmlAndMathml', throwOnError: false }]]}
               >
                 {question.question}
               </ReactMarkdown>
@@ -103,7 +104,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({ question, diagramRen
                     <div className="markdown-body solution-text !text-slate-900 text-lg md:text-2xl leading-relaxed">
                       <ReactMarkdown 
                         remarkPlugins={[remarkMath]} 
-                        rehypePlugins={[[rehypeKatex, { output: 'htmlAndMathml', throwOnError: false }]]}
+                        rehypePlugins={[rehypeRaw, [rehypeKatex, { output: 'htmlAndMathml', throwOnError: false }]]}
                       >
                         {question.solution}
                       </ReactMarkdown>

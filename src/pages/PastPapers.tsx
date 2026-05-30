@@ -21,6 +21,7 @@ import { PastPaper } from '../types';
 import { cn } from '../lib/utils';
 import ReactMarkdown from 'react-markdown';
 import remarkMath from 'remark-math';
+import rehypeRaw from 'rehype-raw';
 import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css';
 
@@ -82,7 +83,7 @@ const QuestionBlock: React.FC<{ paper: PastPaper; index: number }> = ({ paper, i
           <div className="markdown-body text-lg font-medium leading-relaxed text-slate-900">
             <ReactMarkdown
                remarkPlugins={[remarkMath]}
-               rehypePlugins={[[rehypeKatex, { output: 'htmlAndMathml', throwOnError: false }]]}
+               rehypePlugins={[rehypeRaw, [rehypeKatex, { output: 'htmlAndMathml', throwOnError: false }]]}
             >
               {paper.content || ''}
             </ReactMarkdown>
@@ -131,7 +132,7 @@ const QuestionBlock: React.FC<{ paper: PastPaper; index: number }> = ({ paper, i
                           )}>
                             <ReactMarkdown
                               remarkPlugins={[remarkMath]}
-                              rehypePlugins={[[rehypeKatex, { output: 'htmlAndMathml', throwOnError: false }]]}
+                              rehypePlugins={[rehypeRaw, [rehypeKatex, { output: 'htmlAndMathml', throwOnError: false }]]}
                             >
                               {paper.options.find(o => o.id === selectedOption)?.text || ''}
                             </ReactMarkdown>
@@ -207,7 +208,7 @@ const QuestionBlock: React.FC<{ paper: PastPaper; index: number }> = ({ paper, i
                                 <div className="flex-1 font-bold text-sm md:text-base leading-snug pt-2">
                                   <ReactMarkdown
                                     remarkPlugins={[remarkMath]}
-                                    rehypePlugins={[[rehypeKatex, { output: 'htmlAndMathml', throwOnError: false }]]}
+                                    rehypePlugins={[rehypeRaw, [rehypeKatex, { output: 'htmlAndMathml', throwOnError: false }]]}
                                   >
                                     {option.text}
                                   </ReactMarkdown>
@@ -270,7 +271,7 @@ const QuestionBlock: React.FC<{ paper: PastPaper; index: number }> = ({ paper, i
                   <div className="markdown-body text-slate-700 bg-emerald-50/30 p-6 md:p-8 rounded-3xl border border-emerald-100/50">
                     <ReactMarkdown
                       remarkPlugins={[remarkMath]}
-                      rehypePlugins={[[rehypeKatex, { output: 'htmlAndMathml', throwOnError: false }]]}
+                      rehypePlugins={[rehypeRaw, [rehypeKatex, { output: 'htmlAndMathml', throwOnError: false }]]}
                     >
                       {paper.solution_content || '*Solution not available for this record.*'}
                     </ReactMarkdown>

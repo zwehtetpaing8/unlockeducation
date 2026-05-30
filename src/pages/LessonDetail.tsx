@@ -6,6 +6,7 @@ import { bookmarkService } from '../services/bookmarkService';
 import { Lesson, Chapter } from '../types';
 import ReactMarkdown from 'react-markdown';
 import remarkMath from 'remark-math';
+import rehypeRaw from 'rehype-raw';
 import rehypeKatex from 'rehype-katex';
 import { MathRenderer } from '../components/ui/MathRenderer';
 import { ImageCarousel } from '../components/ui/ImageCarousel';
@@ -114,7 +115,7 @@ const LessonDetail: React.FC = () => {
             <h1 className="text-2xl sm:text-3xl md:text-5xl font-black text-slate-900 leading-tight tracking-tight mb-4 break-words">
               <ReactMarkdown 
                 remarkPlugins={[remarkMath]}
-                rehypePlugins={[rehypeKatex]}
+                rehypePlugins={[rehypeRaw, rehypeKatex]}
               >
                 {lesson.title}
               </ReactMarkdown>
@@ -127,7 +128,7 @@ const LessonDetail: React.FC = () => {
           <div className="markdown-body relative z-10 text-slate-800 pb-10">
             <ReactMarkdown
               remarkPlugins={[remarkMath]}
-              rehypePlugins={[rehypeKatex]}
+              rehypePlugins={[rehypeRaw, rehypeKatex]}
               components={{
                 code(props) {
                   const { className, children } = props;
@@ -178,10 +179,14 @@ const LessonDetail: React.FC = () => {
 
                     if (lang === 'note') {
                       try {
-                        // Pre-process rawContent to safely escape LaTeX backslashes (like \frac, \begin, \pm, \sqrt)
-                        // so they do not break JSON parsing as invalid JSON escape sequences.
-                        const fixedContent = rawContent.replace(/\\(?![n"])/g, '\\\\');
-                        const data = JSON.parse(fixedContent);
+                        let data;
+                        try {
+                          data = JSON.parse(rawContent);
+                        } catch (err) {
+                          // Pre-process rawContent to safely escape LaTeX backslashes if native JSON parsing fails
+                          const fixedContent = rawContent.replace(/\\(?![n"\\\/bfrtu])/g, '\\\\');
+                          data = JSON.parse(fixedContent);
+                        }
                         
                         // Definition and callout styling config
                         const noteTypeStyles: Record<string, {
@@ -255,7 +260,7 @@ const LessonDetail: React.FC = () => {
                             <div className="text-slate-800 text-[15px] md:text-base overflow-visible overflow-wrap-anywhere break-words whitespace-normal">
                               <ReactMarkdown 
                                 remarkPlugins={[remarkMath]} 
-                                rehypePlugins={[rehypeKatex]}
+                                rehypePlugins={[rehypeRaw, rehypeKatex]}
                                 components={{
                                   p: ({ children }) => <p className="mb-2 leading-relaxed overflow-wrap-anywhere break-words">{children}</p>
                                 }}
