@@ -141,10 +141,19 @@ export const curriculumService = {
         {
           id: 'lesson-c1-basic',
           chapter_id: chapterId,
-          title: 'Pure Imaginary Unit i',
+          title: 'Pure Imaginary Unit 𝑖',
           type: 'theory',
           content: chapter1BasicContent,
           order_index: 2,
+          created_at: new Date().toISOString()
+        },
+        {
+          id: 'lesson-c1-complex',
+          chapter_id: chapterId,
+          title: 'Complex Numbers',
+          type: 'theory',
+          content: chapter1ComplexContent,
+          order_index: 3,
           created_at: new Date().toISOString()
         }
       ];
@@ -183,10 +192,21 @@ export const curriculumService = {
       return {
         id: 'lesson-c1-basic',
         chapter_id: 'chapter-c1-g12',
-        title: 'Pure Imaginary Unit i',
+        title: 'Pure Imaginary Unit 𝑖',
         type: 'theory',
         content: chapter1BasicContent,
         order_index: 2,
+        created_at: new Date().toISOString()
+      };
+    }
+    if (lessonId === 'lesson-c1-complex') {
+      return {
+        id: 'lesson-c1-complex',
+        chapter_id: 'chapter-c1-g12',
+        title: 'Complex Numbers',
+        type: 'theory',
+        content: chapter1ComplexContent,
+        order_index: 3,
         created_at: new Date().toISOString()
       };
     }
@@ -259,114 +279,183 @@ Complex Numbers များ၏ သမိုင်းကြောင်းမှ
   {
     "year": "1637",
     "title": "René Descartes",
-    "description": "ဤကိန်းများကို 'Imaginary' (စိတ်ကူးယဉ်) ဟု အမည်တပ်ခဲ့သူ ဖြစ်သည်။"
+    "description": "Real နှင့် Imaginary Parts သတ်မှတ်ချက်ကို စတင်အသုံးပြုခဲ့ပြီး i အယူအဆကို ပိုမိုဖွံ့ဖြိုးစေခဲ့သည်။"
   },
   {
-    "year": "18th Century",
+    "year": "1777",
     "title": "Leonhard Euler",
-    "description": "i = √-1 သင်္ကေတနှင့် Euler's Formula ကို မိတ်ဆက်ခဲ့သည်။"
-  },
-  {
-    "year": "19th Century",
-    "title": "Gauss & Cauchy",
-    "description": "Complex Numbers များကို စနစ်တကျ သင်္ချာဆိုင်ရာ အရာဝတ္ထုများအဖြစ် တည်ဆောက်ခဲ့ကြသည်။"
+    "description": "Imaginary unit အတွက် i ဟူသော သင်္ကေတကို စတင်မိတ်ဆက်ပေးခဲ့သည်။"
   }
 ]
 \`\`\`
+`;
 
----
+const chapter1ComplexContent = `# Complex Numbers (ကိန်းထွေများ)
+
+Placeholder for the lesson content to be provided.
+`;
+
+/* const _ignoredTrash = `
+
+Placeholder for the lesson content to be provided.
+`;��ုင်း)** ဟုခေါ်ပြီး $Re(z)$ သို့မဟုတ် $Re\ z$ ဟုရေးသားသည်။
+* **$b$** ကို $z$ ၏ **Imaginary Part (စိတ်ကူးယဉ်အပိုင်း)** ဟုခေါ်ပြီး $Im(z)$ သို့မဟုတ် $Im\ z$ ဟုရေးသားသည်။
 
 \`\`\`note
 {
   "type": "definition",
-  "title": "The Imaginary Unit",
-  "content": "$$i = \\\\sqrt{-1}$$ \\n\\nဤ $i$ သင်္ကေတကို **Imaginary Unit** ဟု ခေါ်ဆိုပြီး ၎င်းသည် ကိန်းထွေများ၏ အခြေခံအုတ်မြစ် ဖြစ်သည်။ $i$ ၏ အဓိကဂုဏ်သတ္တိမှာ $i^2 = -1$ ဖြစ်သည်။"
+  "title": "Complex Number Definition",
+  "content": "$$z = a + bi$$ \\n- $a$ is the **Real Part** ($Re\\ z = a$) \\n- $b$ is the **Imaginary Part** ($Im\\ z = b$)"
 }
 \`\`\`
 
-## 1. The Standard Form
+---
 
-Complex Number တစ်ခုကို ပုံမှန်အားဖြင့် အောက်ပါ Form ဖြင့် ရေးသားနိုင်ပါသည် -
-
-$$z = a + bi$$
-
-### Definitions:
-* **a (Real Part):** ကိန်းစစ်အပိုင်း ဖြစ်ပြီး $Re(z)$ ဟု ရေးသားသည်။
-* **b (Imaginary Part):** စိတ်ကူးယဉ်အပိုင်း ဖြစ်ပြီး $Im(z)$ ဟု ရေးသားသည်။
-
-ဥပမာ - $z = 3 + 4i$ တွင် Real Part မှာ 3 ဖြစ်ပြီး Imaginary Part မှာ 4 ဖြစ်သည်။
+### 🔍 Examples:
+1. $z = 3 + 2i$:
+   * $Re(z) = 3$
+   * $Im(z) = 2$
+2. $z = -5 - \sqrt{7}i$:
+   * $Re(z) = -5$
+   * $Im(z) = -\sqrt{7}$
+3. $z = 4i$ (Pure Imaginary Number, since $Re(z) = 0$):
+   * $Re(z) = 0$
+   * $Im(z) = 4$
+4. $z = 7$ (Pure Real Number, since $Im(z) = 0$):
+   * $Re(z) = 7$
+   * $Im(z) = 0$
 
 ---
 
-## 2. Powers of $i$ (Cycle Pattern)
+### ⚖️ Equality of Complex Numbers (ညီမျှခြင်းနှစ်ဖက်စလုံး ညီမျှခြင်း)
 
-$i$ ကို အထပ်ထပ်မြှောက်သွားလျှင် အောက်ပါအတိုင်း Cycle တစ်ခု ရရှိပါလိမ့်မည် -
+Two complex numbers $z_1 = a + bi$ and $z_2 = c + di$ are equal if and only if their real parts are equal and their imaginary parts are equal:
 
-*   **$i^1 = i$**
-*   **$i^2 = -1$**
-*   **$i^3 = -i$**
-*   **$i^4 = 1$**
+$$a + bi = c + di \iff a = c \quad \text{and} \quad b = d$$
+
+#### 📝 Example:
+Find $x$ and $y$ if $(x+2) + (y-3)i = 5 + 4i$.
+
+**Solution:**
+Equating the real parts & imaginary parts:
+$$
+\begin{aligned}
+  x + 2 &= 5 \implies x = 3 \\
+  y - 3 &= 4 \implies y = 7
+\end{aligned}
+$$
+
+---
+
+### ➕ Basic Operations (အခြေခံတွက်နည်းများ)
+
+#### 1. Addition & Subtraction (ပေါင်းခြင်းနှင့် နှုတ်ခြင်း)
+Real parts ချင်းပေါင်း/နှုတ်ပြီး၊ Imaginary parts ချင်းပေါင်း/နှုတ်ရပါမည်။
+$$(a+bi) + (c+di) = (a+c) + (b+d)i$$
+$$(a+bi) - (c+di) = (a-c) + (b-d)i$$
+
+#### 📝 Example:
+Let $z_1 = 3 + 4i$ and $z_2 = 1 - 2i$.
+$$
+\begin{aligned}
+  z_1 + z_2 &= (3+1) + (4-2)i = 4 + 2i \\
+  z_1 - z_2 &= (3-1) + (4 - (-2))i = 2 + 6i
+\end{aligned}
+$$
+
+#### 2. Multiplication (မြှောက်ခြင်း)
+Algebraic binomials မြှောက်သကဲ့သို့ ဖြန့်မြှောက်ပြီး $i^2 = -1$ ကို အစားထိုးရပါမည်။
+$$(a+bi)(c+di) = ac + adi + bci + bdi^2 = (ac - bd) + (ad + bc)i$$
+
+#### 📝 Example:
+$$(2+3i)(4-i) = 2(4) - 2(i) + 3i(4) - 3i^2 = 8 - 2i + 12i + 3 = 11 + 10i$$
+
+---
+
+### 💫 Complex Conjugate (ကိန်းထွေပေါင်းဖက်)
+
+The **complex conjugate** of $z = a + bi$ is denoted by $\bar{z}$ and is defined as:
+
+$$\bar{z} = a - bi$$
+
+(Imaginary Part ၏ လက္ခဏာကို ပြောင်းလဲပေးခြင်း ဖြစ်သည်။)
+
+#### Properties of Conjugate:
+* $z \cdot \bar{z} = (a+bi)(a-bi) = a^2 - b^2i^2 = a^2 + b^2$ (ရလဒ်သည် အမြဲတမ်း positive real number ဖြစ်သည်။)
+
+#### 📝 Example:
+If $z = 3+4i$, then $\bar{z} = 3-4i$.
+$$z\bar{z} = 3^2 + 4^2 = 9 + 16 = 25$$
+
+---
+
+### ➗ Division of Complex Numbers (စားခြင်း)
+
+Complex numbers နှစ်ခုကို စားရန်အတွက် ပိုင်းခြေ (denominator) ၏ complex conjugate ဖြင့် ပိုင်းဝေ (numerator) နှင့် ပိုင်းခြေ (denominator) နှစ်ခုလုံးကို မြှောက်ပေးရပါမည်။
+
+$$\frac{a+bi}{c+di} = \frac{(a+bi)(c-di)}{(c+di)(c-di)} = \frac{(ac+bd) + (bc-ad)i}{c^2+d^2}$$
+
+#### 📝 Example:
+Simplify $\frac{2+5i}{1+2i}$.
+
+**Solution:**
+Multiply numerator and denominator by conjugate of $(1+2i)$, which is $(1-2i)$:
+$$
+\begin{aligned}
+  \frac{2+5i}{1+2i} &= \frac{(2+5i)(1-2i)}{(1+2i)(1-2i)} \\
+  &= \frac{2 - 4i + 5i - 10i^2}{1^2 + 2^2} \\
+  &= \frac{2 + i + 10}{1 + 4} \\
+  &= \frac{12 + i}{5} \\
+  &= \frac{12}{5} + \frac{1}{5}i
+\end{aligned}
+$$
+
+---
+
+### ✏️ Exercise 1.2
 
 \`\`\`note
 {
-  "type": "tip",
-  "title": "Quick Trick",
-  "content": "မည်သည့် $i^n$ ကိုမဆို ရှာလိုလျှင် $n$ ကို 4 နှင့်စား၍ အကြွင်းကိုကြည့်ပါ။ \\n- အကြွင်း 1 ဆိုလျှင် $i$ \\n- အကြွင်း 2 ဆိုလျှင် $-1$ \\n- အကြွင်း 3 ဆိုလျှင် $-i$ \\n- အကြွင်း 0 ဆိုလျှင် $1$ ဖြစ်သည်။"
+  "type": "info",
+  "title": "Exercise 1.2 Questions",
+  "content": "**1. Identify the real and imaginary parts of:**\n* (a) $3 - 7i$\n* (b) $\\sqrt{5}i$\n* (c) $-12$\n\n**2. Find real numbers $x$ and $y$ such that:**\n* (a) $3x + (5y)i = -9 + 15i$\n* (b) $(2x-1) + (y+4)i = 3 - 2i$\n\n**3. Let $z_1 = 2-i$ and $z_2 = 3+4i$. Compute:**\n* (a) $z_1 + z_2$\n* (b) $z_1 z_2$\n* (c) $\\frac{z_1}{z_2}$"
 }
 \`\`\`
 
 ---
 
-## 3. The Complex Plane (Argand Diagram)
+### 🗝️ Solutions to Exercise 1.2
 
-ကိန်းစစ် (Real numbers) များသည် ကိန်းမျဉ်း (Number line) ပေါ်တွင်သာ ရှိသော်လည်း ကိန်းထွေများမှာမူ **Complex Plane** ဟုခေါ်သော ပြင်ညီတစ်ခုပေါ်တွင် တည်ရှိကြသည်။
+<details class="bg-slate-50 p-4 rounded-xl border border-slate-200 my-4 cursor-pointer">
+<summary class="font-extrabold text-blue-600 select-none">Show/Hide Solutions for Exercise 1.2</summary>
 
-*   **Horizontal Axis:** Real Axis 
-*   **Vertical Axis:** Imaginary Axis 
----
+<div class="mt-4 space-y-6">
 
-### 4. Why Are Complex Numbers Important?
+**1. Real and Imaginary Parts**
+* **(a)** $3 - 7i \implies Re = 3, Im = -7$
+* **(b)** $\sqrt{5}i \implies Re = 0, Im = \sqrt{5}$
+* **(c)** $-12 \implies Re = -12, Im = 0$
 
-\`\`\`features
-[
-  {
-    "title": "Electrical Engineering",
-    "description": "Used in AC Circuits to accurately represent and calculate Voltage and Current.",
-    "iconName": "Zap",
-    "color": "amber"
-  },
-  {
-    "title": "Quantum Mechanics",
-    "description": "Essential for understanding the physical phenomena of atoms and subatomic particles.",
-    "iconName": "Atom",
-    "color": "blue"
-  },
-  {
-    "title": "Computer Science",
-    "description": "Used for calculating complex rotations in Computer Graphics and Algorithms.",
-    "iconName": "Monitor",
-    "color": "emerald"
-  },
-  {
-    "title": "Signal Processing",
-    "description": "A fundamental tool for analyzing and processing signal waveforms.",
-    "iconName": "Radio",
-    "color": "rose"
-  }
-]
-\`\`\`
+**2. Solving for $x$ and $y$**
+* **(a)** $3x = -9 \implies x = -3$ and $5y = 15 \implies y = 3$
+* **(b)** $2x-1 = 3 \implies 2x=4 \implies x=2$ and $y+4 = -2 \implies y = -6$
 
----
+**3. Computations with $z_1 = 2-i$, $z_2 = 3+4i$**
+* **(a)** $z_1 + z_2 = (2+3) + (-1+4)i = 5 + 3i$
+* **(b)** $z_1 z_2 = (2-i)(3+4i) = 6 + 8i - 3i - 4i^2 = 10 + 5i$
+* **(c)** Division:
+$$
+\begin{aligned}
+  \frac{2-i}{3+4i} &= \frac{(2-i)(3-4i)}{(3+4i)(3-4i)} \\
+  &= \frac{6 - 8i - 3i + 4i^2}{3^2+4^2} \\
+  &= \frac{2 - 11i}{25} \\
+  &= \frac{2}{25} - \frac{11}{25}i
+\end{aligned}
+$$
 
-### 5. Topics in this Chapter
-
-* Pure Imaginary Unit i
-* Complex Number
-* Operations on Complex Numbers
-* Trigonometric Form 
-* Roots of Complex Numbers
-
----`;
+</div>
+</details>
+`; */
 
 const chapter1BasicContent = `# Pure Imaginary Unit $i$
 
@@ -384,7 +473,7 @@ In the real number system this equation has **no solution**, since the square of
 \`\`\`note
 {
   "type": "definition",
-  "title": "Pure Imaginary Unit i",
+  "title": "Pure Imaginary Unit $i$",
   "content": "The **pure imaginary unit** is denoted by $i$ and is defined by:\\n\\n$$i=\\\\sqrt{-1}, \\\\qquad i^2=-1$$\\n\\nThis new symbol allows us to work with square roots of negative numbers."
 }
 \`\`\`

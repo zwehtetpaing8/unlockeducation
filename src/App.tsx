@@ -25,10 +25,28 @@ import AdminDashboard from './pages/AdminDashboard';
 import Profile from './pages/Profile';
 import TermsOfService from './pages/TermsOfService';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import { Loader2 } from 'lucide-react';
 
 // Helper for protected routes
 const ProtectedRoute = ({ children, adminOnly = false }: { children: React.ReactNode, adminOnly?: boolean }) => {
-  // Authentication is temporarily disabled
+  const { user, profile, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="min-h-[60vh] flex items-center justify-center bg-slate-50/10">
+        <Loader2 className="animate-spin text-blue-600" size={36} />
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <Navigate to="/auth" replace />;
+  }
+
+  if (adminOnly && profile?.role !== 'admin' && profile?.role !== 'teacher') {
+    return <Navigate to="/" replace />;
+  }
+
   return <>{children}</>;
 };
 

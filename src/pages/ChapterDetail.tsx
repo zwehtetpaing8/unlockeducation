@@ -127,7 +127,7 @@ const ChapterDetail: React.FC = () => {
                   </div>
 
                   <div className="mt-8 pt-6 border-t border-slate-50 flex items-center justify-between">
-                     <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Full Tutorial</span>
+                     <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">FULL LESSON</span>
                      <div className="flex -space-x-2">
                         {[1,2,3].map(i => (
                            <div key={i} className="w-6 h-6 rounded-full border-2 border-white bg-slate-100" />

@@ -125,11 +125,12 @@ const LessonDetail: React.FC = () => {
           </div>
 
           {/* Core Body Container */}
-          <div className="markdown-body relative z-10 text-slate-800 pb-10">
+          <div className="markdown-body relative z-10 text-slate-800 pb-2">
             <ReactMarkdown
               remarkPlugins={[remarkMath]}
               rehypePlugins={[rehypeRaw, rehypeKatex]}
               components={{
+                pre: ({ children }) => <>{children}</>,
                 code(props) {
                   const { className, children } = props;
                   const match = /language-([\w-]+)/.exec(className || '');
@@ -289,7 +290,7 @@ const LessonDetail: React.FC = () => {
           </div>
 
           {/* Sibling Navigation Deck */}
-          <div className="mt-16 pt-8 border-t border-slate-100 flex flex-col sm:flex-row gap-4 items-stretch justify-between relative z-10">
+          <div className="mt-8 pt-6 border-t border-slate-100 flex flex-col sm:flex-row gap-4 items-stretch justify-between relative z-10">
             {prevLesson ? (
               <Link 
                 to={`/lesson/${prevLesson.id}`}
