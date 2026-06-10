@@ -28,12 +28,31 @@ const Auth: React.FC = () => {
   const [success, setSuccess] = useState<string | null>(null);
   const [isConnectionError, setIsConnectionError] = useState(false);
 
-  // If already logged in, send them home
+  const [isForgotPassword, setIsForgotPassword] = useState(false);
+  const [isRecoveryMode, setIsRecoveryMode] = useState(false);
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [pastedUrl, setPastedUrl] = useState('');
+  const [showPastedInput, setShowPastedInput] = useState(false);
+
+  // Checks for password recovery link redirection (contains token/type)
   useEffect(() => {
-    if (user) {
+    const hash = window.location.hash;
+    const urlParams = new URLSearchParams(window.location.search);
+    if (
+      (hash && (hash.includes('type=recovery') || hash.includes('access_token='))) ||
+      urlParams.get('recovery') === 'true'
+    ) {
+      setIsRecoveryMode(true);
+    }
+  }, []);
+
+  // If already logged in AND NOT currently in recovery mode, send them home
+  useEffect(() => {
+    if (user && !isRecoveryMode) {
       navigate('/profile');
     }
-  }, [user, navigate]);
+  }, [user, isRecoveryMode, navigate]);
 
   const validateForm = () => {
     if (!email || !email.includes('@')) {
@@ -164,6 +183,137 @@ const Auth: React.FC = () => {
     }
   };
 
+  const handleForgotPasswordSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    setSuccess(null);
+    setIsConnectionError(false);
+
+    if (!email || !email.includes('@')) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      if (isDemo) {
+        await new Promise((resolve) => setTimeout(resolve, 800));
+        setSuccess(`[DEMO SIMULATION] A temporary password reset link has been simulated for ${email}. In a production environment, Supabase would dispatch a secure email reset token.`);
+      } else {
+        const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
+          redirectTo: `${window.location.origin}/auth?recovery=true`,
+        });
+        if (resetError) throw resetError;
+        setSuccess('A secure password configuration link has been successfully dispatched to your email address. Please inspect your inbox.');
+      }
+    } catch (err: any) {
+      console.error('Password recovery error:', err);
+      const errMsg = err?.message || 'An error occurred during password recovery request.';
+      setError(errMsg);
+      const lowerMsg = errMsg.toLowerCase();
+      if (lowerMsg.includes('failed to fetch') || lowerMsg.includes('networkerror') || lowerMsg.includes('network error') || lowerMsg.includes('database connection')) {
+        setIsConnectionError(true);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handlePasteRecoveryUrl = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    setSuccess(null);
+
+    if (!pastedUrl) {
+      setError('Please paste the complete url or token fragment.');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const cleanUrl = pastedUrl.trim();
+      let hashContent = '';
+      if (cleanUrl.includes('#')) {
+        hashContent = cleanUrl.substring(cleanUrl.indexOf('#') + 1);
+      } else if (cleanUrl.includes('?')) {
+        hashContent = cleanUrl.substring(cleanUrl.indexOf('?') + 1);
+      } else {
+        hashContent = cleanUrl;
+      }
+
+      const params = new URLSearchParams(hashContent);
+      const accessToken = params.get('access_token');
+      const refreshToken = params.get('refresh_token');
+
+      if (accessToken && refreshToken) {
+        if (isDemo) {
+          setSuccess('Demo mode: Recovery URL token parsed successfully. Please set your new password.');
+          setIsForgotPassword(false);
+          setIsRecoveryMode(true);
+        } else {
+          const { error: sessionError } = await supabase.auth.setSession({
+            access_token: accessToken,
+            refresh_token: refreshToken,
+          });
+          if (sessionError) throw sessionError;
+          setSuccess('Your recovery session has been successfully activated! Setup your new password below.');
+          setIsForgotPassword(false);
+          setIsRecoveryMode(true);
+        }
+      } else {
+        throw new Error('Could not find both active access_token and refresh_token in the pasted string. Check that you copied the complete redirect URL.');
+      }
+    } catch (err: any) {
+      console.error('Manual recovery parser error:', err);
+      setError(err?.message || 'Failed to parse recovery URL. Ensure the complete URL from the address bar is pasted.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleUpdatePasswordSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    setSuccess(null);
+
+    if (!newPassword || newPassword.length < 6) {
+      setError('Password must be at least 6 characters long.');
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      setError('Passwords do not match.');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      if (isDemo) {
+        await new Promise((resolve) => setTimeout(resolve, 800));
+        setSuccess('Successfully changed mock account password! Redirecting you into home page now.');
+        setTimeout(() => {
+          setIsRecoveryMode(false);
+          setNewPassword('');
+          setConfirmPassword('');
+          navigate('/');
+        }, 1500);
+      } else {
+        const { error: updateError } = await supabase.auth.updateUser({
+          password: newPassword,
+        });
+        if (updateError) throw updateError;
+        setSuccess('Password updated successfully! Authenticated session established.');
+        setTimeout(() => {
+          navigate('/');
+        }, 1500);
+      }
+    } catch (err: any) {
+      console.error('Password change error:', err);
+      setError(err?.message || 'An error occurred while updating the password.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const loadQuickDemoUser = (demoType: 'student' | 'teacher' | 'admin') => {
     let targetEmail = '';
     let targetFullName = '';
@@ -281,41 +431,67 @@ const Auth: React.FC = () => {
             </div>
           )}
 
-          {/* Form Tabs */}
-          <div className="flex bg-slate-50 p-1 rounded-2xl mb-8">
-            <button
-              type="button"
-              onClick={() => {
-                setIsLogin(true);
-                setError(null);
-                setSuccess(null);
-              }}
-              className={cn(
-                "flex-1 py-3 text-xs font-black uppercase tracking-wider rounded-xl transition-all",
-                isLogin 
-                  ? "bg-white text-blue-600 shadow-md" 
-                  : "text-slate-500 hover:text-slate-800"
-              )}
-            >
-              Sign In
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setIsLogin(false);
-                setError(null);
-                setSuccess(null);
-              }}
-              className={cn(
-                "flex-1 py-3 text-xs font-black uppercase tracking-wider rounded-xl transition-all",
-                !isLogin 
-                  ? "bg-white text-blue-600 shadow-md" 
-                  : "text-slate-500 hover:text-slate-800"
-              )}
-            >
-              Register
-            </button>
-          </div>
+          {/* Form Tabs or Stage Header */}
+          {isRecoveryMode ? (
+            <div className="mb-8 text-center space-y-1">
+              <span className="text-[10px] font-black uppercase tracking-widest text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full">
+                Secure Session
+              </span>
+              <h3 className="text-xl font-bold tracking-tight text-slate-800">
+                Setup New Password
+              </h3>
+              <p className="text-xs text-slate-400 font-medium leading-relaxed">
+                Choose a strong secure password to update your registration credentials.
+              </p>
+            </div>
+          ) : isForgotPassword ? (
+            <div className="mb-8 text-center space-y-1">
+              <span className="text-[10px] font-black uppercase tracking-widest text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full">
+                Security recovery
+              </span>
+              <h3 className="text-xl font-bold tracking-tight text-slate-800">
+                Forgot Password?
+              </h3>
+              <p className="text-xs text-slate-400 font-medium leading-relaxed">
+                Enter your registered Email to request a password configuration link.
+              </p>
+            </div>
+          ) : (
+            <div className="flex bg-slate-50 p-1 rounded-2xl mb-8">
+              <button
+                type="button"
+                onClick={() => {
+                  setIsLogin(true);
+                  setError(null);
+                  setSuccess(null);
+                }}
+                className={cn(
+                  "flex-1 py-3 text-xs font-black uppercase tracking-wider rounded-xl transition-all",
+                  isLogin 
+                    ? "bg-white text-blue-600 shadow-md" 
+                    : "text-slate-500 hover:text-slate-800"
+                )}
+              >
+                Sign In
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setIsLogin(false);
+                  setError(null);
+                  setSuccess(null);
+                }}
+                className={cn(
+                  "flex-1 py-3 text-xs font-black uppercase tracking-wider rounded-xl transition-all",
+                  !isLogin 
+                    ? "bg-white text-blue-600 shadow-md" 
+                    : "text-slate-500 hover:text-slate-800"
+                )}
+              >
+                Register
+              </button>
+            </div>
+          )}
 
           {/* Toast Alert Systems */}
           <AnimatePresence mode="wait">
@@ -379,124 +555,330 @@ const Auth: React.FC = () => {
           )}
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Full Name (Sign Up only) */}
-            {!isLogin && (
+          {isRecoveryMode ? (
+            <form onSubmit={handleUpdatePasswordSubmit} className="space-y-5">
+              {/* New Password */}
               <div className="space-y-1.5 text-left">
                 <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">
-                  Full Name
+                  New Password
                 </label>
                 <div className="relative">
-                  <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                   <input
-                    type="text"
+                    type={showPassword ? "text" : "password"}
                     required
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                    placeholder="Mg Aung Kyaw"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    placeholder="••••••••"
+                    className="w-full pl-11 pr-11 py-3.5 bg-slate-50 border border-slate-100 focus:border-blue-500 focus:bg-white rounded-2xl text-sm font-semibold tracking-tight transition-all outline-none"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                  >
+                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
+                </div>
+              </div>
+
+              {/* Confirm New Password */}
+              <div className="space-y-1.5 text-left">
+                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                  Confirm New Password
+                </label>
+                <div className="relative">
+                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    required
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    placeholder="••••••••"
+                    className="w-full pl-11 pr-11 py-3.5 bg-slate-50 border border-slate-100 focus:border-blue-500 focus:bg-white rounded-2xl text-sm font-semibold tracking-tight transition-all outline-none"
+                  />
+                </div>
+              </div>
+
+              {/* Submit Update Password */}
+              <button
+                type="submit"
+                className="w-full group py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl shadow-lg shadow-blue-600/10 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+              >
+                <span className="uppercase text-xs tracking-widest font-black">
+                  Update Password
+                </span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+
+              <div className="text-center">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsRecoveryMode(false);
+                    setError(null);
+                    setSuccess(null);
+                  }}
+                  className="text-xs font-bold text-slate-400 hover:text-slate-600 transition-colors"
+                >
+                  Return to Sign In
+                </button>
+              </div>
+            </form>
+          ) : isForgotPassword ? (
+            <form onSubmit={handleForgotPasswordSubmit} className="space-y-5">
+              {/* Recovery Email */}
+              <div className="space-y-1.5 text-left">
+                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                  Registered Email Address
+                </label>
+                <div className="relative">
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="name@example.com"
                     className="w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-100 focus:border-blue-500 focus:bg-white rounded-2xl text-sm font-semibold tracking-tight transition-all outline-none"
                   />
                 </div>
               </div>
-            )}
 
-            {/* Email Address */}
-            <div className="space-y-1.5 text-left">
-              <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">
-                Email Address
-              </label>
-              <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                <input
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="name@example.com"
-                  className="w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-100 focus:border-blue-500 focus:bg-white rounded-2xl text-sm font-semibold tracking-tight transition-all outline-none"
-                />
+              {/* Submit Recovery Link */}
+              <button
+                type="submit"
+                className="w-full group py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl shadow-lg shadow-indigo-600/10 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+              >
+                <span className="uppercase text-xs tracking-widest font-black">
+                  Send Recovery Link
+                </span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+
+              {/* Sandbox Redirect Troubleshooting Help */}
+              <div className="pt-4 border-t border-slate-100">
+                {!showPastedInput ? (
+                  <button
+                    type="button"
+                    onClick={() => setShowPastedInput(true)}
+                    className="text-xs font-semibold text-blue-600 hover:text-blue-800 transition-colors flex items-center gap-1.5 mx-auto"
+                  >
+                    <span>💡 Clicked your email link but got a localhost error?</span>
+                  </button>
+                ) : (
+                  <div className="p-4 rounded-2xl bg-blue-50/60 border border-blue-100 text-left space-y-3.5">
+                    <div className="flex items-start gap-2">
+                      <span className="text-base">💡</span>
+                      <div>
+                        <h4 className="text-xs font-bold text-blue-900 uppercase tracking-wide">
+                          Web Sandbox Reset Helper
+                        </h4>
+                        <p className="text-[11px] text-blue-800 leading-relaxed mt-0.5">
+                          Since this is an online sandbox environment, clicking Supabase's email link will redirect you to <code className="bg-blue-100 px-1 py-0.5 rounded font-mono text-[10px]">localhost:3000</code> by default (which won't load).
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <p className="text-[11px] font-bold text-blue-900">
+                        How to proceed instantly:
+                      </p>
+                      <ol className="list-decimal pl-4 text-[10px] text-blue-800 leading-relaxed space-y-1">
+                        <li>Open the verification email and click the confirmation button.</li>
+                        <li>When the new tab fails to load (e.g. "This site can't be reached" at <strong>localhost:3000</strong>), <strong>copy that entire URL</strong> from your address bar.</li>
+                        <li>Paste that exact URL in the field below to launch recovery mode!</li>
+                      </ol>
+                    </div>
+
+                    <div className="space-y-1.5 pt-1.5 border-t border-blue-100">
+                      <label className="text-[9px] font-black uppercase tracking-wider text-blue-900 block">
+                        Paste the broken localhost URL here:
+                      </label>
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          value={pastedUrl}
+                          onChange={(e) => setPastedUrl(e.target.value)}
+                          placeholder="http://localhost:3000/#access_token=..."
+                          className="flex-1 px-3 py-2 bg-white border border-blue-200 focus:border-blue-500 rounded-xl text-xs font-mono outline-none"
+                        />
+                        <button
+                          type="button"
+                          onClick={handlePasteRecoveryUrl}
+                          className="px-4 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl transition-colors shrink-0"
+                        >
+                          Verify Link
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="flex justify-between items-center pt-1 text-[10px]">
+                      <span className="text-slate-400 font-medium">To fix permanently:</span>
+                      <a 
+                        href="https://supabase.com/dashboard" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="text-blue-600 hover:underline font-bold"
+                      >
+                        Set redirect URLs in Supabase
+                      </a>
+                    </div>
+                  </div>
+                )}
               </div>
-            </div>
 
-            {/* Password */}
-            <div className="space-y-1.5 text-left">
-              <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">
-                Password
-              </label>
-              <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                <input
-                  type={showPassword ? "text" : "password"}
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  className="w-full pl-11 pr-11 py-3.5 bg-slate-50 border border-slate-100 focus:border-blue-500 focus:bg-white rounded-2xl text-sm font-semibold tracking-tight transition-all outline-none"
-                />
+              <div className="text-center">
                 <button
                   type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                  onClick={() => {
+                    setIsForgotPassword(false);
+                    setError(null);
+                    setSuccess(null);
+                  }}
+                  className="text-xs font-bold text-slate-400 hover:text-slate-600 transition-colors"
                 >
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  Return to Sign In
                 </button>
               </div>
-            </div>
-
-            {/* Register Extra Fields */}
-            {!isLogin && (
-              <div className="grid grid-cols-2 gap-4">
-                {/* Grade Level */}
+            </form>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-5">
+              {/* Full Name (Sign Up only) */}
+              {!isLogin && (
                 <div className="space-y-1.5 text-left">
                   <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">
-                    Grade Level
+                    Full Name
                   </label>
                   <div className="relative">
-                    <GraduationCap className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
-                    <select
-                      value={gradeLevel}
-                      onChange={(e) => setGradeLevel(e.target.value)}
-                      className="w-full pl-10 pr-3 py-3.5 bg-slate-50 border border-slate-100 focus:border-blue-500 focus:bg-white rounded-2xl text-xs font-bold tracking-tight transition-all outline-none appearance-none"
-                    >
-                      <option value="10">Grade 10</option>
-                      <option value="11">Grade 11</option>
-                      <option value="12">Grade 12</option>
-                    </select>
+                    <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                    <input
+                      type="text"
+                      required
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
+                      placeholder="Mg Aung Kyaw"
+                      className="w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-100 focus:border-blue-500 focus:bg-white rounded-2xl text-sm font-semibold tracking-tight transition-all outline-none"
+                    />
                   </div>
                 </div>
+              )}
 
-                {/* Role selection */}
-                <div className="space-y-1.5 text-left">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">
-                    Who Are You?
-                  </label>
-                  <div className="relative">
-                    <ShieldCheck className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
-                    <select
-                      value={role}
-                      onChange={(e) => setRole(e.target.value as any)}
-                      className="w-full pl-10 pr-3 py-3.5 bg-slate-50 border border-slate-100 focus:border-blue-500 focus:bg-white rounded-2xl text-xs font-bold tracking-tight transition-all outline-none appearance-none"
-                    >
-                      <option value="student">Student</option>
-                      <option value="teacher">Teacher</option>
-                      <option value="admin">Administrator</option>
-                    </select>
-                  </div>
+              {/* Email Address */}
+              <div className="space-y-1.5 text-left">
+                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                  Email Address
+                </label>
+                <div className="relative">
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="name@example.com"
+                    className="w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-100 focus:border-blue-500 focus:bg-white rounded-2xl text-sm font-semibold tracking-tight transition-all outline-none"
+                  />
                 </div>
               </div>
-            )}
 
-            {/* Submit Action */}
-            <button
-              type="submit"
-              className="w-full group py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl shadow-lg shadow-blue-600/10 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
-            >
-              <span className="uppercase text-xs tracking-widest font-black">
-                {isLogin ? 'Sign In' : 'Create Profile'}
-              </span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
-          </form>
+              {/* Password */}
+              <div className="space-y-1.5 text-left">
+                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                  Password
+                </label>
+                <div className="relative">
+                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="••••••••"
+                    className="w-full pl-11 pr-11 py-3.5 bg-slate-50 border border-slate-100 focus:border-blue-500 focus:bg-white rounded-2xl text-sm font-semibold tracking-tight transition-all outline-none"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                  >
+                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
+                </div>
+              </div>
+
+              {/* Forgot Password Link Trigger */}
+              {isLogin && (
+                <div className="flex justify-end -mt-2.5">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsForgotPassword(true);
+                      setError(null);
+                      setSuccess(null);
+                    }}
+                    className="text-xs font-bold text-blue-600 hover:text-blue-700 hover:underline transition-all"
+                  >
+                    Forgot your password?
+                  </button>
+                </div>
+              )}
+
+              {/* Register Extra Fields */}
+              {!isLogin && (
+                <div className="grid grid-cols-2 gap-4">
+                  {/* Grade Level */}
+                  <div className="space-y-1.5 text-left">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                      Grade Level
+                    </label>
+                    <div className="relative">
+                      <GraduationCap className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+                      <select
+                        value={gradeLevel}
+                        onChange={(e) => setGradeLevel(e.target.value)}
+                        className="w-full pl-10 pr-3 py-3.5 bg-slate-50 border border-slate-100 focus:border-blue-500 focus:bg-white rounded-2xl text-xs font-bold tracking-tight transition-all outline-none appearance-none"
+                      >
+                        <option value="10">Grade 10</option>
+                        <option value="11">Grade 11</option>
+                        <option value="12">Grade 12</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Role selection */}
+                  <div className="space-y-1.5 text-left">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                      Who Are You?
+                    </label>
+                    <div className="relative">
+                      <ShieldCheck className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+                      <select
+                        value={role}
+                        onChange={(e) => setRole(e.target.value as any)}
+                        className="w-full pl-10 pr-3 py-3.5 bg-slate-50 border border-slate-100 focus:border-blue-500 focus:bg-white rounded-2xl text-xs font-bold tracking-tight transition-all outline-none appearance-none"
+                      >
+                        <option value="student">Student</option>
+                        <option value="teacher">Teacher</option>
+                        <option value="admin">Administrator</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Submit Action */}
+              <button
+                type="submit"
+                className="w-full group py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl shadow-lg shadow-blue-600/10 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+              >
+                <span className="uppercase text-xs tracking-widest font-black">
+                  {isLogin ? 'Sign In' : 'Create Profile'}
+                </span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </form>
+          )}
         </div>
       </div>
     </div>
