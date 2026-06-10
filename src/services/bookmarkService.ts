@@ -1,5 +1,24 @@
 import { supabase } from '../lib/supabase';
 
+const hasKeys = !!(import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY);
+
+const getLocalBookmarks = (): string[] => {
+  try {
+    const stored = localStorage.getItem('unlockedu_demo_bookmarks');
+    return stored ? JSON.parse(stored) : [];
+  } catch {
+    return [];
+  }
+};
+
+const setLocalBookmarks = (bookmarks: string[]) => {
+  try {
+    localStorage.setItem('unlockedu_demo_bookmarks', JSON.stringify(bookmarks));
+  } catch (e) {
+    console.error('Failed to save demo bookmarks', e);
+  }
+};
+
 /**
  * Service for managing user bookmarks
  */
@@ -8,32 +27,52 @@ export const bookmarkService = {
    * Checks if a lesson is bookmarked by a user
    */
   async isBookmarked(userId: string, lessonId: string): Promise<boolean> {
-    const { data, error } = await supabase
-      .from('bookmarks')
-      .select('id')
-      .eq('user_id', userId)
-      .eq('lesson_id', lessonId)
-      .maybeSingle();
-
-    if (error) {
-      console.error('Error checking bookmark:', error);
-      return false;
+    if (!hasKeys) {
+      const list = getLocalBookmarks();
+      return list.includes(lessonId);
     }
 
-    return !!data;
+    try {
+      const { data, error } = await supabase
+        .from('bookmarks')
+        .select('id')
+        .eq('user_id', userId)
+        .eq('lesson_id', lessonId)
+        .maybeSingle();
+
+      if (error) throw error;
+      return !!data;
+    } catch (error) {
+      console.error('Error checking bookmark from Supabase:', error);
+      const list = getLocalBookmarks();
+      return list.includes(lessonId);
+    }
   },
 
   /**
    * Adds a bookmark for a lesson
    */
   async addBookmark(userId: string, lessonId: string): Promise<void> {
-    const { error } = await supabase
-      .from('bookmarks')
-      .insert({ user_id: userId, lesson_id: lessonId });
+    if (!hasKeys) {
+      const list = getLocalBookmarks();
+      if (!list.includes(lessonId)) {
+        setLocalBookmarks([...list, lessonId]);
+      }
+      return;
+    }
 
-    if (error) {
-      console.error('Error adding bookmark:', error);
-      throw error;
+    try {
+      const { error } = await supabase
+        .from('bookmarks')
+        .insert({ user_id: userId, lesson_id: lessonId });
+
+      if (error) throw error;
+    } catch (error) {
+      console.error('Error adding bookmark to Supabase:', error);
+      const list = getLocalBookmarks();
+      if (!list.includes(lessonId)) {
+        setLocalBookmarks([...list, lessonId]);
+      }
     }
   },
 
@@ -41,15 +80,24 @@ export const bookmarkService = {
    * Removes a bookmark for a lesson
    */
   async removeBookmark(userId: string, lessonId: string): Promise<void> {
-    const { error } = await supabase
-      .from('bookmarks')
-      .delete()
-      .eq('user_id', userId)
-      .eq('lesson_id', lessonId);
+    if (!hasKeys) {
+      const list = getLocalBookmarks();
+      setLocalBookmarks(list.filter(id => id !== lessonId));
+      return;
+    }
 
-    if (error) {
-      console.error('Error removing bookmark:', error);
-      throw error;
+    try {
+      const { error } = await supabase
+        .from('bookmarks')
+        .delete()
+        .eq('user_id', userId)
+        .eq('lesson_id', lessonId);
+
+      if (error) throw error;
+    } catch (error) {
+      console.error('Error removing bookmark from Supabase:', error);
+      const list = getLocalBookmarks();
+      setLocalBookmarks(list.filter(id => id !== lessonId));
     }
   },
 

@@ -1,6 +1,8 @@
 import { supabase } from '../lib/supabase';
 import { Chapter, Lesson } from '../types';
 
+const hasKeys = !!(import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY);
+
 /**
  * Service for managing curriculum data
  */
@@ -9,115 +11,91 @@ export const curriculumService = {
    * Fetches chapters for a specific grade level
    */
   async getChaptersByGrade(gradeId: string | number): Promise<Chapter[]> {
-    const { data, error } = await supabase
-      .from('chapters')
-      .select('*')
-      .eq('grade_id', gradeId)
-      .order('chapter_number', { ascending: true });
+    if (hasKeys) {
+      try {
+        const { data, error } = await supabase
+          .from('chapters')
+          .select('*')
+          .eq('grade_id', gradeId)
+          .order('chapter_number', { ascending: true });
 
-    let results = data || [];
-
-    if (gradeId.toString() === '12') {
-      const mockC1 = {
-        id: 'chapter-c1-g12',
-        grade_id: 12,
-        chapter_number: 1,
-        title: 'Complex Numbers',
-        description: 'Introduction to numbers that are impossible... or are they?',
-        order_index: 1,
-        created_at: new Date().toISOString()
-      };
-      
-      const mockC2 = {
-        id: 'chapter-c2-g12',
-        grade_id: 12,
-        chapter_number: 2,
-        title: 'Sequence and Series',
-        description: 'The beauty of patterns and infinite sums.',
-        order_index: 2,
-        created_at: new Date().toISOString()
-      };
-
-      // Filter out existing Chapter 1 and 2 if they exist to avoid duplicates
-      results = results.filter(c => c.chapter_number !== 1 && c.chapter_number !== 2);
-      results = [mockC1, mockC2, ...results];
+        if (error) throw error;
+        if (data && data.length > 0) {
+          // If we are looking for grade 12, make sure we append the detailed mock chapters 1 and 2
+          if (gradeId.toString() === '12') {
+            const mockC1 = MOCK_CHAPTERS.find(c => c.id === 'chapter-c1-g12')!;
+            const mockC2 = MOCK_CHAPTERS.find(c => c.id === 'chapter-c2-g12')!;
+            
+            let results = data.filter(c => c.chapter_number !== 1 && c.chapter_number !== 2);
+            return [mockC1, mockC2, ...results];
+          }
+          return data;
+        }
+      } catch (err) {
+        console.error('Error fetching chapters from Supabase:', err);
+      }
     }
 
-    return results;
+    // Fallback to mock chapters
+    return MOCK_CHAPTERS.filter(c => c.grade_id.toString() === gradeId.toString());
   },
 
   /**
    * Fetches a single chapter by ID
    */
   async getChapterById(chapterId: string): Promise<Chapter | null> {
-    if (chapterId === 'chapter-c1-g12') {
-      return {
-        id: 'chapter-c1-g12',
-        grade_id: 12,
-        chapter_number: 1,
-        title: 'Complex Numbers',
-        description: 'Introduction to numbers that are impossible... or are they?',
-        order_index: 1,
-        created_at: new Date().toISOString()
-      };
-    }
-    if (chapterId === 'chapter-c2-g12') {
-      return {
-        id: 'chapter-c2-g12',
-        grade_id: 12,
-        chapter_number: 2,
-        title: 'Sequence and Series',
-        description: 'The beauty of patterns and infinite sums.',
-        order_index: 2,
-        created_at: new Date().toISOString()
-      };
-    }
-    const { data, error } = await supabase
-      .from('chapters')
-      .select('*')
-      .eq('id', chapterId)
-      .single();
+    const mockCh = MOCK_CHAPTERS.find(c => c.id === chapterId);
+    if (mockCh) return mockCh;
 
-    if (error) {
-      console.error('Error fetching chapter:', error);
-      return null;
+    if (hasKeys) {
+      try {
+        const { data, error } = await supabase
+          .from('chapters')
+          .select('*')
+          .eq('id', chapterId)
+          .single();
+
+        if (error) throw error;
+        return data;
+      } catch (error) {
+        console.error('Error fetching chapter:', error);
+      }
     }
 
-    return data;
+    return null;
   },
 
   /**
    * Fetches all lessons for all chapters in a specific grade level
    */
   async getAllLessonsByGrade(gradeId: string | number): Promise<Lesson[]> {
-    // 1. Get all chapters for this grade
     const chapters = await this.getChaptersByGrade(gradeId);
     const chapterIds = chapters.map(c => c.id);
 
     if (chapterIds.length === 0) return [];
 
-    // 2. Fetch all lessons belonging to these chapters
-    const { data, error } = await supabase
-      .from('lessons')
-      .select('*')
-      .in('chapter_id', chapterIds)
-      .order('order_index', { ascending: true });
+    let lessons: Lesson[] = [];
 
-    if (error) {
-      console.error('Error fetching all lessons:', error);
-      return [];
+    if (hasKeys) {
+      try {
+        const { data, error } = await supabase
+          .from('lessons')
+          .select('*')
+          .in('chapter_id', chapterIds)
+          .order('order_index', { ascending: true });
+
+        if (error) throw error;
+        lessons = data || [];
+      } catch (error) {
+        console.error('Error fetching all lessons:', error);
+      }
     }
 
-    let lessons = data || [];
-
-    // 3. Handle Mock Data for Grade 12
-    if (gradeId.toString() === '12') {
-      const mockLessonsC1 = await this.getLessonsByChapter('chapter-c1-g12');
-      // Merge and ensure no duplicates if they already exist in DB
-      const existingIds = new Set(lessons.map(l => l.id));
-      const filteredMock = mockLessonsC1.filter(l => !existingIds.has(l.id));
-      lessons = [...filteredMock, ...lessons];
-    }
+    // Merge in mock lessons for any mock chapters we matched/returned
+    const mockLessons = MOCK_LESSONS.filter(l => chapterIds.includes(l.chapter_id));
+    const existingIds = new Set(lessons.map(l => l.id));
+    const filteredMock = mockLessons.filter(l => !existingIds.has(l.id));
+    lessons = [...filteredMock, ...lessons];
 
     return lessons;
   },
@@ -126,120 +104,68 @@ export const curriculumService = {
    * Fetches lessons for a specific chapter
    */
   async getLessonsByChapter(chapterId: string): Promise<Lesson[]> {
-    // Specifically handle our mock chapter
-    if (chapterId === 'chapter-c1-g12') {
-      return [
-        {
-          id: 'lesson-c1-intro',
-          chapter_id: chapterId,
-          title: 'Introduction',
-          type: 'theory',
-          content: chapter1IntroContent,
-          order_index: 1,
-          created_at: new Date().toISOString()
-        },
-        {
-          id: 'lesson-c1-basic',
-          chapter_id: chapterId,
-          title: 'Pure Imaginary Unit 𝑖',
-          type: 'theory',
-          content: chapter1BasicContent,
-          order_index: 2,
-          created_at: new Date().toISOString()
-        },
-        {
-          id: 'lesson-c1-complex',
-          chapter_id: chapterId,
-          title: 'Complex Numbers',
-          type: 'theory',
-          content: chapter1ComplexContent,
-          order_index: 3,
-          created_at: new Date().toISOString()
-        }
-      ];
+    const mockLessons = MOCK_LESSONS.filter(l => l.chapter_id === chapterId);
+    if (mockLessons.length > 0) return mockLessons;
+
+    if (hasKeys) {
+      try {
+        const { data, error } = await supabase
+          .from('lessons')
+          .select('*')
+          .eq('chapter_id', chapterId)
+          .order('order_index', { ascending: true });
+
+        if (error) throw error;
+        return data || [];
+      } catch (error) {
+        console.error('Error fetching lessons:', error);
+      }
     }
 
-    const { data, error } = await supabase
-      .from('lessons')
-      .select('*')
-      .eq('chapter_id', chapterId)
-      .order('order_index', { ascending: true });
-
-    if (error) {
-      console.error('Error fetching lessons:', error);
-      return [];
-    }
-
-    return data || [];
+    return [];
   },
 
   /**
    * Fetches a single lesson by ID
    */
   async getLessonById(lessonId: string): Promise<Lesson | null> {
-    if (lessonId === 'lesson-c1-intro') {
-      return {
-        id: 'lesson-c1-intro',
-        chapter_id: 'chapter-c1-g12',
-        title: 'Introduction',
-        type: 'theory',
-        content: chapter1IntroContent,
-        order_index: 1,
-        created_at: new Date().toISOString()
-      };
-    }
-    if (lessonId === 'lesson-c1-basic') {
-      return {
-        id: 'lesson-c1-basic',
-        chapter_id: 'chapter-c1-g12',
-        title: 'Pure Imaginary Unit 𝑖',
-        type: 'theory',
-        content: chapter1BasicContent,
-        order_index: 2,
-        created_at: new Date().toISOString()
-      };
-    }
-    if (lessonId === 'lesson-c1-complex') {
-      return {
-        id: 'lesson-c1-complex',
-        chapter_id: 'chapter-c1-g12',
-        title: 'Complex Numbers',
-        type: 'theory',
-        content: chapter1ComplexContent,
-        order_index: 3,
-        created_at: new Date().toISOString()
-      };
-    }
-    const { data, error } = await supabase
-      .from('lessons')
-      .select('*')
-      .eq('id', lessonId)
-      .single();
+    const mockLes = MOCK_LESSONS.find(l => l.id === lessonId);
+    if (mockLes) return mockLes;
 
-    if (error) {
-      console.error('Error fetching lesson:', error);
-      return null;
-    }
+    if (hasKeys) {
+      try {
+        const { data, error } = await supabase
+          .from('lessons')
+          .select('*')
+          .eq('id', lessonId)
+          .single();
 
-    // Force Burmese content if this is the first lesson of Grade 12 Chapter 1 from DB
-    if (data && data.order_index === 1) {
-      // Check if it belongs to chapter 1
-      const { data: chapterData } = await supabase
-        .from('chapters')
-        .select('*')
-        .eq('id', data.chapter_id)
-        .single();
-      
-      if (chapterData && chapterData.grade_id.toString() === '12' && chapterData.chapter_number === 1) {
-        return {
-          ...data,
-          title: 'Introduction',
-          content: chapter1IntroContent
-        };
+        if (error) throw error;
+
+        // Force Burmese content if this is the first lesson of Grade 12 Chapter 1 from DB
+        if (data && data.order_index === 1) {
+          const { data: chapterData } = await supabase
+            .from('chapters')
+            .select('*')
+            .eq('id', data.chapter_id)
+            .single();
+          
+          if (chapterData && chapterData.grade_id.toString() === '12' && chapterData.chapter_number === 1) {
+            return {
+              ...data,
+              title: 'Introduction',
+              content: chapter1IntroContent
+            };
+          }
+        }
+
+        return data;
+      } catch (error) {
+        console.error('Error fetching lesson:', error);
       }
     }
 
-    return data;
+    return null;
   },
 };
 
@@ -747,4 +673,207 @@ $$
 }
 \`\`\`
 `;
+
+export const MOCK_CHAPTERS: Chapter[] = [
+  // Grade 10
+  {
+    id: 'ch-g10-1',
+    grade_id: 10,
+    chapter_number: 1,
+    title: 'Sets and Functions',
+    description: 'Basic operations on sets, Venn diagrams, and the concept of domain/range.',
+    order_index: 1,
+  },
+  {
+    id: 'ch-g10-2',
+    grade_id: 10,
+    chapter_number: 2,
+    title: 'Polynomials',
+    description: 'Division algorithm, remainder theorem, and factor theorem.',
+    order_index: 2,
+  },
+  {
+    id: 'ch-g10-3',
+    grade_id: 10,
+    chapter_number: 3,
+    title: 'Equations and Inequalities',
+    description: 'Solving linear, quadratic, and higher-order equations and inequalities.',
+    order_index: 3,
+  },
+  
+  // Grade 11
+  {
+    id: 'ch-g11-1',
+    grade_id: 11,
+    chapter_number: 1,
+    title: 'Relations and Functions',
+    description: 'Mathematical mapping, composition of functions, and inverse functions.',
+    order_index: 1,
+  },
+  {
+    id: 'ch-g11-2',
+    grade_id: 11,
+    chapter_number: 2,
+    title: 'Sequence and Series',
+    description: 'Arithmetic progressions (AP) and Geometric progressions (GP).',
+    order_index: 2,
+  },
+  
+  // Grade 12
+  {
+    id: 'chapter-c1-g12',
+    grade_id: 12,
+    chapter_number: 1,
+    title: 'Complex Numbers',
+    description: 'Introduction to imaginary numbers and the complex plane.',
+    order_index: 1,
+  },
+  {
+    id: 'chapter-c2-g12',
+    grade_id: 12,
+    chapter_number: 2,
+    title: 'Mathematical Induction',
+    description: 'Proving statements for all natural numbers.',
+    order_index: 2,
+  },
+  {
+    id: 'chapter-c3-g12',
+    grade_id: 12,
+    chapter_number: 3,
+    title: 'Analytical Solid Geometry',
+    description: 'The geometry of three-dimensional figures.',
+    order_index: 3,
+  },
+  {
+    id: 'chapter-c4-g12',
+    grade_id: 12,
+    chapter_number: 4,
+    title: 'Vector Algebra',
+    description: 'Operations and applications of vectors.',
+    order_index: 4,
+  },
+  {
+    id: 'chapter-c5-g12',
+    grade_id: 12,
+    chapter_number: 5,
+    title: 'Permutations and Combinations',
+    description: 'Counting principles and arrangements.',
+    order_index: 5,
+  }
+];
+
+export const MOCK_LESSONS: Lesson[] = [
+  // Grade 10 - Sets & Functions (ch-g10-1)
+  {
+    id: 'lesson-g10-c1-1',
+    chapter_id: 'ch-g10-1',
+    title: 'Introduction to Sets',
+    type: 'theory',
+    content: `# Introduction to Sets (အစုများအကြောင်း မိတ်ဆက်)
+
+ကွန်ပျူတာသိပ္ပံနှင့် အဆင့်မြင့်သင်္ချာနယ်ပယ်တွင် အစု (Set) ဟူသော အစုဝင်အယူအဆသည် အလွန်အရေးကြီးပါသည်။ ဂဏန်းများ သို့မဟုတ် အရာဝတ္ထုများကို စနစ်တကျ စုစည်းခြင်းကို အစုဟု ခေါ်သည်။
+
+### 💡 Basic Terminology
+- **Element (အစုဝင်)**: အစုတစ်ခုတွင် ပါဝင်သော အရာများကို အစုဝင်ဟု ခေါ်သည်။ $x \\in A$ ဟု ရေးသားပါက $x$ သည် အစု $A$ ၏ အစုဝင် တစ်ခု ဖြစ်သည်။
+- **Empty Set (ဗလာအစု)**: မည်သည့်အစုဝင်မှ မရှိသော အစုကို ဗလာအစုဟု ခေါ်ပြီး $\\varnothing$ သို့မဟုတ် $\\{\\}$ ဟု သတ်မှတ်သည်။
+
+### ⚖️ Set Operations
+1. **Union (အစုပေါင်း)**: $A \\cup B$ သည် $A$ နှင့် $B$ နှစ်ခုလုံး၏ အစုဝင်များ အားလုံး စုစည်းမှု ဖြစ်သည်။
+2. **Intersection (အစုဘုံ)**: $A \\cap B$ သည် $A$ နှင့် $B$ နှစ်ခုလုံးတွင် တူညီစွာ ပါဝင်သော အစုဝင်များ ဖြစ်သည်။`,
+    order_index: 1,
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 'lesson-g10-c1-2',
+    chapter_id: 'ch-g10-1',
+    title: 'Exercise questions of Sets',
+    type: 'exercise',
+    content: `# Exercise on Set Operations
+
+ဆရာနှင့် အတူတကွ တွက်ချက်ကြည့်ရအောင်။
+
+### ✏️ Exercise Q1
+If $A = \\{1, 2, 3, 4\\}$ and $B = \\{3, 4, 5, 6\\}$, find:
+1. $A \\cup B$
+2. $A \\cap B$
+
+#### 🔍 Solution:
+1. $A \\cup B = \\{1, 2, 3, 4, 5, 6\\}$
+2. $A \\cap B = \\{3, 4\\}$`,
+    order_index: 2,
+    created_at: new Date().toISOString()
+  },
+
+  // Grade 11 - Sequence and Series (ch-g11-2)
+  {
+    id: 'lesson-g11-c2-1',
+    chapter_id: 'ch-g11-2',
+    title: 'Arithmetic Progressions (AP)',
+    type: 'theory',
+    content: `# Arithmetic Progressions (AP)
+
+အစဉ်လိုက်ရှိသော ကိန်းများ တစ်ခုနှင့် တစ်ခုအကြား ကွာခြားချက်သည် အမြဲတစေ တူညီနေပါက ၎င်းကို **Arithmetic Progression (AP)** ဟု ခေါ်သည်။
+
+### formula
+တစ်ကြိမ်တည်းနှင့် အလွယ်တကူ မှတ်မိနိုင်ရန်-
+
+$$a_n = a + (n-1)d$$
+
+* $a$ သည် ပထမဆုံးကိန်း (First Term)
+* $d$ သည် ကွာခြားချက်ဘုံ (Common Difference)
+* $n$ သည် term အရေအတွက်`,
+    order_index: 1,
+    created_at: new Date().toISOString()
+  },
+
+  // Grade 12 - Chapter 1 - Complex Numbers
+  {
+    id: 'lesson-c1-intro',
+    chapter_id: 'chapter-c1-g12',
+    title: 'Introduction',
+    type: 'theory',
+    content: chapter1IntroContent,
+    order_index: 1,
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 'lesson-c1-basic',
+    chapter_id: 'chapter-c1-g12',
+    title: 'Pure Imaginary Unit 𝑖',
+    type: 'theory',
+    content: chapter1BasicContent,
+    order_index: 2,
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 'lesson-c1-complex',
+    chapter_id: 'chapter-c1-g12',
+    title: 'Complex Numbers',
+    type: 'theory',
+    content: chapter1ComplexContent,
+    order_index: 3,
+    created_at: new Date().toISOString()
+  },
+
+  // Grade 12 - Chapter 2 - Mathematical Induction
+  {
+    id: 'lesson-g12-c2-1',
+    chapter_id: 'chapter-c2-g12',
+    title: 'Introduction to Mathematical Induction',
+    type: 'theory',
+    content: `# Introduction to Mathematical Induction
+
+**Mathematical Induction (သင်္ချာစနစ်တကျ သက်သေပြခြင်း)** သည် သဘာဝကိန်းများ $n$ အားလုံးအတွက် ဖော်ပြချက်တစ်ခု မှန်ကန်ကြောင်း သက်သေပြရာတွင် သုံးသော အားကောင်းသည့် စနစ်တစ်ခု ဖြစ်သည်။
+
+### 💡 The Domino Effect (ဒိုမီနို အကျိုးသက်ရောက်မှု)
+၁။ ပထမဆုံး ဒိုမီနိုပြား လဲကျသည် ($n = 1$ အတွက် မှန်သည်)။
+၂။ ပြားတစ်ခု လဲကျပါက နောက်တစ်ပြားလည်း လဲကျမည်ဖြစ်ကြောင်း သက်သေပြသည် ($k$ အတွက်မှန်က $k+1$ အတွက်လည်း မှန်သည်)။
+
+စုစုပေါင်း အဆင့်နှစ်ဆင့် ရှိပါသည်-
+- **Base Step**: $P(1)$ မှန်ကန်ကြောင်း ပြသပါမည်။
+- **Inductive Step**: $P(k)$ မှန်ပါက $P(k+1)$ လည်း မှန်ကန်ကြောင်း ဆက်လက်ပြသပါမည်။`,
+    order_index: 1,
+    created_at: new Date().toISOString()
+  }
+];
 
