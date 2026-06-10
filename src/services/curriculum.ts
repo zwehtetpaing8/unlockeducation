@@ -1,7 +1,7 @@
 import { supabase } from '../lib/supabase';
 import { Chapter, Lesson } from '../types';
 
-const hasKeys = !!(import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY);
+const hasKeys = !!(import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY) && typeof window !== 'undefined' && localStorage.getItem('unlockedu_force_demo') !== 'true';
 
 /**
  * Service for managing curriculum data

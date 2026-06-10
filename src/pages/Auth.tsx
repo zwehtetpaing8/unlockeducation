@@ -12,7 +12,7 @@ import { User as SupabaseUser, Session as SupabaseSession } from '@supabase/supa
 import { Profile as ProfileType } from '../types';
 
 const Auth: React.FC = () => {
-  const { user, setAuthSession, isDemo } = useAuth();
+  const { user, setAuthSession, isDemo, enableDemoMode, disableDemoMode } = useAuth();
   const navigate = useNavigate();
   
   const [isLogin, setIsLogin] = useState(true);
@@ -26,6 +26,7 @@ const Auth: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [isConnectionError, setIsConnectionError] = useState(false);
 
   // If already logged in, send them home
   useEffect(() => {
@@ -54,6 +55,7 @@ const Auth: React.FC = () => {
     e.preventDefault();
     setError(null);
     setSuccess(null);
+    setIsConnectionError(false);
 
     if (!validateForm()) return;
 
@@ -150,7 +152,13 @@ const Auth: React.FC = () => {
       }
     } catch (err: any) {
       console.error('Auth handler error:', err);
-      setError(err?.message || 'An unexpected error occurred during auth.');
+      const errMsg = err?.message || 'An unexpected error occurred during auth.';
+      setError(errMsg);
+      
+      const lowerMsg = errMsg.toLowerCase();
+      if (lowerMsg.includes('failed to fetch') || lowerMsg.includes('networkerror') || lowerMsg.includes('network error') || lowerMsg.includes('database connection') || lowerMsg.includes('invalid url')) {
+        setIsConnectionError(true);
+      }
     } finally {
       setLoading(false);
     }
@@ -210,7 +218,27 @@ const Auth: React.FC = () => {
                 <span className="font-bold uppercase text-[10px] tracking-wider text-amber-700 block mb-1">
                   💡 Sandbox Demo Mode Active
                 </span>
-                Supabase credentials (VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY) are not set in your variables. You can log in instantly with any simulated credentials below!
+                {localStorage.getItem('unlockedu_force_demo') === 'true' ? (
+                  <span>
+                    You have bypassed the database to use offline Demo Mode. Real database saves are paused but you can explore all features seamlessly!{' '}
+                    <button 
+                      type="button" 
+                      onClick={() => {
+                        if (disableDemoMode) {
+                          disableDemoMode();
+                          window.location.reload();
+                        }
+                      }}
+                      className="underline font-bold text-blue-600 hover:text-blue-800 transition-colors inline-block"
+                    >
+                      Disable Demo & Try Reconnecting
+                    </button>
+                  </span>
+                ) : (
+                  <span>
+                    Supabase credentials (VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY) are not set in your variables. You can log in instantly with any simulated credentials below!
+                  </span>
+                )}
               </div>
             </div>
             
@@ -315,6 +343,40 @@ const Auth: React.FC = () => {
               </motion.div>
             )}
           </AnimatePresence>
+
+          {isConnectionError && (
+            <motion.div 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-6 p-4 rounded-3xl bg-amber-50/90 border border-amber-200 text-amber-900 text-xs leading-relaxed space-y-3 text-left animate-pulse-subtle"
+            >
+              <div className="flex items-start gap-2.5">
+                <Info className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
+                <div>
+                  <span className="font-bold uppercase text-[10px] tracking-wider text-amber-700 block mb-1">
+                    💡 Database Connection Issue
+                  </span>
+                  The Supabase database provider is unreachable (Failed to fetch). We recommend switching to our offline Sandbox Demo Mode to test all features instantly!
+                </div>
+              </div>
+              <div className="pt-2 border-t border-amber-200/50 flex justify-end">
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (enableDemoMode) {
+                      enableDemoMode();
+                      setError(null);
+                      setIsConnectionError(false);
+                      setSuccess('Sandbox Demo Mode activated! Select an account to start instantly.');
+                    }
+                  }}
+                  className="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-700 text-white font-bold tracking-tight rounded-xl text-[10px] uppercase transition-colors shadow-sm shadow-amber-600/15"
+                >
+                  Enable Sandbox Demo Mode
+                </button>
+              </div>
+            </motion.div>
+          )}
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-5">

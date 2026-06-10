@@ -11,6 +11,8 @@ interface AuthContextType {
   signOut: () => Promise<void>;
   setAuthSession?: (user: User | null, profile: Profile | null, session: Session | null) => void;
   isDemo: boolean;
+  enableDemoMode?: () => void;
+  disableDemoMode?: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -20,8 +22,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [profile, setProfile] = useState<Profile | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
+  const [forceDemo, setForceDemo] = useState(() => localStorage.getItem('unlockedu_force_demo') === 'true');
 
-  const hasSupabaseKeys = !!(import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY);
+  const hasSupabaseKeys = !!(import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY) && !forceDemo;
+
+  const enableDemoMode = () => {
+    localStorage.setItem('unlockedu_force_demo', 'true');
+    setForceDemo(true);
+  };
+
+  const disableDemoMode = () => {
+    localStorage.removeItem('unlockedu_force_demo');
+    setForceDemo(false);
+  };
 
   useEffect(() => {
     if (!hasSupabaseKeys) {
@@ -110,7 +123,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   return (
-    <AuthContext.Provider value={{ user, profile, session, loading, signOut, setAuthSession, isDemo: !hasSupabaseKeys }}>
+    <AuthContext.Provider value={{ 
+      user, 
+      profile, 
+      session, 
+      loading, 
+      signOut, 
+      setAuthSession, 
+      isDemo: !hasSupabaseKeys,
+      enableDemoMode,
+      disableDemoMode
+    }}>
       {children}
     </AuthContext.Provider>
   );
