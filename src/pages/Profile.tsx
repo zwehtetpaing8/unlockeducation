@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { supabase } from '../lib/supabase';
 import { Profile as ProfileType, Bookmark, Lesson } from '../types';
 import { useAuth } from '../contexts/AuthContext';
-import { bookmarkService } from '../services/bookmarkService';
-import { curriculumService } from '../services/curriculum';
 import { 
   User, Bookmark as BookmarksIcon, History, Settings, 
   ChevronRight, Award, Trash2, 
@@ -21,45 +20,19 @@ const Profile: React.FC = () => {
   }, [user]);
 
   const fetchBookmarks = async () => {
-    if (!user) {
-      setLoading(false);
-      return;
-    }
-    try {
-      const lessonIds = await bookmarkService.getUserBookmarkLessonIds(user.id);
-      const list: (Bookmark & { lesson: Lesson })[] = [];
-      
-      for (const id of lessonIds) {
-        const lessonObj = await curriculumService.getLessonById(id);
-        if (lessonObj) {
-          list.push({
-            id: `bookmark-${id}`,
-            user_id: user.id,
-            lesson_id: id,
-            created_at: new Date().toISOString(),
-            lesson: lessonObj
-          });
-        }
-      }
-      setBookmarks(list);
-    } catch (e) {
-      console.error('Failed to fetch bookmarks:', e);
-    } finally {
-      setLoading(false);
-    }
+    const { data } = await supabase
+      .from('bookmarks')
+      .select('*, lesson:lessons(*)')
+      .eq('user_id', user?.id)
+      .order('created_at', { ascending: false });
+    
+    if (data) setBookmarks(data);
+    setLoading(false);
   };
 
   const removeBookmark = async (id: string) => {
-    if (!user) return;
-    const foundBookmark = bookmarks.find(b => b.id === id);
-    if (foundBookmark) {
-      try {
-        await bookmarkService.removeBookmark(user.id, foundBookmark.lesson_id);
-        setBookmarks(bookmarks.filter(b => b.id !== id));
-      } catch (e) {
-        console.error('Failed to remove bookmark:', e);
-      }
-    }
+    await supabase.from('bookmarks').delete().eq('id', id);
+    setBookmarks(bookmarks.filter(b => b.id !== id));
   };
 
   if (loading) return <div className="flex justify-center py-20"><Loader2 className="animate-spin" /></div>;
