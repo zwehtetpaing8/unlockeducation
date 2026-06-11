@@ -57,7 +57,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
-      if (session?.user) fetchProfile(session.user.id);
+      if (session?.user) fetchProfile(session.user.id, session.user);
       else setLoading(false);
     }).catch(err => {
       console.error('Supabase session fetch error', err);
@@ -67,7 +67,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
       setUser(session?.user ?? null);
-      if (session?.user) fetchProfile(session.user.id);
+      if (session?.user) fetchProfile(session.user.id, session.user);
       else {
         setProfile(null);
         setLoading(false);
@@ -77,17 +77,49 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return () => subscription?.unsubscribe();
   }, [hasSupabaseKeys]);
 
-  const fetchProfile = async (userId: string) => {
+  const fetchProfile = async (userId: string, currentUser?: User) => {
     if (!hasSupabaseKeys) return;
     try {
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
         .eq('id', userId)
-        .single();
+        .maybeSingle();
       
-      if (data) setProfile(data);
-      if (error) console.warn('Error fetching profile:', error.message);
+      if (data) {
+        setProfile(data);
+      } else {
+        // If data is null or query has an error, we check if we can reconstruct the profile
+        // using the user's metadata stored in Auth
+        const activeUser = currentUser || user;
+        if (activeUser) {
+          const meta = activeUser.user_metadata || {};
+          const nameVal = meta.full_name || activeUser.email?.split('@')[0] || 'Student';
+          const roleVal = meta.role || 'student';
+          const gradeVal = meta.grade_level ? parseInt(meta.grade_level) : 12;
+
+          // Attempt to create the missing profile row
+          const { data: newProfile, error: insertError } = await supabase
+            .from('profiles')
+            .upsert({
+              id: userId,
+              email: activeUser.email,
+              full_name: nameVal,
+              role: roleVal,
+              grade_level: gradeVal,
+              avatar_url: null,
+              created_at: new Date().toISOString()
+            })
+            .select()
+            .single();
+
+          if (insertError) {
+            console.error('Error auto-creating user profile in database:', insertError.message);
+          } else if (newProfile) {
+            setProfile(newProfile);
+          }
+        }
+      }
     } catch (e) {
       console.error('Profile fetch failed', e);
     } finally {

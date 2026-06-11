@@ -11,6 +11,25 @@ import { useAuth } from '../contexts/AuthContext';
 import { User as SupabaseUser, Session as SupabaseSession } from '@supabase/supabase-js';
 import { Profile as ProfileType } from '../types';
 
+const formatErrorMessage = (err: any): string => {
+  if (!err) return 'An unexpected error occurred during auth.';
+  if (typeof err === 'string') return err;
+  if (err.message && typeof err.message === 'string') return err.message;
+  if (err.error_description && typeof err.error_description === 'string') return err.error_description;
+  if (err.error && typeof err.error === 'string') return err.error;
+  if (err.error && typeof err.error === 'object' && err.error.message) return String(err.error.message);
+  
+  const str = String(err);
+  if (str && str !== '[object Object]') return str;
+  
+  try {
+    const json = JSON.stringify(err);
+    if (json && json !== '{}') return json;
+  } catch (_) {}
+  
+  return 'An unexpected error occurred during auth.';
+};
+
 const Auth: React.FC = () => {
   const { user, setAuthSession, isDemo, enableDemoMode, disableDemoMode } = useAuth();
   const navigate = useNavigate();
@@ -136,42 +155,51 @@ const Auth: React.FC = () => {
           const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
             email,
             password,
+            options: {
+              data: {
+                full_name: fullName,
+                role: role,
+                grade_level: parseInt(gradeLevel),
+              },
+            },
           });
 
           if (signUpError) throw signUpError;
 
           if (signUpData?.user) {
-            // Upsert profile
-            const { error: profileError } = await supabase
-              .from('profiles')
-              .upsert({
-                id: signUpData.user.id,
-                email,
-                full_name: fullName,
-                role: role,
-                grade_level: parseInt(gradeLevel),
-                avatar_url: null,
-                created_at: new Date().toISOString()
-              });
+            if (signUpData.session) {
+              // Upsert profile immediately since we have an active session (auto-confirmation)
+              const { error: profileError } = await supabase
+                .from('profiles')
+                .upsert({
+                  id: signUpData.user.id,
+                  email,
+                  full_name: fullName,
+                  role: role,
+                  grade_level: parseInt(gradeLevel),
+                  avatar_url: null,
+                  created_at: new Date().toISOString()
+                });
 
-            if (profileError) {
-              console.error('Error creating profile database entry:', profileError);
-              setError(`Account created, but database profile creation failed: ${profileError.message}`);
-            } else {
-              setSuccess('Account created successfully! Please check your email inbox if verification is enabled.');
-              // If immediately logged in (e.g. email confirmation disabled in sandbox):
-              if (signUpData.session) {
+              if (profileError) {
+                console.error('Error creating profile database entry:', profileError);
+                setError(`Account created, but database profile creation failed: ${formatErrorMessage(profileError)}`);
+              } else {
+                setSuccess('Account created and logged in successfully!');
                 setTimeout(() => navigate('/'), 1200);
               }
+            } else {
+              // Wait for email verification
+              setSuccess('Account created successfully! Please check your email inbox to verify your email and activate your profile.');
             }
           } else {
-            setSuccess('Registration triggered!');
+            setSuccess('Registration triggered! Please check your email inbox.');
           }
         }
       }
     } catch (err: any) {
       console.error('Auth handler error:', err);
-      const errMsg = err?.message || 'An unexpected error occurred during auth.';
+      const errMsg = formatErrorMessage(err);
       setError(errMsg);
       
       const lowerMsg = errMsg.toLowerCase();
