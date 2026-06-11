@@ -14,7 +14,19 @@ import { Profile as ProfileType } from '../types';
 const formatErrorMessage = (err: any): string => {
   if (!err) return 'An unexpected error occurred during auth.';
   if (typeof err === 'string') return err;
-  if (err.message && typeof err.message === 'string') return err.message;
+
+  // Handle specific Supabase AuthRetryableFetchError or 504 with "{}" as the message
+  if (
+    err.name === 'AuthRetryableFetchError' || 
+    err.status === 504 || 
+    err._status === 504 ||
+    err.message === '{}' ||
+    (err.message && String(err.message).trim() === '{}')
+  ) {
+    return 'Email delivery timeout (504). This happens when Supabase is unable to connect to your SMTP/Outlook server or when the email rate limit is exceeded. Please verify your SMTP config in the Supabase Dashboard, or go to your Supabase Project -> Auth Settings -> "Providers" / "Email" and disable "Confirm email" to register and log in instantly without verification email.';
+  }
+
+  if (err.message && typeof err.message === 'string' && err.message !== '{}') return err.message;
   if (err.error_description && typeof err.error_description === 'string') return err.error_description;
   if (err.error && typeof err.error === 'string') return err.error;
   if (err.error && typeof err.error === 'object' && err.error.message) return String(err.error.message);
