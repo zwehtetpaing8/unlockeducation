@@ -289,61 +289,7 @@ const LessonDetail: React.FC = () => {
             </ReactMarkdown>
           </div>
 
-          {/* Sibling Navigation Deck */}
-          <div className="mt-8 pt-6 border-t border-slate-100 flex flex-col sm:flex-row gap-4 items-stretch justify-between relative z-10">
-            {prevLesson ? (
-              <Link 
-                to={`/lesson/${prevLesson.id}`}
-                className="flex-1 group p-5 rounded-2xl border border-slate-100 hover:border-blue-200 bg-slate-50/20 hover:bg-slate-50/50 transition-all text-left flex items-center gap-4 cursor-pointer"
-              >
-                <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 flex items-center justify-center shrink-0 shadow-xs group-hover:-translate-x-1 transition-transform">
-                  <ChevronLeft className="text-slate-400 group-hover:text-slate-600" size={18} />
-                </div>
-                <div className="min-w-0">
-                  <p className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-0.5">Previous Lesson</p>
-                  <h4 className="font-bold text-sm text-slate-700 line-clamp-1 group-hover:text-blue-600 transition-colors">
-                    {prevLesson.title}
-                  </h4>
-                </div>
-              </Link>
-            ) : (
-              <div className="flex-1 hidden sm:block" />
-            )}
-
-            {nextLesson ? (
-              <Link 
-                to={`/lesson/${nextLesson.id}`}
-                className="flex-1 group p-5 rounded-2xl border border-slate-100 hover:border-blue-200 bg-slate-50/20 hover:bg-slate-50/50 transition-all text-right flex items-center justify-end gap-4 cursor-pointer"
-              >
-                <div className="min-w-0 text-right">
-                  <p className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-0.5">Next Lesson</p>
-                  <h4 className="font-bold text-sm text-slate-700 line-clamp-1 group-hover:text-blue-600 transition-colors">
-                    {nextLesson.title}
-                  </h4>
-                </div>
-                <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 flex items-center justify-center shrink-0 shadow-xs group-hover:translate-x-1 transition-transform">
-                  <ChevronRight className="text-slate-400 group-hover:text-slate-600" size={18} />
-                </div>
-              </Link>
-            ) : chapter ? (
-              <Link 
-                to={`/grade/${chapter.grade_id}/chapter/${chapter.id}`}
-                className="flex-1 group p-5 rounded-2xl border border-slate-100 hover:border-blue-200 bg-slate-50/20 hover:bg-slate-50/50 transition-all text-right flex items-center justify-end gap-4 cursor-pointer"
-              >
-                <div className="min-w-0 text-right">
-                  <p className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-0.5">End of Chapter</p>
-                  <h4 className="font-bold text-sm text-slate-700 line-clamp-1 group-hover:text-blue-600 transition-colors">
-                    Return to Chapter Modules
-                  </h4>
-                </div>
-                <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 flex items-center justify-center shrink-0 shadow-xs group-hover:translate-x-1 transition-transform">
-                  <ArrowLeft className="rotate-180 text-slate-450 group-hover:text-slate-600" size={16} />
-                </div>
-              </Link>
-            ) : (
-              <div className="flex-1 hidden sm:block" />
-            )}
-          </div>
+          {/* Sibling Navigation Deck intentionally removed to improve mobile screen UX space efficiency as requested */}
 
           {/* Floating background gradient */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/5 blur-[100px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />

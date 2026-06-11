@@ -19,11 +19,11 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const defaultUser = {
-    id: 'guest-admin-john-doe',
+    id: 'guest-student-john-doe',
     email: 'guest@example.com',
     user_metadata: {
-      full_name: 'MM-Maths Teacher',
-      role: 'admin',
+      full_name: 'MM-Maths Student',
+      role: 'student',
       grade_level: 12
     },
     aud: 'authenticated',
@@ -31,10 +31,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   } as any;
 
   const defaultProfile = {
-    id: 'guest-admin-john-doe',
+    id: 'guest-student-john-doe',
     email: 'guest@example.com',
-    full_name: 'MM-Maths Teacher',
-    role: 'admin',
+    full_name: 'MM-Maths Student',
+    role: 'student',
     grade_level: 12,
     avatar_url: null,
     created_at: new Date().toISOString()

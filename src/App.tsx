@@ -56,12 +56,8 @@ export default function App() {
             <Route path="/terms" element={<TermsOfService />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
 
-            {/* Admin Routes */}
-            <Route path="/admin/*" element={
-              <ProtectedRoute adminOnly>
-                <AdminDashboard />
-              </ProtectedRoute>
-            } />
+            {/* Admin Routes (Disabled and redirected to home to hide admin control) */}
+            <Route path="/admin/*" element={<Navigate to="/" replace />} />
 
             {/* Fallback */}
             <Route path="*" element={<Navigate to="/" />} />

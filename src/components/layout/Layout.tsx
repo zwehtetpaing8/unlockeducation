@@ -25,7 +25,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
     { name: 'Past Papers', path: '/past-papers', icon: FileText },
   ];
 
-  const isAdmin = profile?.role === 'admin' || profile?.role === 'teacher';
+  const isAdmin = false; // Intentionally disabled to hide any Admin menus/controls as requested
   const logoUrl = import.meta.env.VITE_APP_LOGO_URL || '/unlockedu.png';
 
   const Logo = ({ className }: { className?: string }) => {
@@ -162,20 +162,8 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
               )}
 
                <div className="mt-auto pt-6">
-                {user && (
-                  <div className="p-4 bg-slate-50 rounded-[2rem] border border-slate-100">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">
-                        {profile?.full_name?.[0] || user?.email?.[0]?.toUpperCase() || 'U'}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-bold text-slate-900 truncate">{profile?.full_name || 'Student'}</p>
-                        <p className="text-[10px] text-slate-500 truncate">{user?.email}</p>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
+                 {/* Sidebar bottom profile info card intentionally removed to hide auto-authenticated guest status */}
+               </div>
             </motion.div>
           </>
         )}
