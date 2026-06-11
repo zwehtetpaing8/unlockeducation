@@ -97,44 +97,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
             </div>
 
             <div className="flex items-center gap-3">
-              {user ? (
-                <>
-                  <Link 
-                    to="/profile"
-                    className={cn(
-                      "flex items-center gap-2 px-3 py-1.5 rounded-full border transition-all active:scale-95 text-xs font-bold",
-                      location.pathname === '/profile' 
-                        ? "bg-blue-50 text-blue-600 border-blue-200" 
-                        : "text-slate-600 border-slate-100 hover:bg-slate-50 hover:text-blue-600"
-                    )}
-                  >
-                    <div className="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-black uppercase text-[10px]">
-                      {profile?.full_name?.[0] || user?.email?.[0]?.toUpperCase() || 'U'}
-                    </div>
-                    <span className="hidden sm:inline max-w-[100px] truncate">{profile?.full_name?.split(' ')[0] || 'Profile'}</span>
-                  </Link>
-                  <button 
-                    onClick={() => signOut()} 
-                    className="p-2.5 rounded-full text-slate-400 hover:text-red-500 hover:bg-red-50 transition-all active:scale-95"
-                    title="Sign Out"
-                  >
-                    <LogOut size={20} />
-                  </button>
-                </>
-              ) : (
-                <Link 
-                  to="/auth"
-                  className={cn(
-                    "flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold tracking-wider uppercase transition-all active:scale-95",
-                    location.pathname === '/auth'
-                      ? "bg-blue-600 text-white shadow-md"
-                      : "bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white border border-blue-100"
-                  )}
-                >
-                  <span>Sign In</span>
-                  <ArrowRight size={14} />
-                </Link>
-              )}
+              {/* Profile link intentionally removed */}
             </div>
           </div>
         </div>
@@ -198,8 +161,8 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                 </div>
               )}
 
-              <div className="mt-auto pt-6">
-                {user ? (
+               <div className="mt-auto pt-6">
+                {user && (
                   <div className="p-4 bg-slate-50 rounded-[2rem] border border-slate-100">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">
@@ -209,20 +172,8 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                         <p className="text-sm font-bold text-slate-900 truncate">{profile?.full_name || 'Student'}</p>
                         <p className="text-[10px] text-slate-500 truncate">{user?.email}</p>
                       </div>
-                      <button onClick={() => signOut()} className="p-2 text-slate-400 hover:text-red-500 transition-colors" title="Sign Out">
-                        <LogOut size={18} />
-                      </button>
                     </div>
                   </div>
-                ) : (
-                  <Link 
-                    to="/auth" 
-                    onClick={toggleSidebar}
-                    className="flex items-center justify-center gap-2 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl shadow-md transition-all active:scale-[0.98] w-full text-xs uppercase tracking-wider"
-                  >
-                    <span>Sign In</span>
-                    <ArrowRight size={16} />
-                  </Link>
                 )}
               </div>
             </motion.div>
@@ -242,7 +193,6 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
             { id: 'home', icon: HomeIcon, path: '/', label: 'Home' },
             { id: 'grade12', icon: GraduationCap, path: '/lessons/12', label: 'Lessons' },
             { id: 'papers', icon: FileText, path: '/past-papers', label: 'Papers' },
-            { id: 'profile', icon: User, path: '/profile', label: 'Account' },
           ].map((item) => (
             <Link 
               key={item.id} 
@@ -356,15 +306,6 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                 <span>Platform</span>
               </h4>
               <ul className="space-y-3 text-xs md:text-sm font-medium text-slate-500">
-                <li>
-                  <Link 
-                    to="/profile" 
-                    className="group flex items-center gap-1.5 hover:text-blue-600 transition-colors duration-200"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-blue-600 scale-0 group-hover:scale-100 transition-transform duration-200" />
-                    <span className="group-hover:translate-x-0.5 transition-transform duration-200">My Profile</span>
-                  </Link>
-                </li>
                 <li>
                   <Link 
                     to="/terms" 

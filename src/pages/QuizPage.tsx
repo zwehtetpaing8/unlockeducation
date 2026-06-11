@@ -47,15 +47,80 @@ const QuizPage: React.FC = () => {
   }, [quiz, showResults, timeLeft]);
 
   const fetchQuizData = async () => {
-    const { data: quizData } = await supabase.from('quizzes').select('*').eq('id', quizId).single();
-    const { data: qData } = await supabase.from('questions').select('*').eq('quiz_id', quizId);
-    
-    if (quizData) {
+    try {
+      let quizData: any = null;
+      let qData: any[] = [];
+
+      try {
+        const { data } = await supabase.from('quizzes').select('*').eq('id', quizId).single();
+        const { data: qs } = await supabase.from('questions').select('*').eq('quiz_id', quizId);
+        quizData = data;
+        qData = qs || [];
+      } catch (err) {
+        console.error('Supabase query error, falling back to mock quiz:', err);
+      }
+
+      if (!quizData || qData.length === 0) {
+        // High quality fallback mock quiz for Chapter 1
+        quizData = {
+          id: quizId || 'mock-quiz-1',
+          chapter_id: 'chapter-c1-g12',
+          title: 'Complex Numbers Diagnostic Quiz (ကိန်းထွေများ ဆန်းစစ်ချက်)',
+          description: 'A comprehensive quiz testing your understanding of imaginary units, powers of i, and basic complex number calculations.',
+          time_limit_minutes: 15
+        };
+
+        qData = [
+          {
+            id: 'q1',
+            quiz_id: quizData.id,
+            question_text: 'What is the value of the exponent calculation: $i^{35}$ ?',
+            options: [
+              'i',
+              '-1',
+              '-i',
+              '1'
+            ],
+            correct_option_index: 2,
+            explanation: 'Divide power index 35 by 4: $35 = 4 \\times 8 + 3$. The remainder is 3. Therefore, $i^{35} = i^3 = -i$.'
+          },
+          {
+            id: 'q2',
+            quiz_id: quizData.id,
+            question_text: 'If $z = 4 - 3i$, find its complex conjugate $\\bar{z}$.',
+            options: [
+              '$-4 + 3i$',
+              '$4 + 3i$',
+              '$-4 - 3i$',
+              '$4 - 3i$'
+            ],
+            correct_option_index: 1,
+            explanation: 'To find the conjugate of a complex number $z = a + bi$, change the sign of the imaginary part: $\\bar{z} = a - bi$. Thus, conjugate of $4 - 3i$ is $4 + 3i$.'
+          },
+          {
+            id: 'q3',
+            quiz_id: quizData.id,
+            question_text: 'Evaluate: $(1 + 2i)(3 - i)$',
+            options: [
+              '$5 + 5i$',
+              '$1 + 5i$',
+              '$3 - 2i$',
+              '$5 - 5i$'
+            ],
+            correct_option_index: 0,
+            explanation: 'Expand the term: $(1 + 2i)(3 - i) = 1(3) - 1(i) + 2i(3) - 2i(i) = 3 - i + 6i - 2i^2 = 3 + 5i - 2(-1) = 3 + 5i + 2 = 5 + 5i$.'
+          }
+        ];
+      }
+
       setQuiz(quizData);
       setTimeLeft(quizData.time_limit_minutes * 60);
+      setQuestions(qData);
+    } catch (error) {
+      console.error('Error in fetchQuizData:', error);
+    } finally {
+      setLoading(false);
     }
-    if (qData) setQuestions(qData);
-    setLoading(false);
   };
 
   const handleNext = () => {

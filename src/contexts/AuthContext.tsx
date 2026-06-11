@@ -18,13 +18,41 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [profile, setProfile] = useState<Profile | null>(null);
-  const [session, setSession] = useState<Session | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [forceDemo, setForceDemo] = useState(() => localStorage.getItem('unlockedu_force_demo') === 'true');
+  const defaultUser = {
+    id: 'guest-admin-john-doe',
+    email: 'guest@example.com',
+    user_metadata: {
+      full_name: 'MM-Maths Teacher',
+      role: 'admin',
+      grade_level: 12
+    },
+    aud: 'authenticated',
+    created_at: new Date().toISOString()
+  } as any;
 
-  const hasSupabaseKeys = !!(import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY) && !forceDemo;
+  const defaultProfile = {
+    id: 'guest-admin-john-doe',
+    email: 'guest@example.com',
+    full_name: 'MM-Maths Teacher',
+    role: 'admin',
+    grade_level: 12,
+    avatar_url: null,
+    created_at: new Date().toISOString()
+  } as any;
+
+  const defaultSession = {
+    access_token: 'mock-access-token-999',
+    token_type: 'bearer',
+    user: defaultUser
+  } as any;
+
+  const [user, setUser] = useState<User | null>(defaultUser);
+  const [profile, setProfile] = useState<Profile | null>(defaultProfile);
+  const [session, setSession] = useState<Session | null>(defaultSession);
+  const [loading, setLoading] = useState(false);
+  const [forceDemo, setForceDemo] = useState(true);
+
+  const hasSupabaseKeys = false; // Intentionally disabled to bypass Supabase profiles table errors and SMTP timeouts
 
   const enableDemoMode = () => {
     localStorage.setItem('unlockedu_force_demo', 'true');
@@ -38,19 +66,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   useEffect(() => {
     if (!hasSupabaseKeys) {
-      try {
-        const stored = localStorage.getItem('unlockedu_mock_session');
-        if (stored) {
-          const { user: mockUser, profile: mockProfile, session: mockSession } = JSON.parse(stored);
-          setUser(mockUser);
-          setProfile(mockProfile);
-          setSession(mockSession);
-        }
-      } catch (e) {
-        console.error('Failed to parse mock session', e);
-      } finally {
-        setLoading(false);
-      }
+      setUser(defaultUser);
+      setProfile(defaultProfile);
+      setSession(defaultSession);
+      setLoading(false);
       return;
     }
 
@@ -135,10 +154,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         console.error('Error signing out of Supabase:', e);
       }
     }
-    localStorage.removeItem('unlockedu_mock_session');
-    setUser(null);
-    setProfile(null);
-    setSession(null);
+    // Set back to default user immediately so the application remains fully unlocked
+    setUser(defaultUser);
+    setProfile(defaultProfile);
+    setSession(defaultSession);
   };
 
   const setAuthSession = (newUser: User | null, newProfile: Profile | null, newSession: Session | null) => {

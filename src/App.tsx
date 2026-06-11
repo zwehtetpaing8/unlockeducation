@@ -27,26 +27,8 @@ import TermsOfService from './pages/TermsOfService';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import { Loader2 } from 'lucide-react';
 
-// Helper for protected routes
+// Helper for protected routes (Bypassed temporarily as requested)
 const ProtectedRoute = ({ children, adminOnly = false }: { children: React.ReactNode, adminOnly?: boolean }) => {
-  const { user, profile, loading } = useAuth();
-
-  if (loading) {
-    return (
-      <div className="min-h-[60vh] flex items-center justify-center bg-slate-50/10">
-        <Loader2 className="animate-spin text-blue-600" size={36} />
-      </div>
-    );
-  }
-
-  if (!user) {
-    return <Navigate to="/auth" replace />;
-  }
-
-  if (adminOnly && profile?.role !== 'admin' && profile?.role !== 'teacher') {
-    return <Navigate to="/" replace />;
-  }
-
   return <>{children}</>;
 };
 
@@ -59,7 +41,7 @@ export default function App() {
           <Routes>
             {/* Public Routes */}
             <Route path="/" element={<Home />} />
-            <Route path="/auth" element={<Auth />} />
+            <Route path="/auth" element={<Navigate to="/" replace />} />
             
             {/* Student Routes */}
             <Route path="/grade/:level" element={<GradeDetail />} />
@@ -70,7 +52,7 @@ export default function App() {
             <Route path="/quiz/:quizId" element={<ProtectedRoute><QuizPage /></ProtectedRoute>} />
             <Route path="/past-papers" element={<PastPapers />} />
             <Route path="/section-d" element={<SectionDMaster />} />
-            <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+            <Route path="/profile" element={<Navigate to="/" replace />} />
             <Route path="/terms" element={<TermsOfService />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
 

@@ -62,16 +62,7 @@ const Profile: React.FC = () => {
             </div>
           </div>
           <div className="flex flex-col sm:flex-row md:flex-col gap-3 w-full md:w-auto">
-            <button 
-              onClick={async () => {
-                await signOut();
-                navigate('/auth');
-              }}
-              className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-slate-50 hover:bg-red-600 text-slate-700 hover:text-white border border-slate-200/80 hover:border-red-600 transition-all duration-300 shadow-sm hover:shadow-md active:scale-95 font-bold text-xs uppercase tracking-wider w-full md:w-auto"
-            >
-              <LogOut size={16} />
-              <span>Log Out</span>
-            </button>
+            {/* Log Out button intentionally removed to avoid showing a login page barrier */}
           </div>
         </div>
       </div>

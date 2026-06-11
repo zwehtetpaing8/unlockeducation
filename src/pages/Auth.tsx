@@ -66,6 +66,10 @@ const Auth: React.FC = () => {
   const [pastedUrl, setPastedUrl] = useState('');
   const [showPastedInput, setShowPastedInput] = useState(false);
 
+  useEffect(() => {
+    navigate('/');
+  }, [navigate]);
+
   // Checks for password recovery link redirection (contains token/type)
   useEffect(() => {
     const hash = window.location.hash;
