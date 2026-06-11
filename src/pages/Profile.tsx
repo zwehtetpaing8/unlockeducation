@@ -5,13 +5,14 @@ import { useAuth } from '../contexts/AuthContext';
 import { 
   User, Bookmark as BookmarksIcon, History, Settings, 
   ChevronRight, Award, Trash2, 
-  GraduationCap, Loader2
+  GraduationCap, Loader2, LogOut
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
 
 const Profile: React.FC = () => {
-  const { profile, user } = useAuth();
+  const { profile, user, signOut } = useAuth();
+  const navigate = useNavigate();
   const [bookmarks, setBookmarks] = useState<(Bookmark & { lesson: Lesson })[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -60,9 +61,18 @@ const Profile: React.FC = () => {
               </div>
             </div>
           </div>
-          <button className="hidden md:flex p-4 rounded-2xl bg-white border border-slate-100 text-slate-300 hover:text-blue-600 hover:border-blue-200 transition-all shadow-sm">
-            <Settings size={24} />
-          </button>
+          <div className="flex flex-col sm:flex-row md:flex-col gap-3 w-full md:w-auto">
+            <button 
+              onClick={async () => {
+                await signOut();
+                navigate('/auth');
+              }}
+              className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-slate-50 hover:bg-red-600 text-slate-700 hover:text-white border border-slate-200/80 hover:border-red-600 transition-all duration-300 shadow-sm hover:shadow-md active:scale-95 font-bold text-xs uppercase tracking-wider w-full md:w-auto"
+            >
+              <LogOut size={16} />
+              <span>Log Out</span>
+            </button>
+          </div>
         </div>
       </div>
 

@@ -96,16 +96,45 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
               ))}
             </div>
 
-            <div className="flex items-center gap-2">
-              <Link 
-                to="/profile"
-                className={cn(
-                  "p-2.5 rounded-full transition-all active:scale-95",
-                  location.pathname === '/profile' ? "bg-blue-50 text-blue-600" : "text-slate-500 hover:bg-slate-100"
-                )}
-              >
-                <User size={22} />
-              </Link>
+            <div className="flex items-center gap-3">
+              {user ? (
+                <>
+                  <Link 
+                    to="/profile"
+                    className={cn(
+                      "flex items-center gap-2 px-3 py-1.5 rounded-full border transition-all active:scale-95 text-xs font-bold",
+                      location.pathname === '/profile' 
+                        ? "bg-blue-50 text-blue-600 border-blue-200" 
+                        : "text-slate-600 border-slate-100 hover:bg-slate-50 hover:text-blue-600"
+                    )}
+                  >
+                    <div className="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-black uppercase text-[10px]">
+                      {profile?.full_name?.[0] || user?.email?.[0]?.toUpperCase() || 'U'}
+                    </div>
+                    <span className="hidden sm:inline max-w-[100px] truncate">{profile?.full_name?.split(' ')[0] || 'Profile'}</span>
+                  </Link>
+                  <button 
+                    onClick={() => signOut()} 
+                    className="p-2.5 rounded-full text-slate-400 hover:text-red-500 hover:bg-red-50 transition-all active:scale-95"
+                    title="Sign Out"
+                  >
+                    <LogOut size={20} />
+                  </button>
+                </>
+              ) : (
+                <Link 
+                  to="/auth"
+                  className={cn(
+                    "flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold tracking-wider uppercase transition-all active:scale-95",
+                    location.pathname === '/auth'
+                      ? "bg-blue-600 text-white shadow-md"
+                      : "bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white border border-blue-100"
+                  )}
+                >
+                  <span>Sign In</span>
+                  <ArrowRight size={14} />
+                </Link>
+              )}
             </div>
           </div>
         </div>
