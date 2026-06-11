@@ -248,7 +248,7 @@ const Auth: React.FC = () => {
       }
     } catch (err: any) {
       console.error('Password recovery error:', err);
-      const errMsg = err?.message || 'An error occurred during password recovery request.';
+      const errMsg = formatErrorMessage(err);
       setError(errMsg);
       const lowerMsg = errMsg.toLowerCase();
       if (lowerMsg.includes('failed to fetch') || lowerMsg.includes('networkerror') || lowerMsg.includes('network error') || lowerMsg.includes('database connection')) {
@@ -348,7 +348,7 @@ const Auth: React.FC = () => {
       }
     } catch (err: any) {
       console.error('Password change error:', err);
-      setError(err?.message || 'An error occurred while updating the password.');
+      setError(formatErrorMessage(err));
     } finally {
       setLoading(false);
     }
