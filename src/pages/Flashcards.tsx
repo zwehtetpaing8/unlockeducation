@@ -404,8 +404,8 @@ const Flashcards: React.FC = () => {
           <div className="relative w-full max-w-xl mx-auto h-[23rem] sm:h-[26rem] perspective select-none">
             
             {/* Visual Depth Card Stack Layers underneath the active card */}
-            <div className="absolute inset-x-8 bottom-0 h-4 bg-slate-300/30 rounded-b-[2.2rem] pointer-events-none transform translate-y-3.5 scale-[0.93] border-b border-r border-l border-slate-350/20 shadow-xs transition-transform duration-300 ease-out blur-[0.2px] -z-20 transform-gpu" />
-            <div className="absolute inset-x-4 bottom-0 h-4 bg-slate-200/50 rounded-b-[2.2rem] pointer-events-none transform translate-y-2 scale-[0.965] border-b border-r border-l border-slate-250/30 shadow-xs transition-transform duration-300 ease-out blur-[0.1px] -z-10 transform-gpu" />
+            <div className="absolute inset-0 bg-slate-100 border border-slate-200 rounded-[2.2rem] pointer-events-none transform translate-y-3 scale-[0.94] shadow-sm -z-20 transform-gpu transition-all duration-300" />
+            <div className="absolute inset-0 bg-white border border-slate-200 rounded-[2.2rem] pointer-events-none transform translate-y-1.5 scale-[0.97] shadow-sm -z-10 transform-gpu transition-all duration-300" />
 
             <AnimatePresence initial={false} custom={direction} mode="popLayout">
               <motion.div
