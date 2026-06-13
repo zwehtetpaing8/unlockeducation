@@ -179,8 +179,8 @@ Complex Numbers ဆိုသည်မှာ သင်္ချာလောက၏
 
 ### Why Did Complex Numbers Arise?
 
-၁၅၀၀ ပြည့်နှစ်များအတွင်း သင်္ချာပညာရှင်များသည် Polynomial Equations များ၊ အထူးသဖြင့် Cubic Equations များကို ဖြေရှင်းရန် အလွန်ခက်ခဲစွာ ကြိုးပမ်းခဲ့ကြရပါသည်။ Real Numbers များသည် ပြဿနာအတော်များများအတွက် အဆင်ပြေသော်လည်း၊ အချို့သော Algebraic Formulas များကို တွက်ချက်ရာတွင် Traditional Number Line ပေါ်တွင် အဓိပ္ပာယ်မရှိသော $\sqrt{-1}$ ကဲ့သို့သော Expression များ ပေါ်ထွက်လာခဲ့ပါသည်။
-Cubic Equation ဖြေရှင်းမှု ပုံသေနည်း (Cardano's Formula) ကို အသုံးပြုသည့်အခါ အနှုတ်ကိန်းများ၏ Square Root ကို ရှောင်လွှဲ၍မရ ဖြစ်လာခဲ့ပါသည်။ ဤသို့ဖြင့် Real Numbers စနစ်တစ်ခုတည်းနှင့် မလုံလောက်တော့ဘဲ၊ သင်္ချာနယ်ပယ်တိုးတက်ရန် $\sqrt{-1}$ ကို တရားဝင် တည်ဆောက်သတ်မှတ်ရန် လိုအပ်လာခဲ့သည်။
+၁၅၀၀ ပြည့်နှစ်များအတွင်း သင်္ချာပညာရှင်များသည် Polynomial Equations များ၊ အထူးသဖြင့် Cubic Equations များကို ဖြေရှင်းရန် အလွန်ခက်ခဲစွာ ကြိုးပမ်းခဲ့ကြရပါသည်။ Real Numbers များသည် ပြဿနာအတော်များများအတွက် အဆင်ပြေသော်လည်း၊ အချို့သော Algebraic Formulas များကို တွက်ချက်ရာတွင် Traditional Number Line ပေါ်တွင် အဓိပ္ပာယ်မရှိသော $\\sqrt{-1}$ ကဲ့သို့သော Expression များ ပေါ်ထွက်လာခဲ့ပါသည်။
+Cubic Equation ဖြေရှင်းမှု ပုံသေနည်း (Cardano's Formula) ကို အသုံးပြုသည့်အခါ အနှုတ်ကိန်းများ၏ Square Root ကို ရှောင်လွှဲ၍မရ ဖြစ်လာခဲ့ပါသည်။ ဤသို့ဖြင့် Real Numbers စနစ်တစ်ခုတည်းနှင့် မလုံလောက်တော့ဘဲ၊ သင်္ချာနယ်ပယ်တိုးတက်ရန် $\\sqrt{-1}$ ကို တရားဝင် တည်ဆောက်သတ်မှတ်ရန် လိုအပ်လာခဲ့သည်။
 
 Algebra ကို အပြည့်အစုံ ခြုံငုံဖြေရှင်းနိုင်ရန်နှင့် Equations များကို တစ်သမတ်တည်း တွက်ချက်နိုင်ရန်အတွက် သင်္ချာပညာရှင်များသည် ဤ "Imaginary Quantities" များကို လက်ခံအသုံးပြုရန် ဖိအားပေးခြင်း ခံခဲ့ရပါသည်။ ဤသို့ဖြင့် Complex Number ဟူသော တော်လှန်ရေးအယူအဆတစ်ခု မွေးဖွားလာခဲ့ပါသည်။
 
@@ -378,6 +378,22 @@ $$
 $$
 (3,4),\\qquad (2,\\sqrt6),\\qquad (5,9)
 $$
+
+---
+
+### 🎮 Interactive Argand Diagram Playground
+
+A **Complex Number** $z = x + yi$ can be matched uniquely with a coordinate point $(x, y)$ on a two-dimensional graph called the **Complex Plane** (or **Argand Diagram**). 
+
+The horizontal axis represents the **Real Axis** ($Re$) and the vertical axis represents the **Imaginary Axis** ($Im$).
+
+Use the interactive playground below to plot, explore conjugates, find absolute sizes, and inspect complex numbers in real time!
+
+\`\`\`complex-plane
+{
+  "points": []
+}
+\`\`\`
 
 ---
 
@@ -679,16 +695,16 @@ Solve the equation $x^2 + 4 = 0$.
 **Solution:**
 From $x^2 + 4 = 0$, we get:
 $$
-\begin{aligned}
-  x^2 &= -4 \\
-      &= 4(-1) \\
-      &= 4i^2 \\
-      &= (\pm \sqrt{4}\,i)^2
-\end{aligned}
+\\begin{aligned}
+  x^2 &= -4 \\\\
+      &= 4(-1) \\\\
+      &= 4i^2 \\\\
+      &= (\\pm \\sqrt{4}\\,i)^2
+\\end{aligned}
 $$
 
 Therefore,
-$$\boxed{x=\pm 2i}$$
+$$\\boxed{x=\\pm 2i}$$
 
 ---
 
@@ -696,12 +712,12 @@ $$\boxed{x=\pm 2i}$$
 The same idea can be used for other negative numbers:
 
 $$
-\begin{aligned}
-  x^2 = -9 &\implies x^2 = (\pm\sqrt{9}\,i)^2 \implies x=\pm3i \\
-  x^2 = -16 &\implies x^2 = (\pm\sqrt{16}\,i)^2 \implies x=\pm4i \\
-  x^2 = -81 &\implies x^2 = (\pm\sqrt{81}\,i)^2 \implies x=\pm9i \\
-  x^2 = -7 &\implies x^2 = (\pm\sqrt{7}\,i)^2 \implies x=\pm\sqrt{7}\,i
-\end{aligned}
+\\begin{aligned}
+  x^2 = -9 &\\implies x^2 = (\\pm\\sqrt{9}\\,i)^2 \\implies x=\\pm3i \\\\
+  x^2 = -16 &\\implies x^2 = (\\pm\\sqrt{16}\\,i)^2 \\implies x=\\pm4i \\\\
+  x^2 = -81 &\\implies x^2 = (\\pm\\sqrt{81}\\,i)^2 \\implies x=\\pm9i \\\\
+  x^2 = -7 &\\implies x^2 = (\\pm\\sqrt{7}\\,i)^2 \\implies x=\\pm\\sqrt{7}\\,i
+\\end{aligned}
 $$
 
 ---
@@ -733,13 +749,13 @@ $$x^2-2x+5=0$$
 
 #### 🔍 Solution:
 $$
-\begin{aligned}
-  x^2-2x &= -5 \\
-  x^2-2x+1 &= -5+1 \\
-  (x-1)^2 &= -4 \\
-  x-1 &= \pm2i \\
-  x &= 1\pm2i
-\end{aligned}
+\\begin{aligned}
+  x^2-2x &= -5 \\\\
+  x^2-2x+1 &= -5+1 \\\\
+  (x-1)^2 &= -4 \\\\
+  x-1 &= \\pm2i \\\\
+  x &= 1\\pm2i
+\\end{aligned}
 $$
 
 ---
@@ -749,35 +765,35 @@ Solve $x^2+2x+3=0$ and check your answer.
 
 #### 🔍 Solution:
 $$
-\begin{aligned}
-  x^2+2x &= -3 \\
-  x^2+2x+1 &= -3+1 \\
-  (x+1)^2 &= -2 \\
-  x+1 &= \pm\sqrt{2}\,i \\
-  x &= -1\pm\sqrt{2}\,i
-\end{aligned}
+\\begin{aligned}
+  x^2+2x &= -3 \\\\
+  x^2+2x+1 &= -3+1 \\\\
+  (x+1)^2 &= -2 \\\\
+  x+1 &= \\pm\\sqrt{2}\\,i \\\\
+  x &= -1\\pm\\sqrt{2}\\,i
+\\end{aligned}
 $$
 
 #### 📊 Check:
 
-For $x=-1+\sqrt{2}\,i$:
+For $x=-1+\\sqrt{2}\\,i$:
 $$
-\begin{aligned}
+\\begin{aligned}
   x^2+2x+3
-  &=(-1+\sqrt{2}\,i)^2+2(-1+\sqrt{2}\,i)+3\\
-  &=(1-2\sqrt{2}\,i-2)-2+2\sqrt{2}\,i+3\\
+  &=(-1+\\sqrt{2}\\,i)^2+2(-1+\\sqrt{2}\\,i)+3\\\\
+  &=(1-2\\sqrt{2}\\,i-2)-2+2\\sqrt{2}\\,i+3\\\\
   &=0
-\end{aligned}
+\\end{aligned}
 $$
 
-For $x=-1-\sqrt{2}\,i$:
+For $x=-1-\\sqrt{2}\\,i$:
 $$
-\begin{aligned}
+\\begin{aligned}
   x^2+2x+3
-  &=(-1-\sqrt{2}\,i)^2+2(-1-\sqrt{2}\,i)+3\\
-  &=(1+2\sqrt{2}\,i-2)-2-2\sqrt{2}\,i+3\\
+  &=(-1-\\sqrt{2}\\,i)^2+2(-1-\\sqrt{2}\\,i)+3\\\\
+  &=(1+2\\sqrt{2}\\,i-2)-2-2\\sqrt{2}\\,i+3\\\\
   &=0
-\end{aligned}
+\\end{aligned}
 $$
 
 ---
@@ -805,46 +821,46 @@ $$
 
 **(a)** $x^2-6x+10=0$
 $$
-\begin{aligned}
-  x^2-6x &= -10\\
-  x^2-6x+9 &= -10+9\\
-  (x-3)^2 &= -1\\
-  x-3 &= \pm i\\
-  x &= 3\pm i
-\end{aligned}
+\\begin{aligned}
+  x^2-6x &= -10\\\\
+  x^2-6x+9 &= -10+9\\\\
+  (x-3)^2 &= -1\\\\
+  x-3 &= \\pm i\\\\
+  x &= 3\\pm i
+\\end{aligned}
 $$
 
 **(b)** $-2x^2+4x-3=0$
 $$
-\begin{aligned}
-  x^2-2x+\frac{3}{2} &= 0\\
-  x^2-2x &= -\frac{3}{2}\\
-  x^2-2x+1 &= -\frac{3}{2}+1\\
-  (x-1)^2 &= -\frac{1}{2}\\
-  x &= 1\pm\frac{\sqrt{2}}{2}i
-\end{aligned}
+\\begin{aligned}
+  x^2-2x+\\frac{3}{2} &= 0\\\\
+  x^2-2x &= -\\frac{3}{2}\\\\
+  x^2-2x+1 &= -\\frac{3}{2}+1\\\\
+  (x-1)^2 &= -\\frac{1}{2}\\\\
+  x &= 1\\pm\\frac{\\sqrt{2}}{2}i
+\\end{aligned}
 $$
 
 **(c)** $5x^2-2x+1=0$
 $$
-\begin{aligned}
-  x^2-\frac{2}{5}x &= -\frac{1}{5}\\
-  x^2-\frac{2}{5}x+\frac{1}{25} &= -\frac{1}{5}+\frac{1}{25}\\
-  \left(x-\frac{1}{5}\right)^2 &= -\frac{4}{25}\\
-  x-\frac{1}{5} &= \pm\frac{2}{5}i\\
-  x &= \frac{1}{5}\pm \frac{2}{5}i
-\end{aligned}
+\\begin{aligned}
+  x^2-\\frac{2}{5}x &= -\\frac{1}{5}\\\\
+  x^2-\\frac{2}{5}x+\\frac{1}{25} &= -\\frac{1}{5}+\\frac{1}{25}\\\\
+  \\left(x-\\frac{1}{5}\\right)^2 &= -\\frac{4}{25}\\\\
+  x-\\frac{1}{5} &= \\pm\\frac{2}{5}i\\\\
+  x &= \\frac{1}{5}\\pm \\frac{2}{5}i
+\\end{aligned}
 $$
 
 **(d)** $3x^2+7x+5=0$
 $$
-\begin{aligned}
-  x^2+\frac{7}{3}x &= -\frac{5}{3}\\
-  x^2+\frac{7}{3}x+\frac{49}{36} &= -\frac{5}{3}+\frac{49}{36}\\
-  \left(x+\frac{7}{6}\right)^2 &= -\frac{11}{36}\\
-  x+\frac{7}{6} &= \pm\frac{\sqrt{11}}{6}i\\
-  x &= -\frac{7}{6}\pm \frac{\sqrt{11}}{6}i
-\end{aligned}
+\\begin{aligned}
+  x^2+\\frac{7}{3}x &= -\\frac{5}{3}\\\\
+  x^2+\\frac{7}{3}x+\\frac{49}{36} &= -\\frac{5}{3}+\\frac{49}{36}\\\\
+  \\left(x+\\frac{7}{6}\\right)^2 &= -\\frac{11}{36}\\\\
+  x+\\frac{7}{6} &= \\pm\\frac{\\sqrt{11}}{6}i\\\\
+  x &= -\\frac{7}{6}\\pm \\frac{\\sqrt{11}}{6}i
+\\end{aligned}
 $$
 
 </div>
@@ -859,34 +875,34 @@ $$
 
 **(a)** $x^2-2x+4=0$
 $$
-\begin{aligned}
-  x^2-2x &= -4\\
-  x^2-2x+1 &= -4+1\\
-  (x-1)^2 &= -3\\
-  x-1 &= \pm\sqrt{3}\,i\\
-  x &= 1+\sqrt{3}\,i \quad \text{or} \quad x=1-\sqrt{3}\,i
-\end{aligned}
+\\begin{aligned}
+  x^2-2x &= -4\\\\
+  x^2-2x+1 &= -4+1\\\\
+  (x-1)^2 &= -3\\\\
+  x-1 &= \\pm\\sqrt{3}\\,i\\\\
+  x &= 1+\\sqrt{3}\\,i \\quad \\text{or} \\quad x=1-\\sqrt{3}\\,i
+\\end{aligned}
 $$
 
 **Check:**
-For $1+\sqrt{3}\,i$:
+For $1+\\sqrt{3}\\,i$:
 $$
-(1+\sqrt{3}\,i)^2-2(1+\sqrt{3}\,i)+4 = (1+2\sqrt{3}\,i-3)-2-2\sqrt{3}\,i+4 = 0
+(1+\\sqrt{3}\\,i)^2-2(1+\\sqrt{3}\\,i)+4 = (1+2\\sqrt{3}\\,i-3)-2-2\\sqrt{3}\\,i+4 = 0
 $$
-For $1-\sqrt{3}\,i$:
+For $1-\\sqrt{3}\\,i$:
 $$
-(1-\sqrt{3}\,i)^2-2(1-\sqrt{3}\,i)+4 = (1-2\sqrt{3}\,i-3)-2+2\sqrt{3}\,i+4 = 0
+(1-\\sqrt{3}\\,i)^2-2(1-\\sqrt{3}\\,i)+4 = (1-2\\sqrt{3}\\,i-3)-2+2\\sqrt{3}\\,i+4 = 0
 $$
 
 **(b)** $x^2-4x+5=0$
 $$
-\begin{aligned}
-  x^2-4x &= -5\\
-  x^2-4x+4 &= -5+4\\
-  (x-2)^2 &= -1\\
-  x-2 &= \pm i\\
-  x &= 2+i \quad \text{or} \quad x=2-i
-\end{aligned}
+\\begin{aligned}
+  x^2-4x &= -5\\\\
+  x^2-4x+4 &= -5+4\\\\
+  (x-2)^2 &= -1\\\\
+  x-2 &= \\pm i\\\\
+  x &= 2+i \\quad \\text{or} \\quad x=2-i
+\\end{aligned}
 $$
 
 **Check:**
@@ -913,12 +929,12 @@ $$
 $$i^0 = 1$$
 
 $$
-\begin{aligned {2}}
-  i^1 &= i \qquad\qquad & i^5 &= i^4i = i \\
-  i^2 &= -1 \qquad\qquad & i^6 &= i^4i^2 = -1 \\
-  i^3 &= i^2i = -i \qquad\qquad & i^7 &= i^4i^3 = -i \\
-  i^4 &= i^2i^2 = 1 \qquad\qquad & i^8 &= i^4i^4 = 1
-\end{aligned}
+\\begin{aligned}
+  i^1 &= i \\qquad\\qquad & i^5 &= i^4i = i \\\\
+  i^2 &= -1 \\qquad\\qquad & i^6 &= i^4i^2 = -1 \\\\
+  i^3 &= i^2i = -i \\qquad\\qquad & i^7 &= i^4i^3 = -i \\\\
+  i^4 &= i^2i^2 = 1 \\qquad\\qquad & i^8 &= i^4i^4 = 1
+\\end{aligned}
 $$
 
 **General Pattern Rules:**

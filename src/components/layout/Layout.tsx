@@ -9,6 +9,7 @@ import {
 import { useAuth } from '../../contexts/AuthContext';
 import { cn } from '../../lib/utils';
 import { motion, AnimatePresence } from 'motion/react';
+import { FormulaCheatSheet } from '../ui/FormulaCheatSheet';
 
 export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -171,6 +172,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       {/* Main Content */}
       <main className="flex-1 w-full max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-10 py-4 md:py-8 pb-28 md:pb-16 relative">
         {children}
+        <FormulaCheatSheet />
       </main>
 
       {/* Bottom Navigation for Mobile (Smarter active states and elegant styling) */}
