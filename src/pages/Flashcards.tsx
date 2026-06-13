@@ -2,16 +2,20 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Sparkles, RotateCw, CheckCircle2, AlertCircle, ChevronLeft, ChevronRight, 
-  BookOpen, HelpCircle, RefreshCw, Star, Info, GraduationCap, ArrowLeft
+  BookOpen, RefreshCw, Star, Info, GraduationCap, ArrowLeft
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { cn } from '../lib/utils';
+import ReactMarkdown from 'react-markdown';
+import remarkMath from 'remark-math';
+import rehypeRaw from 'rehype-raw';
+import rehypeKatex from 'rehype-katex';
+import 'katex/dist/katex.min.css';
 
 interface Flashcard {
   id: string;
   category: string;
   title: string;
-  titleMy: string;
   front: string;
   frontDesc: string;
   back: string;
@@ -24,45 +28,41 @@ const FLASHCARDS: Flashcard[] = [
   {
     id: 'c1',
     category: 'Complex Numbers',
-    title: 'Imaginary Unit i',
-    titleMy: 'သတ်မှတ်ချက် i',
-    front: 'What is the definition and value of i?',
-    frontDesc: 'ကိန်းကಲ್ಪယူနစ် i ၏ သတ်မှတ်ချက်တန်ဖိုးမှာ အဘယ်နည်း။',
-    back: 'i = √(-1)\nand therefore\ni² = -1',
-    backEx: 'Example: √(-16) = 4i',
+    title: 'Imaginary Unit $i$',
+    front: 'What is the definition and value of the imaginary unit $i$?',
+    frontDesc: 'Identify the key properties of the basic imaginary unit and its squared value.',
+    back: '$$i = \\sqrt{-1}$$\n\n$$\\text{therefore } i^2 = -1$$',
+    backEx: 'Example: $\\sqrt{-16} = \\sqrt{16} \\cdot \\sqrt{-1} = 4i$',
     difficulty: 'easy'
   },
   {
     id: 'c2',
     category: 'Complex Numbers',
     title: 'Polar Form of a Complex Number',
-    titleMy: 'ပိုလာပုံစံ',
-    front: 'How do you represent a complex number z = a + bi in Polar Form?',
-    frontDesc: 'z = a + bi ကို ပိုလာပုံစံဖြင့် မည်သို့ဖော်ပြသနည်း။',
-    back: 'z = r(cos θ + i sin θ)',
-    backEx: 'where r = |z| = √(a² + b²) and tan θ = b/a',
+    front: 'How do you represent a complex number $z = a + bi$ in Polar Form?',
+    frontDesc: 'Express utilizing modulus $r$ and argument$\\theta$.',
+    back: '$$z = r(\\cos \\theta + i \\sin \\theta)$$',
+    backEx: 'where $r = |z| = \\sqrt{a^2 + b^2}$ and $\\tan \\theta = \\frac{b}{a}$',
     difficulty: 'medium'
   },
   {
     id: 'c3',
     category: 'Complex Numbers',
     title: "De Moivre's Theorem",
-    titleMy: "ဒီမွိုင်ဗာ သီအိုရမ်",
-    front: "What is De Moivre's Theorem for raising a complex number to a power n?",
-    frontDesc: "ကိန်းရှုပ်တစ်ခုကို ထပ်ညွှန်း n တင်ခြင်းအတွက် သီအိုရမ်မှာ မည်သို့ရှိသနည်း။",
-    back: '[r(cos θ + i sin θ)]ⁿ = rⁿ (cos nθ + i sin nθ)',
-    backEx: 'Used to find powers and roots of complex numbers easily.',
+    front: "What is De Moivre's Theorem for raising a complex number to a power $n$?",
+    frontDesc: 'State the relation for raising a polar form complex number to an integer power $n$.',
+    back: '$$[r(\\cos \\theta + i \\sin \\theta)]^n = r^n (\\cos n\\theta + i \\sin n\\theta)$$',
+    backEx: 'This theorem makes finding exponents and roots of complex coordinates simple.',
     difficulty: 'hard'
   },
   {
     id: 'c4',
     category: 'Complex Numbers',
     title: "Euler's Formula",
-    titleMy: "ယူလာ စည်းမျဉ်း",
-    front: "What is Euler's elegant identity connecting complex numbers with exponentials?",
-    frontDesc: "ထပ်ညွှန်းကိန်းဖြင့် ကိန်းရှုပ်ကို ချိတ်ဆက်ပေးသော ယူလာပုံသေနည်းမှာ အဘယ်နည်း။",
-    back: 'e^(iθ) = cos θ + i sin θ',
-    backEx: 'Hence Euler\'s Identity: e^(iπ) + 1 = 0',
+    front: "What is Euler's formula connecting complex exponential representation with trigonometric functions?",
+    frontDesc: 'Express the trigonometric relationship of $e^{i\\theta}$.',
+    back: '$$e^{i\\theta} = \\cos \\theta + i \\sin \\theta$$',
+    backEx: "Euler's Identity is derived by substituting $\\theta = \\pi$: $e^{i\\pi} + 1 = 0$.",
     difficulty: 'hard'
   },
   
@@ -70,45 +70,41 @@ const FLASHCARDS: Flashcard[] = [
   {
     id: 'l1',
     category: 'Calculus & Limits',
-    title: 'Derivative of log(x) / ln(x)',
-    titleMy: 'ln(x) ၏ can derivative',
-    front: 'What is the derivative of f(x) = ln(x) with respect to x?',
-    frontDesc: 'f(x) = ln(x) ၏ x အလိုက် ပထမဆင့်ဒစ်ဖရန်ရှီယေးရှင်းမှာ ဘာရသနည်း။',
-    back: 'd/dx (ln x) = 1/x',
-    backEx: 'Note: x must be greater than 0.',
+    title: 'Derivative of $\\ln(x)$',
+    front: 'What is the derivative of $f(x) = \\ln(x)$ with respect to $x$?',
+    frontDesc: 'Find the rate of change of the natural logarithmic function.',
+    back: '$$\\frac{d}{dx}(\\ln x) = \\frac{1}{x}$$',
+    backEx: 'Note: the formula requires the domain constraint of $x > 0$.',
     difficulty: 'easy'
   },
   {
     id: 'l2',
     category: 'Calculus & Limits',
     title: 'Product Rule for Derivatives',
-    titleMy: 'မြှောက်လဒ်စည်းမျဉ်း (Product Rule)',
-    front: 'What is the derivative of the product of two functions d/dx [u(x) · v(x)]?',
-    frontDesc: 'ဖန်ရှင်နှစ်ခု မြှောက်ထားခြင်းကို ဒစ်ဖရန်ရှီယေးရှင်းလုပ်ရန် ပုံသေနည်း။',
-    back: 'd/dx (u · v) = u · (dv/dx) + v · (du/dx)',
-    backEx: 'Commonly written as: (uv)′ = u′v + uv′',
+    front: 'What is the derivative of the product of two functions, $\\frac{d}{dx}[u(x) \\cdot v(x)]$?',
+    frontDesc: 'State the differentiation method for multiplied differentiable functions.',
+    back: '$$\\frac{d}{dx}(u \\cdot v) = u \\frac{dv}{dx} + v \\frac{du}{dx}$$',
+    backEx: 'Often written briefly in prime notation: $(uv)\' = u\'v + uv\'$',
     difficulty: 'medium'
   },
   {
     id: 'l3',
     category: 'Calculus & Limits',
     title: 'Quotient Rule for Derivatives',
-    titleMy: 'စားလဒ်စည်းမျဉ်း (Quotient Rule)',
-    front: 'What is the formula to differentiate a fraction d/dx [u(x) / v(x)]?',
-    frontDesc: 'ဖန်ရှင်နှစ်ခုစားထားသော ပုံစံကို ဒစ်ဖရန်ရှီယေးရှင်းလုပ်ရန် ပုံသေနည်း။',
-    back: 'd/dx (u / v) = [v · (du/dx) - u · (dv/dx)] / v²',
-    backEx: 'Commonly remembered as: "Low d-high minus high d-low over square of what\'s below"',
+    front: 'What is the formula to differentiate a division of two functions $\\frac{d}{dx} \\left[\\frac{u(x)}{v(x)}\\right]$?',
+    frontDesc: 'Express the differentiation formula for quotients with a non-zero denominator $v(x)$.',
+    back: '$$\\frac{d}{dx}\\left(\\frac{u}{v}\\right) = \\frac{v \\frac{du}{dx} - u \\frac{dv}{dx}}{v^2}$$',
+    backEx: 'Mnemonic: "Low d-high minus high d-low over the square of what\'s below"',
     difficulty: 'hard'
   },
   {
     id: 'l4',
     category: 'Calculus & Limits',
     title: 'Derivative of Trigonometric Functions',
-    titleMy: 'ထရီဂိုဒစ်ဖရန်ရှီယေးရှင်း',
-    front: 'What are the derivatives of sin(x) and cos(x)?',
-    frontDesc: 'sin(x) နှင့် cos(x) တို့၏ ပထမဆင့်ရှိပုံသေနည်းများမှာ အဘယ်နည်း။',
-    back: 'd/dx (sin x) = cos x\nd/dx (cos x) = -sin x',
-    backEx: 'Note the negative sign for the derivative of cos(x)!',
+    front: 'What are the derivatives of $\\sin(x)$ and $\\cos(x)$?',
+    frontDesc: 'Recall the basic rate of change formulas for sine and cosine.',
+    back: '$$\\frac{d}{dx}(\\sin x) = \\cos x$$\n\n$$\\frac{d}{dx}(\\cos x) = -\\sin x$$',
+    backEx: 'Crucial: Observe the negative sign when differentiating the cosine function.',
     difficulty: 'easy'
   },
 
@@ -116,34 +112,31 @@ const FLASHCARDS: Flashcard[] = [
   {
     id: 's1',
     category: 'Sequences & Series',
-    title: 'n-th term of an Arithmetic Progression',
-    titleMy: 'A.P. ၏ n ကြိမ်မြောက် ကိန်း',
-    front: 'What is the formula for the n-th term (t_n) of an Arithmetic Progression with common difference d?',
-    frontDesc: 'ဒီဂရီတူခြားနားခြင်း d ရှိသော A.P. ၏ n-th term ပုံသေနည်း။',
-    back: 't_n = a + (n - 1)d',
-    backEx: 'where a is the first term and d is the common difference.',
+    title: 'n-th term of an Arithmetic Progression ($AP$)',
+    front: 'What is the formula for the $n$-th term ($t_n$) of an Arithmetic Progression?',
+    frontDesc: 'State the formula using first term $a$ and common difference $d$.',
+    back: '$$t_n = a + (n - 1)d$$',
+    backEx: 'where $a$ is the initiating value and $d$ is the constant difference.',
     difficulty: 'easy'
   },
   {
     id: 's2',
     category: 'Sequences & Series',
     title: 'Sum of n terms of a GP',
-    titleMy: 'G.P. ၏ ပထမ n ကိန်းလုံးပေါင်းလဒ်',
-    front: 'What is the sum of the first n terms (S_n) of a Geometric Progression?',
-    frontDesc: 'အချိုးတူခြားနားခြင်း r ရှိသော G.P. ၏ S_n ပုံသေနည်း။',
-    back: 'S_n = a(1 - rⁿ) / (1 - r)  [when r < 1]\nor\nS_n = a(rⁿ - 1) / (r - 1)  [when r > 1]',
-    backEx: 'where a is the first term and r is the common ratio (r ≠ 1)',
+    front: 'What is the sum of the first $n$ terms ($S_n$) of a Geometric Progression?',
+    frontDesc: 'Express the summations for conditions where ratio $r < 1$ or $r > 1$.',
+    back: '$$S_n = \\frac{a(1 - r^n)}{1 - r} \\quad [\\text{when } |r| < 1]$$\n\n$$\\text{or}$$\n\n$$S_n = \\frac{a(r^n - 1)}{r - 1} \\quad [\\text{when } |r| > 1]$$',
+    backEx: 'where $a$ is the first term and $r$ is the constant ratio ($r \\neq 1$).',
     difficulty: 'medium'
   },
   {
     id: 's3',
     category: 'Sequences & Series',
-    title: 'Sum to Infinity of Geometric Series',
-    titleMy: 'G.P. အနန္တပေါင်းလဒ်',
-    front: 'Under what condition does an infinite Geometric Series converge, and what is its sum S_∞?',
-    frontDesc: 'ဘယ်လိုအခြေအနေမှာ အနန္တပေါင်းလဒ် ရှာနိုင်ပြီး ပုံသေနည်းမှာ မည်သို့ရှိသနည်း။',
-    back: 'S_∞ = a / (1 - r)',
-    backEx: 'Only converges when the common ratio satisfies |r| < 1.',
+    title: 'Sum to Infinity of a Geometric Series',
+    front: 'Under what condition does an infinite Geometric Series converge, and what is its sum $S_\\infty$?',
+    frontDesc: 'State the limiting value equation as the index approaches infinity.',
+    back: '$$S_\\infty = \\frac{a}{1 - r}$$',
+    backEx: 'The infinite sum exists if and only if the absolute common ratio matches $|r| < 1$.',
     difficulty: 'medium'
   },
 
@@ -151,23 +144,21 @@ const FLASHCARDS: Flashcard[] = [
   {
     id: 't1',
     category: 'Trigonometry',
-    title: 'Double Angle: sin(2θ)',
-    titleMy: 'နှစ်ဆထောင့် sin ပုံသေနည်း',
-    front: 'What is the double angle formula for sin(2θ)?',
-    frontDesc: 'ထောင့်နှစ်ဆ sin(2θ) ၏ ဖြန့်နည်းပုံသေနည်းမှာ အဘယ်နည်း။',
-    back: 'sin(2θ) = 2 sin θ cos θ',
-    backEx: 'Example: if sin θ = 3/5, cos θ = 4/5, then sin(2θ) = 24/25',
+    title: 'Double Angle Identity: $\\sin(2\\theta)$',
+    front: 'What is the double angle trigonometric expansion for $\\sin(2\\theta)$?',
+    frontDesc: 'Represent the identity using product expressions of single angles.',
+    back: '$$\\sin(2\\theta) = 2 \\sin \\theta \\cos \\theta$$',
+    backEx: 'Example: if $\\sin \\theta = \\frac{3}{5}$ and $\\cos \\theta = \\frac{4}{5}$, then $\\sin(2\\theta) = \\frac{24}{25}$',
     difficulty: 'easy'
   },
   {
     id: 't2',
     category: 'Trigonometry',
-    title: 'Double Angle: cos(2θ)',
-    titleMy: 'နှစ်ဆထောင့် cos ပုံသေနည်း',
-    front: 'What are the three main forms of the double angle formula for cos(2θ)?',
-    frontDesc: 'cos(2θ) အတွက် အသုံးအများဆုံး ပုံသေနည်း ၃ ခုမှာ မည်သို့ရှိသနည်း။',
-    back: '1. cos² θ - sin² θ\n2. 2 cos² θ - 1\n3. 1 - 2 sin² θ',
-    backEx: 'Extremely useful in calculus integrations!',
+    title: 'Double Angle Identity: $\\cos(2\\theta)$',
+    front: 'What are the three common variations of the double angle formula for $\\cos(2\\theta)$?',
+    frontDesc: 'List the variations in terms of cosine, sine, and both combined.',
+    back: '$$\\cos(2\\theta) = \\cos^2 \\theta - \\sin^2 \\theta$$\n\n$$\\cos(2\\theta) = 2\\cos^2 \\theta - 1$$\n\n$$\\cos(2\\theta) = 1 - 2\\sin^2 \\theta$$',
+    backEx: 'Extremely useful for rewriting integrals and solving equations in Calculus.',
     difficulty: 'medium'
   }
 ];
@@ -178,13 +169,26 @@ interface CardProgressState {
   [cardId: string]: 'mastered' | 'practice' | null;
 }
 
+const MarkdownRenderer: React.FC<{ content: string; className?: string }> = ({ content, className }) => {
+  return (
+    <div className={cn("markdown-body overflow-visible", className)}>
+      <ReactMarkdown 
+        remarkPlugins={[remarkMath]} 
+        rehypePlugins={[rehypeRaw, [rehypeKatex, { output: 'htmlAndMathml', throwOnError: false }]]}
+      >
+        {content}
+      </ReactMarkdown>
+    </div>
+  );
+};
+
 const Flashcards: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('All Topics');
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isFlipped, setIsFlipped] = useState<boolean>(false);
   const [cardStates, setCardStates] = useState<CardProgressState>({});
   
-  // Filter flashcards base on selected category
+  // Filter flashcards based on selected category
   const filteredCards = selectedCategory === 'All Topics' 
     ? FLASHCARDS 
     : FLASHCARDS.filter(card => card.category === selectedCategory);
@@ -250,10 +254,10 @@ const Flashcards: React.FC = () => {
               <span>Interactive Formula Study Deck</span>
             </div>
             <h1 className="text-2xl sm:text-3.5xl font-black text-slate-900 tracking-tight leading-none uppercase">
-              MATH FLASHCARDS • ပုံသေနည်းကတ်များ
+              MATH FLASHCARDS • STUDY DECKS
             </h1>
             <p className="text-slate-500 text-xs font-medium">
-              Grade 12 သင်္ချာ၏ အဓိကသီအိုရီများနှင့် ပုံသေနည်းများကို တစ်ခုချင်းစီ အလွတ်ကျက်မှတ်လေ့ကျင့်ရန်။
+              Review and Master core theoretical principles, key formulas, and identities of Grade 12 Advanced Mathematics.
             </p>
           </div>
 
@@ -333,7 +337,7 @@ const Flashcards: React.FC = () => {
         <div className="space-y-6">
           
           {/* Card Wrapper with 3D perspective */}
-          <div className="relative w-full max-w-xl mx-auto h-72 sm:h-80 perspective select-none">
+          <div className="relative w-full max-w-xl mx-auto h-[23rem] sm:h-[26rem] perspective select-none">
             
             {/* Inner Flip Body */}
             <motion.div
@@ -364,24 +368,26 @@ const Flashcards: React.FC = () => {
                 </div>
 
                 {/* Core Query */}
-                <div className="my-auto space-y-3">
-                  <span className="text-[9px] font-black tracking-widest text-slate-300/90 uppercase block">FORMULA PROMPT</span>
-                  <p className="text-slate-400 font-bold text-xs sm:text-xs tracking-wide">{currentCard.titleMy}</p>
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-800 leading-snug font-sans tracking-tight">
-                    {currentCard.front}
-                  </h3>
-                  <p className="text-slate-500 text-xs sm:text-xs italic leading-relaxed">
-                    "{currentCard.frontDesc}"
-                  </p>
+                <div className="my-auto space-y-4 overflow-y-auto max-h-[14rem] sm:max-h-[16rem] pr-2 custom-scrollbar">
+                  <span className="text-[9px] font-black tracking-widest text-slate-300/90 uppercase block font-mono">FORMULA PROMPT</span>
+                  <div className="text-slate-400 font-extrabold text-sm sm:text-base tracking-tight">
+                    <MarkdownRenderer content={currentCard.title} />
+                  </div>
+                  <div className="text-lg sm:text-xl font-bold text-slate-800 leading-snug tracking-tight">
+                    <MarkdownRenderer content={currentCard.front} />
+                  </div>
+                  <div className="text-slate-500 text-xs sm:text-xs italic leading-relaxed">
+                    <MarkdownRenderer content={`"${currentCard.frontDesc}"`} />
+                  </div>
                 </div>
 
                 {/* Tip bar */}
-                <div className="flex justify-between items-center text-[10px] font-bold text-slate-400/90 border-t border-slate-50 pt-4">
+                <div className="flex justify-between items-center text-[10px] font-bold text-slate-400/90 border-t border-slate-50 pt-4 shrink-0">
                   <span className="inline-flex items-center gap-1">
                     <Info size={11} className="text-blue-500" />
-                    နားလည်မှုစမ်းရန် နှိပ်ပါ။
+                    Tap card to reveal solution.
                   </span>
-                  <span>Tap to reveal solution • Card {activeIndex + 1}/{filteredCards.length}</span>
+                  <span>Card {activeIndex + 1}/{filteredCards.length}</span>
                 </div>
               </div>
 
@@ -390,29 +396,31 @@ const Flashcards: React.FC = () => {
                 className="absolute w-full h-full backface-hidden bg-slate-900 text-white border border-slate-850 rounded-[2rem] p-6 sm:p-10 flex flex-col justify-between shadow-2xl rotate-y-180"
               >
                 {/* Header back */}
-                <div className="flex justify-between items-center text-[10px] font-black tracking-wider uppercase text-slate-400">
-                  <span className="text-blue-400 bg-blue-950/40 px-2.5 py-1 rounded-md">{currentCard.title}</span>
+                <div className="flex justify-between items-center text-[10px] font-black tracking-wider uppercase text-slate-400 shrink-0">
+                  <span className="text-blue-400 bg-blue-950/40 px-2.5 py-1 rounded-md">
+                    <MarkdownRenderer content={currentCard.title} className="inline !text-blue-400 text-[10px] [&_p]:m-0" />
+                  </span>
                   <span>REVEALED FORMULA</span>
                 </div>
 
                 {/* Core Answer content */}
-                <div className="my-auto space-y-4 text-center">
+                <div className="my-auto space-y-4 text-center overflow-y-auto max-h-[14rem] sm:max-h-[16rem] pr-2 custom-scrollbar">
                   <div className="p-4 sm:p-6 bg-slate-950 rounded-2xl border border-slate-800/80 inline-block w-full">
-                    <pre className="font-mono text-base sm:text-xl text-blue-400 font-extrabold tracking-tight whitespace-pre-wrap break-words leading-relaxed animate-pulse">
-                      {currentCard.back}
-                    </pre>
+                    <div className="text-base sm:text-xl text-blue-400 font-extrabold tracking-tight leading-relaxed">
+                      <MarkdownRenderer content={currentCard.back} className="!text-blue-400 select-all" />
+                    </div>
                   </div>
-                  <p className="text-[11px] text-slate-400 font-medium">
-                    {currentCard.backEx}
-                  </p>
+                  <div className="text-[11px] text-slate-400 font-bold bg-slate-950/40 border border-slate-800/50 p-2.5 rounded-xl text-left">
+                    <MarkdownRenderer content={currentCard.backEx} className="!text-slate-400" />
+                  </div>
                 </div>
 
                 {/* Footer back */}
-                <div className="flex justify-between items-center text-[10px] font-bold text-slate-500 border-t border-slate-800/60 pt-4">
-                  <span>Tap anywhere to study prompt again</span>
+                <div className="flex justify-between items-center text-[10px] font-bold text-slate-500 border-t border-slate-800/60 pt-4 shrink-0">
+                  <span>Tap anywhere to return to the prompt</span>
                   <div className="flex items-center gap-1 uppercase tracking-wider text-[9px]">
                     <RotateCw size={10} className="text-blue-400 rotate-180" />
-                    <span>Double angle formula representation</span>
+                    <span>Active Review</span>
                   </div>
                 </div>
               </div>
@@ -475,7 +483,7 @@ const Flashcards: React.FC = () => {
                 <GraduationCap size={15} />
               </span>
               <span>
-                <strong>Study Hint:</strong> Try to write down the formula values or definitions on a piece of paper before clicking the card to flip and verify. Practice makes perfect mathematics!
+                <strong>Study Hint:</strong> Try to draft the formula on a scratchpad or solve it in your head before flipping the card. Active recall is the most effective way to reinforce correct mathematical associations!
               </span>
             </div>
 
@@ -504,6 +512,19 @@ const Flashcards: React.FC = () => {
         }
         .rotate-y-180 {
           transform: rotateY(180deg);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(156, 163, 175, 0.3);
+          border-radius: 2px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(156, 163, 175, 0.5);
         }
       `}</style>
 

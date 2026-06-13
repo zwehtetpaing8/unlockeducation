@@ -19,7 +19,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 
   const navItems = [
     { name: 'Home', path: '/', icon: HomeIcon },
-    { name: 'Grade 12', path: '/lessons/12', icon: GraduationCap },
+    { name: 'Grade 12', path: '/grade/12', icon: GraduationCap },
     { name: 'Past Papers', path: '/past-papers', icon: FileText },
     { name: 'Flashcards', path: '/flashcards', icon: Sparkles },
   ];
@@ -295,7 +295,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                 {['Grade 12'].map((grade) => (
                   <li key={grade}>
                     <Link 
-                      to="/lessons/12" 
+                      to="/grade/12" 
                       className="group flex items-center gap-1.5 hover:text-blue-600 transition-colors duration-200"
                     >
                       <span className="w-1.5 h-1.5 rounded-full bg-blue-600 scale-0 group-hover:scale-100 transition-transform duration-200" />
