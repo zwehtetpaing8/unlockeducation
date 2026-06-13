@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { InlineMath, BlockMath } from 'react-katex';
+import { BlockMath } from 'react-katex';
 import { 
-  X, BookOpen, Sigma, Copy, Check, Search, Sparkles, Hash, Code, Compass 
+  X, BookOpen, Sigma, Copy, Check, Search, Sparkles, Code 
 } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
 interface FormulaItem {
   id: string;
   name: string;
-  nameMyan: string;
   formula: string;
   explanation: string;
-  explanationMyan: string;
   category: 'complex' | 'induction' | 'general';
 }
 
@@ -21,83 +19,65 @@ const FORMULAS: FormulaItem[] = [
   {
     id: 'c-standard',
     name: 'Cartesian / Standard Form',
-    nameMyan: 'ကာတေးစီးယန်းပုံစံ',
     formula: 'z = x + yi',
     explanation: 'Where x is the real part Re(z) and y is the imaginary part Im(z), with x, y ∈ ℝ and i² = -1.',
-    explanationMyan: 'x သည် သာမန်ကိန်းအပိုင်းဖြစ်ပြီး y သည် စိတ်ကူးယဉ်ကိန်းအပိုင်းဖြစ်သည်။ i² = -1 ဖြစ်သည်။',
     category: 'complex'
   },
   {
     id: 'c-powers',
     name: 'Powers of Imaginary Unit i',
-    nameMyan: 'i ၏ ထပ်ညွှန်းကိန်းများ ပုံသေနည်း',
     formula: 'i^1 = i, \\quad i^2 = -1, \\quad i^3 = -i, \\quad i^4 = 1',
     explanation: 'The values of iⁿ repeat in a 4-step cycle. For any integer n, solve using remainder of n ÷ 4.',
-    explanationMyan: 'i ၏ထပ်ညွှန်းတန်ဖိုးများသည် အမြဲတမ်း ၄ ခုတစ်ခါ ထပ်ခါတလဲလဲ ပတ်လည်ဖြစ်ပေါ်နေသည်။',
     category: 'complex'
   },
   {
     id: 'c-conjugate',
     name: 'Complex Conjugate',
-    nameMyan: 'ကွန်ဂျူးဂိတ်ကိန်း (z̄)',
     formula: '\\bar{z} = x - yi',
     explanation: 'Formed by changing the sign of the imaginary part. Properties: z · z̄ = |z|² = x² + y².',
-    explanationMyan: 'စိတ်ကူးယဉ်အပိုင်း၏ လက္ခဏာကို ပြောင်းလဲခြင်းဖြင့် ရရှိသည်။ z နှင့် z̄ မြှောက်ပါက ကိန်းစစ်ရသည်။',
     category: 'complex'
   },
   {
     id: 'c-modulus',
     name: 'Modulus / Absolute Value',
-    nameMyan: 'မော်ဂျူးလပ်စ် (အကွာအဝေးတန်ဖိုး)',
     formula: '|z| = \\sqrt{x^2 + y^2}',
     explanation: 'Represents the distance of the complex number from the origin (0,0) in the complex plane.',
-    explanationMyan: 'Complex Plane (Argand Diagram) ပေါ်တွင် ၎င်းအမှတ်မှ မူလအမှတ် (0,0) သို့ အကွာအဝေးဖြစ်သည်။',
     category: 'complex'
   },
   {
     id: 'c-polar',
     name: 'Polar / Trigonometric Form',
-    nameMyan: 'ပိုလာပုံစံ (ထောင့်ချိုးဖြင့် ဖော်ပြချက်)',
     formula: 'z = r(\\cos\\theta + i\\sin\\theta)',
     explanation: 'Where r = |z| is the modulus, and θ = arctan(y/x) is the principal argument (in radians or degrees).',
-    explanationMyan: 'r သည် မော်ဂျူးလပ်စ်ဖြစ်ပြီး θ သည် အာဂူးမန့် (ထောင့်ချိုးတန်ဖိုး) ဖြစ်သည်။',
     category: 'complex'
   },
   {
     id: 'c-demoivre',
     name: "De Moivre's Theorem",
-    nameMyan: 'ဒီမွိုင်းဗာ သီအိုရမ်',
     formula: 'z^n = [r(\\cos\\theta + i\\sin\\theta)]^n = r^n(\\cos n\\theta + i\\sin n\\theta)',
     explanation: 'Crucial for raising complex numbers to integer powers and finding roots of complex equations.',
-    explanationMyan: 'Complex Number များကို ထပ်ညွှန်းတင်ခြင်းနှင့် ထပ်ကိန်းရင်းများ ရှာဖွေရာတွင် အဓိကသုံးသည်။',
     category: 'complex'
   },
   // Mathematical Induction
   {
     id: 'ind-sum-n',
     name: 'Sum of First n Integers',
-    nameMyan: 'ပထမဆုံး ကိန်းပြည့် n ခု၏ ပေါင်းလဒ်',
     formula: '\\sum_{r=1}^n r = 1 + 2 + 3 + ... + n = \\frac{n(n+1)}{2}',
     explanation: 'Formula for the sum of the first n positive consecutive integers.',
-    explanationMyan: '၁ မှစ၍ n အထိ ဆက်တိုက်ရှိသော ကိန်းပြည့်များ၏ စုစုပေါင်းပေါင်းလဒ် ပုံသေနည်း။',
     category: 'induction'
   },
   {
     id: 'ind-sum-n2',
     name: 'Sum of First n Squares',
-    nameMyan: 'ပထမဆုံး ကိန်းပြည့် n ခု၏ နှစ်ထပ်ကိန်း ပေါင်းလဒ်',
     formula: '\\sum_{r=1}^n r^2 = 1^2 + 2^2 + 3^2 + ... + n^2 = \\frac{n(n+1)(2n+1)}{6}',
     explanation: 'Formula for the sum of squares of the first n positive consecutive integers.',
-    explanationMyan: '၁ မှစ၍ n အထိ တစ်ခုချင်းစီ၏ နှစ်ထပ်ကိန်းများ၏ စုစုပေါင်းပေါင်းလဒ် ပုံသေနည်း။',
     category: 'induction'
   },
   {
     id: 'ind-sum-n3',
     name: 'Sum of First n Cubes',
-    nameMyan: 'ပထမဆုံး ကိန်းပြည့် n ခု၏ သုံးထပ်ကိန်း ပေါင်းလဒ်',
     formula: '\\sum_{r=1}^n r^3 = 1^3 + 2^3 + 3^3 + ... + n^3 = \\frac{n^2(n+1)^2}{4} = \\left[\\frac{n(n+1)}{2}\\right]^2',
     explanation: 'The sum of the cubes of the first n integers is exactly the square of their sum.',
-    explanationMyan: 'သုံးထပ်ကိန်းများပေါင်းလဒ်သည် ပထမဆုံးကိန်းပြည့်များပေါင်းလဒ်၏ နှစ်ထပ်ကိန်းနှင့် ညီမျှသည်။',
     category: 'induction'
   }
 ];
@@ -117,9 +97,7 @@ export const FormulaCheatSheet: React.FC = () => {
   const filteredFormulas = FORMULAS.filter(f => {
     const matchesCategory = activeTab === 'all' || f.category === activeTab;
     const matchesSearch = f.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          f.nameMyan.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          f.explanation.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          f.explanationMyan.toLowerCase().includes(searchQuery.toLowerCase());
+                          f.explanation.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
@@ -190,7 +168,7 @@ export const FormulaCheatSheet: React.FC = () => {
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search formula names, translations..."
+                    placeholder="Search formula names, descriptions..."
                     className="w-full text-xs font-medium pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-150 rounded-xl outline-none focus:bg-white focus:border-blue-500 transition-all text-slate-800 placeholder:text-slate-405"
                   />
                   {searchQuery && (
@@ -262,9 +240,6 @@ export const FormulaCheatSheet: React.FC = () => {
                       <h4 className="font-extrabold text-[13px] md:text-sm text-slate-800 leading-tight mt-1">
                         {f.name}
                       </h4>
-                      <p className="text-[11px] font-bold text-slate-500 mt-0.5 leading-snug">
-                        {f.nameMyan}
-                      </p>
 
                       {/* LaTeX Block Math Area */}
                       <div className="my-3.5 p-3 sm:p-4 bg-slate-50/50 rounded-xl border border-slate-100 flex items-center justify-center overflow-x-auto select-all max-w-full">
@@ -277,9 +252,6 @@ export const FormulaCheatSheet: React.FC = () => {
                       <div className="space-y-1.5 border-t border-slate-100 pt-3 mt-1 text-[11px] md:text-xs">
                         <p className="text-slate-600 leading-relaxed">
                           📌 <span className="font-medium">{f.explanation}</span>
-                        </p>
-                        <p className="font-bold text-slate-700 leading-relaxed pl-4.5 bg-slate-50/30 py-1 rounded">
-                          {f.explanationMyan}
                         </p>
                       </div>
                     </div>

@@ -272,15 +272,8 @@ In these examples, $4$, $7$, and $\\sqrt{8}$ are real numbers, and $i$ is the pu
 ## Rules and Examples
 
 Let
-
 $$
-z_1=x_1+y_1i,\\qquad z_2=x_2+y_2i
-$$
-
-where
-
-$$
-x_1,y_1,x_2,y_2\\in\\mathbb{R}.
+z_1=x_1+y_1i,\\qquad z_2=x_2+y_2i \\qquad (x_1,y_1,x_2,y_2\\in\\mathbb{R})
 $$
 
 ### 1. Equality Rule
@@ -291,22 +284,14 @@ $$
 
 #### Example
 
-If
+If $x+2i=5+yi$, find $x$ and $y$.
 
+**Solution:**
 $$
-x+2i=5+yi
-$$
-
-find $x$ and $y$.
-
-$$
-x+2i=5+yi
-$$
-
-Therefore,
-
-$$
-x=5,\\qquad y=2
+\\begin{aligned}
+  x+2i &= 5+yi \\\\
+  \\text{Therefore, } x &= 5, \\quad y=2
+\\end{aligned}
 $$
 
 ### 2. Sum Rule
@@ -317,12 +302,9 @@ $$
 
 #### Example
 
-Find
+Find $(3+2i)+(5-7i)$.
 
-$$
-(3+2i)+(5-7i)
-$$
-
+**Solution:**
 $$
 (3+2i)+(5-7i)=8-5i
 $$
@@ -335,12 +317,9 @@ $$
 
 #### Example
 
-Find
+Find $(4-3i)-(1+6i)$.
 
-$$
-(4-3i)-(1+6i)
-$$
-
+**Solution:**
 $$
 (4-3i)-(1+6i)=3-9i
 $$
@@ -348,35 +327,36 @@ $$
 ### 4. Product Rule
 
 $$
-(x_1+y_1i)(x_2+y_2i)
-=
-(x_1x_2-y_1y_2)+(x_1y_2+x_2y_1)i
+(x_1+y_1i)(x_2+y_2i) = (x_1x_2-y_1y_2)+(x_1y_2+x_2y_1)i
 $$
 
 #### Example
 
-Find
+Find $(2+3i)(4-i)$.
 
+**Solution:**
 $$
-(2+3i)(4-i)
-$$
-
-$$
-(2+3i)(4-i)=11+10i
+\\begin{aligned}
+  (2+3i)(4-i) &= 2(4-i) + 3i(4-i) \\\\
+  &= 8 - 2i + 12i - 3i^2 \\\\
+  &= 8 + 10i - 3(-1) \\\\
+  &= 11+10i
+\\end{aligned}
 $$
 
 ---
 
 ## Coordinate Form of Complex Numbers \`(x, y)\`
 
+Any complex number $z = x + yi$ can also be written in an ordered pair coordinate form:
 $$
-\\text{Complex number}=(\\text{Real Part},\\text{Imaginary Part})
+\\text{Complex number} = (\\text{Real Part}, \\text{Imaginary Part}) = (x, y)
 $$
 
 #### Examples
 
 $$
-(3,4),\\qquad (2,\\sqrt6),\\qquad (5,9)
+(3,4),\\qquad (2,\\sqrt{6}),\\qquad (5,9)
 $$
 
 ---
@@ -400,7 +380,6 @@ Use the interactive playground below to plot, explore conjugates, find absolute 
 ## Rules and Examples
 
 Let
-
 $$
 z_1=(x_1,y_1),\\qquad z_2=(x_2,y_2)
 $$
@@ -408,21 +387,19 @@ $$
 ### 1. Equality Rule
 
 $$
-(x_1,y_1)=(x_2,y_2)
-\\Longleftrightarrow
-x_1=x_2,\\ y_1=y_2
+(x_1,y_1)=(x_2,y_2) \\Longleftrightarrow x_1=x_2 \\text{ and } y_1=y_2
 $$
 
 #### Example
 
-$$
-(x,2)=(5,y)
-$$
+Solve for $x$ and $y$ if $(x,2)=(5,y)$.
 
-Therefore,
-
+**Solution:**
 $$
-x=5,\\qquad y=2
+\\begin{aligned}
+  (x,2) &= (5,y) \\\\
+  \\text{Therefore, } x &= 5, \\quad y=2
+\\end{aligned}
 $$
 
 ### 2. Sum Rule
@@ -433,6 +410,9 @@ $$
 
 #### Example
 
+Find $(3,2)+(5,-7)$.
+
+**Solution:**
 $$
 (3,2)+(5,-7)=(8,-5)
 $$
@@ -445,6 +425,9 @@ $$
 
 #### Example
 
+Find $(4,-3)-(1,6)$.
+
+**Solution:**
 $$
 (4,-3)-(1,6)=(3,-9)
 $$
@@ -452,13 +435,14 @@ $$
 ### 4. Product Rule
 
 $$
-(x_1,y_1)(x_2,y_2)
-=
-(x_1x_2-y_1y_2,\\ x_1y_2+x_2y_1)
+(x_1,y_1)(x_2,y_2) = (x_1x_2-y_1y_2,\\ x_1y_2+x_2y_1)
 $$
 
 #### Example
 
+Find $(2,3)(4,-1)$.
+
+**Solution:**
 $$
 (2,3)(4,-1)=(11,10)
 $$
@@ -476,26 +460,12 @@ All real numbers can be considered as complex numbers.
 | $x+y$ | $(x,0)+(y,0)$ |
 | $xy$ | $(x,0)(y,0)$ |
 
-Since
-
+Since $(0,1)(0,1)=(0-1,0+0)=(-1,0)=-1$ and $i^2=-1$, we have:
 $$
-(0,1)(0,1)=(0-1,0+0)=(-1,0)=-1
-$$
-
-and
-
-$$
-i^2=-1
-$$
-
-we have
-
-$$
-i=(0,1)=0+i
-$$
-
-$$
-i^2=i\\cdot i=(0,1)(0,1)=-1
+\\begin{aligned}
+  i &= (0,1) = 0+i \\\\
+  i^2 &= i\\cdot i=(0,1)(0,1)=-1
+\\end{aligned}
 $$
 
 Also,

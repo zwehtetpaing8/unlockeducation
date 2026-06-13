@@ -71,6 +71,18 @@ export const ComplexPlane: React.FC<ComplexPlaneProps> = ({
   const argumentDeg = (argumentRad * 180) / Math.PI;
   const formattedArg = argumentDeg >= 0 ? argumentDeg.toFixed(1) : (argumentDeg + 360).toFixed(1);
 
+  const formatComplex = (real: number, imag: number): string => {
+    if (imag === 0) return `${real}`;
+    if (real === 0) {
+      if (imag === 1) return 'i';
+      if (imag === -1) return '-i';
+      return `${imag}i`;
+    }
+    const sign = imag > 0 ? '+' : '-';
+    const value = Math.abs(imag) === 1 ? '' : Math.abs(imag);
+    return `${real} ${sign} ${value}i`;
+  };
+
   // Grid coordinates ticks
   const ticks = [-5, -4, -3, -2, -1, 1, 2, 3, 4, 5];
 
@@ -94,6 +106,54 @@ export const ComplexPlane: React.FC<ComplexPlaneProps> = ({
               onTouchStart={handlePlaneInteraction}
               onTouchMove={handlePlaneInteraction}
             >
+              {/* SVG Markers for Arrows */}
+              <defs>
+                <marker 
+                  id="axis-arrow" 
+                  viewBox="0 0 10 10" 
+                  refX="5" 
+                  refY="5" 
+                  markerWidth="6" 
+                  markerHeight="6" 
+                  orient="auto-start-reverse"
+                >
+                  <path d="M 0 1 L 10 5 L 0 9 z" fill="#64748b" />
+                </marker>
+                <marker 
+                  id="vector-arrow-blue" 
+                  viewBox="0 0 10 10" 
+                  refX="8" 
+                  refY="5" 
+                  markerWidth="6" 
+                  markerHeight="6" 
+                  orient="auto-start-reverse"
+                >
+                  <path d="M 0 1 L 10 5 L 0 9 z" fill="#2563eb" />
+                </marker>
+                <marker 
+                  id="vector-arrow-purple" 
+                  viewBox="0 0 10 10" 
+                  refX="8" 
+                  refY="5" 
+                  markerWidth="6" 
+                  markerHeight="6" 
+                  orient="auto-start-reverse"
+                >
+                  <path d="M 0 1 L 10 5 L 0 9 z" fill="#a855f7" />
+                </marker>
+                <marker 
+                  id="vector-arrow-red" 
+                  viewBox="0 0 10 10" 
+                  refX="8" 
+                  refY="5" 
+                  markerWidth="6" 
+                  markerHeight="6" 
+                  orient="auto-start-reverse"
+                >
+                  <path d="M 0 1 L 10 5 L 0 9 z" fill="#ef4444" />
+                </marker>
+              </defs>
+
               {/* Background grid lines */}
               {showGrid && (
                 <>
@@ -145,27 +205,31 @@ export const ComplexPlane: React.FC<ComplexPlaneProps> = ({
                 </>
               )}
 
-              {/* Main Axes */}
+              {/* Main Axes with arrowheads */}
               <line
-                x1={0}
+                x1={8}
                 y1={center}
-                x2={size}
+                x2={size - 8}
                 y2={center}
                 stroke="#64748b"
                 strokeWidth="2"
+                markerStart="url(#axis-arrow)"
+                markerEnd="url(#axis-arrow)"
               />
               <line
                 x1={center}
-                y1={0}
+                y1={size - 8}
                 x2={center}
-                y2={size}
+                y2={8}
                 stroke="#64748b"
                 strokeWidth="2"
+                markerStart="url(#axis-arrow)"
+                markerEnd="url(#axis-arrow)"
               />
 
               {/* Axis Label Tags */}
-              <text x={size - 28} y={center - 8} className="text-[10px] font-black fill-slate-500 uppercase tracking-widest">Re</text>
-              <text x={center + 8} y={18} className="text-[10px] font-black fill-slate-500 uppercase tracking-widest">Im</text>
+              <text x={size - 28} y={center - 8} className="text-[10px] font-black fill-slate-500 tracking-widest">Re</text>
+              <text x={center + 8} y={18} className="text-[10px] font-black fill-slate-500 tracking-widest">Im</text>
 
               {/* Center Origin Dot */}
               <circle cx={center} cy={center} r="3.5" fill="#475569" />
@@ -208,6 +272,7 @@ export const ComplexPlane: React.FC<ComplexPlaneProps> = ({
                     y2={center + y * scale} // Y conjugate is conjugate (inverted)
                     stroke="#a855f7" 
                     strokeWidth="2.5" 
+                    markerEnd="url(#vector-arrow-purple)"
                     className="opacity-75"
                   />
                   <circle 
@@ -221,7 +286,7 @@ export const ComplexPlane: React.FC<ComplexPlaneProps> = ({
                     y={center + y * scale + 14} 
                     className="text-xs font-black fill-purple-700 bg-white"
                   >
-                    z̄ = {x} - {y}i
+                    z̄ = {formatComplex(x, -y)}
                   </text>
                 </g>
               )}
@@ -236,6 +301,7 @@ export const ComplexPlane: React.FC<ComplexPlaneProps> = ({
                     y2={center + y * scale} 
                     stroke="#ef4444" 
                     strokeWidth="2.5" 
+                    markerEnd="url(#vector-arrow-red)"
                     className="opacity-75"
                   />
                   <circle 
@@ -247,9 +313,9 @@ export const ComplexPlane: React.FC<ComplexPlaneProps> = ({
                   <text 
                     x={center - x * scale - 25} 
                     y={center + y * scale + 14} 
-                    className="text-xs font-black fill-red-700"
+                    className="text-xs font-black fill-red-700 bg-white"
                   >
-                    -z
+                    -z = {formatComplex(-x, -y)}
                   </text>
                 </g>
               )}
@@ -263,6 +329,7 @@ export const ComplexPlane: React.FC<ComplexPlaneProps> = ({
                   y2={center - y * scale} 
                   stroke="#3b82f6" 
                   strokeWidth="3.5" 
+                  markerEnd="url(#vector-arrow-blue)"
                 />
                 <circle 
                   cx={center + x * scale} 
@@ -276,7 +343,7 @@ export const ComplexPlane: React.FC<ComplexPlaneProps> = ({
                   y={center - y * scale - 10} 
                   className="text-xs font-black fill-blue-700 bg-white"
                 >
-                  z = {x >= 0 ? '' : '-'}{Math.abs(x)}{y >= 0 ? ' + ' : ' - '}{Math.abs(y)}i
+                  z = {formatComplex(x, y)}
                 </text>
               </g>
             </svg>
@@ -300,15 +367,75 @@ export const ComplexPlane: React.FC<ComplexPlaneProps> = ({
             <div className="space-y-4">
               {/* Complex coordinates display */}
               <div className="p-4 bg-slate-50 border border-slate-100 rounded-2xl">
-                <div className="flex items-center justify-between text-xs text-slate-400 font-bold mb-1 uppercase tracking-wider">
-                  <span>Standard Cartesian Form</span>
-                  <span className="text-[10px] bg-blue-100 text-blue-700 px-2 py-0.5 rounded font-black">x + yi</span>
+                <div className="flex items-center justify-between text-xs text-slate-400 font-bold mb-1 tracking-wider">
+                  <span className="uppercase">Standard Cartesian Form</span>
+                  <span className="text-[10px] bg-blue-100 text-blue-700 px-2 py-0.5 rounded font-black normal-case">x + yi</span>
                 </div>
                 <div className="text-lg font-black text-slate-900 font-mono">
-                  z = <span className="text-blue-600">{x}</span> + <span className="text-blue-600">{y}i</span>
+                  z = <span className="text-blue-600">{formatComplex(x, y)}</span>
                 </div>
                 <div className="text-[11px] font-bold text-slate-500 mt-1">
                   Real part <span className="font-mono">Re(z) = {x}</span>, Imaginary part <span className="font-mono">Im(z) = {y}</span>
+                </div>
+              </div>
+
+              {/* Manual Input Fields for custom values */}
+              <div className="p-4 bg-slate-50 border border-slate-100 rounded-2xl">
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-2.5">Set Custom Value</span>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="flex flex-col gap-1 text-left">
+                    <label htmlFor="custom-input-x" className="text-[9px] font-black text-slate-500 uppercase tracking-wider">Real part (x)</label>
+                    <div className="flex items-center bg-white border border-slate-200 rounded-xl px-2.5 py-1.5 focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 transition-all">
+                      <input 
+                        id="custom-input-x"
+                        type="number" 
+                        step="0.1"
+                        min="-5"
+                        max="5"
+                        value={x}
+                        onChange={(e) => {
+                          const val = parseFloat(e.target.value);
+                          if (!isNaN(val)) {
+                            setSandboxPoint(prev => ({ ...prev, x: Math.max(-5, Math.min(5, val)) }));
+                          } else {
+                            setSandboxPoint(prev => ({ ...prev, x: 0 }));
+                          }
+                        }}
+                        className="w-full text-sm font-black font-mono text-slate-800 bg-transparent border-0 outline-none p-0 focus:ring-0"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-1 text-left">
+                    <label htmlFor="custom-input-y" className="text-[9px] font-black text-slate-500 uppercase tracking-wider">Imaginary part (y)</label>
+                    <div className="flex items-center bg-white border border-slate-200 rounded-xl px-2.5 py-1.5 focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 transition-all">
+                      <input 
+                        id="custom-input-y"
+                        type="number" 
+                        step="0.1"
+                        min="-5"
+                        max="5"
+                        value={y}
+                        onChange={(e) => {
+                          const val = parseFloat(e.target.value);
+                          if (!isNaN(val)) {
+                            setSandboxPoint(prev => ({ ...prev, y: Math.max(-5, Math.min(5, val)) }));
+                          } else {
+                            setSandboxPoint(prev => ({ ...prev, y: 0 }));
+                          }
+                        }}
+                        className="w-full text-sm font-black font-mono text-slate-800 bg-transparent border-0 outline-none p-0 focus:ring-0"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-2.5 flex items-center justify-between text-[10px] text-slate-500 font-medium">
+                  <span>Range: -5.0 to 5.0</span>
+                  <button 
+                    onClick={() => setSandboxPoint({ x: 0, y: 0 })} 
+                    className="text-blue-600 hover:text-blue-700 font-bold hover:underline transition-colors focus:outline-none"
+                  >
+                    Reset to Origin
+                  </button>
                 </div>
               </div>
 
@@ -337,8 +464,7 @@ export const ComplexPlane: React.FC<ComplexPlaneProps> = ({
               {/* Display checkboxes style options */}
               <div className="space-y-2 mt-4">
                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-2">Display Controls</span>
-                
-                <label className="flex items-center gap-3 px-3 py-2 border border-slate-100 rounded-xl hover:bg-slate-50 cursor-pointer select-none transition-colors">
+                           <label className="flex items-center gap-3 px-3 py-2 border border-slate-100 rounded-xl hover:bg-slate-50 cursor-pointer select-none transition-colors">
                   <input 
                     type="checkbox" 
                     checked={showConjugate} 
@@ -347,7 +473,7 @@ export const ComplexPlane: React.FC<ComplexPlaneProps> = ({
                   />
                   <div className="flex flex-col text-left">
                     <span className="text-xs font-extrabold text-slate-800">Show Conjugate (z̄)</span>
-                    <span className="text-[10px] text-purple-600 font-bold">z̄ = {x} - {y}i</span>
+                    <span className="text-[10px] text-purple-600 font-bold">z̄ = {formatComplex(x, -y)}</span>
                   </div>
                 </label>
 
@@ -360,7 +486,7 @@ export const ComplexPlane: React.FC<ComplexPlaneProps> = ({
                   />
                   <div className="flex flex-col text-left">
                     <span className="text-xs font-extrabold text-slate-800">Show Negative (-z)</span>
-                    <span className="text-[10px] text-red-600 font-bold">-z = {-x} + {-y}i</span>
+                    <span className="text-[10px] text-red-600 font-bold">-z = {formatComplex(-x, -y)}</span>
                   </div>
                 </label>
 

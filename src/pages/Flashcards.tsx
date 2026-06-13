@@ -169,6 +169,42 @@ interface CardProgressState {
   [cardId: string]: 'mastered' | 'practice' | null;
 }
 
+const slideVariants = {
+  enter: (dir: number) => ({
+    x: dir > 0 ? 320 : -320,
+    opacity: 0,
+    scale: 0.9,
+    rotateY: dir > 0 ? 45 : -45,
+    z: -100
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+    scale: 1,
+    rotateY: 0,
+    z: 0,
+    transition: {
+      x: { type: "spring" as const, stiffness: 320, damping: 26 },
+      opacity: { duration: 0.25 },
+      scale: { duration: 0.25 },
+      rotateY: { type: "spring" as const, stiffness: 280, damping: 24 }
+    }
+  },
+  exit: (dir: number) => ({
+    x: dir > 0 ? -320 : 320,
+    opacity: 0,
+    scale: 0.9,
+    rotateY: dir > 0 ? -45 : 45,
+    z: -100,
+    transition: {
+      x: { type: "spring" as const, stiffness: 320, damping: 26 },
+      opacity: { duration: 0.2 },
+      scale: { duration: 0.2 },
+      rotateY: { type: "spring" as const, stiffness: 280, damping: 24 }
+    }
+  })
+};
+
 const MarkdownRenderer: React.FC<{ content: string; className?: string }> = ({ content, className }) => {
   return (
     <div className={cn("markdown-body overflow-visible", className)}>
@@ -187,6 +223,8 @@ const Flashcards: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isFlipped, setIsFlipped] = useState<boolean>(false);
   const [cardStates, setCardStates] = useState<CardProgressState>({});
+  const [direction, setDirection] = useState<number>(1); // 1 = right/next, -1 = left/prev
+  const [tilt, setTilt] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   
   // Filter flashcards based on selected category
   const filteredCards = selectedCategory === 'All Topics' 
@@ -198,17 +236,17 @@ const Flashcards: React.FC = () => {
   const currentCard = filteredCards[activeIndex];
 
   const handleNext = () => {
+    setDirection(1);
     setIsFlipped(false);
-    setTimeout(() => {
-      setCurrentIndex((prev) => (prev + 1) % filteredCards.length);
-    }, 150);
+    setTilt({ x: 0, y: 0 });
+    setCurrentIndex((prev) => (prev + 1) % filteredCards.length);
   };
 
   const handlePrev = () => {
+    setDirection(-1);
     setIsFlipped(false);
-    setTimeout(() => {
-      setCurrentIndex((prev) => (prev - 1 + filteredCards.length) % filteredCards.length);
-    }, 150);
+    setTilt({ x: 0, y: 0 });
+    setCurrentIndex((prev) => (prev - 1 + filteredCards.length) % filteredCards.length);
   };
 
   const markCard = (id: string, status: 'mastered' | 'practice') => {
@@ -219,13 +257,38 @@ const Flashcards: React.FC = () => {
     // Auto advance after short delay
     setTimeout(() => {
       handleNext();
-    }, 800);
+    }, 500);
   };
 
   const resetAllProgress = () => {
     setCardStates({});
     setCurrentIndex(0);
     setIsFlipped(false);
+    setDirection(1);
+    setTilt({ x: 0, y: 0 });
+  };
+
+  // interactive mouse-move depth tilt tracker
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const xc = rect.width / 2;
+    const yc = rect.height / 2;
+    if (isFlipped) {
+      // Offset tilt calculations when flipped to match the flipped perspective properly
+      const rotateY = -((x - xc) / xc) * 8;
+      const rotateX = -((y - yc) / yc) * 8;
+      setTilt({ x: rotateX, y: rotateY });
+    } else {
+      const rotateY = ((x - xc) / xc) * 8;
+      const rotateX = -((y - yc) / yc) * 8;
+      setTilt({ x: rotateX, y: rotateY });
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setTilt({ x: 0, y: 0 });
   };
 
   // Stats calculation
@@ -319,6 +382,7 @@ const Flashcards: React.FC = () => {
               setSelectedCategory(cat);
               setCurrentIndex(0);
               setIsFlipped(false);
+              setDirection(1);
             }}
             className={cn(
               "px-4 py-2.5 rounded-xl text-xs font-black tracking-wide shrink-0 transition-all cursor-pointer box-border",
@@ -339,93 +403,140 @@ const Flashcards: React.FC = () => {
           {/* Card Wrapper with 3D perspective */}
           <div className="relative w-full max-w-xl mx-auto h-[23rem] sm:h-[26rem] perspective select-none">
             
-            {/* Inner Flip Body */}
-            <motion.div
-              onClick={() => setIsFlipped(!isFlipped)}
-              className="w-full h-full cursor-pointer relative preserve-3d"
-              animate={{ rotateY: isFlipped ? 180 : 0 }}
-              transition={{ duration: 0.45, ease: "easeInOut" }}
-            >
-              
-              {/* Card FRONT representation */}
-              <div 
-                className={cn(
-                  "absolute w-full h-full backface-hidden bg-white border border-slate-150/80 rounded-[2rem] p-6 sm:p-10 flex flex-col justify-between shadow-lg hover:shadow-xl transition-shadow",
-                  cardStates[currentCard.id] === 'mastered' ? "border-emerald-250 ring-1 ring-emerald-50" :
-                  cardStates[currentCard.id] === 'practice' ? "border-amber-250 ring-1 ring-amber-50" : ""
-                )}
+            {/* Visual Depth Card Stack Layers underneath the active card */}
+            <div className="absolute inset-x-8 bottom-0 h-4 bg-slate-300/30 rounded-b-[2.2rem] pointer-events-none transform translate-y-3.5 scale-[0.93] border-b border-r border-l border-slate-350/20 shadow-xs transition-transform duration-300 ease-out blur-[0.2px] -z-20 transform-gpu" />
+            <div className="absolute inset-x-4 bottom-0 h-4 bg-slate-200/50 rounded-b-[2.2rem] pointer-events-none transform translate-y-2 scale-[0.965] border-b border-r border-l border-slate-250/30 shadow-xs transition-transform duration-300 ease-out blur-[0.1px] -z-10 transform-gpu" />
+
+            <AnimatePresence initial={false} custom={direction} mode="popLayout">
+              <motion.div
+                key={currentCard.id}
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.65}
+                onDragEnd={(e, info) => {
+                  const swipeThreshold = 80;
+                  if (info.offset.x < -swipeThreshold) {
+                    handleNext();
+                  } else if (info.offset.x > swipeThreshold) {
+                    handlePrev();
+                  }
+                }}
+                className="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing preserve-3d touch-pan-y"
               >
-                {/* Header indicators */}
-                <div className="flex justify-between items-center text-[10px] font-extrabold tracking-wider uppercase">
-                  <span className="text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md">{currentCard.category}</span>
-                  <div className="flex items-center gap-1.5 text-slate-400">
-                    <Star size={11} className={cn(
-                      currentCard.difficulty === 'easy' ? "text-slate-300" :
-                      currentCard.difficulty === 'medium' ? "text-amber-500 fill-amber-500" : "text-red-500 fill-red-500"
-                    )} />
-                    <span className="text-[9px] font-black uppercase text-slate-400">{currentCard.difficulty}</span>
-                  </div>
-                </div>
+                {/* 3D Flip & Interactive Hover Tilt Inner Card Element */}
+                <motion.div
+                  onMouseMove={handleMouseMove}
+                  onMouseLeave={handleMouseLeave}
+                  onClick={(e) => {
+                    // Check if clicked element or its parent is a button/link/interactive asset
+                    const target = e.target as HTMLElement;
+                    if (target.closest('button') || target.closest('a') || target.closest('.markdown-body select-all')) {
+                      return;
+                    }
+                    setIsFlipped(!isFlipped);
+                  }}
+                  className="w-full h-full relative preserve-3d transition-shadow duration-300 rounded-[2.2rem]"
+                  animate={{ 
+                    rotateY: isFlipped ? 180 + tilt.y : tilt.y,
+                    rotateX: tilt.x
+                  }}
+                  style={{
+                    transformStyle: "preserve-3d"
+                  }}
+                  transition={{ 
+                    type: "spring",
+                    stiffness: 150,
+                    damping: 18,
+                    mass: 0.8
+                  }}
+                >
+                  
+                  {/* Card FRONT representation (Mathematical Query) */}
+                  <div 
+                    className={cn(
+                      "absolute inset-0 w-full h-full backface-hidden bg-white border border-slate-200 rounded-[2.2rem] p-6 sm:p-10 flex flex-col justify-between shadow-md hover:shadow-lg transition-all transform-gpu",
+                      cardStates[currentCard.id] === 'mastered' ? "border-emerald-300 ring-1 ring-emerald-100 bg-emerald-50/5" :
+                      cardStates[currentCard.id] === 'practice' ? "border-amber-300 ring-1 ring-amber-100 bg-amber-50/5" : ""
+                    )}
+                  >
+                    {/* Header indicators */}
+                    <div className="flex justify-between items-center text-[10px] font-extrabold tracking-wider uppercase">
+                      <span className="text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md">{currentCard.category}</span>
+                      <div className="flex items-center gap-1.5 text-slate-400">
+                        <Star size={11} className={cn(
+                          currentCard.difficulty === 'easy' ? "text-slate-300" :
+                          currentCard.difficulty === 'medium' ? "text-amber-500 fill-amber-500" : "text-red-500 fill-red-500"
+                        )} />
+                        <span className="text-[9px] font-black uppercase text-slate-400">{currentCard.difficulty}</span>
+                      </div>
+                    </div>
 
-                {/* Core Query */}
-                <div className="my-auto space-y-4 overflow-y-auto max-h-[14rem] sm:max-h-[16rem] pr-2 custom-scrollbar">
-                  <span className="text-[9px] font-black tracking-widest text-slate-300/90 uppercase block font-mono">FORMULA PROMPT</span>
-                  <div className="text-slate-400 font-extrabold text-sm sm:text-base tracking-tight">
-                    <MarkdownRenderer content={currentCard.title} />
-                  </div>
-                  <div className="text-lg sm:text-xl font-bold text-slate-800 leading-snug tracking-tight">
-                    <MarkdownRenderer content={currentCard.front} />
-                  </div>
-                  <div className="text-slate-500 text-xs sm:text-xs italic leading-relaxed">
-                    <MarkdownRenderer content={`"${currentCard.frontDesc}"`} />
-                  </div>
-                </div>
+                    {/* Core Query */}
+                    <div className="my-auto space-y-4 overflow-y-auto max-h-[14rem] sm:max-h-[16rem] pr-2 custom-scrollbar">
+                      <span className="text-[9px] font-black tracking-widest text-slate-300/90 uppercase block font-mono">FORMULA PROMPT</span>
+                      <div className="text-slate-400 font-extrabold text-sm sm:text-base tracking-tight">
+                        <MarkdownRenderer content={currentCard.title} />
+                      </div>
+                      <div className="text-lg sm:text-xl font-bold text-slate-800 leading-snug tracking-tight">
+                        <MarkdownRenderer content={currentCard.front} />
+                      </div>
+                      <div className="text-slate-500 text-xs sm:text-xs italic leading-relaxed">
+                        <MarkdownRenderer content={`"${currentCard.frontDesc}"`} />
+                      </div>
+                    </div>
 
-                {/* Tip bar */}
-                <div className="flex justify-between items-center text-[10px] font-bold text-slate-400/90 border-t border-slate-50 pt-4 shrink-0">
-                  <span className="inline-flex items-center gap-1">
-                    <Info size={11} className="text-blue-500" />
-                    Tap card to reveal solution.
-                  </span>
-                  <span>Card {activeIndex + 1}/{filteredCards.length}</span>
-                </div>
-              </div>
-
-              {/* Card BACK representation (flipped) */}
-              <div 
-                className="absolute w-full h-full backface-hidden bg-slate-900 text-white border border-slate-850 rounded-[2rem] p-6 sm:p-10 flex flex-col justify-between shadow-2xl rotate-y-180"
-              >
-                {/* Header back */}
-                <div className="flex justify-between items-center text-[10px] font-black tracking-wider uppercase text-slate-400 shrink-0">
-                  <span className="text-blue-400 bg-blue-950/40 px-2.5 py-1 rounded-md">
-                    <MarkdownRenderer content={currentCard.title} className="inline !text-blue-400 text-[10px] [&_p]:m-0" />
-                  </span>
-                  <span>REVEALED FORMULA</span>
-                </div>
-
-                {/* Core Answer content */}
-                <div className="my-auto space-y-4 text-center overflow-y-auto max-h-[14rem] sm:max-h-[16rem] pr-2 custom-scrollbar">
-                  <div className="p-4 sm:p-6 bg-slate-950 rounded-2xl border border-slate-800/80 inline-block w-full">
-                    <div className="text-base sm:text-xl text-blue-400 font-extrabold tracking-tight leading-relaxed">
-                      <MarkdownRenderer content={currentCard.back} className="!text-blue-400 select-all" />
+                    {/* Tip bar */}
+                    <div className="flex justify-between items-center text-[10px] font-bold text-slate-400/90 border-t border-slate-50 pt-4 shrink-0">
+                      <span className="inline-flex items-center gap-1">
+                        <Info size={11} className="text-blue-500" />
+                        Tap card or press Space to reveal.
+                      </span>
+                      <span>Card {activeIndex + 1}/{filteredCards.length}</span>
                     </div>
                   </div>
-                  <div className="text-[11px] text-slate-400 font-bold bg-slate-950/40 border border-slate-800/50 p-2.5 rounded-xl text-left">
-                    <MarkdownRenderer content={currentCard.backEx} className="!text-slate-400" />
-                  </div>
-                </div>
 
-                {/* Footer back */}
-                <div className="flex justify-between items-center text-[10px] font-bold text-slate-500 border-t border-slate-800/60 pt-4 shrink-0">
-                  <span>Tap anywhere to return to the prompt</span>
-                  <div className="flex items-center gap-1 uppercase tracking-wider text-[9px]">
-                    <RotateCw size={10} className="text-blue-400 rotate-180" />
-                    <span>Active Review</span>
-                  </div>
-                </div>
-              </div>
+                  {/* Card BACK representation (Answer / Mathematical Formula) */}
+                  <div 
+                    className="absolute inset-0 w-full h-full backface-hidden bg-slate-900 text-white border border-slate-800 rounded-[2.2rem] p-6 sm:p-10 flex flex-col justify-between shadow-2xl rotate-y-180 transform-gpu"
+                  >
+                    {/* Header back */}
+                    <div className="flex justify-between items-center text-[10px] font-black tracking-wider uppercase text-slate-400 shrink-0">
+                      <span className="text-blue-400 bg-blue-950/40 px-2.5 py-1 rounded-md">
+                        <MarkdownRenderer content={currentCard.title} className="inline !text-blue-400 text-[10px] [&_p]:m-0" />
+                      </span>
+                      <span>REVEALED FORMULA</span>
+                    </div>
 
-            </motion.div>
+                    {/* Core Answer content */}
+                    <div className="my-auto space-y-4 text-center overflow-y-auto max-h-[14rem] sm:max-h-[16rem] pr-2 custom-scrollbar">
+                      <div className="p-4 sm:p-6 bg-slate-950 rounded-2xl border border-slate-800/80 inline-block w-full">
+                        <div className="text-base sm:text-xl text-blue-400 font-extrabold tracking-tight leading-relaxed">
+                          <MarkdownRenderer content={currentCard.back} className="!text-blue-400 select-all" />
+                        </div>
+                      </div>
+                      <div className="text-[11px] text-slate-400 font-bold bg-slate-950/40 border border-slate-800/50 p-2.5 rounded-xl text-left">
+                        <MarkdownRenderer content={currentCard.backEx} className="!text-slate-400" />
+                      </div>
+                    </div>
+
+                    {/* Footer back */}
+                    <div className="flex justify-between items-center text-[10px] font-bold text-slate-500 border-t border-slate-800/60 pt-4 shrink-0">
+                      <span>Click anywhere to show question</span>
+                      <div className="flex items-center gap-1 uppercase tracking-wider text-[9px]">
+                        <RotateCw size={10} className="text-blue-400 rotate-180 animate-pulse" />
+                        <span>Active Review</span>
+                      </div>
+                    </div>
+                  </div>
+
+                </motion.div>
+              </motion.div>
+            </AnimatePresence>
           </div>
 
           {/* Selector Self Evaluation actions */}
@@ -459,7 +570,7 @@ const Flashcards: React.FC = () => {
                   className={cn(
                     "flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-xs font-extrabold tracking-wide cursor-pointer transition-all active:scale-[0.98] select-none text-slate-800 border bg-white",
                     cardStates[currentCard.id] === 'mastered' 
-                      ? "border-emerald-300 bg-emerald-500/15 text-emerald-700" 
+                      ? "border-emerald-300 bg-emerald-50/15 text-emerald-700" 
                       : "hover:bg-slate-50 border-slate-150"
                   )}
                 >
@@ -483,7 +594,7 @@ const Flashcards: React.FC = () => {
                 <GraduationCap size={15} />
               </span>
               <span>
-                <strong>Study Hint:</strong> Try to draft the formula on a scratchpad or solve it in your head before flipping the card. Active recall is the most effective way to reinforce correct mathematical associations!
+                <strong>Study Hint:</strong> Drag cards left/right to swipe fast! Try to draft the formula on a scratchpad or solve it in your head before flipping the card.
               </span>
             </div>
 
@@ -501,7 +612,7 @@ const Flashcards: React.FC = () => {
       {/* Adding CSS helper for perspective directly in-page so there are no raw external dependency issues */}
       <style>{`
         .perspective {
-          perspective: 1000px;
+          perspective: 1500px;
         }
         .preserve-3d {
           transform-style: preserve-3d;
@@ -509,6 +620,7 @@ const Flashcards: React.FC = () => {
         .backface-hidden {
           backface-visibility: hidden;
           -webkit-backface-visibility: hidden;
+          transform: rotateX(0deg);
         }
         .rotate-y-180 {
           transform: rotateY(180deg);

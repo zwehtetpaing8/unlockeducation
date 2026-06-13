@@ -94,6 +94,22 @@
   overflow-wrap: normal !important;
 }
 
+/* Force KaTeX borders to inherit currentColor instead of getting reset by Tailwind's * preflight border-color */
+.katex * {
+  border-color: currentColor !important;
+}
+
+/* Ensure fraction bars and square root lines are always sufficiently thick and visible across all resolutions */
+.katex .frac-line {
+  border-bottom-width: 1.5px !important;
+  opacity: 1 !important;
+}
+
+.katex .sqrt-line {
+  border-top-width: 1.5px !important;
+  opacity: 1 !important;
+}
+
 span.katex {
   display: inline-block !important; /* Force inline-block to respect max-width and allow horizontal scroll if wide */
   max-width: 100%;
