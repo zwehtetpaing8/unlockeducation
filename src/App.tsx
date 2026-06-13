@@ -10,6 +10,7 @@
 
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { ProgressProvider } from './contexts/ProgressContext';
 import { Layout } from './components/layout/Layout';
 import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
@@ -35,9 +36,10 @@ const ProtectedRoute = ({ children, adminOnly = false }: { children: React.React
 export default function App() {
   return (
     <AuthProvider>
-      <Router>
-        <ScrollToTop />
-        <Layout>
+      <ProgressProvider>
+        <Router>
+          <ScrollToTop />
+          <Layout>
           <Routes>
             {/* Public Routes */}
             <Route path="/" element={<Home />} />
@@ -64,6 +66,7 @@ export default function App() {
           </Routes>
         </Layout>
       </Router>
+      </ProgressProvider>
     </AuthProvider>
   );
 }

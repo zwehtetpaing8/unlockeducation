@@ -543,66 +543,28 @@ $$
 
 ## Exercise 1.2
 
-### 1. Compute.
+### ✏️ Exercise 1.2
 
-**(a)**
-
-$$
-(2,0)(2,5)+(3,-2)(0,1)
-$$
-
-**(b)**
-
-$$
-(2,-5)(-1,0)+(1,0)(5,1)
-$$
-
-**(c)**
-
-$$
-(-3,-2)(-2,-3)+(-2,-3)(-3,-2)
-$$
-
-**(d)**
-
-$$
-(1,0)(0,1)+(0,1)(1,0)
-$$
-
-### 2. Compute.
-
-**(a)**
-
-$$
-(3+2i)(3-2i)+(-5+7i)(-1-i)
-$$
-
-**(b)**
-
-$$
-(-1+i)(1-i)+(2+3i)
-$$
-
-**(c)**
-
-$$
-(1+i)(1-i)+(-2+i)(-2+i)
-$$
-
-**(d)**
-
-$$
-(3+2i)+(7-i)(-3+3i)
-$$
+\`\`\`note
+{
+  "type": "info",
+  "title": "Exercise 1.2 Questions",
+  "content": "**1. Compute.**\\n* (a) $(2,0)(2,5)+(3,-2)(0,1)$\\n* (b) $(2,-5)(-1,0)+(1,0)(5,1)$\\n* (c) $(-3,-2)(-2,-3)+(-2,-3)(-3,-2)$\\n* (d) $(1,0)(0,1)+(0,1)(1,0)$\\n\\n**2. Compute.**\\n* (a) $(3+2i)(3-2i)+(-5+7i)(-1-i)$\\n* (b) $(-1+i)(1-i)+(2+3i)$\\n* (c) $(1+i)(1-i)+(-2+i)(-2+i)$\\n* (d) $(3+2i)+(7-i)(-3+3i)$"
+}
+\`\`\`
 
 ---
 
-## Solution
+### 🗝️ Solutions to Exercise 1.2
 
-### 1. Compute.
+<details class="bg-slate-50 p-4 rounded-xl border border-slate-200 my-4 cursor-pointer">
+<summary class="font-extrabold text-blue-600 select-none">Show/Hide Solutions for Exercise 1.2</summary>
 
-#### (a)
+<div class="mt-4 space-y-6">
 
+**1. Compute.**
+
+**(a)**
 $$
 \\begin{aligned}
 (2,0)(2,5)+(3,-2)(0,1)
@@ -612,8 +574,7 @@ $$
 \\end{aligned}
 $$
 
-#### (b)
-
+**(b)**
 $$
 \\begin{aligned}
 (2,-5)(-1,0)+(1,0)(5,1)
@@ -623,8 +584,7 @@ $$
 \\end{aligned}
 $$
 
-#### (c)
-
+**(c)**
 $$
 \\begin{aligned}
 (-3,-2)(-2,-3)+(-2,-3)(-3,-2)
@@ -634,8 +594,7 @@ $$
 \\end{aligned}
 $$
 
-#### (d)
-
+**(d)**
 $$
 \\begin{aligned}
 (1,0)(0,1)+(0,1)(1,0)
@@ -645,10 +604,9 @@ $$
 \\end{aligned}
 $$
 
-### 2. Compute.
+**2. Compute.**
 
-#### (a)
-
+**(a)**
 $$
 \\begin{aligned}
 (3+2i)(3-2i)+(-5+7i)(-1-i)
@@ -658,8 +616,7 @@ $$
 \\end{aligned}
 $$
 
-#### (b)
-
+**(b)**
 $$
 \\begin{aligned}
 (-1+i)(1-i)+(2+3i)
@@ -669,8 +626,7 @@ $$
 \\end{aligned}
 $$
 
-#### (c)
-
+**(c)**
 $$
 \\begin{aligned}
 (1+i)(1-i)+(-2+i)(-2+i)
@@ -680,8 +636,7 @@ $$
 \\end{aligned}
 $$
 
-#### (d)
-
+**(d)**
 $$
 \\begin{aligned}
 (3+2i)+(7-i)(-3+3i)
@@ -690,6 +645,9 @@ $$
 &=-15+26i
 \\end{aligned}
 $$
+
+</div>
+</details>
 `;
 
 const chapter1BasicContent = `# Pure Imaginary Unit $i$

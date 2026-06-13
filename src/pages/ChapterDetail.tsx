@@ -5,9 +5,10 @@ import { Chapter, Lesson } from '../types';
 import { motion } from 'motion/react';
 import { 
   ArrowLeft, BookOpen, ChevronRight, 
-  PlayCircle, FileText, CheckCircle, 
+  PlayCircle, FileText, CheckCircle, CheckCircle2, Bookmark, 
   Clock, Award, LayoutList, Loader2
 } from 'lucide-react';
+import { useProgress } from '../contexts/ProgressContext';
 import { cn } from '../lib/utils';
 
 const ChapterDetail: React.FC = () => {
@@ -15,6 +16,7 @@ const ChapterDetail: React.FC = () => {
   const [chapter, setChapter] = useState<Chapter | null>(null);
   const [lessons, setLessons] = useState<Lesson[]>([]);
   const [loading, setLoading] = useState(true);
+  const { isCompleted, isBookmarked } = useProgress();
 
   useEffect(() => {
     if (chapterId) {
@@ -114,24 +116,44 @@ const ChapterDetail: React.FC = () => {
                   </div>
                   
                   <div className="space-y-2">
-                    <div className="flex items-center gap-2">
+                    <div className="flex flex-wrap items-center gap-1.5">
                        <span className={cn(
-                         "text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-md border",
+                         "text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-md border text-center shrink-0",
                          lesson.type === 'theory' ? "bg-blue-50 text-blue-600 border-blue-100" :
                          lesson.type === 'exercise' ? "bg-emerald-50 text-emerald-600 border-emerald-100" :
                          "bg-purple-50 text-purple-600 border-purple-100"
                        )}>{lesson.type}</span>
-                       <span className="text-[9px] font-black uppercase tracking-widest text-slate-300">Module {idx + 1}</span>
+                       <span className="text-[9px] font-black uppercase tracking-widest text-slate-300 shrink-0">Module {idx + 1}</span>
+                       {isCompleted(lesson.id) && (
+                         <span className="inline-flex items-center gap-1 text-[9px] font-black uppercase tracking-widest bg-emerald-50 text-emerald-600 border border-emerald-100 px-2 py-0.5 rounded-md shrink-0">
+                           <CheckCircle2 size={10} strokeWidth={3} />
+                           Completed
+                         </span>
+                       )}
+                       {isBookmarked(lesson.id) && (
+                         <span className="inline-flex items-center gap-1 text-[9px] font-black uppercase tracking-widest bg-amber-50 text-amber-600 border border-amber-100 px-2 py-0.5 rounded-md shrink-0">
+                           <Bookmark size={10} fill="currentColor" />
+                           Saved
+                         </span>
+                       )}
                     </div>
                     <h3 className="text-xl md:text-2xl font-black text-slate-900 group-hover:text-blue-600 transition-colors uppercase tracking-tight leading-tight">{lesson.title}</h3>
                   </div>
 
-                  <div className="mt-8 pt-6 border-t border-slate-50 flex items-center justify-between">
-                     <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">FULL LESSON</span>
-                     <div className="flex -space-x-2">
-                        {[1,2,3].map(i => (
-                           <div key={i} className="w-6 h-6 rounded-full border-2 border-white bg-slate-100" />
-                        ))}
+                  <div className="mt-8 pt-6 border-t border-slate-100 flex items-center justify-between">
+                     <span className="text-[9px] font-black text-slate-400 tracking-widest uppercase">
+                       {isCompleted(lesson.id) ? "CONTINUE MODULE" : "START STUDY"}
+                     </span>
+                     <div>
+                       {isCompleted(lesson.id) ? (
+                         <div className="w-7 h-7 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-sm">
+                           <CheckCircle className="w-4 h-4" strokeWidth={3} />
+                         </div>
+                       ) : (
+                         <div className="w-7 h-7 rounded-full bg-slate-50 border border-slate-250 text-slate-300 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-all flex items-center justify-center">
+                           <ChevronRight className="w-4.5 h-4.5" />
+                         </div>
+                       )}
                      </div>
                   </div>
                 </Link>

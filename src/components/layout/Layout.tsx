@@ -19,8 +19,6 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 
   const navItems = [
     { name: 'Home', path: '/', icon: HomeIcon },
-    { name: 'Grade 10', path: '/lessons/10', icon: GraduationCap },
-    { name: 'Grade 11', path: '/lessons/11', icon: GraduationCap },
     { name: 'Grade 12', path: '/lessons/12', icon: GraduationCap },
     { name: 'Past Papers', path: '/past-papers', icon: FileText },
   ];
@@ -170,35 +168,56 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       </AnimatePresence>
 
       {/* Main Content */}
-      <main className="flex-1 w-full max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-10 py-4 md:py-8 pb-12 md:pb-16 relative">
+      <main className="flex-1 w-full max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-10 py-4 md:py-8 pb-28 md:pb-16 relative">
         {children}
       </main>
 
-      {/* Bottom Navigation for Mobile */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-[70] bg-white/90 backdrop-blur-xl border-t border-slate-100 px-8 py-3 pb-safe">
-        <div className="flex justify-between items-center max-w-sm mx-auto">
+      {/* Bottom Navigation for Mobile (Smarter active states and elegant styling) */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-[70] bg-white/95 backdrop-blur-xl border-t border-slate-100 px-6 py-2.5 pb-safe shadow-[0_-8px_30px_rgb(0,0,0,0.04)]">
+        <div className="flex justify-between items-center max-w-md mx-auto">
           {[
-            { id: 'home', icon: HomeIcon, path: '/', label: 'Home' },
-            { id: 'grade12', icon: GraduationCap, path: '/lessons/12', label: 'Lessons' },
-            { id: 'papers', icon: FileText, path: '/past-papers', label: 'Papers' },
-          ].map((item) => (
-            <Link 
-              key={item.id} 
-              to={item.path}
-              className={cn(
-                "flex flex-col items-center gap-1 transition-all active:scale-90",
-                location.pathname === item.path ? "text-blue-600" : "text-slate-400"
-              )}
-            >
-              <div className={cn(
-                "w-10 h-10 rounded-full flex items-center justify-center transition-all",
-                location.pathname === item.path ? "bg-blue-50" : ""
-              )}>
-                <item.icon size={20} />
-              </div>
-              <span className="text-[9px] font-bold uppercase tracking-tighter">{item.label}</span>
-            </Link>
-          ))}
+            { 
+              id: 'home', 
+              icon: HomeIcon, 
+              path: '/', 
+              label: 'Home',
+              isActive: (path: string) => path === '/' 
+            },
+            { 
+              id: 'grade12', 
+              icon: GraduationCap, 
+              path: '/grade/12', 
+              label: 'Lessons',
+              isActive: (path: string) => path.startsWith('/grade/12') || path.startsWith('/lessons/12')
+            },
+            { 
+              id: 'papers', 
+              icon: FileText, 
+              path: '/past-papers', 
+              label: 'Papers',
+              isActive: (path: string) => path.startsWith('/past-papers')
+            },
+          ].map((item) => {
+            const active = item.isActive(location.pathname);
+            return (
+              <Link 
+                key={item.id} 
+                to={item.path}
+                className={cn(
+                  "flex flex-col items-center gap-1 transition-all active:scale-95 flex-1 py-1",
+                  active ? "text-blue-600 font-black" : "text-slate-400 font-medium"
+                )}
+              >
+                <div className={cn(
+                  "w-12 h-8 rounded-2xl flex items-center justify-center transition-all duration-305",
+                  active ? "bg-blue-50 text-blue-600 scale-105" : "hover:text-slate-600"
+                )}>
+                  <item.icon size={20} strokeWidth={active ? 2.5 : 2} />
+                </div>
+                <span className="text-[9px] uppercase tracking-wider text-center mt-0.5">{item.label}</span>
+              </Link>
+            );
+          })}
         </div>
       </div>
 
@@ -265,10 +284,10 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                 <span>Curriculum</span>
               </h4>
               <ul className="space-y-3 text-xs md:text-sm font-medium text-slate-500">
-                {['Grade 10', 'Grade 11', 'Grade 12'].map((grade, index) => (
+                {['Grade 12'].map((grade) => (
                   <li key={grade}>
                     <Link 
-                      to={`/lessons/${10 + index}`} 
+                      to="/lessons/12" 
                       className="group flex items-center gap-1.5 hover:text-blue-600 transition-colors duration-200"
                     >
                       <span className="w-1.5 h-1.5 rounded-full bg-blue-600 scale-0 group-hover:scale-100 transition-transform duration-200" />
