@@ -42,15 +42,15 @@ const Home: React.FC = () => {
       <div className="flex flex-col gap-4 text-left">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 text-blue-600 text-[10px] w-fit font-black uppercase tracking-wider">
           <Sparkles size={12} className="animate-pulse" />
-          <span>LMS Portal Active • Grade 12 သင်ရိုး</span>
+          <span>LMS Portal Active • Grade 12 Curriculum</span>
         </div>
         
         <div className="space-y-1">
           <h1 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight leading-none uppercase">
-            မင်္ဂလာပါ — Hello, Learner! 👋
+            Hello, Learner! 👋
           </h1>
           <p className="text-slate-500 text-xs sm:text-sm font-medium">
-            မင်းရဲ့ သင်္ချာပညာရေး တိုးတက်မှုအတွက် အဆင့်မြင့် LMS မှ ကြိုဆိုပါသည်။
+            Welcome to the advanced LMS portal designed to accelerate your mathematics education.
           </p>
         </div>
       </div>
@@ -65,10 +65,10 @@ const Home: React.FC = () => {
               Current Academic Course
             </span>
             <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight">
-              Grade 12 Mathematics သင်္ချာ
+              Grade 12 Mathematics
             </h2>
             <p className="text-slate-300 text-xs sm:text-sm font-medium leading-relaxed">
-              ဆယ်တန်းစာမေးပွဲ အောင်မြင်ရန် theory များနှင့် ပုစ္ဆာများကို အလွယ်ကူဆုံး လေ့လာနိုင်ရန် ပြုစုထားသော စနစ်ဖြစ်ပါသည်။
+              A comprehensive learning curriculum mapped to help you master theory, study concepts, and solve practice problems for your exams.
             </p>
             
             {/* Real progress track bar */}

@@ -5,7 +5,7 @@ import { Quiz, Question } from '../types';
 import { 
   Timer, CheckCircle2, XCircle, 
   ArrowRight, Brain, Trophy,
-  ChevronLeft, Loader2
+  ChevronLeft, Loader2, Lightbulb, Sparkles
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import ReactMarkdown from 'react-markdown';
@@ -25,6 +25,10 @@ const QuizPage: React.FC = () => {
   const [showResults, setShowResults] = useState(false);
   const [loading, setLoading] = useState(true);
   const [timeLeft, setTimeLeft] = useState(0);
+
+  // Dynamic feedback and score tracking states
+  const [isAnswered, setIsAnswered] = useState<boolean>(false);
+  const [answersHistory, setAnswersHistory] = useState<Record<number, { selected: number; isCorrect: boolean }>>({});
 
   useEffect(() => {
     fetchQuizData();
@@ -123,14 +127,30 @@ const QuizPage: React.FC = () => {
     }
   };
 
-  const handleNext = () => {
-    if (selectedOption === questions[currentIdx].correct_option_index) {
+  const handleSelectOption = (optionIndex: number) => {
+    if (isAnswered) return;
+
+    setSelectedOption(optionIndex);
+    setIsAnswered(true);
+
+    const correctIdx = questions[currentIdx].correct_option_index;
+    const isCorrect = optionIndex === correctIdx;
+
+    setAnswersHistory(prev => ({
+      ...prev,
+      [currentIdx]: { selected: optionIndex, isCorrect }
+    }));
+
+    if (isCorrect) {
       setScore(prev => prev + 1);
     }
-    
+  };
+
+  const handleNext = () => {
     if (currentIdx < questions.length - 1) {
       setCurrentIdx(prev => prev + 1);
       setSelectedOption(null);
+      setIsAnswered(false);
     } else {
       setShowResults(true);
     }
@@ -147,6 +167,18 @@ const QuizPage: React.FC = () => {
 
   const currentQuestion = questions[currentIdx];
 
+  // Dynamic calculations for the SCORE METER
+  const answeredCount = Object.keys(answersHistory).length;
+  const currentAccuracy = answeredCount > 0 ? Math.round((score / answeredCount) * 100) : 0;
+
+  let masteryLabel = "DIAGNOSTIC UNLOCKED ⏱️";
+  if (answeredCount > 0) {
+    if (currentAccuracy >= 90) masteryLabel = "GRANDMASTER 🏆";
+    else if (currentAccuracy >= 75) masteryLabel = "EXPERT 🌟";
+    else if (currentAccuracy >= 50) masteryLabel = "SCHOLAR 🎓";
+    else masteryLabel = "LEARNER ✏️";
+  }
+
   return (
     <div className="max-w-screen-2xl mx-auto py-4 md:py-12 pb-12 px-0 sm:px-4">
       <AnimatePresence mode="wait">
@@ -156,12 +188,12 @@ const QuizPage: React.FC = () => {
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.98 }}
-            className="space-y-8"
+            className="space-y-6"
           >
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 px-4 sm:px-8 md:px-12">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-slate-900 flex items-center justify-center text-white shadow-lg">
+              <div className="flex items-center gap-4 text-left">
+                <div className="w-12 h-12 rounded-2xl bg-slate-900 flex items-center justify-center text-white shadow-lg shrink-0">
                   <Brain size={24} />
                 </div>
                 <div className="space-y-1">
@@ -170,7 +202,7 @@ const QuizPage: React.FC = () => {
                 </div>
               </div>
               <div className={cn(
-                "flex items-center gap-3 px-6 py-3 rounded-2xl font-black text-sm uppercase tracking-widest shadow-sm border transition-all",
+                "flex items-center gap-3 px-6 py-3 rounded-2xl font-black text-sm uppercase tracking-widest shadow-sm border transition-all justify-center sm:justify-start self-start sm:self-auto",
                 timeLeft < 60 ? "bg-red-50 text-red-600 border-red-100 animate-pulse" : "bg-white text-slate-900 border-slate-100"
               )}>
                 <Timer size={18} className={timeLeft < 60 ? "text-red-500" : "text-blue-600"} />
@@ -178,9 +210,114 @@ const QuizPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Progress Bar */}
-            <div className="px-4 sm:px-8 md:px-12 mb-4">
-               <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden shadow-inner">
+            {/* Dynamic Score Meter Panel */}
+            <div className="px-4 sm:px-8 md:px-12">
+              <div className="bg-slate-55/40 border border-slate-100 bg-slate-50/50 rounded-[2rem] p-5 sm:p-6 shadow-xs flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                <div className="flex flex-wrap items-center gap-6">
+                  {/* Circular Accuracy Indicator */}
+                  <div className="flex items-center gap-4">
+                    <div className="relative w-14 h-14 flex items-center justify-center bg-white border border-slate-150 rounded-2xl shadow-xs shrink-0">
+                      <svg className="absolute inset-0 w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                        <path
+                          className="text-slate-100"
+                          strokeWidth="3"
+                          stroke="currentColor"
+                          fill="none"
+                          d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                        />
+                        <motion.path
+                          className={cn(
+                            answeredCount > 0
+                              ? currentAccuracy >= 75 ? "text-emerald-500" : currentAccuracy >= 50 ? "text-amber-500" : "text-rose-500"
+                              : "text-blue-500"
+                          )}
+                          strokeWidth="3"
+                          strokeDasharray={`${answeredCount > 0 ? currentAccuracy : 0}, 100`}
+                          strokeLinecap="round"
+                          stroke="currentColor"
+                          fill="none"
+                          d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                          initial={{ strokeDasharray: "0, 100" }}
+                          animate={{ strokeDasharray: `${answeredCount > 0 ? currentAccuracy : 0}, 100` }}
+                          transition={{ duration: 0.5, ease: "easeOut" }}
+                        />
+                      </svg>
+                      <span className="relative text-sm font-black font-mono text-slate-800">
+                        {answeredCount > 0 ? `${currentAccuracy}%` : "—"}
+                      </span>
+                    </div>
+
+                    <div className="text-left space-y-0.5">
+                      <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block font-mono">LIVE PERFORMANCE METER</span>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="text-sm font-black text-slate-900 font-mono">
+                          Correct: {score} of {questions.length}
+                        </span>
+                        <span className={cn(
+                          "text-[9px] font-black px-2 py-0.5 rounded-md uppercase tracking-wider font-mono",
+                          answeredCount > 0
+                            ? currentAccuracy >= 75 ? "bg-emerald-100 text-emerald-800" : currentAccuracy >= 50 ? "bg-amber-100 text-amber-800" : "bg-rose-100 text-rose-800"
+                            : "bg-slate-100 text-slate-400"
+                        )}>
+                          {masteryLabel}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Mini tally tags */}
+                  <div className="flex items-center gap-4 sm:border-l sm:border-slate-250/60 sm:pl-6 text-left">
+                    <div className="space-y-0.5">
+                      <span className="text-[9px] font-black text-slate-400 uppercase tracking-wider block">CORRECT</span>
+                      <span className="text-xs font-black text-emerald-600 font-mono flex items-center gap-1.5">
+                         <span className="inline-block w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-xs"></span>
+                         {score}
+                      </span>
+                    </div>
+                    <div className="space-y-0.5 border-l border-slate-150 pl-4">
+                      <span className="text-[9px] font-black text-slate-400 uppercase tracking-wider block">INCORRECT</span>
+                      <span className="text-xs font-black text-rose-500 font-mono flex items-center gap-1.5">
+                         <span className="inline-block w-2.5 h-2.5 rounded-full bg-rose-500 shadow-xs"></span>
+                         {answeredCount - score}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Path Map Questions Progression */}
+                <div className="flex flex-wrap items-center gap-1.5 lg:justify-end">
+                  {questions.map((_, idx) => {
+                    const isCurrent = idx === currentIdx;
+                    const history = answersHistory[idx];
+                    const isSolved = history !== undefined;
+                    const isCorrect = history?.isCorrect;
+
+                    return (
+                      <motion.div
+                        key={idx}
+                        whileHover={{ scale: 1.05 }}
+                        className={cn(
+                          "w-8 h-8 rounded-xl border flex flex-col items-center justify-center text-[10px] font-black font-mono transition-all duration-300 relative transform-gpu shadow-xs",
+                          isCurrent 
+                            ? "bg-blue-600 border-blue-600 text-white shadow-md shadow-blue-500/20 ring-2 ring-blue-500/10" 
+                            : isSolved 
+                              ? isCorrect 
+                                ? "bg-emerald-500 border-emerald-500 text-white" 
+                                : "bg-rose-500 border-rose-500 text-white"
+                              : "bg-white border-slate-200 text-slate-450 hover:border-slate-350"
+                        )}
+                      >
+                        {isSolved ? (isCorrect ? "✓" : "✗") : idx + 1}
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+
+            {/* Basic progress bar fallback line */}
+            <div className="px-4 sm:px-8 md:px-12">
+               <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden shadow-xs">
                   <motion.div 
                     className="h-full bg-blue-600 rounded-full"
                     initial={{ width: 0 }}
@@ -191,56 +328,119 @@ const QuizPage: React.FC = () => {
             </div>
 
             {/* Question Card */}
-            <div className="bg-white border-y md:border border-slate-100 px-3 py-10 sm:p-16 lg:p-24 md:rounded-[2rem] shadow-sm relative overflow-hidden group">
-              <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+            <div className="bg-white border-y md:border border-slate-100 px-4 py-12 sm:p-16 lg:p-20 md:rounded-[2rem] shadow-sm relative overflow-hidden group">
+              <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-5 transition-opacity">
                  <Brain size={120} />
               </div>
               
               <div className="relative z-10 text-left max-w-5xl">
-                <div className="markdown-body mb-10 md:mb-16">
+                <div className="markdown-body mb-8 md:mb-12">
                    <ReactMarkdown 
                      remarkPlugins={[remarkMath]}
                      rehypePlugins={[rehypeRaw, rehypeKatex]}
                      components={{
-                        p: ({children}) => <p className="text-xl md:text-4xl font-black text-slate-900 leading-tight uppercase tracking-tight break-words">{children}</p>
+                        p: ({children}) => <p className="text-xl md:text-3xl font-black text-slate-900 leading-tight uppercase tracking-tight break-words">{children}</p>
                      }}
                    >
                      {currentQuestion.question_text}
                    </ReactMarkdown>
                 </div>
 
+                {/* Instant Feedback Options Container */}
                 <div className="grid grid-cols-1 gap-4">
-                  {currentQuestion.options.map((option, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setSelectedOption(i)}
-                      className={cn(
-                        "w-full p-6 rounded-2xl border text-left font-black transition-all flex items-center justify-between group/opt active:scale-[0.99] uppercase tracking-tight",
-                        selectedOption === i 
-                          ? "border-blue-600 bg-blue-50/50 text-blue-600 ring-4 ring-blue-600/5 shadow-lg shadow-blue-600/10" 
-                          : "border-slate-100 bg-slate-50/30 hover:border-blue-200 hover:bg-slate-50"
-                      )}
-                    >
-                      <span className="flex-1">
-                        <ReactMarkdown 
-                          remarkPlugins={[remarkMath]}
-                          rehypePlugins={[rehypeRaw, rehypeKatex]}
-                        >
-                          {option}
-                        </ReactMarkdown>
-                      </span>
-                      <div className={cn(
-                        "w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all shrink-0 ml-4",
-                        selectedOption === i ? "border-blue-600 bg-blue-600 text-white" : "border-slate-200 group-hover/opt:border-blue-300"
-                      )}>
-                        {selectedOption === i && <CheckCircle2 size={14} />}
-                      </div>
-                    </button>
-                  ))}
+                  {currentQuestion.options.map((option, i) => {
+                    const isCorrectIndex = i === currentQuestion.correct_option_index;
+                    const isSelected = selectedOption === i;
+                    let optionBgBorderClass = "";
+                    let indicatorIcon = null;
+
+                    if (isAnswered) {
+                      if (isCorrectIndex) {
+                        // Correct option
+                        optionBgBorderClass = "border-emerald-500 bg-emerald-50/40 text-emerald-800 shadow-xs ring-1 ring-emerald-500/10";
+                        indicatorIcon = <CheckCircle2 size={16} className="text-emerald-600" />;
+                      } else if (isSelected) {
+                        // Let users see their wrong selection highlighted red
+                        optionBgBorderClass = "border-rose-500 bg-rose-50/40 text-rose-800 shadow-xs ring-1 ring-rose-500/10";
+                        indicatorIcon = <XCircle size={16} className="text-rose-500" />;
+                      } else {
+                        // Dull other unselected wrong options
+                        optionBgBorderClass = "border-slate-100 bg-slate-50/10 text-slate-400 opacity-50";
+                        indicatorIcon = <div className="w-5 h-5 rounded-full border border-slate-200" />;
+                      }
+                    } else {
+                      // High dynamic selection highlighting
+                      if (isSelected) {
+                        optionBgBorderClass = "border-blue-600 bg-blue-50/50 text-blue-600 ring-4 ring-blue-600/5 shadow-md shadow-blue-600/5";
+                        indicatorIcon = <CheckCircle2 size={14} className="text-blue-650" />;
+                      } else {
+                        optionBgBorderClass = "border-slate-150 bg-slate-50/30 hover:border-blue-200 hover:bg-slate-50 text-slate-800";
+                        indicatorIcon = <div className="w-5 h-5 rounded-full border border-slate-205 group-hover/opt:border-blue-300" />;
+                      }
+                    }
+
+                    return (
+                      <button
+                        key={i}
+                        disabled={isAnswered}
+                        onClick={() => handleSelectOption(i)}
+                        className={cn(
+                          "w-full p-5 sm:p-6 rounded-2xl border text-left font-black transition-all flex items-center justify-between group/opt active:scale-[0.99] uppercase tracking-tight",
+                          optionBgBorderClass,
+                          isAnswered ? "cursor-default" : "cursor-pointer"
+                        )}
+                      >
+                        <span className="flex-1">
+                          <ReactMarkdown 
+                            remarkPlugins={[remarkMath]}
+                            rehypePlugins={[rehypeRaw, rehypeKatex]}
+                          >
+                            {option}
+                          </ReactMarkdown>
+                        </span>
+                        <div className="shrink-0 ml-4">
+                          {indicatorIcon}
+                        </div>
+                      </button>
+                    );
+                  })}
                 </div>
+
+                {/* Animated Explanation Drawer */}
+                <AnimatePresence>
+                  {isAnswered && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 12 }}
+                      transition={{ type: "spring", stiffness: 350, damping: 25 }}
+                      className="mt-8 p-6 sm:p-8 bg-blue-50/30 border border-blue-100 rounded-3xl text-left relative overflow-hidden"
+                    >
+                      <div className="absolute top-0 right-0 p-4 opacity-[0.05]">
+                        <Lightbulb size={64} className="text-blue-600" />
+                      </div>
+                      <div className="flex items-center gap-2 mb-3">
+                        <div className="p-1 bg-blue-500 rounded-lg text-white">
+                          <Lightbulb size={13} />
+                        </div>
+                        <span className="text-[10px] font-black tracking-widest text-blue-600 uppercase font-mono">EXPLANATION • ရှင်းလင်းချက်</span>
+                      </div>
+                      
+                      <div className="text-slate-700 text-sm md:text-base font-bold leading-relaxed markdown-body max-w-full">
+                         <ReactMarkdown 
+                           remarkPlugins={[remarkMath]}
+                           rehypePlugins={[rehypeRaw, rehypeKatex]}
+                         >
+                           {currentQuestion.explanation}
+                         </ReactMarkdown>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </div>
 
+            {/* Bottom Actions Row */}
             <div className="flex flex-col sm:flex-row justify-between items-center bg-slate-50/50 p-4 rounded-3xl border border-slate-100 gap-4">
                <button 
                 onClick={() => navigate(-1)}
@@ -249,7 +449,7 @@ const QuizPage: React.FC = () => {
                  <ChevronLeft size={16} /> Exit Quiz
                </button>
                <button
-                 disabled={selectedOption === null}
+                 disabled={!isAnswered}
                  onClick={handleNext}
                  className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-10 py-5 rounded-2xl font-black shadow-xl shadow-blue-600/20 transition-all flex items-center justify-center gap-3 disabled:opacity-50 active:scale-95 btn-premium whitespace-nowrap"
                >
