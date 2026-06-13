@@ -24,6 +24,7 @@ import PastPapers from './pages/PastPapers';
 import SectionDMaster from './pages/SectionDMaster';
 import AdminDashboard from './pages/AdminDashboard';
 import Profile from './pages/Profile';
+import Flashcards from './pages/Flashcards';
 import TermsOfService from './pages/TermsOfService';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import { Loader2 } from 'lucide-react';
@@ -54,6 +55,7 @@ export default function App() {
             <Route path="/quiz/:quizId" element={<ProtectedRoute><QuizPage /></ProtectedRoute>} />
             <Route path="/past-papers" element={<PastPapers />} />
             <Route path="/section-d" element={<SectionDMaster />} />
+            <Route path="/flashcards" element={<Flashcards />} />
             <Route path="/profile" element={<Navigate to="/" replace />} />
             <Route path="/terms" element={<TermsOfService />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />

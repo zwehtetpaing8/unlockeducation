@@ -110,7 +110,7 @@ const Home: React.FC = () => {
       </div>
 
       {/* 3. Mobile-Optimized Grid Actions */}
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-left">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-left">
         <Link 
           to="/grade/12"
           className="p-5 sm:p-6 bg-white border border-slate-100 rounded-[1.8rem] hover:border-blue-200 transition-all hover:shadow-lg flex flex-col justify-between h-36 active:scale-95 group relative overflow-hidden"
@@ -146,14 +146,31 @@ const Home: React.FC = () => {
         </Link>
 
         <Link 
+          to="/flashcards"
+          className="p-5 sm:p-6 bg-white border border-slate-100 rounded-[1.8rem] hover:border-amber-200 transition-all hover:shadow-lg flex flex-col justify-between h-36 active:scale-95 group relative overflow-hidden"
+        >
+          <div className="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center transition-transform group-hover:scale-110">
+            <Sparkles size={18} className="animate-pulse" />
+          </div>
+          <div>
+            <h4 className="font-extrabold text-slate-900 group-hover:text-amber-600 transition-colors uppercase text-xs sm:text-sm mb-1">
+              Math Flashcards
+            </h4>
+            <p className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wide">
+              ပုံသေနည်းကတ်များ
+            </p>
+          </div>
+        </Link>
+
+        <Link 
           to="/lessons/12"
-          className="col-span-2 md:col-span-1 p-5 sm:p-6 bg-white border border-slate-100 rounded-[1.8rem] hover:border-blue-200 transition-all hover:shadow-lg flex flex-col justify-between h-36 active:scale-95 group relative overflow-hidden"
+          className="p-5 sm:p-6 bg-white border border-slate-100 rounded-[1.8rem] hover:border-blue-200 transition-all hover:shadow-lg flex flex-col justify-between h-36 active:scale-95 group relative overflow-hidden"
         >
           <div className="w-10 h-10 rounded-2xl bg-teal-50 text-teal-650 flex items-center justify-center transition-transform group-hover:scale-110">
             <Target size={20} />
           </div>
           <div>
-            <h4 className="font-extrabold text-slate-900 group-hover:text-teal-600 transition-colors uppercase text-xs sm:text-sm mb-1">
+            <h4 className="font-extrabold text-slate-900 group-hover:text-teal-650 transition-colors uppercase text-xs sm:text-sm mb-1">
               Interactive Search
             </h4>
             <p className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wide">

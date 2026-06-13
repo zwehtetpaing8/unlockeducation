@@ -21,6 +21,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
     { name: 'Home', path: '/', icon: HomeIcon },
     { name: 'Grade 12', path: '/lessons/12', icon: GraduationCap },
     { name: 'Past Papers', path: '/past-papers', icon: FileText },
+    { name: 'Flashcards', path: '/flashcards', icon: Sparkles },
   ];
 
   const isAdmin = false; // Intentionally disabled to hide any Admin menus/controls as requested
@@ -189,6 +190,13 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
               path: '/grade/12', 
               label: 'Lessons',
               isActive: (path: string) => path.startsWith('/grade/12') || path.startsWith('/lessons/12')
+            },
+            { 
+              id: 'flashcards', 
+              icon: Sparkles, 
+              path: '/flashcards', 
+              label: 'Cards',
+              isActive: (path: string) => path === '/flashcards'
             },
             { 
               id: 'papers', 
