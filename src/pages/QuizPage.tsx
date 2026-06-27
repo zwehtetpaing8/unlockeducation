@@ -55,13 +55,16 @@ const QuizPage: React.FC = () => {
       let quizData: any = null;
       let qData: any[] = [];
 
-      try {
-        const { data } = await supabase.from('quizzes').select('*').eq('id', quizId).single();
-        const { data: qs } = await supabase.from('questions').select('*').eq('quiz_id', quizId);
-        quizData = data;
-        qData = qs || [];
-      } catch (err) {
-        console.error('Supabase query error, falling back to mock quiz:', err);
+      const hasKeys = import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY;
+      if (hasKeys) {
+        try {
+          const { data } = await supabase.from('quizzes').select('*').eq('id', quizId).single();
+          const { data: qs } = await supabase.from('questions').select('*').eq('quiz_id', quizId);
+          quizData = data;
+          qData = qs || [];
+        } catch (err) {
+          console.warn('Supabase query error, falling back to mock quiz:', err);
+        }
       }
 
       if (!quizData || qData.length === 0) {

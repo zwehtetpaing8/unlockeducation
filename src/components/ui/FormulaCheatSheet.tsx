@@ -11,73 +11,89 @@ interface FormulaItem {
   name: string;
   formula: string;
   explanation: string;
-  category: 'complex' | 'induction' | 'general';
+  category: 'complex' | 'induction' | 'others';
 }
 
 const FORMULAS: FormulaItem[] = [
-  // Complex Numbers
+  // Grade 10 - Sets
+  {
+    id: 'sets-union',
+    name: 'Union of Sets (အစုပေါင်း)',
+    formula: 'A \\cup B = \\{x \\mid x \\in A \\text{ or } x \\in B\\}',
+    explanation: 'A ∪ B သည် အစု A နှင့် အစု B နှစ်ခုလုံးရှိ အစုဝင်အားလုံး စုစည်းမှုဖြစ်သည်။ (Grade 10 • Chapter 1)',
+    category: 'others'
+  },
+  {
+    id: 'sets-intersection',
+    name: 'Intersection of Sets (အစုဘုံ)',
+    formula: 'A \\cap B = \\{x \\mid x \\in A \\text{ and } x \\in B\\}',
+    explanation: 'A ∩ B သည် အစု A နှင့် အစု B နှစ်ခုလုံးတွင် ဘုံတူညီစွာပါဝင်သော အစုဝင်များဖြစ်သည်။ (Grade 10 • Chapter 1)',
+    category: 'others'
+  },
+  // Grade 11 - Sequence and Series
+  {
+    id: 'ap-n-term',
+    name: 'n-th Term of AP (Arithmetic Progression)',
+    formula: 'a_n = a + (n-1)d',
+    explanation: 'AP ၏ n-th term တွက်ချက်ပုံဖြစ်ပြီး a သည် ပထမကိန်း (first term)၊ d သည် ကွာခြားချက်ဘုံ (common difference) ဖြစ်သည်။ (Grade 11 • Chapter 2)',
+    category: 'others'
+  },
+  // Grade 12 - Chapter 1 - Complex Numbers
   {
     id: 'c-standard',
-    name: 'Cartesian / Standard Form',
+    name: 'Cartesian / Standard Form (ကတ်တေးရှန်းပုံစံ)',
     formula: 'z = x + yi',
-    explanation: 'Where x is the real part Re(z) and y is the imaginary part Im(z), with x, y ∈ ℝ and i² = -1.',
+    explanation: 'ကိန်းရှုပ်တစ်ခု၏ အခြေခံပုံစံဖြစ်ပြီး x သည် Real Part Re(z) နှင့် y သည် Imaginary Part Im(z) ဖြစ်သည်။ (i² = -1) (Grade 12 • Chapter 1)',
     category: 'complex'
   },
   {
     id: 'c-powers',
-    name: 'Powers of Imaginary Unit i',
+    name: 'Powers of Imaginary Unit i (i ၏ ထပ်ညွှန်းများ)',
     formula: 'i^1 = i, \\quad i^2 = -1, \\quad i^3 = -i, \\quad i^4 = 1',
-    explanation: 'The values of iⁿ repeat in a 4-step cycle. For any integer n, solve using remainder of n ÷ 4.',
+    explanation: 'i ၏ တန်ဖိုးများသည် ၄ ကြိမ်လျှင် တစ်ပတ်လည်ပြီး ထပ်တလဲလဲ ဖြစ်ပေါ်သည်။ n ထပ်ကိန်းကို ၄ နှင့်စား၍ အကြွင်းရှာကာ တွက်ချက်နိုင်သည်။ (Grade 12 • Chapter 1)',
     category: 'complex'
   },
   {
     id: 'c-conjugate',
-    name: 'Complex Conjugate',
+    name: 'Complex Conjugate (Conjugate ကိန်းစပ်)',
     formula: '\\bar{z} = x - yi',
-    explanation: 'Formed by changing the sign of the imaginary part. Properties: z · z̄ = |z|² = x² + y².',
+    explanation: 'ကိန်းရှုပ်တစ်ခု၏ imaginary part ၏ လက္ခဏာကို ပြောင်းလဲခြင်းဖြစ်ပြီး z · z̄ = x² + y² ဖြစ်သည်။ (Grade 12 • Chapter 1)',
     category: 'complex'
   },
   {
     id: 'c-modulus',
-    name: 'Modulus / Absolute Value',
+    name: 'Modulus / Absolute Value (ကိန်းရှုပ်တစ်ခု၏ ပမာဏ)',
     formula: '|z| = \\sqrt{x^2 + y^2}',
-    explanation: 'Represents the distance of the complex number from the origin (0,0) in the complex plane.',
+    explanation: 'Complex Plane ပေါ်ရှိ အမှတ်မှ ကနဦးအမှတ် (origin) သို့ ကွာဝေးသော အကွာအဝေး ဖြစ်သည်။ (Grade 12 • Chapter 1)',
     category: 'complex'
   },
   {
-    id: 'c-polar',
-    name: 'Polar / Trigonometric Form',
-    formula: 'z = r(\\cos\\theta + i\\sin\\theta)',
-    explanation: 'Where r = |z| is the modulus, and θ = arctan(y/x) is the principal argument (in radians or degrees).',
+    id: 'c-ordered-pair-mult',
+    name: 'Multiplication in Ordered Pairs (အစဉ်လိုက်ရံတွဲ မြှောက်ခြင်း)',
+    formula: '(a, b)(c, d) = (ac - bd, ad + bc)',
+    explanation: 'ကိန်းရှုပ်နှစ်ခုကို အစဉ်လိုက်ရံတွဲ (ordered pairs) ပုံစံဖြင့် မြှောက်ခြင်း ပုံသေနည်း ဖြစ်သည်။ (Grade 12 • Chapter 1)',
     category: 'complex'
   },
   {
-    id: 'c-demoivre',
-    name: "De Moivre's Theorem",
-    formula: 'z^n = [r(\\cos\\theta + i\\sin\\theta)]^n = r^n(\\cos n\\theta + i\\sin n\\theta)',
-    explanation: 'Crucial for raising complex numbers to integer powers and finding roots of complex equations.',
+    id: 'c-reciprocal',
+    name: 'Reciprocal of a Complex Number (ကိန်းရှုပ်၏ ပြောင်းပြန်)',
+    formula: 'z^{-1} = \\frac{\\bar{z}}{|z|^2} = \\frac{x - yi}{x^2 + y^2}',
+    explanation: 'ကိန်းရှုပ် z = x + yi (z ≠ 0) ၏ မြှောက်ဖော်ကိန်း ပြောင်းပြန် ဖြစ်သည်။ (Grade 12 • Chapter 1)',
     category: 'complex'
   },
-  // Mathematical Induction
   {
-    id: 'ind-sum-n',
-    name: 'Sum of First n Integers',
-    formula: '\\sum_{r=1}^n r = 1 + 2 + 3 + ... + n = \\frac{n(n+1)}{2}',
-    explanation: 'Formula for the sum of the first n positive consecutive integers.',
-    category: 'induction'
+    id: 'c-division',
+    name: 'Division of Complex Numbers (ကိန်းရှုပ်များ စားခြင်း)',
+    formula: '\\frac{z_1}{z_2} = \\frac{z_1\\bar{z}_2}{z_2\\bar{z}_2} = \\frac{(x_1x_2 + y_1y_2) + (y_1x_2 - x_1y_2)i}{x_2^2 + y_2^2}',
+    explanation: 'ပိုင်းခြေ၏ conjugate နှင့် ပိုင်းဝေ/ပိုင်းခြေ နှစ်ခုလုံးကို မြှောက်ကာ တွက်ချက်ရယူသည်။ (Grade 12 • Chapter 1)',
+    category: 'complex'
   },
+  // Grade 12 - Chapter 2 - Mathematical Induction
   {
-    id: 'ind-sum-n2',
-    name: 'Sum of First n Squares',
-    formula: '\\sum_{r=1}^n r^2 = 1^2 + 2^2 + 3^2 + ... + n^2 = \\frac{n(n+1)(2n+1)}{6}',
-    explanation: 'Formula for the sum of squares of the first n positive consecutive integers.',
-    category: 'induction'
-  },
-  {
-    id: 'ind-sum-n3',
-    name: 'Sum of First n Cubes',
-    formula: '\\sum_{r=1}^n r^3 = 1^3 + 2^3 + 3^3 + ... + n^3 = \\frac{n^2(n+1)^2}{4} = \\left[\\frac{n(n+1)}{2}\\right]^2',
-    explanation: 'The sum of the cubes of the first n integers is exactly the square of their sum.',
+    id: 'ind-principle',
+    name: 'Principle of Mathematical Induction (သက်သေပြခြင်း အခြေခံဥပဒေသ)',
+    formula: '\\text{Base Step: } P(1) \\quad \\text{and} \\quad \\text{Inductive Step: } P(k) \\implies P(k+1)',
+    explanation: 'Base step တွင် P(1) မှန်ကန်ကြောင်း ပြသပြီး၊ Inductive step တွင် P(k) မှန်ကန်က P(k+1) လည်း မှန်ကန်ကြောင်း ပြသသည်။ (Grade 12 • Chapter 2)',
     category: 'induction'
   }
 ];
@@ -85,7 +101,7 @@ const FORMULAS: FormulaItem[] = [
 export const FormulaCheatSheet: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'all' | 'complex' | 'induction'>('all');
+  const [activeTab, setActiveTab] = useState<'all' | 'complex' | 'induction' | 'others'>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleCopy = (formula: string, id: string) => {
@@ -185,8 +201,9 @@ export const FormulaCheatSheet: React.FC = () => {
                 <div className="flex bg-slate-50 border border-slate-100 rounded-xl p-1 justify-stretch">
                   {[
                     { id: 'all', label: 'All' },
-                    { id: 'complex', label: 'Complex Numbers' },
-                    { id: 'induction', label: 'Induction' }
+                    { id: 'complex', label: 'Complex' },
+                    { id: 'induction', label: 'Induction' },
+                    { id: 'others', label: 'Others' }
                   ].map((tab) => (
                     <button
                       key={tab.id}
@@ -235,7 +252,7 @@ export const FormulaCheatSheet: React.FC = () => {
 
                       {/* Header title */}
                       <span className="text-[9px] font-black uppercase text-blue-500 tracking-wider">
-                        {f.category === 'complex' ? 'Chapter 1' : 'Chapter 2'} • Formula Card
+                        {f.category === 'complex' ? 'Grade 12 • Chapter 1' : f.category === 'induction' ? 'Grade 12 • Chapter 2' : 'Grade 10/11 • Core'} • Formula Card
                       </span>
                       <h4 className="font-extrabold text-[13px] md:text-sm text-slate-800 leading-tight mt-1">
                         {f.name}

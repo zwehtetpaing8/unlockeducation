@@ -334,6 +334,14 @@ const PastPapers: React.FC = () => {
   const fetchPaperData = async () => {
     setLoading(true);
     setError(null);
+
+    const hasKeys = import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY;
+    if (!hasKeys) {
+      setPapers(MOCK_PAPERS);
+      setLoading(false);
+      return;
+    }
+
     try {
       const { data, error: fetchError } = await supabase
         .from('past_papers')
@@ -349,7 +357,7 @@ const PastPapers: React.FC = () => {
         setPapers(MOCK_PAPERS);
       }
     } catch (err: any) {
-      console.error('Failed to fetch past papers:', err);
+      console.warn('Failed to fetch past papers, using fallback mock data:', err);
       // In development or error state, we still want to show something
       setPapers(MOCK_PAPERS);
       // Only set error if we really have no data

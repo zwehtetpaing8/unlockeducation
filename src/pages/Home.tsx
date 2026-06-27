@@ -42,15 +42,15 @@ const Home: React.FC = () => {
       <div className="flex flex-col gap-4 text-left">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 text-blue-600 text-[10px] w-fit font-black uppercase tracking-wider">
           <Sparkles size={12} className="animate-pulse" />
-          <span>LMS Portal Active • Grade 12 Curriculum</span>
+          <span>LMS Portal Active • My Student Dashboard</span>
         </div>
         
         <div className="space-y-1">
           <h1 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight leading-none uppercase">
-            Hello, Learner! 👋
+            My Dashboard 👋
           </h1>
           <p className="text-slate-500 text-xs sm:text-sm font-medium">
-            Welcome to the advanced LMS portal designed to accelerate your mathematics education.
+            Welcome to your personalized cockpit designed to track and accelerate your mathematics education.
           </p>
         </div>
       </div>
@@ -123,7 +123,7 @@ const Home: React.FC = () => {
               Curriculum Theory
             </h4>
             <p className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wide">
-              သင်္ချာသီအိုရီများ
+              Study Concepts & Theory
             </p>
           </div>
         </Link>
@@ -140,7 +140,7 @@ const Home: React.FC = () => {
               Past Papers
             </h4>
             <p className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wide">
-              မေးခွန်းဟောင်းများ
+              Matriculation Exams
             </p>
           </div>
         </Link>
@@ -157,7 +157,7 @@ const Home: React.FC = () => {
               Math Flashcards
             </h4>
             <p className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wide">
-              ပုံသေနည်းကတ်များ
+              Formula Study Cards
             </p>
           </div>
         </Link>
@@ -174,7 +174,7 @@ const Home: React.FC = () => {
               Interactive Search
             </h4>
             <p className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wide">
-              ရှာဖွေလေ့လာရန်
+              Find Topics Instantly
             </p>
           </div>
         </Link>

@@ -169,18 +169,22 @@ export const curriculumService = {
   },
 };
 
-const chapter1IntroContent = `# Introduction to Complex Numbers — A Journey Through Time
+const chapter1IntroContent = `## 1.1 Introduction to Complex Numbers — A Journey Through Time
 
-Complex Numbers ဆိုသည်မှာ သင်္ချာလောက၏ စိတ်လှုပ်ရှားစရာ အကောင်းဆုံးနှင့် အဆန်းကြယ်ဆုံး စိတ်ကူးစိတ်သန်းများထဲမှ တစ်ခုဖြစ်ပါသည်။ အစပိုင်းတွင် ထူးဆန်းသည်ဟု ထင်ရသော်လည်း၊ ၎င်းတို့၏ စွမ်းအားမှာ သိပ္ပံနှင့် နည်းပညာလောကအတွက် မရှိမဖြစ်လိုအပ်လှပါသည်။ ဤသင်ခန်းစာတွင် ကျွန်ုပ်တို့သည် သာမန် Real Numbers များ၏ နယ်ပယ်မှကျော်လွန်၍ အနှုတ်ကိန်းများ၏ Square Root တန်ဖိုးများကိုပါ အဓိပ္ပာယ်ဖွင့်ဆိုနိုင်မည့် ပိုမိုကျယ်ပြန့်သော Universe သစ်ဆီသို့ အတူတကွ ခရီးစတင်ကြပါမည်။
-
-သင်္ချာပညာရှင်များသည် Complex Numbers များကို အပျော်သက်သက် တီထွင်ခဲ့ကြခြင်းမဟုတ်ဘဲ၊ လက်တွေ့ဘဝတွင် ကြုံတွေ့ရသော Algebra ဆိုင်ရာ ပြဿနာများကို ဖြေရှင်းရန် ကြိုးပမ်းရာမှ သဘာဝအလျောက် ပေါ်ထွက်လာခဲ့ခြင်းဖြစ်ပါသည်။ ဤသို့ရှိသော ရှာဖွေတွေ့ရှိမှုက သင်္ချာနယ်ပယ်တစ်ခုလုံးကို ပုံသဏ္ဌာန်သစ်ဖြင့် ပြန်လည်အသက်သွင်းစေခဲ့ပါသည်။
-
----
+\`\`\`note
+{
+  "type": "info",
+  "title": "Welcome to Complex Numbers",
+  "content": "Complex Numbers (ကိန်းရှုပ်များ) ဆိုသည်မှာ သင်္ချာလောက၏ စိတ်လှုပ်ရှားစရာ အကောင်းဆုံးနှင့် အဆန်းကြယ်ဆုံး စိတ်ကူးစိတ်သန်းများထဲမှ တစ်ခုဖြစ်ပါသည်။ အစပိုင်းတွင် ထူးဆန်းသည်ဟု ထင်ရသော်လည်း, ၎င်းတို့၏ စွမ်းအားမှာ သိပ္ပံနှင့် နည်းပညာလောကအတွက် မရှိမဖြစ်လိုအပ်လှပါသည်။\\n\\nဤသင်ခန်းစာတွင် ကျွန်ုပ်တို့သည် သာမန် Real Numbers များ၏ နယ်ပယ်မှကျော်လွန်၍ အနှုတ်ကိန်းများ၏ Square Root တန်ဖိုးများကိုပါ အဓိပ္ပာယ်ဖွင့်ဆိုနိုင်မည့် ပိုမိုကျယ်ပြန့်သော Universe သစ်ဆီသို့ အတူတကွ ခရီးစတင်ကြပါမည်।"
+}
+\`\`\`
 
 ### Why Did Complex Numbers Arise?
 
-၁၅၀၀ ပြည့်နှစ်များအတွင်း သင်္ချာပညာရှင်များသည် Polynomial Equations များ၊ အထူးသဖြင့် Cubic Equations များကို ဖြေရှင်းရန် အလွန်ခက်ခဲစွာ ကြိုးပမ်းခဲ့ကြရပါသည်။ Real Numbers များသည် ပြဿနာအတော်များများအတွက် အဆင်ပြေသော်လည်း၊ အချို့သော Algebraic Formulas များကို တွက်ချက်ရာတွင် Traditional Number Line ပေါ်တွင် အဓိပ္ပာယ်မရှိသော $\\sqrt{-1}$ ကဲ့သို့သော Expression များ ပေါ်ထွက်လာခဲ့ပါသည်။
-Cubic Equation ဖြေရှင်းမှု ပုံသေနည်း (Cardano's Formula) ကို အသုံးပြုသည့်အခါ အနှုတ်ကိန်းများ၏ Square Root ကို ရှောင်လွှဲ၍မရ ဖြစ်လာခဲ့ပါသည်။ ဤသို့ဖြင့် Real Numbers စနစ်တစ်ခုတည်းနှင့် မလုံလောက်တော့ဘဲ၊ သင်္ချာနယ်ပယ်တိုးတက်ရန် $\\sqrt{-1}$ ကို တရားဝင် တည်ဆောက်သတ်မှတ်ရန် လိုအပ်လာခဲ့သည်။
+သင်္ချာပညာရှင်များသည် Complex Numbers များကို အပျော်သက်သက် တီထွင်ခဲ့ကြခြင်းမဟုတ်ဘဲ, လက်တွေ့ဘဝတွင် ကြုံတွေ့ရသော Algebra ဆိုင်ရာ ပြဿနာများကို ဖြေရှင်းရန် ကြိုးပမ်းရာမှ သဘာဝအလျောက် ပေါ်ထွက်လာခဲ့ခြင်းဖြစ်ပါသည်။ ဤသို့ရှိသော ရှာဖွေတွေ့ရှိမှုက သင်္ချာနယ်ပယ်တစ်ခုလုံးကို ပုံသဏ္ဌာန်သစ်ဖြင့် ပြန်လည်အသက်သွင်းစေခဲ့ပါသည်။
+
+၁၅၀၀ ပြည့်နှစ်များအတွင်း သင်္ချာပညာရှင်များသည် Polynomial Equations များ, အထူးသဖြင့် Cubic Equations များကို ဖြေရှင်းရန် အလွန်ခက်ခဲစွာ ကြိုးပမ်းခဲ့ကြရပါသည်။ Real Numbers များသည် ပြဿနာအတော်များများအတွက် အဆင်ပြေသော်လည်း, အချို့သော Algebraic Formulas များကို တွက်ချက်ရာတွင် Traditional Number Line ပေါ်တွင် အဓိပ္ပာယ်မရှိသော $\\sqrt{-1}$ ကဲ့သို့သော Expression များ ပေါ်ထွက်လာခဲ့ပါသည်။
+Cubic Equation ဖြေရှင်းမှု ပုံသေနည်း (Cardano's Formula) ကို အသုံးပြုသည့်အခါ အနှုတ်ကိန်းများ၏ Square Root ကို ရှောင်လွှဲ၍မရ ဖြစ်လာခဲ့ပါသည်။ ဤသို့ဖြင့် Real Numbers စနစ်တစ်ခုတည်းနှင့် မလုံလောက်တော့ဘဲ, သင်္ချာနယ်ပယ်တိုးတက်ရန် $\\sqrt{-1}$ ကို တရားဝင် တည်ဆောက်သတ်မှတ်ရန် လိုအပ်လာခဲ့သည်။
 
 Algebra ကို အပြည့်အစုံ ခြုံငုံဖြေရှင်းနိုင်ရန်နှင့် Equations များကို တစ်သမတ်တည်း တွက်ချက်နိုင်ရန်အတွက် သင်္ချာပညာရှင်များသည် ဤ "Imaginary Quantities" များကို လက်ခံအသုံးပြုရန် ဖိအားပေးခြင်း ခံခဲ့ရပါသည်။ ဤသို့ဖြင့် Complex Number ဟူသော တော်လှန်ရေးအယူအဆတစ်ခု မွေးဖွားလာခဲ့ပါသည်။
 
@@ -543,14 +547,15 @@ $$
 
 ### 🗝️ Solutions to Exercise 1.2
 
-<details class="bg-slate-50 p-4 rounded-xl border border-slate-200 my-4 cursor-pointer">
-<summary class="font-extrabold text-blue-600 select-none">Show/Hide Solutions for Exercise 1.2</summary>
+### Questions & Step-by-Step Solutions
 
-<div class="mt-4 space-y-6">
+#### **1. Compute.**
 
-**1. Compute.**
+##### (a) $(2,0)(2,5)+(3,-2)(0,1)$
+<details>
+<summary>Click to view solution</summary>
+<div>
 
-**(a)**
 $$
 \\begin{aligned}
 (2,0)(2,5)+(3,-2)(0,1)
@@ -560,7 +565,14 @@ $$
 \\end{aligned}
 $$
 
-**(b)**
+</div>
+</details>
+
+##### (b) $(2,-5)(-1,0)+(1,0)(5,1)$
+<details>
+<summary>Click to view solution</summary>
+<div>
+
 $$
 \\begin{aligned}
 (2,-5)(-1,0)+(1,0)(5,1)
@@ -570,7 +582,14 @@ $$
 \\end{aligned}
 $$
 
-**(c)**
+</div>
+</details>
+
+##### (c) $(-3,-2)(-2,-3)+(-2,-3)(-3,-2)$
+<details>
+<summary>Click to view solution</summary>
+<div>
+
 $$
 \\begin{aligned}
 (-3,-2)(-2,-3)+(-2,-3)(-3,-2)
@@ -580,7 +599,14 @@ $$
 \\end{aligned}
 $$
 
-**(d)**
+</div>
+</details>
+
+##### (d) $(1,0)(0,1)+(0,1)(1,0)$
+<details>
+<summary>Click to view solution</summary>
+<div>
+
 $$
 \\begin{aligned}
 (1,0)(0,1)+(0,1)(1,0)
@@ -590,9 +616,18 @@ $$
 \\end{aligned}
 $$
 
-**2. Compute.**
+</div>
+</details>
 
-**(a)**
+---
+
+#### **2. Compute.**
+
+##### (a) $(3+2i)(3-2i)+(-5+7i)(-1-i)$
+<details>
+<summary>Click to view solution</summary>
+<div>
+
 $$
 \\begin{aligned}
 (3+2i)(3-2i)+(-5+7i)(-1-i)
@@ -602,7 +637,14 @@ $$
 \\end{aligned}
 $$
 
-**(b)**
+</div>
+</details>
+
+##### (b) $(-1+i)(1-i)+(2+3i)$
+<details>
+<summary>Click to view solution</summary>
+<div>
+
 $$
 \\begin{aligned}
 (-1+i)(1-i)+(2+3i)
@@ -612,7 +654,14 @@ $$
 \\end{aligned}
 $$
 
-**(c)**
+</div>
+</details>
+
+##### (c) $(1+i)(1-i)+(-2+i)(-2+i)$
+<details>
+<summary>Click to view solution</summary>
+<div>
+
 $$
 \\begin{aligned}
 (1+i)(1-i)+(-2+i)(-2+i)
@@ -622,7 +671,14 @@ $$
 \\end{aligned}
 $$
 
-**(d)**
+</div>
+</details>
+
+##### (d) $(3+2i)+(7-i)(-3+3i)$
+<details>
+<summary>Click to view solution</summary>
+<div>
+
 $$
 \\begin{aligned}
 (3+2i)+(7-i)(-3+3i)
@@ -634,6 +690,7 @@ $$
 
 </div>
 </details>
+
 `;
 
 const chapter1BasicContent = `# Pure Imaginary Unit $i$
@@ -782,14 +839,15 @@ $$
 
 ### 🗝️ Solutions to Exercise 1.1
 
-<details class="bg-slate-50 p-4 rounded-xl border border-slate-200 my-4 cursor-pointer">
-<summary class="font-extrabold text-blue-600 select-none">Show/Hide Solutions for Q1</summary>
+### Questions & Step-by-Step Solutions
 
-<div class="mt-4 space-y-6">
+#### **1. Solve the following equations.**
 
-**1. Solve the following equations.**
+##### (a) $x^2-6x+10=0$
+<details>
+<summary>Click to view solution</summary>
+<div>
 
-**(a)** $x^2-6x+10=0$
 $$
 \\begin{aligned}
   x^2-6x &= -10\\\\
@@ -800,7 +858,14 @@ $$
 \\end{aligned}
 $$
 
-**(b)** $-2x^2+4x-3=0$
+</div>
+</details>
+
+##### (b) $-2x^2+4x-3=0$
+<details>
+<summary>Click to view solution</summary>
+<div>
+
 $$
 \\begin{aligned}
   x^2-2x+\\frac{3}{2} &= 0\\\\
@@ -811,7 +876,14 @@ $$
 \\end{aligned}
 $$
 
-**(c)** $5x^2-2x+1=0$
+</div>
+</details>
+
+##### (c) $5x^2-2x+1=0$
+<details>
+<summary>Click to view solution</summary>
+<div>
+
 $$
 \\begin{aligned}
   x^2-\\frac{2}{5}x &= -\\frac{1}{5}\\\\
@@ -822,7 +894,14 @@ $$
 \\end{aligned}
 $$
 
-**(d)** $3x^2+7x+5=0$
+</div>
+</details>
+
+##### (d) $3x^2+7x+5=0$
+<details>
+<summary>Click to view solution</summary>
+<div>
+
 $$
 \\begin{aligned}
   x^2+\\frac{7}{3}x &= -\\frac{5}{3}\\\\
@@ -836,14 +915,15 @@ $$
 </div>
 </details>
 
-<details class="bg-slate-50 p-4 rounded-xl border border-slate-200 my-4 cursor-pointer">
-<summary class="font-extrabold text-blue-600 select-none">Show/Hide Solutions for Q2 (With Checks)</summary>
+---
 
-<div class="mt-4 space-y-6">
+#### **2. Solve the following equations and check your answers.**
 
-**2. Solve the following equations and check your answers.**
+##### (a) $x^2-2x+4=0$
+<details>
+<summary>Click to view solution</summary>
+<div>
 
-**(a)** $x^2-2x+4=0$
 $$
 \\begin{aligned}
   x^2-2x &= -4\\\\
@@ -855,16 +935,23 @@ $$
 $$
 
 **Check:**
-For $1+\\sqrt{3}\\,i$:
+* For $1+\\sqrt{3}\\,i$:
 $$
 (1+\\sqrt{3}\\,i)^2-2(1+\\sqrt{3}\\,i)+4 = (1+2\\sqrt{3}\\,i-3)-2-2\\sqrt{3}\\,i+4 = 0
 $$
-For $1-\\sqrt{3}\\,i$:
+* For $1-\\sqrt{3}\\,i$:
 $$
 (1-\\sqrt{3}\\,i)^2-2(1-\\sqrt{3}\\,i)+4 = (1-2\\sqrt{3}\\,i-3)-2+2\\sqrt{3}\\,i+4 = 0
 $$
 
-**(b)** $x^2-4x+5=0$
+</div>
+</details>
+
+##### (b) $x^2-4x+5=0$
+<details>
+<summary>Click to view solution</summary>
+<div>
+
 $$
 \\begin{aligned}
   x^2-4x &= -5\\\\
@@ -876,11 +963,11 @@ $$
 $$
 
 **Check:**
-For $2+i$:
+* For $2+i$:
 $$
 (2+i)^2-4(2+i)+5 = (4+4i-1)-8-4i+5 = 0
 $$
-For $2-i$:
+* For $2-i$:
 $$
 (2-i)^2-4(2-i)+5 = (4-4i-1)-8+4i+5 = 0
 $$
@@ -888,14 +975,13 @@ $$
 </div>
 </details>
 
-<details class="bg-slate-50 p-4 rounded-xl border border-slate-200 my-4 cursor-pointer">
-<summary class="font-extrabold text-blue-600 select-none">Show/Hide Solutions for Q3 (Powers of i)</summary>
+---
 
-<div class="mt-4 space-y-4">
+#### **3. Find the value of $i^n$ for every positive integer $n$.**
+<details>
+<summary>Click to view solution</summary>
+<div>
 
-**3. Find the value of $i^n$ for every positive integer $n$.**
-
-**Solution:**
 $$i^0 = 1$$
 
 $$
@@ -908,10 +994,10 @@ $$
 $$
 
 **General Pattern Rules:**
-* If $n$ is divisible by 4 (remainder = 0) $\implies i^n=1$
-* If $n$ has a remainder of 1 when divided by 4 $\implies i^n=i$
-* If $n$ has a remainder of 2 when divided by 4 $\implies i^n=-1$
-* If $n$ has a remainder of 3 when divided by 4 $\implies i^n=-i$
+* If $n$ is divisible by 4 (remainder = 0) $\\implies i^n=1$
+* If $n$ has a remainder of 1 when divided by 4 $\\implies i^n=i$
+* If $n$ has a remainder of 2 when divided by 4 $\\implies i^n=-1$
+* If $n$ has a remainder of 3 when divided by 4 $\\implies i^n=-i$
 
 </div>
 </details>
@@ -922,9 +1008,457 @@ $$
 {
   "type": "tip",
   "title": "Note: Sum of Four Consecutive Powers",
-  "content": "Any four consecutive powers of $i$ always have a sum of $0$. \\n\\nFor example:\\n* $i^0+i^1+i^2+i^3 = 1+i-1-i = 0$\\n* $i^1+i^2+i^3+i^4 = i-1-i+1 = 0$\\n* $i^2+i^3+i^4+i^5 = -1-i+1+i = 0$"
+  "content": "Any four consecutive powers of $i$ always have a sum of $0$. \\\\n\\\\nFor example:\\\\n* $i^0+i^1+i^2+i^3 = 1+i-1-i = 0$\\\\n* $i^1+i^2+i^3+i^4 = i-1-i+1 = 0$\\\\n* $i^2+i^3+i^4+i^5 = -1-i+1+i = 0$"
 }
 \`\`\`
+`;
+
+const chapter1OperationsContent = `## 1.3 Operations on Complex Numbers
+
+\`\`\`note
+{
+  "type": "info",
+  "title": "Division of Complex Numbers",
+  "content": "Addition, subtraction, and multiplication have already been studied. In this section, we only focus on the **division** of complex numbers.\\\\n\\\\nTo divide by a complex number, multiply both the numerator and the denominator by the **conjugate** of the denominator."
+}
+\`\`\`
+
+### Conjugate of a Complex Number ($\\bar{z}$)
+
+If $z = x + yi$, then the **conjugate** of $z$ is written as $\\bar{z}$ (pronounced "z-bar"), where:
+
+$$
+\\bar{z} = x - yi
+$$
+
+An important property of the conjugate is that the product of $z$ and $\\bar{z}$ is always a real number:
+
+$$
+z\\bar{z} = (x + yi)(x - yi) = x^2 + y^2
+$$
+
+This algebraic property is what allows us to eliminate the imaginary unit $i$ from the denominator.
+
+---
+
+### The Division Rule
+
+Let $z_1 = x_1 + y_1i$ and $z_2 = x_2 + y_2i$, where $z_2 \\neq 0$. The conjugate of the denominator is $\\bar{z}_2 = x_2 - y_2i$.
+
+To find $\\frac{z_1}{z_2}$, we multiply the numerator and the denominator by $\\bar{z}_2$:
+
+$$
+\\begin{aligned}
+\\frac{z_1}{z_2} &= \\frac{z_1}{z_2} \\cdot \\frac{\\bar{z}_2}{\\bar{z}_2} \\\\
+&= \\frac{(x_1 + y_1i)(x_2 - y_2i)}{(x_2 + y_2i)(x_2 - y_2i)} \\\\
+&= \\frac{(x_1x_2 + y_1y_2) + (x_2y_1 - x_1y_2)i}{x_2^2 + y_2^2} \\\\
+&= \\frac{x_1x_2 + y_1y_2}{x_2^2 + y_2^2} + \\left(\\frac{x_2y_1 - x_1y_2}{x_2^2 + y_2^2}\\right)i
+\\end{aligned}
+$$
+
+---
+
+## Example 4
+
+Calculate $\\dfrac{2+3i}{3+i}$.
+
+### Solution
+
+$$
+\\begin{aligned}
+\\frac{2+3i}{3+i} &= \\frac{(2+3i)(3-i)}{(3+i)(3-i)} \\\\
+&= \\frac{6-2i+9i-3i^2}{9-i^2} \\\\
+&= \\frac{6+7i-3(-1)}{9-(-1)} \\\\
+&= \\frac{9+7i}{10} \\\\
+&= \\frac{9}{10} + \\frac{7}{10}i
+\\end{aligned}
+$$
+
+---
+
+### Reciprocal of a Complex Number
+
+Let $z = x + yi$ and $z \\neq 0$. Since $z \\neq 0$, $x$ and $y$ are not both zero; therefore, $x^2 + y^2 \\neq 0$.
+
+#### Finding $\\dfrac{1}{z}$
+
+To find the reciprocal, we multiply the numerator and denominator by the conjugate of the denominator, which is $\\bar{z} = x - yi$:
+
+$$
+\\begin{aligned}
+\\frac{1}{z} &= \\frac{1}{x+yi} \\\\
+&= \\frac{1}{x+yi} \\cdot \\frac{x-yi}{x-yi} \\\\
+&= \\frac{x-yi}{(x+yi)(x-yi)} \\\\
+&= \\frac{x-yi}{x^2+y^2} \\\\
+&= \\frac{x}{x^2+y^2} - \\frac{y}{x^2+y^2}i
+\\end{aligned}
+$$
+
+#### Verification
+
+Let us compute the product $z \\left(\\frac{1}{z}\\right)$:
+
+$$
+\\begin{aligned}
+z\\left(\\frac{1}{z}\\right) &= (x+yi)\\left(\\frac{x-yi}{x^2+y^2}\\right) \\\\
+&= \\frac{(x+yi)(x-yi)}{x^2+y^2} \\\\
+&= \\frac{x^2+y^2}{x^2+y^2} \\\\
+&= 1
+\\end{aligned}
+$$
+
+Hence, $z\\left(\\frac{1}{z}\\right) = 1$.
+
+Therefore, for any non-zero complex number $z$, $\\frac{1}{z}$ is the **multiplicative inverse** of $z$ and is denoted by $z^{-1}$.
+
+Division of complex numbers can also be defined as:
+
+$$
+\\boxed{\\frac{z_1}{z_2} = z_1 z_2^{-1}, \\qquad z_2 \\neq 0}
+$$
+
+\`\`\`note
+{
+  "type": "tip",
+  "title": "Practical Note",
+  "content": "Using the method shown in **Example 4** (multiplying numerator and denominator directly by the conjugate of the denominator) is usually much easier in practice than using the formula $z_1 z_2^{-1}$. We recommend calculating division using that direct approach!"
+}
+\`\`\`
+
+---
+
+## Exercise 1.3
+
+Given:
+* $z_1 = -2 + 3i$
+* $z_2 = 5 + 2i$
+* $\\overline{z_1} = -2 - 3i$
+* $\\overline{z_2} = 5 - 2i$
+
+---
+
+### Questions & Step-by-Step Solutions
+
+#### (a) $z_1^2 - 2z_1 + 1$
+<details>
+<summary>Click to view solution</summary>
+<div>
+
+$$
+\\begin{aligned}
+z_1^2 - 2z_1 + 1 &= (-2 + 3i)^2 - 2(-2 + 3i) + 1 \\\\
+&= (4 - 12i + 9i^2) + (4 - 6i) + 1 \\\\
+&= (4 - 9 + 4 + 1) + (-12i - 6i) \\\\
+&= -18i
+\\end{aligned}
+$$
+
+</div>
+</details>
+
+#### (b) $3z_2^2 + 2z_2 - 1$
+<details>
+<summary>Click to view solution</summary>
+<div>
+
+$$
+\\begin{aligned}
+3z_2^2 + 2z_2 - 1 &= 3(5 + 2i)^2 + 2(5 + 2i) - 1 \\\\
+&= 3(25 + 20i + 4i^2) + 10 + 4i - 1 \\\\
+&= 3(21 + 20i) + 9 + 4i \\\\
+&= 63 + 60i + 9 + 4i \\\\
+&= 72 + 64i
+\\end{aligned}
+$$
+
+</div>
+</details>
+
+#### (c) $z_1 \\overline{z_2} + z_2 \\overline{z_1}$
+<details>
+<summary>Click to view solution</summary>
+<div>
+
+$$
+\\begin{aligned}
+z_1 \\bar{z}_2 + z_2 \\bar{z}_1 &= (-2 + 3i)(5 - 2i) + (5 + 2i)(-2 - 3i) \\\\
+&= (-10 + 4i + 15i - 6i^2) + (-10 - 15i - 4i + 6i^2) \\\\
+&= (-4 + 19i) + (-4 - 19i) \\\\
+&= -8
+\\end{aligned}
+$$
+
+</div>
+</details>
+
+#### (d) $\\dfrac{1}{z_1}$
+<details>
+<summary>Click to view solution</summary>
+<div>
+
+$$
+\\begin{aligned}
+\\frac{1}{z_1} &= \\frac{1}{-2 + 3i} \\cdot \\frac{-2 - 3i}{-2 - 3i} \\\\
+&= \\frac{-2 - 3i}{(-2)^2 + 3^2} \\\\
+&= -\\frac{2}{13} - \\frac{3}{13}i
+\\end{aligned}
+$$
+
+</div>
+</details>
+
+#### (e) $\\dfrac{1}{z_2}$
+<details>
+<summary>Click to view solution</summary>
+<div>
+
+$$
+\\begin{aligned}
+\\frac{1}{z_2} &= \\frac{1}{5 + 2i} \\cdot \\frac{5 - 2i}{5 - 2i} \\\\
+&= \\frac{5 - 2i}{5^2 + 2^2} \\\\
+&= \\frac{5}{29} - \\frac{2}{29}i
+\\end{aligned}
+$$
+
+</div>
+</details>
+
+#### (f) $\\dfrac{1}{z_1 z_2}$
+<details>
+<summary>Click to view solution</summary>
+<div>
+
+First find the product $z_1 z_2$:
+$$
+\\begin{aligned}
+z_1 z_2 &= (-2 + 3i)(5 + 2i) \\\\
+&= -10 - 4i + 15i + 6i^2 \\\\
+&= -16 + 11i
+\\end{aligned}
+$$
+
+Now compute the reciprocal:
+$$
+\\begin{aligned}
+\\frac{1}{z_1 z_2} &= \\frac{1}{-16 + 11i} \\cdot \\frac{-16 - 11i}{-16 - 11i} \\\\
+&= \\frac{-16 - 11i}{(-16)^2 + 11^2} \\\\
+&= \\frac{-16 - 11i}{256 + 121} \\\\
+&= -\\frac{16}{377} - \\frac{11}{377}i
+\\end{aligned}
+$$
+
+</div>
+</details>
+
+#### (g) $\\dfrac{z_1}{z_2}$
+<details>
+<summary>Click to view solution</summary>
+<div>
+
+$$
+\\begin{aligned}
+\\frac{z_1}{z_2} &= \\frac{-2 + 3i}{5 + 2i} \\cdot \\frac{5 - 2i}{5 - 2i} \\\\
+&= \\frac{(-2 + 3i)(5 - 2i)}{5^2 + 2^2} \\\\
+&= \\frac{-10 + 4i + 15i - 6i^2}{29} \\\\
+&= \\frac{-4 + 19i}{29} \\\\
+&= -\\frac{4}{29} + \\frac{19}{29}i
+\\end{aligned}
+$$
+
+</div>
+</details>
+
+#### (h) $\\dfrac{\\overline{z_1}}{\\overline{z_2}}$
+<details>
+<summary>Click to view solution</summary>
+<div>
+
+$$
+\\begin{aligned}
+\\frac{\\bar{z}_1}{\\bar{z}_2} &= \\frac{-2 - 3i}{5 - 2i} \\cdot \\frac{5 + 2i}{5 + 2i} \\\\
+&= \\frac{(-2 - 3i)(5 + 2i)}{5^2 + 2^2} \\\\
+&= \\frac{-10 - 4i - 15i - 6i^2}{29} \\\\
+&= \\frac{-4 - 19i}{29} \\\\
+&= -\\frac{4}{29} - \\frac{19}{29}i
+\\end{aligned}
+$$
+
+</div>
+</details>
+
+#### (i) $\\dfrac{z_2}{z_1}$
+<details>
+<summary>Click to view solution</summary>
+<div>
+
+$$
+\\begin{aligned}
+\\frac{z_2}{z_1} &= \\frac{5 + 2i}{-2 + 3i} \\cdot \\frac{-2 - 3i}{-2 - 3i} \\\\
+&= \\frac{(5 + 2i)(-2 - 3i)}{(-2)^2 + 3^2} \\\\
+&= \\frac{-10 - 15i - 4i - 6i^2}{13} \\\\
+&= \\frac{-4 - 19i}{13} \\\\
+&= -\\frac{4}{13} - \\frac{19}{13}i
+\\end{aligned}
+$$
+
+</div>
+</details>
+
+#### (j) $\\overline{\\left(\\dfrac{z_2}{z_1}\\right)}$
+<details>
+<summary>Click to view solution</summary>
+<div>
+
+Using the value of $\\frac{z_2}{z_1}$ from **(i)**:
+$$
+\\begin{aligned}
+\\overline{\\left(\\frac{z_2}{z_1}\\right)} &= \\overline{\\left(-\\frac{4}{13} - \\frac{19}{13}i\\right)} \\\\
+&= -\\frac{4}{13} + \\frac{19}{13}i
+\\end{aligned}
+$$
+
+</div>
+</details>
+
+#### (k) $\\dfrac{\\overline{z_1} z_2}{z_1 \\overline{z_2}}$
+<details>
+<summary>Click to view solution</summary>
+<div>
+
+$$
+\\begin{aligned}
+\\frac{\\bar{z}_1 z_2}{z_1 \\bar{z}_2} &= \\frac{(-2 - 3i)(5 + 2i)}{(-2 + 3i)(5 - 2i)} \\\\
+&= \\frac{-4 - 19i}{-4 + 19i} \\cdot \\frac{-4 - 19i}{-4 - 19i} \\\\
+&= \\frac{(-4 - 19i)^2}{(-4)^2 + 19^2} \\\\
+&= \\frac{16 + 152i + 361i^2}{16 + 361} \\\\
+&= \\frac{-345 + 152i}{377} \\\\
+&= -\\frac{345}{377} + \\frac{152}{377}i
+\\end{aligned}
+$$
+
+</div>
+</details>
+
+#### (l) $\\dfrac{z_2}{\\overline{z_1}} + \\dfrac{z_1}{\\overline{z_2}}$
+<details>
+<summary>Click to view solution</summary>
+<div>
+
+$$
+\\begin{aligned}
+\\frac{z_2}{\\bar{z}_1} + \\frac{z_1}{\\bar{z}_2} &= \\frac{5 + 2i}{-2 - 3i} + \\frac{-2 + 3i}{5 - 2i} \\\\
+&= \\frac{(5 + 2i)(-2 + 3i)}{13} + \\frac{(-2 + 3i)(5 + 2i)}{29} \\\\
+&= \\frac{-16 + 11i}{13} + \\frac{-16 + 11i}{29} \\\\
+&= \\left(-\\frac{16}{13} - \\frac{16}{29}\\right) + \\left(\\frac{11}{13} + \\frac{11}{29}\\right)i \\\\
+&= -\\frac{672}{377} + \\frac{462}{377}i
+\\end{aligned}
+$$
+
+</div>
+</details>
+
+---
+
+### Proof Questions
+
+#### 2. Let $z_1 = 3 - 2i$ and $z_2 = -1 + 4i$. Show that:
+
+##### (a) $\\overline{(z_1 + z_2)} = \\overline{z_1} + \\overline{z_2}$
+<details>
+<summary>Click to view proof</summary>
+<div>
+
+Given $z_1 = 3 - 2i$ and $z_2 = -1 + 4i$.
+We have $\\overline{z_1} = 3 + 2i$ and $\\overline{z_2} = -1 - 4i$.
+
+**Left-Hand Side (LHS):**
+$$
+\\begin{aligned}
+z_1 + z_2 &= (3 - 2i) + (-1 + 4i) \\\\
+&= 2 + 2i \\\\
+\\overline{(z_1 + z_2)} &= \\overline{2 + 2i} = 2 - 2i
+\\end{aligned}
+$$
+
+**Right-Hand Side (RHS):**
+$$
+\\begin{aligned}
+\\overline{z_1} + \\overline{z_2} &= (3 + 2i) + (-1 - 4i) \\\\
+&= 2 - 2i
+\end{aligned}
+$$
+
+Since LHS = RHS, we have shown that $\\overline{(z_1 + z_2)} = \\overline{z_1} + \\overline{z_2}$.
+
+</div>
+</details>
+
+##### (b) $\\overline{z_1 z_2} = \\overline{z_1} \\, \\overline{z_2}$
+<details>
+<summary>Click to view proof</summary>
+<div>
+
+**Left-Hand Side (LHS):**
+$$
+\\begin{aligned}
+z_1 z_2 &= (3 - 2i)(-1 + 4i) \\\\
+&= -3 + 12i + 2i - 8i^2 \\\\
+&= 5 + 14i \\\\
+\\overline{z_1 z_2} &= \\overline{5 + 14i} = 5 - 14i
+\\end{aligned}
+$$
+
+**Right-Hand Side (RHS):**
+$$
+\\begin{aligned}
+\\overline{z_1} \\, \\overline{z_2} &= (3 + 2i)(-1 - 4i) \\\\
+&= -3 - 12i - 2i - 8i^2 \\\\
+&= 5 - 14i
+\\end{aligned}
+$$
+
+Since LHS = RHS, we have shown that $\\overline{z_1 z_2} = \\overline{z_1} \\, \\overline{z_2}$.
+
+</div>
+</details>
+
+##### (c) $\\overline{\\left(\\dfrac{z_1}{z_2}\\right)} = \\dfrac{\\overline{z_1}}{\\overline{z_2}}$
+<details>
+<summary>Click to view proof</summary>
+<div>
+
+**Left-Hand Side (LHS):**
+First calculate $\\frac{z_1}{z_2}$:
+$$
+\\begin{aligned}
+\\frac{z_1}{z_2} &= \\frac{3 - 2i}{-1 + 4i} \\cdot \\frac{-1 - 4i}{-1 - 4i} \\\\
+&= \\frac{(3 - 2i)(-1 - 4i)}{(-1)^2 + 4^2} \\\\
+&= \\frac{-3 - 12i + 2i + 8i^2}{1 + 16} \\\\
+&= \\frac{-11 - 10i}{17} \\\\
+&= -\\frac{11}{17} - \\frac{10}{17}i
+\\end{aligned}
+$$
+
+Taking the conjugate:
+$$
+\\overline{\\left(\\frac{z_1}{z_2}\\right)} = \\overline{-\\frac{11}{17} - \\frac{10}{17}i} = -\\frac{11}{17} + \\frac{10}{17}i
+$$
+
+**Right-Hand Side (RHS):**
+$$
+\\begin{aligned}
+\\frac{\\overline{z_1}}{\\overline{z_2}} &= \\frac{3 + 2i}{-1 - 4i} \\cdot \\frac{-1 + 4i}{-1 + 4i} \\\\
+&= \\frac{(3 + 2i)(-1 + 4i)}{(-1)^2 + (-4)^2} \\\\
+&= \\frac{-3 + 12i - 2i + 8i^2}{1 + 16} \\\\
+&= \\frac{-11 + 10i}{17} \\\\
+&= -\\frac{11}{17} + \\frac{10}{17}i
+\\end{aligned}
+$$
+
+Since LHS = RHS, we have shown that $\\overline{\\left(\\dfrac{z_1}{z_2}\\right)} = \\dfrac{\\overline{z_1}}{\\overline{z_2}}$.
+
+</div>
+</details>
 `;
 
 export const MOCK_CHAPTERS: Chapter[] = [
@@ -1105,6 +1639,15 @@ $$a_n = a + (n-1)d$$
     type: 'theory',
     content: chapter1ComplexContent,
     order_index: 3,
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 'lesson-c1-operations',
+    chapter_id: 'chapter-c1-g12',
+    title: 'Operations on Complex Numbers',
+    type: 'theory',
+    content: chapter1OperationsContent,
+    order_index: 4,
     created_at: new Date().toISOString()
   },
 

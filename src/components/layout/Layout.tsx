@@ -19,7 +19,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
   const navItems = [
-    { name: 'Home', path: '/', icon: HomeIcon },
+    { name: 'Dashboard', path: '/', icon: HomeIcon },
     { name: 'Grade 12', path: '/grade/12', icon: GraduationCap },
     { name: 'Past Papers', path: '/past-papers', icon: FileText },
     { name: 'Flashcards', path: '/flashcards', icon: Sparkles },
@@ -183,7 +183,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
               id: 'home', 
               icon: HomeIcon, 
               path: '/', 
-              label: 'Home',
+              label: 'Dashboard',
               isActive: (path: string) => path === '/' 
             },
             { 
