@@ -5,35 +5,41 @@ import {
   Target, Zap, Sparkles, GraduationCap, FileText, ChevronRight, Bookmark
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { curriculumService, MOCK_LESSONS } from '../services/curriculum';
-import { Chapter } from '../types';
+import { curriculumService } from '../services/curriculum';
+import { Chapter, Lesson } from '../types';
 import { useProgress } from '../contexts/ProgressContext';
 import { cn } from '../lib/utils';
 
 const Home: React.FC = () => {
   const [chapters, setChapters] = useState<Chapter[]>([]);
+  const [lessons, setLessons] = useState<Lesson[]>([]);
   const [loading, setLoading] = useState(true);
   const { completedLessons, bookmarkedLessons } = useProgress();
 
   useEffect(() => {
-    fetchChapters();
+    fetchChaptersAndLessons();
   }, []);
 
-  const fetchChapters = async () => {
+  const fetchChaptersAndLessons = async () => {
     try {
-      const data = await curriculumService.getChaptersByGrade('12');
-      setChapters(data);
+      setLoading(true);
+      const [chapterData, lessonData] = await Promise.all([
+        curriculumService.getChaptersByGrade('12'),
+        curriculumService.getAllLessonsByGrade('12')
+      ]);
+      setChapters(chapterData);
+      setLessons(lessonData);
     } catch (e) {
-      console.error('Error fetching chapters for home dashboard:', e);
+      console.error('Error fetching chapters/lessons for home dashboard:', e);
     } finally {
       setLoading(false);
     }
   };
 
-  const totalG12Lessons = MOCK_LESSONS.length;
+  const totalG12Lessons = lessons.length;
   const completedCount = completedLessons.length;
   const progressPercent = totalG12Lessons > 0 ? Math.min(100, Math.round((completedCount / totalG12Lessons) * 100)) : 0;
-  const savedLessons = MOCK_LESSONS.filter(l => bookmarkedLessons.includes(l.id));
+  const savedLessons = lessons.filter(l => bookmarkedLessons.includes(l.id));
 
   return (
     <div className="space-y-8 pb-10 max-w-5xl mx-auto selection:bg-blue-100 selection:text-blue-900">

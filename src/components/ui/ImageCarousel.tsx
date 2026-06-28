@@ -20,20 +20,20 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
   if (images.length === 0) return null;
 
   return (
-    <div className="relative w-full aspect-video rounded-[2rem] overflow-hidden my-12 bg-neutral-100 border border-neutral-200 shadow-xl group">
+    <div className="relative w-full max-w-2xl mx-auto rounded-3xl overflow-hidden my-10 bg-slate-950 border border-slate-800 shadow-2xl group flex flex-col items-center justify-center min-h-[50vh] max-h-[85vh]">
       <AnimatePresence mode="wait">
         <motion.img
           key={currentIndex}
           src={images[currentIndex].startsWith('http') || images[currentIndex].startsWith('/') ? images[currentIndex] : `/${images[currentIndex]}`}
-          alt={`Slide ${currentIndex + 1}`}
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -20 }}
-          transition={{ duration: 0.3 }}
-          className="w-full h-full object-cover"
+          alt={`Page ${currentIndex + 1}`}
+          initial={{ opacity: 0, scale: 0.98 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.98 }}
+          transition={{ duration: 0.25 }}
+          className="max-h-[80vh] w-auto h-auto object-contain mx-auto select-none p-2 sm:p-4"
           onError={(e) => {
             const target = e.target as HTMLImageElement;
-            target.src = `https://placehold.co/800x450/f3f4f6/94a3b8?text=Image+${currentIndex + 1}`;
+            target.src = `https://placehold.co/600x800/1e293b/94a3b8?text=Textbook+Page+${currentIndex + 1}`;
           }}
         />
       </AnimatePresence>

@@ -1,7 +1,16 @@
 import { supabase } from '../lib/supabase';
 import { Chapter, Lesson } from '../types';
 
-const hasKeys = false; // Intentionally disabled to bypass Supabase database empty/mismatched tables and load all high-quality mock curriculum instantly
+const hasKeys = !!(import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY);
+let useDatabase = hasKeys;
+
+function getMockChapterId(gradeId: string | number, chapterNumber: number): string {
+  const g = Number(gradeId);
+  if (g === 10) return `ch-g10-${chapterNumber}`;
+  if (g === 11) return `ch-g11-${chapterNumber}`;
+  if (g === 12) return `chapter-c${chapterNumber}-g12`;
+  return '';
+}
 
 /**
  * Service for managing curriculum data
@@ -11,7 +20,7 @@ export const curriculumService = {
    * Fetches chapters for a specific grade level
    */
   async getChaptersByGrade(gradeId: string | number): Promise<Chapter[]> {
-    if (hasKeys) {
+    if (useDatabase) {
       try {
         const { data, error } = await supabase
           .from('chapters')
@@ -21,18 +30,11 @@ export const curriculumService = {
 
         if (error) throw error;
         if (data && data.length > 0) {
-          // If we are looking for grade 12, make sure we append the detailed mock chapters 1 and 2
-          if (gradeId.toString() === '12') {
-            const mockC1 = MOCK_CHAPTERS.find(c => c.id === 'chapter-c1-g12')!;
-            const mockC2 = MOCK_CHAPTERS.find(c => c.id === 'chapter-c2-g12')!;
-            
-            let results = data.filter(c => c.chapter_number !== 1 && c.chapter_number !== 2);
-            return [mockC1, mockC2, ...results];
-          }
           return data;
         }
       } catch (err) {
-        console.error('Error fetching chapters from Supabase:', err);
+        console.warn('Supabase chapter fetch failed or table is empty. Falling back to offline curriculum mock data.', err);
+        useDatabase = false; // Disable database queries dynamically to prevent further errors
       }
     }
 
@@ -44,10 +46,7 @@ export const curriculumService = {
    * Fetches a single chapter by ID
    */
   async getChapterById(chapterId: string): Promise<Chapter | null> {
-    const mockCh = MOCK_CHAPTERS.find(c => c.id === chapterId);
-    if (mockCh) return mockCh;
-
-    if (hasKeys) {
+    if (useDatabase) {
       try {
         const { data, error } = await supabase
           .from('chapters')
@@ -56,13 +55,14 @@ export const curriculumService = {
           .single();
 
         if (error) throw error;
-        return data;
+        if (data) return data;
       } catch (error) {
-        console.error('Error fetching chapter:', error);
+        console.warn('Supabase fetch failed for chapter. Falling back to offline mock.', error);
+        useDatabase = false;
       }
     }
 
-    return null;
+    return MOCK_CHAPTERS.find(c => c.id === chapterId) || null;
   },
 
   /**
@@ -70,45 +70,84 @@ export const curriculumService = {
    */
   async getAllLessonsByGrade(gradeId: string | number): Promise<Lesson[]> {
     const chapters = await this.getChaptersByGrade(gradeId);
-    const chapterIds = chapters.map(c => c.id);
+    
+    let dbLessons: Lesson[] = [];
 
-    if (chapterIds.length === 0) return [];
-
-    let lessons: Lesson[] = [];
-
-    if (hasKeys) {
+    if (useDatabase) {
       try {
-        const { data, error } = await supabase
-          .from('lessons')
-          .select('*')
-          .in('chapter_id', chapterIds)
-          .order('order_index', { ascending: true });
+        const chapterIds = chapters.map(c => c.id);
+        if (chapterIds.length > 0) {
+          const { data, error } = await supabase
+            .from('lessons')
+            .select('*')
+            .in('chapter_id', chapterIds)
+            .order('order_index', { ascending: true });
 
-        if (error) throw error;
-        lessons = data || [];
+          if (error) throw error;
+          dbLessons = (data || []).filter(l => l.title !== 'Introduction to i');
+        }
       } catch (error) {
-        console.error('Error fetching all lessons:', error);
+        console.warn('Supabase fetch failed for lessons. Falling back to offline mock.', error);
+        useDatabase = false;
       }
     }
 
-    // Merge in mock lessons for any mock chapters we matched/returned
-    const mockLessons = MOCK_LESSONS.filter(l => chapterIds.includes(l.chapter_id));
-    const existingIds = new Set(lessons.map(l => l.id));
-    const filteredMock = mockLessons.filter(l => !existingIds.has(l.id));
-    lessons = [...filteredMock, ...lessons];
+    const lessonsToReturn: Lesson[] = [];
 
-    return lessons;
+    // Map mock chapter IDs (e.g. 'chapter-c1-g12') to DB chapter UUIDs
+    const mockToDbIdMap = new Map<string, string>();
+    chapters.forEach(c => {
+      const mockId = getMockChapterId(c.grade_id, c.chapter_number);
+      if (mockId) {
+        mockToDbIdMap.set(mockId, c.id);
+      }
+    });
+
+    // 1. Add DB lessons
+    dbLessons.forEach(l => {
+      lessonsToReturn.push(l);
+    });
+
+    // 2. Add mock lessons, mapping their chapter_id to the DB chapter UUID so they are linked correctly
+    const existingTitlesByChapter = new Set(dbLessons.map(l => `${l.chapter_id}::${l.title.toLowerCase()}`));
+
+    MOCK_LESSONS.forEach(l => {
+      const dbChapterId = mockToDbIdMap.get(l.chapter_id);
+      if (dbChapterId) {
+        const uniqueKey = `${dbChapterId}::${l.title.toLowerCase()}`;
+        if (!existingTitlesByChapter.has(uniqueKey)) {
+          lessonsToReturn.push({
+            ...l,
+            chapter_id: dbChapterId
+          });
+        }
+      }
+    });
+
+    lessonsToReturn.sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
+
+    return lessonsToReturn;
   },
 
   /**
    * Fetches lessons for a specific chapter
    */
   async getLessonsByChapter(chapterId: string): Promise<Lesson[]> {
-    const mockLessons = MOCK_LESSONS.filter(l => l.chapter_id === chapterId);
-    if (mockLessons.length > 0) return mockLessons;
+    let dbLessons: Lesson[] = [];
+    let currentChapter: Chapter | null = null;
 
-    if (hasKeys) {
+    if (useDatabase) {
       try {
+        // Fetch current chapter info to map to mock lessons
+        const { data: chData } = await supabase
+          .from('chapters')
+          .select('*')
+          .eq('id', chapterId)
+          .single();
+        if (chData) {
+          currentChapter = chData;
+        }
+
         const { data, error } = await supabase
           .from('lessons')
           .select('*')
@@ -116,23 +155,45 @@ export const curriculumService = {
           .order('order_index', { ascending: true });
 
         if (error) throw error;
-        return data || [];
+        dbLessons = (data || []).filter(l => l.title !== 'Introduction to i');
       } catch (error) {
-        console.error('Error fetching lessons:', error);
+        console.warn('Supabase fetch failed for chapter lessons. Falling back to offline mock.', error);
+        useDatabase = false;
       }
     }
 
-    return [];
+    if (!currentChapter) {
+      currentChapter = MOCK_CHAPTERS.find(c => c.id === chapterId) || null;
+    }
+
+    const lessonsToReturn: Lesson[] = [...dbLessons];
+    const existingTitles = new Set(dbLessons.map(l => l.title.toLowerCase()));
+
+    if (currentChapter) {
+      const mockChId = getMockChapterId(currentChapter.grade_id, currentChapter.chapter_number);
+      if (mockChId) {
+        const mockLessons = MOCK_LESSONS.filter(l => l.chapter_id === mockChId);
+        mockLessons.forEach(l => {
+          if (!existingTitles.has(l.title.toLowerCase())) {
+            lessonsToReturn.push({
+              ...l,
+              chapter_id: chapterId
+            });
+          }
+        });
+      }
+    }
+
+    lessonsToReturn.sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
+
+    return lessonsToReturn;
   },
 
   /**
    * Fetches a single lesson by ID
    */
   async getLessonById(lessonId: string): Promise<Lesson | null> {
-    const mockLes = MOCK_LESSONS.find(l => l.id === lessonId);
-    if (mockLes) return mockLes;
-
-    if (hasKeys) {
+    if (useDatabase) {
       try {
         const { data, error } = await supabase
           .from('lessons')
@@ -141,28 +202,42 @@ export const curriculumService = {
           .single();
 
         if (error) throw error;
-
-        // Force Burmese content if this is the first lesson of Grade 12 Chapter 1 from DB
-        if (data && data.order_index === 1) {
-          const { data: chapterData } = await supabase
-            .from('chapters')
-            .select('*')
-            .eq('id', data.chapter_id)
-            .single();
-          
-          if (chapterData && chapterData.grade_id.toString() === '12' && chapterData.chapter_number === 1) {
-            return {
-              ...data,
-              title: 'Introduction',
-              content: chapter1IntroContent
-            };
+        if (data) {
+          if (data.title === 'Introduction to i') {
+            return null;
           }
+          return data;
         }
-
-        return data;
       } catch (error) {
-        console.error('Error fetching lesson:', error);
+        console.warn('Supabase fetch failed for lesson. Falling back to offline mock.', error);
+        useDatabase = false;
       }
+    }
+
+    const mockLesson = MOCK_LESSONS.find(l => l.id === lessonId);
+    if (mockLesson) {
+      if (hasKeys) {
+        try {
+          const mockCh = MOCK_CHAPTERS.find(c => c.id === mockLesson.chapter_id);
+          if (mockCh) {
+            const { data: dbCh } = await supabase
+              .from('chapters')
+              .select('id')
+              .eq('grade_id', mockCh.grade_id)
+              .eq('chapter_number', mockCh.chapter_number)
+              .single();
+            if (dbCh) {
+              return {
+                ...mockLesson,
+                chapter_id: dbCh.id
+              };
+            }
+          }
+        } catch (e) {
+          console.error("Error mapping mock lesson's chapter_id to DB UUID:", e);
+        }
+      }
+      return mockLesson;
     }
 
     return null;
@@ -294,7 +369,7 @@ If $x+2i=5+yi$, find $x$ and $y$.
 $$
 \\begin{aligned}
   x+2i &= 5+yi \\\\
-  \\text{Therefore, } x &= 5, \\quad y=2
+  \\text{Therefore, } x &= 5, \\\quad y=2
 \\end{aligned}
 $$
 
@@ -402,7 +477,7 @@ Solve for $x$ and $y$ if $(x,2)=(5,y)$.
 $$
 \\begin{aligned}
   (x,2) &= (5,y) \\\\
-  \\text{Therefore, } x &= 5, \\quad y=2
+  \\text{Therefore, } x &= 5, \\\quad y=2
 \\end{aligned}
 $$
 
@@ -709,7 +784,7 @@ In the real number system this equation has **no solution**, since the square of
 \`\`\`note
 {
   "type": "definition",
-  "title": "Pure Imaginary Unit $i$",
+  "title": "Pure Imaginary Unit i",
   "content": "The **pure imaginary unit** is denoted by $i$ and is defined by:\\n\\n$$i=\\\\sqrt{-1}, \\\\qquad i^2=-1$$\\n\\nThis new symbol allows us to work with square roots of negative numbers."
 }
 \`\`\`
@@ -930,7 +1005,7 @@ $$
   x^2-2x+1 &= -4+1\\\\
   (x-1)^2 &= -3\\\\
   x-1 &= \\pm\\sqrt{3}\\,i\\\\
-  x &= 1+\\sqrt{3}\\,i \\quad \\text{or} \\quad x=1-\\sqrt{3}\\,i
+  x &= 1+\\sqrt{3}\\,i \\\quad \\text{or} \\\quad x=1-\\sqrt{3}\\,i
 \\end{aligned}
 $$
 
@@ -958,7 +1033,7 @@ $$
   x^2-4x+4 &= -5+4\\\\
   (x-2)^2 &= -1\\\\
   x-2 &= \\pm i\\\\
-  x &= 2+i \\quad \\text{or} \\quad x=2-i
+  x &= 2+i \\\quad \\text{or} \\\quad x=2-i
 \\end{aligned}
 $$
 
@@ -1008,7 +1083,7 @@ $$
 {
   "type": "tip",
   "title": "Note: Sum of Four Consecutive Powers",
-  "content": "Any four consecutive powers of $i$ always have a sum of $0$. \\\\n\\\\nFor example:\\\\n* $i^0+i^1+i^2+i^3 = 1+i-1-i = 0$\\\\n* $i^1+i^2+i^3+i^4 = i-1-i+1 = 0$\\\\n* $i^2+i^3+i^4+i^5 = -1-i+1+i = 0$"
+  "content": "Any four consecutive powers of $i$ always have a sum of $0$.\\n\\nFor example:\\n* $i^0+i^1+i^2+i^3 = 1+i-1-i = 0$\\n* $i^1+i^2+i^3+i^4 = i-1-i+1 = 0$\\n* $i^2+i^3+i^4+i^5 = -1-i+1+i = 0$"
 }
 \`\`\`
 `;
@@ -1019,7 +1094,7 @@ const chapter1OperationsContent = `## 1.3 Operations on Complex Numbers
 {
   "type": "info",
   "title": "Division of Complex Numbers",
-  "content": "Addition, subtraction, and multiplication have already been studied. In this section, we only focus on the **division** of complex numbers.\\\\n\\\\nTo divide by a complex number, multiply both the numerator and the denominator by the **conjugate** of the denominator."
+  "content": "Addition, subtraction, and multiplication have already been studied. In this section, we only focus on the **division** of complex numbers.\\n\\nTo divide by a complex number, multiply both the numerator and the denominator by the **conjugate** of the denominator."
 }
 \`\`\`
 
@@ -1385,7 +1460,7 @@ $$
 \\begin{aligned}
 \\overline{z_1} + \\overline{z_2} &= (3 + 2i) + (-1 - 4i) \\\\
 &= 2 - 2i
-\end{aligned}
+\\end{aligned}
 $$
 
 Since LHS = RHS, we have shown that $\\overline{(z_1 + z_2)} = \\overline{z_1} + \\overline{z_2}$.
@@ -1460,6 +1535,1370 @@ Since LHS = RHS, we have shown that $\\overline{\\left(\\dfrac{z_1}{z_2}\\right)
 </div>
 </details>
 `;
+
+const chapter1TrigonometricContent = `## 1.4 Trigonometric Form
+
+<div class="flex flex-col md:flex-row gap-6 items-center my-8 p-6 bg-slate-50 border border-slate-150 rounded-3xl">
+  <div class="flex-1 text-slate-700">
+    <h4 class="text-sm font-black uppercase text-blue-600 tracking-wider mb-2">From Cartesian Form to Trigonometric Form</h4>
+    <p class="text-sm leading-relaxed mb-4">
+      A non-zero complex number $z = x + yi$ can be represented by a point $P(x, y)$ on the complex plane. 
+      Let $r$ be the distance from the origin $O$ to $P$ and let $\\theta$ be the angle made with the positive real axis. Then:
+    </p>
+    $$
+    \\begin{aligned}
+      r &= |z| = \\sqrt{x^2 + y^2}, \\\\
+      \\cos\\theta &= \\frac{x}{r} \\quad \\text{and} \\quad \\sin\\theta = \\frac{y}{r}.
+    \\end{aligned}
+    $$
+    <p class="text-sm leading-relaxed mt-4 mb-4">
+      Since $x = r\\cos\\theta$ and $y = r\\sin\\theta$, we get:
+    </p>
+    <div class="p-3 bg-white border border-slate-200 rounded-xl text-center font-bold text-lg my-3">
+      $$z = x + yi = r(\\cos\\theta + i\\sin\\theta)$$
+    </div>
+    <p class="text-xs text-slate-500 mt-2">
+      This is called the <strong>trigonometric form</strong> or <strong>polar form</strong> of $z$.
+    </p>
+  </div>
+  <div class="w-full max-w-[280px] aspect-square bg-white border border-slate-100 rounded-2xl p-4 flex items-center justify-center shadow-xs">
+    <svg viewBox="0 0 240 240" class="w-full h-full overflow-visible">
+      <line x1="20" y1="180" x2="220" y2="180" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3 3"></line>
+      <line x1="60" y1="20" x2="60" y2="220" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3 3"></line>
+      <line x1="10" y1="180" x2="230" y2="180" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"></line>
+      <line x1="60" y1="230" x2="60" y2="15" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"></line>
+      <line x1="60" y1="180" x2="180" y2="60" stroke="#2563eb" stroke-width="2.5" marker-end="url(#blue-arrow)"></line>
+      <line x1="180" y1="60" x2="180" y2="180" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 4"></line>
+      <line x1="60" y1="60" x2="180" y2="60" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 4"></line>
+      <path d="M 85 180 A 25 25 0 0 0 77.7 162.3" fill="none" stroke="#f59e0b" stroke-width="2"></path>
+      <circle cx="180" cy="60" r="5" fill="#2563eb"></circle>
+      <text x="225" y="195" font-family="sans-serif" font-size="10" font-weight="bold" fill="#64748b" text-anchor="end">Re (x)</text>
+      <text x="75" y="25" font-family="sans-serif" font-size="10" font-weight="bold" fill="#64748b">Im (y)</text>
+      <text x="185" y="52" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1e293b">P(x, y)</text>
+      <text x="110" y="112" font-family="sans-serif" font-size="12" font-weight="bold" fill="#2563eb">r</text>
+      <text x="92" y="172" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f59e0b">\\theta</text>
+      <text x="120" y="195" font-family="sans-serif" font-size="10" font-weight="bold" fill="#475569" text-anchor="middle">x = r cos \\theta</text>
+      <text x="48" y="120" font-family="sans-serif" font-size="10" font-weight="bold" fill="#475569" text-anchor="end" transform="rotate(-90 48 120)">y = r sin \\theta</text>
+      <text x="48" y="195" font-family="sans-serif" font-size="10" font-weight="bold" fill="#64748b" text-anchor="end">O</text>
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#64748b"></path>
+        </marker>
+        <marker id="blue-arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#2563eb"></path>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+</div>
+
+<div class="my-6 p-5 bg-blue-50/50 border border-blue-100 rounded-2xl">
+  <h4 class="font-bold text-blue-800 mb-2">Modulus and Argument</h4>
+  <p class="text-sm text-slate-700 leading-relaxed">
+    In $z = r(\\cos\\theta + i\\sin\\theta)$:
+  </p>
+  <ul class="list-disc pl-5 mt-2 space-y-1 text-sm text-slate-700">
+    <li><strong>Modulus:</strong> $r = |z|$ is the absolute value or modulus of $z$.</li>
+    <li><strong>Argument:</strong> $\\theta$ is an argument of $z$.</li>
+    <li><strong>Principal Argument:</strong> For the principal argument, we restrict $\\theta$ such that $-\\pi < \\theta \\le \\pi$.</li>
+  </ul>
+  <p class="text-xs text-slate-500 mt-2 font-mono">
+    Note: All angles $\\theta + 2\\pi k$ where $k \\in \\mathbb{Z}$ represent the same complex number.
+  </p>
+</div>
+
+### Example 5
+Find the trigonometric form of the following complex numbers with $-\\pi < \\theta \\le \\pi$:
+(a) $z = 1 + \\sqrt{3}i$
+(b) $z = -1 + i$
+(c) $z = -\\sqrt{3} - i$
+(d) $z = -1$
+
+#### Solution
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+
+  <!-- (a) -->
+  <div class="p-5 bg-white border border-slate-150 rounded-2xl flex flex-col justify-between">
+    <div>
+      <h5 class="font-bold text-slate-800 mb-2">(a) $z = 1 + \\sqrt{3}i$</h5>
+      <p class="text-sm text-slate-600 mb-3">
+        The point is $(1, \\sqrt{3})$ in <strong>Quadrant I</strong>:
+      </p>
+      $$
+      \\begin{aligned}
+        r &= \\sqrt{1^2 + (\\sqrt{3})^2} = 2 \\\\
+        \\cos\\theta &= \\frac{1}{2}, \\\quad \\sin\\theta = \\frac{\\sqrt{3}}{2} \\implies \\theta = \\frac{\\pi}{3}
+      \\end{aligned}
+      $$
+      <p class="text-sm text-slate-600 mt-3">
+        Trigonometric Form:
+      </p>
+      <p class="font-mono text-blue-600 text-sm font-bold bg-blue-50 p-2 rounded-lg text-center my-2">
+        $z = 2\\left(\\cos\\frac{\\pi}{3} + i\\sin\\frac{\\pi}{3}\\right)$
+      </p>
+    </div>
+    <div class="aspect-square w-32 self-center mt-4">
+      <svg viewBox="0 0 120 120" class="w-full h-full overflow-visible">
+        <line x1="10" y1="100" x2="110" y2="100" stroke="#64748b" stroke-width="1" marker-end="url(#arrow-small)"></line>
+        <line x1="30" y1="110" x2="30" y2="10" stroke="#64748b" stroke-width="1" marker-end="url(#arrow-small)"></line>
+        <line x1="30" y1="100" x2="80" y2="30" stroke="#2563eb" stroke-width="1.5" marker-end="url(#blue-arrow-small)"></line>
+        <circle cx="80" cy="30" r="2.5" fill="#2563eb"></circle>
+        <path d="M 45 100 A 15 15 0 0 0 37.5 87" fill="none" stroke="#f59e0b" stroke-width="1"></path>
+        <text x="112" y="103" font-size="7" font-weight="bold" fill="#64748b">Re</text>
+        <text x="34" y="14" font-size="7" font-weight="bold" fill="#64748b">Im</text>
+        <text x="84" y="27" font-size="7" font-weight="bold" fill="#1e293b">P(1, √3)</text>
+        <text x="44" y="93" font-size="7" font-weight="bold" fill="#f59e0b">\\pi/3</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- (b) -->
+  <div class="p-5 bg-white border border-slate-150 rounded-2xl flex flex-col justify-between">
+    <div>
+      <h5 class="font-bold text-slate-800 mb-2">(b) $z = -1 + i$</h5>
+      <p class="text-sm text-slate-600 mb-3">
+        The point is $(-1, 1)$ in <strong>Quadrant II</strong>:
+      </p>
+      $$
+      \\begin{aligned}
+        r &= \\sqrt{(-1)^2 + 1^2} = \\sqrt{2} \\\\
+        \\cos\\theta &= -\\frac{\\sqrt{2}}{2}, \\\quad \\sin\\theta = \\frac{\\sqrt{2}}{2} \\implies \\theta = \\frac{3\\pi}{4}
+      \\end{aligned}
+      $$
+      <p class="text-sm text-slate-600 mt-3">
+        Trigonometric Form:
+      </p>
+      <p class="font-mono text-blue-600 text-sm font-bold bg-blue-50 p-2 rounded-lg text-center my-2">
+        $z = \\sqrt{2}\\left(\\cos\\frac{3\\pi}{4} + i\\sin\\frac{3\\pi}{4}\\right)$
+      </p>
+    </div>
+    <div class="aspect-square w-32 self-center mt-4">
+      <svg viewBox="0 0 120 120" class="w-full h-full overflow-visible">
+        <line x1="10" y1="100" x2="110" y2="100" stroke="#64748b" stroke-width="1" marker-end="url(#arrow-small)"></line>
+        <line x1="70" y1="110" x2="70" y2="10" stroke="#64748b" stroke-width="1" marker-end="url(#arrow-small)"></line>
+        <line x1="70" y1="100" x2="35" y2="65" stroke="#2563eb" stroke-width="1.5" marker-end="url(#blue-arrow-small)"></line>
+        <circle cx="35" cy="65" r="2.5" fill="#2563eb"></circle>
+        <path d="M 85 100 A 15 15 0 0 0 59.4 89.4" fill="none" stroke="#f59e0b" stroke-width="1"></path>
+        <text x="112" y="103" font-size="7" font-weight="bold" fill="#64748b">Re</text>
+        <text x="74" y="14" font-size="7" font-weight="bold" fill="#64748b">Im</text>
+        <text x="12" y="61" font-size="7" font-weight="bold" fill="#1e293b">P(-1, 1)</text>
+        <text x="76" y="90" font-size="7" font-weight="bold" fill="#f59e0b">3\\pi/4</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- (c) -->
+  <div class="p-5 bg-white border border-slate-150 rounded-2xl flex flex-col justify-between">
+    <div>
+      <h5 class="font-bold text-slate-800 mb-2">(c) $z = -\\sqrt{3} - i$</h5>
+      <p class="text-sm text-slate-600 mb-3">
+        The point is $(-\\sqrt{3}, -1)$ in <strong>Quadrant III</strong>:
+      </p>
+      $$
+      \\begin{aligned}
+        r &= \\sqrt{(-\\sqrt{3})^2 + (-1)^2} = 2 \\\\
+        \\cos\\theta &= -\\frac{\\sqrt{3}}{2}, \\\quad \\sin\\theta = -\\frac{1}{2} \\implies \\theta = -\\frac{5\\pi}{6}
+      \\end{aligned}
+      $$
+      <p class="text-sm text-slate-600 mt-3">
+        Trigonometric Form:
+      </p>
+      <p class="font-mono text-blue-600 text-sm font-bold bg-blue-50 p-2 rounded-lg text-center my-2">
+        $z = 2\\left(\\cos\\left(-\\frac{5\\pi}{6}\\right) + i\\sin\\left(-\\frac{5\\pi}{6}\\right)\\right)$
+      </p>
+    </div>
+    <div class="aspect-square w-32 self-center mt-4">
+      <svg viewBox="0 0 120 120" class="w-full h-full overflow-visible">
+        <line x1="10" y1="50" x2="110" y2="50" stroke="#64748b" stroke-width="1" marker-end="url(#arrow-small)"></line>
+        <line x1="80" y1="110" x2="80" y2="10" stroke="#64748b" stroke-width="1" marker-end="url(#arrow-small)"></line>
+        <line x1="80" y1="50" x2="30" y2="79" stroke="#2563eb" stroke-width="1.5" marker-end="url(#blue-arrow-small)"></line>
+        <circle cx="30" cy="79" r="2.5" fill="#2563eb"></circle>
+        <path d="M 95 50 A 15 15 0 0 1 67 57.5" fill="none" stroke="#f59e0b" stroke-width="1"></path>
+        <text x="112" y="53" font-size="7" font-weight="bold" fill="#64748b">Re</text>
+        <text x="84" y="14" font-size="7" font-weight="bold" fill="#64748b">Im</text>
+        <text x="10" y="88" font-size="7" font-weight="bold" fill="#1e293b">P(-√3, -1)</text>
+        <text x="85" y="65" font-size="7" font-weight="bold" fill="#f59e0b">-5\\pi/6</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- (d) -->
+  <div class="p-5 bg-white border border-slate-150 rounded-2xl flex flex-col justify-between">
+    <div>
+      <h5 class="font-bold text-slate-800 mb-2">(d) $z = -1$</h5>
+      <p class="text-sm text-slate-600 mb-3">
+        The point is $(-1, 0)$ on the <strong>Negative Real Axis</strong>:
+      </p>
+      $$
+      \\begin{aligned}
+        r &= \\sqrt{(-1)^2 + 0^2} = 1 \\\\
+        \\cos\\theta &= -1, \\\quad \\sin\\theta = 0 \\implies \\theta = \\pi
+      \\end{aligned}
+      $$
+      <p class="text-sm text-slate-600 mt-3">
+        Trigonometric Form:
+      </p>
+      <p class="font-mono text-blue-600 text-sm font-bold bg-blue-50 p-2 rounded-lg text-center my-2">
+        $z = 1(\\cos\\pi + i\\sin\\pi)$
+      </p>
+    </div>
+    <div class="aspect-square w-32 self-center mt-4">
+      <svg viewBox="0 0 120 120" class="w-full h-full overflow-visible">
+        <line x1="10" y1="60" x2="110" y2="60" stroke="#64748b" stroke-width="1" marker-end="url(#arrow-small)"></line>
+        <line x1="80" y1="110" x2="80" y2="10" stroke="#64748b" stroke-width="1" marker-end="url(#arrow-small)"></line>
+        <line x1="80" y1="60" x2="30" y2="60" stroke="#2563eb" stroke-width="1.5" marker-end="url(#blue-arrow-small)"></line>
+        <circle cx="30" cy="60" r="2.5" fill="#2563eb"></circle>
+        <path d="M 95 60 A 15 15 0 0 0 65 60" fill="none" stroke="#f59e0b" stroke-width="1"></path>
+        <text x="112" y="63" font-size="7" font-weight="bold" fill="#64748b">Re</text>
+        <text x="84" y="14" font-size="7" font-weight="bold" fill="#64748b">Im</text>
+        <text x="12" y="52" font-size="7" font-weight="bold" fill="#1e293b">P(-1, 0)</text>
+        <text x="65" y="50" font-size="7" font-weight="bold" fill="#f59e0b">\\pi</text>
+        <defs>
+          <marker id="arrow-small" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse">
+            <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#64748b"></path>
+          </marker>
+          <marker id="blue-arrow-small" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="3.5" markerHeight="3.5" orient="auto-start-reverse">
+            <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#2563eb"></path>
+          </marker>
+        </defs>
+      </svg>
+    </div>
+  </div>
+
+</div>
+
+---
+
+### Product in Trigonometric Form
+
+<div class="my-6 p-5 bg-emerald-50 border border-emerald-150 rounded-2xl">
+  <h4 class="font-bold text-emerald-800 mb-2">Product Rule</h4>
+  <p class="text-sm text-slate-700 leading-relaxed mb-3">
+    Let $z_1 = r_1(\\cos\\theta_1 + i\\sin\\theta_1)$ and $z_2 = r_2(\\cos\\theta_2 + i\\sin\\theta_2)$. Then:
+  </p>
+  $$
+  \\begin{aligned}
+    z_1z_2 &= r_1(\\cos\\theta_1 + i\\sin\\theta_1) \\cdot r_2(\\cos\\theta_2 + i\\sin\\theta_2) \\\\
+    &= r_1r_2 \\bigl[ (\\cos\\theta_1\\cos\\theta_2 - \\sin\\theta_1\\sin\\theta_2) + i(\\sin\\theta_1\\cos\\theta_2 + \\cos\\theta_1\\sin\\theta_2) \\bigr] \\\\
+    &= r_1r_2 \\bigl[ \\cos(\\theta_1 + \\theta_2) + i\\sin(\\theta_1 + \\theta_2) \\bigr]
+  \\end{aligned}
+  $$
+  <p class="text-sm text-slate-700 leading-relaxed mt-3 font-semibold">
+    Multiplying two complex numbers in polar form multiplies their moduli and adds their arguments:
+  </p>
+  <div class="p-3 bg-white border border-emerald-100 rounded-xl text-center font-bold text-base my-2">
+    $$z_1z_2 = r_1r_2 \\bigl[ \\cos(\\theta_1 + \\theta_2) + i\\sin(\\theta_1 + \\theta_2) \\bigr]$$
+  </div>
+</div>
+
+### Example 6
+Given $z_1 = 1 + \\sqrt{3}i$ and $z_2 = -1 + i$, find $z_1z_2$ using trigonometric forms. Check your answer by direct multiplication.
+
+#### Solution
+From Example 5, we have:
+$$z_1 = 2\\left(\\cos\\frac{\\pi}{3} + i\\sin\\frac{\\pi}{3}\\right), \\\quad z_2 = \\sqrt{2}\\left(\\cos\\frac{3\\pi}{4} + i\\sin\\frac{3\\pi}{4}\\right)$$
+
+Applying the product rule:
+$$
+\\begin{aligned}
+  z_1z_2 &= 2\\sqrt{2} \\left[ \\cos\\left(\\frac{\\pi}{3} + \\frac{3\\pi}{4}\\right) + i\\sin\\left(\\frac{\\pi}{3} + \\frac{3\\pi}{4}\\right) \\right] \\\\
+  &= 2\\sqrt{2} \\left[ \\cos\\frac{13\\pi}{12} + i\\sin\\frac{13\\pi}{12} \\right]
+\\end{aligned}
+$$
+
+Since $\\frac{13\\pi}{12} > \\pi$, we write the principal argument as $\\frac{13\\pi}{12} - 2\\pi = -\\frac{11\\pi}{12}$:
+$$z_1z_2 = 2\\sqrt{2} \\left[ \\cos\\left(-\\frac{11\\pi}{12}\\right) + i\\sin\\left(-\\frac{11\\pi}{12}\\right) \\right]$$
+
+To convert back to cartesian form, we note that:
+$$
+\\cos\\left(-\\frac{11\\pi}{12}\\right) = -\\frac{\\sqrt{6}+\\sqrt{2}}{4}, \\\quad \\sin\\left(-\\frac{11\\pi}{12}\\right) = \\frac{\\sqrt{2}-\\sqrt{6}}{4}
+$$
+$$
+\\begin{aligned}
+  z_1z_2 &= 2\\sqrt{2} \\left( -\\frac{\\sqrt{6}+\\sqrt{2}}{4} + i \\frac{\\sqrt{2}-\\sqrt{6}}{4} \\right) \\\\
+  &= -(1+\\sqrt{3}) + (1-\\sqrt{3})i
+\\end{aligned}
+$$
+
+**Check by Direct Multiplication:**
+$$
+\\begin{aligned}
+  z_1z_2 &= (1 + \\sqrt{3}i)(-1 + i) \\\\
+  &= -1 + i - \\sqrt{3}i + \\sqrt{3}i^2 \\\\
+  &= -(1+\\sqrt{3}) + (1-\\sqrt{3})i \\\quad \\checkmark
+\\end{aligned}
+$$
+
+---
+
+### Multiplicative Inverse in Trigonometric Form
+
+<div class="my-6 p-5 bg-amber-50 border border-amber-150 rounded-2xl">
+  <h4 class="font-bold text-amber-800 mb-2">Multiplicative Inverse Rule</h4>
+  <p class="text-sm text-slate-700 leading-relaxed mb-3">
+    Let $z = x+yi \\ne 0$ be represented as $z = r(\\cos\\theta + i\\sin\\theta)$. Since $z^{-1} = \\frac{1}{x^2+y^2}(x-yi)$:
+  </p>
+  $$
+  \\begin{aligned}
+    z^{-1} &= \\frac{1}{r^2}(r\\cos\\theta - ir\\sin\\theta) \\\\
+    &= \\frac{1}{r}(\\cos\\theta - i\\sin\\theta) \\\\
+    &= \\frac{1}{r}\\bigl( \\cos(-\\theta) + i\\sin(-\\theta) \\bigr)
+  \\end{aligned}
+  $$
+  <div class="p-3 bg-white border border-amber-100 rounded-xl text-center font-bold text-base my-2">
+    $$z^{-1} = \\frac{1}{r}\\bigl( \\cos(-\\theta) + i\\sin(-\\theta) \\bigr)$$
+  </div>
+</div>
+
+### Example 7
+Given $z = -\\sqrt{3} - i$, using the trigonometric form of $z$, find $z^{-1}$. Check your answer by showing that $zz^{-1} = 1$.
+
+#### Solution
+From Example 5, we have:
+$$z = 2\\left(\\cos\\left(-\\frac{5\\pi}{6}\\right) + i\\sin\\left(-\\frac{5\\pi}{6}\\right)\\right)$$
+
+Applying the multiplicative inverse rule:
+$$
+\\begin{aligned}
+  z^{-1} &= \\frac{1}{2} \\left[ \\cos\\left(-\\left(-\frac{5\\pi}{6}\\right)\\right) + i\\sin\\left(-\\left(-\frac{5\\pi}{6}\\right)\\right) \\right] \\\\
+  &= \\frac{1}{2} \\left[ \\cos\\frac{5\\pi}{6} + i\\sin\\frac{5\\pi}{6} \\right] \\\\
+  &= \\frac{1}{2} \\left( -\\frac{\\sqrt{3}}{2} + \\frac{1}{2}i \\right) = -\\frac{\\sqrt{3}}{4} + \\frac{1}{4}i
+\\end{aligned}
+$$
+
+**Check:**
+$$
+\\begin{aligned}
+  zz^{-1} &= (-\\sqrt{3} - i)\\left(-\\frac{\\sqrt{3}}{4} + \\frac{1}{4}i\\right) \\\\
+  &= \\frac{3}{4} - \\frac{\\sqrt{3}}{4}i + \\frac{\\sqrt{3}}{4}i - \\frac{1}{4}i^2 \\\\
+  &= \\frac{3}{4} + \\frac{1}{4} = 1 \\\quad \\checkmark
+\\end{aligned}
+$$
+<p class="text-xs text-slate-500 italic mt-1">
+  Since $zz^{-1} = 1$, the multiplicative inverse of $z$ is $z^{-1}$. ($zz^{-1} = 1$ ဖြစ်သောကြောင့် $z$ ၏ multiplicative inverse သည် $z^{-1}$ ဖြစ်သည်။)
+</p>
+
+---
+
+### Division in Trigonometric Form
+
+<div class="my-6 p-5 bg-cyan-50 border border-cyan-150 rounded-2xl">
+  <h4 class="font-bold text-cyan-800 mb-2">Division Rule</h4>
+  <p class="text-sm text-slate-700 leading-relaxed mb-3">
+    Let $z_1 = r_1(\\cos\\theta_1 + i\\sin\\theta_1)$ and $z_2 = r_2(\\cos\\theta_2 + i\\sin\\theta_2)$ where $z_2 \\ne 0$. Then:
+  </p>
+  $$
+  \\begin{aligned}
+    \\frac{z_1}{z_2} &= z_1 z_2^{-1} \\\\
+    &= r_1(\\cos\\theta_1 + i\\sin\\theta_1) \\cdot \\frac{1}{r_2}\\bigl[ \\cos(-\\theta_2) + i\\sin(-\\theta_2) \\bigr] \\\\
+    &= \\frac{r_1}{r_2}\\bigl[ \\cos(\\theta_1 - \\theta_2) + i\\sin(\\theta_1 - \\theta_2) \\bigr]
+  \\end{aligned}
+  $$
+  <div class="p-3 bg-white border border-cyan-100 rounded-xl text-center font-bold text-base my-2">
+    $$\\frac{z_1}{z_2} = \\frac{r_1}{r_2}\\bigl[ \\cos(\\theta_1 - \\theta_2) + i\\sin(\\theta_1 - \\theta_2) \\bigr], \\\quad z_2 \\ne 0$$
+  </div>
+</div>
+
+### Example 8
+Given $z_1 = 1 + \\sqrt{3}i$ and $z_2 = -1 + i$, find $\\frac{z_1}{z_2}$ using trigonometric forms. Check your answer by direct calculation.
+
+#### Solution
+Applying the division rule:
+$$
+\\begin{aligned}
+  \\frac{z_1}{z_2} &= \\frac{2}{\\sqrt{2}}\\left[ \\cos\\left(\\frac{\\pi}{3} - \\frac{3\\pi}{4}\right) + i\\sin\\left(\\frac{\\pi}{3} - \\frac{3\\pi}{4}\right) \\right] \\\\
+  &= \\sqrt{2}\\left[ \\cos\\left(-\\frac{5\\pi}{12}\\right) + i\\sin\\left(-\\frac{5\\pi}{12}\\right) \\right]
+\\end{aligned}
+$$
+
+Using trigonometric identities:
+$$
+\\cos\\left(-\\frac{5\\pi}{12}\\right) = \\frac{\\sqrt{6}-\\sqrt{2}}{4}, \\quad \\sin\\left(-\\frac{5\\pi}{12}\\right) = -\\frac{\\sqrt{6}+\\sqrt{2}}{4}
+$$
+$$
+\\begin{aligned}
+  \\frac{z_1}{z_2} &= \\sqrt{2}\\left( \\frac{\\sqrt{6}-\\sqrt{2}}{4} - i \\frac{\\sqrt{6}+\\sqrt{2}}{4} \\right) \\\\
+  &= \\frac{\\sqrt{3}-1}{2} - \\frac{\\sqrt{3}+1}{2}i
+\\end{aligned}
+$$
+
+**Check by Direct Calculation:**
+$$
+\\begin{aligned}
+  \\frac{z_1}{z_2} &= \\frac{1 + \\sqrt{3}i}{-1 + i} = \\frac{(1 + \\sqrt{3}i)(-1 - i)}{(-1 + i)(-1 - i)} \\\\
+  &= \\frac{-1 - i - \\sqrt{3}i + \\sqrt{3}}{2} \\\\
+  &= \\frac{\\sqrt{3}-1}{2} - \\frac{\\sqrt{3}+1}{2}i \\\quad \\checkmark
+\\end{aligned}
+$$
+
+---
+
+### Powers of Complex Numbers (De Moivre's Formula)
+
+<div class="my-6 p-5 bg-indigo-50 border border-indigo-150 rounded-2xl">
+  <h4 class="font-bold text-indigo-800 mb-2">De Moivre's Theorem</h4>
+  <p class="text-sm text-slate-700 leading-relaxed mb-3">
+    Let $z = r(\\cos\\theta + i\\sin\\theta)$. For any positive integer $n$:
+  </p>
+  <div class="p-3 bg-white border border-indigo-100 rounded-xl text-center font-bold text-base my-2">
+    $$z^n = r^n(\\cos n\\theta + i\\sin n\\theta), \\quad n \\in \\mathbb{N}$$
+  </div>
+  <p class="text-sm text-slate-700 leading-relaxed mt-2">
+    The modulus is raised to the $n$-th power and the argument is multiplied by $n$.
+  </p>
+</div>
+
+### Example 9
+Given $z = 1 + \\sqrt{3}i$, find (a) $z^{10}$ and (b) $z^{-10}$.
+
+#### Solution
+Trigonometric form of $z$: $z = 2\\left(\\cos\\frac{\\pi}{3} + i\\sin\\frac{\\pi}{3}\\right)$.
+
+**(a) $z^{10}$:**
+$$
+\\begin{aligned}
+  z^{10} &= 2^{10}\\left( \\cos\\frac{10\\pi}{3} + i\\sin\\frac{10\\pi}{3} \\right)
+\\end{aligned}
+$$
+Since $\\frac{10\\pi}{3} = 2\\pi + \\frac{4\\pi}{3} \\equiv \\frac{4\\pi}{3} \\equiv -\\frac{2\\pi}{3}$:
+$$
+\\begin{aligned}
+  z^{10} &= 1024\\left( \\cos\\left(-\\frac{2\\pi}{3}\\right) + i\\sin\\left(-\\frac{2\\pi}{3}\\right)\\right) \\\\
+  &= 1024\\left( -\\frac{1}{2} - \\frac{\\sqrt{3}}{2}i \\right) \\\\
+  &= -512 - 512\\sqrt{3}i
+\\end{aligned}
+$$
+
+**(b) $z^{-10}$:**
+$$
+\\begin{aligned}
+  z^{-10} &= 2^{-10}\\left( \\cos\\left(-\\frac{10\\pi}{3}\\right) + i\\sin\\left(-\\frac{10\\pi}{3}\\right) \\right) \\\\
+  &= \\frac{1}{1024}\\left( \\cos\\frac{2\\pi}{3} + i\\sin\\frac{2\\pi}{3} \\right) \\\\
+  &= \\frac{1}{1024}\\left( -\\frac{1}{2} + \\frac{\\sqrt{3}}{2}i \\right) \\\\
+  &= -\\frac{1}{2048} + \\frac{\\sqrt{3}}{2048}i
+\\end{aligned}
+$$
+
+---
+
+<div class="my-8 p-6 bg-slate-100 border border-slate-200 rounded-3xl">
+  <h3 class="text-xl font-extrabold text-slate-800 mb-4">Exercise 1.4</h3>
+  
+  <div class="space-y-4">
+    <div>
+      <p class="font-bold text-slate-700">1. Find the trigonometric form with $-\\pi < \\theta \\le \\pi$ of:</p>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 pl-4 mt-2 font-mono text-sm text-slate-800">
+        <div>(a) $z = 1 - \\sqrt{3}i$</div>
+        <div>(b) $z = -\\sqrt{2} + \\sqrt{2}i$</div>
+        <div>(c) $z = -2 - 2i$</div>
+        <div>(d) $z = \\sqrt{3} - i$</div>
+        <div>(e) $z = i$</div>
+        <div>(f) $z = -3i$</div>
+      </div>
+    </div>
+
+    <div>
+      <p class="font-bold text-slate-700">2. Given $z_1 = 2 - 2\\sqrt{3}i$ and $z_2 = -1 - i$, find the following using trigonometric forms. Check your answers by direct calculation.</p>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 pl-4 mt-2 font-mono text-sm text-slate-800">
+        <div>(a) $z_1z_2$</div>
+        <div>(b) $z_1^{-1}$</div>
+        <div>(c) $\\dfrac{z_1}{z_2}$</div>
+        <div>(d) $\\dfrac{z_2}{z_1}$</div>
+      </div>
+    </div>
+
+    <div>
+      <p class="font-bold text-slate-700">3. Given $z = -2\\sqrt{3} - 2i$, find:</p>
+      <div class="grid grid-cols-2 gap-3 pl-4 mt-2 font-mono text-sm text-slate-800">
+        <div>(a) $z^5$</div>
+        <div>(b) $z^{-5}$</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+### Detailed Solutions and Visualizations
+
+<details class="group bg-white border border-slate-200 rounded-2xl p-5 my-4">
+  <summary class="flex justify-between items-center font-bold text-slate-800 cursor-pointer list-none">
+    <span>Solutions to Exercise 1.4 - Question 1 (Trigonometric Forms with Plots)</span>
+    <span class="transition-transform group-open:rotate-180">
+      <svg class="w-5 h-5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg>
+    </span>
+  </summary>
+  <div class="mt-4 space-y-8 divide-y divide-slate-100 text-slate-700">
+
+    <!-- 1(a) -->
+    <div class="pt-4 flex flex-col md:flex-row gap-6 items-center">
+      <div class="flex-1">
+        <h5 class="font-bold text-slate-800 mb-2">(a) $z = 1 - \\sqrt{3}i$</h5>
+        <p class="text-sm text-slate-600 mb-2">
+          The point is $(1, -\\sqrt{3})$ in <strong>Quadrant IV</strong>:
+        </p>
+        $$
+        \\begin{aligned}
+          r &= \\sqrt{1^2 + (-\\sqrt{3})^2} = 2 \\\\
+          \\cos\\theta &= \\frac{1}{2}, \\\quad \\sin\\theta = -\\frac{\\sqrt{3}}{2} \\implies \\theta = -\\frac{\\pi}{3}
+        \\end{aligned}
+        $$
+        <p class="text-sm font-semibold mt-2 text-blue-600">
+          $z = 2\\left[\\cos\\left(-\\frac{\\pi}{3}\\right) + i\\sin\\left(-\\frac{\\pi}{3}\\right)\\right]$
+        </p>
+      </div>
+      <div class="w-32 aspect-square flex items-center justify-center bg-slate-50 rounded-xl p-2">
+        <svg viewBox="0 0 120 120" class="w-full h-full overflow-visible">
+          <line x1="10" y1="40" x2="110" y2="40" stroke="#64748b" stroke-width="1" marker-end="url(#arrow-small)"></line>
+          <line x1="40" y1="110" x2="40" y2="10" stroke="#64748b" stroke-width="1" marker-end="url(#arrow-small)"></line>
+          <line x1="40" y1="40" x2="80" y2="100" stroke="#2563eb" stroke-width="1.5" marker-end="url(#blue-arrow-small)"></line>
+          <circle cx="80" cy="100" r="2.5" fill="#2563eb"></circle>
+          <path d="M 55 40 A 15 15 0 0 1 47.5 53" fill="none" stroke="#f59e0b" stroke-width="1"></path>
+          <text x="112" y="43" font-size="7" font-weight="bold" fill="#64748b">Re</text>
+          <text x="44" y="14" font-size="7" font-weight="bold" fill="#64748b">Im</text>
+          <text x="84" y="103" font-size="7" font-weight="bold" fill="#1e293b">(1, -√3)</text>
+          <text x="49" y="52" font-size="7" font-weight="bold" fill="#f59e0b">-\\pi/3</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- 1(b) -->
+    <div class="pt-6 flex flex-col md:flex-row gap-6 items-center">
+      <div class="flex-1">
+        <h5 class="font-bold text-slate-800 mb-2">(b) $z = -\\sqrt{2} + \\sqrt{2}i$</h5>
+        <p class="text-sm text-slate-600 mb-2">
+          The point is $(-\\sqrt{2}, \\sqrt{2})$ in <strong>Quadrant II</strong>:
+        </p>
+        $$
+        \\begin{aligned}
+          r &= \\sqrt{(-\\sqrt{2})^2 + (\\sqrt{2})^2} = 2 \\\\
+          \\cos\\theta &= -\\frac{\\sqrt{2}}{2}, \\\quad \\sin\\theta = \\frac{\\sqrt{2}}{2} \\implies \\theta = \\frac{3\\pi}{4}
+        \\end{aligned}
+        $$
+        <p class="text-sm font-semibold mt-2 text-blue-600">
+          $z = 2\\left[\\cos\\frac{3\\pi}{4} + i\\sin\\frac{3\\pi}{4}\\right]$
+        </p>
+      </div>
+      <div class="w-32 aspect-square flex items-center justify-center bg-slate-50 rounded-xl p-2">
+        <svg viewBox="0 0 120 120" class="w-full h-full overflow-visible">
+          <line x1="10" y1="80" x2="110" y2="80" stroke="#64748b" stroke-width="1" marker-end="url(#arrow-small)"></line>
+          <line x1="80" y1="110" x2="80" y2="10" stroke="#64748b" stroke-width="1" marker-end="url(#arrow-small)"></line>
+          <line x1="80" y1="80" x2="38" y2="38" stroke="#2563eb" stroke-width="1.5" marker-end="url(#blue-arrow-small)"></line>
+          <circle cx="38" cy="38" r="2.5" fill="#2563eb"></circle>
+          <path d="M 95 80 A 15 15 0 0 0 69.4 69.4" fill="none" stroke="#f59e0b" stroke-width="1"></path>
+          <text x="112" y="83" font-size="7" font-weight="bold" fill="#64748b">Re</text>
+          <text x="84" y="14" font-size="7" font-weight="bold" fill="#64748b">Im</text>
+          <text x="15" y="34" font-size="7" font-weight="bold" fill="#1e293b">(-√2, √2)</text>
+          <text x="86" y="70" font-size="7" font-weight="bold" fill="#f59e0b">3\\pi/4</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- 1(c) -->
+    <div class="pt-6 flex flex-col md:flex-row gap-6 items-center">
+      <div class="flex-1">
+        <h5 class="font-bold text-slate-800 mb-2">(c) $z = -2 - 2i$</h5>
+        <p class="text-sm text-slate-600 mb-2">
+          The point is $(-2, -2)$ in <strong>Quadrant III</strong>:
+        </p>
+        $$
+        \\begin{aligned}
+          r &= \\sqrt{(-2)^2 + (-2)^2} = 2\\sqrt{2} \\\\
+          \\cos\\theta &= -\\frac{\\sqrt{2}}{2}, \\\quad \\sin\\theta = -\\frac{\\sqrt{2}}{2} \\implies \\theta = -\\frac{3\\pi}{4}
+        \\end{aligned}
+        $$
+        <p class="text-sm font-semibold mt-2 text-blue-600">
+          $z = 2\\sqrt{2}\\left[\\cos\\left(-\\frac{3\\pi}{4}\\right) + i\\sin\\left(-\\frac{3\\pi}{4}\\right)\\right]$
+        </p>
+      </div>
+      <div class="w-32 aspect-square flex items-center justify-center bg-slate-50 rounded-xl p-2">
+        <svg viewBox="0 0 120 120" class="w-full h-full overflow-visible">
+          <line x1="10" y1="40" x2="110" y2="40" stroke="#64748b" stroke-width="1" marker-end="url(#arrow-small)"></line>
+          <line x1="80" y1="110" x2="80" y2="10" stroke="#64748b" stroke-width="1" marker-end="url(#arrow-small)"></line>
+          <line x1="80" y1="40" x2="38" y2="82" stroke="#2563eb" stroke-width="1.5" marker-end="url(#blue-arrow-small)"></line>
+          <circle cx="38" cy="82" r="2.5" fill="#2563eb"></circle>
+          <path d="M 95 40 A 15 15 0 0 1 69.4 50.6" fill="none" stroke="#f59e0b" stroke-width="1"></path>
+          <text x="112" y="43" font-size="7" font-weight="bold" fill="#64748b">Re</text>
+          <text x="84" y="14" font-size="7" font-weight="bold" fill="#64748b">Im</text>
+          <text x="15" y="92" font-size="7" font-weight="bold" fill="#1e293b">(-2, -2)</text>
+          <text x="86" y="55" font-size="7" font-weight="bold" fill="#f59e0b">-3\\pi/4</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- 1(d) -->
+    <div class="pt-6 flex flex-col md:flex-row gap-6 items-center">
+      <div class="flex-1">
+        <h5 class="font-bold text-slate-800 mb-2">(d) $z = \\sqrt{3} - i$</h5>
+        <p class="text-sm text-slate-600 mb-2">
+          The point is $(\\sqrt{3}, -1)$ in <strong>Quadrant IV</strong>:
+        </p>
+        $$
+        \\begin{aligned}
+          r &= \\sqrt{(\\sqrt{3})^2 + (-1)^2} = 2 \\\\
+          \\cos\\theta &= \\frac{\\sqrt{3}}{2}, \\\quad \\sin\\theta = -\\frac{1}{2} \\implies \\theta = -\\frac{\\pi}{6}
+        \\end{aligned}
+        $$
+        <p class="text-sm font-semibold mt-2 text-blue-600">
+          $z = 2\\left[\\cos\\left(-\\frac{\\pi}{6}\\right) + i\\sin\\left(-\\frac{\\pi}{6}\\right)\\right]$
+        </p>
+      </div>
+      <div class="w-32 aspect-square flex items-center justify-center bg-slate-50 rounded-xl p-2">
+        <svg viewBox="0 0 120 120" class="w-full h-full overflow-visible">
+          <line x1="10" y1="40" x2="110" y2="40" stroke="#64748b" stroke-width="1" marker-end="url(#arrow-small)"></line>
+          <line x1="40" y1="110" x2="40" y2="10" stroke="#64748b" stroke-width="1" marker-end="url(#arrow-small)"></line>
+          <line x1="40" y1="40" x2="90" y2="69" stroke="#2563eb" stroke-width="1.5" marker-end="url(#blue-arrow-small)"></line>
+          <circle cx="90" cy="69" r="2.5" fill="#2563eb"></circle>
+          <path d="M 55 40 A 15 15 0 0 1 53 47.5" fill="none" stroke="#f59e0b" stroke-width="1"></path>
+          <text x="112" y="43" font-size="7" font-weight="bold" fill="#64748b">Re</text>
+          <text x="44" y="14" font-size="7" font-weight="bold" fill="#64748b">Im</text>
+          <text x="94" y="73" font-size="7" font-weight="bold" fill="#1e293b">(√3, -1)</text>
+          <text x="54" y="49" font-size="7" font-weight="bold" fill="#f59e0b">-\\pi/6</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- 1(e) -->
+    <div class="pt-6 flex flex-col md:flex-row gap-6 items-center">
+      <div class="flex-1">
+        <h5 class="font-bold text-slate-800 mb-2">(e) $z = i$</h5>
+        <p class="text-sm text-slate-600 mb-2">
+          The point is $(0, 1)$ on the <strong>Positive Imaginary Axis</strong>:
+        </p>
+        $$
+        \\begin{aligned}
+          r &= \\sqrt{0^2 + 1^2} = 1 \\\\
+          \\cos\\theta &= 0, \\\quad \\sin\\theta = 1 \\implies \\theta = \\frac{\\pi}{2}
+        \\end{aligned}
+        $$
+        <p class="text-sm font-semibold mt-2 text-blue-600">
+          $z = 1\\left[\\cos\\frac{\\pi}{2} + i\\sin\\frac{\\pi}{2}\\right]$
+        </p>
+      </div>
+      <div class="w-32 aspect-square flex items-center justify-center bg-slate-50 rounded-xl p-2">
+        <svg viewBox="0 0 120 120" class="w-full h-full overflow-visible">
+          <line x1="10" y1="80" x2="110" y2="80" stroke="#64748b" stroke-width="1" marker-end="url(#arrow-small)"></line>
+          <line x1="60" y1="110" x2="60" y2="10" stroke="#64748b" stroke-width="1" marker-end="url(#arrow-small)"></line>
+          <line x1="60" y1="80" x2="60" y2="38" stroke="#2563eb" stroke-width="1.5" marker-end="url(#blue-arrow-small)"></line>
+          <circle cx="60" cy="38" r="2.5" fill="#2563eb"></circle>
+          <path d="M 75 80 A 15 15 0 0 0 60 65" fill="none" stroke="#f59e0b" stroke-width="1"></path>
+          <text x="112" y="83" font-size="7" font-weight="bold" fill="#64748b">Re</text>
+          <text x="64" y="14" font-size="7" font-weight="bold" fill="#64748b">Im</text>
+          <text x="64" y="34" font-size="7" font-weight="bold" fill="#1e293b">(0, 1)</text>
+          <text x="64" y="74" font-size="7" font-weight="bold" fill="#f59e0b">\\pi/2</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- 1(f) -->
+    <div class="pt-6 flex flex-col md:flex-row gap-6 items-center">
+      <div class="flex-1">
+        <h5 class="font-bold text-slate-800 mb-2">(f) $z = -3i$</h5>
+        <p class="text-sm text-slate-600 mb-2">
+          The point is $(0, -3)$ on the <strong>Negative Imaginary Axis</strong>:
+        </p>
+        $$
+        \\begin{aligned}
+          r &= \\sqrt{0^2 + (-3)^2} = 3 \\\\
+          \\cos\\theta &= 0, \\\quad \\sin\\theta = -1 \\implies \\theta = -\\frac{\\pi}{2}
+        \\end{aligned}
+        $$
+        <p class="text-sm font-semibold mt-2 text-blue-600">
+          $z = 3\\left[\\cos\\left(-\\frac{\\pi}{2}\\right) + i\\sin\\left(-\\frac{\\pi}{2}\\right)\\right]$
+        </p>
+      </div>
+      <div class="w-32 aspect-square flex items-center justify-center bg-slate-50 rounded-xl p-2">
+        <svg viewBox="0 0 120 120" class="w-full h-full overflow-visible">
+          <line x1="10" y1="40" x2="110" y2="40" stroke="#64748b" stroke-width="1" marker-end="url(#arrow-small)"></line>
+          <line x1="60" y1="110" x2="60" y2="10" stroke="#64748b" stroke-width="1" marker-end="url(#arrow-small)"></line>
+          <line x1="60" y1="40" x2="60" y2="100" stroke="#2563eb" stroke-width="1.5" marker-end="url(#blue-arrow-small)"></line>
+          <circle cx="60" cy="100" r="2.5" fill="#2563eb"></circle>
+          <path d="M 75 40 A 15 15 0 0 1 60 55" fill="none" stroke="#f59e0b" stroke-width="1"></path>
+          <text x="112" y="43" font-size="7" font-weight="bold" fill="#64748b">Re</text>
+          <text x="64" y="14" font-size="7" font-weight="bold" fill="#64748b">Im</text>
+          <text x="64" y="104" font-size="7" font-weight="bold" fill="#1e293b">(0, -3)</text>
+          <text x="64" y="52" font-size="7" font-weight="bold" fill="#f59e0b">-\\pi/2</text>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+</details>
+
+<details class="group bg-white border border-slate-200 rounded-2xl p-5 my-4">
+  <summary class="flex justify-between items-center font-bold text-slate-800 cursor-pointer list-none">
+    <span>Solutions to Exercise 1.4 - Question 2 (Operations and Direct Verification)</span>
+    <span class="transition-transform group-open:rotate-180">
+      <svg class="w-5 h-5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg>
+    </span>
+  </summary>
+  <div class="mt-4 space-y-6 text-slate-700 divide-y divide-slate-100">
+
+    <div class="pb-4">
+      <p class="text-sm text-slate-600 mb-2">
+        First, we find the trigonometric forms of $z_1 = 2 - 2\\sqrt{3}i$ and $z_2 = -1 - i$:
+      </p>
+      $$
+      \\begin{aligned}
+        z_1 &= 4\\left[ \\cos\\left(-\\frac{\\pi}{3}\\right) + i\\sin\\left(-\\frac{\\pi}{3}\\right) \\right] \\\\
+        z_2 &= \\sqrt{2}\\left[ \\cos\\left(-\\frac{3\\pi}{4}\\right) + i\\sin\\left(-\\frac{3\\pi}{4}\\right) \\right]
+      \\end{aligned}
+      $$
+    </div>
+
+    <!-- 2(a) -->
+    <div class="pt-4">
+      <h5 class="font-bold text-slate-800 mb-2">(a) $z_1z_2$</h5>
+      <p class="text-sm mb-2 font-semibold text-slate-700">Using Trigonometric Form:</p>
+      $$
+      \\begin{aligned}
+        z_1z_2 &= 4\\sqrt{2}\\left[ \\cos\\left(-\\frac{\\pi}{3} + \\left(-\\frac{3\\pi}{4}\\right)\\right) + i\\sin\\left(-\\frac{\\pi}{3} + \\left(-\\frac{3\\pi}{4}\\right)\\right) \\right] \\\\
+        &= 4\\sqrt{2}\\left[ \\cos\\left(-\\frac{13\\pi}{12}\\right) + i\\sin\\left(-\\frac{13\\pi}{12}\\right) \\right]
+      \\end{aligned}
+      $$
+      Since $-\\frac{13\\pi}{12} < -\\pi$, we add $2\\pi$ to get the principal argument in $(-\\pi, \\pi]$:
+      $$
+      -\\frac{13\\pi}{12} + 2\\pi = \\frac{11\\pi}{12}
+      $$
+      $$
+      z_1z_2 = 4\\sqrt{2}\\left( \\cos\\frac{11\\pi}{12} + i\\sin\\frac{11\\pi}{12} \right) = -(2+2\\sqrt{3}) + (2\\sqrt{3}-2)i
+      $$
+
+      <p class="text-sm mt-3 font-semibold text-slate-700">Direct Multiplication Verification:</p>
+      $$
+      \\begin{aligned}
+        z_1z_2 &= (2 - 2\\sqrt{3}i)(-1 - i) \\\\
+        &= -2 - 2i + 2\\sqrt{3}i + 2\\sqrt{3}i^2 \\\\
+        &= -(2+2\\sqrt{3}) + (2\\sqrt{3}-2)i \\\quad \\checkmark
+      \\end{aligned}
+      $$
+    </div>
+
+    <!-- 2(b) -->
+    <div class="pt-4">
+      <h5 class="font-bold text-slate-800 mb-2">(b) $z_1^{-1}$</h5>
+      <p class="text-sm mb-2 font-semibold text-slate-700">Using Trigonometric Form:</p>
+      $$
+      \\begin{aligned}
+        z_1^{-1} &= \\frac{1}{4}\\left[ \\cos\\left(-\\left(-\\frac{\\pi}{3}\\right)\\right) + i\\sin\\left(-\\left(-\frac{\\pi}{3}\\right)\\right) \\right] \\\\
+        &= \\frac{1}{4}\\left( \\cos\\frac{\\pi}{3} + i\\sin\\frac{\\pi}{3} \\right) \\\\
+        &= \\frac{1}{4}\\left( \\frac{1}{2} + \\frac{\\sqrt{3}}{2}i \\right) = \\frac{1}{8} + \\frac{\\sqrt{3}}{8}i
+      \\end{aligned}
+      $$
+
+      <p class="text-sm mt-3 font-semibold text-slate-700">Direct Verification:</p>
+      $$
+      \\begin{aligned}
+        z_1^{-1} &= \\frac{1}{2-2\\sqrt{3}i} \\cdot \\frac{2+2\\sqrt{3}i}{2+2\\sqrt{3}i} \\\\
+        &= \\frac{2+2\\sqrt{3}i}{4 + 12} = \\frac{2+2\\sqrt{3}i}{16} = \\frac{1}{8} + \\frac{\\sqrt{3}}{8}i \\\quad \\checkmark
+      \\end{aligned}
+      $$
+    </div>
+
+    <!-- 2(c) -->
+    <div class="pt-4">
+      <h5 class="font-bold text-slate-800 mb-2">(c) $\\dfrac{z_1}{z_2}$</h5>
+      <p class="text-sm mb-2 font-semibold text-slate-700">Using Trigonometric Form:</p>
+      $$
+      \\begin{aligned}
+        \\frac{z_1}{z_2} &= \\frac{4}{\\sqrt{2}}\\left[ \\cos\\left(-\\frac{\\pi}{3} - \\left(-\\frac{3\\pi}{4}\\right)\\right) + i\\sin\\left(-\\frac{\\pi}{3} - \\left(-\\frac{3\\pi}{4}\\right)\\right) \\right] \\\\
+        &= 2\\sqrt{2}\\left[ \\cos\\frac{5\\pi}{12} + i\\sin\\frac{5\\pi}{12} \\right] \\\\
+        &= \\sqrt{3}-1 + (\\sqrt{3}+1)i
+      \\end{aligned}
+      $$
+
+      <p class="text-sm mt-3 font-semibold text-slate-700">Direct Verification:</p>
+      $$
+      \\begin{aligned}
+        \\frac{z_1}{z_2} &= \\frac{2-2\\sqrt{3}i}{-1-i} \\cdot \\frac{-1+i}{-1+i} \\\\
+        &= \\frac{(2-2\\sqrt{3}i)(-1+i)}{1 + 1} \\\\
+        &= \\frac{-2 + 2i + 2\\sqrt{3}i - 2\\sqrt{3}i^2}{2} \\\\
+        &= \\frac{(2\\sqrt{3}-2) + (2\\sqrt{3}+2)i}{2} = \\sqrt{3}-1 + (\\sqrt{3}+1)i \\\quad \\checkmark
+      \\end{aligned}
+      $$
+    </div>
+
+    <!-- 2(d) -->
+    <div class="pt-4">
+      <h5 class="font-bold text-slate-800 mb-2">(d) $\\dfrac{z_2}{z_1}$</h5>
+      <p class="text-sm mb-2 font-semibold text-slate-700">Using Trigonometric Form:</p>
+      $$
+      \\begin{aligned}
+        \\frac{z_2}{z_1} &= \\frac{\\sqrt{2}}{4}\\left[ \\cos\\left(-\\frac{3\\pi}{4} - \\left(-\\frac{\\pi}{3}\\right)\\right) + i\\sin\\left(-\\frac{3\\pi}{4} - \\left(-\\frac{\\pi}{3}\\right)\\right) \\right] \\\\
+        &= \\frac{\\sqrt{2}}{4}\\left[ \\cos\\left(-\\frac{5\\pi}{12}\\right) + i\\sin\\left(-\\frac{5\\pi}{12}\\right) \\right] \\\\
+        &= \\frac{\\sqrt{3}-1}{8} - \\frac{\\sqrt{3}+1}{8}i
+      \\end{aligned}
+      $$
+
+      <p class="text-sm mt-3 font-semibold text-slate-700">Direct Verification:</p>
+      $$
+      \\begin{aligned}
+        \\frac{z_2}{z_1} &= \\frac{-1-i}{2-2\\sqrt{3}i} \\cdot \\frac{2+2\\sqrt{3}i}{2+2\\sqrt{3}i} \\\\
+        &= \\frac{(-1-i)(2+2\\sqrt{3}i)}{4 + 12} \\\\
+        &= \\frac{-2 - 2\\sqrt{3}i - 2i - 2\\sqrt{3}i^2}{16} \\\\
+        &= \\frac{(2\\sqrt{3}-2) - (2\\sqrt{3}+2)i}{16} = \\frac{\\sqrt{3}-1}{8} - \\frac{\\sqrt{3}+1}{8}i \\\quad \\checkmark
+      \\end{aligned}
+      $$
+    </div>
+
+  </div>
+</details>
+
+<details class="group bg-white border border-slate-200 rounded-2xl p-5 my-4">
+  <summary class="flex justify-between items-center font-bold text-slate-800 cursor-pointer list-none">
+    <span>Solutions to Exercise 1.4 - Question 3 (Powers of Complex Numbers)</span>
+    <span class="transition-transform group-open:rotate-180">
+      <svg class="w-5 h-5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg>
+    </span>
+  </summary>
+  <div class="mt-4 space-y-6 text-slate-700 divide-y divide-slate-100">
+
+    <div class="pb-4">
+      <p class="text-sm text-slate-600 mb-2">
+        Given $z = -2\\sqrt{3} - 2i = (-2\\sqrt{3}, -2)$ in <strong>Quadrant III</strong>:
+      </p>
+      $$
+      \\begin{aligned}
+        r &= \\sqrt{(-2\\sqrt{3})^2 + (-2)^2} = \\sqrt{12+4} = 4 \\\\
+        \\cos\\theta &= -\\frac{\\sqrt{3}}{2}, \\\quad \\sin\\theta = -\\frac{1}{2} \\implies \\theta = -\\frac{5\\pi}{6}
+      \\end{aligned}
+      $$
+      $$z = 4\\left[ \\cos\\left(-\\frac{5\\pi}{6}\\right) + i\\sin\\left(-\\frac{5\\pi}{6}\\right) \\right]$$
+    </div>
+
+    <!-- 3(a) -->
+    <div class="pt-4">
+      <h5 class="font-bold text-slate-800 mb-2">(a) $z^5$</h5>
+      Applying De Moivre's Formula:
+      $$
+      \\begin{aligned}
+        z^5 &= 4^5 \\left[ \\cos\\left(5 \\cdot \\left(-\\frac{5\\pi}{6}\right)\\right) + i\\sin\\left(5 \\cdot \\left(-\\frac{5\\pi}{6}\right)\\right) \\right] \\\\
+        &= 1024 \\left[ \\cos\\left(-\\frac{25\\pi}{6}\right) + i\\sin\\left(-\\frac{25\\pi}{6}\right)\\right]
+      \\end{aligned}
+      $$
+      Since $-\\frac{25\\pi}{6} = -4\\pi - \\frac{\\pi}{6} \\equiv -\\frac{\\pi}{6}$:
+      $$
+      \\begin{aligned}
+        z^5 &= 1024 \\left[ \\cos\\left(-\\frac{\\pi}{6}\right) + i\\sin\\left(-\\frac{\\pi}{6}\right) \\right] \\\\
+        &= 1024 \\left( \\frac{\\sqrt{3}}{2} - \\frac{1}{2}i \\right) \\\\
+        &= 512\\sqrt{3} - 512i
+      \\end{aligned}
+      $$
+    </div>
+
+    <!-- 3(b) -->
+    <div class="pt-4">
+      <h5 class="font-bold text-slate-800 mb-2">(b) $z^{-5}$</h5>
+      Applying De Moivre's Formula:
+      $$
+      \\begin{aligned}
+        z^{-5} &= 4^{-5} \\left[ \\cos\\left(-5 \\cdot \\left(-\\frac{5\\pi}{6}\right)\\right) + i\\sin\\left(-5 \\cdot \\left(-\\frac{5\\pi}{6}\right)\\right) \\right] \\\\
+        &= \\frac{1}{1024} \\left[ \\cos\\frac{25\\pi}{6} + i\\sin\\frac{25\\pi}{6} \\right]
+      \\end{aligned}
+      $$
+      Since $\\frac{25\\pi}{6} = 4\\pi + \\frac{\\pi}{6} \\equiv \\frac{\\pi}{6}$:
+      $$
+      \\begin{aligned}
+        z^{-5} &= \\frac{1}{1024} \\left( \\cos\\frac{\\pi}{6} + i\\sin\\frac{\\pi}{6} \\right) \\\\
+        &= \\frac{1}{1024} \\left( \\frac{\\sqrt{3}}{2} + \\frac{1}{2}i \\right) \\\\
+        &= \\frac{\\sqrt{3}}{2048} + \\frac{1}{2048}i
+      \\end{aligned}
+      $$
+    </div>
+
+  </div>
+</details>
+`;
+
+const OLD_chapter1TrigonometricContent = "";
+/*
+const REDUNDANT_chapter1TrigonometricContent = `## 1.4 Trigonometric Form
+
+<div class="flex flex-col md:flex-row gap-6 items-center my-8 p-6 bg-slate-50 border border-slate-150 rounded-3xl">
+  <div class="flex-1 text-slate-700">
+    <h4 class="text-sm font-black uppercase text-blue-600 tracking-wider mb-2">Geometric Representation</h4>
+    <p class="text-sm leading-relaxed mb-4">
+      A non-zero complex number <strong>z = x + yi</strong> can be represented by a point <strong>P(x, y)</strong> on the complex plane (Argand diagram).
+    </p>
+    <p class="text-sm leading-relaxed">
+      Let:
+      <ul class="list-disc pl-5 mt-2 space-y-1 text-sm">
+        <li><strong>r = |z| = √(x² + y²)</strong> be the modulus (distance of the point from the origin).</li>
+        <li><strong>θ (theta)</strong> be the argument (angle made with the positive real axis).</li>
+      </ul>
+    </p>
+  </div>
+  <div class="w-full max-w-[280px] aspect-square bg-white border border-slate-100 rounded-2xl p-4 flex items-center justify-center shadow-xs">
+    <svg viewBox="0 0 240 240" class="w-full h-full overflow-visible">
+      <!-- Grid lines -->
+      <line x1="20" y1="180" x2="220" y2="180" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3 3"></line>
+      <line x1="60" y1="20" x2="60" y2="220" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3 3"></line>
+      
+      <!-- Axes -->
+      <line x1="10" y1="180" x2="230" y2="180" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"></line>
+      <line x1="60" y1="230" x2="60" y2="15" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"></line>
+      
+      <!-- Vector OP -->
+      <line x1="60" y1="180" x2="180" y2="60" stroke="#2563eb" stroke-width="2.5" marker-end="url(#blue-arrow)"></line>
+      
+      <!-- Dashed lines to axes -->
+      <line x1="180" y1="60" x2="180" y2="180" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 4"></line>
+      <line x1="60" y1="60" x2="180" y2="60" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 4"></line>
+      
+      <!-- Angle Arc for theta -->
+      <path d="M 85 180 A 25 25 0 0 0 77.7 162.3" fill="none" stroke="#f59e0b" stroke-width="2"></path>
+      
+      <!-- Point P -->
+      <circle cx="180" cy="60" r="5" fill="#2563eb"></circle>
+      
+      <!-- Labels -->
+      <text x="225" y="195" font-family="sans-serif" font-size="10" font-weight="bold" fill="#64748b" text-anchor="end">Re (x)</text>
+      <text x="75" y="25" font-family="sans-serif" font-size="10" font-weight="bold" fill="#64748b">Im (y)</text>
+      <text x="185" y="52" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1e293b">P(x, y)</text>
+      <text x="110" y="112" font-family="sans-serif" font-size="12" font-weight="bold" fill="#2563eb">r</text>
+      <text x="92" y="172" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f59e0b">θ</text>
+      
+      <text x="120" y="195" font-family="sans-serif" font-size="10" font-weight="bold" fill="#475569" text-anchor="middle">x = r cos θ</text>
+      <text x="48" y="120" font-family="sans-serif" font-size="10" font-weight="bold" fill="#475569" text-anchor="end" transform="rotate(-90 48 120)">y = r sin θ</text>
+      <text x="48" y="195" font-family="sans-serif" font-size="10" font-weight="bold" fill="#64748b" text-anchor="end">O</text>
+      
+      <!-- Definitions -->
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#64748b"></path>
+        </marker>
+        <marker id="blue-arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#2563eb"></path>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+</div>
+
+Let $r$ be the distance from the origin to $P(x, y)$ and let $\\theta$ be the angle made with the positive real axis. Then:
+
+$$r = |z| = \\sqrt{x^2+y^2}$$
+$$\\cos\\theta = \\frac{x}{r} \\\quad\\text{and}\\\quad \\sin\\theta = \\frac{y}{r}$$
+
+Since $x=r\\cos\\theta$ and $y=r\\sin\\theta$, we can write:
+
+\`\`\`note
+{
+  "type": "definition",
+  "title": "Trigonometric (Polar) Form",
+  "content": "$$z = x + yi = r(\\\\cos\\\\theta + i\\\\sin\\\\theta)$$\\n\\nThis is called the **trigonometric form** or **polar form** of the complex number $z$."
+}
+\`\`\`
+
+### Modulus and Argument
+
+In the form $z=r(\\cos\\theta+i\\sin\\theta)$:
+* $r=|z|$ is the **modulus** of $z$.
+* $\\theta$ is an **argument** of $z$.
+* For the **principal argument**, we choose $-\\pi < \\theta \\le \\pi$.
+
+All angles $\\theta + 2\\pi k$ (where $k \\in \\mathbb{Z}$) represent the same complex number on the plane.
+
+---
+
+### Example 5
+Find the trigonometric form of the following complex numbers with $-\\pi < \\theta \\le \\pi$:
+* **(a)** $z = 1 + \\sqrt{3}i$
+* **(b)** $z = -1 + i$
+* **(c)** $z = -\\sqrt{3} - i$
+* **(d)** $z = -1$
+
+<details>
+<summary>Click to view solution</summary>
+<div>
+
+#### (a) $z = 1 + \\sqrt{3}i$
+
+<div class="flex flex-col md:flex-row gap-6 items-center my-4 p-4 bg-slate-50 border border-slate-100 rounded-2xl">
+  <div class="flex-1">
+    <p class="text-sm leading-relaxed mb-3">
+      The point is <strong>(1, √3)</strong> in Quadrant I:
+    </p>
+    $$
+    \\begin{aligned}
+    r &= \\sqrt{1^2 + (\\sqrt{3})^2} = 2 \\\\
+    \\cos\\theta &= \\frac{1}{2}, \\\quad \\sin\\theta = \\frac{\\sqrt{3}}{2} \\implies \\theta = \\frac{\\pi}{3}
+    \\end{aligned}
+    $$
+    <p class="text-sm leading-relaxed mt-3">
+      Thus, the trigonometric form is:
+    </p>
+    $$z = 2\\left(\\cos\\frac{\\pi}{3} + i\\sin\\frac{\\pi}{3}\\right)$$
+  </div>
+  <div class="w-full max-w-[180px] aspect-square flex items-center justify-center bg-white border border-slate-100 rounded-xl p-2 shadow-xs">
+    <svg viewBox="0 0 200 200" class="w-full h-full overflow-visible">
+      <!-- Grid/Ticks -->
+      <line x1="50" y1="150" x2="150" y2="150" stroke="#f1f5f9" stroke-width="1"></line>
+      <line x1="50" y1="50" x2="50" y2="150" stroke="#f1f5f9" stroke-width="1"></line>
+      
+      <!-- Axes -->
+      <line x1="15" y1="150" x2="185" y2="150" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow-sol)"></line>
+      <line x1="50" y1="185" x2="50" y2="15" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow-sol)"></line>
+      
+      <!-- Vector OP -->
+      <line x1="50" y1="150" x2="110" y2="46" stroke="#2563eb" stroke-width="2" marker-end="url(#blue-arrow-sol)"></line>
+      
+      <!-- Dashed projection lines -->
+      <line x1="110" y1="46" x2="110" y2="150" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 3"></line>
+      
+      <!-- Angle Arc -->
+      <path d="M 75 150 A 25 25 0 0 0 62.5 128.4" fill="none" stroke="#f59e0b" stroke-width="1.5"></path>
+      
+      <!-- Point P -->
+      <circle cx="110" cy="46" r="4" fill="#2563eb"></circle>
+      
+      <!-- Labels -->
+      <text x="180" y="165" font-family="sans-serif" font-size="9" font-weight="bold" fill="#64748b">Re</text>
+      <text x="35" y="20" font-family="sans-serif" font-size="9" font-weight="bold" fill="#64748b">Im</text>
+      <text x="115" y="42" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1e293b">z = (1, √3)</text>
+      <text x="70" y="142" font-family="sans-serif" font-size="10" font-weight="bold" fill="#f59e0b">θ</text>
+      <text x="40" y="162" font-family="sans-serif" font-size="9" font-weight="bold" fill="#64748b">O</text>
+      
+      <defs>
+        <marker id="arrow-sol" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#64748b"></path>
+        </marker>
+        <marker id="blue-arrow-sol" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse">
+          <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#2563eb"></path>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+</div>
+
+#### (b) $z = -1 + i$
+
+<div class="flex flex-col md:flex-row gap-6 items-center my-4 p-4 bg-slate-50 border border-slate-100 rounded-2xl">
+  <div class="flex-1">
+    <p class="text-sm leading-relaxed mb-3">
+      The point is <strong>(-1, 1)</strong> in Quadrant II:
+    </p>
+    $$
+    \\begin{aligned}
+    r &= \\sqrt{(-1)^2 + 1^2} = \\sqrt{2} \\\\
+    \\cos\\theta &= -\\frac{\\sqrt{2}}{2}, \\\quad \\sin\\theta = \\frac{\\sqrt{2}}{2} \\implies \\theta = \\frac{3\\pi}{4}
+    \\end{aligned}
+    $$
+    <p class="text-sm leading-relaxed mt-3">
+      Thus, the trigonometric form is:
+    </p>
+    $$z = \\sqrt{2}\\left(\\cos\\frac{3\\pi}{4} + i\\sin\\frac{3\\pi}{4}\\right)$$
+  </div>
+  <div class="w-full max-w-[180px] aspect-square flex items-center justify-center bg-white border border-slate-100 rounded-xl p-2 shadow-xs">
+    <svg viewBox="0 0 200 200" class="w-full h-full overflow-visible">
+      <!-- Axes -->
+      <line x1="15" y1="140" x2="185" y2="140" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow-sol-2)"></line>
+      <line x1="120" y1="185" x2="120" y2="15" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow-sol-2)"></line>
+      
+      <!-- Vector -->
+      <line x1="120" y1="140" x2="70" y2="90" stroke="#2563eb" stroke-width="2" marker-end="url(#blue-arrow-sol-2)"></line>
+      
+      <!-- Dashed line -->
+      <line x1="70" y1="90" x2="70" y2="140" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 3"></line>
+      
+      <!-- Arc for theta -->
+      <path d="M 145 140 A 25 25 0 0 0 102.3 122.3" fill="none" stroke="#f59e0b" stroke-width="1.5"></path>
+      
+      <!-- Point z -->
+      <circle cx="70" cy="90" r="4" fill="#2563eb"></circle>
+      
+      <!-- Labels -->
+      <text x="180" y="155" font-family="sans-serif" font-size="9" font-weight="bold" fill="#64748b">Re</text>
+      <text x="105" y="20" font-family="sans-serif" font-size="9" font-weight="bold" fill="#64748b">Im</text>
+      <text x="40" y="82" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1e293b">z = (-1, 1)</text>
+      <text x="110" y="112" font-family="sans-serif" font-size="10" font-weight="bold" fill="#f59e0b">θ</text>
+      <text x="124" y="152" font-family="sans-serif" font-size="9" font-weight="bold" fill="#64748b">O</text>
+      
+      <defs>
+        <marker id="arrow-sol-2" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#64748b"></path>
+        </marker>
+        <marker id="blue-arrow-sol-2" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse">
+          <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#2563eb"></path>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+</div>
+
+#### (c) $z = -\\sqrt{3} - i$
+The point is $(-\\sqrt{3}, -1)$ in Quadrant III:
+$$
+\\begin{aligned}
+r &= \\sqrt{(-\\sqrt{3})^2 + (-1)^2} = 2 \\\\
+\\cos\\theta &= -\\frac{\\sqrt{3}}{2}, \\\quad \\sin\\theta = -\\frac{1}{2} \\implies \\theta = -\\frac{5\\pi}{6}
+\\end{aligned}
+$$
+Thus, the trigonometric form is:
+$$z = 2\\left(\\cos\\left(-\\frac{5\\pi}{6}\\right) + i\\sin\\left(-\\frac{5\\pi}{6}\\right)\\right)$$
+
+#### (d) $z = -1$
+The point is $(-1, 0)$ on the negative real axis:
+$$
+\\begin{aligned}
+r &= \\sqrt{(-1)^2} = 1 \\\\
+\\cos\\theta &= -1, \\\quad \\sin\\theta = 0 \\implies \\theta = \\pi
+\\end{aligned}
+$$
+Thus, the trigonometric form is:
+$$z = 1(\\cos\\pi + i\\sin\\pi)$$
+
+</div>
+</details>
+
+---
+
+### Product in Trigonometric Form
+
+Let $z_1 = r_1(\\cos\\theta_1 + i\\sin\\theta_1)$ and $z_2 = r_2(\\cos\\theta_2 + i\\sin\\theta_2)$. Then:
+
+\`\`\`note
+{
+  "type": "info",
+  "title": "Product Formula",
+  "content": "$$z_1 z_2 = r_1 r_2 \\\\bigl(\\\\cos(\\\\theta_1 + \\\\theta_2) + i\\\\sin(\\\\theta_1 + \\\\theta_2)\\\\bigr)$$"
+}
+\`\`\`
+
+#### Example 6
+Given $z_1 = 1 + \\sqrt{3}i$ and $z_2 = -1 + i$, find $z_1 z_2$ using trigonometric forms. Check by direct multiplication.
+
+<details>
+<summary>Click to view solution</summary>
+<div>
+
+We have:
+$$z_1 = 2\\left(\\cos\\frac{\\pi}{3} + i\\sin\\frac{\\pi}{3}\\right), \\\quad z_2 = \\sqrt{2}\\left(\\cos\\frac{3\\pi}{4} + i\\sin\\frac{3\\pi}{4}\\right)$$
+
+Using the formula:
+$$
+\\begin{aligned}
+z_1 z_2 &= 2\\sqrt{2}\\left(\\cos\\left(\\frac{\\pi}{3} + \\frac{3\\pi}{4}\\right) + i\\sin\\left(\\frac{\\pi}{3} + \\frac{3\\pi}{4}\\right)\\right) \\\\
+&= 2\\sqrt{2}\\left(\\cos\\frac{13\\pi}{12} + i\\sin\\frac{13\\pi}{12}\\right) \\\\
+&= 2\\sqrt{2}\\left(\\cos\\left(-\\frac{11\\pi}{12}\right) + i\\sin\\left(-\\frac{11\\pi}{12}\right)\\right) \\\\
+&= -(1 + \\sqrt{3}) + (1 - \\sqrt{3})i
+\\end{aligned}
+$$
+
+Direct multiplication:
+$$
+\\begin{aligned}
+z_1 z_2 &= (1 + \\sqrt{3}i)(-1 + i) \\\\
+&= -1 + i - \\sqrt{3}i + \\sqrt{3}i^2 \\\\
+&= -(1 + \\sqrt{3}) + (1 - \\sqrt{3})i
+\\end{aligned}
+$$
+The results match.
+
+</div>
+</details>
+
+---
+
+### Multiplicative Inverse in Trigonometric Form
+
+Let $z = r(\\cos\\theta + i\\sin\\theta)$ with $z \\neq 0$. Then:
+
+\`\`\`note
+{
+  "type": "info",
+  "title": "Multiplicative Inverse",
+  "content": "$$z^{-1} = \\\\frac{1}{r}\\\\bigl(\\\\cos(-\\\\theta) + i\\\\sin(-\\\\theta)\\\\bigr)$$"
+}
+\`\`\`
+
+#### Example 7
+Given $z = -\\sqrt{3} - i$, find $z^{-1}$ using its trigonometric form. Check by showing $z z^{-1} = 1$.
+
+<details>
+<summary>Click to view solution</summary>
+<div>
+
+Trigonometric form:
+$$z = 2\\left(\\cos\\left(-\\frac{5\\pi}{6}\\right) + i\\sin\\left(-\\frac{5\\pi}{6}\\right)\\right)$$
+
+Inverse:
+$$
+\\begin{aligned}
+z^{-1} &= \\frac{1}{2}\\left(\\cos\\frac{5\\pi}{6} + i\\sin\\frac{5\\pi}{6}\\right) \\\\
+&= \\frac{1}{2}\\left(-\\frac{\\sqrt{3}}{2} + \\frac{1}{2}i\\right) \\\\
+&= -\\frac{\\sqrt{3}}{4} + \\frac{1}{4}i
+\\end{aligned}
+$$
+
+Check:
+$$
+\\begin{aligned}
+z z^{-1} &= (-\\sqrt{3} - i)\\left(-\\frac{\\sqrt{3}}{4} + \\frac{1}{4}i\\right) \\\\
+&= \\frac{3}{4} - \\frac{\\sqrt{3}}{4}i + \\frac{\\sqrt{3}}{4}i - \\frac{1}{4}i^2 = 1
+\\end{aligned}
+$$
+Since $z z^{-1} = 1$, the multiplicative inverse of $z$ is indeed $z^{-1}$.
+
+</div>
+</details>
+
+---
+
+### Division in Trigonometric Form
+
+Let $z_1 = r_1(\\cos\\theta_1 + i\\sin\\theta_1)$ and $z_2 = r_2(\\cos\\theta_2 + i\\sin\\theta_2)$, where $z_2 \\neq 0$. Then:
+
+\`\`\`note
+{
+  "type": "info",
+  "title": "Division Formula",
+  "content": "$$\\\\frac{z_1}{z_2} = \\\\frac{r_1}{r_2}\\\\bigl(\\\\cos(\\\\theta_1 - \\\\theta_2) + i\\\\sin(\\\\theta_1 - \\\\theta_2)\\\\bigr)$$"
+}
+\`\`\`
+
+#### Example 8
+Given $z_1 = 1 + \\sqrt{3}i$ and $z_2 = -1 + i$, find $\\frac{z_1}{z_2}$ using trigonometric forms. Check by direct calculation.
+
+<details>
+<summary>Click to view solution</summary>
+<div>
+
+We have:
+$$z_1 = 2\\left(\\cos\\frac{\\pi}{3} + i\\sin\\frac{\\pi}{3}\\right), \\\quad z_2 = \\sqrt{2}\\left(\\cos\\frac{3\\pi}{4} + i\\sin\\frac{3\\pi}{4}\\right)$$
+
+Using the division formula:
+$$
+\\begin{aligned}
+\\frac{z_1}{z_2} &= \\frac{2}{\\sqrt{2}}\\left(\\cos\\left(\\frac{\\pi}{3} - \\frac{3\\pi}{4}\\right) + i\\sin\\left(\\frac{\\pi}{3} - \\frac{3\\pi}{4}\\right)\\right) \\\\
+&= \\sqrt{2}\\left(\\cos\\left(-\\frac{5\\pi}{12}\right) + i\\sin\\left(-\\frac{5\\pi}{12}\right)\\right) \\\\
+&= \\sqrt{2}\\left(\\frac{\\sqrt{6} - \\sqrt{2}}{4} - \\frac{\\sqrt{6} + \\sqrt{2}}{4}i\\right) \\\\
+&= \\frac{\\sqrt{3} - 1}{2} - \\frac{\\sqrt{3} + 1}{2}i
+\\end{aligned}
+$$
+
+Direct calculation:
+$$
+\\begin{aligned}
+\\frac{z_1}{z_2} &= \\frac{1 + \\sqrt{3}i}{-1 + i} \\\\
+&= \\frac{(1 + \\sqrt{3}i)(-1 - i)}{(-1 + i)(-1 - i)} \\\\
+&= \\frac{(\\sqrt{3} - 1) - (1 + \\sqrt{3})i}{2} \\\\
+&= \\frac{\\sqrt{3} - 1}{2} - \\frac{\\sqrt{3} + 1}{2}i
+\\end{aligned}
+$$
+The results match.
+
+</div>
+</details>
+
+---
+
+### Powers of Complex Numbers (De Moivre's Theorem)
+
+Let $z = r(\\cos\\theta + i\\sin\\theta)$. For any positive integer $n$, the $n$-th power of $z$ is:
+
+\`\`\`note
+{
+  "type": "definition",
+  "title": "De Moivre's Theorem",
+  "content": "$$z^n = r^n (\\\\cos n\\\\theta + i\\\\sin n\\\\theta)$$\\n\\nThus, the modulus is raised to the $n$-th power, and the argument is multiplied by $n$."
+}
+\`\`\`
+
+#### Example 9
+Given $z = 1 + \\sqrt{3}i$, find:
+* **(a)** $z^{10}$
+* **(b)** $z^{-10}$
+
+<details>
+<summary>Click to view solution</summary>
+<div>
+
+Trigonometric form:
+$$z = 2\\left(\\cos\\frac{\\pi}{3} + i\\sin\\frac{\\pi}{3}\\right)$$
+
+##### (a) $z^{10}$
+$$
+\\begin{aligned}
+z^{10} &= 2^{10}\\left(\\cos\\frac{10\\pi}{3} + i\\sin\\frac{10\\pi}{3}\right) \\\\
+&= 1024\\left(-\\frac{1}{2} - \\frac{\\sqrt{3}}{2}i\\right) \\\\
+&= -512 - 512\\sqrt{3}i
+\\end{aligned}
+$$
+
+##### (b) $z^{-10}$
+$$
+\\begin{aligned}
+z^{-10} &= 2^{-10}\\left(\\cos\\left(-\\frac{10\\pi}{3}\right) + i\\sin\\left(-\\frac{10\\pi}{3}\right)\\right) \\\\
+&= \\frac{1}{1024}\\left(-\\frac{1}{2} + \\frac{\\sqrt{3}}{2}i\\right) \\\\
+&= -\\frac{1}{2048} + \\frac{\\sqrt{3}}{2048}i
+\\end{aligned}
+$$
+
+</div>
+</details>
+
+---
+
+### Exercise 1.4
+
+**1. Find the trigonometric form with $-\\pi < \\theta \\le \\pi$ for:**
+* **(a)** $z = 1 - \\sqrt{3}i$
+* **(b)** $z = -\\sqrt{2} + \\sqrt{2}i$
+* **(c)** $z = -2 - 2i$
+* **(d)** $z = \\sqrt{3} - i$
+* **(e)** $z = i$
+* **(f)** $z = -3i$
+
+**2. Given $z_1 = 2 - 2\\sqrt{3}i$ and $z_2 = -1 - i$, find the following using trigonometric forms. Check by direct calculation:**
+* **(a)** $z_1 z_2$
+* **(b)** $z_1^{-1}$
+* **(c)** $\\frac{z_1}{z_2}$
+* **(d)** $\\frac{z_2}{z_1}$
+
+**3. Given $z = -2\\sqrt{3} - 2i$, find:**
+* **(a)** $z^5$
+* **(b)** $z^{-5}$
+
+<details>
+<summary>Click to view solutions</summary>
+<div>
+
+#### Answers to Q1:
+* **(a)** $z = 2\\left(\\cos\\left(-\\frac{\\pi}{3}\right) + i\\sin\\left(-\\frac{\\pi}{3}\right)\\right)$
+* **(b)** $z = 2\\left(\\cos\\frac{3\\pi}{4} + i\\sin\\frac{3\\pi}{4}\\right)$
+* **(c)** $z = 2\\sqrt{2}\\left(\\cos\\left(-\\frac{3\\pi}{4}\right) + i\\sin\\left(-\\frac{3\\pi}{4}\right)\\right)$
+* **(d)** $z = 2\\left(\\cos\\left(-\\frac{\\pi}{6}\right) + i\\sin\\left(-\\frac{\\pi}{6}\right)\\right)$
+* **(e)** $z = 1\\left(\\cos\\frac{\\pi}{2} + i\\sin\\frac{\\pi}{2}\right)$
+* **(f)** $z = 3\\left(\\cos\\left(-\\frac{\\pi}{2}\right) + i\\sin\\left(-\\frac{\\pi}{2}\right)\\right)$
+
+#### Answers to Q2:
+Using:
+$$z_1 = 4\\left(\\cos\\left(-\\frac{\\pi}{3}\right) + i\\sin\\left(-\\frac{\\pi}{3}\right)\\right)$$
+$$z_2 = \\sqrt{2}\\left(\\cos\\left(-\\frac{3\\pi}{4}\right) + i\\sin\\left(-\\frac{3\\pi}{4}\right)\\right)$$
+
+* **(a)** $z_1 z_2 = -(2 + 2\\sqrt{3}) + (2\\sqrt{3} - 2)i$
+* **(b)** $z_1^{-1} = \\frac{1}{8} + \\frac{\\sqrt{3}}{8}i$
+* **(c)** $\\frac{z_1}{z_2} = \\sqrt{3} - 1 + (\\sqrt{3} + 1)i$
+* **(d)** $\\frac{z_2}{z_1} = \\frac{\\sqrt{3} - 1}{8} - \\frac{\\sqrt{3} + 1}{8}i$
+
+#### Answers to Q3:
+Using:
+$$z = 4\\left(\\cos\\left(-\\frac{5\\pi}{6}\right) + i\\sin\\left(-\\frac{5\\pi}{6}\right)\\right)$$
+
+* **(a)** $z^5 = 1024\\left(\\cos\\left(-\\frac{\\pi}{6}\right) + i\\sin\\left(-\\frac{\\pi}{6}\right)\\right) = 512\\sqrt{3} - 512i$
+* **(b)** $z^{-5} = \\frac{1}{1024}\\left(\\cos\\frac{\\pi}{6} + i\\sin\\frac{\\pi}{6}\right) = \\frac{\\sqrt{3}}{2048} + \\frac{1}{2048}i$
+
+</div>
+</details>
+`;
+
+*/
 
 export const MOCK_CHAPTERS: Chapter[] = [
   // Grade 10
@@ -1626,7 +3065,7 @@ $$a_n = a + (n-1)d$$
   {
     id: 'lesson-c1-basic',
     chapter_id: 'chapter-c1-g12',
-    title: 'Pure Imaginary Unit 𝑖',
+    title: 'Pure Imaginary Unit i',
     type: 'theory',
     content: chapter1BasicContent,
     order_index: 2,
@@ -1648,6 +3087,15 @@ $$a_n = a + (n-1)d$$
     type: 'theory',
     content: chapter1OperationsContent,
     order_index: 4,
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 'lesson-c1-trig',
+    chapter_id: 'chapter-c1-g12',
+    title: 'Trigonometric Form',
+    type: 'theory',
+    content: chapter1TrigonometricContent,
+    order_index: 5,
     created_at: new Date().toISOString()
   },
 

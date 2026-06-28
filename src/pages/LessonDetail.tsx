@@ -11,6 +11,7 @@ import rehypeRaw from 'rehype-raw';
 import rehypeKatex from 'rehype-katex';
 import { MathRenderer } from '../components/ui/MathRenderer';
 import { ImageCarousel } from '../components/ui/ImageCarousel';
+import { InlineMath, BlockMath } from 'react-katex';
 import { 
   ArrowLeft, ChevronLeft, ChevronRight, ChevronDown,
   Settings, Maximize, PlayCircle, Loader2, Bookmark, CheckCircle2, Check
@@ -72,6 +73,52 @@ const parseCollapsibleBlocks = (text: string): ContentChunk[] => {
   }
   
   return result;
+};
+
+const renderTextWithMath = (text: string): React.ReactNode => {
+  if (!text || typeof text !== 'string') return text;
+
+  // First, split by block math $$
+  const blockParts = text.split(/\$\$(.*?)\$\$/gs);
+  
+  return blockParts.map((part, index) => {
+    // Even indices are text or inline math, odd indices are block math content
+    if (index % 2 === 1) {
+      return (
+        <div key={`block-${index}`} className="katex-display-wrapper my-4 overflow-x-auto">
+          <BlockMath math={part.trim()} />
+        </div>
+      );
+    }
+
+    // Now, split by inline math $
+    const inlineParts = part.split(/\$(.*?)\$/g);
+    return (
+      <React.Fragment key={`text-inline-${index}`}>
+        {inlineParts.map((subPart, subIndex) => {
+          if (subIndex % 2 === 1) {
+            return <InlineMath key={`inline-${index}-${subIndex}`} math={subPart} />;
+          }
+          return subPart;
+        })}
+      </React.Fragment>
+    );
+  });
+};
+
+const processChildrenWithMath = (children: React.ReactNode): React.ReactNode => {
+  if (typeof children === 'string') {
+    return renderTextWithMath(children);
+  }
+  if (Array.isArray(children)) {
+    return children.map((child, idx) => {
+      if (typeof child === 'string') {
+        return <React.Fragment key={idx}>{renderTextWithMath(child)}</React.Fragment>;
+      }
+      return child;
+    });
+  }
+  return children;
 };
 
 // Reusable Markdown Renderer that contains original code blocks and formatting
@@ -204,7 +251,15 @@ const MarkdownRenderer: React.FC<{ content: string }> = ({ content }) => {
                         {data.type || 'NOTE'}
                       </span>
                       <h4 className={cn("font-extrabold text-sm md:text-base leading-snug", selectedStyle.titleColor)}>
-                        {data.title}
+                        <ReactMarkdown 
+                          remarkPlugins={[remarkMath, remarkGfm]} 
+                          rehypePlugins={[rehypeRaw, rehypeKatex]}
+                          components={{
+                            p: ({ children }) => <span className="inline overflow-wrap-anywhere break-words">{children}</span>
+                          }}
+                        >
+                          {data.title}
+                        </ReactMarkdown>
                       </h4>
                     </div>
                     <div className="text-slate-800 text-[15px] md:text-base overflow-visible overflow-wrap-anywhere break-words whitespace-normal">
@@ -228,8 +283,58 @@ const MarkdownRenderer: React.FC<{ content: string }> = ({ content }) => {
           
           return <code className={className}>{children}</code>;
         },
-        h1: ({ children }) => <h2 className="text-lg md:text-3xl font-black text-slate-900 mt-10 mb-4 tracking-tight leading-snug">{children}</h2>,
-        h2: ({ children }) => <h3 className="text-base md:text-2xl font-black text-slate-800 mt-8 mb-3 tracking-tight leading-snug">{children}</h3>,
+        p: ({ className, children }) => (
+          <p className={cn("mb-2 leading-relaxed overflow-wrap-anywhere break-words", className)}>
+            {processChildrenWithMath(children)}
+          </p>
+        ),
+        span: ({ className, children }) => (
+          <span className={className}>
+            {processChildrenWithMath(children)}
+          </span>
+        ),
+        div: ({ className, children }) => (
+          <div className={className}>
+            {processChildrenWithMath(children)}
+          </div>
+        ),
+        h1: ({ className, children }) => (
+          <h2 className={cn("text-lg md:text-3xl font-black text-slate-900 mt-10 mb-4 tracking-tight leading-snug", className)}>
+            {processChildrenWithMath(children)}
+          </h2>
+        ),
+        h2: ({ className, children }) => (
+          <h3 className={cn("text-base md:text-2xl font-black text-slate-800 mt-8 mb-3 tracking-tight leading-snug", className)}>
+            {processChildrenWithMath(children)}
+          </h3>
+        ),
+        h3: ({ className, children }) => (
+          <h4 className={cn("text-sm md:text-xl font-bold text-slate-800 mt-6 mb-2 tracking-tight leading-snug", className)}>
+            {processChildrenWithMath(children)}
+          </h4>
+        ),
+        h4: ({ className, children }) => (
+          <h4 className={cn("font-bold text-slate-800 mt-4 mb-2 leading-snug", className)}>
+            {processChildrenWithMath(children)}
+          </h4>
+        ),
+        h5: ({ className, children }) => (
+          <h5 className={cn("font-bold text-slate-800 mt-3 mb-1 leading-snug", className)}>
+            {processChildrenWithMath(children)}
+          </h5>
+        ),
+        h6: ({ className, children }) => (
+          <h6 className={cn("font-bold text-slate-800 mt-2 mb-1 leading-snug", className)}>
+            {processChildrenWithMath(children)}
+          </h6>
+        ),
+        li: ({ className, children }) => (
+          <li className={cn("list-disc pl-1 ml-4", className)}>
+            {processChildrenWithMath(children)}
+          </li>
+        ),
+        strong: ({ children }) => <strong>{processChildrenWithMath(children)}</strong>,
+        em: ({ children }) => <em>{processChildrenWithMath(children)}</em>,
         hr: () => <hr className="my-8 border-slate-100" />
       }}
     >

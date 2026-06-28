@@ -25,7 +25,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
     { name: 'Flashcards', path: '/flashcards', icon: Sparkles },
   ];
 
-  const isAdmin = false; // Intentionally disabled to hide any Admin menus/controls as requested
+  const isAdmin = profile?.role === 'admin' || profile?.role === 'teacher';
   const logoUrl = import.meta.env.VITE_APP_LOGO_URL || '/unlockedu.png';
 
   const Logo = ({ className }: { className?: string }) => {
@@ -97,7 +97,41 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
             </div>
 
             <div className="flex items-center gap-3">
-              {/* Profile link intentionally removed */}
+              {isAdmin && (
+                <Link
+                  to="/admin"
+                  className="hidden md:flex items-center gap-2 px-4 py-2 rounded-xl text-amber-700 bg-amber-50 hover:bg-amber-100 transition-all font-semibold text-sm border border-amber-200/50"
+                >
+                  <ShieldCheck size={16} />
+                  <span>Admin Control</span>
+                </Link>
+              )}
+              {profile ? (
+                <div className="flex items-center gap-2">
+                  <Link
+                    to="/profile"
+                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-slate-700 hover:bg-slate-100 transition-all text-sm font-medium"
+                  >
+                    <User size={18} className="text-slate-500" />
+                    <span className="hidden sm:inline max-w-[120px] truncate">{profile.full_name}</span>
+                  </Link>
+                  <button
+                    onClick={signOut}
+                    className="p-2 text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all"
+                    title="Sign Out"
+                  >
+                    <LogOut size={18} />
+                  </button>
+                </div>
+              ) : (
+                <Link
+                  to="/auth"
+                  className="flex items-center gap-2 px-4 py-2 rounded-xl text-blue-600 bg-blue-50 hover:bg-blue-100 transition-all font-semibold text-sm border border-blue-200/50"
+                >
+                  <User size={16} />
+                  <span>Sign In</span>
+                </Link>
+              )}
             </div>
           </div>
         </div>
@@ -161,8 +195,49 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                 </div>
               )}
 
-               <div className="mt-auto pt-6">
-                 {/* Sidebar bottom profile info card intentionally removed to hide auto-authenticated guest status */}
+               <div className="mt-auto pt-6 border-t border-slate-100">
+                 {profile ? (
+                   <div className="space-y-3">
+                     <div className="flex items-center gap-3 px-2">
+                       <div className="h-10 w-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">
+                         {profile.full_name?.charAt(0).toUpperCase() || 'U'}
+                       </div>
+                       <div className="min-w-0 flex-1">
+                         <p className="text-sm font-bold text-slate-800 truncate">{profile.full_name}</p>
+                         <p className="text-xs text-slate-400 capitalize">{profile.role}</p>
+                       </div>
+                     </div>
+                     <div className="grid grid-cols-2 gap-2">
+                       <Link
+                         to="/profile"
+                         onClick={toggleSidebar}
+                         className="flex items-center justify-center gap-2 py-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-xs font-semibold text-slate-700 transition-colors"
+                       >
+                         <User size={14} />
+                         <span>Profile</span>
+                       </Link>
+                       <button
+                         onClick={() => {
+                           signOut();
+                           toggleSidebar();
+                         }}
+                         className="flex items-center justify-center gap-2 py-2.5 rounded-xl bg-red-50 hover:bg-red-100 text-xs font-semibold text-red-600 transition-colors"
+                       >
+                         <LogOut size={14} />
+                         <span>Sign Out</span>
+                       </button>
+                     </div>
+                   </div>
+                 ) : (
+                   <Link
+                     to="/auth"
+                     onClick={toggleSidebar}
+                     className="flex items-center justify-center gap-2 w-full py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold transition-all shadow-lg shadow-blue-600/10"
+                   >
+                     <User size={18} />
+                     <span>Sign In / Sign Up</span>
+                   </Link>
+                 )}
                </div>
             </motion.div>
           </>

@@ -5,6 +5,7 @@ import {
   X, BookOpen, Sigma, Copy, Check, Search, Sparkles, Code 
 } from 'lucide-react';
 import { cn } from '../../lib/utils';
+import { MOCK_LESSONS } from '../../services/curriculum';
 
 interface FormulaItem {
   id: string;
@@ -12,89 +13,142 @@ interface FormulaItem {
   formula: string;
   explanation: string;
   category: 'complex' | 'induction' | 'others';
+  lessonId: string;
 }
 
-const FORMULAS: FormulaItem[] = [
+const ALL_FORMULAS_MAP: FormulaItem[] = [
   // Grade 10 - Sets
   {
     id: 'sets-union',
-    name: 'Union of Sets (အစုပေါင်း)',
+    name: 'Union of Sets',
     formula: 'A \\cup B = \\{x \\mid x \\in A \\text{ or } x \\in B\\}',
-    explanation: 'A ∪ B သည် အစု A နှင့် အစု B နှစ်ခုလုံးရှိ အစုဝင်အားလုံး စုစည်းမှုဖြစ်သည်။ (Grade 10 • Chapter 1)',
-    category: 'others'
+    explanation: 'The set containing all elements that are in A, in B, or in both. (Grade 10 • Chapter 1)',
+    category: 'others',
+    lessonId: 'lesson-g10-c1-1'
   },
   {
     id: 'sets-intersection',
-    name: 'Intersection of Sets (အစုဘုံ)',
+    name: 'Intersection of Sets',
     formula: 'A \\cap B = \\{x \\mid x \\in A \\text{ and } x \\in B\\}',
-    explanation: 'A ∩ B သည် အစု A နှင့် အစု B နှစ်ခုလုံးတွင် ဘုံတူညီစွာပါဝင်သော အစုဝင်များဖြစ်သည်။ (Grade 10 • Chapter 1)',
-    category: 'others'
+    explanation: 'The set containing all elements that are simultaneously in both A and B. (Grade 10 • Chapter 1)',
+    category: 'others',
+    lessonId: 'lesson-g10-c1-1'
   },
   // Grade 11 - Sequence and Series
   {
     id: 'ap-n-term',
-    name: 'n-th Term of AP (Arithmetic Progression)',
+    name: 'n-th Term of Arithmetic Progression (AP)',
     formula: 'a_n = a + (n-1)d',
-    explanation: 'AP ၏ n-th term တွက်ချက်ပုံဖြစ်ပြီး a သည် ပထမကိန်း (first term)၊ d သည် ကွာခြားချက်ဘုံ (common difference) ဖြစ်သည်။ (Grade 11 • Chapter 2)',
-    category: 'others'
+    explanation: 'Calculates the n-th term of an AP, where a is the first term and d is the common difference. (Grade 11 • Chapter 2)',
+    category: 'others',
+    lessonId: 'lesson-g11-c2-1'
   },
   // Grade 12 - Chapter 1 - Complex Numbers
   {
     id: 'c-standard',
-    name: 'Cartesian / Standard Form (ကတ်တေးရှန်းပုံစံ)',
+    name: 'Cartesian / Standard Form',
     formula: 'z = x + yi',
-    explanation: 'ကိန်းရှုပ်တစ်ခု၏ အခြေခံပုံစံဖြစ်ပြီး x သည် Real Part Re(z) နှင့် y သည် Imaginary Part Im(z) ဖြစ်သည်။ (i² = -1) (Grade 12 • Chapter 1)',
-    category: 'complex'
+    explanation: 'The standard representation of a complex number, where x is the real part Re(z) and y is the imaginary part Im(z) with i² = -1. (Grade 12 • Chapter 1)',
+    category: 'complex',
+    lessonId: 'lesson-c1-complex'
   },
   {
     id: 'c-powers',
-    name: 'Powers of Imaginary Unit i (i ၏ ထပ်ညွှန်းများ)',
+    name: 'Powers of Imaginary Unit i',
     formula: 'i^1 = i, \\quad i^2 = -1, \\quad i^3 = -i, \\quad i^4 = 1',
-    explanation: 'i ၏ တန်ဖိုးများသည် ၄ ကြိမ်လျှင် တစ်ပတ်လည်ပြီး ထပ်တလဲလဲ ဖြစ်ပေါ်သည်။ n ထပ်ကိန်းကို ၄ နှင့်စား၍ အကြွင်းရှာကာ တွက်ချက်နိုင်သည်။ (Grade 12 • Chapter 1)',
-    category: 'complex'
+    explanation: 'Powers of i repeat in a cycle of 4. Find the remainder of n divided by 4 to compute i^n easily. (Grade 12 • Chapter 1)',
+    category: 'complex',
+    lessonId: 'lesson-c1-basic'
   },
   {
     id: 'c-conjugate',
-    name: 'Complex Conjugate (Conjugate ကိန်းစပ်)',
+    name: 'Complex Conjugate',
     formula: '\\bar{z} = x - yi',
-    explanation: 'ကိန်းရှုပ်တစ်ခု၏ imaginary part ၏ လက္ခဏာကို ပြောင်းလဲခြင်းဖြစ်ပြီး z · z̄ = x² + y² ဖြစ်သည်။ (Grade 12 • Chapter 1)',
-    category: 'complex'
+    explanation: 'Formed by changing the sign of the imaginary part. Multiplying a complex number by its conjugate yields a real number: z · z̄ = x² + y². (Grade 12 • Chapter 1)',
+    category: 'complex',
+    lessonId: 'lesson-c1-operations'
   },
   {
     id: 'c-modulus',
-    name: 'Modulus / Absolute Value (ကိန်းရှုပ်တစ်ခု၏ ပမာဏ)',
+    name: 'Modulus of a Complex Number',
     formula: '|z| = \\sqrt{x^2 + y^2}',
-    explanation: 'Complex Plane ပေါ်ရှိ အမှတ်မှ ကနဦးအမှတ် (origin) သို့ ကွာဝေးသော အကွာအဝေး ဖြစ်သည်။ (Grade 12 • Chapter 1)',
-    category: 'complex'
+    explanation: 'Represents the distance of the point P(x, y) from the origin on the complex plane. (Grade 12 • Chapter 1)',
+    category: 'complex',
+    lessonId: 'lesson-c1-operations'
   },
   {
     id: 'c-ordered-pair-mult',
-    name: 'Multiplication in Ordered Pairs (အစဉ်လိုက်ရံတွဲ မြှောက်ခြင်း)',
+    name: 'Multiplication in Ordered Pairs',
     formula: '(a, b)(c, d) = (ac - bd, ad + bc)',
-    explanation: 'ကိန်းရှုပ်နှစ်ခုကို အစဉ်လိုက်ရံတွဲ (ordered pairs) ပုံစံဖြင့် မြှောက်ခြင်း ပုံသေနည်း ဖြစ်သည်။ (Grade 12 • Chapter 1)',
-    category: 'complex'
+    explanation: 'The formula for multiplying two complex numbers represented as ordered pairs. (Grade 12 • Chapter 1)',
+    category: 'complex',
+    lessonId: 'lesson-c1-complex'
   },
   {
     id: 'c-reciprocal',
-    name: 'Reciprocal of a Complex Number (ကိန်းရှုပ်၏ ပြောင်းပြန်)',
+    name: 'Reciprocal of a Complex Number',
     formula: 'z^{-1} = \\frac{\\bar{z}}{|z|^2} = \\frac{x - yi}{x^2 + y^2}',
-    explanation: 'ကိန်းရှုပ် z = x + yi (z ≠ 0) ၏ မြှောက်ဖော်ကိန်း ပြောင်းပြန် ဖြစ်သည်။ (Grade 12 • Chapter 1)',
-    category: 'complex'
+    explanation: 'The multiplicative inverse of a non-zero complex number z = x + yi. (Grade 12 • Chapter 1)',
+    category: 'complex',
+    lessonId: 'lesson-c1-operations'
   },
   {
     id: 'c-division',
-    name: 'Division of Complex Numbers (ကိန်းရှုပ်များ စားခြင်း)',
+    name: 'Division of Complex Numbers',
     formula: '\\frac{z_1}{z_2} = \\frac{z_1\\bar{z}_2}{z_2\\bar{z}_2} = \\frac{(x_1x_2 + y_1y_2) + (y_1x_2 - x_1y_2)i}{x_2^2 + y_2^2}',
-    explanation: 'ပိုင်းခြေ၏ conjugate နှင့် ပိုင်းဝေ/ပိုင်းခြေ နှစ်ခုလုံးကို မြှောက်ကာ တွက်ချက်ရယူသည်။ (Grade 12 • Chapter 1)',
-    category: 'complex'
+    explanation: 'Obtained by multiplying the numerator and denominator by the conjugate of the denominator. (Grade 12 • Chapter 1)',
+    category: 'complex',
+    lessonId: 'lesson-c1-operations'
+  },
+  // Grade 12 - Chapter 1 - Section 1.4 Trigonometric Form
+  {
+    id: 'c-trig-form',
+    name: 'Trigonometric / Polar Form',
+    formula: 'z = r(\\cos\\theta + i\\sin\\theta)',
+    explanation: 'The polar representation of a non-zero complex number z, where r is the modulus and θ is the argument. (Grade 12 • Chapter 1)',
+    category: 'complex',
+    lessonId: 'lesson-c1-trig'
+  },
+  {
+    id: 'c-trig-product',
+    name: 'Product in Trigonometric Form',
+    formula: 'z_1z_2 = r_1r_2\\bigl(\\cos(\\theta_1 + \\theta_2) + i\\sin(\\theta_1 + \\theta_2)\\bigr)',
+    explanation: 'Multiplying two complex numbers in polar form multiplies their moduli and adds their arguments. (Grade 12 • Chapter 1)',
+    category: 'complex',
+    lessonId: 'lesson-c1-trig'
+  },
+  {
+    id: 'c-trig-inverse',
+    name: 'Multiplicative Inverse in Polar Form',
+    formula: 'z^{-1} = \\frac{1}{r}\\bigl(\\cos(-\\theta) + i\\sin(-\\theta)\\bigr)',
+    explanation: 'The reciprocal of a complex number in polar form divides the modulus by 1 and negates the argument. (Grade 12 • Chapter 1)',
+    category: 'complex',
+    lessonId: 'lesson-c1-trig'
+  },
+  {
+    id: 'c-trig-division',
+    name: 'Division in Trigonometric Form',
+    formula: '\\frac{z_1}{z_2} = \\frac{r_1}{r_2}\\bigl(\\cos(\\theta_1 - \\theta_2) + i\\sin(\\theta_1 - \\theta_2)\\bigr)',
+    explanation: 'Dividing two complex numbers in polar form divides their moduli and subtracts their arguments. (Grade 12 • Chapter 1)',
+    category: 'complex',
+    lessonId: 'lesson-c1-trig'
+  },
+  {
+    id: 'c-de-moivre',
+    name: 'De Moivre\'s Theorem',
+    formula: 'z^n = r^n(\\cos n\\theta + i\\sin n\\theta)',
+    explanation: 'The general formula for finding the n-th power of a complex number in trigonometric form. (Grade 12 • Chapter 1)',
+    category: 'complex',
+    lessonId: 'lesson-c1-trig'
   },
   // Grade 12 - Chapter 2 - Mathematical Induction
   {
     id: 'ind-principle',
-    name: 'Principle of Mathematical Induction (သက်သေပြခြင်း အခြေခံဥပဒေသ)',
+    name: 'Principle of Mathematical Induction',
     formula: '\\text{Base Step: } P(1) \\quad \\text{and} \\quad \\text{Inductive Step: } P(k) \\implies P(k+1)',
-    explanation: 'Base step တွင် P(1) မှန်ကန်ကြောင်း ပြသပြီး၊ Inductive step တွင် P(k) မှန်ကန်က P(k+1) လည်း မှန်ကန်ကြောင်း ပြသသည်။ (Grade 12 • Chapter 2)',
-    category: 'induction'
+    explanation: 'Proves a statement for all natural numbers: verify for n = 1, assume for n = k, and prove for n = k + 1. (Grade 12 • Chapter 2)',
+    category: 'induction',
+    lessonId: 'lesson-g12-c2-1'
   }
 ];
 
@@ -103,6 +157,9 @@ export const FormulaCheatSheet: React.FC = () => {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'all' | 'complex' | 'induction' | 'others'>('all');
   const [searchQuery, setSearchQuery] = useState('');
+
+  const activeLessonIds = new Set(MOCK_LESSONS.map(l => l.id));
+  const FORMULAS = ALL_FORMULAS_MAP.filter(f => activeLessonIds.has(f.lessonId));
 
   const handleCopy = (formula: string, id: string) => {
     navigator.clipboard.writeText(formula);

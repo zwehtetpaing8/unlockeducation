@@ -52,7 +52,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [loading, setLoading] = useState(false);
   const [forceDemo, setForceDemo] = useState(true);
 
-  const hasSupabaseKeys = false; // Intentionally disabled to bypass Supabase profiles table errors and SMTP timeouts
+  const hasSupabaseKeys = !!import.meta.env.VITE_SUPABASE_URL && !!import.meta.env.VITE_SUPABASE_ANON_KEY;
 
   const enableDemoMode = () => {
     localStorage.setItem('unlockedu_force_demo', 'true');

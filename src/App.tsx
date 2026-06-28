@@ -44,7 +44,7 @@ export default function App() {
           <Routes>
             {/* Public Routes */}
             <Route path="/" element={<Home />} />
-            <Route path="/auth" element={<Navigate to="/" replace />} />
+            <Route path="/auth" element={<Auth />} />
             
             {/* Student Routes */}
             <Route path="/grade/:level" element={<GradeDetail />} />
@@ -56,12 +56,12 @@ export default function App() {
             <Route path="/past-papers" element={<PastPapers />} />
             <Route path="/section-d" element={<SectionDMaster />} />
             <Route path="/flashcards" element={<Flashcards />} />
-            <Route path="/profile" element={<Navigate to="/" replace />} />
+            <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
             <Route path="/terms" element={<TermsOfService />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
 
-            {/* Admin Routes (Disabled and redirected to home to hide admin control) */}
-            <Route path="/admin/*" element={<Navigate to="/" replace />} />
+            {/* Admin Routes */}
+            <Route path="/admin/*" element={<AdminDashboard />} />
 
             {/* Fallback */}
             <Route path="*" element={<Navigate to="/" />} />
