@@ -115,7 +115,7 @@ const Auth: React.FC = () => {
     setLoading(true);
 
     const lowerEmail = email.toLowerCase();
-    const targetRole = (lowerEmail === 'unlockedntube@gmail.com' || lowerEmail.includes('unlockedntube') || lowerEmail.includes('admin')) ? 'admin' : 'student';
+    const targetRole = lowerEmail === 'unlockedntube@gmail.com' ? 'admin' : 'student';
 
     try {
       if (isDemo) {

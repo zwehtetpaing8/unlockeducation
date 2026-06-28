@@ -132,7 +132,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (data) {
         let profileData = { ...data };
         const userEmail = profileData.email?.toLowerCase() || currentUser?.email?.toLowerCase() || '';
-        if (userEmail === 'unlockedntube@gmail.com' || userEmail.includes('unlockedntube') || userEmail.includes('admin')) {
+        if (userEmail === 'unlockedntube@gmail.com') {
           profileData.role = 'admin';
           if (data.role !== 'admin') {
             await supabase.from('profiles').update({ role: 'admin' }).eq('id', userId);
@@ -149,7 +149,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           const userEmail = activeUser.email?.toLowerCase() || '';
           let roleVal = meta.role || 'student';
           
-          if (userEmail === 'unlockedntube@gmail.com' || userEmail.includes('unlockedntube') || userEmail.includes('admin')) {
+          if (userEmail === 'unlockedntube@gmail.com') {
             roleVal = 'admin';
           }
           
