@@ -66,9 +66,7 @@ const Auth: React.FC = () => {
   const [pastedUrl, setPastedUrl] = useState('');
   const [showPastedInput, setShowPastedInput] = useState(false);
 
-  useEffect(() => {
-    navigate('/');
-  }, [navigate]);
+
 
   // Checks for password recovery link redirection (contains token/type)
   useEffect(() => {
@@ -84,7 +82,7 @@ const Auth: React.FC = () => {
 
   // If already logged in AND NOT currently in recovery mode, send them home
   useEffect(() => {
-    if (user && !isRecoveryMode) {
+    if (user && user.id !== 'guest-student-john-doe' && !isRecoveryMode) {
       navigate('/profile');
     }
   }, [user, isRecoveryMode, navigate]);
