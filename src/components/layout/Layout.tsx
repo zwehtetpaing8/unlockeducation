@@ -25,7 +25,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
     { name: 'Flashcards', path: '/flashcards', icon: Sparkles },
   ];
 
-  const isAdmin = profile?.role === 'admin' || profile?.role === 'teacher';
+  const isAdmin = profile?.role === 'admin';
   const logoUrl = import.meta.env.VITE_APP_LOGO_URL || '/unlockedu.png';
 
   const Logo = ({ className }: { className?: string }) => {

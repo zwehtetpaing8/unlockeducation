@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { supabase } from '../lib/supabase';
 import { 
   Mail, Lock, User, ArrowRight, Loader2, Info, 
-  Eye, EyeOff, BookOpen, GraduationCap, ShieldCheck, CheckCircle2 
+  Eye, EyeOff, BookOpen, GraduationCap, ShieldCheck, CheckCircle2, Key 
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { cn } from '../lib/utils';
@@ -52,6 +52,7 @@ const Auth: React.FC = () => {
   const [fullName, setFullName] = useState('');
   const [gradeLevel, setGradeLevel] = useState('12');
   const [role, setRole] = useState<'student' | 'teacher' | 'admin'>('student');
+  const [accessCode, setAccessCode] = useState('');
   
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -113,6 +114,9 @@ const Auth: React.FC = () => {
 
     setLoading(true);
 
+    const lowerEmail = email.toLowerCase();
+    const targetRole = (lowerEmail === 'unlockedntube@gmail.com' || lowerEmail.includes('unlockedntube') || lowerEmail.includes('admin')) ? 'admin' : 'student';
+
     try {
       if (isDemo) {
         // --- DEMO MODE SIGN IN / SIGN UP ---
@@ -132,7 +136,7 @@ const Auth: React.FC = () => {
           id: computedUserId,
           email: email,
           full_name: isLogin ? (email.split('@')[0].toUpperCase() || 'Demo Student') : fullName,
-          role: isLogin ? (email.includes('admin') ? 'admin' : email.includes('teacher') ? 'teacher' : 'student') : role,
+          role: targetRole,
           grade_level: isLogin ? 12 : parseInt(gradeLevel),
           avatar_url: null,
           created_at: new Date().toISOString(),
@@ -172,7 +176,7 @@ const Auth: React.FC = () => {
             options: {
               data: {
                 full_name: fullName,
-                role: role,
+                role: targetRole,
                 grade_level: parseInt(gradeLevel),
               },
             },
@@ -189,7 +193,7 @@ const Auth: React.FC = () => {
                   id: signUpData.user.id,
                   email,
                   full_name: fullName,
-                  role: role,
+                  role: targetRole,
                   grade_level: parseInt(gradeLevel),
                   avatar_url: null,
                   created_at: new Date().toISOString()
@@ -868,7 +872,7 @@ const Auth: React.FC = () => {
 
               {/* Register Extra Fields */}
               {!isLogin && (
-                <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-4">
                   {/* Grade Level */}
                   <div className="space-y-1.5 text-left">
                     <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">
@@ -884,25 +888,6 @@ const Auth: React.FC = () => {
                         <option value="10">Grade 10</option>
                         <option value="11">Grade 11</option>
                         <option value="12">Grade 12</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  {/* Role selection */}
-                  <div className="space-y-1.5 text-left">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">
-                      Who Are You?
-                    </label>
-                    <div className="relative">
-                      <ShieldCheck className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
-                      <select
-                        value={role}
-                        onChange={(e) => setRole(e.target.value as any)}
-                        className="w-full pl-10 pr-3 py-3.5 bg-slate-50 border border-slate-100 focus:border-blue-500 focus:bg-white rounded-2xl text-xs font-bold tracking-tight transition-all outline-none appearance-none"
-                      >
-                        <option value="student">Student</option>
-                        <option value="teacher">Teacher</option>
-                        <option value="admin">Administrator</option>
                       </select>
                     </div>
                   </div>

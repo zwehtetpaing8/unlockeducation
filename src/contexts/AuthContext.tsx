@@ -46,10 +46,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     user: defaultUser
   } as any;
 
-  const [user, setUser] = useState<User | null>(defaultUser);
-  const [profile, setProfile] = useState<Profile | null>(defaultProfile);
-  const [session, setSession] = useState<Session | null>(defaultSession);
-  const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [profile, setProfile] = useState<Profile | null>(null);
+  const [session, setSession] = useState<Session | null>(null);
+  const [loading, setLoading] = useState(true);
   const [forceDemo, setForceDemo] = useState(true);
 
   const hasSupabaseKeys = !!import.meta.env.VITE_SUPABASE_URL && !!import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -66,36 +66,53 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   useEffect(() => {
     if (!hasSupabaseKeys) {
-      setUser(defaultUser);
-      setProfile(defaultProfile);
-      setSession(defaultSession);
+      // Offline / Demo Mode: Look for a saved session in localStorage
+      const savedMockSession = localStorage.getItem('unlockedu_mock_session');
+      if (savedMockSession) {
+        try {
+          const parsed = JSON.parse(savedMockSession);
+          setUser(parsed.user || null);
+          setProfile(parsed.profile || null);
+          setSession(parsed.session || null);
+        } catch (e) {
+          console.error('Error parsing saved mock session', e);
+          setUser(null);
+          setProfile(null);
+          setSession(null);
+        }
+      } else {
+        setUser(null);
+        setProfile(null);
+        setSession(null);
+      }
       setLoading(false);
       return;
     }
 
+    setLoading(true);
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
-      setUser(session?.user ?? defaultUser);
+      setUser(session?.user ?? null);
       if (session?.user) {
         fetchProfile(session.user.id, session.user);
       } else {
-        setProfile(defaultProfile);
+        setProfile(null);
         setLoading(false);
       }
     }).catch(err => {
       console.error('Supabase session fetch error', err);
-      setUser(defaultUser);
-      setProfile(defaultProfile);
+      setUser(null);
+      setProfile(null);
       setLoading(false);
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
-      setUser(session?.user ?? defaultUser);
+      setUser(session?.user ?? null);
       if (session?.user) {
         fetchProfile(session.user.id, session.user);
       } else {
-        setProfile(defaultProfile);
+        setProfile(null);
         setLoading(false);
       }
     });
@@ -113,7 +130,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         .maybeSingle();
       
       if (data) {
-        setProfile(data);
+        let profileData = { ...data };
+        const userEmail = profileData.email?.toLowerCase() || currentUser?.email?.toLowerCase() || '';
+        if (userEmail === 'unlockedntube@gmail.com' || userEmail.includes('unlockedntube') || userEmail.includes('admin')) {
+          profileData.role = 'admin';
+          if (data.role !== 'admin') {
+            await supabase.from('profiles').update({ role: 'admin' }).eq('id', userId);
+          }
+        }
+        setProfile(profileData);
       } else {
         // If data is null or query has an error, we check if we can reconstruct the profile
         // using the user's metadata stored in Auth
@@ -121,7 +146,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         if (activeUser) {
           const meta = activeUser.user_metadata || {};
           const nameVal = meta.full_name || activeUser.email?.split('@')[0] || 'Student';
-          const roleVal = meta.role || 'student';
+          const userEmail = activeUser.email?.toLowerCase() || '';
+          let roleVal = meta.role || 'student';
+          
+          if (userEmail === 'unlockedntube@gmail.com' || userEmail.includes('unlockedntube') || userEmail.includes('admin')) {
+            roleVal = 'admin';
+          }
+          
           const gradeVal = meta.grade_level ? parseInt(meta.grade_level) : 12;
 
           // Attempt to create the missing profile row
@@ -160,11 +191,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       } catch (e) {
         console.error('Error signing out of Supabase:', e);
       }
+    } else {
+      localStorage.removeItem('unlockedu_mock_session');
     }
-    // Set back to default user immediately so the application remains fully unlocked
-    setUser(defaultUser);
-    setProfile(defaultProfile);
-    setSession(defaultSession);
+    // Set to null so the user is completely signed out
+    setUser(null);
+    setProfile(null);
+    setSession(null);
   };
 
   const setAuthSession = (newUser: User | null, newProfile: Profile | null, newSession: Session | null) => {
