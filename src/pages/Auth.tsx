@@ -83,7 +83,11 @@ const Auth: React.FC = () => {
 
   // If already logged in AND NOT currently in recovery mode, send them home
   useEffect(() => {
-    if (user && user.id !== 'guest-student-john-doe' && !isRecoveryMode) {
+    const hash = window.location.hash;
+    const urlParams = new URLSearchParams(window.location.search);
+    const isUrlRecovery = (hash && (hash.includes('type=recovery') || hash.includes('access_token='))) || urlParams.get('recovery') === 'true';
+
+    if (user && user.id !== 'guest-student-john-doe' && !isRecoveryMode && !isUrlRecovery) {
       navigate('/profile');
     }
   }, [user, isRecoveryMode, navigate]);
@@ -702,77 +706,7 @@ const Auth: React.FC = () => {
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
 
-              {/* Sandbox Redirect Troubleshooting Help */}
-              <div className="pt-4 border-t border-slate-100">
-                {!showPastedInput ? (
-                  <button
-                    type="button"
-                    onClick={() => setShowPastedInput(true)}
-                    className="text-xs font-semibold text-blue-600 hover:text-blue-800 transition-colors flex items-center gap-1.5 mx-auto"
-                  >
-                    <span>💡 Clicked your email link but got a localhost error?</span>
-                  </button>
-                ) : (
-                  <div className="p-4 rounded-2xl bg-blue-50/60 border border-blue-100 text-left space-y-3.5">
-                    <div className="flex items-start gap-2">
-                      <span className="text-base">💡</span>
-                      <div>
-                        <h4 className="text-xs font-bold text-blue-900 uppercase tracking-wide">
-                          Web Sandbox Reset Helper
-                        </h4>
-                        <p className="text-[11px] text-blue-800 leading-relaxed mt-0.5">
-                          Since this is an online sandbox environment, clicking Supabase's email link will redirect you to <code className="bg-blue-100 px-1 py-0.5 rounded font-mono text-[10px]">localhost:3000</code> by default (which won't load).
-                        </p>
-                      </div>
-                    </div>
 
-                    <div className="space-y-2">
-                      <p className="text-[11px] font-bold text-blue-900">
-                        How to proceed instantly:
-                      </p>
-                      <ol className="list-decimal pl-4 text-[10px] text-blue-800 leading-relaxed space-y-1">
-                        <li>Open the verification email and click the confirmation button.</li>
-                        <li>When the new tab fails to load (e.g. "This site can't be reached" at <strong>localhost:3000</strong>), <strong>copy that entire URL</strong> from your address bar.</li>
-                        <li>Paste that exact URL in the field below to launch recovery mode!</li>
-                      </ol>
-                    </div>
-
-                    <div className="space-y-1.5 pt-1.5 border-t border-blue-100">
-                      <label className="text-[9px] font-black uppercase tracking-wider text-blue-900 block">
-                        Paste the broken localhost URL here:
-                      </label>
-                      <div className="flex gap-2">
-                        <input
-                          type="text"
-                          value={pastedUrl}
-                          onChange={(e) => setPastedUrl(e.target.value)}
-                          placeholder="http://localhost:3000/#access_token=..."
-                          className="flex-1 px-3 py-2 bg-white border border-blue-200 focus:border-blue-500 rounded-xl text-xs font-mono outline-none"
-                        />
-                        <button
-                          type="button"
-                          onClick={handlePasteRecoveryUrl}
-                          className="px-4 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl transition-colors shrink-0"
-                        >
-                          Verify Link
-                        </button>
-                      </div>
-                    </div>
-
-                    <div className="flex justify-between items-center pt-1 text-[10px]">
-                      <span className="text-slate-400 font-medium">To fix permanently:</span>
-                      <a 
-                        href="https://supabase.com/dashboard" 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className="text-blue-600 hover:underline font-bold"
-                      >
-                        Set redirect URLs in Supabase
-                      </a>
-                    </div>
-                  </div>
-                )}
-              </div>
 
               <div className="text-center">
                 <button
