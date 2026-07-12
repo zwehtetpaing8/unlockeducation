@@ -2515,89 +2515,219 @@ Find the equation of the sphere with center $C$ and radius $r$:
 (c) $C(2, 3, 5)$, $r = 5$
 
 **Solution:**
-*   **(a)** **$(x - 1)^2 + (y + 2)^2 + (z - 4)^2 = 9$**
-*   **(b)** **$(x - 2)^2 + (y - 6)^2 + (z + 3)^2 = 4$**
-*   **(c)** **$(x - 2)^2 + (y - 3)^2 + (z - 5)^2 = 25$**
+The standard equation of a sphere with center $(x_1, y_1, z_1)$ and radius $r$ is:
+$$(x - x_1)^2 + (y - y_1)^2 + (z - z_1)^2 = r^2$$
+
+*   **(a) Center $C(1, -2, 4)$ and radius $r = 3$**:
+    Substitute $x_1 = 1, \\, y_1 = -2, \\, z_1 = 4$, and $r = 3$:
+    $$(x - 1)^2 + (y - (-2))^2 + (z - 4)^2 = 3^2$$
+    **$$(x - 1)^2 + (y + 2)^2 + (z - 4)^2 = 9$$**
+
+*   **(b) Center $C(2, 6, -3)$ and radius $r = 2$**:
+    Substitute $x_1 = 2, \\, y_1 = 6, \\, z_1 = -3$, and $r = 2$:
+    $$(x - 2)^2 + (y - 6)^2 + (z - (-3))^2 = 2^2$$
+    **$$(x - 2)^2 + (y - 6)^2 + (z + 3)^2 = 4$$**
+
+*   **(c) Center $C(2, 3, 5)$ and radius $r = 5$**:
+    Substitute $x_1 = 2, \\, y_1 = 3, \\, z_1 = 5$, and $r = 5$:
+    $$(x - 2)^2 + (y - 3)^2 + (z - 5)^2 = 5^2$$
+    **$$(x - 2)^2 + (y - 3)^2 + (z - 5)^2 = 25$$**
 
 ###### **Exercise 3.5 Q2**
 Check whether the given point $P$ lies inside, outside or on the sphere centered at $C(0, 0, 0)$ with radius $r = 3$:
 (a) $P(1, 1, 1)$, (b) $P(2, 1, 2)$, (c) $P(10, 10, 10)$
 
 **Solution:**
-*   **(a)** $CP = \\sqrt{1^2+1^2+1^2} = \\sqrt{3} < 3 \\implies$ **Inside** the sphere.
-*   **(b)** $CP = \\sqrt{2^2+1^2+2^2} = \\sqrt{9} = 3 \\implies$ **On** the sphere.
-*   **(c)** $CP = \\sqrt{10^2+10^2+10^2} = \\sqrt{300} = 10\\sqrt{3} > 3 \\implies$ **Outside** the sphere.
+The distance $CP$ from the center $C(0, 0, 0)$ to any point $P(x, y, z)$ is given by the distance formula:
+$$CP = \\sqrt{(x - 0)^2 + (y - 0)^2 + (z - 0)^2} = \\sqrt{x^2 + y^2 + z^2}$$
+We compare $CP$ with the sphere's radius $r = 3$:
+*   If $CP < 3$, the point is **inside** the sphere.
+*   If $CP = 3$, the point is **on** the sphere.
+*   If $CP > 3$, the point is **outside** the sphere.
+
+*   **(a) Point $P(1, 1, 1)$**:
+    $$CP = \\sqrt{1^2 + 1^2 + 1^2} = \\sqrt{3} \\approx 1.732$$
+    Since $\\sqrt{3} < 3$, the point lies **inside** the sphere.
+
+*   **(b) Point $P(2, 1, 2)$**:
+    $$CP = \\sqrt{2^2 + 1^2 + 2^2} = \\sqrt{4 + 1 + 4} = \\sqrt{9} = 3$$
+    Since $3 = 3$, the point lies **on** the sphere.
+
+*   **(c) Point $P(10, 10, 10)$**:
+    $$CP = \\sqrt{10^2 + 10^2 + 10^2} = \\sqrt{100 + 100 + 100} = \\sqrt{300} = 10\\sqrt{3} \\approx 17.32$$
+    Since $10\\sqrt{3} > 3$, the point lies **outside** the sphere.
 
 ###### **Exercise 3.5 Q3**
-Find the equation of the sphere on the join of $(1, -1, 1)$ and $(-3, 4, 5)$ as diameter.
+Find the equation of the sphere on the join of $A(1, -1, 1)$ and $B(-3, 4, 5)$ as diameter.
 
 **Solution:**
-Center is the midpoint of the diameter:
-$$C = \\left(\\frac{1 + (-3)}{2}, \\, \\frac{-1 + 4}{2}, \\, \\frac{1 + 5}{2}\\right) = \\left(-1, \\, \\frac{3}{2}, \\, 3\\right)$$
-Length of diameter $AB = \\sqrt{(-3 - 1)^2 + (4 - (-1))^2 + (5 - 1)^2} = \\sqrt{16 + 25 + 16} = \\sqrt{57}$
-Radius $r = \\frac{\\sqrt{57}}{2} \\implies r^2 = \\frac{57}{4}$
-Equation: **$(x + 1)^2 + \\left(y - \\frac{3}{2}\\right)^2 + (z - 3)^2 = \\frac{57}{4}$**
+**Method 1: Using the Diameter Formula**
+The equation of a sphere with $A(x_1, y_1, z_1)$ and $B(x_2, y_2, z_2)$ as the ends of a diameter is:
+$$(x - x_1)(x - x_2) + (y - y_1)(y - y_2) + (z - z_1)(z - z_2) = 0$$
+
+Substitute the coordinates of $A(1, -1, 1)$ and $B(-3, 4, 5)$:
+$$(x - 1)(x - (-3)) + (y - (-1))(y - 4) + (z - 1)(z - 5) = 0$$
+$$(x - 1)(x + 3) + (y + 1)(y - 4) + (z - 1)(z - 5) = 0$$
+
+Now, expand each term:
+$$(x^2 + 2x - 3) + (y^2 - 3y - 4) + (z^2 - 6z + 5) = 0$$
+
+Group and combine the constants:
+$$x^2 + y^2 + z^2 + 2x - 3y - 6z + (-3 - 4 + 5) = 0$$
+**$$x^2 + y^2 + z^2 + 2x - 3y - 6z - 2 = 0$$**
+
+**Method 2: Using Center and Radius**
+1.  **Find the Center $C$ (the midpoint of $AB$)**:
+    $$C = \\left(\\frac{1 + (-3)}{2}, \\, \\frac{-1 + 4}{2}, \\, \\frac{1 + 5}{2}\\right) = \\left(-1, \\, \\frac{3}{2}, \\, 3\\right)$$
+2.  **Find the Radius $r$ (half the diameter length $AB$)**:
+    $$AB = \\sqrt{(-3 - 1)^2 + (4 - (-1))^2 + (5 - 1)^2}$$
+    $$AB = \\sqrt{(-4)^2 + 5^2 + 4^2} = \\sqrt{16 + 25 + 16} = \\sqrt{57}$$
+    $$r = \\frac{\\sqrt{57}}{2} \\implies r^2 = \\frac{57}{4}$$
+3.  **Write the Standard Form Equation**:
+    **$$(x + 1)^2 + \\left(y - \\frac{3}{2}\\right)^2 + (z - 3)^2 = \\frac{57}{4}$$**
 
 ###### **Exercise 3.5 Q4**
-Find the equation of the plane tangent to the sphere $(x + 2)^2 + (y - 1)^2 + (z + 3)^2 = 27$ at the point $(3, 2, -2)$.
+Find the equation of the plane tangent to the sphere $(x + 2)^2 + (y - 1)^2 + (z + 3)^2 = 27$ at the point $P(3, 2, -2)$.
 
 **Solution:**
-Center is $C(-2, 1, -3)$.
-Directed values $CP = \\langle 3 - (-2), \\, 2 - 1, \\, -2 - (-3) \\rangle = \\langle 5, 1, 1 \\rangle$.
-Equation: $5x + y + z = d$
-Using point $(3, 2, -2)$:
-$$d = 5(3) + 2 + (-2) = 15$$
-Equation: **$5x + y + z = 15$**
+1.  **Find the center $C$ of the sphere**:
+    Comparing with the standard form $(x - x_1)^2 + (y - y_1)^2 + (z - z_1)^2 = r^2$, the center is:
+    $$C(-2, 1, -3)$$
+2.  **Find the direction ratios of the normal vector to the tangent plane**:
+    The normal vector is the radius vector $CP$ joining the center $C(-2, 1, -3)$ to the point of tangency $P(3, 2, -2)$:
+    $$\\vec{CP} = \\langle 3 - (-2), \\, 2 - 1, \\, -2 - (-3) \\rangle = \\langle 5, \\, 1, \\, 1 \\rangle$$
+    Thus, the direction ratios of the normal vector are $a = 5, \\, b = 1, \\, c = 1$.
+3.  **Find the equation of the plane**:
+    The equation of a plane through $(x_0, y_0, z_0) = (3, 2, -2)$ with normal direction ratios $\\langle a, b, c \\rangle = \\langle 5, 1, 1 \\rangle$ is:
+    $$a(x - x_0) + b(y - y_0) + c(z - z_0) = 0$$
+    $$5(x - 3) + 1(y - 2) + 1(z - (-2)) = 0$$
+    $$5x - 15 + y - 2 + z + 2 = 0$$
+    **$$5x + y + z = 15$$**
 
 ###### **Example 12**
 Find the equation of the sphere with center $(0, 1, 0)$ and touching the plane $x - 2y + 2z + 5 = 0$.
 
 **Solution:**
-Perpendicular distance from $(0, 1, 0)$ to the plane is the radius $r$:
-$$r = \\frac{|(0) - 2(1) + 2(0) + 5|}{\\sqrt{1^2 + (-2)^2 + 2^2}} = \\frac{|3|}{\\sqrt{9}} = 1$$
-Sphere equation: **$x^2 + (y - 1)^2 + z^2 = 1$**
+1.  **Find the radius $r$**:
+    Since the sphere touches the plane, the radius $r$ is the perpendicular distance from the center $C(0, 1, 0)$ to the plane $x - 2y + 2z + 5 = 0$:
+    $$r = \\frac{|Ax_0 + By_0 + Cz_0 + D|}{\\sqrt{A^2 + B^2 + C^2}}$$
+    Substitute $A = 1, \\, B = -2, \\, C = 2, \\, D = 5$ and $(x_0, y_0, z_0) = (0, 1, 0)$:
+    $$r = \\frac{|1(0) - 2(1) + 2(0) + 5|}{\\sqrt{1^2 + (-2)^2 + 2^2}} = \\frac{|0 - 2 + 0 + 5|}{\\sqrt{1 + 4 + 4}} = \\frac{|3|}{\\sqrt{9}} = \\frac{3}{3} = 1$$
+    So, $r = 1 \\implies r^2 = 1$.
+2.  **Write the equation of the sphere**:
+    With center $C(0, 1, 0)$ and radius $r = 1$:
+    $$(x - 0)^2 + (y - 1)^2 + (z - 0)^2 = 1^2$$
+    **$$x^2 + (y - 1)^2 + z^2 = 1$$**
 
 ###### **Exercise 3.5 Q5**
 Find the equation of the sphere with center $(6, -7, -3)$ and touching the plane $4x - 2y - z = 17$.
 
 **Solution:**
-Perpendicular distance (radius $r$):
-Using direct geometric projection, the tangent point $R$ has coordinates $k = -\\frac{8}{7}$ where it touches.
-Solving for distance yields radius $r = \\sqrt{\\frac{64}{21}}$.
-Sphere equation: **$(x - 6)^2 + (y + 7)^2 + (z + 3)^2 = \\frac{64}{21}$**
+1.  **Find the radius $r$**:
+    Since the sphere touches the plane $4x - 2y - z - 17 = 0$, the radius $r$ is the perpendicular distance from the center $C(6, -7, -3)$ to this plane:
+    $$r = \\frac{|Ax_0 + By_0 + Cz_0 + D|}{\\sqrt{A^2 + B^2 + C^2}}$$
+    Substitute $A = 4, \\, B = -2, \\, C = -1, \\, D = -17$ and $(x_0, y_0, z_0) = (6, -7, -3)$:
+    $$r = \\frac{|4(6) - 2(-7) - 1(-3) - 17|}{\\sqrt{4^2 + (-2)^2 + (-1)^2}}$$
+    $$r = \\frac{|24 + 14 + 3 - 17|}{\\sqrt{16 + 4 + 1}} = \\frac{|41 - 17|}{\\sqrt{21}} = \\frac{24}{\\sqrt{21}}$$
+    
+    The radius squared is:
+    $$r^2 = \\left(\\frac{24}{\\sqrt{21}}\\right)^2 = \\frac{576}{21} = \\frac{192}{7}$$
+2.  **Write the equation of the sphere**:
+    Using the standard sphere equation with center $C(6, -7, -3)$ and $r^2 = \\frac{192}{7}$:
+    $$(x - 6)^2 + (y - (-7))^2 + (z - (-3))^2 = r^2$$
+    **$$(x - 6)^2 + (y + 7)^2 + (z + 3)^2 = \\frac{192}{7}$$**
 
 ###### **Exercise 3.5 Q6**
-What is the equation of the sphere which passes through the points $(3, 0, 2)$, $(-1, 1, 1)$, and $(2, -5, 4)$ and whose center lies on the plane $2x + 3y + 4z = 6$?
+What is the equation of the sphere which passes through the points $P(3, 0, 2)$, $Q(-1, 1, 1)$, and $R(2, -5, 4)$ and whose center lies on the plane $2x + 3y + 4z = 6$?
 
 **Solution:**
-Let center be $C(x_1, y_1, z_1)$. Since it lies on the plane:
-$$2x_1 + 3y_1 + 4z_1 = 6 \\quad \\text{--- (4)}$$
-Equating distances from center to $(3,0,2)$ and $(-1,1,1)$:
-$$(3 - x_1)^2 + (0 - y_1)^2 + (2 - z_1)^2 = (-1 - x_1)^2 + (1 - y_1)^2 + (1 - z_1)^2$$
-Simplifying yields:
-$$-4x_1 + y_1 - z_1 = -5 \\quad \\text{--- (5)}$$
-Adding $2 \\times$ (4) to (5) eliminates $x_1$:
-$$7y_1 + 7z_1 = 7 \\implies y_1 + z_1 = 1 \\quad \\text{--- (6)}$$
-Similarly, equating $(3,0,2)$ and $(2,-5,4)$ and combining equations:
-$$x_1 = 0, \\, y_1 = -2, \\, z_1 = 3$$
-Center $C(0, -2, 3)$.
-Radius $r^2 = (3 - 0)^2 + (0 - (-2))^2 + (2 - 3)^2 = 9 + 4 + 1 = 14$.
-Sphere equation: **$x^2 + (y + 2)^2 + (z - 3)^2 = 14$**
+Let the center of the sphere be $C(x_1, y_1, z_1)$.
+1.  Since $C$ lies on the plane $2x + 3y + 4z = 6$, we have:
+    $$2x_1 + 3y_1 + 4z_1 = 6 \\quad \\text{--- (1)}$$
+2.  Since $C$ is the center of the sphere, the distance from $C$ to any point on the sphere is equal to the radius $r$. Therefore, $CP^2 = CQ^2 = CR^2$.
+
+**Step 1: Equate $CP^2 = CQ^2$**
+$$(x_1 - 3)^2 + (y_1 - 0)^2 + (z_1 - 2)^2 = (x_1 - (-1))^2 + (y_1 - 1)^2 + (z_1 - 1)^2$$
+$$(x_1 - 3)^2 + y_1^2 + (z_1 - 2)^2 = (x_1 + 1)^2 + (y_1 - 1)^2 + (z_1 - 1)^2$$
+Expand both sides:
+$$(x_1^2 - 6x_1 + 9) + y_1^2 + (z_1^2 - 4z_1 + 4) = (x_1^2 + 2x_1 + 1) + (y_1^2 - 2y_1 + 1) + (z_1^2 - 2z_1 + 1)$$
+Simplify by canceling $x_1^2, \\, y_1^2, \\, z_1^2$ from both sides:
+$$-6x_1 - 4z_1 + 13 = 2x_1 - 2y_1 - 2z_1 + 3$$
+Rearrange the terms:
+$$8x_1 - 2y_1 + 2z_1 = 10 \\implies 4x_1 - y_1 + z_1 = 5 \\quad \\text{--- (2)}$$
+
+**Step 2: Equate $CP^2 = CR^2$**
+$$(x_1 - 3)^2 + (y_1 - 0)^2 + (z_1 - 2)^2 = (x_1 - 2)^2 + (y_1 - (-5))^2 + (z_1 - 4)^2$$
+$$(x_1 - 3)^2 + y_1^2 + (z_1 - 2)^2 = (x_1 - 2)^2 + (y_1 + 5)^2 + (z_1 - 4)^2$$
+Expand both sides:
+$$(x_1^2 - 6x_1 + 9) + y_1^2 + (z_1^2 - 4z_1 + 4) = (x_1^2 - 4x_1 + 4) + (y_1^2 + 10y_1 + 25) + (z_1^2 - 8z_1 + 16)$$
+Simplify by canceling $x_1^2, \\, y_1^2, \\, z_1^2$ from both sides:
+$$-6x_1 - 4z_1 + 13 = -4x_1 + 10y_1 - 8z_1 + 45$$
+Rearrange the terms:
+$$-2x_1 - 10y_1 + 4z_1 = 32 \\implies x_1 + 5y_1 - 2z_1 = -16 \\quad \\text{--- (3)}$$
+
+**Step 3: Solve the Linear System (1), (2), and (3)**
+Let's eliminate $x_1$ using equations (1) and (2).
+Multiply (1) by 2:
+$$4x_1 + 6y_1 + 8z_1 = 12$$
+Subtract equation (2) from this:
+$$(4x_1 + 6y_1 + 8z_1) - (4x_1 - y_1 + z_1) = 12 - 5$$
+$$7y_1 + 7z_1 = 7 \\implies y_1 + z_1 = 1 \\implies y_1 = 1 - z_1 \\quad \\text{--- (4)}$$
+
+Now eliminate $x_1$ using equations (1) and (3).
+Multiply equation (3) by 2:
+$$2x_1 + 10y_1 - 4z_1 = -32$$
+Subtract this from equation (1):
+$$(2x_1 + 3y_1 + 4z_1) - (2x_1 + 10y_1 - 4z_1) = 6 - (-32)$$
+$$-7y_1 + 8z_1 = 38 \\quad \\text{--- (5)}$$
+
+Substitute equation (4) into equation (5):
+$$-7(1 - z_1) + 8z_1 = 38$$
+$$-7 + 7z_1 + 8z_1 = 38$$
+$$15z_1 = 45 \\implies z_1 = 3$$
+
+Using $z_1 = 3$ in equation (4):
+$$y_1 = 1 - 3 = -2$$
+
+Substitute $y_1 = -2$ and $z_1 = 3$ into equation (2):
+$$4x_1 - (-2) + 3 = 5 \\implies 4x_1 + 5 = 5 \\implies 4x_1 = 0 \\implies x_1 = 0$$
+
+So, the center of the sphere is **$C(0, -2, 3)$**.
+
+**Step 4: Find the Radius Squared $r^2$**
+Using point $P(3, 0, 2)$:
+$$r^2 = CP^2 = (3 - 0)^2 + (0 - (-2))^2 + (2 - 3)^2 = 3^2 + 2^2 + (-1)^2 = 9 + 4 + 1 = 14$$
+
+**Step 5: Write the Sphere Equation**
+$$(x - 0)^2 + (y - (-2))^2 + (z - 3)^2 = 14$$
+**$$x^2 + (y + 2)^2 + (z - 3)^2 = 14$$**
 
 ###### **Example 13**
-Find the equation of a sphere that passes through the points $(9, 0, 0)$, $(3, 13, 5)$, and $(11, 0, 10)$, given that its center lies on the $yz$-plane.
+Find the equation of a sphere that passes through the points $A(9, 0, 0)$, $B(3, 13, 5)$, and $C(11, 0, 10)$, given that its center lies on the $yz$-plane.
 
 **Solution:**
-Since the center lies on the $yz$-plane, its $x$-coordinate is $0$. Let center be $C(0, y_1, z_1)$.
-Equating distances from $C$ to $(9,0,0)$ and $(11,0,10)$:
-$$9^2 + y_1^2 + z_1^2 = 11^2 + y_1^2 + (10 - z_1)^2$$
-$$81 = 121 + 100 - 20z_1 \\implies 20z_1 = 140 \\implies z_1 = 7$$
-Equating distances to $(9,0,0)$ and $(3,13,5)$ with $z_1 = 7$:
-$$81 + y_1^2 + 49 = 3^2 + (13 - y_1)^2 + (5 - 7)^2$$
-$$130 = 9 + 169 - 26y_1 + 4 \\implies 26y_1 = 52 \\implies y_1 = 2$$
-Center $C(0, 2, 7)$.
-Radius $r^2 = 81 + 2^2 + 7^2 = 81 + 4 + 49 = 134$.
-Sphere equation: **$x^2 + (y - 2)^2 + (z - 7)^2 = 134$**`,
+Since the center lies on the $yz$-plane, its $x$-coordinate is $0$. Let the center be $P(0, y_1, z_1)$.
+1.  **Equate distances from $P$ to $A(9,0,0)$ and $C(11,0,10)$**:
+    $$PA^2 = PC^2$$
+    $$(9 - 0)^2 + (0 - y_1)^2 + (0 - z_1)^2 = (11 - 0)^2 + (0 - y_1)^2 + (10 - z_1)^2$$
+    $$81 + y_1^2 + z_1^2 = 121 + y_1^2 + (100 - 20z_1 + z_1^2)$$
+    Cancel out $y_1^2$ and $z_1^2$:
+    $$81 = 121 + 100 - 20z_1$$
+    $$20z_1 = 221 - 81 = 140 \\implies z_1 = 7$$
+2.  **Equate distances from $P$ to $A(9,0,0)$ and $B(3,13,5)$ with $z_1 = 7$**:
+    $$PA^2 = PB^2$$
+    $$(9 - 0)^2 + (0 - y_1)^2 + (0 - 7)^2 = (3 - 0)^2 + (13 - y_1)^2 + (5 - 7)^2$$
+    $$81 + y_1^2 + 49 = 9 + (169 - 26y_1 + y_1^2) + 4$$
+    Cancel out $y_1^2$:
+    $$130 = 182 - 26y_1$$
+    $$26y_1 = 182 - 130 = 52 \\implies y_1 = 2$$
+
+Thus, the center is **$P(0, 2, 7)$**.
+
+3.  **Find the Radius Squared $r^2$**:
+    $$r^2 = PA^2 = (9 - 0)^2 + (0 - 2)^2 + (0 - 7)^2 = 81 + 4 + 49 = 134$$
+4.  **Write the Sphere Equation**:
+    **$$x^2 + (y - 2)^2 + (z - 7)^2 = 134$$**`,
     formulas: [
       {
         id: "c3-f1",
