@@ -10,7 +10,10 @@ import {
   Calculator, 
   Calendar, 
   ChevronLeft, 
-  ChevronRight 
+  ChevronRight,
+  ChevronDown,
+  List,
+  Check
 } from 'lucide-react';
 
 interface ChapterDetailsProps {
@@ -61,11 +64,13 @@ function parseMarkdownSections(markdown: string): ContentSection[] {
 export default function ChapterDetails({ chapter }: ChapterDetailsProps) {
   const [activeTab, setActiveTab] = useState<'study' | 'formulas' | 'visualizer' | 'quiz'>('study');
   const [activeSectionIndex, setActiveSectionIndex] = useState<number>(0);
+  const [isMobileOutlineOpen, setIsMobileOutlineOpen] = useState(false);
 
   // Reset active section and tab whenever the chapter selection changes
   useEffect(() => {
     setActiveSectionIndex(0);
     setActiveTab('study');
+    setIsMobileOutlineOpen(false);
   }, [chapter.id]);
 
   const sections = parseMarkdownSections(chapter.content);
@@ -182,7 +187,7 @@ export default function ChapterDetails({ chapter }: ChapterDetailsProps) {
                           {idx + 1}
                         </span>
                         <span className="leading-tight flex-1">
-                          {section.title}
+                          <Latex text={section.title} />
                         </span>
                       </div>
                     </button>
@@ -191,22 +196,108 @@ export default function ChapterDetails({ chapter }: ChapterDetailsProps) {
               </div>
             </div>
 
-            {/* Mobile Dropdown selector for sections */}
-            <div className="lg:hidden w-full space-y-1.5">
-              <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                Reading Outline ({sections.length} sections)
-              </label>
-              <select
-                value={activeSectionIndex}
-                onChange={(e) => setActiveSectionIndex(parseInt(e.target.value))}
-                className="w-full p-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-1 focus:ring-indigo-500/30"
-              >
-                {sections.map((sec, idx) => (
-                  <option key={idx} value={idx}>
-                    Section {idx + 1}: {sec.title}
-                  </option>
-                ))}
-              </select>
+            {/* Mobile Navigation Outlines (Horizontal Quick Tabs + Custom Dropdown) */}
+            <div className="lg:hidden w-full space-y-4">
+              {/* 1. Horizontal swipeable quick section bar */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+                    Syllabus Outline ({sections.length})
+                  </span>
+                  <span className="text-[10px] font-medium text-slate-400 dark:text-slate-500 flex items-center gap-1">
+                    Swipe left/right
+                  </span>
+                </div>
+                <div className="flex gap-2 overflow-x-auto pb-1 -mx-4 px-4 scrollbar-none snap-x scroll-smooth">
+                  {sections.map((sec, idx) => {
+                    const isActive = idx === activeSectionIndex;
+                    return (
+                      <button
+                        key={idx}
+                        onClick={() => {
+                          setActiveSectionIndex(idx);
+                          setIsMobileOutlineOpen(false);
+                        }}
+                        className={`snap-start shrink-0 text-left p-3 rounded-2xl border transition-all cursor-pointer min-w-[130px] max-w-[180px] flex flex-col justify-between h-20 ${
+                          isActive
+                            ? 'bg-gradient-to-br from-indigo-600 to-indigo-700 border-indigo-600 text-white shadow-sm shadow-indigo-600/10'
+                            : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700'
+                        }`}
+                      >
+                        <span className={`text-[9px] font-bold font-mono px-1.5 py-0.5 rounded-md self-start ${
+                          isActive
+                            ? 'bg-white/20 text-white'
+                            : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'
+                        }`}>
+                          Section {idx + 1}
+                        </span>
+                        <span className="text-[10px] font-semibold line-clamp-2 leading-tight mt-1">
+                          {sec.title.replace(/\$/g, '')}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* 2. Beautiful Custom Expandable Dropdown */}
+              <div className="relative">
+                <button
+                  onClick={() => setIsMobileOutlineOpen(!isMobileOutlineOpen)}
+                  className="w-full flex items-center justify-between p-3.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/80 rounded-xl text-xs font-semibold text-slate-800 dark:text-slate-200 shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500/30 hover:border-slate-300 dark:hover:border-slate-700 cursor-pointer"
+                >
+                  <div className="flex items-center gap-2 min-w-0">
+                    <List className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0" />
+                    <span className="text-left font-semibold truncate">
+                      Section {activeSectionIndex + 1}: {activeSection.title.replace(/\$/g, '')}
+                    </span>
+                  </div>
+                  <ChevronDown className={`w-4 h-4 text-slate-400 shrink-0 transition-transform duration-200 ${isMobileOutlineOpen ? 'rotate-180' : ''}`} />
+                </button>
+
+                {isMobileOutlineOpen && (
+                  <>
+                    {/* Background Overlay to close dropdown on click outside */}
+                    <div 
+                      className="fixed inset-0 z-20 bg-transparent"
+                      onClick={() => setIsMobileOutlineOpen(false)}
+                    />
+                    <div className="absolute left-0 right-0 mt-2 p-2 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/80 rounded-2xl shadow-xl z-30 max-h-[280px] overflow-y-auto space-y-1 divide-y divide-slate-50 dark:divide-slate-800/40">
+                      {sections.map((sec, idx) => {
+                        const isActive = idx === activeSectionIndex;
+                        return (
+                          <button
+                            key={idx}
+                            onClick={() => {
+                              setActiveSectionIndex(idx);
+                              setIsMobileOutlineOpen(false);
+                            }}
+                            className={`w-full text-left p-2.5 text-xs font-medium rounded-xl transition-all cursor-pointer flex items-center justify-between ${
+                              isActive
+                                ? 'bg-indigo-50/80 dark:bg-indigo-950/20 text-indigo-700 dark:text-indigo-400 font-bold'
+                                : 'hover:bg-slate-50 dark:hover:bg-slate-800/50 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+                            }`}
+                          >
+                            <div className="flex items-center gap-2.5 flex-1 min-w-0 pr-2">
+                              <span className={`text-[9px] font-bold font-mono px-1.5 py-0.5 rounded ${
+                                isActive 
+                                  ? 'bg-indigo-600 text-white' 
+                                  : 'bg-slate-100 dark:bg-slate-800 text-slate-500'
+                              }`}>
+                                {idx + 1}
+                              </span>
+                              <span className="truncate">
+                                {sec.title.replace(/\$/g, '')}
+                              </span>
+                            </div>
+                            {isActive && <Check className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400 shrink-0" />}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </>
+                )}
+              </div>
             </div>
 
             {/* Main Content card */}
@@ -218,7 +309,7 @@ export default function ChapterDetails({ chapter }: ChapterDetailsProps) {
                     Section {activeSectionIndex + 1} of {sections.length}
                   </div>
                   <h3 className="font-display font-bold text-base md:text-xl text-slate-900 dark:text-white leading-tight">
-                    {activeSection.title}
+                    <Latex text={activeSection.title} />
                   </h3>
                 </div>
 
