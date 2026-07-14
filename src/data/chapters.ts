@@ -2914,7 +2914,7 @@ $$\\mathbf{a} \\times \\mathbf{b} = \\begin{vmatrix} \\mathbf{i} & \\mathbf{j} &
       {
         id: "c5-f1",
         name: "Permutations Formula (No Repetition)",
-        latex: "P(n, r) = \\frac{n!}{(n-r)!}",
+        latex: "P(n, r) = {}^nP_r = n(n-1)(n-2)\\cdots(n-r+1) = \\frac{n!}{(n-r)!}",
         description: "Number of ordered arrangements of $r$ objects selected from $n$ unique objects."
       },
       {

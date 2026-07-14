@@ -60,6 +60,15 @@ export default function Visualizer({ type }: VisualizerProps) {
     return factorial(n) / factorial(n - r);
   };
 
+  const getPermutationFactors = (n: number, r: number): string => {
+    if (r === 0) return "1";
+    const factors: number[] = [];
+    for (let i = 0; i < r; i++) {
+      factors.push(n - i);
+    }
+    return factors.join(" \\times ");
+  };
+
   const getCombinations = (n: number, r: number) => {
     if (r > n) return 0;
     return factorial(n) / (factorial(r) * factorial(n - r));
@@ -1160,7 +1169,7 @@ export default function Visualizer({ type }: VisualizerProps) {
               </div>
               <div className="text-xs bg-slate-50 dark:bg-slate-900 p-2.5 rounded border border-slate-100 dark:border-slate-800 text-slate-600 dark:text-slate-400 mt-2 space-y-1 font-mono">
                 <div>Total Items (n) = {nVal}, Group Size (r) = {rVal}</div>
-                <div>{`Permutations $P(${nVal}, ${rVal}) = \\frac{${nVal}!}{(${nVal - rVal})!} = ${getPermutations(nVal, rVal).toLocaleString()}$`}</div>
+                <div>{`Permutations $P(${nVal}, ${rVal}) = {}^{${nVal}}P_{${rVal}} = ${getPermutationFactors(nVal, rVal)} = \\frac{${nVal}!}{(${nVal - rVal})!} = ${getPermutations(nVal, rVal).toLocaleString()}$`}</div>
                 <div>{`Combinations $C(${nVal}, ${rVal}) = \\frac{${nVal}!}{${rVal}!(${nVal - rVal})!} = ${getCombinations(nVal, rVal).toLocaleString()}$`}</div>
               </div>
             </div>

@@ -37,7 +37,7 @@ function MathematicianTimeline() {
   ];
 
   return (
-    <div className="my-6 p-5 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+    <div className="my-6 p-3.5 sm:p-5 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
       <h4 className="text-sm font-bold text-slate-800 dark:text-slate-200 mb-4 flex items-center gap-1.5 font-display">
         <Activity className="w-4 h-4 text-indigo-500" /> Historical Timeline of Complex Numbers
       </h4>
@@ -60,7 +60,7 @@ function MathematicianTimeline() {
 
 function ArgandPolar() {
   return (
-    <div className="my-6 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
       <svg width="240" height="240" className="overflow-visible" viewBox="0 0 240 240">
         {/* Grid lines */}
         <line x1="20" y1="120" x2="220" y2="120" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="2 2" className="dark:stroke-slate-700" />
@@ -115,7 +115,7 @@ function ArgandPolar() {
 
 function ArgandExample5a() {
   return (
-    <div className="my-6 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
       <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for (a) z = 1 + √3i</h5>
       <svg width="220" height="220" viewBox="0 0 220 220">
         <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-5a)" markerEnd="url(#arrow-axis-5a)" />
@@ -154,7 +154,7 @@ function ArgandExample5a() {
 
 function ArgandExample5b() {
   return (
-    <div className="my-6 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
       <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for (b) z = -1 + i</h5>
       <svg width="220" height="220" viewBox="0 0 220 220">
         <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-5b)" markerEnd="url(#arrow-axis-5b)" />
@@ -193,7 +193,7 @@ function ArgandExample5b() {
 
 function ArgandExample5c() {
   return (
-    <div className="my-6 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
       <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for (c) z = -√3 - i</h5>
       <svg width="220" height="220" viewBox="0 0 220 220">
         <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-5c)" markerEnd="url(#arrow-axis-5c)" />
@@ -232,7 +232,7 @@ function ArgandExample5c() {
 
 function ArgandExample5d() {
   return (
-    <div className="my-6 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
       <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for (d) z = -1</h5>
       <svg width="220" height="220" viewBox="0 0 220 220">
         <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-5d)" markerEnd="url(#arrow-axis-5d)" />
@@ -281,7 +281,7 @@ function RootsUnity6() {
   ];
 
   return (
-    <div className="my-6 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
       <h5 className="text-xs font-bold text-indigo-500 mb-2">Example 11: 6th Roots of Unity on the Coordinate Plane</h5>
       <svg width="240" height="240" viewBox="0 0 240 240" className="overflow-visible">
         {/* Axes */}
@@ -331,7 +331,7 @@ function RootsUnity6() {
 
 function RootsExample10() {
   return (
-    <div className="my-6 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
       <h5 className="text-xs font-bold text-indigo-500 mb-2">Example 10: Cube Roots of z = -2 - 2i</h5>
       <svg width="240" height="240" viewBox="0 0 240 240" className="overflow-visible">
         <line x1="20" y1="120" x2="220" y2="120" stroke="#cbd5e1" strokeWidth="1" />
@@ -502,7 +502,7 @@ function SpherePlaneTangentDiagram() {
 
 function RootsUnity4() {
   return (
-    <div className="my-6 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
       <h5 className="text-xs font-bold text-indigo-500 mb-2">Equation z⁴ = -i Roots (distributed at 45° intervals)</h5>
       <svg width="220" height="220" viewBox="0 0 220 220">
         <line x1="15" y1="110" x2="205" y2="110" stroke="#cbd5e1" strokeWidth="1" />
@@ -530,7 +530,7 @@ function RootsUnity4() {
 
 function DrinksSnacksTree() {
   return (
-    <div className="my-6 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
       <h5 className="text-xs font-bold text-indigo-500 mb-4 font-sans uppercase tracking-wider">Multiplication Principle: Drinks & Snacks Tree</h5>
       <svg width="100%" height="240" viewBox="0 0 500 240" className="overflow-visible max-w-full">
         {/* Start Node */}
@@ -596,7 +596,7 @@ function DrinksSnacksTree() {
 
 function PermCombComparison() {
   return (
-    <div className="my-6 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
       <h5 className="text-xs font-bold text-indigo-500 mb-4 font-sans uppercase tracking-wider">Permutation vs Combination Comparison</h5>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-xl">
         {/* Permutations (Order Matters) */}
@@ -650,7 +650,7 @@ function PermCombComparison() {
 
 function AtoBtoCRoads() {
   return (
-    <div className="my-6 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
       <h5 className="text-xs font-bold text-indigo-500 mb-4 font-sans uppercase tracking-wider">Example 1: Roads from Town A to B to C</h5>
       <svg width="100%" height="180" viewBox="0 0 400 180" className="overflow-visible max-w-full">
         {/* Label: 6 roads on top with bracket */}
@@ -701,7 +701,7 @@ function AtoBtoCRoads() {
 
 function AndOrFlowchart() {
   return (
-    <div className="my-6 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80 w-full">
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80 w-full">
       <h5 className="text-xs font-bold text-indigo-500 mb-4 font-sans uppercase tracking-wider">Choosing the Right Counting Principle</h5>
       <div className="flex flex-col sm:flex-row items-center justify-center gap-6 w-full max-w-lg">
         {/* AND block */}
@@ -737,7 +737,7 @@ function AndOrFlowchart() {
 
 function BloodLabelDiagram() {
   return (
-    <div className="my-6 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80 w-full">
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80 w-full">
       <h5 className="text-xs font-bold text-indigo-500 mb-4 font-sans uppercase tracking-wider">Example 2: Blood Classification Flow</h5>
       <svg width="100%" height="160" viewBox="0 0 540 160" className="overflow-visible max-w-full">
         {/* Stage 1 Box: Blood Type */}
@@ -790,7 +790,7 @@ function BloodLabelDiagram() {
 
 function PictureNailsDiagram() {
   return (
-    <div className="my-6 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80 w-full">
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80 w-full">
       <h5 className="text-xs font-bold text-indigo-500 mb-4 font-sans uppercase tracking-wider">Example 3: Pictures on Nails Diagram</h5>
       <svg width="100%" height="160" viewBox="0 0 460 160" className="overflow-visible max-w-full">
         {/* Nail 1 */}
@@ -859,7 +859,7 @@ function PictureNailsDiagram() {
 
 function Example4Diagram() {
   return (
-    <div className="my-6 p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80 w-full font-sans">
+    <div className="my-6 p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80 w-full font-sans">
       <h5 className="text-xs font-bold text-indigo-500 mb-4 uppercase tracking-wider text-center">Example 4: 2-Digit or 3-Digit Numbers Visual</h5>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
         {/* Case 1 */}
@@ -908,7 +908,7 @@ function Example4Diagram() {
 
 function Example5Diagram() {
   return (
-    <div className="my-6 p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80 w-full font-sans">
+    <div className="my-6 p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80 w-full font-sans">
       <h5 className="text-xs font-bold text-indigo-500 mb-4 uppercase tracking-wider text-center">Example 5: Integers with digit 5 only once (between 0 and 100)</h5>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -1101,6 +1101,7 @@ function renderMathText(text: string): React.ReactNode {
     currentIndex = regex.lastIndex;
   }
 
+  // Add remaining normal text
   if (currentIndex < text.length) {
     parts.push(
       <span key={`text-${currentIndex}`}>
@@ -1333,6 +1334,18 @@ export default function Latex({ text, block = false }: LatexProps) {
         case 'Example5Diagram':
           renderedElements.push(<Example5Diagram key={`diag-${i}`} />);
           break;
+        case 'Example10Diagram':
+          renderedElements.push(<Example10Diagram key={`diag-${i}`} />);
+          break;
+        case 'Example11Diagram':
+          renderedElements.push(<Example11Diagram key={`diag-${i}`} />);
+          break;
+        case 'Example12Diagram':
+          renderedElements.push(<Example12Diagram key={`diag-${i}`} />);
+          break;
+        case 'Example13Diagram':
+          renderedElements.push(<Example13Diagram key={`diag-${i}`} />);
+          break;
         case 'Exercise51Question1':
           renderedElements.push(<Ex51Q1Diagram key={`diag-${i}`} />);
           break;
@@ -1345,6 +1358,18 @@ export default function Latex({ text, block = false }: LatexProps) {
         case 'Exercise51Question5':
           renderedElements.push(<Ex51Q5Diagram key={`diag-${i}`} />);
           break;
+        case 'Exercise52Question2':
+          renderedElements.push(<Ex52Q2Diagram key={`diag-${i}`} />);
+          break;
+        case 'Exercise52Question3':
+          renderedElements.push(<Ex52Q3Diagram key={`diag-${i}`} />);
+          break;
+        case 'Exercise52Question4':
+          renderedElements.push(<Ex52Q4Diagram key={`diag-${i}`} />);
+          break;
+        case 'Exercise52Question5':
+          renderedElements.push(<Ex52Q5Diagram key={`diag-${i}`} />);
+          break;
         case 'PermCombComparison':
           renderedElements.push(<PermCombComparison key={`diag-${i}`} />);
           break;
@@ -1353,6 +1378,12 @@ export default function Latex({ text, block = false }: LatexProps) {
           break;
         case 'AndOrFlowchart':
           renderedElements.push(<AndOrFlowchart key={`diag-${i}`} />);
+          break;
+        case 'CombinationsIntroDiagram':
+          renderedElements.push(<CombinationsIntroDiagram key={`diag-${i}`} />);
+          break;
+        case 'CombinationsFormulaView':
+          renderedElements.push(<CombinationsFormulaView key={`diag-${i}`} />);
           break;
         default:
           renderedElements.push(
@@ -1713,7 +1744,7 @@ function Ex51Q5Diagram() {
   const [activeTab, setActiveTab] = React.useState<'a' | 'b' | 'c' | 'd'>('a');
 
   return (
-    <div className="my-6 p-6 bg-slate-50/60 dark:bg-slate-900/40 rounded-2xl border border-slate-100 dark:border-slate-800/80 w-full font-sans shadow-sm">
+    <div className="my-6 p-3.5 sm:p-6 bg-slate-50/60 dark:bg-slate-900/40 rounded-2xl border border-slate-100 dark:border-slate-800/80 w-full font-sans shadow-sm">
       <h5 className="text-xs font-bold text-indigo-500 mb-4 uppercase tracking-wider text-center">Registration Codes (A-L + 0-9)</h5>
       
       {/* Tab Selectors */}
@@ -1869,6 +1900,1061 @@ function Ex51Q5Diagram() {
             </div>
           </div>
         )}
+      </div>
+    </div>
+  );
+}
+
+function Ex52Q2Diagram() {
+  return (
+    <div className="my-6 p-3.5 sm:p-6 bg-slate-50/60 dark:bg-slate-900/40 rounded-2xl border border-slate-100 dark:border-slate-800/80 w-full font-sans shadow-sm">
+      <h5 className="text-xs font-bold text-indigo-500 mb-4 uppercase tracking-wider text-center">Newspaper Reporter Assignment Visualizer</h5>
+      
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-stretch">
+        {/* Story 1 */}
+        <div className="flex flex-col items-center p-4 bg-white dark:bg-slate-900 rounded-xl border border-indigo-100 dark:border-indigo-950 shadow-sm relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-indigo-500" />
+          <span className="text-[9px] font-bold text-indigo-500 uppercase tracking-wide mb-1">Story 1</span>
+          <span className="text-xs font-black text-slate-800 dark:text-slate-200 mb-3 text-center">First Topic Assignment</span>
+          <div className="w-14 h-14 flex flex-col items-center justify-center rounded-full border-2 border-indigo-500 bg-indigo-500/10 mb-2">
+            <span className="text-lg font-black text-indigo-600 dark:text-indigo-400">14</span>
+          </div>
+          <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium text-center">Available Reporters</span>
+        </div>
+
+        {/* Story 2 */}
+        <div className="flex flex-col items-center p-4 bg-white dark:bg-slate-900 rounded-xl border border-emerald-100 dark:border-emerald-950 shadow-sm relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-emerald-500" />
+          <span className="text-[9px] font-bold text-emerald-500 uppercase tracking-wide mb-1">Story 2</span>
+          <span className="text-xs font-black text-slate-800 dark:text-slate-200 mb-3 text-center">Second Topic Assignment</span>
+          <div className="w-14 h-14 flex flex-col items-center justify-center rounded-full border-2 border-emerald-500 bg-emerald-500/10 mb-2">
+            <span className="text-lg font-black text-emerald-600 dark:text-emerald-400">13</span>
+          </div>
+          <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium text-center">Remaining Reporters</span>
+        </div>
+
+        {/* Story 3 */}
+        <div className="flex flex-col items-center p-4 bg-white dark:bg-slate-900 rounded-xl border border-amber-100 dark:border-amber-950 shadow-sm relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-amber-500" />
+          <span className="text-[9px] font-bold text-amber-500 uppercase tracking-wide mb-1">Story 3</span>
+          <span className="text-xs font-black text-slate-800 dark:text-slate-200 mb-3 text-center">Third Topic Assignment</span>
+          <div className="w-14 h-14 flex flex-col items-center justify-center rounded-full border-2 border-amber-500 bg-amber-500/10 mb-2">
+            <span className="text-lg font-black text-amber-600 dark:text-amber-400">12</span>
+          </div>
+          <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium text-center">Remaining Reporters</span>
+        </div>
+      </div>
+
+      <div className="mt-5 flex flex-col sm:flex-row justify-center items-center gap-3 p-3 bg-indigo-500/10 rounded-xl border border-indigo-500/20 text-center">
+        <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300 font-sans">Permutation Calculation:</span>
+        <div className="flex items-center gap-1.5 font-mono text-xs md:text-sm">
+          <span className="text-indigo-600 dark:text-indigo-400 font-black">14</span>
+          <span className="text-slate-400">×</span>
+          <span className="text-emerald-600 dark:text-emerald-400 font-black">13</span>
+          <span className="text-slate-400">×</span>
+          <span className="text-amber-600 dark:text-amber-400 font-black">12</span>
+          <span className="text-slate-400">=</span>
+          <span className="text-indigo-600 dark:text-indigo-300 font-black bg-indigo-500/20 px-2.5 py-1 rounded font-sans inline-flex items-center gap-0.5">
+            <sup>14</sup>P<sub>3</sub> = 2,184 ways
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Ex52Q3Diagram() {
+  const flags = [
+    { label: '1st Flag Position', count: 9, color: 'bg-rose-500 border-rose-600' },
+    { label: '2nd Flag Position', count: 8, color: 'bg-sky-500 border-sky-600' },
+    { label: '3rd Flag Position', count: 7, color: 'bg-emerald-500 border-emerald-600' },
+    { label: '4th Flag Position', count: 6, color: 'bg-amber-500 border-amber-600' },
+  ];
+
+  return (
+    <div className="my-6 p-3.5 sm:p-6 bg-slate-50/60 dark:bg-slate-900/40 rounded-2xl border border-slate-100 dark:border-slate-800/80 w-full font-sans shadow-sm">
+      <h5 className="text-xs font-bold text-indigo-500 mb-4 uppercase tracking-wider text-center">4-Flag Signal Sequences (From 9 Flags)</h5>
+      
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
+        {flags.map((flag, idx) => (
+          <div key={idx} className="flex flex-col items-center p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">
+            <span className="text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-2">{flag.label}</span>
+            
+            {/* Wavy Flag Icon */}
+            <div className="relative w-12 h-14 flex items-start mb-3">
+              {/* Flagpole */}
+              <div className="w-1.5 h-14 bg-slate-400 dark:bg-slate-600 rounded-full mr-1" />
+              {/* Flag Cloth */}
+              <div className={`w-8 h-6 rounded-r shadow-sm border text-white ${flag.color} flex items-center justify-center`}>
+                <span className="text-[9px] font-bold">#{idx+1}</span>
+              </div>
+            </div>
+
+            <div className="text-base font-black text-slate-800 dark:text-slate-100 mb-1">{flag.count}</div>
+            <span className="text-[9px] text-slate-400 dark:text-slate-500 text-center uppercase tracking-wider font-mono">choices</span>
+          </div>
+        ))}
+      </div>
+
+      <div className="flex justify-center items-center gap-3 p-3 bg-indigo-500/10 rounded-xl border border-indigo-500/20 text-center max-w-md mx-auto">
+        <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300 font-sans">Signals:</span>
+        <div className="flex items-center gap-1.5 font-mono text-xs md:text-sm">
+          <span className="font-black text-rose-500">9</span>
+          <span className="text-slate-400">×</span>
+          <span className="font-black text-sky-500">8</span>
+          <span className="text-slate-400">×</span>
+          <span className="font-black text-emerald-500">7</span>
+          <span className="text-slate-400">×</span>
+          <span className="font-black text-amber-500">6</span>
+          <span className="text-slate-400">=</span>
+          <span className="font-black text-indigo-600 dark:text-indigo-300 bg-indigo-500/20 px-2 py-0.5 rounded font-sans inline-flex items-center gap-0.5">
+            <sup>9</sup>P<sub>4</sub> = 3,024
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Ex52Q4Diagram() {
+  const theaters = [
+    { name: 'Theater A', cap: 'Largest Cap', choices: 12, border: 'border-violet-200 dark:border-violet-950', ring: 'ring-violet-500/20', bg: 'bg-violet-500/10', color: 'text-violet-600 dark:text-violet-400' },
+    { name: 'Theater B', cap: 'Medium-Large Cap', choices: 11, border: 'border-fuchsia-200 dark:border-fuchsia-950', ring: 'ring-fuchsia-500/20', bg: 'bg-fuchsia-500/10', color: 'text-fuchsia-600 dark:text-fuchsia-400' },
+    { name: 'Theater C', cap: 'Medium Cap', choices: 10, border: 'border-pink-200 dark:border-pink-950', ring: 'ring-pink-500/20', bg: 'bg-pink-500/10', color: 'text-pink-600 dark:text-pink-400' },
+    { name: 'Theater D', cap: 'Smallest Cap', choices: 9, border: 'border-rose-200 dark:border-rose-950', ring: 'ring-rose-500/20', bg: 'bg-rose-500/10', color: 'text-rose-600 dark:text-rose-400' },
+  ];
+
+  return (
+    <div className="my-6 p-3.5 sm:p-6 bg-slate-50/60 dark:bg-slate-900/40 rounded-2xl border border-slate-100 dark:border-slate-800/80 w-full font-sans shadow-sm">
+      <h5 className="text-xs font-bold text-indigo-500 mb-4 uppercase tracking-wider text-center">Movie-to-Theater Allocations Visualizer</h5>
+      
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+        {theaters.map((th, idx) => (
+          <div key={idx} className={`flex flex-col p-4 bg-white dark:bg-slate-900 rounded-xl border ${th.border} shadow-sm items-center relative overflow-hidden`}>
+            {/* Screen Line representing Cinema Screen */}
+            <div className="w-16 h-1.5 bg-slate-700 dark:bg-slate-400 rounded-full mb-3 shadow-inner" />
+            
+            <span className="text-[10px] font-bold text-slate-800 dark:text-slate-200 mb-0.5">{th.name}</span>
+            <span className="text-[8px] text-slate-400 dark:text-slate-500 mb-3 font-mono font-bold uppercase tracking-wider">{th.cap}</span>
+            
+            <div className={`w-14 h-14 flex items-center justify-center rounded-2xl ${th.bg} border-2 border-dashed ${th.border} mb-3`}>
+              <span className={`text-xl font-black ${th.color}`}>{th.choices}</span>
+            </div>
+            
+            <span className="text-[9px] text-slate-400 dark:text-slate-500 text-center">Movie Choices Available</span>
+          </div>
+        ))}
+      </div>
+
+      <div className="flex justify-center items-center gap-3 p-3 bg-indigo-500/10 rounded-xl border border-indigo-500/20 text-center max-w-md mx-auto">
+        <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300 font-sans">Total Ways:</span>
+        <div className="flex items-center gap-1.5 font-mono text-xs md:text-sm">
+          <span className="font-black text-violet-500">12</span>
+          <span className="text-slate-400">×</span>
+          <span className="font-black text-fuchsia-500">11</span>
+          <span className="text-slate-400">×</span>
+          <span className="font-black text-pink-500">10</span>
+          <span className="text-slate-400">×</span>
+          <span className="font-black text-rose-500">9</span>
+          <span className="text-slate-400">=</span>
+          <span className="font-black text-indigo-600 dark:text-indigo-300 bg-indigo-500/20 px-2.5 py-0.5 rounded font-sans inline-flex items-center gap-0.5">
+            <sup>12</sup>P<sub>4</sub> = 11,880
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Ex52Q5Diagram() {
+  const [activeCase, setActiveCase] = React.useState<'case1' | 'case2'>('case1');
+
+  return (
+    <div className="my-6 p-3.5 sm:p-6 bg-slate-50/60 dark:bg-slate-900/40 rounded-2xl border border-slate-100 dark:border-slate-800/80 w-full font-sans shadow-sm">
+      <h5 className="text-xs font-bold text-indigo-500 mb-4 uppercase tracking-wider text-center">Classroom Seating Diagram (8 Seats per Row)</h5>
+      
+      {/* Selector Tabs */}
+      <div className="flex gap-2 justify-center mb-5 bg-slate-200/40 dark:bg-slate-950/50 p-1 rounded-xl border border-slate-200/30 dark:border-slate-800/30 max-w-sm mx-auto">
+        <button
+          onClick={() => setActiveCase('case1')}
+          className={`flex-1 py-2 rounded-lg text-[10px] font-bold transition-all ${
+            activeCase === 'case1'
+              ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm'
+              : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+          }`}
+        >
+          Case 1: Flexible sits Front
+        </button>
+        <button
+          onClick={() => setActiveCase('case2')}
+          className={`flex-1 py-2 rounded-lg text-[10px] font-bold transition-all ${
+            activeCase === 'case2'
+              ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm'
+              : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+          }`}
+        >
+          Case 2: Flexible sits Back
+        </button>
+      </div>
+
+      {/* Classroom Desk Layout */}
+      <div className="bg-white dark:bg-slate-900 p-2.5 sm:p-5 rounded-2xl border border-slate-100 dark:border-slate-800/80 shadow-inner mb-5">
+        <div className="text-center text-[10px] text-slate-400 dark:text-slate-500 font-bold tracking-widest uppercase mb-4">Board / Front of Class</div>
+        
+        {/* Front Row (8 Seats) */}
+        <div className="mb-6">
+          <div className="flex justify-between items-center px-1 mb-2">
+            <span className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">Front Row (8 seats)</span>
+            <span className="text-[9px] font-sans bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 px-2 py-0.5 rounded font-bold inline-flex items-center gap-1">
+              {activeCase === 'case1' ? (
+                <>6 Students occupied (<sup>8</sup>P<sub>6</sub>)</>
+              ) : (
+                <>5 Students occupied (<sup>8</sup>P<sub>5</sub>)</>
+              )}
+            </span>
+          </div>
+          <div className="grid grid-cols-8 gap-1.5 md:gap-3">
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((s) => {
+              const isOccupied = activeCase === 'case1' ? s <= 6 : s <= 5;
+              const isFlexibleStudent = activeCase === 'case1' && s === 6;
+              return (
+                <div
+                  key={`front-${s}`}
+                  className={`aspect-square rounded-lg flex flex-col items-center justify-center border-2 transition-all ${
+                    isFlexibleStudent
+                      ? 'bg-amber-500/10 border-amber-500 text-amber-500 ring-2 ring-amber-500/20'
+                      : isOccupied
+                      ? 'bg-indigo-500/10 border-indigo-500 text-indigo-500'
+                      : 'bg-slate-50 dark:bg-slate-950/20 border-slate-200 dark:border-slate-800 text-slate-300 dark:text-slate-600 border-dashed'
+                  }`}
+                >
+                  <span className="text-[9px] font-bold">{isFlexibleStudent ? 'Flex' : isOccupied ? `S` : ''}</span>
+                  <span className="text-[7px] opacity-70 leading-none">{s}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Back Row (8 Seats) */}
+        <div>
+          <div className="flex justify-between items-center px-1 mb-2">
+            <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wide">Back Row (8 seats)</span>
+            <span className="text-[9px] font-sans bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-2 py-0.5 rounded font-bold inline-flex items-center gap-1">
+              {activeCase === 'case1' ? (
+                <>4 Students occupied (<sup>8</sup>P<sub>4</sub>)</>
+              ) : (
+                <>5 Students occupied (<sup>8</sup>P<sub>5</sub>)</>
+              )}
+            </span>
+          </div>
+          <div className="grid grid-cols-8 gap-1.5 md:gap-3">
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((s) => {
+              const isOccupied = activeCase === 'case1' ? s <= 4 : s <= 5;
+              const isFlexibleStudent = activeCase === 'case2' && s === 5;
+              return (
+                <div
+                  key={`back-${s}`}
+                  className={`aspect-square rounded-lg flex flex-col items-center justify-center border-2 transition-all ${
+                    isFlexibleStudent
+                      ? 'bg-amber-500/10 border-amber-500 text-amber-500 ring-2 ring-amber-500/20'
+                      : isOccupied
+                      ? 'bg-emerald-500/10 border-emerald-500 text-emerald-500'
+                      : 'bg-slate-50 dark:bg-slate-950/20 border-slate-200 dark:border-slate-800 text-slate-300 dark:text-slate-600 border-dashed'
+                  }`}
+                >
+                  <span className="text-[9px] font-bold">{isFlexibleStudent ? 'Flex' : isOccupied ? `S` : ''}</span>
+                  <span className="text-[7px] opacity-70 leading-none">{s}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* Case Details and Calculations */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+        <div className={`p-4 rounded-xl border transition-all ${
+          activeCase === 'case1'
+            ? 'bg-indigo-500/5 border-indigo-500/30'
+            : 'bg-slate-100/30 dark:bg-slate-950/20 border-slate-100 dark:border-slate-800'
+        }`}>
+          <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 mb-2 block font-sans">Case 1: Flexible student in Front Row</span>
+          <ul className="text-[10px] text-slate-600 dark:text-slate-400 space-y-1 mb-2 leading-relaxed">
+            <li>• Front Row Occupied: <strong className="text-indigo-500">5 + 1 = 6 students</strong></li>
+            <li>• Front Ways: <strong className="font-sans font-bold inline-flex items-center gap-0.5"><sup>8</sup>P<sub>6</sub> = 20,160</strong></li>
+            <li>• Back Row Occupied: <strong className="text-emerald-500">4 students</strong></li>
+            <li>• Back Ways: <strong className="font-sans font-bold inline-flex items-center gap-0.5"><sup>8</sup>P<sub>4</sub> = 1,680</strong></li>
+          </ul>
+          <div className="text-[11px] font-mono font-bold text-indigo-700 dark:text-indigo-300 bg-indigo-500/10 p-1.5 rounded text-center">
+            20,160 × 1,680 = 33,868,800 ways
+          </div>
+        </div>
+
+        <div className={`p-4 rounded-xl border transition-all ${
+          activeCase === 'case2'
+            ? 'bg-emerald-500/5 border-emerald-500/30'
+            : 'bg-slate-100/30 dark:bg-slate-950/20 border-slate-100 dark:border-slate-800'
+        }`}>
+          <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 mb-2 block font-sans">Case 2: Flexible student in Back Row</span>
+          <ul className="text-[10px] text-slate-600 dark:text-slate-400 space-y-1 mb-2 leading-relaxed">
+            <li>• Front Row Occupied: <strong className="text-indigo-500">5 students</strong></li>
+            <li>• Front Ways: <strong className="font-sans font-bold inline-flex items-center gap-0.5"><sup>8</sup>P<sub>5</sub> = 6,720</strong></li>
+            <li>• Back Row Occupied: <strong className="text-emerald-500">4 + 1 = 5 students</strong></li>
+            <li>• Back Ways: <strong className="font-sans font-bold inline-flex items-center gap-0.5"><sup>8</sup>P<sub>5</sub> = 6,720</strong></li>
+          </ul>
+          <div className="text-[11px] font-mono font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-500/10 p-1.5 rounded text-center">
+            6,720 × 6,720 = 45,158,400 ways
+          </div>
+        </div>
+      </div>
+
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-3 p-4 bg-indigo-500/10 rounded-2xl border border-indigo-500/20 text-center">
+        <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300 font-sans">Addition Principle (Sum of Both Disjoint Cases):</span>
+        <div className="flex items-center gap-2 font-mono text-xs md:text-sm">
+          <span className="text-indigo-600 dark:text-indigo-400 font-black">33,868,800</span>
+          <span className="text-slate-400 font-bold">+</span>
+          <span className="text-emerald-600 dark:text-emerald-400 font-black">45,158,400</span>
+          <span className="text-slate-400 font-bold">=</span>
+          <span className="text-indigo-600 dark:text-indigo-300 font-black bg-indigo-500/20 px-3 py-1 rounded">
+            79,027,200 total ways
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Example10Diagram() {
+  return (
+    <div className="my-6 p-3.5 sm:p-6 bg-slate-50/60 dark:bg-slate-900/40 rounded-2xl border border-slate-100 dark:border-slate-800/80 w-full font-sans shadow-sm">
+      <h5 className="text-xs font-bold text-indigo-500 mb-4 uppercase tracking-wider text-center">Committee Selection (3 Roles from 15 Candidates)</h5>
+      
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-stretch">
+        {/* President */}
+        <div className="flex flex-col items-center p-4 bg-white dark:bg-slate-900 rounded-xl border border-indigo-100 dark:border-indigo-950 shadow-sm relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-indigo-500" />
+          <span className="text-[9px] font-bold text-indigo-500 uppercase tracking-wide mb-1">Role 1</span>
+          <span className="text-xs font-black text-slate-800 dark:text-slate-200 mb-3 text-center">President Selection</span>
+          <div className="w-14 h-14 flex flex-col items-center justify-center rounded-full border-2 border-indigo-500 bg-indigo-500/10 mb-2">
+            <span className="text-lg font-black text-indigo-600 dark:text-indigo-400">15</span>
+          </div>
+          <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium text-center">Candidates Available</span>
+        </div>
+
+        {/* Treasurer */}
+        <div className="flex flex-col items-center p-4 bg-white dark:bg-slate-900 rounded-xl border border-emerald-100 dark:border-emerald-950 shadow-sm relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-emerald-500" />
+          <span className="text-[9px] font-bold text-emerald-500 uppercase tracking-wide mb-1">Role 2</span>
+          <span className="text-xs font-black text-slate-800 dark:text-slate-200 mb-3 text-center">Treasurer Selection</span>
+          <div className="w-14 h-14 flex flex-col items-center justify-center rounded-full border-2 border-emerald-500 bg-emerald-500/10 mb-2">
+            <span className="text-lg font-black text-emerald-600 dark:text-emerald-400">14</span>
+          </div>
+          <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium text-center">Candidates Remaining</span>
+        </div>
+
+        {/* Secretary */}
+        <div className="flex flex-col items-center p-4 bg-white dark:bg-slate-900 rounded-xl border border-amber-100 dark:border-amber-950 shadow-sm relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-amber-500" />
+          <span className="text-[9px] font-bold text-amber-500 uppercase tracking-wide mb-1">Role 3</span>
+          <span className="text-xs font-black text-slate-800 dark:text-slate-200 mb-3 text-center">Secretary Selection</span>
+          <div className="w-14 h-14 flex flex-col items-center justify-center rounded-full border-2 border-amber-500 bg-amber-500/10 mb-2">
+            <span className="text-lg font-black text-amber-600 dark:text-amber-400">13</span>
+          </div>
+          <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium text-center">Candidates Remaining</span>
+        </div>
+      </div>
+
+      <div className="mt-5 flex flex-col sm:flex-row justify-center items-center gap-3 p-3 bg-indigo-500/10 rounded-xl border border-indigo-500/20 text-center">
+        <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300 font-sans">Permutation Calculation:</span>
+        <div className="flex items-center gap-1.5 font-mono text-xs md:text-sm">
+          <span className="text-indigo-600 dark:text-indigo-400 font-black">15</span>
+          <span className="text-slate-400">×</span>
+          <span className="text-emerald-600 dark:text-emerald-400 font-black">14</span>
+          <span className="text-slate-400">×</span>
+          <span className="text-amber-600 dark:text-amber-400 font-black">13</span>
+          <span className="text-slate-400">=</span>
+          <span className="text-indigo-600 dark:text-indigo-300 font-black bg-indigo-500/20 px-2.5 py-1 rounded font-sans inline-flex items-center gap-0.5">
+            <sup>15</sup>P<sub>3</sub> = 2,730 ways
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Example11Diagram() {
+  const letters = [
+    { name: 'P', color: 'border-rose-100 dark:border-rose-950/40 bg-rose-500/5 text-rose-500', choices: 6, position: '1st Box' },
+    { name: 'E', color: 'border-sky-100 dark:border-sky-950/40 bg-sky-500/5 text-sky-500', choices: 5, position: '2nd Box' },
+    { name: 'N', color: 'border-emerald-100 dark:border-emerald-950/40 bg-emerald-500/5 text-emerald-500', choices: 4, position: '3rd Box' },
+    { name: 'C', color: 'border-amber-100 dark:border-amber-950/40 bg-amber-500/5 text-amber-500', choices: 3, position: '4th Box' },
+    { name: 'I', color: 'border-fuchsia-100 dark:border-fuchsia-950/40 bg-fuchsia-500/5 text-fuchsia-500', choices: 2, position: '5th Box' },
+    { name: 'L', color: 'border-indigo-100 dark:border-indigo-950/40 bg-indigo-500/5 text-indigo-500', choices: 1, position: '6th Box' },
+  ];
+
+  return (
+    <div className="my-6 p-3.5 sm:p-6 bg-slate-50/60 dark:bg-slate-900/40 rounded-2xl border border-slate-100 dark:border-slate-800/80 w-full font-sans shadow-sm">
+      <h5 className="text-xs font-bold text-indigo-500 mb-4 uppercase tracking-wider text-center">Arranging All 6 Letters of "PENCIL"</h5>
+      
+      <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 mb-5">
+        {letters.map((letObj, idx) => (
+          <div key={idx} className={`flex flex-col p-3 bg-white dark:bg-slate-900 rounded-xl border ${letObj.color.split(' ')[0]} shadow-sm items-center`}>
+            <span className="text-[8px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-wider mb-2">{letObj.position}</span>
+            <div className={`w-10 h-10 flex items-center justify-center rounded-lg border-2 ${letObj.color.split(' ').slice(1).join(' ')} font-black text-sm mb-2`}>
+              {letObj.name}
+            </div>
+            <span className="text-xs font-black text-slate-800 dark:text-slate-200">{letObj.choices}</span>
+            <span className="text-[8px] text-slate-400 dark:text-slate-500 uppercase tracking-widest font-mono">ways</span>
+          </div>
+        ))}
+      </div>
+
+      <div className="flex flex-col sm:flex-row justify-center items-center gap-3 p-3 bg-indigo-500/10 rounded-xl border border-indigo-500/20 text-center">
+        <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300 font-sans">Factorial Permutation:</span>
+        <div className="flex items-center gap-1 font-mono text-xs md:text-sm">
+          <span className="text-rose-500 font-bold">6</span>
+          <span className="text-slate-400">×</span>
+          <span className="text-sky-500 font-bold">5</span>
+          <span className="text-slate-400">×</span>
+          <span className="text-emerald-500 font-bold">4</span>
+          <span className="text-slate-400">×</span>
+          <span className="text-amber-500 font-bold">3</span>
+          <span className="text-slate-400">×</span>
+          <span className="text-fuchsia-500 font-bold">2</span>
+          <span className="text-slate-400">×</span>
+          <span className="text-indigo-500 font-bold">1</span>
+          <span className="text-slate-400">=</span>
+          <span className="text-indigo-600 dark:text-indigo-300 font-black bg-indigo-500/20 px-2.5 py-0.5 rounded font-sans inline-flex items-center gap-0.5 ml-1">
+            6! = 720 ways
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Example12Diagram() {
+  const [activeBus, setActiveBus] = React.useState<'both' | 'busA' | 'busB'>('both');
+
+  return (
+    <div className="my-6 p-3.5 sm:p-6 bg-slate-50/60 dark:bg-slate-900/40 rounded-2xl border border-slate-100 dark:border-slate-800/80 w-full font-sans shadow-sm">
+      <h5 className="text-xs font-bold text-indigo-500 mb-4 uppercase tracking-wider text-center">4 People Seating on Either Bus A or Bus B</h5>
+      
+      {/* Bus Toggle Selector */}
+      <div className="flex gap-2 justify-center mb-5 bg-slate-200/40 dark:bg-slate-950/50 p-1 rounded-xl border border-slate-200/30 dark:border-slate-800/30 max-w-sm mx-auto">
+        <button
+          onClick={() => setActiveBus('both')}
+          className={`flex-1 py-1.5 rounded-lg text-[10px] font-bold transition-all ${
+            activeBus === 'both'
+              ? 'bg-white dark:bg-slate-850 text-indigo-600 dark:text-indigo-400 shadow-sm'
+              : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+          }`}
+        >
+          Show Both Buses
+        </button>
+        <button
+          onClick={() => setActiveBus('busA')}
+          className={`flex-1 py-1.5 rounded-lg text-[10px] font-bold transition-all ${
+            activeBus === 'busA'
+              ? 'bg-white dark:bg-slate-850 text-indigo-600 dark:text-indigo-400 shadow-sm'
+              : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+          }`}
+        >
+          Bus A Only
+        </button>
+        <button
+          onClick={() => setActiveBus('busB')}
+          className={`flex-1 py-1.5 rounded-lg text-[10px] font-bold transition-all ${
+            activeBus === 'busB'
+              ? 'bg-white dark:bg-slate-850 text-indigo-600 dark:text-indigo-400 shadow-sm'
+              : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+          }`}
+        >
+          Bus B Only
+        </button>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+        {/* Bus A */}
+        {(activeBus === 'both' || activeBus === 'busA') && (
+          <div className="flex flex-col p-4 bg-white dark:bg-slate-900 rounded-xl border border-indigo-100 dark:border-indigo-950 shadow-sm relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1 bg-indigo-500" />
+            <div className="flex justify-between items-center mb-3">
+              <span className="text-xs font-black text-slate-800 dark:text-slate-200 font-sans">Bus A (5 Vacant Seats)</span>
+              <span className="text-[10px] font-bold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 px-2 py-0.5 rounded-md">
+                Case 1
+              </span>
+            </div>
+            
+            <p className="text-[10px] text-slate-500 dark:text-slate-400 mb-4">4 people seated in 5 available seats (order matters):</p>
+            
+            <div className="flex justify-center items-center gap-2 mb-4">
+              {[1, 2, 3, 4, 5].map((s) => (
+                <div key={`seatA-${s}`} className="w-10 h-10 rounded-lg border-2 border-indigo-200 dark:border-indigo-950 bg-indigo-500/5 flex flex-col items-center justify-center">
+                  <span className="text-[7px] text-indigo-400 uppercase font-black tracking-widest">Seat {s}</span>
+                  <span className="text-[10px] font-black text-indigo-600 dark:text-indigo-400">{s <= 4 ? `P${s}` : 'Empty'}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="p-2.5 bg-indigo-500/5 rounded-lg border border-indigo-100 dark:border-indigo-950/50 text-center font-sans text-xs">
+              <sup>5</sup>P<sub>4</sub> = 5 × 4 × 3 × 2 = <strong className="text-indigo-600 dark:text-indigo-400 font-bold">120 ways</strong>
+            </div>
+          </div>
+        )}
+
+        {/* Bus B */}
+        {(activeBus === 'both' || activeBus === 'busB') && (
+          <div className="flex flex-col p-4 bg-white dark:bg-slate-900 rounded-xl border border-emerald-100 dark:border-emerald-950 shadow-sm relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1 bg-emerald-500" />
+            <div className="flex justify-between items-center mb-3">
+              <span className="text-xs font-black text-slate-800 dark:text-slate-200 font-sans">Bus B (4 Vacant Seats)</span>
+              <span className="text-[10px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-2 py-0.5 rounded-md">
+                Case 2
+              </span>
+            </div>
+            
+            <p className="text-[10px] text-slate-500 dark:text-slate-400 mb-4">4 people seated in 4 available seats (all filled):</p>
+            
+            <div className="flex justify-center items-center gap-2 mb-4">
+              {[1, 2, 3, 4].map((s) => (
+                <div key={`seatB-${s}`} className="w-10 h-10 rounded-lg border-2 border-emerald-200 dark:border-emerald-950 bg-emerald-500/5 flex flex-col items-center justify-center">
+                  <span className="text-[7px] text-emerald-400 uppercase font-black tracking-widest">Seat {s}</span>
+                  <span className="text-[10px] font-black text-emerald-600 dark:text-emerald-400 font-bold">P{s}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="p-2.5 bg-emerald-500/5 rounded-lg border border-emerald-100 dark:border-emerald-950/50 text-center font-sans text-xs">
+              <sup>4</sup>P<sub>4</sub> = 4! = 4 × 3 × 2 × 1 = <strong className="text-emerald-600 dark:text-emerald-400 font-bold">24 ways</strong>
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-3 p-4 bg-indigo-500/10 rounded-2xl border border-indigo-500/20 text-center">
+        <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300 font-sans">Addition Principle (Disjoint Cases):</span>
+        <div className="flex items-center gap-2 font-mono text-xs md:text-sm">
+          <span className="text-indigo-600 dark:text-indigo-400 font-black">120 ways (Bus A)</span>
+          <span className="text-slate-400 font-bold">+</span>
+          <span className="text-emerald-600 dark:text-emerald-400 font-black">24 ways (Bus B)</span>
+          <span className="text-slate-400 font-bold">=</span>
+          <span className="text-indigo-600 dark:text-indigo-300 font-black bg-indigo-500/20 px-3 py-1 rounded">
+            144 total ways
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Example13Diagram() {
+  const [activeCase, setActiveCase] = React.useState<'both' | 'left' | 'right'>('both');
+
+  return (
+    <div className="my-6 p-3.5 sm:p-6 bg-slate-50/60 dark:bg-slate-900/40 rounded-2xl border border-slate-100 dark:border-slate-800/80 w-full font-sans shadow-sm">
+      <h5 className="text-xs font-bold text-indigo-500 mb-4 uppercase tracking-wider text-center">6 Books Arranged with Dictionary at one End</h5>
+      
+      {/* Case Toggle Selector */}
+      <div className="flex gap-2 justify-center mb-5 bg-slate-200/40 dark:bg-slate-950/50 p-1 rounded-xl border border-slate-200/30 dark:border-slate-800/30 max-w-sm mx-auto">
+        <button
+          onClick={() => setActiveCase('both')}
+          className={`flex-1 py-1.5 rounded-lg text-[10px] font-bold transition-all ${
+            activeCase === 'both'
+              ? 'bg-white dark:bg-slate-850 text-indigo-600 dark:text-indigo-400 shadow-sm'
+              : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+          }`}
+        >
+          Show Both Cases
+        </button>
+        <button
+          onClick={() => setActiveCase('left')}
+          className={`flex-1 py-1.5 rounded-lg text-[10px] font-bold transition-all ${
+            activeCase === 'left'
+              ? 'bg-white dark:bg-slate-850 text-indigo-600 dark:text-indigo-400 shadow-sm'
+              : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+          }`}
+        >
+          Left End Only
+        </button>
+        <button
+          onClick={() => setActiveCase('right')}
+          className={`flex-1 py-1.5 rounded-lg text-[10px] font-bold transition-all ${
+            activeCase === 'right'
+              ? 'bg-white dark:bg-slate-850 text-indigo-600 dark:text-indigo-400 shadow-sm'
+              : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+          }`}
+        >
+          Right End Only
+        </button>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5 font-sans">
+        {/* Case 1: Left End */}
+        {(activeCase === 'both' || activeCase === 'left') && (
+          <div className="flex flex-col p-4 bg-white dark:bg-slate-900 rounded-xl border border-indigo-100 dark:border-indigo-950 shadow-sm relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1 bg-indigo-500" />
+            <div className="flex justify-between items-center mb-3">
+              <span className="text-xs font-black text-slate-800 dark:text-slate-200">Case 1: Dictionary at Left End</span>
+              <span className="text-[10px] font-bold bg-indigo-50/50 dark:bg-indigo-950/20 border border-indigo-100 dark:border-indigo-900 text-indigo-600 dark:text-indigo-400 px-2 py-0.5 rounded-md font-sans">
+                1 × 5! = 120
+              </span>
+            </div>
+            
+            <p className="text-[10px] text-slate-400 dark:text-slate-500 mb-6">Dictionary fixed on the far left. The remaining 5 books are permuted on the remaining 5 spaces.</p>
+            
+            {/* Shelf visualization */}
+            <div className="flex items-end justify-center gap-1.5 sm:gap-4 bg-slate-100/50 dark:bg-slate-950/30 p-2 sm:p-4 rounded-xl border border-slate-200/20 mb-3 h-32 sm:h-36 relative">
+              <div className="absolute bottom-1 w-[90%] h-1 bg-amber-800 dark:bg-amber-900/50 rounded-full" />
+              
+              {/* Slot 1: Dictionary Group */}
+              <div className="flex flex-col items-center gap-1 sm:gap-2 pb-1 z-10">
+                <span className="text-[7px] sm:text-[9px] font-bold text-rose-500 dark:text-rose-400 bg-rose-500/10 px-1 sm:px-1.5 py-0.5 rounded border border-rose-500/20 whitespace-nowrap">
+                  1 way
+                </span>
+                <div className="w-7 sm:w-9 h-16 sm:h-20 bg-rose-500 dark:bg-rose-600 border border-rose-600 dark:border-rose-700 rounded-md flex flex-col items-center justify-center text-white font-black shadow-sm">
+                  <span className="text-[5px] sm:text-[6px] uppercase tracking-widest leading-none font-bold text-rose-100">Dict</span>
+                  <span className="text-[10px] sm:text-xs mt-0.5 sm:mt-1">D</span>
+                </div>
+              </div>
+
+              {/* Slot 2-6: Books Group */}
+              <div className="flex flex-col items-center gap-1 sm:gap-2 pb-1 z-10">
+                <span className="text-[7px] sm:text-[9px] font-bold text-sky-600 dark:text-sky-400 bg-sky-500/10 px-1 sm:px-1.5 py-0.5 rounded border border-sky-500/20 whitespace-nowrap">
+                  5 Books (5! = 120 ways)
+                </span>
+                <div className="flex items-end gap-0.5 sm:gap-1">
+                  {[1, 2, 3, 4, 5].map((b) => (
+                    <div key={`bookL-${b}`} className="w-5 sm:w-7 h-12 sm:h-16 bg-sky-500 dark:bg-sky-600 border border-sky-600 dark:border-sky-700 rounded-md flex flex-col items-center justify-center text-white font-black shadow-sm">
+                      <span className="text-[5px] sm:text-[6px] uppercase font-bold text-sky-100">Book</span>
+                      <span className="text-[8px] sm:text-[10px]">{b}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Case 2: Right End */}
+        {(activeCase === 'both' || activeCase === 'right') && (
+          <div className="flex flex-col p-4 bg-white dark:bg-slate-900 rounded-xl border border-emerald-100 dark:border-emerald-950 shadow-sm relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1 bg-emerald-500" />
+            <div className="flex justify-between items-center mb-3">
+              <span className="text-xs font-black text-slate-800 dark:text-slate-200 font-sans">Case 2: Dictionary at Right End</span>
+              <span className="text-[10px] font-bold bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-indigo-900 text-emerald-600 dark:text-emerald-400 px-2 py-0.5 rounded-md font-sans">
+                1 × 5! = 120
+              </span>
+            </div>
+            
+            <p className="text-[10px] text-slate-400 dark:text-slate-500 mb-6">Dictionary fixed on the far right. The remaining 5 books are permuted on the remaining 5 spaces.</p>
+            
+            {/* Shelf visualization */}
+            <div className="flex items-end justify-center gap-1.5 sm:gap-4 bg-slate-100/50 dark:bg-slate-950/30 p-2 sm:p-4 rounded-xl border border-slate-200/20 mb-3 h-32 sm:h-36 relative">
+              <div className="absolute bottom-1 w-[90%] h-1 bg-amber-800 dark:bg-amber-900/50 rounded-full" />
+              
+              {/* Slot 1-5: Books Group */}
+              <div className="flex flex-col items-center gap-1 sm:gap-2 pb-1 z-10">
+                <span className="text-[7px] sm:text-[9px] font-bold text-sky-600 dark:text-sky-400 bg-sky-500/10 px-1 sm:px-1.5 py-0.5 rounded border border-sky-500/20 whitespace-nowrap">
+                  5 Books (5! = 120 ways)
+                </span>
+                <div className="flex items-end gap-0.5 sm:gap-1">
+                  {[1, 2, 3, 4, 5].map((b) => (
+                    <div key={`bookR-${b}`} className="w-5 sm:w-7 h-12 sm:h-16 bg-sky-500 dark:bg-sky-600 border border-sky-600 dark:border-sky-700 rounded-md flex flex-col items-center justify-center text-white font-black shadow-sm">
+                      <span className="text-[5px] sm:text-[6px] uppercase font-bold text-sky-100">Book</span>
+                      <span className="text-[8px] sm:text-[10px]">{b}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Slot 6: Dictionary Group */}
+              <div className="flex flex-col items-center gap-1 sm:gap-2 pb-1 z-10">
+                <span className="text-[7px] sm:text-[9px] font-bold text-rose-500 dark:text-rose-400 bg-rose-500/10 px-1 sm:px-1.5 py-0.5 rounded border border-rose-500/20 whitespace-nowrap">
+                  1 way
+                </span>
+                <div className="w-7 sm:w-9 h-16 sm:h-20 bg-rose-500 dark:bg-rose-600 border border-rose-600 dark:border-rose-700 rounded-md flex flex-col items-center justify-center text-white font-black shadow-sm">
+                  <span className="text-[5px] sm:text-[6px] uppercase tracking-widest leading-none font-bold text-rose-100">Dict</span>
+                  <span className="text-[10px] sm:text-xs mt-0.5 sm:mt-1">D</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-3 p-4 bg-indigo-500/10 rounded-2xl border border-indigo-500/20 text-center font-sans">
+        <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300">Addition Principle (Disjoint End Cases):</span>
+        <div className="flex items-center gap-2 font-mono text-xs md:text-sm">
+          <span className="text-indigo-600 dark:text-indigo-400 font-black">120 ways (Left End)</span>
+          <span className="text-slate-400 font-bold">+</span>
+          <span className="text-emerald-600 dark:text-emerald-400 font-black">120 ways (Right End)</span>
+          <span className="text-slate-400 font-bold">=</span>
+          <span className="text-indigo-600 dark:text-indigo-300 font-black bg-indigo-500/20 px-3 py-1 rounded">
+            240 total ways
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CombinationsIntroDiagram() {
+  const [selected, setSelected] = React.useState<string[]>([]);
+
+  const handleToggle = (student: string) => {
+    if (selected.includes(student)) {
+      setSelected(selected.filter((s) => s !== student));
+    } else {
+      if (selected.length < 2) {
+        setSelected([...selected, student]);
+      } else {
+        // Replace the second one or shift
+        setSelected([selected[1], student]);
+      }
+    }
+  };
+
+  const getTeamName = () => {
+    if (selected.length < 2) return '';
+    const sorted = [...selected].sort();
+    return `{${sorted[0]}, ${sorted[1]}}`;
+  };
+
+  const getPermutations = () => {
+    if (selected.length < 2) return [];
+    return [`(${selected[0]}, ${selected[1]})`, `(${selected[1]}, ${selected[0]})`];
+  };
+
+  const resetSelection = () => {
+    setSelected([]);
+  };
+
+  return (
+    <div className="my-6 p-3.5 sm:p-6 bg-slate-50/60 dark:bg-slate-900/40 rounded-2xl border border-slate-100 dark:border-slate-800/80 w-full font-sans shadow-sm">
+      <h5 className="text-xs font-bold text-indigo-500 mb-4 uppercase tracking-wider text-center">Interactive: Form a Quiz Team (2 Students from 3)</h5>
+      
+      <p className="text-xs text-slate-500 dark:text-slate-400 text-center mb-5 max-w-lg mx-auto">
+        ကျောင်းသား 3 ယောက်ထဲမှ 2 ယောက်ပါသော အဖွဲ့တစ်ဖွဲ့ကို ရွေးချယ်ကြည့်ပါ။ ရွေးချယ်မှုအစီအစဉ် ပြောင်းလဲသော်လည်း အဖွဲ့တူပုံကို လေ့လာပါ။
+      </p>
+
+      {/* Available Students Grid */}
+      <div className="flex justify-center gap-4 sm:gap-8 mb-6">
+        {[
+          { id: 'A', name: 'Student A', color: 'bg-blue-500 border-blue-600 dark:border-blue-400 text-blue-500', bg: 'bg-blue-50 dark:bg-blue-950/20' },
+          { id: 'B', name: 'Student B', color: 'bg-emerald-500 border-emerald-600 dark:border-emerald-400 text-emerald-500', bg: 'bg-emerald-50 dark:bg-emerald-950/20' },
+          { id: 'C', name: 'Student C', color: 'bg-purple-500 border-purple-600 dark:border-purple-400 text-purple-500', bg: 'bg-purple-50 dark:bg-purple-950/20' },
+        ].map((s) => {
+          const isSelected = selected.includes(s.id);
+          const orderIndex = selected.indexOf(s.id);
+          return (
+            <button
+              key={s.id}
+              onClick={() => handleToggle(s.id)}
+              className={`relative flex flex-col items-center p-3 sm:p-4 rounded-xl border-2 transition-all w-20 sm:w-24 ${
+                isSelected
+                  ? 'border-indigo-500 bg-indigo-50/20 dark:bg-indigo-950/30 shadow-md scale-105'
+                  : 'border-slate-200 dark:border-slate-800 hover:border-indigo-200 bg-white dark:bg-slate-900'
+              }`}
+            >
+              <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-bold text-lg sm:text-xl border-2 ${
+                isSelected ? 'bg-indigo-500 text-white border-indigo-600' : `${s.bg} ${s.color} border-slate-200 dark:border-slate-700`
+              }`}>
+                {s.id}
+              </div>
+              <span className="text-[10px] font-bold text-slate-600 dark:text-slate-400 mt-2">{s.name}</span>
+              
+              {/* Selection Badge / Order Number */}
+              {isSelected && (
+                <div className="absolute -top-2 -right-2 bg-indigo-600 text-white w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold shadow border border-white dark:border-slate-900">
+                  {orderIndex + 1}
+                </div>
+              )}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Interactive Results Display */}
+      <div className="min-h-[140px] flex flex-col items-center justify-center bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/80 rounded-xl p-4 sm:p-5 shadow-inner">
+        {selected.length === 0 ? (
+          <div className="text-slate-400 dark:text-slate-500 text-center text-xs">
+            <span className="block font-bold mb-1">Select 2 students above</span>
+            အထက်ပါ ကျောင်းသားများထဲမှ ၂ ယောက်ကို နှိပ်၍ ရွေးချယ်ပါ။
+          </div>
+        ) : selected.length === 1 ? (
+          <div className="text-center text-xs text-slate-500 dark:text-slate-400">
+            <span className="font-bold text-indigo-500">Selected {selected[0]}</span>. Need 1 more student to complete the team.
+            <div className="mt-2 text-[10px] text-slate-400">အဖွဲ့ပြည့်ရန် ကျောင်းသား ၁ ယောက် ထပ်ရွေးပါ။</div>
+          </div>
+        ) : (
+          <div className="w-full max-w-md flex flex-col gap-4">
+            {/* Selection Order */}
+            <div className="flex flex-col sm:flex-row items-center justify-between border-b border-slate-100 dark:border-slate-800/60 pb-3 gap-2">
+              <span className="text-[10px] uppercase font-black text-slate-400 dark:text-slate-500 tracking-wider">Selection Order:</span>
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-xs px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded font-bold text-slate-700 dark:text-slate-300">
+                  1st: {selected[0]}
+                </span>
+                <span className="text-slate-300 font-bold">→</span>
+                <span className="font-mono text-xs px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded font-bold text-slate-700 dark:text-slate-300">
+                  2nd: {selected[1]}
+                </span>
+              </div>
+            </div>
+
+            {/* Permutation vs Combination */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Permutation Section */}
+              <div className="p-3 bg-amber-500/5 rounded-xl border border-amber-500/10">
+                <div className="text-[9px] font-black text-amber-500 uppercase tracking-widest mb-1.5">Permutation (Order Matters)</div>
+                <div className="text-xs text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
+                  အစီအစဉ်အရေးကြီးလျှင် နေရာမတူသောကြောင့် <strong>2 နည်း</strong> ဖြစ်သည်။
+                </div>
+                <div className="flex gap-1.5 font-mono text-[10px] font-bold">
+                  {getPermutations().map((p, idx) => (
+                    <span key={idx} className="bg-amber-500/10 text-amber-700 dark:text-amber-400 px-2 py-0.5 rounded border border-amber-500/20">
+                      {p}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Combination Section */}
+              <div className="p-3 bg-indigo-500/5 rounded-xl border border-indigo-500/10">
+                <div className="text-[9px] font-black text-indigo-500 uppercase tracking-widest mb-1.5">Combination (Selection Only)</div>
+                <div className="text-xs text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
+                  အဖွဲ့ဖွဲ့ခြင်းဖြစ်၍ အစီအစဉ်မလိုဘဲ <strong>1 နည်းသာ</strong> ဖြစ်သည်။
+                </div>
+                <div className="font-mono text-[10px] font-bold inline-block">
+                  <span className="bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 px-2 py-0.5 rounded border border-indigo-500/20">
+                    {getTeamName()}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row justify-between items-center bg-indigo-500/5 p-2.5 rounded-lg border border-indigo-500/10 text-[10px] text-slate-500 dark:text-slate-400 font-medium gap-2">
+              <span className="text-center sm:text-left">
+                {`Therefore, {${selected[0]}, ${selected[1]}} = {${selected[1]}, ${selected[0]}} results in the same team!`}
+              </span>
+              <button
+                onClick={resetSelection}
+                className="text-[9px] font-bold text-indigo-600 dark:text-indigo-400 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 px-2.5 py-1 rounded-md hover:bg-slate-50 dark:hover:bg-slate-750 transition-colors shrink-0"
+              >
+                Reset Selection
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function CombinationsFormulaView() {
+  const [n, setN] = React.useState<number>(5);
+  const [r, setR] = React.useState<number>(2);
+
+  // Maintain r <= n
+  const handleNChange = (val: number) => {
+    setN(val);
+    if (r > val) {
+      setR(val);
+    }
+  };
+
+  const handleRChange = (val: number) => {
+    if (val <= n) {
+      setR(val);
+    }
+  };
+
+  // Calculations
+  const getFactorial = (num: number): number => {
+    if (num <= 1) return 1;
+    let res = 1;
+    for (let i = 2; i <= num; i++) res *= i;
+    return res;
+  };
+
+  const getPermutation = (nVal: number, rVal: number): number => {
+    let res = 1;
+    for (let i = 0; i < rVal; i++) {
+      res *= (nVal - i);
+    }
+    return res;
+  };
+
+  const getCombination = (nVal: number, rVal: number): number => {
+    return getPermutation(nVal, rVal) / getFactorial(rVal);
+  };
+
+  const permVal = getPermutation(n, r);
+  const factR = getFactorial(r);
+  const combVal = getCombination(n, r);
+
+  // Render step multiplier representation e.g. 5 * 4 * 3
+  const getNumeratorSteps = () => {
+    if (r === 0) return '1';
+    const steps = [];
+    for (let i = 0; i < r; i++) {
+      steps.push(n - i);
+    }
+    return steps.join(' \\times ');
+  };
+
+  const getDenominatorSteps = () => {
+    if (r === 0) return '1';
+    const steps = [];
+    for (let i = r; i >= 1; i--) {
+      steps.push(i);
+    }
+    return steps.join(' \\times ');
+  };
+
+  return (
+    <div className="my-6 p-3.5 sm:p-6 bg-slate-50/60 dark:bg-slate-900/40 rounded-2xl border border-slate-100 dark:border-slate-800/80 w-full font-sans shadow-sm">
+      <h5 className="text-xs font-bold text-indigo-500 mb-4 uppercase tracking-wider text-center">Interactive Combination Formula Explorer</h5>
+
+      {/* Input Controls */}
+      <div className="grid grid-cols-2 gap-4 max-w-sm mx-auto mb-6">
+        {/* N input */}
+        <div className="flex flex-col items-center bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-150 dark:border-slate-800/80">
+          <span className="text-[10px] uppercase font-black text-slate-400 tracking-wider mb-2">n (Total Items)</span>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => handleNChange(Math.max(1, n - 1))}
+              disabled={n <= 1}
+              className="w-7 h-7 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold hover:bg-slate-200/80 dark:hover:bg-slate-700/80 transition-colors flex items-center justify-center disabled:opacity-40 text-sm"
+            >
+              -
+            </button>
+            <span className="text-base font-black text-indigo-600 dark:text-indigo-400 font-mono w-4 text-center">{n}</span>
+            <button
+              onClick={() => handleNChange(Math.min(10, n + 1))}
+              disabled={n >= 10}
+              className="w-7 h-7 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold hover:bg-slate-200/80 dark:hover:bg-slate-700/80 transition-colors flex items-center justify-center disabled:opacity-40 text-sm"
+            >
+              +
+            </button>
+          </div>
+        </div>
+
+        {/* R input */}
+        <div className="flex flex-col items-center bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-150 dark:border-slate-800/80">
+          <span className="text-[10px] uppercase font-black text-slate-400 tracking-wider mb-2">r (Choose Items)</span>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => handleRChange(Math.max(0, r - 1))}
+              disabled={r <= 0}
+              className="w-7 h-7 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold hover:bg-slate-200/80 dark:hover:bg-slate-700/80 transition-colors flex items-center justify-center disabled:opacity-40 text-sm"
+            >
+              -
+            </button>
+            <span className="text-base font-black text-indigo-600 dark:text-indigo-400 font-mono w-4 text-center">{r}</span>
+            <button
+              onClick={() => handleRChange(Math.min(n, r + 1))}
+              disabled={r >= n}
+              className="w-7 h-7 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold hover:bg-slate-200/80 dark:hover:bg-slate-700/80 transition-colors flex items-center justify-center disabled:opacity-40 text-sm"
+            >
+              +
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Visual Representation */}
+      <div className="flex flex-col items-center mb-6">
+        <span className="text-[10px] uppercase font-bold text-slate-400 mb-2">Visualizing Selection ({r} items highlighted out of {n})</span>
+        <div className="flex flex-wrap justify-center gap-2 max-w-md bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-100 dark:border-slate-800/80 shadow-inner w-full">
+          {Array.from({ length: n }).map((_, idx) => {
+            const isChosen = idx < r;
+            return (
+              <div
+                key={idx}
+                className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs border-2 transition-all shadow-sm ${
+                  isChosen
+                    ? 'bg-indigo-500 border-indigo-600 text-white scale-105 shadow-indigo-500/25 shadow-md'
+                    : 'bg-slate-100 dark:bg-slate-800 border-slate-250 dark:border-slate-700 text-slate-400 dark:text-slate-500'
+                }`}
+              >
+                {idx + 1}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Formula Output Block */}
+      <div className="p-4 bg-white dark:bg-slate-900 border border-slate-150 dark:border-slate-800 rounded-xl flex flex-col items-center shadow-sm">
+        <div className="text-[10px] uppercase font-black text-indigo-500 tracking-wider mb-3">Formula Derivation & Value</div>
+        
+        {/* Dynamic LaTex calculation formula */}
+        <div className="w-full overflow-x-auto py-3 flex justify-center text-slate-800 dark:text-slate-100 font-serif text-sm md:text-base border-b border-slate-100 dark:border-slate-800/60">
+          <div className="whitespace-nowrap flex items-center gap-1.5 select-none leading-none">
+            {/* Left symbol: C(n, r) */}
+            <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
+              {`\\binom{${n}}{${r}}`}
+            </span>
+            <span>=</span>
+            
+            {/* Permutation ratio definition */}
+            <div className="flex flex-col items-center px-1 font-mono">
+              <span className="border-b border-slate-400 dark:border-slate-600 pb-0.5 text-xs">
+                {`^{${n}}P_{${r}}`}
+              </span>
+              <span className="pt-0.5 text-xs">
+                {`${r}!`}
+              </span>
+            </div>
+            <span>=</span>
+
+            {/* Numerical ratio steps */}
+            <div className="flex flex-col items-center px-1 font-mono">
+              <span className="border-b border-slate-400 dark:border-slate-600 pb-0.5 text-xs">
+                {getNumeratorSteps()}
+              </span>
+              <span className="pt-0.5 text-xs">
+                {getDenominatorSteps()}
+              </span>
+            </div>
+            <span>=</span>
+
+            {/* Calculated ratio */}
+            <div className="flex flex-col items-center px-1 font-mono">
+              <span className="border-b border-slate-400 dark:border-slate-600 pb-0.5 text-xs">
+                {permVal}
+              </span>
+              <span className="pt-0.5 text-xs">
+                {factR}
+              </span>
+            </div>
+            <span>=</span>
+
+            {/* Final Answer */}
+            <span className="bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 font-mono font-bold px-3 py-1 rounded border border-indigo-500/20 text-xs sm:text-sm">
+              {combVal}
+            </span>
+          </div>
+        </div>
+
+        {/* Explain the parts */}
+        <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-3 text-[10px] text-slate-500 dark:text-slate-400 pt-3">
+          <div className="text-center md:text-left">
+            <span className="font-bold text-indigo-600 dark:text-indigo-400 block mb-0.5">Permutation {`^{${n}}P_{${r}}`}:</span>
+            အစီအစဉ်စီလျှင် {permVal} နည်းရှိသည်။
+          </div>
+          <div className="text-center">
+            <span className="font-bold text-indigo-600 dark:text-indigo-400 block mb-0.5">Duplicates Divider {`${r}!`}:</span>
+            အုပ်စုတစ်ခုစီအတွင်း နေရာပြောင်းလဲနိုင်သော ထပ်နေသည့်နည်းလမ်း {factR} နည်းဖြင့် စားပေးရသည်။
+          </div>
+          <div className="text-center md:text-right">
+            <span className="font-bold text-indigo-600 dark:text-indigo-400 block mb-0.5">Combination {`\\binom{${n}}{${r}}`}:</span>
+            အစီအစဉ်မလိုသော သီးသန့်အဖွဲ့ပေါင်း {combVal} အဖွဲ့ ရရှိသည်။
+          </div>
+        </div>
       </div>
     </div>
   );
