@@ -1,4 +1,5 @@
 import { Chapter } from '../types';
+import { chapter5Content } from './chapter5_content';
 
 export const chapters: Chapter[] = [
   {
@@ -2907,66 +2908,69 @@ $$\\mathbf{a} \\times \\mathbf{b} = \\begin{vmatrix} \\mathbf{i} & \\mathbf{j} &
     id: 5,
     title: "Permutations and Combinations",
     tagline: "Mastering the rules of systematic counting, arrangements, and selection.",
-    description: "This chapter covers the Fundamental Counting Principle, factorials, permutations (arranging items where order matters), combinations (selecting items where order does not matter), and resolving circular permutations.",
-    content: `**Combinatorics** is the branch of mathematics dealing with counting, arrangement, and combinations of objects.
-
-### 1. Fundamental Counting Principle
-If one event can occur in $m$ ways, and a second event can occur in $n$ ways independently, then the two events can occur in sequence in:
-$$m \\times n \\text{ ways.}$$
-
-### 2. Factorial Notation
-For any positive integer $n$:
-$$n! = n \\times (n-1) \\times (n-2) \\times \\dots \\times 2 \\times 1$$
-By definition, $0! = 1$.
-
-### 3. Permutations (Order Matters)
-A **Permutation** is an arrangement of a set of items in a specific order. The number of ways to arrange $r$ items selected from a pool of $n$ distinct items is:
-$$P(n, r) = \\frac{n!}{(n-r)!}$$
-
-*Key Subtypes:*
-- **Circular Permutations:** The number of ways to arrange $n$ distinct objects in a circle is $(n-1)!$.
-- **Permutations with Repetitions:** If there are $n$ items where $p$ items are of type 1, $q$ items of type 2, the arrangements equal $\\frac{n!}{p! q!}$.
-
-### 4. Combinations (Order Does NOT Matter)
-A **Combination** is a selection of items where the order of selection is irrelevant (e.g., choosing a committee). The number of ways to select $r$ items from $n$ distinct items is:
-$$C(n, r) = \\binom{n}{r} = \\frac{n!}{r!(n-r)!}$$
-
-*Crucial Identity:*
-$$\\binom{n}{r} = \\binom{n}{n-r}$$`,
+    description: "This chapter covers the Fundamental Counting Principle, factorials, permutations (arranging items where order matters), combinations (selecting items where order does not matter), and permutations with repetitions.",
+    content: chapter5Content,
     formulas: [
       {
         id: "c5-f1",
-        name: "Permutations Formula",
+        name: "Permutations Formula (No Repetition)",
         latex: "P(n, r) = \\frac{n!}{(n-r)!}",
-        description: "Number of ordered arrangements of $r$ objects from $n$ unique objects."
+        description: "Number of ordered arrangements of $r$ objects selected from $n$ unique objects."
       },
       {
         id: "c5-f2",
         name: "Combinations Formula",
         latex: "C(n, r) = \\binom{n}{r} = \\frac{n!}{r!(n-r)!}",
-        description: "Number of unordered selections of $r$ objects from $n$ unique objects."
+        description: "Number of unordered selections (groups) of $r$ objects chosen from $n$ unique objects."
       },
       {
         id: "c5-f3",
-        name: "Circular Permutations",
-        latex: "P_{\\text{circular}} = (n - 1)!",
-        description: "Arranging $n$ objects in a closed circle (removing rotational redundancy)."
+        name: "Permutations with Repetitions",
+        latex: "N = \\frac{n!}{n_1! n_2! \\dots n_k!}",
+        description: "Arranging $n$ objects where some groups of objects are identical ($n_i$ represent count of duplicates)."
+      },
+      {
+        id: "c5-f4",
+        name: "The Exclusion Principle",
+        latex: "\\text{Required} = \\text{Total} - \\text{Excluded}",
+        description: "Calculating allowable outcomes by subtracting prohibited states from all possible permutations."
       }
     ],
     quiz: [
       {
         id: "c5-q1",
-        questionText: "How many ways can a president, vice president, and secretary be chosen from a class of 10 students?",
-        options: ["$120$", "$720$", "$1000$", "$30$"],
-        correctAnswerIndex: 1,
-        explanation: "Since the roles are distinct, order matters (this is a permutation). We calculate $P(10, 3) = \\frac{10!}{(10-3)!} = \\frac{10!}{7!} = 10 \\times 9 \\times 8 = 720$."
+        questionText: "Solve for $n$ if the permutation satisfies $^nP_2 = 42$.",
+        options: ["$5$", "$6$", "$7$", "$8$"],
+        correctAnswerIndex: 2,
+        explanation: "Expanding the permutation formula gives $n(n - 1) = 42$. This yields the quadratic equation $n^2 - n - 42 = 0$, which factors into $(n - 7)(n + 6) = 0$. Since $n \\geq 2$, we find $n = 7$."
       },
       {
         id: "c5-q2",
-        questionText: "How many different 5-card hands can be chosen from a standard deck of 52 cards?",
-        options: ["$2,598,960$", "$311,875,200$", "$270,725$", "$\\binom{52}{5}$"],
-        correctAnswerIndex: 0,
-        explanation: "Since the order of cards in a hand doesn't matter, this is a combination: $C(52, 5) = \\frac{52!}{5!(52-5)!} = 2,598,960$."
+        questionText: "How many different possible label combinations can a blood donor have if there are 4 blood types ($A$, $B$, $AB$, $O$), 2 Rh factors ($+$, $-$), and 2 donor gender classifications (male, female)?",
+        options: ["$8$", "$12$", "$16$", "$32$"],
+        correctAnswerIndex: 2,
+        explanation: "By the Multiplication Principle, we multiply the independent choices together: $4 \\text{ blood types} \\times 2 \\text{ Rh factors} \\times 2 \\text{ genders} = 16$ labels."
+      },
+      {
+        id: "c5-q3",
+        questionText: "Evaluate the expression: $^{10}P_5 + {^{10}P_0}$",
+        options: ["$30,240$", "$30,241$", "$3,628,801$", "$3,628,800$"],
+        correctAnswerIndex: 1,
+        explanation: "$^{10}P_5 = 10 \\times 9 \\times 8 \\times 7 \\times 6 = 30,240$. Since $^nP_0 = 1$, we have $^{10}P_0 = 1$. The sum is $30,240 + 1 = 30,241$."
+      },
+      {
+        id: "c5-q4",
+        questionText: "In how many ways can 6 different books be arranged along a line on a shelf if one of the books is a dictionary and it must be at one of the ends?",
+        options: ["$120$", "$240$", "$720$", "$1,440$"],
+        correctAnswerIndex: 1,
+        explanation: "There are two disjoint cases: Case 1: Dictionary at the left end. The remaining 5 books can be arranged in $5! = 120$ ways. Case 2: Dictionary at the right end. The remaining 5 books can be arranged in $5! = 120$ ways. Since these are disjoint, we add them: $120 + 120 = 240$."
+      },
+      {
+        id: "c5-q5",
+        questionText: "Find the number of unique permutations of all the letters of the word EXCELLENCE.",
+        options: ["$3,628,800$", "$302,400$", "$37,800$", "$151,200$"],
+        correctAnswerIndex: 2,
+        explanation: "The word EXCELLENCE has 10 letters in total. The letter counts are: E = 4, C = 2, L = 2, X = 1, N = 1. Applying the repetition formula, we get $\\frac{10!}{4! \\times 2! \\times 2! \\times 1! \\times 1!} = \\frac{3,628,800}{24 \\times 2 \\times 2} = 37,800$."
       }
     ],
     visualizerType: "perm-comb"

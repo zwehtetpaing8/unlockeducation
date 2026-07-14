@@ -528,6 +528,213 @@ function RootsUnity4() {
   );
 }
 
+function DrinksSnacksTree() {
+  return (
+    <div className="my-6 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+      <h5 className="text-xs font-bold text-indigo-500 mb-4 font-sans uppercase tracking-wider">Multiplication Principle: Drinks & Snacks Tree</h5>
+      <svg width="100%" height="240" viewBox="0 0 500 240" className="overflow-visible max-w-full">
+        {/* Start Node */}
+        <circle cx="30" cy="120" r="20" className="fill-indigo-500/10 stroke-indigo-500 dark:stroke-indigo-400" strokeWidth="2" />
+        <text x="30" y="123" className="text-[9px] font-bold fill-indigo-600 dark:fill-indigo-400 font-sans" textAnchor="middle">START</text>
+
+        {/* Level 1: Drinks (Tea & Coffee) */}
+        {/* Connection lines from Start to Level 1 */}
+        <path d="M 50 120 Q 90 70 120 70" fill="none" stroke="#6366f1" strokeWidth="2" className="opacity-60" />
+        <path d="M 50 120 Q 90 170 120 170" fill="none" stroke="#6366f1" strokeWidth="2" className="opacity-60" />
+
+        {/* Tea Node */}
+        <rect x="120" y="50" width="65" height="40" rx="8" className="fill-emerald-500/10 stroke-emerald-500 dark:stroke-emerald-400" strokeWidth="1.5" />
+        <text x="152.5" y="74" className="text-xs font-bold fill-emerald-700 dark:fill-emerald-400 font-sans" textAnchor="middle">Tea</text>
+        <text x="152.5" y="103" className="text-[9px] fill-slate-400 italic" textAnchor="middle">(2 choices)</text>
+
+        {/* Coffee Node */}
+        <rect x="120" y="150" width="65" height="40" rx="8" className="fill-amber-500/10 stroke-amber-500 dark:stroke-amber-400" strokeWidth="1.5" />
+        <text x="152.5" y="174" className="text-xs font-bold fill-amber-700 dark:fill-amber-400 font-sans" textAnchor="middle">Coffee</text>
+        <text x="152.5" y="203" className="text-[9px] fill-slate-400 italic" textAnchor="middle">(2 choices)</text>
+
+        {/* Level 2: Snacks (Cake, Doughnut, Sandwich) */}
+        {/* Tea Branches */}
+        <path d="M 185 70 Q 225 30 265 30" fill="none" stroke="#10b981" strokeWidth="1.5" className="opacity-50" />
+        <path d="M 185 70 L 265 70" fill="none" stroke="#10b981" strokeWidth="1.5" className="opacity-50" />
+        <path d="M 185 70 Q 225 110 265 110" fill="none" stroke="#10b981" strokeWidth="1.5" className="opacity-50" />
+
+        {/* Coffee Branches */}
+        <path d="M 185 170 Q 225 130 265 130" fill="none" stroke="#f59e0b" strokeWidth="1.5" className="opacity-50" />
+        <path d="M 185 170 L 265 170" fill="none" stroke="#f59e0b" strokeWidth="1.5" className="opacity-50" />
+        <path d="M 185 170 Q 225 210 265 210" fill="none" stroke="#f59e0b" strokeWidth="1.5" className="opacity-50" />
+
+        {/* Tea Snack Nodes & Labels */}
+        <circle cx="265" cy="30" r="4" className="fill-emerald-500" />
+        <text x="275" y="34" className="text-[11px] font-medium fill-slate-700 dark:fill-slate-300">Cake</text>
+        <text x="350" y="34" className="text-[10px] font-mono fill-slate-400">→ (Tea, Cake)</text>
+
+        <circle cx="265" cy="70" r="4" className="fill-emerald-500" />
+        <text x="275" y="74" className="text-[11px] font-medium fill-slate-700 dark:fill-slate-300">Doughnut</text>
+        <text x="350" y="74" className="text-[10px] font-mono fill-slate-400">→ (Tea, Doughnut)</text>
+
+        <circle cx="265" cy="110" r="4" className="fill-emerald-500" />
+        <text x="275" y="114" className="text-[11px] font-medium fill-slate-700 dark:fill-slate-300">Sandwich</text>
+        <text x="350" y="114" className="text-[10px] font-mono fill-slate-400">→ (Tea, Sandwich)</text>
+
+        {/* Coffee Snack Nodes & Labels */}
+        <circle cx="265" cy="130" r="4" className="fill-amber-500" />
+        <text x="275" y="134" className="text-[11px] font-medium fill-slate-700 dark:fill-slate-300">Cake</text>
+        <text x="350" y="134" className="text-[10px] font-mono fill-slate-400">→ (Coffee, Cake)</text>
+
+        <circle cx="265" cy="170" r="4" className="fill-amber-500" />
+        <text x="275" y="174" className="text-[11px] font-medium fill-slate-700 dark:fill-slate-300">Doughnut</text>
+        <text x="350" y="174" className="text-[10px] font-mono fill-slate-400">→ (Coffee, Doughnut)</text>
+
+        <circle cx="265" cy="210" r="4" className="fill-amber-500" />
+        <text x="275" y="214" className="text-[11px] font-medium fill-slate-700 dark:fill-slate-300">Sandwich</text>
+        <text x="350" y="214" className="text-[10px] font-mono fill-slate-400">→ (Coffee, Sandwich)</text>
+      </svg>
+      <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-2 italic font-sans text-center">Tree diagram showing 2 drinks × 3 snacks = 6 total outcome paths of the Multiplication Principle.</span>
+    </div>
+  );
+}
+
+function PermCombComparison() {
+  return (
+    <div className="my-6 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+      <h5 className="text-xs font-bold text-indigo-500 mb-4 font-sans uppercase tracking-wider">Permutation vs Combination Comparison</h5>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-xl">
+        {/* Permutations (Order Matters) */}
+        <div className="p-4 bg-white dark:bg-slate-950 border border-slate-100 dark:border-slate-900 rounded-xl flex flex-col items-center space-y-3">
+          <span className="text-[10px] font-bold tracking-wider uppercase px-2.5 py-0.5 rounded-full bg-rose-50 dark:bg-rose-950/30 text-rose-600 dark:text-rose-400 border border-rose-100 dark:border-rose-950/50">
+            Permutations: Order Matters!
+          </span>
+          <span className="text-[11px] text-slate-400 font-sans text-center">Arranging 2 objects from {"{A, B, C}"}</span>
+          
+          <svg width="180" height="90" className="overflow-visible">
+            {/* Draw Box 1 */}
+            <rect x="10" y="10" width="70" height="40" rx="6" className="fill-indigo-500/5 stroke-indigo-500" strokeWidth="1.5" />
+            <text x="45" y="34" className="text-xs font-bold fill-indigo-600 dark:fill-indigo-400 font-mono" textAnchor="middle">A, B</text>
+            <text x="45" y="65" className="text-[10px] font-sans fill-slate-500" textAnchor="middle">1st Choice</text>
+            
+            {/* Draw Box 2 */}
+            <rect x="100" y="10" width="70" height="40" rx="6" className="fill-indigo-500/5 stroke-indigo-500" strokeWidth="1.5" />
+            <text x="135" y="34" className="text-xs font-bold fill-indigo-600 dark:fill-indigo-400 font-mono" textAnchor="middle">B, A</text>
+            <text x="135" y="65" className="text-[10px] font-sans fill-slate-500" textAnchor="middle">2nd Choice</text>
+
+            <line x1="80" y1="30" x2="100" y2="30" stroke="#f43f5e" strokeWidth="1.5" strokeDasharray="3 3" />
+            <text x="90" y="24" className="text-[9px] font-bold fill-rose-500" textAnchor="middle">≠</text>
+          </svg>
+          <p className="text-xs font-mono font-bold text-slate-700 dark:text-slate-300 mt-2">
+            (A, B) &amp; (B, A) are 2 ways
+          </p>
+        </div>
+
+        {/* Combinations (Order Doesn't Matter) */}
+        <div className="p-4 bg-white dark:bg-slate-950 border border-slate-100 dark:border-slate-900 rounded-xl flex flex-col items-center space-y-3">
+          <span className="text-[10px] font-bold tracking-wider uppercase px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-950/50">
+            Combinations: Order Doesn't Matter!
+          </span>
+          <span className="text-[11px] text-slate-400 font-sans text-center">Selecting 2 objects from {"{A, B, C}"}</span>
+          
+          <svg width="180" height="90" className="overflow-visible">
+            {/* Draw Grouping Bag */}
+            <rect x="30" y="5" width="120" height="50" rx="20" className="fill-emerald-500/5 stroke-emerald-500" strokeWidth="2" strokeDasharray="2 2" />
+            <text x="90" y="34" className="text-sm font-bold fill-emerald-600 dark:fill-emerald-400 font-mono" textAnchor="middle">{"{A, B}"}</text>
+            <text x="90" y="70" className="text-[10px] font-sans fill-slate-500" textAnchor="middle">Same Group</text>
+          </svg>
+          <p className="text-xs font-mono font-bold text-slate-700 dark:text-slate-300 mt-2">
+            {"{A, B}"} &amp; {"{B, A}"} are the 1 same way
+          </p>
+        </div>
+      </div>
+      <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-4 italic font-sans text-center">Permutations create distinct ordered sequences (tuples), while Combinations focus on identical, unordered sets.</span>
+    </div>
+  );
+}
+
+function AtoBtoCRoads() {
+  return (
+    <div className="my-6 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+      <h5 className="text-xs font-bold text-indigo-500 mb-4 font-sans uppercase tracking-wider">Example 1: Roads from Town A to B to C</h5>
+      <svg width="100%" height="180" viewBox="0 0 400 180" className="overflow-visible max-w-full">
+        {/* Label: 6 roads on top with bracket */}
+        <path d="M 90 22 L 135 22 L 180 22" fill="none" stroke="#f59e0b" strokeWidth="1.5" strokeDasharray="3 3" />
+        <path d="M 90 20 L 90 25" fill="none" stroke="#f59e0b" strokeWidth="1.5" />
+        <path d="M 180 20 L 180 25" fill="none" stroke="#f59e0b" strokeWidth="1.5" />
+        <rect x="110" y="10" width="50" height="20" rx="4" className="fill-amber-500" />
+        <text x="135" y="24" className="text-[10px] font-bold fill-white font-sans" textAnchor="middle">6 roads</text>
+
+        {/* Label: 4 roads on top with bracket */}
+        <path d="M 240 22 L 285 22 L 330 22" fill="none" stroke="#3b82f6" strokeWidth="1.5" strokeDasharray="3 3" />
+        <path d="M 240 20 L 240 25" fill="none" stroke="#3b82f6" strokeWidth="1.5" />
+        <path d="M 330 20 L 330 25" fill="none" stroke="#3b82f6" strokeWidth="1.5" />
+        <rect x="260" y="10" width="50" height="20" rx="4" className="fill-blue-500" />
+        <text x="285" y="24" className="text-[10px] font-bold fill-white font-sans" textAnchor="middle">4 roads</text>
+
+        {/* Town Nodes */}
+        <circle cx="50" cy="90" r="20" className="fill-indigo-500/10 stroke-indigo-500 dark:stroke-indigo-400" strokeWidth="2" />
+        <text x="50" y="94" className="text-sm font-bold fill-indigo-700 dark:fill-indigo-300 font-sans" textAnchor="middle">A</text>
+
+        <circle cx="200" cy="90" r="20" className="fill-emerald-500/10 stroke-emerald-500 dark:stroke-emerald-400" strokeWidth="2" />
+        <text x="200" y="94" className="text-sm font-bold fill-emerald-700 dark:fill-emerald-300 font-sans" textAnchor="middle">B</text>
+
+        <circle cx="350" cy="90" r="20" className="fill-amber-500/10 stroke-amber-500 dark:stroke-amber-400" strokeWidth="2" />
+        <text x="350" y="94" className="text-sm font-bold fill-amber-700 dark:fill-amber-300 font-sans" textAnchor="middle">C</text>
+
+        {/* Curved Roads from A to B (6 roads) */}
+        <path d="M 70 90 Q 135 25 180 90" fill="none" stroke="#6366f1" strokeWidth="1.5" className="opacity-70" />
+        <path d="M 70 90 Q 135 45 180 90" fill="none" stroke="#6366f1" strokeWidth="1.5" className="opacity-70" />
+        <path d="M 70 90 Q 135 65 180 90" fill="none" stroke="#6366f1" strokeWidth="1.2" className="opacity-50" />
+        <path d="M 70 90 Q 135 115 180 90" fill="none" stroke="#6366f1" strokeWidth="1.2" className="opacity-50" />
+        <path d="M 70 90 Q 135 135 180 90" fill="none" stroke="#6366f1" strokeWidth="1.5" className="opacity-70" />
+        <path d="M 70 90 Q 135 155 180 90" fill="none" stroke="#6366f1" strokeWidth="1.5" className="opacity-70" />
+
+        {/* Curved Roads from B to C (4 roads) */}
+        <path d="M 220 90 Q 285 40 330 90" fill="none" stroke="#10b981" strokeWidth="1.5" className="opacity-70" />
+        <path d="M 220 90 Q 285 70 330 90" fill="none" stroke="#10b981" strokeWidth="1.2" className="opacity-50" />
+        <path d="M 220 90 Q 285 110 330 90" fill="none" stroke="#10b981" strokeWidth="1.2" className="opacity-50" />
+        <path d="M 220 90 Q 285 140 330 90" fill="none" stroke="#10b981" strokeWidth="1.5" className="opacity-70" />
+
+        {/* Bottom Text: A -> B -> C */}
+        <text x="200" y="170" className="text-xs font-semibold fill-slate-500 dark:fill-slate-400 font-sans" textAnchor="middle">A → B → C</text>
+      </svg>
+      <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-2 italic font-sans text-center">Multiplication Principle visual: 6 roads (A → B) × 4 roads (B → C) = 24 total driving routes.</span>
+    </div>
+  );
+}
+
+function AndOrFlowchart() {
+  return (
+    <div className="my-6 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80 w-full">
+      <h5 className="text-xs font-bold text-indigo-500 mb-4 font-sans uppercase tracking-wider">Choosing the Right Counting Principle</h5>
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-6 w-full max-w-lg">
+        {/* AND block */}
+        <div className="flex-1 p-4 bg-white dark:bg-slate-950 border border-indigo-100 dark:border-indigo-950/50 rounded-xl shadow-sm flex flex-col items-center text-center">
+          <div className="w-8 h-8 rounded-full bg-indigo-50 dark:bg-indigo-950/50 flex items-center justify-center border border-indigo-200 dark:border-indigo-900 mb-2">
+            <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 font-mono">&amp;</span>
+          </div>
+          <span className="text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wide">AND</span>
+          <span className="text-[11px] text-slate-400 mt-1 font-sans">Successive steps</span>
+          <div className="w-full h-[1px] bg-slate-100 dark:bg-slate-900 my-2.5" />
+          <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 font-mono">Multiply</span>
+          <span className="text-[10px] text-slate-400 font-mono mt-0.5">m × n × ...</span>
+        </div>
+
+        {/* Divider arrow/text */}
+        <div className="hidden sm:flex text-slate-300 font-bold">OR</div>
+
+        {/* OR block */}
+        <div className="flex-1 p-4 bg-white dark:bg-slate-950 border border-emerald-100 dark:border-emerald-950/50 rounded-xl shadow-sm flex flex-col items-center text-center">
+          <div className="w-8 h-8 rounded-full bg-emerald-50 dark:bg-emerald-950/50 flex items-center justify-center border border-emerald-200 dark:border-emerald-900 mb-2">
+            <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 font-mono">|</span>
+          </div>
+          <span className="text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wide">OR</span>
+          <span className="text-[11px] text-slate-400 mt-1 font-sans">Disjoint cases</span>
+          <div className="w-full h-[1px] bg-slate-100 dark:bg-slate-900 my-2.5" />
+          <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 font-mono">Add</span>
+          <span className="text-[10px] text-slate-400 font-mono mt-0.5">m + n + ...</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // -----------------------------------------------------------------
 // Core Latex Parsing and Formatting logic
 // -----------------------------------------------------------------
@@ -765,6 +972,18 @@ export default function Latex({ text, block = false }: LatexProps) {
           break;
         case 'SpherePlaneTangentDiagram':
           renderedElements.push(<SpherePlaneTangentDiagram key={`diag-${i}`} />);
+          break;
+        case 'DrinksSnacksTree':
+          renderedElements.push(<DrinksSnacksTree key={`diag-${i}`} />);
+          break;
+        case 'PermCombComparison':
+          renderedElements.push(<PermCombComparison key={`diag-${i}`} />);
+          break;
+        case 'AtoBtoCRoads':
+          renderedElements.push(<AtoBtoCRoads key={`diag-${i}`} />);
+          break;
+        case 'AndOrFlowchart':
+          renderedElements.push(<AndOrFlowchart key={`diag-${i}`} />);
           break;
         default:
           renderedElements.push(
