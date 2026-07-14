@@ -735,6 +735,278 @@ function AndOrFlowchart() {
   );
 }
 
+function BloodLabelDiagram() {
+  return (
+    <div className="my-6 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80 w-full">
+      <h5 className="text-xs font-bold text-indigo-500 mb-4 font-sans uppercase tracking-wider">Example 2: Blood Classification Flow</h5>
+      <svg width="100%" height="160" viewBox="0 0 540 160" className="overflow-visible max-w-full">
+        {/* Stage 1 Box: Blood Type */}
+        <rect x="10" y="30" width="105" height="60" rx="8" className="fill-indigo-500/5 stroke-indigo-500 dark:stroke-indigo-400" strokeWidth="1.5" />
+        <text x="62.5" y="50" className="text-[10px] font-bold fill-indigo-700 dark:fill-indigo-400 font-sans" textAnchor="middle">Blood Type</text>
+        <text x="62.5" y="68" className="text-[11px] font-mono fill-slate-600 dark:fill-slate-300" textAnchor="middle">A, B, AB, O</text>
+        <text x="62.5" y="82" className="text-[9px] font-semibold fill-amber-600 dark:fill-amber-400" textAnchor="middle">4 choices</text>
+
+        {/* Arrow 1 */}
+        <path d="M 125 60 L 145 60" fill="none" stroke="#6366f1" strokeWidth="2" />
+
+        {/* Stage 2 Box: Rh Factor */}
+        <rect x="155" y="30" width="105" height="60" rx="8" className="fill-emerald-500/5 stroke-emerald-500 dark:stroke-emerald-400" strokeWidth="1.5" />
+        <text x="207.5" y="50" className="text-[10px] font-bold fill-emerald-700 dark:fill-emerald-400 font-sans" textAnchor="middle">Rh Factor</text>
+        <text x="207.5" y="68" className="text-[11px] font-mono fill-slate-600 dark:fill-slate-300" textAnchor="middle">+ or -</text>
+        <text x="207.5" y="82" className="text-[9px] font-semibold fill-amber-600 dark:fill-amber-400" textAnchor="middle">2 choices</text>
+
+        {/* Arrow 2 */}
+        <path d="M 270 60 L 290 60" fill="none" stroke="#10b981" strokeWidth="2" />
+
+        {/* Stage 3 Box: Donor Gender */}
+        <rect x="300" y="30" width="105" height="60" rx="8" className="fill-blue-500/5 stroke-blue-500 dark:stroke-blue-400" strokeWidth="1.5" />
+        <text x="352.5" y="50" className="text-[10px] font-bold fill-blue-700 dark:fill-blue-400 font-sans" textAnchor="middle">Donor Gender</text>
+        <text x="352.5" y="68" className="text-[11px] font-mono fill-slate-600 dark:fill-slate-300" textAnchor="middle">Male, Female</text>
+        <text x="352.5" y="82" className="text-[9px] font-semibold fill-amber-600 dark:fill-amber-400" textAnchor="middle">2 choices</text>
+
+        {/* Arrow 3 */}
+        <path d="M 415 60 L 435 60" fill="none" stroke="#3b82f6" strokeWidth="2" />
+
+        {/* Stage 4 Box: Total Labels */}
+        <rect x="445" y="30" width="85" height="60" rx="8" className="fill-amber-500/10 stroke-amber-500" strokeWidth="2" />
+        <text x="487.5" y="50" className="text-[10px] font-bold fill-amber-800 dark:fill-amber-400 font-sans" textAnchor="middle">Total Labels</text>
+        <text x="487.5" y="68" className="text-[10px] font-mono font-bold fill-slate-700 dark:fill-slate-300" textAnchor="middle">4 × 2 × 2</text>
+        <text x="487.5" y="82" className="text-xs font-black fill-amber-600" textAnchor="middle">= 16 ways</text>
+
+        {/* Multiplication Principle label under arrows */}
+        <text x="135" y="115" className="text-[10px] fill-slate-400 dark:fill-slate-500 font-serif" textAnchor="middle">Step 1</text>
+        <text x="135" y="130" className="text-[12px] font-bold fill-indigo-500" textAnchor="middle">×</text>
+        
+        <text x="280" y="115" className="text-[10px] fill-slate-400 dark:fill-slate-500 font-serif" textAnchor="middle">Step 2</text>
+        <text x="280" y="130" className="text-[12px] font-bold fill-emerald-500" textAnchor="middle">×</text>
+
+        <text x="425" y="115" className="text-[10px] fill-slate-400 dark:fill-slate-500 font-serif" textAnchor="middle">Step 3</text>
+        <text x="425" y="130" className="text-[12px] font-bold fill-blue-500" textAnchor="middle">=</text>
+      </svg>
+      <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-2 italic font-sans text-center">Multiplication Principle: Each choice has independent subsequent options, creating 16 total labeled paths.</span>
+    </div>
+  );
+}
+
+function PictureNailsDiagram() {
+  return (
+    <div className="my-6 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80 w-full">
+      <h5 className="text-xs font-bold text-indigo-500 mb-4 font-sans uppercase tracking-wider">Example 3: Pictures on Nails Diagram</h5>
+      <svg width="100%" height="160" viewBox="0 0 460 160" className="overflow-visible max-w-full">
+        {/* Nail 1 */}
+        <g transform="translate(10, 20)">
+          {/* Nail head & stem */}
+          <line x1="50" y1="10" x2="50" y2="40" stroke="#64748b" strokeWidth="4" strokeLinecap="round" />
+          <circle cx="50" cy="10" r="6" className="fill-slate-500 dark:fill-slate-400" />
+          {/* Picture Box */}
+          <rect x="15" y="45" width="70" height="50" rx="4" className="fill-indigo-500/5 stroke-indigo-500 dark:stroke-indigo-400" strokeWidth="1.5" />
+          {/* Picture details */}
+          <circle cx="50" cy="65" r="8" className="fill-indigo-500/20 stroke-indigo-500" strokeWidth="1" />
+          <text x="50" y="112" className="text-[10px] font-bold fill-slate-800 dark:fill-slate-200" textAnchor="middle">Nail 1</text>
+          <rect x="15" y="122" width="70" height="18" rx="4" className="fill-amber-500" />
+          <text x="50" y="134" className="text-[9px] font-bold fill-white" textAnchor="middle">5 choices</text>
+        </g>
+
+        {/* Multiplication Cross 1 */}
+        <text x="115" y="95" className="text-lg font-black fill-slate-400 dark:fill-slate-500" textAnchor="middle">×</text>
+
+        {/* Nail 2 */}
+        <g transform="translate(130, 20)">
+          {/* Nail head & stem */}
+          <line x1="50" y1="10" x2="50" y2="40" stroke="#64748b" strokeWidth="4" strokeLinecap="round" />
+          <circle cx="50" cy="10" r="6" className="fill-slate-500 dark:fill-slate-400" />
+          {/* Picture Box */}
+          <rect x="15" y="45" width="70" height="50" rx="4" className="fill-emerald-500/5 stroke-emerald-500 dark:stroke-emerald-400" strokeWidth="1.5" />
+          {/* Picture details */}
+          <polygon points="50,58 38,74 62,74" className="fill-emerald-500/20 stroke-emerald-500" strokeWidth="1" />
+          <text x="50" y="112" className="text-[10px] font-bold fill-slate-800 dark:fill-slate-200" textAnchor="middle">Nail 2</text>
+          <rect x="15" y="122" width="70" height="18" rx="4" className="fill-amber-500" />
+          <text x="50" y="134" className="text-[9px] font-bold fill-white" textAnchor="middle">4 choices</text>
+        </g>
+
+        {/* Multiplication Cross 2 */}
+        <text x="235" y="95" className="text-lg font-black fill-slate-400 dark:fill-slate-500" textAnchor="middle">×</text>
+
+        {/* Nail 3 */}
+        <g transform="translate(250, 20)">
+          {/* Nail head & stem */}
+          <line x1="50" y1="10" x2="50" y2="40" stroke="#64748b" strokeWidth="4" strokeLinecap="round" />
+          <circle cx="50" cy="10" r="6" className="fill-slate-500 dark:fill-slate-400" />
+          {/* Picture Box */}
+          <rect x="15" y="45" width="70" height="50" rx="4" className="fill-blue-500/5 stroke-blue-500 dark:stroke-blue-400" strokeWidth="1.5" />
+          {/* Picture details */}
+          <rect x="40" y="58" width="20" height="14" className="fill-blue-500/20 stroke-blue-500" strokeWidth="1" />
+          <text x="50" y="112" className="text-[10px] font-bold fill-slate-800 dark:fill-slate-200" textAnchor="middle">Nail 3</text>
+          <rect x="15" y="122" width="70" height="18" rx="4" className="fill-amber-500" />
+          <text x="50" y="134" className="text-[9px] font-bold fill-white" textAnchor="middle">3 choices</text>
+        </g>
+
+        {/* Equal Sign */}
+        <text x="355" y="95" className="text-lg font-black fill-slate-400 dark:fill-slate-500" textAnchor="middle">=</text>
+
+        {/* Total Box */}
+        <g transform="translate(370, 45)">
+          <rect x="0" y="0" width="80" height="70" rx="8" className="fill-amber-500/10 stroke-amber-500" strokeWidth="2" />
+          <text x="40" y="24" className="text-[10px] font-bold fill-amber-800 dark:fill-amber-400 font-sans" textAnchor="middle">Total Ways</text>
+          <text x="40" y="42" className="text-[10px] font-mono fill-slate-600 dark:fill-slate-300" textAnchor="middle">5 × 4 × 3</text>
+          <text x="40" y="58" className="text-xs font-black fill-amber-600" textAnchor="middle">= 60 ways</text>
+        </g>
+      </svg>
+      <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-2 italic font-sans text-center">Since each picture can only be used once, the available choices decrease by 1 at each successive nail stage.</span>
+    </div>
+  );
+}
+
+function Example4Diagram() {
+  return (
+    <div className="my-6 p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80 w-full font-sans">
+      <h5 className="text-xs font-bold text-indigo-500 mb-4 uppercase tracking-wider text-center">Example 4: 2-Digit or 3-Digit Numbers Visual</h5>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+        {/* Case 1 */}
+        <div className="flex flex-col items-center p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800">
+          <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 mb-2">Case 1: 2-Digit Numbers</span>
+          <div className="flex gap-2 mb-2">
+            <div className="w-12 h-12 flex flex-col items-center justify-center border-2 border-indigo-500 rounded-lg bg-indigo-50/10">
+              <span className="text-[9px] font-mono text-slate-400 dark:text-slate-500 font-semibold uppercase">Tens</span>
+              <span className="text-sm font-bold text-indigo-600 dark:text-indigo-400">5</span>
+            </div>
+            <div className="w-12 h-12 flex flex-col items-center justify-center border-2 border-indigo-500 rounded-lg bg-indigo-50/10">
+              <span className="text-[9px] font-mono text-slate-400 dark:text-slate-500 font-semibold uppercase">Units</span>
+              <span className="text-sm font-bold text-indigo-600 dark:text-indigo-400">4</span>
+            </div>
+          </div>
+          <span className="text-xs font-mono font-bold text-slate-600 dark:text-slate-400">5 × 4 = 20 ways</span>
+        </div>
+
+        {/* Case 2 */}
+        <div className="flex flex-col items-center p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800">
+          <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 mb-2">Case 2: 3-Digit Numbers</span>
+          <div className="flex gap-2 mb-2">
+            <div className="w-12 h-12 flex flex-col items-center justify-center border-2 border-emerald-500 rounded-lg bg-emerald-50/10">
+              <span className="text-[9px] font-mono text-slate-400 dark:text-slate-500 font-semibold uppercase">Hund</span>
+              <span className="text-sm font-bold text-emerald-600 dark:text-emerald-400">5</span>
+            </div>
+            <div className="w-12 h-12 flex flex-col items-center justify-center border-2 border-emerald-500 rounded-lg bg-emerald-50/10">
+              <span className="text-[9px] font-mono text-slate-400 dark:text-slate-500 font-semibold uppercase">Tens</span>
+              <span className="text-sm font-bold text-emerald-600 dark:text-emerald-400">4</span>
+            </div>
+            <div className="w-12 h-12 flex flex-col items-center justify-center border-2 border-emerald-500 rounded-lg bg-emerald-50/10">
+              <span className="text-[9px] font-mono text-slate-400 dark:text-slate-500 font-semibold uppercase">Units</span>
+              <span className="text-sm font-bold text-emerald-600 dark:text-emerald-400">3</span>
+            </div>
+          </div>
+          <span className="text-xs font-mono font-bold text-slate-600 dark:text-slate-400">5 × 4 × 3 = 60 ways</span>
+        </div>
+      </div>
+      <div className="mt-4 flex justify-center items-center gap-2 p-3 bg-amber-500/10 rounded-xl border border-amber-500/20 text-center">
+        <span className="text-xs font-bold text-amber-700 dark:text-amber-400 font-sans">Disjoint Cases (Addition):</span>
+        <span className="font-mono font-black text-sm text-amber-600 dark:text-amber-400">20 + 60 = 80 total numbers</span>
+      </div>
+    </div>
+  );
+}
+
+function Example5Diagram() {
+  return (
+    <div className="my-6 p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80 w-full font-sans">
+      <h5 className="text-xs font-bold text-indigo-500 mb-4 uppercase tracking-wider text-center">Example 5: Integers with digit 5 only once (between 0 and 100)</h5>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Case 1: One-Digit */}
+        <div className="flex flex-col p-4 bg-white dark:bg-slate-900 rounded-xl border border-indigo-100/50 dark:border-indigo-950/40 justify-between">
+          <div>
+            <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 mb-1 block text-center font-sans">Case 1: One-Digit Integers (တစ်လုံးတည်းသောကိန်း)</span>
+            <span className="text-[10px] text-slate-400 dark:text-slate-500 text-center block mb-4">Numbers between 0 and 9 with exactly one '5'</span>
+            
+            <div className="flex justify-center items-center gap-3 mb-4">
+              {/* Only 5 */}
+              <div className="w-20 h-20 flex flex-col items-center justify-center border-2 border-indigo-500 rounded-xl bg-indigo-500/10 p-1">
+                <span className="text-[9px] font-mono text-indigo-500 dark:text-indigo-400 font-bold uppercase tracking-wider">Value</span>
+                <span className="text-xl font-black text-indigo-600 dark:text-indigo-400 my-0.5">5</span>
+                <span className="text-[8px] text-indigo-500 font-semibold">(1 number)</span>
+              </div>
+            </div>
+          </div>
+          
+          <div className="p-2.5 bg-indigo-500/5 rounded-lg border border-indigo-100 dark:border-indigo-950/50 text-center">
+            <span className="font-mono text-xs font-bold text-indigo-600 dark:text-indigo-400">1 integer: {"{5}"}</span>
+          </div>
+        </div>
+
+        {/* Case 2: Two-Digits */}
+        <div className="flex flex-col p-4 bg-white dark:bg-slate-900 rounded-xl border border-emerald-100/50 dark:border-emerald-950/40">
+          <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 mb-1 block text-center font-sans">Case 2: Two-Digit Integers (နှစ်လုံးတွဲကိန်းများ)</span>
+          <span className="text-[10px] text-slate-400 dark:text-slate-500 text-center block mb-3">Numbers 10 to 99 with exactly one '5'</span>
+          
+          <div className="space-y-4">
+            {/* Tens place is 5 */}
+            <div className="p-3 bg-emerald-50/50 dark:bg-emerald-950/10 rounded-lg border border-emerald-100/40">
+              <span className="text-[11px] font-semibold text-emerald-700 dark:text-emerald-400 block mb-2 text-center font-sans">Tens place is 5 (5_ but not 55)</span>
+              <div className="flex flex-wrap justify-center items-center gap-3 mb-2">
+                {/* Tens place */}
+                <div className="w-20 h-20 flex flex-col items-center justify-center border-2 border-emerald-500 rounded-xl bg-emerald-500/15 p-1 text-center">
+                  <span className="text-[9px] font-mono text-emerald-600 font-bold uppercase tracking-wider">Tens (T)</span>
+                  <span className="text-xl font-black text-emerald-700 dark:text-emerald-300 my-0.5">5</span>
+                  <span className="text-[8px] text-emerald-500 font-semibold">(1 way)</span>
+                </div>
+                {/* Units place */}
+                <div className="w-20 h-20 flex flex-col items-center justify-center border border-emerald-300 dark:border-emerald-800 rounded-xl bg-emerald-500/5 p-1 text-center">
+                  <span className="text-[9px] font-mono text-slate-400 font-bold uppercase tracking-wider">Units (U)</span>
+                  <span className="text-xl font-black text-slate-700 dark:text-slate-300 my-0.5">≠5</span>
+                  <span className="text-[8px] text-slate-500 font-semibold">(9 ways)</span>
+                </div>
+                <div className="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded-md">
+                  1 × 9 = 9 numbers
+                </div>
+              </div>
+              <div className="text-[9px] text-slate-400 dark:text-slate-500 font-mono text-center mt-1">
+                {"{50, 51, 52, 53, 54, 56, 57, 58, 59}"}
+              </div>
+            </div>
+
+            {/* Units place is 5 */}
+            <div className="p-3 bg-emerald-50/50 dark:bg-emerald-950/10 rounded-lg border border-emerald-100/40">
+              <span className="text-[11px] font-semibold text-emerald-700 dark:text-emerald-400 block mb-2 text-center font-sans">Units place is 5 (_5 but not 05, 55)</span>
+              <div className="flex flex-wrap justify-center items-center gap-3 mb-2">
+                {/* Tens place */}
+                <div className="w-20 h-20 flex flex-col items-center justify-center border border-emerald-300 dark:border-emerald-800 rounded-xl bg-emerald-500/5 p-1 text-center">
+                  <span className="text-[9px] font-mono text-slate-400 font-bold uppercase tracking-wider">Tens (T)</span>
+                  <span className="text-xl font-black text-slate-700 dark:text-slate-300 my-0.5">≠0,5</span>
+                  <span className="text-[8px] text-slate-500 font-semibold">(8 ways)</span>
+                </div>
+                {/* Units place */}
+                <div className="w-20 h-20 flex flex-col items-center justify-center border-2 border-emerald-500 rounded-xl bg-emerald-500/15 p-1 text-center">
+                  <span className="text-[9px] font-mono text-emerald-600 font-bold uppercase tracking-wider">Units (U)</span>
+                  <span className="text-xl font-black text-emerald-700 dark:text-emerald-300 my-0.5">5</span>
+                  <span className="text-[8px] text-emerald-500 font-semibold">(1 way)</span>
+                </div>
+                <div className="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded-md">
+                  8 × 1 = 8 numbers
+                </div>
+              </div>
+              <div className="text-[9px] text-slate-400 dark:text-slate-500 font-mono text-center mt-1">
+                {"{15, 25, 35, 45, 65, 75, 85, 95}"}
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-3 p-2 bg-emerald-500/10 rounded-lg border border-emerald-200 dark:border-emerald-900/50 text-center">
+            <span className="font-mono text-xs font-bold text-emerald-700 dark:text-emerald-400">9 + 8 = 17 numbers</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Sum Card */}
+      <div className="mt-6 flex flex-col sm:flex-row justify-center items-center gap-3 p-4 bg-amber-500/10 rounded-xl border border-amber-500/20 text-center">
+        <span className="text-xs font-bold text-amber-700 dark:text-amber-400 uppercase tracking-wider font-sans">Total Integers (Addition Principle):</span>
+        <span className="font-mono font-black text-base text-amber-600 dark:text-amber-400">
+          Case 1 + Case 2 = 1 + 17 = 18 integers
+        </span>
+      </div>
+    </div>
+  );
+}
+
 // -----------------------------------------------------------------
 // Core Latex Parsing and Formatting logic
 // -----------------------------------------------------------------
@@ -877,6 +1149,79 @@ export default function Latex({ text, block = false }: LatexProps) {
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i].trim();
 
+    // Table processing
+    if (line.startsWith('|') && line.endsWith('|')) {
+      flushList(i);
+      const tableLines: string[] = [lines[i]];
+      let j = i + 1;
+      while (j < lines.length && lines[j].trim().startsWith('|') && lines[j].trim().endsWith('|')) {
+        tableLines.push(lines[j]);
+        j++;
+      }
+      i = j - 1; // skip forward
+
+      if (tableLines.length >= 2) {
+        // Find if we have a separator line (contains at least one dash/colon sequence)
+        let separatorIndex = -1;
+        for (let t = 0; t < tableLines.length; t++) {
+          const l = tableLines[t].trim();
+          if (l.includes('-') && /^[|:\s-]+$/.test(l)) {
+            separatorIndex = t;
+            break;
+          }
+        }
+
+        const headers: string[] = [];
+        const rows: string[][] = [];
+
+        for (let t = 0; t < tableLines.length; t++) {
+          if (t === separatorIndex) continue;
+          
+          const rawParts = tableLines[t].split('|');
+          const rowParts = rawParts.slice(1, rawParts.length - 1).map(p => p.trim());
+          
+          if (t < (separatorIndex !== -1 ? separatorIndex : 1)) {
+            headers.push(...rowParts);
+          } else {
+            rows.push(rowParts);
+          }
+        }
+
+        renderedElements.push(
+          <div key={`table-wrapper-${i}`} className="my-5 overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30 shadow-sm">
+            <table className="w-full text-left border-collapse font-sans text-xs md:text-sm">
+              {headers.length > 0 && (
+                <thead>
+                  <tr className="bg-slate-50 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800">
+                    {headers.map((h, hIdx) => (
+                      <th key={`th-${hIdx}`} className="p-3 font-semibold text-slate-800 dark:text-slate-200">
+                        {renderMathText(h)}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+              )}
+              <tbody>
+                {rows.map((row, rIdx) => (
+                  <tr 
+                    key={`tr-${rIdx}`} 
+                    className="border-b border-slate-100 dark:border-slate-800 last:border-0 hover:bg-slate-50/50 dark:hover:bg-slate-900/30 transition-colors"
+                  >
+                    {row.map((cell, cIdx) => (
+                      <td key={`td-${cIdx}`} className="p-3 text-slate-600 dark:text-slate-400">
+                        {renderMathText(cell)}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        );
+        continue;
+      }
+    }
+
     // Skip empty lines, but close list if open
     if (line === '') {
       flushList(i);
@@ -975,6 +1320,30 @@ export default function Latex({ text, block = false }: LatexProps) {
           break;
         case 'DrinksSnacksTree':
           renderedElements.push(<DrinksSnacksTree key={`diag-${i}`} />);
+          break;
+        case 'BloodLabelDiagram':
+          renderedElements.push(<BloodLabelDiagram key={`diag-${i}`} />);
+          break;
+        case 'PictureNailsDiagram':
+          renderedElements.push(<PictureNailsDiagram key={`diag-${i}`} />);
+          break;
+        case 'Example4Diagram':
+          renderedElements.push(<Example4Diagram key={`diag-${i}`} />);
+          break;
+        case 'Example5Diagram':
+          renderedElements.push(<Example5Diagram key={`diag-${i}`} />);
+          break;
+        case 'Exercise51Question1':
+          renderedElements.push(<Ex51Q1Diagram key={`diag-${i}`} />);
+          break;
+        case 'Exercise51Question2':
+          renderedElements.push(<Ex51Q2Diagram key={`diag-${i}`} />);
+          break;
+        case 'Exercise51Question3':
+          renderedElements.push(<Ex51Q3Diagram key={`diag-${i}`} />);
+          break;
+        case 'Exercise51Question5':
+          renderedElements.push(<Ex51Q5Diagram key={`diag-${i}`} />);
           break;
         case 'PermCombComparison':
           renderedElements.push(<PermCombComparison key={`diag-${i}`} />);
@@ -1171,6 +1540,336 @@ export default function Latex({ text, block = false }: LatexProps) {
   return (
     <div className="space-y-1 select-text">
       {renderedElements}
+    </div>
+  );
+}
+
+function Ex51Q1Diagram() {
+  return (
+    <div className="my-6 p-6 bg-slate-50/60 dark:bg-slate-900/40 rounded-2xl border border-slate-100 dark:border-slate-800/80 w-full font-sans shadow-sm">
+      <h5 className="text-xs font-bold text-indigo-500 mb-4 uppercase tracking-wider text-center">Outfit Combinations Visualizer</h5>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-stretch">
+        
+        {/* Shirt Box */}
+        <div className="flex flex-col items-center p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">
+          <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 mb-3 font-sans">1. Shirts</span>
+          <div className="grid grid-cols-3 gap-2 mb-3">
+            {[1, 2, 3, 4, 5, 6].map(i => (
+              <div key={i} className="w-9 h-9 flex items-center justify-center border border-indigo-100 dark:border-indigo-950 rounded-lg bg-indigo-50/20 dark:bg-indigo-950/10">
+                <span className="text-[10px] font-mono font-bold text-indigo-500">S{i}</span>
+              </div>
+            ))}
+          </div>
+          <span className="text-[10px] font-mono font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-500/10 px-2.5 py-1 rounded-full">
+            6 choices
+          </span>
+        </div>
+
+        {/* Pant Box */}
+        <div className="flex flex-col items-center p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">
+          <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 mb-3 font-sans">2. Pants</span>
+          <div className="grid grid-cols-2 gap-2 mb-3">
+            {[1, 2, 3, 4].map(i => (
+              <div key={i} className="w-9 h-9 flex items-center justify-center border border-emerald-100 dark:border-emerald-950 rounded-lg bg-emerald-50/20 dark:bg-emerald-950/10">
+                <span className="text-[10px] font-mono font-bold text-emerald-500">P{i}</span>
+              </div>
+            ))}
+          </div>
+          <span className="text-[10px] font-mono font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full">
+            4 choices
+          </span>
+        </div>
+
+        {/* Coat Box */}
+        <div className="flex flex-col items-center p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">
+          <span className="text-xs font-bold text-amber-600 dark:text-amber-400 mb-3 font-sans">3. Coats</span>
+          <div className="grid grid-cols-3 gap-2 mb-3">
+            {[1, 2, 3].map(i => (
+              <div key={i} className="w-9 h-9 flex items-center justify-center border border-amber-100 dark:border-amber-950 rounded-lg bg-amber-50/20 dark:bg-amber-950/10">
+                <span className="text-[10px] font-mono font-bold text-amber-500">C{i}</span>
+              </div>
+            ))}
+          </div>
+          <span className="text-[10px] font-mono font-bold text-amber-600 dark:text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-full">
+            3 choices
+          </span>
+        </div>
+
+      </div>
+      <div className="mt-5 flex flex-col sm:flex-row justify-center items-center gap-3 p-3 bg-indigo-500/10 rounded-xl border border-indigo-500/20 text-center">
+        <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300 font-sans">Multiplication Principle:</span>
+        <div className="flex items-center gap-1.5 font-mono text-xs md:text-sm">
+          <span className="text-indigo-600 dark:text-indigo-400 font-black">6</span>
+          <span className="text-slate-400">×</span>
+          <span className="text-emerald-600 dark:text-emerald-400 font-black">4</span>
+          <span className="text-slate-400">×</span>
+          <span className="text-amber-600 dark:text-amber-400 font-black">3</span>
+          <span className="text-slate-400">=</span>
+          <span className="text-indigo-600 dark:text-indigo-300 font-black bg-indigo-500/20 px-2 py-0.5 rounded">72 ways</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Ex51Q2Diagram() {
+  return (
+    <div className="my-6 p-6 bg-slate-50/60 dark:bg-slate-900/40 rounded-2xl border border-slate-100 dark:border-slate-800/80 w-full font-sans shadow-sm">
+      <h5 className="text-xs font-bold text-indigo-500 mb-4 uppercase tracking-wider text-center">Evening News Story Slots</h5>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        
+        {/* Lead Story */}
+        <div className="flex flex-col items-center p-4 bg-white dark:bg-slate-900 rounded-xl border border-indigo-100 dark:border-indigo-950 shadow-sm relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-indigo-500" />
+          <span className="text-[9px] font-bold text-indigo-500 uppercase tracking-wide mb-1 font-sans">Slot 1</span>
+          <span className="text-xs font-black text-slate-850 dark:text-slate-200 mb-3 font-sans">Lead Story</span>
+          <div className="w-14 h-14 flex flex-col items-center justify-center rounded-full border-2 border-indigo-500 bg-indigo-500/10 mb-2">
+            <span className="text-lg font-black text-indigo-600 dark:text-indigo-400">7</span>
+          </div>
+          <span className="text-[9px] text-slate-400 dark:text-slate-500 text-center font-mono">stories available</span>
+        </div>
+
+        {/* Second Story */}
+        <div className="flex flex-col items-center p-4 bg-white dark:bg-slate-900 rounded-xl border border-emerald-100 dark:border-emerald-950 shadow-sm relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-emerald-500" />
+          <span className="text-[9px] font-bold text-emerald-500 uppercase tracking-wide mb-1 font-sans">Slot 2</span>
+          <span className="text-xs font-black text-slate-850 dark:text-slate-200 mb-3 font-sans">Second Story</span>
+          <div className="w-14 h-14 flex flex-col items-center justify-center rounded-full border-2 border-emerald-500 bg-emerald-500/10 mb-2">
+            <span className="text-lg font-black text-emerald-600 dark:text-emerald-400">6</span>
+          </div>
+          <span className="text-[9px] text-slate-400 dark:text-slate-500 text-center font-mono">stories remaining</span>
+        </div>
+
+        {/* Closing Story */}
+        <div className="flex flex-col items-center p-4 bg-white dark:bg-slate-900 rounded-xl border border-amber-100 dark:border-amber-950 shadow-sm relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-amber-500" />
+          <span className="text-[9px] font-bold text-amber-500 uppercase tracking-wide mb-1 font-sans">Slot 3</span>
+          <span className="text-xs font-black text-slate-850 dark:text-slate-200 mb-3 font-sans">Closing Story</span>
+          <div className="w-14 h-14 flex flex-col items-center justify-center rounded-full border-2 border-amber-500 bg-amber-500/10 mb-2">
+            <span className="text-lg font-black text-amber-600 dark:text-amber-400">5</span>
+          </div>
+          <span className="text-[9px] text-slate-400 dark:text-slate-500 text-center font-mono">stories remaining</span>
+        </div>
+
+      </div>
+      <div className="mt-5 flex justify-center items-center gap-3 p-3 bg-indigo-500/10 rounded-xl border border-indigo-500/20 text-center">
+        <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300 font-sans">Permutations:</span>
+        <div className="flex items-center gap-1.5 font-mono text-xs md:text-sm">
+          <span className="text-indigo-600 dark:text-indigo-400 font-black">7</span>
+          <span className="text-slate-400">×</span>
+          <span className="text-emerald-600 dark:text-emerald-400 font-black">6</span>
+          <span className="text-slate-400">×</span>
+          <span className="text-amber-600 dark:text-amber-400 font-black">5</span>
+          <span className="text-slate-400">=</span>
+          <span className="text-indigo-600 dark:text-indigo-300 font-black bg-indigo-500/20 px-2 py-0.5 rounded">210 ways</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Ex51Q3Diagram() {
+  return (
+    <div className="my-6 p-6 bg-slate-50/60 dark:bg-slate-900/40 rounded-2xl border border-slate-100 dark:border-slate-800/80 w-full font-sans shadow-sm">
+      <h5 className="text-xs font-bold text-indigo-500 mb-4 uppercase tracking-wider text-center">4-Digit Garage Door Opener Code</h5>
+      
+      <div className="flex flex-wrap justify-center items-center gap-4 mb-4">
+        {[1, 2, 3, 4].map(idx => (
+          <div key={idx} className="w-16 h-20 flex flex-col items-center justify-center p-2 bg-white dark:bg-slate-900 border-2 border-indigo-500/20 rounded-xl shadow-sm hover:border-indigo-500/60 transition-colors">
+            <span className="text-[8px] font-mono font-bold text-indigo-500 mb-1 uppercase tracking-wider">Digit {idx}</span>
+            <div className="text-xl font-black text-slate-800 dark:text-slate-100">10</div>
+            <span className="text-[7px] text-slate-400 dark:text-slate-500 font-semibold">(0 to 9)</span>
+          </div>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-5 gap-1.5 max-w-[200px] mx-auto p-2 bg-slate-200/30 dark:bg-slate-950/40 rounded-xl mb-4 border border-slate-200/50 dark:border-slate-800/50">
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map(n => (
+          <div key={n} className="aspect-square flex items-center justify-center font-mono font-bold text-[10px] bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-100 dark:border-slate-700 rounded shadow-sm select-none">
+            {n}
+          </div>
+        ))}
+      </div>
+
+      <div className="flex justify-center items-center gap-3 p-3 bg-indigo-500/10 rounded-xl border border-indigo-500/20 text-center max-w-sm mx-auto">
+        <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300 font-sans">Total Codes:</span>
+        <div className="flex items-center gap-1.5 font-mono text-xs md:text-sm">
+          <span className="font-black text-indigo-500">10</span>
+          <span className="text-slate-400">×</span>
+          <span className="font-black text-indigo-500">10</span>
+          <span className="text-slate-400">×</span>
+          <span className="font-black text-indigo-500">10</span>
+          <span className="text-slate-400">×</span>
+          <span className="font-black text-indigo-500">10</span>
+          <span className="text-slate-400">=</span>
+          <span className="font-black text-indigo-600 dark:text-indigo-300 bg-indigo-500/20 px-2 py-0.5 rounded">10,000</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Ex51Q5Diagram() {
+  const [activeTab, setActiveTab] = React.useState<'a' | 'b' | 'c' | 'd'>('a');
+
+  return (
+    <div className="my-6 p-6 bg-slate-50/60 dark:bg-slate-900/40 rounded-2xl border border-slate-100 dark:border-slate-800/80 w-full font-sans shadow-sm">
+      <h5 className="text-xs font-bold text-indigo-500 mb-4 uppercase tracking-wider text-center">Registration Codes (A-L + 0-9)</h5>
+      
+      {/* Tab Selectors */}
+      <div className="flex flex-wrap gap-1 justify-center mb-4 bg-slate-200/40 dark:bg-slate-950/50 p-1 rounded-xl border border-slate-200/30 dark:border-slate-800/30">
+        {[
+          { id: 'a', label: 'Allowed' },
+          { id: 'b', label: 'No Repeat' },
+          { id: 'c', label: 'Identical' },
+          { id: 'd', label: 'Grouped' }
+        ].map(tab => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id as any)}
+            className={`px-2.5 py-1 rounded-lg text-[10px] font-bold transition-all ${
+              activeTab === tab.id
+                ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm'
+                : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+            }`}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Tab Contents */}
+      <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">
+        {activeTab === 'a' && (
+          <div className="flex flex-col items-center">
+            <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 mb-3 text-center">Letters can repeat (e.g., AA5, BB9, KL2)</span>
+            <div className="flex justify-center items-center gap-3 mb-4">
+              <div className="w-14 h-14 flex flex-col items-center justify-center border-2 border-indigo-500/20 rounded-xl bg-indigo-500/5 text-center p-1">
+                <span className="text-[7px] font-mono font-bold text-indigo-500 uppercase tracking-wider">Letter 1</span>
+                <span className="text-base font-black text-slate-800 dark:text-slate-200">12</span>
+                <span className="text-[6px] text-slate-400">(A-L)</span>
+              </div>
+              <div className="w-14 h-14 flex flex-col items-center justify-center border-2 border-indigo-500/20 rounded-xl bg-indigo-500/5 text-center p-1">
+                <span className="text-[7px] font-mono font-bold text-indigo-500 uppercase tracking-wider">Letter 2</span>
+                <span className="text-base font-black text-slate-800 dark:text-slate-200">12</span>
+                <span className="text-[6px] text-slate-400">(A-L)</span>
+              </div>
+              <div className="w-14 h-14 flex flex-col items-center justify-center border-2 border-emerald-500/20 rounded-xl bg-emerald-500/5 text-center p-1">
+                <span className="text-[7px] font-mono font-bold text-emerald-500 uppercase tracking-wider">Digit</span>
+                <span className="text-base font-black text-slate-800 dark:text-slate-200">10</span>
+                <span className="text-[6px] text-slate-400">(0-9)</span>
+              </div>
+            </div>
+            <div className="font-mono text-xs font-bold bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 px-3 py-1.5 rounded-lg border border-indigo-100 dark:border-indigo-900/30">
+              12 × 12 × 10 = 1,440 codes
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'b' && (
+          <div className="flex flex-col items-center">
+            <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 mb-3 text-center">Letters must be different (no repetition, e.g., AB5, CK9)</span>
+            <div className="flex justify-center items-center gap-3 mb-4">
+              <div className="w-14 h-14 flex flex-col items-center justify-center border-2 border-indigo-500/20 rounded-xl bg-indigo-500/5 text-center p-1">
+                <span className="text-[7px] font-mono font-bold text-indigo-500 uppercase tracking-wider">Letter 1</span>
+                <span className="text-base font-black text-slate-800 dark:text-slate-200">12</span>
+                <span className="text-[6px] text-slate-400">(A-L)</span>
+              </div>
+              <div className="w-14 h-14 flex flex-col items-center justify-center border-2 border-indigo-500/20 rounded-xl bg-indigo-500/5 text-center p-1">
+                <span className="text-[7px] font-mono font-bold text-indigo-500 uppercase tracking-wider">Letter 2</span>
+                <span className="text-base font-black text-slate-800 dark:text-slate-200">11</span>
+                <span className="text-[6px] text-slate-400">(remaining)</span>
+              </div>
+              <div className="w-14 h-14 flex flex-col items-center justify-center border-2 border-emerald-500/20 rounded-xl bg-emerald-500/5 text-center p-1">
+                <span className="text-[7px] font-mono font-bold text-emerald-500 uppercase tracking-wider">Digit</span>
+                <span className="text-base font-black text-slate-800 dark:text-slate-200">10</span>
+                <span className="text-[6px] text-slate-400">(0-9)</span>
+              </div>
+            </div>
+            <div className="font-mono text-xs font-bold bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 px-3 py-1.5 rounded-lg border border-indigo-100 dark:border-indigo-900/30">
+              12 × 11 × 10 = 1,320 codes
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'c' && (
+          <div className="flex flex-col items-center">
+            <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 mb-3 text-center">Two letters must be the same (e.g., AA5, BB9, LL2)</span>
+            <div className="flex justify-center items-center gap-3 mb-4">
+              <div className="w-14 h-14 flex flex-col items-center justify-center border-2 border-indigo-500/20 rounded-xl bg-indigo-500/5 text-center p-1">
+                <span className="text-[7px] font-mono font-bold text-indigo-500 uppercase tracking-wider">Letter 1</span>
+                <span className="text-base font-black text-slate-800 dark:text-slate-200">12</span>
+                <span className="text-[6px] text-slate-400">(A-L)</span>
+              </div>
+              <div className="w-14 h-14 flex flex-col items-center justify-center border-2 border-indigo-500/20 rounded-xl bg-indigo-500/5 text-center p-1">
+                <span className="text-[7px] font-mono font-bold text-indigo-500 uppercase tracking-wider">Letter 2</span>
+                <span className="text-base font-black text-slate-800 dark:text-slate-200">1</span>
+                <span className="text-[6px] text-slate-400">(same as L1)</span>
+              </div>
+              <div className="w-14 h-14 flex flex-col items-center justify-center border-2 border-emerald-500/20 rounded-xl bg-emerald-500/5 text-center p-1">
+                <span className="text-[7px] font-mono font-bold text-emerald-500 uppercase tracking-wider">Digit</span>
+                <span className="text-base font-black text-slate-800 dark:text-slate-200">10</span>
+                <span className="text-[6px] text-slate-400">(0-9)</span>
+              </div>
+            </div>
+            <div className="font-mono text-xs font-bold bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 px-3 py-1.5 rounded-lg border border-indigo-100 dark:border-indigo-900/30">
+              12 × 1 × 10 = 120 codes
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'd' && (
+          <div className="flex flex-col items-center w-full">
+            <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 mb-3 text-center">Different letters, but both Vowels (A,E,I) or both Consonants</span>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full mb-4">
+              {/* Vowels */}
+              <div className="p-3 border border-slate-100 dark:border-slate-800 rounded-xl bg-slate-50/50 dark:bg-slate-900/50 flex flex-col items-center">
+                <span className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 mb-2">Case 1: Both Vowels (3 choices)</span>
+                <div className="flex gap-1.5 mb-2">
+                  <div className="w-10 h-10 flex flex-col items-center justify-center border border-indigo-200 rounded-lg bg-indigo-50/5">
+                    <span className="text-[7px] font-mono text-slate-400">L1</span>
+                    <span className="text-xs font-bold text-slate-700 dark:text-slate-300">3</span>
+                  </div>
+                  <div className="w-10 h-10 flex flex-col items-center justify-center border border-indigo-200 rounded-lg bg-indigo-50/5">
+                    <span className="text-[7px] font-mono text-slate-400">L2</span>
+                    <span className="text-xs font-bold text-slate-700 dark:text-slate-300">2</span>
+                  </div>
+                  <div className="w-10 h-10 flex flex-col items-center justify-center border border-emerald-200 rounded-lg bg-emerald-50/5">
+                    <span className="text-[7px] font-mono text-slate-400">Dig</span>
+                    <span className="text-xs font-bold text-slate-700 dark:text-slate-300">10</span>
+                  </div>
+                </div>
+                <span className="text-[10px] font-mono font-bold text-indigo-600 dark:text-indigo-400">3 × 2 × 10 = 60</span>
+              </div>
+
+              {/* Consonants */}
+              <div className="p-3 border border-slate-100 dark:border-slate-800 rounded-xl bg-slate-50/50 dark:bg-slate-900/50 flex flex-col items-center">
+                <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 mb-2">Case 2: Both Consonants (9 choices)</span>
+                <div className="flex gap-1.5 mb-2">
+                  <div className="w-10 h-10 flex flex-col items-center justify-center border border-indigo-200 rounded-lg bg-indigo-50/5">
+                    <span className="text-[7px] font-mono text-slate-400">L1</span>
+                    <span className="text-xs font-bold text-slate-700 dark:text-slate-300">9</span>
+                  </div>
+                  <div className="w-10 h-10 flex flex-col items-center justify-center border border-indigo-200 rounded-lg bg-indigo-50/5">
+                    <span className="text-[7px] font-mono text-slate-400">L2</span>
+                    <span className="text-xs font-bold text-slate-700 dark:text-slate-300">8</span>
+                  </div>
+                  <div className="w-10 h-10 flex flex-col items-center justify-center border border-emerald-200 rounded-lg bg-emerald-50/5">
+                    <span className="text-[7px] font-mono text-slate-400">Dig</span>
+                    <span className="text-xs font-bold text-slate-700 dark:text-slate-300">10</span>
+                  </div>
+                </div>
+                <span className="text-[10px] font-mono font-bold text-emerald-600 dark:text-emerald-400">9 × 8 × 10 = 720</span>
+              </div>
+            </div>
+
+            <div className="font-mono text-xs font-bold bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 px-3 py-1.5 rounded-lg border border-indigo-100 dark:border-indigo-900/30">
+              Total: 60 + 720 = 780 codes
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
