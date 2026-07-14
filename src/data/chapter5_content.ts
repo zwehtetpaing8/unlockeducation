@@ -137,7 +137,7 @@ $$\text{Total labels} = 4 \times 2 \times 2 = 16$$
 
 ---
 
-### 5.2 Counting Principles - Addition Principle
+### 5.1 Counting Principles - Addition Principle
 
 #### Addition Principle
 
@@ -421,4 +421,41 @@ $$\begin{aligned}
    &= \frac{42 + 7 + 1}{7!} \\
    &= \frac{50}{7!} \\
    &= \text{R.H.S. (Proved)}
-   \end{aligned}$$`;
+   \end{aligned}$$
+
+---
+
+### 5.2 Permutations
+
+#### Permutations အကြောင်းမိတ်ဆက်
+
+Permutation ကို **Example 3** ထဲက ပုံချိတ်တဲ့ ပုစ္ဆာနဲ့ ပြန်စဉ်းစားကြည့်ရအောင်။ နံရံပေါ်မှာ သံမှို $3$ ချောင်းရှိပြီး မတူညီသော ပုံ $5$ ပုံထဲမှ $3$ ပုံကို ရွေးကာ သံမှို $3$ ချောင်းပေါ်မှာ ချိတ်ရမည်။
+
+**Question:** There are 3 picture nails on a wall. If there are 5 different pictures and each nail can hold only one picture, in how many different ways can the pictures be hung on all the nails?
+
+ဒီနေရာမှာ ပုံကိုရွေးရုံတင်မက ဘယ်ပုံကို ဘယ်သံမှိုမှာ ချိတ်မလဲဆိုတဲ့ **နေရာအစီအစဉ် (order)** ကိုပါ ထည့်သွင်းစဉ်းစားရမှာ ဖြစ်ပါတယ်။
+
+အဘယ်ကြောင့်ဆိုသော် ပုံ $A$ ကို Nail 1 မှာ၊ ပုံ $B$ ကို Nail 2 မှာ ချိတ်ခြင်းနှင့် ပုံ $B$ ကို Nail 1 မှာ၊ ပုံ $A$ ကို Nail 2 မှာ ချိတ်ခြင်းတို့သည် နေရာကွဲပြားသောကြောင့် မတူညီသောနည်းလမ်းများ ဖြစ်ကြပါတယ်။
+
+$$(A, B) \neq (B, A)$$
+
+[DIAGRAM: PictureNailsDiagram]
+
+* **5 different pictures:** $A, B, C, D, E$
+* **3 ordered nail positions:**
+  * Nail 1: $5$ choices
+  * Nail 2: $4$ choices
+  * Nail 3: $3$ choices
+  *(choices decrease after each picture is used)*
+
+---
+
+#### Permutations without Repetitions
+
+A permutation is an arrangement of $r$ objects selected from $n$ distinct objects, where the order of the selected objects is important.
+
+မတူညီသော အရာဝတ္ထု $n$ ခုထဲမှ $r$ ခုကို ရွေးယူပြီး အစီအစဉ်တကျစီခြင်းကို permutation ဟုခေါ်သည်။ ဤနေရာတွင် ရွေးထားသော အရာများ၏ အစီအစဉ်သည် အရေးကြီးသည်။
+
+$$^nP_r \quad \text{or} \quad P(n, r)$$
+
+သည် **"** $n$ **ခုထဲမှ** $r$ **ခုကို အစီအစဉ်တကျ စီနိုင်သည့် စုစုပေါင်း နည်းလမ်း အရေအတွက်** ဖြစ်သည်။`;
