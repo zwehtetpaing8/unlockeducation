@@ -96,8 +96,8 @@ export default function App() {
           onClick={() => setActiveView('home')}
           className="flex items-center gap-3 text-left cursor-pointer group focus:outline-none transition-all"
         >
-          <div className="bg-gradient-to-br from-indigo-500 to-violet-600 p-2.5 rounded-xl text-white shadow-md shadow-indigo-500/15 group-hover:scale-105 transition-transform duration-200">
-            <GraduationCap className="w-5 h-5" />
+          <div className="w-10 h-10 rounded-xl overflow-hidden shadow-md group-hover:scale-105 transition-transform duration-200 bg-transparent flex items-center justify-center">
+            <img src="/logo.png" alt="Unlock Education Logo" className="w-full h-full object-contain" />
           </div>
           <div>
             <h1 className="font-display font-bold text-sm md:text-base tracking-tight text-slate-900 dark:text-white leading-tight group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
