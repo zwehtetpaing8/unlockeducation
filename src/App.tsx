@@ -9,23 +9,75 @@ import ThemeToggle from './components/ThemeToggle';
 
 export default function App() {
   const [activeView, setActiveView] = useState<'home' | 'syllabus' | 'formulas'>(() => {
+    const params = new URLSearchParams(window.location.search);
+    const view = params.get('view');
+    if (view === 'home' || view === 'syllabus' || view === 'formulas') return view;
+
     const saved = localStorage.getItem('unlock_edu_activeView');
     return (saved as 'home' | 'syllabus' | 'formulas') || 'home';
   });
   const [selectedChapterId, setSelectedChapterId] = useState<number>(() => {
+    const params = new URLSearchParams(window.location.search);
+    const chapter = params.get('chapter');
+    if (chapter) return parseInt(chapter, 10);
+
     const saved = localStorage.getItem('unlock_edu_selectedChapterId');
     return saved ? parseInt(saved, 10) : 1;
   });
   const [sidebarSearch, setSidebarSearch] = useState<string>('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 
+  // Sync state to URL and localStorage
   useEffect(() => {
-    localStorage.setItem('unlock_edu_activeView', activeView);
-  }, [activeView]);
+    const params = new URLSearchParams(window.location.search);
+    let changed = false;
 
-  useEffect(() => {
+    if (params.get('view') !== activeView) {
+      params.set('view', activeView);
+      changed = true;
+    }
+    
+    if (activeView === 'syllabus') {
+      if (params.get('chapter') !== selectedChapterId.toString()) {
+        params.set('chapter', selectedChapterId.toString());
+        changed = true;
+      }
+    } else {
+      if (params.has('chapter')) {
+        params.delete('chapter');
+        changed = true;
+      }
+    }
+
+    if (changed) {
+      const newUrl = `${window.location.pathname}?${params.toString()}${window.location.hash}`;
+      window.history.pushState({}, '', newUrl);
+    }
+
+    localStorage.setItem('unlock_edu_activeView', activeView);
     localStorage.setItem('unlock_edu_selectedChapterId', selectedChapterId.toString());
-  }, [selectedChapterId]);
+  }, [activeView, selectedChapterId]);
+
+  // Handle browser back/forward buttons
+  useEffect(() => {
+    const handlePopState = () => {
+      const params = new URLSearchParams(window.location.search);
+      const view = params.get('view');
+      if (view === 'home' || view === 'syllabus' || view === 'formulas') {
+        setActiveView(view as 'home' | 'syllabus' | 'formulas');
+      } else {
+        setActiveView('home');
+      }
+      
+      const chapter = params.get('chapter');
+      if (chapter) {
+        setSelectedChapterId(parseInt(chapter, 10));
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   // Filter chapters based on search query
   const filteredChapters = chapters.filter((ch) =>
