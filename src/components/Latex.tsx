@@ -14,7 +14,11 @@ import {
   CheckCircle2,
   Calendar,
   Layers,
-  Check
+  Check,
+  Users,
+  User,
+  RefreshCw,
+  ArrowRight
 } from 'lucide-react';
 
 interface LatexProps {
@@ -1346,6 +1350,12 @@ export default function Latex({ text, block = false }: LatexProps) {
         case 'Example13Diagram':
           renderedElements.push(<Example13Diagram key={`diag-${i}`} />);
           break;
+        case 'Example14Diagram':
+          renderedElements.push(<Example14Diagram key={`diag-${i}`} />);
+          break;
+        case 'Example15Diagram':
+          renderedElements.push(<Example15Diagram key={`diag-${i}`} />);
+          break;
         case 'Exercise51Question1':
           renderedElements.push(<Ex51Q1Diagram key={`diag-${i}`} />);
           break;
@@ -1384,6 +1394,21 @@ export default function Latex({ text, block = false }: LatexProps) {
           break;
         case 'CombinationsFormulaView':
           renderedElements.push(<CombinationsFormulaView key={`diag-${i}`} />);
+          break;
+        case 'Exercise53Question2Diagram':
+          renderedElements.push(<Exercise53Question2Diagram key={`diag-${i}`} />);
+          break;
+        case 'Exercise53Question3Diagram':
+          renderedElements.push(<Exercise53Question3Diagram key={`diag-${i}`} />);
+          break;
+        case 'Exercise53Question4Diagram':
+          renderedElements.push(<Exercise53Question4Diagram key={`diag-${i}`} />);
+          break;
+        case 'Exercise53Question5Diagram':
+          renderedElements.push(<Exercise53Question5Diagram key={`diag-${i}`} />);
+          break;
+        case 'Exercise53Question6Diagram':
+          renderedElements.push(<Exercise53Question6Diagram key={`diag-${i}`} />);
           break;
         default:
           renderedElements.push(
@@ -2888,73 +2913,821 @@ function CombinationsFormulaView() {
       </div>
 
       {/* Formula Output Block */}
-      <div className="p-4 bg-white dark:bg-slate-900 border border-slate-150 dark:border-slate-800 rounded-xl flex flex-col items-center shadow-sm">
+      <div className="p-4 bg-white dark:bg-slate-900 border border-slate-150 dark:border-slate-800 rounded-xl flex flex-col items-center shadow-sm w-full overflow-hidden">
         <div className="text-[10px] uppercase font-black text-indigo-500 tracking-wider mb-3">Formula Derivation & Value</div>
         
         {/* Dynamic LaTex calculation formula */}
-        <div className="w-full overflow-x-auto py-3 flex justify-center text-slate-800 dark:text-slate-100 font-serif text-sm md:text-base border-b border-slate-100 dark:border-slate-800/60">
-          <div className="whitespace-nowrap flex items-center gap-1.5 select-none leading-none">
-            {/* Left symbol: C(n, r) */}
-            <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-              {`\\binom{${n}}{${r}}`}
-            </span>
-            <span>=</span>
-            
-            {/* Permutation ratio definition */}
-            <div className="flex flex-col items-center px-1 font-mono">
-              <span className="border-b border-slate-400 dark:border-slate-600 pb-0.5 text-xs">
-                {`^{${n}}P_{${r}}`}
-              </span>
-              <span className="pt-0.5 text-xs">
-                {`${r}!`}
-              </span>
-            </div>
-            <span>=</span>
-
-            {/* Numerical ratio steps */}
-            <div className="flex flex-col items-center px-1 font-mono">
-              <span className="border-b border-slate-400 dark:border-slate-600 pb-0.5 text-xs">
-                {getNumeratorSteps()}
-              </span>
-              <span className="pt-0.5 text-xs">
-                {getDenominatorSteps()}
-              </span>
-            </div>
-            <span>=</span>
-
-            {/* Calculated ratio */}
-            <div className="flex flex-col items-center px-1 font-mono">
-              <span className="border-b border-slate-400 dark:border-slate-600 pb-0.5 text-xs">
-                {permVal}
-              </span>
-              <span className="pt-0.5 text-xs">
-                {factR}
-              </span>
-            </div>
-            <span>=</span>
-
-            {/* Final Answer */}
-            <span className="bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 font-mono font-bold px-3 py-1 rounded border border-indigo-500/20 text-xs sm:text-sm">
-              {combVal}
-            </span>
-          </div>
+        <div className="w-full overflow-x-auto pb-2 border-b border-slate-100 dark:border-slate-800/60">
+          {renderMathText(`$$ \\binom{${n}}{${r}} = \\frac{{}^{${n}}P_{${r}}}{${r}!} = \\frac{${getNumeratorSteps()}}{${getDenominatorSteps()}} = \\frac{${permVal}}{${factR}} = ${combVal} $$`)}
         </div>
 
         {/* Explain the parts */}
         <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-3 text-[10px] text-slate-500 dark:text-slate-400 pt-3">
-          <div className="text-center md:text-left">
-            <span className="font-bold text-indigo-600 dark:text-indigo-400 block mb-0.5">Permutation {`^{${n}}P_{${r}}`}:</span>
-            အစီအစဉ်စီလျှင် {permVal} နည်းရှိသည်။
+          <div className="text-center md:text-left flex flex-col items-center md:items-start justify-center">
+            <span className="font-bold text-indigo-600 dark:text-indigo-400 mb-0.5 flex items-center gap-1">
+              Permutation {renderMathText(`$^{${n}}P_{${r}}$`)}:
+            </span>
+            <span>အစီအစဉ်စီလျှင် {permVal} နည်းရှိသည်။</span>
           </div>
-          <div className="text-center">
-            <span className="font-bold text-indigo-600 dark:text-indigo-400 block mb-0.5">Duplicates Divider {`${r}!`}:</span>
-            အုပ်စုတစ်ခုစီအတွင်း နေရာပြောင်းလဲနိုင်သော ထပ်နေသည့်နည်းလမ်း {factR} နည်းဖြင့် စားပေးရသည်။
+          <div className="text-center flex flex-col items-center justify-center">
+            <span className="font-bold text-indigo-600 dark:text-indigo-400 mb-0.5 flex items-center gap-1">
+              Duplicates Divider {renderMathText(`$${r}!$`)}:
+            </span>
+            <span>အုပ်စုတစ်ခုစီအတွင်း နေရာပြောင်းလဲနိုင်သော ထပ်နေသည့်နည်းလမ်း {factR} နည်းဖြင့် စားပေးရသည်။</span>
           </div>
-          <div className="text-center md:text-right">
-            <span className="font-bold text-indigo-600 dark:text-indigo-400 block mb-0.5">Combination {`\\binom{${n}}{${r}}`}:</span>
-            အစီအစဉ်မလိုသော သီးသန့်အဖွဲ့ပေါင်း {combVal} အဖွဲ့ ရရှိသည်။
+          <div className="text-center md:text-right flex flex-col items-center md:items-end justify-center">
+            <span className="font-bold text-indigo-600 dark:text-indigo-400 mb-0.5 flex items-center gap-1">
+              Combination {renderMathText(`$\\binom{${n}}{${r}}$`)}:
+            </span>
+            <span>အစီအစဉ်မလိုသော သီးသန့်အဖွဲ့ပေါင်း {combVal} အဖွဲ့ ရရှိသည်။</span>
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
+
+const POOL_OF_PEOPLE = [
+  { id: 'A', name: 'Aung Aung', color: 'bg-rose-500/10 border-rose-500/30 dark:border-rose-500/20 text-rose-600 dark:text-rose-400' },
+  { id: 'B', name: 'Bo Bo', color: 'bg-amber-500/10 border-amber-500/30 dark:border-amber-500/20 text-amber-600 dark:text-amber-400' },
+  { id: 'C', name: 'Chit Chit', color: 'bg-emerald-500/10 border-emerald-500/30 dark:border-emerald-500/20 text-emerald-600 dark:text-emerald-400' },
+  { id: 'D', name: 'Daw Daw', color: 'bg-teal-500/10 border-teal-500/30 dark:border-teal-500/20 text-teal-600 dark:text-teal-400' },
+  { id: 'E', name: 'Ei Ei', color: 'bg-blue-500/10 border-blue-500/30 dark:border-blue-500/20 text-blue-600 dark:text-blue-400' },
+  { id: 'F', name: 'Hla Hla', color: 'bg-indigo-500/10 border-indigo-500/30 dark:border-indigo-500/20 text-indigo-600 dark:text-indigo-400' },
+  { id: 'G', name: 'Kyaw Kyaw', color: 'bg-violet-500/10 border-violet-500/30 dark:border-violet-500/20 text-violet-700 dark:text-violet-400' },
+  { id: 'H', name: 'Mya Mya', color: 'bg-purple-500/10 border-purple-500/30 dark:border-purple-500/20 text-purple-600 dark:text-purple-400' },
+  { id: 'I', name: 'Nyi Nyi', color: 'bg-fuchsia-500/10 border-fuchsia-500/30 dark:border-fuchsia-500/20 text-fuchsia-600 dark:text-fuchsia-400' },
+  { id: 'J', name: 'Tun Tun', color: 'bg-pink-500/10 border-pink-500/30 dark:border-pink-500/20 text-pink-600 dark:text-pink-400' }
+];
+
+function Example14Diagram() {
+  const [selectedIds, setSelectedIds] = React.useState<string[]>(['A', 'B', 'C', 'D']);
+  const [shuffledIds, setShuffledIds] = React.useState<string[]>(['A', 'B', 'C', 'D']);
+
+  React.useEffect(() => {
+    setShuffledIds([...selectedIds]);
+  }, [selectedIds]);
+
+  const toggleSelect = (id: string) => {
+    if (selectedIds.includes(id)) {
+      setSelectedIds(selectedIds.filter(i => i !== id));
+    } else {
+      if (selectedIds.length < 4) {
+        setSelectedIds([...selectedIds, id]);
+      } else {
+        // Replace first element to maintain size 4 if clicked on a new one
+        setSelectedIds([...selectedIds.slice(1), id]);
+      }
+    }
+  };
+
+  const selectRandomFour = () => {
+    const shuffled = [...POOL_OF_PEOPLE].sort(() => 0.5 - Math.random());
+    const randomFour = shuffled.slice(0, 4).map(p => p.id);
+    setSelectedIds(randomFour);
+  };
+
+  const shuffleOrder = () => {
+    if (selectedIds.length === 4) {
+      setShuffledIds([...selectedIds].sort(() => 0.5 - Math.random()));
+    }
+  };
+
+  const resetSelection = () => {
+    setSelectedIds([]);
+  };
+
+  const selectedPeople = POOL_OF_PEOPLE.filter(p => selectedIds.includes(p.id));
+  const shuffledPeople = shuffledIds.map(id => POOL_OF_PEOPLE.find(p => p.id === id)).filter(Boolean) as typeof POOL_OF_PEOPLE;
+
+  return (
+    <div className="my-6 p-4 sm:p-6 bg-slate-50/60 dark:bg-slate-900/40 rounded-2xl border border-slate-100 dark:border-slate-800/80 w-full font-sans shadow-sm">
+      <h5 className="text-xs font-bold text-indigo-500 mb-4 uppercase tracking-wider text-center">Interactive: Select a Committee of 4 from 10 People</h5>
+      
+      {/* Pool of 10 People */}
+      <div className="mb-6">
+        <div className="flex flex-col sm:flex-row justify-between items-center mb-3 gap-2">
+          <span className="text-[11px] uppercase font-black text-slate-500 dark:text-slate-400">Available Pool (10 People)</span>
+          <div className="flex gap-2">
+            <button
+              onClick={selectRandomFour}
+              className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-500/10 hover:bg-indigo-500/20 px-2.5 py-1 rounded transition-colors"
+            >
+              Select Random 4
+            </button>
+            <button
+              onClick={resetSelection}
+              className="text-[10px] font-bold text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded transition-colors"
+            >
+              Reset
+            </button>
+          </div>
+        </div>
+        
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+          {POOL_OF_PEOPLE.map((p) => {
+            const isSelected = selectedIds.includes(p.id);
+            return (
+              <button
+                key={p.id}
+                onClick={() => toggleSelect(p.id)}
+                className={`flex items-center gap-2 p-2 rounded-xl border text-left transition-all ${
+                  isSelected
+                    ? 'bg-white dark:bg-slate-900 border-indigo-500 ring-2 ring-indigo-500/20 shadow-sm scale-[1.02]'
+                    : 'bg-white/50 dark:bg-slate-900/30 border-slate-150 dark:border-slate-800/60 hover:border-slate-300 dark:hover:border-slate-700'
+                }`}
+              >
+                <div className={`w-7 h-7 rounded-full border flex items-center justify-center font-bold text-xs shrink-0 ${p.color}`}>
+                  {p.id}
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[10px] font-bold text-slate-700 dark:text-slate-300 truncate leading-tight">{p.name}</p>
+                  <p className="text-[8px] text-slate-400 dark:text-slate-500 leading-none mt-0.5">
+                    {isSelected ? 'Selected' : 'Click to add'}
+                  </p>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Selected Committee Display */}
+      <div className="p-4 bg-white dark:bg-slate-955 rounded-xl border border-slate-150 dark:border-slate-800 shadow-inner mb-5">
+        <div className="flex justify-between items-center mb-3">
+          <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400">
+            Selected Committee ({selectedIds.length}/4)
+          </span>
+          {selectedIds.length === 4 && (
+            <button
+              onClick={shuffleOrder}
+              className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-500/10 px-2 py-1 rounded flex items-center gap-1 transition-all"
+              title="Change selection order to see if committee changes"
+            >
+              <RefreshCw className="w-3 h-3" />
+              Shuffle Selection Order
+            </button>
+          )}
+        </div>
+
+        {selectedIds.length < 4 ? (
+          <div className="flex flex-col items-center justify-center py-6 text-slate-400 dark:text-slate-500 border border-dashed border-slate-200 dark:border-slate-800 rounded-lg">
+            <Users className="w-8 h-8 text-slate-300 dark:text-slate-700 mb-2" />
+            <p className="text-xs text-center px-4">ကော်မတီဖွဲ့ရန် လူ {4 - selectedIds.length} ယောက် ထပ်မံရွေးချယ်ပါဦး။</p>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {/* Visual list showing selected order */}
+            <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
+              <div className="flex items-center gap-1.5 flex-wrap justify-center">
+                <span className="text-xs font-mono text-slate-400 font-bold">Committee = </span>
+                <span className="text-xl font-bold text-indigo-500 font-mono">{"{"}</span>
+                {shuffledPeople.map((p, idx) => (
+                  <React.Fragment key={p.id}>
+                    <div className="flex items-center gap-1 bg-indigo-500/10 border border-indigo-500/20 px-2.5 py-1.5 rounded-lg animate-in fade-in zoom-in duration-200">
+                      <div className={`w-4 h-4 rounded-full border flex items-center justify-center font-bold text-[8px] ${p.color}`}>
+                        {p.id}
+                      </div>
+                      <span className="text-xs font-bold text-slate-800 dark:text-slate-200">{p.name}</span>
+                    </div>
+                    {idx < 3 && <span className="text-slate-400 text-xs font-bold font-mono">,</span>}
+                  </React.Fragment>
+                ))}
+                <span className="text-xl font-bold text-indigo-500 font-mono">{"}"}</span>
+              </div>
+            </div>
+
+            {/* Note on Order */}
+            <div className="p-3 bg-indigo-500/5 rounded-xl border border-indigo-500/15 text-xs text-indigo-800 dark:text-indigo-300">
+              <p className="leading-relaxed">
+                💡 <strong>Shuffle Order ကိုနှိပ်ကြည့်ပါ-</strong> အုပ်စုဝင်များကို မည်သို့ပင် အစီအစဉ်ပြောင်းလဲပါစေ ဖွဲ့စည်းထားသော ကော်မတီအဖွဲ့ဝင် ၄ ဦးမှာ အတူတူပင်ဖြစ်သောကြောင့် <strong>တစ်ခုတည်းသော ကော်မတီနည်းလမ်း (Combination)</strong> သာ ဖြစ်သည်။
+              </p>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Calculations Block */}
+      <div className="p-4 bg-white dark:bg-slate-900 border border-slate-150 dark:border-slate-800 rounded-xl flex flex-col shadow-sm">
+        <div className="text-[10px] uppercase font-black text-indigo-500 tracking-wider mb-2.5 text-center md:text-left">
+          Mathematics & Verification
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 divide-y md:divide-y-0 md:divide-x divide-slate-100 dark:divide-slate-800/60">
+          {/* Left: Combination */}
+          <div className="pb-3 md:pb-0 md:pr-4 flex flex-col justify-between">
+            <div>
+              <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 block mb-1">
+                Combination Formula:
+              </span>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed mb-3">
+                အစီအစဉ်မလိုဘဲ လူ ၁၀ ယောက်ထဲမှ ၄ ယောက် ရွေးယူသည့်နည်းလမ်းစုစုပေါင်း:
+              </p>
+            </div>
+            
+            <div className="w-full p-3 bg-indigo-50/30 dark:bg-indigo-950/10 rounded-xl border border-indigo-100/50 dark:border-indigo-900/30 overflow-x-auto">
+              <div className="text-sm select-none text-slate-800 dark:text-slate-100 w-full">
+                {renderMathText(`$$ {}^{10}C_4 = \\binom{10}{4} = \\frac{10 \\cdot 9 \\cdot 8 \\cdot 7}{4 \\cdot 3 \\cdot 2 \\cdot 1} = 210 \\text{ နည်း} $$`)}
+              </div>
+            </div>
+          </div>
+
+          {/* Right: Permutation Relationship */}
+          <div className="pt-3 md:pt-0 md:pl-4 flex flex-col justify-between">
+            <div>
+              <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 block mb-1">
+                Permutation Viewpoint:
+              </span>
+              <div className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed mb-3 flex flex-wrap items-center gap-1">
+                <span>ရွေးထားသော ကော်မတီဝင် ၄ ယောက်ကို အစီအစဉ်တကျ ပြန်စီနိုင်သော နည်းလမ်းမှာ</span>
+                {renderMathText(`$ 4! = 24 $`)}
+                <span>နည်း ဖြစ်သည်။ ထို့ကြောင့် Combination နည်းလမ်း</span>
+                {renderMathText(`$ 210 $`)}
+                <span>ကို</span>
+                {renderMathText(`$ 4! $`)}
+                <span>ဖြင့် မြှောက်လျှင် Permutation အရေအတွက်ကို ရရှိသည်-</span>
+              </div>
+            </div>
+
+            <div className="w-full p-3 bg-indigo-50/30 dark:bg-indigo-950/10 rounded-xl border border-indigo-100/50 dark:border-indigo-900/30 overflow-x-auto">
+              <div className="text-sm select-none text-slate-800 dark:text-slate-100 w-full">
+                {renderMathText(`$$ 210 \\cdot 4! = {}^{10}P_4 = 5040 \\text{ နည်း} $$`)}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Example15Diagram() {
+  const [n, setN] = React.useState<number>(21);
+  const [r, setR] = React.useState<number>(19);
+
+  const presets = [
+    { label: '^{21}C_1', n: 21, r: 1, desc: 'တစ်ခုတည်းသာ ရွေးချယ်ခြင်း' },
+    { label: '^{21}C_{21}', n: 21, r: 21, desc: 'အားလုံးကို ရွေးချယ်ခြင်း' },
+    { label: '^{21}C_{19}', n: 21, r: 19, desc: 'တစ်ခုချန်ပြီး ကျန်အားလုံးရွေးခြင်း' },
+    { label: '^{21}C_2', n: 21, r: 2, desc: '၂ ခုကို ရွေးချယ်ခြင်း' }
+  ];
+
+  // Helper to calculate factorial safely
+  const getFact = (num: number): number => {
+    if (num <= 1) return 1;
+    let res = 1;
+    for (let i = 2; i <= num; i++) res *= i;
+    return res;
+  };
+
+  // Helper to calculate combinations safely
+  const getComb = (nVal: number, rVal: number): number => {
+    if (rVal < 0 || rVal > nVal) return 0;
+    if (rVal === 0 || rVal === nVal) return 1;
+    let num = 1;
+    for (let i = 0; i < rVal; i++) {
+      num *= (nVal - i);
+    }
+    return Math.round(num / getFact(rVal));
+  };
+
+  const combVal = getComb(n, r);
+
+  // Generate cancellation steps
+  const renderFormulaSteps = () => {
+    if (r < 0 || r > n) return null;
+
+    if (r === 0) {
+      return (
+        <div className="space-y-3">
+          <div className="p-3 bg-slate-50 dark:bg-slate-900/60 rounded-xl border border-slate-150 dark:border-slate-800">
+            <span className="font-bold text-xs text-indigo-600 dark:text-indigo-400 block mb-1">
+              Formula:
+            </span>
+            {renderMathText(`$$ \\binom{${n}}{0} = 1 $$`)}
+          </div>
+          <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+            မည်သည့်အရာမှ မရွေးချယ်သောနည်းလမ်းမှာ မရွေးဘဲအလွတ်ထားသည့် <strong>၁ နည်း</strong> သာ ရှိသည်။
+          </p>
+        </div>
+      );
+    }
+
+    if (r === n) {
+      return (
+        <div className="space-y-3">
+          <div className="p-3 bg-slate-50 dark:bg-slate-900/60 rounded-xl border border-slate-150 dark:border-slate-800">
+            <span className="font-bold text-xs text-indigo-600 dark:text-indigo-400 block mb-1">
+              Formula:
+            </span>
+            {renderMathText(`$$ \\binom{${n}}{${n}} = \\frac{${n}!}{${n}! \\cdot 0!} = 1 $$`)}
+          </div>
+          <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+            အရာအားလုံးကို ရွေးချယ်သောနည်းလမ်းမှာ အားလုံးပါဝင်သည့် <strong>၁ နည်း</strong> သာ ရှိသည်။ (မှတ်ချက်: $0! = 1$ ဖြစ်သည်)
+          </p>
+        </div>
+      );
+    }
+
+    const nMinusR = n - r;
+    const maxD = Math.max(r, nMinusR);
+    const minD = Math.min(r, nMinusR);
+
+    // Build numerator expansion text
+    const numExpandParts: string[] = [];
+    for (let i = n; i > maxD; i--) {
+      numExpandParts.push(i.toString());
+    }
+    const numExpandStr = numExpandParts.join(' \\cdot ');
+
+    // Build denominator expansion text
+    const denExpandParts: string[] = [];
+    for (let i = minD; i >= 1; i--) {
+      denExpandParts.push(i.toString());
+    }
+    const denExpandStr = denExpandParts.join(' \\cdot ');
+
+    const step1LaTex = `\\binom{${n}}{${r}} = \\frac{${n}!}{${r}! \\cdot (${n} - ${r})!} = \\frac{${n}!}{${r}! \\cdot ${nMinusR}!}`;
+    
+    // Step 2: Show expansion with cancellation of maxD!
+    const step2LaTex = `\\frac{${numExpandStr} \\cdot ${maxD}!}{${maxD}! \\cdot ${denExpandStr}} = \\frac{${numExpandStr}}{${denExpandStr}}`;
+
+    // Numerator and denominator values after cancellation
+    const numValAfterCancel = numExpandParts.reduce((acc, x) => acc * parseInt(x, 10), 1);
+    const denValAfterCancel = getFact(minD);
+
+    const step3LaTex = `\\frac{${numValAfterCancel}}{${denValAfterCancel}} = ${combVal}`;
+
+    // Dynamic expansion text for the paragraph explanation
+    let expansionExplanationText = '';
+    if (n - maxD === 0) {
+      expansionExplanationText = `$${n}!$ ကို ဖြန့်စရာမလိုဘဲ`;
+    } else if (n - maxD === 1) {
+      expansionExplanationText = `$${n}!$ ကို $${n} \\cdot ${maxD}!$ ဟု ဖြန့်ရေးပြီး`;
+    } else if (n - maxD === 2) {
+      expansionExplanationText = `$${n}!$ ကို $${n} \\cdot ${n - 1} \\cdot ${maxD}!$ ဟု ဖြန့်ရေးပြီး`;
+    } else {
+      expansionExplanationText = `$${n}!$ ကို $${n} \\cdot ${n - 1} \\cdots ${maxD + 1} \\cdot ${maxD}!$ ဟု ဖြန့်ရေးပြီး`;
+    }
+
+    return (
+      <div className="space-y-4">
+        {/* Step 1: Substitution */}
+        <div className="p-3.5 bg-slate-50/50 dark:bg-slate-900/40 rounded-xl border border-slate-150 dark:border-slate-800/80">
+          <span className="font-bold text-xs text-indigo-600 dark:text-indigo-400 block mb-1.5">
+            အဆင့် ၁ - Formula တွင် အစားသွင်းခြင်း:
+          </span>
+          <div className="overflow-x-auto w-full py-1">
+            {renderMathText(`$$ ${step1LaTex} $$`)}
+          </div>
+        </div>
+
+        {/* Step 2: Cancellation */}
+        <div className="p-3.5 bg-slate-50/50 dark:bg-slate-900/40 rounded-xl border border-slate-150 dark:border-slate-800/80">
+          <span className="font-bold text-xs text-indigo-600 dark:text-indigo-400 block mb-1.5">
+            {renderMathText(`အဆင့် ၂ - တွက်ချက်ရလွယ်ကူစေရန် အကြီးဆုံး Factorial ($${maxD}!$) ကို ချေဖျက်ခြင်း:`)}
+          </span>
+          <p className="text-[11px] text-slate-500 dark:text-slate-400 mb-2 leading-relaxed">
+            {renderMathText(`${expansionExplanationText} ပိုင်းခြေမှ $${maxD}!$ နှင့် အပေါ်အောက် ချေလိုက်ပါသည် -`)}
+          </p>
+          <div className="overflow-x-auto w-full py-1">
+            {renderMathText(`$$ ${step2LaTex} $$`)}
+          </div>
+        </div>
+
+        {/* Step 3: Final Multiplication & Division */}
+        <div className="p-3.5 bg-indigo-50/20 dark:bg-indigo-950/5 rounded-xl border border-indigo-100/40 dark:border-indigo-900/30">
+          <span className="font-bold text-xs text-indigo-600 dark:text-indigo-400 block mb-1.5">
+            အဆင့် ၃ - မြှောက်ခြင်းနှင့် စားခြင်းကို ပြီးမြောက်အောင် တွက်ချက်ခြင်း:
+          </span>
+          <div className="overflow-x-auto w-full py-1">
+            {renderMathText(`$$ ${step3LaTex} $$`)}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <div className="my-6 p-4 sm:p-6 bg-slate-50/60 dark:bg-slate-900/40 rounded-2xl border border-slate-100 dark:border-slate-800/80 w-full font-sans shadow-sm">
+      <h5 className="text-xs font-bold text-indigo-500 mb-4 uppercase tracking-wider text-center">Interactive: Example 15 Calculator & Step Solver</h5>
+      
+      {/* Presets Grid */}
+      <div className="mb-6">
+        <span className="text-[11px] uppercase font-black text-slate-500 dark:text-slate-400 block mb-3">Example 15 Presets (စာအုပ်ပါ မေးခွန်းများ)</span>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5">
+          {presets.map((p, idx) => {
+            const isSelected = n === p.n && r === p.r;
+            return (
+              <button
+                key={idx}
+                onClick={() => {
+                  setN(p.n);
+                  setR(p.r);
+                }}
+                className={`p-3 rounded-xl border text-center transition-all ${
+                  isSelected
+                    ? 'bg-white dark:bg-slate-900 border-indigo-500 ring-2 ring-indigo-500/20 shadow-sm scale-[1.02]'
+                    : 'bg-white/50 dark:bg-slate-900/30 border-slate-150 dark:border-slate-800/60 hover:border-slate-300 dark:hover:border-slate-700'
+                }`}
+              >
+                <div className="text-sm font-bold text-indigo-600 dark:text-indigo-400 select-none mb-1">
+                  {renderMathText(`$ {}^{${p.n}}C_{${p.r}} $`)}
+                </div>
+                <p className="text-[9px] text-slate-400 dark:text-slate-500 leading-tight">
+                  {p.desc}
+                </p>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Manual Sliders */}
+      <div className="mb-6 p-4 bg-white dark:bg-slate-950 rounded-xl border border-slate-150 dark:border-slate-800">
+        <span className="text-[11px] uppercase font-black text-slate-500 dark:text-slate-400 block mb-3">Custom Combination Evaluator</span>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {/* Slider N */}
+          <div>
+            <div className="flex justify-between items-center mb-1.5">
+              <span className="text-xs text-slate-600 dark:text-slate-300">Total Items ({renderMathText('$n$')}):</span>
+              <span className="text-xs font-mono font-bold text-indigo-600 dark:text-indigo-400">{n}</span>
+            </div>
+            <input
+              type="range"
+              min="1"
+              max="25"
+              value={n}
+              onChange={(e) => {
+                const newN = parseInt(e.target.value, 10);
+                setN(newN);
+                if (r > newN) setR(newN);
+              }}
+              className="w-full accent-indigo-500 cursor-pointer h-1 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none"
+            />
+          </div>
+
+          {/* Slider R */}
+          <div>
+            <div className="flex justify-between items-center mb-1.5">
+              <span className="text-xs text-slate-600 dark:text-slate-300">Choose Items ({renderMathText('$r$')}):</span>
+              <span className="text-xs font-mono font-bold text-indigo-600 dark:text-indigo-400">{r}</span>
+            </div>
+            <input
+              type="range"
+              min="0"
+              max={n}
+              value={r}
+              onChange={(e) => setR(parseInt(e.target.value, 10))}
+              className="w-full accent-indigo-500 cursor-pointer h-1 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Step-by-Step Solution Display */}
+      <div className="p-4 bg-white dark:bg-slate-950 rounded-xl border border-slate-150 dark:border-slate-800 shadow-inner mb-5">
+        <div className="flex justify-between items-center mb-4">
+          <div className="flex items-center gap-1.5">
+            <span className="text-xs font-bold text-slate-500 dark:text-slate-400">
+              တွက်ချက်မှုအဆင့်ဆင့် (Solution Steps) -
+            </span>
+            <div className="text-xs font-bold text-indigo-600 dark:text-indigo-400 font-mono">
+              {renderMathText(`$ {}^{${n}}C_{${r}} = ${combVal} $`)}
+            </div>
+          </div>
+        </div>
+
+        {renderFormulaSteps()}
+      </div>
+
+      {/* Visual Representation of Symmetry & Choosing */}
+      {n <= 25 && (
+        <div className="p-4 bg-white dark:bg-slate-900 border border-slate-150 dark:border-slate-800 rounded-xl shadow-sm">
+          <span className="text-[10px] uppercase font-black text-indigo-500 tracking-wider block mb-3 text-center md:text-left">
+            Symmetry & Complementary Selection Visualization
+          </span>
+          
+          <div className="flex flex-col items-center justify-center space-y-4">
+            {/* Grid of items */}
+            <div className="flex flex-wrap gap-1.5 justify-center max-w-lg">
+              {Array.from({ length: n }).map((_, idx) => {
+                const isSelected = idx < r;
+                return (
+                  <div
+                    key={idx}
+                    className={`w-6 h-6 rounded-full flex items-center justify-center font-mono text-[9px] font-bold transition-all duration-300 ${
+                      isSelected
+                        ? 'bg-indigo-500 text-white shadow-sm ring-2 ring-indigo-500/20 scale-[1.05]'
+                        : 'bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500'
+                    }`}
+                    title={isSelected ? `Selected item ${idx + 1}` : `Leftover item ${idx + 1}`}
+                  >
+                    {idx + 1}
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Symmetry Rule explanation */}
+            <div className="p-3 bg-indigo-500/5 rounded-xl border border-indigo-500/15 text-xs text-indigo-800 dark:text-indigo-300 w-full text-center">
+              <p className="leading-relaxed font-bold">
+                💡 ရွေးချယ်မှု၏ အချိုးညီသဘောတရား (Symmetry Rule):
+              </p>
+              <p className="mt-1 leading-relaxed text-slate-600 dark:text-slate-300">
+                အရာဝတ္ထု {n} ခုထဲက <strong>{r}</strong> ခုကို ရွေးတာဟာ ချန်ထားခဲ့မည့် <strong>{n - r}</strong> ခုကို ရွေးတာနဲ့ ထပ်တူညီသည်။ <br className="hidden sm:inline" />
+                ထို့ကြောင့် {renderMathText(`$ {}^{${n}}C_{${r}} $`)} ၏ တန်ဖိုးသည် {renderMathText(`$ {}^{${n}}C_{${n - r}} $`)} ၏ တန်ဖိုးနှင့် အမြဲတူညီပါသည်-
+              </p>
+              <div className="mt-2 text-sm font-bold text-indigo-600 dark:text-indigo-400">
+                {renderMathText(`$$ {}^{${n}}C_{${r}} = {}^{${n}}C_{${n - r}} = ${combVal} $$`)}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function Exercise53Question2Diagram() {
+  const candles = [1, 1, 1, 1, 1, 1, 1, 0, 0, 0]; // 7 candles, 3 empty
+  return (
+    <div className="my-6 p-4 sm:p-6 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700/50 shadow-sm overflow-hidden flex flex-col items-center">
+      <div className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-4 relative z-10 w-full max-w-2xl mx-auto">
+        {candles.map((hasCandle, i) => (
+          <div key={i} className="flex flex-col items-center">
+            {/* Flame container - fixed height so holders align */}
+            <div className="h-6 w-full flex justify-center items-end mb-0.5">
+              {hasCandle ? (
+                <div className="w-2.5 h-4 bg-orange-400 rounded-t-full rounded-b-sm animate-pulse" style={{ boxShadow: '0 0 8px 1px rgba(251, 146, 60, 0.6)' }} />
+              ) : null}
+            </div>
+            {/* Candle Body */}
+            <div className="h-8 w-4 bg-amber-100 dark:bg-amber-50 rounded-t-sm flex justify-center items-start shadow-inner relative z-10">
+              {hasCandle ? (
+                <div className="w-0.5 h-1.5 bg-slate-800 dark:bg-slate-700" /> /* Wick */
+              ) : <div className="w-full h-full bg-transparent" />}
+            </div>
+            {/* Candle Holder */}
+            <div className="w-8 h-6 border-b-2 border-l-2 border-r-2 border-slate-500 dark:border-slate-400 rounded-b-md shadow-sm -mt-2 bg-gradient-to-b from-transparent to-slate-200 dark:to-slate-800 z-0">
+            </div>
+            {/* Holder number */}
+            <div className="mt-2 text-[10px] sm:text-xs font-mono font-bold text-slate-500 dark:text-slate-400">{i + 1}</div>
+          </div>
+        ))}
+      </div>
+      
+      {/* Explanation Label */}
+      <div className="text-center bg-white dark:bg-slate-800 px-4 py-2 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 w-full max-w-sm mt-2">
+        <p className="text-xs font-medium text-slate-600 dark:text-slate-300">
+          Choose any <span className="font-bold text-indigo-600 dark:text-indigo-400">7</span> holders from <span className="font-bold text-slate-800 dark:text-slate-200">10</span> fixed holders
+        </p>
+        <p className="text-[10px] text-slate-500 mt-1">
+          (Order of candles does not matter as they are identical)
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function Exercise53Question3Diagram() {
+  return (
+    <div className="my-6 p-4 sm:p-6 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700/50 shadow-sm overflow-hidden">
+      <div className="flex flex-col md:flex-row justify-center items-center gap-6 max-w-3xl mx-auto">
+        {/* Part 1 */}
+        <div className="flex flex-col items-center bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm w-full md:w-1/3">
+          <span className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Part 1</span>
+          <div className="flex flex-wrap justify-center gap-1.5 mb-3">
+            {[1, 2, 3, 4, 5].map(q => (
+              <div key={q} className="w-6 h-6 flex items-center justify-center rounded-md text-[10px] font-mono font-bold bg-indigo-500 text-white shadow-sm">{q}</div>
+            ))}
+          </div>
+          <div className="text-[10px] text-slate-500 text-center">
+            Answer all <span className="font-bold text-indigo-500">5</span> questions
+          </div>
+          <div className="mt-2 text-xs font-bold text-slate-700 dark:text-slate-300">
+            <Latex text="$ {}^{5}C_{5} $" />
+          </div>
+        </div>
+
+        <div className="text-xl text-slate-400 font-bold hidden md:block">×</div>
+
+        {/* Part 2 */}
+        <div className="flex flex-col items-center bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm w-full md:w-1/3">
+          <span className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Part 2</span>
+          <div className="flex flex-wrap justify-center gap-1.5 mb-3">
+            {[1, 2, 3, 4].map(q => (
+              <div key={q} className="w-6 h-6 flex items-center justify-center rounded-md text-[10px] font-mono font-bold bg-indigo-500 text-white shadow-sm">{q}</div>
+            ))}
+            <div className="w-6 h-6 flex items-center justify-center rounded-md text-[10px] font-mono font-bold bg-slate-100 text-slate-400 border border-slate-200 border-dashed dark:bg-slate-700 dark:border-slate-600">5</div>
+          </div>
+          <div className="text-[10px] text-slate-500 text-center">
+            Choose <span className="font-bold text-indigo-500">4</span> from 5
+          </div>
+          <div className="mt-2 text-xs font-bold text-slate-700 dark:text-slate-300">
+            <Latex text="$ {}^{5}C_{4} $" />
+          </div>
+        </div>
+
+        <div className="text-xl text-slate-400 font-bold hidden md:block">×</div>
+
+        {/* Part 3 */}
+        <div className="flex flex-col items-center bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm w-full md:w-1/3">
+          <span className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Part 3</span>
+          <div className="flex flex-wrap justify-center gap-1.5 mb-3">
+            {[1, 2, 3].map(q => (
+              <div key={q} className="w-6 h-6 flex items-center justify-center rounded-md text-[10px] font-mono font-bold bg-indigo-500 text-white shadow-sm">{q}</div>
+            ))}
+            <div className="w-6 h-6 flex items-center justify-center rounded-md text-[10px] font-mono font-bold bg-slate-100 text-slate-400 border border-slate-200 border-dashed dark:bg-slate-700 dark:border-slate-600">4</div>
+          </div>
+          <div className="text-[10px] text-slate-500 text-center">
+            Choose <span className="font-bold text-indigo-500">3</span> from 4
+          </div>
+          <div className="mt-2 text-xs font-bold text-slate-700 dark:text-slate-300">
+            <Latex text="$ {}^{4}C_{3} $" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Exercise53Question4Diagram() {
+  return (
+    <div className="my-6 p-4 sm:p-6 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700/50 shadow-sm overflow-hidden flex flex-col items-center">
+      <div className="relative w-48 h-48 mx-auto mb-4">
+        {/* Lines between a few teams to show matches */}
+        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" className="text-slate-200 dark:text-slate-700" strokeWidth="1" strokeDasharray="2,2"/>
+          {/* Draw lines from team 1 to others to represent matches */}
+          <line x1="50" y1="10" x2="80" y2="23" stroke="currentColor" className="text-indigo-300 dark:text-indigo-500/50" strokeWidth="1"/>
+          <line x1="50" y1="10" x2="90" y2="50" stroke="currentColor" className="text-indigo-300 dark:text-indigo-500/50" strokeWidth="1"/>
+          <line x1="50" y1="10" x2="80" y2="77" stroke="currentColor" className="text-indigo-300 dark:text-indigo-500/50" strokeWidth="1"/>
+          <line x1="80" y1="23" x2="90" y2="50" stroke="currentColor" className="text-amber-300 dark:text-amber-500/50" strokeWidth="1"/>
+          <line x1="80" y1="23" x2="80" y2="77" stroke="currentColor" className="text-amber-300 dark:text-amber-500/50" strokeWidth="1"/>
+        </svg>
+        
+        {Array.from({ length: 9 }).map((_, i) => {
+          const angle = (i * 360) / 9 - 90; // Start at top
+          const rad = (angle * Math.PI) / 180;
+          const r = 40; // radius of circle placement
+          const x = 50 + r * Math.cos(rad);
+          const y = 50 + r * Math.sin(rad);
+          
+          return (
+            <div 
+              key={i}
+              className="absolute w-6 h-6 -ml-3 -mt-3 bg-white dark:bg-slate-800 border-2 border-indigo-500 text-indigo-600 dark:text-indigo-400 rounded-full flex items-center justify-center text-[10px] font-bold shadow-sm z-10"
+              style={{ left: `${x}%`, top: `${y}%` }}
+            >
+              {i + 1}
+            </div>
+          );
+        })}
+      </div>
+      <div className="bg-white dark:bg-slate-800 px-4 py-2 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-center">
+        <p className="text-xs font-medium text-slate-700 dark:text-slate-300">
+          9 Teams total
+        </p>
+        <p className="text-[10px] text-slate-500 mt-1">
+          Each game requires choosing <span className="font-bold text-indigo-500">2</span> teams: <Latex text="$ {}^{9}C_{2} $" />
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function Exercise53Question5Diagram() {
+  return (
+    <div className="my-6 p-4 sm:p-6 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700/50 shadow-sm overflow-hidden flex flex-col items-center">
+      <div className="flex flex-col sm:flex-row justify-center items-center gap-8 w-full max-w-2xl">
+        
+        {/* Lines Diagram */}
+        <div className="flex flex-col items-center">
+          <div className="relative w-40 h-40 mb-4 bg-white dark:bg-slate-800 rounded-full border border-slate-200 dark:border-slate-700 shadow-sm">
+            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100">
+              <line x1="30" y1="15" x2="85" y2="70" stroke="currentColor" className="text-indigo-500" strokeWidth="2"/>
+            </svg>
+            {Array.from({ length: 8 }).map((_, i) => {
+              const angle = (i * 360) / 8 - 90;
+              const rad = (angle * Math.PI) / 180;
+              const r = 35;
+              const x = 50 + r * Math.cos(rad);
+              const y = 50 + r * Math.sin(rad);
+              // Highlight the 2 points forming the line (index 7 and index 3 roughly correspond to 30,15 and 85,70)
+              const isSelected = i === 7 || i === 3;
+              
+              return (
+                <div 
+                  key={i}
+                  className={`absolute w-3 h-3 -ml-1.5 -mt-1.5 rounded-full ${isSelected ? 'bg-indigo-500 ring-4 ring-indigo-500/20' : 'bg-slate-300 dark:bg-slate-600'}`}
+                  style={{ left: `${x}%`, top: `${y}%` }}
+                />
+              );
+            })}
+          </div>
+          <div className="text-center">
+            <p className="text-xs font-bold text-slate-700 dark:text-slate-300">Determining a Line</p>
+            <p className="text-[10px] text-slate-500 mt-1">Choose 2 points from 8: <span className="font-bold text-indigo-500"><Latex text="$ {}^{8}C_{2} $" /></span></p>
+          </div>
+        </div>
+
+        <div className="h-20 w-px bg-slate-200 dark:bg-slate-700 hidden sm:block"></div>
+
+        {/* Triangles Diagram */}
+        <div className="flex flex-col items-center">
+          <div className="relative w-40 h-40 mb-4 bg-white dark:bg-slate-800 rounded-full border border-slate-200 dark:border-slate-700 shadow-sm">
+            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100">
+              <polygon points="50,15 15,70 85,70" fill="currentColor" className="text-amber-500/20" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" style={{color: '#f59e0b'}}/>
+            </svg>
+            {Array.from({ length: 8 }).map((_, i) => {
+              const angle = (i * 360) / 8 - 90;
+              const rad = (angle * Math.PI) / 180;
+              const r = 35;
+              const x = 50 + r * Math.cos(rad);
+              const y = 50 + r * Math.sin(rad);
+              // Highlight the 3 points forming the triangle
+              const isSelected = i === 0 || i === 3 || i === 5;
+              
+              return (
+                <div 
+                  key={i}
+                  className={`absolute w-3 h-3 -ml-1.5 -mt-1.5 rounded-full z-10 ${isSelected ? 'bg-amber-500 ring-4 ring-amber-500/20' : 'bg-slate-300 dark:bg-slate-600'}`}
+                  style={{ left: `${x}%`, top: `${y}%` }}
+                />
+              );
+            })}
+          </div>
+          <div className="text-center">
+            <p className="text-xs font-bold text-slate-700 dark:text-slate-300">Determining a Triangle</p>
+            <p className="text-[10px] text-slate-500 mt-1">Choose 3 points from 8: <span className="font-bold text-amber-500"><Latex text="$ {}^{8}C_{3} $" /></span></p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
+function Exercise53Question6Diagram() {
+  return (
+    <div className="my-6 p-4 sm:p-6 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700/50 shadow-sm overflow-hidden flex flex-col items-center">
+      <div className="w-full max-w-2xl bg-white dark:bg-slate-800 rounded-xl p-4 shadow-sm border border-slate-200 dark:border-slate-700">
+        <div className="flex flex-wrap items-end justify-center gap-3 sm:gap-4 h-24">
+          {Array.from({ length: 9 }).map((_, i) => {
+            // Let's make index 8 the largest and index 0 the smallest
+            const size = 16 + (i * 4); 
+            const isSmallest = i === 0;
+            const isLargest = i === 8;
+            const isSelected = i === 4 || i === 6 || isLargest; // Example selected
+            
+            return (
+              <div key={i} className="flex flex-col items-center justify-end h-full relative group">
+                {isSmallest && (
+                  <div className="absolute top-0 w-full h-full flex items-center justify-center z-20">
+                    <div className="w-8 h-1 bg-red-500 rotate-45 rounded-full"></div>
+                    <div className="absolute w-8 h-1 bg-red-500 -rotate-45 rounded-full"></div>
+                  </div>
+                )}
+                
+                <div 
+                  className={`rounded-full shadow-sm transition-all ${
+                    isSmallest ? 'bg-slate-200 dark:bg-slate-700 opacity-50 grayscale' : 
+                    isLargest ? 'bg-indigo-500 ring-4 ring-indigo-500/20' :
+                    isSelected ? 'bg-indigo-400 ring-2 ring-indigo-400/20' : 
+                    'bg-amber-400 dark:bg-amber-500 opacity-60'
+                  }`}
+                  style={{ width: `${size}px`, height: `${size}px` }}
+                >
+                </div>
+                
+                {isLargest && (
+                  <div className="absolute -top-6 text-[9px] font-bold text-indigo-500 uppercase tracking-tight whitespace-nowrap bg-indigo-50 dark:bg-indigo-500/10 px-1.5 py-0.5 rounded border border-indigo-200 dark:border-indigo-500/30">
+                    Always Include
+                  </div>
+                )}
+                {isSmallest && (
+                  <div className="absolute -top-6 text-[9px] font-bold text-red-500 uppercase tracking-tight whitespace-nowrap bg-red-50 dark:bg-red-500/10 px-1.5 py-0.5 rounded border border-red-200 dark:border-red-500/30">
+                    Exclude
+                  </div>
+                )}
+                {(!isSmallest && !isLargest && isSelected) && (
+                  <div className="absolute -top-6 text-[9px] font-bold text-slate-500 uppercase tracking-tight whitespace-nowrap">
+                    Selected
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      <div className="mt-4 text-center">
+        <p className="text-xs font-medium text-slate-600 dark:text-slate-300">
+          Remaining 7 fruits to choose from. Need 3 more to make 4 fruits total.
+        </p>
+        <p className="text-xs font-bold text-indigo-600 dark:text-indigo-400 mt-1">
+          <Latex text="$ {}^{7}C_{3} $" /> ways
+        </p>
       </div>
     </div>
   );

@@ -1,0 +1,12 @@
+--- src/components/Latex.tsx
++++ src/components/Latex.tsx
+@@ -1405,6 +1405,9 @@
+         case 'Example15Diagram':
+           renderedElements.push(<Example15Diagram key={`diag-${i}`} />);
+           break;
++        case 'Exercise53Question2Diagram':
++          renderedElements.push(<Exercise53Question2Diagram key={`diag-${i}`} />);
++          break;
+         default:
+           // If no specific match, just render the text
+           renderedElements.push(

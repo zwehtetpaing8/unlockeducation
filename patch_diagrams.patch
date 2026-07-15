@@ -1,0 +1,21 @@
+--- src/components/Latex.tsx
++++ src/components/Latex.tsx
+@@ -1408,6 +1408,18 @@
+         case 'Exercise53Question2Diagram':
+           renderedElements.push(<Exercise53Question2Diagram key={`diag-${i}`} />);
+           break;
++        case 'Exercise53Question3Diagram':
++          renderedElements.push(<Exercise53Question3Diagram key={`diag-${i}`} />);
++          break;
++        case 'Exercise53Question4Diagram':
++          renderedElements.push(<Exercise53Question4Diagram key={`diag-${i}`} />);
++          break;
++        case 'Exercise53Question5Diagram':
++          renderedElements.push(<Exercise53Question5Diagram key={`diag-${i}`} />);
++          break;
++        case 'Exercise53Question6Diagram':
++          renderedElements.push(<Exercise53Question6Diagram key={`diag-${i}`} />);
++          break;
+         default:
+           renderedElements.push(
+             <div key={`diag-err-${i}`} className="p-3 bg-amber-50 text-amber-700 rounded text-xs">
