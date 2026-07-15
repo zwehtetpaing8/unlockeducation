@@ -15,7 +15,9 @@ import {
   Zap,
   Layers,
   ChevronRight,
-  Brain
+  Brain,
+  Facebook,
+  Send
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import Latex from './Latex';
@@ -104,14 +106,14 @@ export default function HomeView({ onSelectChapter, onNavigateToFormulas }: Home
   };
 
   return (
-    <motion.div 
+    <motion.div
       variants={containerVariants}
       initial="hidden"
       animate="show"
       className="space-y-10 pb-16"
     >
       {/* 1. Hero Welcoming Banner with Elegant Design */}
-      <motion.div 
+      <motion.div
         variants={itemVariants}
         className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-600 via-indigo-700 to-violet-800 text-white p-6 md:p-10 shadow-xl shadow-indigo-500/10"
       >
@@ -122,7 +124,7 @@ export default function HomeView({ onSelectChapter, onNavigateToFormulas }: Home
         <div className="max-w-3xl relative z-10 space-y-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-xs font-semibold tracking-wide text-indigo-100 border border-white/10 uppercase">
             <Sparkles className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
-            Grade 12 Learning Portal
+            Unlock Education Learning Portal
           </div>
           
           <div className="space-y-3">
@@ -130,7 +132,7 @@ export default function HomeView({ onSelectChapter, onNavigateToFormulas }: Home
               Explore the Beauty of Mathematics
             </h1>
             <p className="text-sm md:text-base text-indigo-100/90 leading-relaxed font-sans max-w-2xl">
-              An immersive academic study guide built specifically for Grade 12 students. Master 11 core chapters with beautifully typeset LaTeX formula sheets, interactive practice quizzes, and real-time visualization tools.
+              An immersive academic study guide built specifically for Unlock Education students. Master 11 core chapters with beautifully typeset LaTeX formula sheets, interactive practice quizzes, and real-time visualization tools.
             </p>
           </div>
 
@@ -154,11 +156,11 @@ export default function HomeView({ onSelectChapter, onNavigateToFormulas }: Home
       </motion.div>
 
       {/* 2. Platform Interactive Statistics Grid */}
-      <motion.div 
-        variants={itemVariants}
+      <motion.div
+        variants={containerVariants}
         className="grid grid-cols-2 lg:grid-cols-4 gap-4"
       >
-        <div className="bg-white dark:bg-slate-900/60 p-5 rounded-2xl border border-slate-200/50 dark:border-slate-800/40 shadow-sm flex items-center gap-4">
+        <motion.div variants={itemVariants} whileHover={{ y: -5 }} className="bg-white dark:bg-slate-900/60 p-5 rounded-2xl border border-slate-200/50 dark:border-slate-800/40 shadow-sm flex items-center gap-4">
           <div className="p-3 bg-indigo-50 dark:bg-indigo-950/40 rounded-xl text-indigo-600 dark:text-indigo-400">
             <Layers className="w-5 h-5" />
           </div>
@@ -166,9 +168,9 @@ export default function HomeView({ onSelectChapter, onNavigateToFormulas }: Home
             <div className="text-xl font-bold font-display text-slate-950 dark:text-white">11</div>
             <div className="text-[11px] text-slate-400 font-medium tracking-wide uppercase">Core Chapters</div>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="bg-white dark:bg-slate-900/60 p-5 rounded-2xl border border-slate-200/50 dark:border-slate-800/40 shadow-sm flex items-center gap-4">
+        <motion.div variants={itemVariants} whileHover={{ y: -5 }} className="bg-white dark:bg-slate-900/60 p-5 rounded-2xl border border-slate-200/50 dark:border-slate-800/40 shadow-sm flex items-center gap-4">
           <div className="p-3 bg-emerald-50 dark:bg-emerald-950/40 rounded-xl text-emerald-600 dark:text-emerald-400">
             <Calculator className="w-5 h-5" />
           </div>
@@ -176,9 +178,9 @@ export default function HomeView({ onSelectChapter, onNavigateToFormulas }: Home
             <div className="text-xl font-bold font-display text-slate-950 dark:text-white">100+</div>
             <div className="text-[11px] text-slate-400 font-medium tracking-wide uppercase">LaTeX Formulas</div>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="bg-white dark:bg-slate-900/60 p-5 rounded-2xl border border-slate-200/50 dark:border-slate-800/40 shadow-sm flex items-center gap-4">
+        <motion.div variants={itemVariants} whileHover={{ y: -5 }} className="bg-white dark:bg-slate-900/60 p-5 rounded-2xl border border-slate-200/50 dark:border-slate-800/40 shadow-sm flex items-center gap-4">
           <div className="p-3 bg-amber-50 dark:bg-amber-950/40 rounded-xl text-amber-600 dark:text-amber-400">
             <Award className="w-5 h-5" />
           </div>
@@ -186,9 +188,9 @@ export default function HomeView({ onSelectChapter, onNavigateToFormulas }: Home
             <div className="text-xl font-bold font-display text-slate-950 dark:text-white">110+</div>
             <div className="text-[11px] text-slate-400 font-medium tracking-wide uppercase">Quiz Challenges</div>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="bg-white dark:bg-slate-900/60 p-5 rounded-2xl border border-slate-200/50 dark:border-slate-800/40 shadow-sm flex items-center gap-4">
+        <motion.div variants={itemVariants} whileHover={{ y: -5 }} className="bg-white dark:bg-slate-900/60 p-5 rounded-2xl border border-slate-200/50 dark:border-slate-800/40 shadow-sm flex items-center gap-4">
           <div className="p-3 bg-violet-50 dark:bg-violet-950/40 rounded-xl text-violet-600 dark:text-violet-400">
             <Activity className="w-5 h-5" />
           </div>
@@ -196,11 +198,11 @@ export default function HomeView({ onSelectChapter, onNavigateToFormulas }: Home
             <div className="text-xl font-bold font-display text-slate-950 dark:text-white">10</div>
             <div className="text-[11px] text-slate-400 font-medium tracking-wide uppercase">Live Visualizers</div>
           </div>
-        </div>
+        </motion.div>
       </motion.div>
 
       {/* 3. Interactive Section: Quadratic Solver & Feature Highlight */}
-      <motion.div 
+      <motion.div
         variants={itemVariants}
         className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start"
       >
@@ -212,7 +214,7 @@ export default function HomeView({ onSelectChapter, onNavigateToFormulas }: Home
               Portal Highlights
             </h2>
             <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-              Why study Grade 12 math with this interactive portal?
+              Why study math with this interactive portal?
             </p>
           </div>
 
@@ -330,22 +332,25 @@ export default function HomeView({ onSelectChapter, onNavigateToFormulas }: Home
       </motion.div>
 
       {/* 4. Complete 11 Chapter Syllabus Grid Navigator */}
-      <motion.div 
-        variants={itemVariants}
+      <motion.div
+        variants={containerVariants}
         className="space-y-4"
       >
-        <div className="space-y-1">
+        <motion.div variants={itemVariants} className="space-y-1">
           <h2 className="text-lg md:text-xl font-display font-bold text-slate-900 dark:text-white tracking-tight">
-            Grade 12 Learning modules
+            Unlock Education Learning modules
           </h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
             Click any core chapter card below to jump directly to its textbook, interactive visualizer, formulas, and quizzes.
           </p>
-        </div>
-
+        </motion.div>
+        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {chapters.map((ch, idx) => (
-            <button
+            <motion.button
+              variants={itemVariants}
+              whileHover={{ y: -5, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               key={ch.id}
               onClick={() => onSelectChapter(ch.id)}
               className="group relative bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/40 p-5 rounded-2xl text-left hover:shadow-md hover:border-indigo-200 dark:hover:border-indigo-900 transition-all duration-200 cursor-pointer flex flex-col justify-between min-h-[170px]"
@@ -382,10 +387,77 @@ export default function HomeView({ onSelectChapter, onNavigateToFormulas }: Home
                   <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
                 </span>
               </div>
-            </button>
+            </motion.button>
           ))}
         </div>
       </motion.div>
+
+      {/* 5. Community & Updates Section */}
+      <motion.div
+        variants={itemVariants}
+        className="space-y-4 pt-4"
+      >
+        <div className="space-y-1">
+          <h2 className="text-lg md:text-xl font-display font-bold text-slate-900 dark:text-white tracking-tight">
+            Our Community Updates
+          </h2>
+          <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+            Stay connected with Unlock Education for the latest announcements, updates, and learning tips.
+          </p>
+        </div>
+        
+        <div className="bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/40 rounded-3xl p-6 flex justify-center shadow-sm">
+          <div className="w-full max-w-[500px] rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-700/50 overflow-hidden">
+            {/* Facebook Card Header Cover */}
+            <div className="h-24 md:h-32 bg-gradient-to-r from-blue-600 to-indigo-600 relative">
+              <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+            </div>
+            
+            {/* Facebook Card Content */}
+            <div className="px-6 pb-6 pt-3 relative">
+              {/* Profile Picture & Title */}
+              <div className="flex flex-col items-center -mt-12 md:-mt-16 mb-4">
+                <div className="w-20 h-20 md:w-24 md:h-24 bg-white dark:bg-slate-900 rounded-full p-1.5 shadow-md relative z-10">
+                  <div className="w-full h-full bg-blue-100 dark:bg-blue-900/40 rounded-full flex items-center justify-center text-blue-600 dark:text-blue-400">
+                    <GraduationCap className="w-8 h-8 md:w-10 md:h-10" />
+                  </div>
+                </div>
+                <h3 className="font-display font-bold text-lg md:text-xl text-slate-900 dark:text-white mt-3">
+                  Unlock Education
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400">@UnlockEducation25</p>
+              </div>
+              
+              <p className="text-sm text-center text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
+                Join our Facebook community for daily study materials, tips, and live Q&A sessions for Grade 12 students.
+              </p>
+              
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-3">
+                <a 
+                  href="https://www.facebook.com/UnlockEducation25"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 bg-[#1877F2] hover:bg-[#166FE5] text-white py-2.5 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-colors shadow-sm shadow-blue-500/20"
+                >
+                  <Facebook className="w-4 h-4" />
+                  Follow Page
+                </a>
+                <a 
+                  href="https://t.me/UnlockEducation25"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 py-2.5 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-colors"
+                >
+                  <Send className="w-4 h-4" />
+                  Telegram
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
     </motion.div>
   );
 }

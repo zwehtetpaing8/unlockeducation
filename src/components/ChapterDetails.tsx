@@ -101,7 +101,7 @@ export default function ChapterDetails({ chapter }: ChapterDetailsProps) {
               Chapter {chapter.id}
             </span>
             <span className="text-[10px] text-slate-400 font-medium flex items-center gap-1">
-              <Calendar className="w-3.5 h-3.5" /> Grade 12 Math Syllabus
+              <Calendar className="w-3.5 h-3.5" /> Unlock Education Math Syllabus
             </span>
           </div>
 

@@ -1083,7 +1083,7 @@ function renderMathText(text: string): React.ReactNode {
         parts.push(
           <div
             key={`math-${matchIndex}`}
-            className="katex-block my-3 overflow-x-auto py-1 w-full text-center font-serif text-slate-800 dark:text-slate-200"
+            className="katex-block my-3 overflow-x-auto py-1 w-full font-serif text-slate-800 dark:text-slate-200"
             dangerouslySetInnerHTML={{ __html: html }}
           />
         );
@@ -1262,7 +1262,7 @@ export default function Latex({ text, block = false }: LatexProps) {
         renderedElements.push(
           <div
             key={`math-block-${i}`}
-            className="katex-block my-3 overflow-x-auto py-1 w-full text-center font-serif text-slate-800 dark:text-slate-200"
+            className="katex-block my-3 overflow-x-auto py-1 w-full font-serif text-slate-800 dark:text-slate-200"
             dangerouslySetInnerHTML={{ __html: html }}
           />
         );
@@ -1449,6 +1449,54 @@ export default function Latex({ text, block = false }: LatexProps) {
           break;
         case 'Example26Diagram':
           renderedElements.push(<Example26Diagram key={`diag-${i}`} />);
+          break;
+        case 'Ex5_4_Q6_i_Diag':
+          renderedElements.push(<Ex5_4_Q6_i_Diag key={`diag-${i}`} />);
+          break;
+        case 'Ex5_4_Q6_ii_Diag':
+          renderedElements.push(<Ex5_4_Q6_ii_Diag key={`diag-${i}`} />);
+          break;
+        case 'Ex5_4_Q6_iii_Diag':
+          renderedElements.push(<Ex5_4_Q6_iii_Diag key={`diag-${i}`} />);
+          break;
+        case 'Ex5_4_Q6_iv_Diag_1':
+          renderedElements.push(<Ex5_4_Q6_iv_Diag_1 key={`diag-${i}`} />);
+          break;
+        case 'Ex5_4_Q6_iv_Diag_2':
+          renderedElements.push(<Ex5_4_Q6_iv_Diag_2 key={`diag-${i}`} />);
+          break;
+        case 'Ex5_4_Q7_i_Diag':
+          renderedElements.push(<Ex5_4_Q7_i_Diag key={`diag-${i}`} />);
+          break;
+        case 'Ex5_4_Q7_ii_Diag':
+          renderedElements.push(<Ex5_4_Q7_ii_Diag key={`diag-${i}`} />);
+          break;
+        case 'Ex5_4_Q8_i_Diag':
+          renderedElements.push(<Ex5_4_Q8_i_Diag key={`diag-${i}`} />);
+          break;
+        case 'Ex5_4_Q8_iii_Diag':
+          renderedElements.push(<Ex5_4_Q8_iii_Diag key={`diag-${i}`} />);
+          break;
+        case 'Ex5_4_Q9_Diag':
+          renderedElements.push(<Ex5_4_Q9_Diag key={`diag-${i}`} />);
+          break;
+        case 'Ex5_4_Q10_i_Diag':
+          renderedElements.push(<Ex5_4_Q10_i_Diag key={`diag-${i}`} />);
+          break;
+        case 'Ex5_4_Q10_ii_Diag1':
+          renderedElements.push(<Ex5_4_Q10_ii_Diag1 key={`diag-${i}`} />);
+          break;
+        case 'Ex5_4_Q10_ii_Diag2':
+          renderedElements.push(<Ex5_4_Q10_ii_Diag2 key={`diag-${i}`} />);
+          break;
+        case 'Ex5_4_Q10_ii_Diag3':
+          renderedElements.push(<Ex5_4_Q10_ii_Diag3 key={`diag-${i}`} />);
+          break;
+        case 'Ex5_4_Q10_ii_Diag4':
+          renderedElements.push(<Ex5_4_Q10_ii_Diag4 key={`diag-${i}`} />);
+          break;
+        case 'Ex5_4_Q10_ii_Diag5':
+          renderedElements.push(<Ex5_4_Q10_ii_Diag5 key={`diag-${i}`} />);
           break;
         default:
           renderedElements.push(
@@ -3239,7 +3287,7 @@ function Example15Diagram() {
 
     if (r === 0) {
       return (
-        <div className="space-y-3">
+        <div className="space-y-3 ">
           <div className="p-3 bg-slate-50 dark:bg-slate-900/60 rounded-xl border border-slate-150 dark:border-slate-800">
             <span className="font-bold text-xs text-indigo-600 dark:text-indigo-400 block mb-1">
               Formula:
@@ -3255,7 +3303,7 @@ function Example15Diagram() {
 
     if (r === n) {
       return (
-        <div className="space-y-3">
+        <div className="space-y-3 ">
           <div className="p-3 bg-slate-50 dark:bg-slate-900/60 rounded-xl border border-slate-150 dark:border-slate-800">
             <span className="font-bold text-xs text-indigo-600 dark:text-indigo-400 block mb-1">
               Formula:
@@ -3893,8 +3941,9 @@ function SubsetCountingTable() {
 }
 function Example23Case1Diagram() {
   return (
-    <div className="my-6 p-4 bg-white dark:bg-slate-900 rounded-2xl border border-slate-150 dark:border-slate-800 shadow-sm flex flex-col items-center">
-      <div className="flex gap-2 sm:gap-6 mb-3">
+    <div className="my-6 w-full rounded-2xl border border-slate-150 dark:border-slate-800 shadow-sm bg-white dark:bg-slate-900 overflow-x-auto">
+      <div className="p-4 min-w-full w-max flex flex-col items-center">
+      <div className="flex gap-2 sm:gap-6 mb-3 ">
         {[
           { label: "First\ndigit", val: "4", ways: "1 way" },
           { label: "Second\ndigit", val: "", ways: "3 ways" },
@@ -3903,21 +3952,22 @@ function Example23Case1Diagram() {
         ].map((col, idx) => (
           <div key={idx} className="flex flex-col items-center">
             <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 text-center whitespace-pre-line">{col.label}</span>
-            <div className="w-14 h-14 sm:w-20 sm:h-20 bg-indigo-50/50 dark:bg-indigo-950/20 border-2 border-indigo-100 dark:border-indigo-900/50 rounded-xl flex items-center justify-center mb-2">
-              <span className="font-display font-bold text-lg text-indigo-700 dark:text-indigo-400 whitespace-pre-line text-center text-xs sm:text-lg">{col.val || "1, 3, or 5"}</span>
+            <div className="p-2 w-[110px] h-24 sm:w-32 sm:h-28 bg-indigo-50/50 dark:bg-indigo-950/20 border-2 border-indigo-100 dark:border-indigo-900/50 rounded-xl flex items-center justify-center mb-2">
+              <span className="font-display font-bold text-indigo-700 dark:text-indigo-400 whitespace-pre-line text-center text-[11px] sm:text-sm">{col.val || "1, 3, or 5"}</span>
             </div>
             <span className="text-[10px] sm:text-xs font-bold text-slate-700 dark:text-slate-300">{col.ways}</span>
           </div>
-        ))}
+                ))}
       </div>
     </div>
+  </div>
   );
 }
-
 function Example23Case2Diagram() {
   return (
-    <div className="my-6 p-4 bg-white dark:bg-slate-900 rounded-2xl border border-slate-150 dark:border-slate-800 shadow-sm flex flex-col items-center">
-      <div className="flex gap-2 sm:gap-6 mb-3">
+    <div className="my-6 w-full rounded-2xl border border-slate-150 dark:border-slate-800 shadow-sm bg-white dark:bg-slate-900 overflow-x-auto">
+      <div className="p-4 min-w-full w-max flex flex-col items-center">
+      <div className="flex gap-2 sm:gap-6 mb-3 ">
         {[
           { label: "First\ndigit", val: "5", ways: "1 way" },
           { label: "Second\ndigit", val: "any one of the three digits\n1 or 3 or (2 or 4)", ways: "3 ways" },
@@ -3926,104 +3976,100 @@ function Example23Case2Diagram() {
         ].map((col, idx) => (
           <div key={idx} className="flex flex-col items-center">
             <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 text-center whitespace-pre-line">{col.label}</span>
-            <div className="w-14 h-14 sm:w-24 sm:h-20 bg-emerald-50/50 dark:bg-emerald-950/20 border-2 border-emerald-100 dark:border-emerald-900/50 rounded-xl flex items-center justify-center mb-2 p-1 text-center">
-              <span className="font-display font-bold text-[10px] sm:text-sm text-emerald-700 dark:text-emerald-400 whitespace-pre-line leading-tight">{col.val}</span>
+            <div className="p-2 w-[110px] h-[110px] sm:w-32 sm:h-28 bg-emerald-50/50 dark:bg-emerald-950/20 border-2 border-emerald-100 dark:border-emerald-900/50 rounded-xl flex items-center justify-center mb-2 text-center">
+              <span className="font-display font-bold text-[10px] sm:text-xs text-emerald-700 dark:text-emerald-400 whitespace-pre-line leading-tight">{col.val}</span>
             </div>
             <span className="text-[10px] sm:text-xs font-bold text-slate-700 dark:text-slate-300">{col.ways}</span>
           </div>
-        ))}
+                ))}
       </div>
     </div>
+  </div>
   );
 }
-
 function Example24DiagramA() {
   return (
-    <div className="my-6 p-4 bg-white dark:bg-slate-900 rounded-2xl border border-slate-150 dark:border-slate-800 shadow-sm flex flex-col items-center overflow-x-auto">
-      <div className="flex gap-4">
-        {/* Chemistry Block */}
-        <div className="flex flex-col items-center">
-          <div className="flex gap-1 border-b-2 border-rose-400 pb-2 mb-1 px-2">
-            {['C1', 'C2'].map(b => (
-              <div key={b} className="w-8 h-12 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/50 flex justify-center items-center rounded text-xs font-bold text-rose-700 dark:text-rose-400">{b}</div>
-            ))}
+    <div className="my-6 w-full rounded-2xl border border-slate-150 dark:border-slate-800 shadow-sm bg-white dark:bg-slate-900 overflow-x-auto">
+      <div className="p-4 min-w-full w-max flex flex-col items-center">
+        <div className="flex gap-4">
+          <div className="flex flex-col items-center">
+            <div className="flex gap-1 border-b-2 border-rose-400 pb-2 mb-1 px-2">
+              {['C1', 'C2'].map(b => (
+                <div key={b} className="w-8 h-12 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/50 flex justify-center items-center rounded text-xs font-bold text-rose-700 dark:text-rose-400">{b}</div>
+              ))}
+            </div>
+            <span className="text-[10px] font-bold uppercase text-rose-500 text-center">Left<br/>Chemistry: 2!</span>
           </div>
-          <span className="text-[10px] font-bold uppercase text-rose-500 text-center">Left<br/>Chemistry: 2!</span>
-        </div>
-        
-        {/* Math Block */}
-        <div className="flex flex-col items-center">
-          <div className="flex gap-1 border-b-2 border-blue-400 pb-2 mb-1 px-2">
-            {['M1', 'M2', 'M3', 'M4'].map(b => (
-              <div key={b} className="w-8 h-12 bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/50 flex justify-center items-center rounded text-xs font-bold text-blue-700 dark:text-blue-400">{b}</div>
-            ))}
+          <div className="flex flex-col items-center">
+            <div className="flex gap-1 border-b-2 border-blue-400 pb-2 mb-1 px-2">
+              {['M1', 'M2', 'M3', 'M4'].map(b => (
+                <div key={b} className="w-8 h-12 bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/50 flex justify-center items-center rounded text-xs font-bold text-blue-700 dark:text-blue-400">{b}</div>
+              ))}
+            </div>
+            <span className="text-[10px] font-bold uppercase text-blue-500 text-center">Middle<br/>Mathematics: 4!</span>
           </div>
-          <span className="text-[10px] font-bold uppercase text-blue-500 text-center">Middle<br/>Mathematics: 4!</span>
-        </div>
-
-        {/* Physics Block */}
-        <div className="flex flex-col items-center">
-          <div className="flex gap-1 border-b-2 border-emerald-400 pb-2 mb-1 px-2">
-            {['P1', 'P2', 'P3'].map(b => (
-              <div key={b} className="w-8 h-12 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/50 flex justify-center items-center rounded text-xs font-bold text-emerald-700 dark:text-emerald-400">{b}</div>
-            ))}
+          <div className="flex flex-col items-center">
+            <div className="flex gap-1 border-b-2 border-emerald-400 pb-2 mb-1 px-2">
+              {['P1', 'P2', 'P3'].map(b => (
+                <div key={b} className="w-8 h-12 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/50 flex justify-center items-center rounded text-xs font-bold text-emerald-700 dark:text-emerald-400">{b}</div>
+              ))}
+            </div>
+            <span className="text-[10px] font-bold uppercase text-emerald-500 text-center">Right<br/>Physics: 3!</span>
           </div>
-          <span className="text-[10px] font-bold uppercase text-emerald-500 text-center">Right<br/>Physics: 3!</span>
         </div>
       </div>
     </div>
   );
 }
-
 function Example24DiagramB() {
   return (
-    <div className="my-6 p-4 sm:p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col items-center">
-      <span className="text-xs font-bold text-slate-500 uppercase mb-4 tracking-wider">Arrange the three subject blocks: 3! ways</span>
-      <div className="flex items-center gap-3 mb-6">
-        <div className="px-3 py-2 bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300 font-bold text-xs rounded border border-rose-300 dark:border-rose-800 text-center">Chemistry<br/>block</div>
-        <ArrowRight className="w-4 h-4 text-slate-400" />
-        <div className="px-3 py-2 bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 font-bold text-xs rounded border border-blue-300 dark:border-blue-800 text-center">Mathematics<br/>block</div>
-        <ArrowRight className="w-4 h-4 text-slate-400" />
-        <div className="px-3 py-2 bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300 font-bold text-xs rounded border border-emerald-300 dark:border-emerald-800 text-center">Physics<br/>block</div>
-      </div>
-      <div className="text-sm font-bold text-slate-800 dark:text-slate-200 text-center">
-        Inside the blocks: <span className="font-mono text-indigo-600 dark:text-indigo-400">2! × 4! × 3! = 288</span> ways<br/>
-        <span className="mt-2 inline-block">Total: <span className="font-mono text-indigo-600 dark:text-indigo-400">3! × 288</span></span>
+    <div className="my-6 w-full rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm bg-slate-50 dark:bg-slate-800/50 overflow-x-auto">
+      <div className="p-4 sm:p-6 min-w-full w-max flex flex-col items-center">
+        <span className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase mb-4 tracking-wider text-center">Arrange the three subject blocks: 3! ways</span>
+        <div className="flex items-center gap-3 mb-6">
+          <div className="px-3 py-2 bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300 font-bold text-xs rounded border border-rose-300 dark:border-rose-800 text-center">Chemistry<br/>block</div>
+          <ArrowRight className="w-4 h-4 text-slate-400" />
+          <div className="px-3 py-2 bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 font-bold text-xs rounded border border-blue-300 dark:border-blue-800 text-center">Mathematics<br/>block</div>
+          <ArrowRight className="w-4 h-4 text-slate-400" />
+          <div className="px-3 py-2 bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300 font-bold text-xs rounded border border-emerald-300 dark:border-emerald-800 text-center">Physics<br/>block</div>
+        </div>
+        <div className="text-sm font-bold text-slate-800 dark:text-slate-200 text-center">
+          Inside the blocks: <span className="font-mono text-indigo-600 dark:text-indigo-400">2! × 4! × 3! = 288</span> ways<br/>
+          <span className="mt-2 inline-block">Total: <span className="font-mono text-indigo-600 dark:text-indigo-400">3! × 288</span></span>
+        </div>
       </div>
     </div>
   );
 }
-
 function Example25Diagram() {
   return (
-    <div className="my-6 p-4 sm:p-6 bg-amber-50/50 dark:bg-amber-950/20 rounded-2xl border border-amber-100 dark:border-amber-900/40 shadow-sm flex flex-col items-center">
-      <span className="text-[10px] font-bold text-amber-600/80 uppercase tracking-wider mb-3">Treat the two vowels as one block</span>
-      <div className="flex gap-2 sm:gap-4 items-center">
-        <div className="w-10 h-10 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 flex items-center justify-center font-bold rounded-lg shadow-sm">S</div>
-        <div className="flex flex-col items-center">
-          <div className="flex px-1 py-0.5 bg-amber-100 dark:bg-amber-900/40 border border-amber-300 dark:border-amber-800 rounded-lg shadow-sm gap-1">
-            <div className="w-8 h-8 bg-white dark:bg-slate-900 border border-amber-200 dark:border-amber-800/60 flex items-center justify-center font-bold rounded text-amber-700 dark:text-amber-400">U</div>
-            <div className="w-8 h-8 bg-white dark:bg-slate-900 border border-amber-200 dark:border-amber-800/60 flex items-center justify-center font-bold rounded text-amber-700 dark:text-amber-400">A</div>
+    <div className="my-6 w-full rounded-2xl border border-amber-100 dark:border-amber-900/40 shadow-sm bg-amber-50/50 dark:bg-amber-950/20 overflow-x-auto">
+      <div className="p-4 sm:p-6 min-w-full w-max flex flex-col items-center">
+        <span className="text-[10px] font-bold text-amber-600/80 uppercase tracking-wider mb-3 whitespace-nowrap">Treat the two vowels as one block</span>
+        <div className="flex gap-2 sm:gap-4 items-center">
+          <div className="w-10 h-10 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 flex items-center justify-center font-bold rounded-lg shadow-sm">S</div>
+          <div className="flex flex-col items-center">
+            <div className="flex px-1 py-0.5 bg-amber-100 dark:bg-amber-900/40 border border-amber-300 dark:border-amber-800 rounded-lg shadow-sm gap-1">
+              <div className="w-8 h-8 bg-white dark:bg-slate-900 border border-amber-200 dark:border-amber-800/60 flex items-center justify-center font-bold rounded text-amber-700 dark:text-amber-400">U</div>
+              <div className="w-8 h-8 bg-white dark:bg-slate-900 border border-amber-200 dark:border-amber-800/60 flex items-center justify-center font-bold rounded text-amber-700 dark:text-amber-400">A</div>
+            </div>
           </div>
-          <span className="text-[10px] font-bold text-amber-600 mt-1 uppercase">Block</span>
+          <div className="w-10 h-10 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 flex items-center justify-center font-bold rounded-lg shadow-sm">N</div>
+          <div className="w-10 h-10 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 flex items-center justify-center font-bold rounded-lg shadow-sm">D</div>
+          <div className="w-10 h-10 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 flex items-center justify-center font-bold rounded-lg shadow-sm">Y</div>
         </div>
-        <div className="w-10 h-10 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 flex items-center justify-center font-bold rounded-lg shadow-sm">N</div>
-        <div className="w-10 h-10 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 flex items-center justify-center font-bold rounded-lg shadow-sm">D</div>
-        <div className="w-10 h-10 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 flex items-center justify-center font-bold rounded-lg shadow-sm">Y</div>
-      </div>
-      
-      <div className="mt-4 text-center">
-        <div className="text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-          <span className="text-indigo-600 dark:text-indigo-400">5!</span> ways to arrange the five objects
-        </div>
-        <div className="text-[10px] font-bold text-amber-700 dark:text-amber-500 uppercase tracking-wide">
-          Inside the vowel block: 2! ways
+        <div className="mt-4 text-center">
+          <div className="text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+            <span className="text-indigo-600 dark:text-indigo-400">5!</span> ways to arrange the five objects
+          </div>
+          <div className="text-[10px] font-bold text-amber-700 dark:text-amber-500 uppercase tracking-wide">
+            Inside the vowel block: 2! ways
+          </div>
         </div>
       </div>
     </div>
   );
 }
-
 function Example26Diagram() {
   const options = [
     { t1: 0, t2: 5, label: "(1, 6)" },
@@ -4053,4 +4099,316 @@ function Example26Diagram() {
       </div>
     </div>
   );
+}
+
+export function Ex5_4_Q6_i_Diag() {
+  return (
+    <div className="my-6 w-full overflow-x-auto flex justify-center">
+      <div className="flex gap-2">
+        <div className="flex flex-col items-center border border-slate-300 dark:border-slate-600 rounded overflow-hidden">
+          <div className="px-4 py-2 border-b border-slate-300 dark:border-slate-600 font-bold bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200">T</div>
+          <div className="px-4 py-2 text-indigo-600 dark:text-indigo-400 font-mono">1</div>
+        </div>
+        <div className="flex flex-col items-center border border-slate-300 dark:border-slate-600 rounded overflow-hidden">
+          <div className="px-4 py-2 border-b border-slate-300 dark:border-slate-600 font-bold bg-slate-50 dark:bg-slate-800 h-[41px]"></div>
+          <div className="px-4 py-2 text-indigo-600 dark:text-indigo-400 font-mono">6</div>
+        </div>
+        <div className="flex flex-col items-center border border-slate-300 dark:border-slate-600 rounded overflow-hidden">
+          <div className="px-4 py-2 border-b border-slate-300 dark:border-slate-600 font-bold bg-slate-50 dark:bg-slate-800 h-[41px]"></div>
+          <div className="px-4 py-2 text-indigo-600 dark:text-indigo-400 font-mono">5</div>
+        </div>
+        <div className="flex flex-col items-center border border-slate-300 dark:border-slate-600 rounded overflow-hidden">
+          <div className="px-4 py-2 border-b border-slate-300 dark:border-slate-600 font-bold bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200">N</div>
+          <div className="px-4 py-2 text-indigo-600 dark:text-indigo-400 font-mono">1</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function Ex5_4_Q6_ii_Diag() {
+  return (
+    <div className="my-6 w-full overflow-x-auto flex justify-center">
+      <div className="flex gap-2">
+        <div className="flex flex-col items-center border border-slate-300 dark:border-slate-600 rounded overflow-hidden">
+          <div className="px-4 py-2 border-b border-slate-300 dark:border-slate-600 font-bold bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200">C</div>
+          <div className="px-4 py-2 text-indigo-600 dark:text-indigo-400 font-mono">3</div>
+        </div>
+        <div className="flex flex-col items-center border border-slate-300 dark:border-slate-600 rounded overflow-hidden">
+          <div className="px-4 py-2 border-b border-slate-300 dark:border-slate-600 font-bold bg-slate-50 dark:bg-slate-800 h-[41px]"></div>
+          <div className="px-4 py-2 text-indigo-600 dark:text-indigo-400 font-mono">6</div>
+        </div>
+        <div className="flex flex-col items-center border border-slate-300 dark:border-slate-600 rounded overflow-hidden">
+          <div className="px-4 py-2 border-b border-slate-300 dark:border-slate-600 font-bold bg-slate-50 dark:bg-slate-800 h-[41px]"></div>
+          <div className="px-4 py-2 text-indigo-600 dark:text-indigo-400 font-mono">5</div>
+        </div>
+        <div className="flex flex-col items-center border border-slate-300 dark:border-slate-600 rounded overflow-hidden">
+          <div className="px-4 py-2 border-b border-slate-300 dark:border-slate-600 font-bold bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200">C</div>
+          <div className="px-4 py-2 text-indigo-600 dark:text-indigo-400 font-mono">2</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function Ex5_4_Q6_iii_Diag() {
+  return (
+    <div className="my-6 w-full overflow-x-auto flex justify-center gap-2">
+      {[5, 4, 3, 2].map(n => (
+         <div key={n} className="w-12 h-12 flex items-center justify-center border border-slate-300 dark:border-slate-600 rounded bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 font-mono text-lg font-semibold">
+           {n}
+         </div>
+      ))}
+    </div>
+  )
+}
+
+export function Ex5_4_Q6_iv_Diag_1() {
+  return (
+    <div className="my-6 w-full overflow-x-auto flex justify-center">
+      <div className="flex gap-2">
+        <div className="flex flex-col items-center border border-slate-300 dark:border-slate-600 rounded overflow-hidden">
+          <div className="px-4 py-2 border-b border-slate-300 dark:border-slate-600 font-bold bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200">C</div>
+          <div className="px-4 py-2 text-indigo-600 dark:text-indigo-400 font-mono">Q</div>
+        </div>
+        <div className="flex flex-col items-center border border-slate-300 dark:border-slate-600 rounded overflow-hidden">
+          <div className="px-4 py-2 border-b border-slate-300 dark:border-slate-600 font-bold bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200">C</div>
+          <div className="px-4 py-2 text-indigo-600 dark:text-indigo-400 font-mono">T</div>
+        </div>
+        <div className="flex flex-col items-center border border-slate-300 dark:border-slate-600 rounded overflow-hidden">
+          <div className="px-4 py-2 border-b border-slate-300 dark:border-slate-600 font-bold bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200">C</div>
+          <div className="px-4 py-2 text-indigo-600 dark:text-indigo-400 font-mono">N</div>
+        </div>
+        <div className="flex flex-col items-center border border-slate-300 dark:border-slate-600 rounded overflow-hidden">
+          <div className="px-4 py-2 border-b border-slate-300 dark:border-slate-600 font-bold bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200">V</div>
+          <div className="px-4 py-2 text-indigo-600 dark:text-indigo-400 font-mono">5</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function Ex5_4_Q6_iv_Diag_2() {
+  return (
+    <div className="my-6 w-full overflow-x-auto flex justify-center items-center gap-4">
+      <div className="flex flex-col items-center">
+        <span className="text-[10px] font-bold text-slate-600 dark:text-slate-400 mb-1">Choose V</span>
+        <div className="w-16 h-10 border border-slate-300 dark:border-slate-600 rounded flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-mono bg-white dark:bg-slate-900">5</div>
+      </div>
+      <span className="text-slate-400 font-bold">&times;</span>
+      <div className="flex flex-col items-center">
+        <span className="text-[10px] font-bold text-slate-600 dark:text-slate-400 mb-1">Place V</span>
+        <div className="w-16 h-10 border border-slate-300 dark:border-slate-600 rounded flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-mono bg-white dark:bg-slate-900">4</div>
+      </div>
+      <span className="text-slate-400 font-bold">&times;</span>
+      <div className="flex flex-col items-center">
+        <span className="text-[10px] font-bold text-slate-600 dark:text-slate-400 mb-1">Arrange C</span>
+        <div className="w-16 h-10 border border-slate-300 dark:border-slate-600 rounded flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-mono bg-white dark:bg-slate-900">3!</div>
+      </div>
+    </div>
+  );
+}
+
+export function Ex5_4_Q7_i_Diag() {
+  return (
+    <div className="my-6 w-full overflow-x-auto flex justify-center items-center gap-3">
+      <div className="flex flex-col items-center border border-slate-300 dark:border-slate-600 rounded p-2 bg-slate-50 dark:bg-slate-800">
+        <div className="font-bold flex gap-2 text-slate-800 dark:text-slate-200">
+          <span>S<sub>1</sub></span><span>S<sub>2</sub></span><span>S<sub>3</sub></span>
+        </div>
+        <span className="text-[10px] text-slate-500 mt-1">block</span>
+      </div>
+      <div className="w-12 h-12 border border-slate-300 dark:border-slate-600 rounded flex items-center justify-center font-bold bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200">
+        B<sub>1</sub>
+      </div>
+      <div className="w-12 h-12 border border-slate-300 dark:border-slate-600 rounded flex items-center justify-center font-bold bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200">
+        B<sub>2</sub>
+      </div>
+      <div className="w-12 h-12 border border-slate-300 dark:border-slate-600 rounded flex items-center justify-center font-bold bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200">
+        B<sub>3</sub>
+      </div>
+    </div>
+  );
+}
+
+export function Ex5_4_Q7_ii_Diag() {
+  const row1 = ['B', 'S', 'B', 'S', 'B', 'S'];
+  const row2 = ['S', 'B', 'S', 'B', 'S', 'B'];
+  return (
+    <div className="my-6 w-full overflow-x-auto flex flex-col items-center gap-2">
+      <div className="flex gap-2">
+        {row1.map((l, i) => (
+           <div key={i} className={`w-10 h-10 border border-slate-300 dark:border-slate-600 rounded flex items-center justify-center font-bold bg-white dark:bg-slate-900 ${l === 'B' ? 'text-blue-600 dark:text-blue-400' : 'text-rose-600 dark:text-rose-400'}`}>{l}</div>
+        ))}
+      </div>
+      <div className="flex gap-2">
+        {row2.map((l, i) => (
+           <div key={i} className={`w-10 h-10 border border-slate-300 dark:border-slate-600 rounded flex items-center justify-center font-bold bg-white dark:bg-slate-900 ${l === 'B' ? 'text-blue-600 dark:text-blue-400' : 'text-rose-600 dark:text-rose-400'}`}>{l}</div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export function Ex5_4_Q8_i_Diag() {
+  return (
+    <div className="my-6 w-full overflow-x-auto flex justify-center items-center gap-2">
+      <div className="border border-slate-300 dark:border-slate-600 rounded p-2 px-3 bg-slate-50 dark:bg-slate-800 flex items-center font-bold text-sm text-slate-700 dark:text-slate-300 h-10">
+        Vowel block <span className="text-indigo-600 dark:text-indigo-400 ml-2 font-mono">(E, A, O)</span>
+      </div>
+      {['H', 'X', 'G', 'N'].map(l => (
+        <div key={l} className="w-10 h-10 border border-slate-300 dark:border-slate-600 rounded flex items-center justify-center font-bold bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200">{l}</div>
+      ))}
+    </div>
+  )
+}
+
+export function Ex5_4_Q8_iii_Diag() {
+  return (
+    <div className="my-6 w-full overflow-x-auto flex justify-center items-center gap-2">
+      {['C', 'V', 'C', 'V', 'C', 'V', 'C'].map((l, i) => (
+        <div key={i} className={`w-10 h-10 border border-slate-300 dark:border-slate-600 rounded flex items-center justify-center font-bold bg-white dark:bg-slate-900 ${l === 'C' ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>{l}</div>
+      ))}
+    </div>
+  )
+}
+
+export function Ex5_4_Q9_Diag() {
+  const rows = [
+    [ {t: 'N', b: '1'}, {t: '', b: '2'}, {t: '', b: '3'}, {t: '', b: '4'}, {t: 'N', b: '5'}, {t: '', b: '6'}, {t: '', b: '7'} ],
+    [ {t: '', b: '1'}, {t: 'N', b: '2'}, {t: '', b: '3'}, {t: '', b: '4'}, {t: '', b: '5'}, {t: 'N', b: '6'}, {t: '', b: '7'} ],
+    [ {t: '', b: '1'}, {t: '', b: '2'}, {t: 'N', b: '3'}, {t: '', b: '4'}, {t: '', b: '5'}, {t: '', b: '6'}, {t: 'N', b: '7'} ],
+  ];
+  return (
+    <div className="my-6 w-full overflow-x-auto flex flex-col items-center gap-4">
+      {rows.map((row, i) => (
+        <div key={i} className="flex gap-2">
+          {row.map((cell, j) => (
+            <div key={j} className="flex flex-col items-center border border-slate-300 dark:border-slate-600 rounded overflow-hidden w-10">
+              <div className="h-8 w-full border-b border-slate-300 dark:border-slate-600 font-bold bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-rose-600 dark:text-rose-400">{cell.t}</div>
+              <div className="h-8 w-full flex items-center justify-center text-slate-500 font-mono text-xs bg-white dark:bg-slate-900">{cell.b}</div>
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export function Ex5_4_Q10_i_Diag() {
+  return (
+    <div className="my-6 w-full overflow-x-auto flex flex-col items-center gap-2">
+      {Array.from({length: 4}).map((_, row) => (
+        <div key={row} className="flex gap-1">
+          {Array.from({length: 10}).map((_, col) => {
+            const isE = col === row || col === row + 6;
+            return (
+              <div key={col} className={`w-8 h-8 border flex items-center justify-center font-bold text-sm ${isE ? 'border-indigo-300 bg-indigo-50 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-400' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-300 dark:text-slate-700'}`}>
+                {isE ? 'E' : ''}
+              </div>
+            )
+          })}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export function Ex5_4_Q10_ii_Diag1() {
+  return (
+    <div className="my-6 w-full overflow-x-auto flex justify-center">
+      <div className="flex flex-col gap-2">
+        {Array.from({length: 4}).map((_, row) => (
+          <div key={row} className="flex items-center gap-3">
+            <span className="font-mono text-sm w-8 text-slate-600 dark:text-slate-400">A<sub>{row+1}</sub> :</span>
+            <div className="flex gap-1">
+              {Array.from({length: 10}).map((_, col) => {
+                const isS = col === row || col === row + 6;
+                return (
+                  <div key={col} className={`w-8 h-8 border flex items-center justify-center font-bold text-sm ${isS ? 'border-emerald-300 bg-emerald-50 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-300 dark:text-slate-700'}`}>
+                    {isS ? 'S' : ''}
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export function Ex5_4_Q10_ii_Diag2() {
+  return (
+    <div className="my-6 w-full overflow-x-auto flex justify-center">
+      <div className="flex gap-1">
+        {Array.from({length: 10}).map((_, col) => {
+          const isS = col === 0 || col === 6;
+          return (
+            <div key={col} className={`w-8 h-8 border flex items-center justify-center font-bold text-sm ${isS ? 'border-emerald-300 bg-emerald-50 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-300 dark:text-slate-700'}`}>
+              {isS ? 'S' : ''}
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+export function Ex5_4_Q10_ii_Diag3() {
+  return (
+    <div className="my-6 w-full overflow-x-auto flex justify-center">
+      <div className="flex gap-1">
+        {Array.from({length: 10}).map((_, col) => {
+          const isS = col === 0 || col === 1 || col === 6 || col === 7;
+          return (
+            <div key={col} className={`w-8 h-8 border flex items-center justify-center font-bold text-sm ${isS ? 'border-emerald-300 bg-emerald-50 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-300 dark:text-slate-700'}`}>
+              {isS ? 'S' : ''}
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+export function Ex5_4_Q10_ii_Diag4() {
+  return (
+    <div className="my-6 w-full overflow-x-auto flex justify-center">
+      <div className="flex flex-col gap-2">
+        {Array.from({length: 4}).map((_, row) => (
+          <div key={row} className="flex items-center gap-3">
+            <span className="font-mono text-sm w-16 text-slate-600 dark:text-slate-400">({row+1}, {row+7}) :</span>
+            <div className="flex gap-1">
+              {Array.from({length: 10}).map((_, col) => {
+                const isS = col === row || col === row + 6;
+                return (
+                  <div key={col} className={`w-8 h-8 border flex items-center justify-center font-bold text-sm ${isS ? 'border-amber-300 bg-amber-50 dark:bg-amber-900/40 text-amber-700 dark:text-amber-400' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-300 dark:text-slate-700'}`}>
+                    {isS ? 'S' : ''}
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export function Ex5_4_Q10_ii_Diag5() {
+  return (
+    <div className="my-6 w-full overflow-x-auto flex justify-center">
+      <div className="flex gap-1">
+        {Array.from({length: 10}).map((_, col) => {
+          const isS = col === 0 || col === 1 || col === 6 || col === 7;
+          return (
+            <div key={col} className={`w-8 h-8 border flex items-center justify-center font-bold text-sm ${isS ? 'border-amber-300 bg-amber-50 dark:bg-amber-900/40 text-amber-700 dark:text-amber-400' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-300 dark:text-slate-700'}`}>
+              {isS ? 'S' : ''}
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
 }

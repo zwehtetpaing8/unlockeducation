@@ -1,0 +1,210 @@
+111:$$\text{Total labels} = 4 \times 2 \times 2 = 16$$
+183:$$\text{Total possible numbers} = 20 + 60 = 80$$
+210:  * ထို့ကြောင့် ဆယ်ဂဏန်းနေရာတွင် $5$ တစ်ကြိမ�$$ {}^nP_r \quad \text{or} \quad P(n, r) $$
+214:အရာဝတ္ထုများကို ထပ်ခါတလဲလဲ မသုံးဘဲ (without repetition) နေရာ $r$ ခုတွင် နေရာချစဥ်းစားရာ၌ ပထမဦးဆုံးနေရာတွင် ချထားရန်အတွက် ရွေးချယ်စရာ $n$ ခုရှိသည်။ ဒုတိယနေရာရောက်သောအခါ အရှေ့မှာ $1$ ခု သုံးပြီးသားဖြစ်သောကြောင့် $n-1$ နည်းကျန်သည်။ တတိယနေရာရောက်သောအခါ အရှေ့မှာ $2$ ခု သုံးပြီးသားဖြစ်သောကြောင့် $n-2$ နည်းကျန်သည်။ ဤနည်းအတိုင်း ဆက်သွားပါက နေရာ $r$ ခုအတွက် ကျန်ရှိသော ရွေးချယ်နိုင်ခွင့်များကို အောက်ပါဇယားအတိုင်း တွေ့ရှိနိုင်သည်။es 0! \implies 0! = 1$$
+220:   $$n! = n \times (n - 1)!$$
+225:   $$\frac{7!}{5!} = \frac{7 \times 6 \times 5!}{5!} = 7 \times 6 = 42$$
+239:(a) $\frac{7!}{4!3!}$
+240:(b) $\frac{6! + 5! - 4!}{4!}$
+249:\end{aligned}$$
+256:\end{aligned}$$
+264:\end{aligned}$$
+296:   $$\frac{1}{5!} + \frac{1}{6!} + \frac{1}{7!} = \frac{50}{7!}$$
+306:   $$\text{Number of ways} = 6 \times 4 \times 3 = 72 \text{ ways}$$
+314:   $$\text{Number of programs} = 7 \times 6 \times 5 = 210 \text{ programs}$$
+322:   $$\text{Number of codes} = 10 \times 10 \times 10 \times 10 = 10^4 = 10000 \text{ codes}$$
+339:   $$\text{Total number of lunches} = 80 + 120 + 180 = 380 \text{ ways}$$
+350:  $$\text{Number of codes} = 12 \times 12 \times 10 = 1440$$
+352:  $$\text{Number of codes} = 12 \times 11 \times 10 = 1320$$
+354:  $$\text{Number of codes} = 12 \times 1 \times 10 = 120$$
+357:  * Case 1: Two different vowels $\rightarrow 3 \times 2 \times 10 = 60$
+358:  * Case 2: Two different consonants $\rightarrow 9 \times 8 \times 10 = 720$
+359:  $$\text{Total number of codes} = 60 + 720 = 780$$
+369:  $$\frac{1}{5 \cdot 4 \cdot 3} = \frac{1}{5 \cdot 4 \cdot 3} \times \frac{2!}{2!} = \frac{2!}{5!}$$
+378:  \end{aligned}$$
+382:   $$\frac{1}{5!} + \frac{1}{6!} + \frac{1}{7!} = \frac{50}{7!}$$
+390:   \end{aligned}$$
+406:$$(A, B) \neq (B, A)$$
+410:* **5 different pictures:** $A, B, C, D, E$
+425:$$ {}^nP_r \quad \text{or} \quad P(n, r) $$
+444:$$ {}^3C_2 = \frac{ {}^3P_2}{2!} = \frac{6}{2} = 3 \text{ နည်း}$$
+448:$$ {}^nC_r = \frac{ {}^nP_r}{r!}$$
+462:$$n - (r-1) = n - r + 1$$
+472:\end{aligned}$$
+474:$$ {}^nP_r = \frac{n!}{(n-r)!} \quad (0 \le r \le n) $$
+488:\end{aligned}$$
+495:  $$ {}^nP_n = \frac{n!}{(n-n)!} = \frac{n!}{0!} = \frac{n!}{1} = n! $$
+500:  $$ {}^nP_0 = \frac{n!}{(n-0)!} = \frac{n!}{n!} = 1 $$
+504:  $$ {}^nP_1 = \frac{n!}{(n-1)!} = n $$
+528:\end{aligned}$$
+535:(a) $ {}^nP_2 = 9n$
+536:(b) $ {}^nP_3 = 12 \cdot {}^nP_2$
+548:\end{aligned}$$
+554:$$n(n-1)(n-2) = 12n(n-1)$$
+559:\end{aligned}$$
+571:$$\text{The required number of ways} = {}^{15}P_3 = 15 \times 14 \times 13 = 2730$$
+587:$$\text{The required number of arrangements} = 6! = 6 \times 5 \times 4 \times 3 \times 2 \times 1 = 720$$
+605:  $$\text{Number of ways} = {}^5P_4 = 5 \times 4 \times 3 \times 2 = 120$$
+609:  $$\text{Number of ways} = {}^4P_4 = 4! = 24$$
+612:$$\text{Total ways} = {}^5P_4 + {}^4P_4 = 120 + 24 = 144$$
+630:  $$\text{Number of ways} = 1 \times 5! = 120$$
+634:  $$\text{Number of ways} = 1 \times 5! = 120$$
+637:$$\text{Total ways} = 120 + 120 = 240$$
+650:   (a) $ {}^nP_2 = 42$
+651:   (b) $ {}^nP_3 = 9 \cdot {}^nP_2$
+667:   (a) $ {}^nP_2 = 42$
+668:   (b) $ {}^nP_3 = 9 \cdot {}^nP_2$
+675:   \end{aligned}$$
+679:   $$n(n-1)(n-2) = 9n(n-1)$$
+684:   \end{aligned}$$
+690:   $$\text{Number of ways} = {}^{14}P_3 = \frac{14!}{(14-3)!} = \frac{14!}{11!} = 14 \times 13 \times 12 = 2184$$
+700:   $$\text{Number of signals} = {}^9P_4 = 9 \times 8 \times 7 \times 6 = 3024$$
+710:   $$\text{Number of ways} = {}^{12}P_4 = 12 \times 11 \times 10 \times 9 = 11880$$
+739:   \end{aligned}$$
+761:$$\{A, B\} = \{B, A\}$$
+787:$$ {}^nC_r = \binom{n}{r}$$
+812:$$ {}^3C_2 = \frac{{}^3P_2}{2!} = \frac{6}{2} = 3 \text{ နည်း}$$
+816:$$ {}^nC_r = \frac{{}^nP_r}{r!}$$
+824:$$ {}^nP_r = {}^nC_r \cdot r! \implies {}^nC_r = \frac{{}^nP_r}{r!}$$
+830:$$ {}^nC_r = \frac{{}^nP_r}{r!} = \frac{\frac{n!}{(n-r)!}}{r!} = \frac{n!}{r!(n-r)!}$$
+834:$$ {}^nC_r = \binom{n}{r} = \frac{n!}{r!(n-r)!} \quad (0 \le r \le n)$$
+844:  $$ {}^nC_0 = \frac{n!}{0!(n-0)!} = \frac{n!}{1 \cdot n!} = 1$$
+848:  $$ {}^nC_1 = \frac{n!}{1!(n-1)!} = \frac{n \cdot (n-1)!}{1 \cdot (n-1)!} = n$$
+852:  $$ {}^nC_n = \frac{n!}{n!(n-n)!} = \frac{n!}{n! \cdot 0!} = 1$$
+878:\end{aligned}$$
+897:\end{aligned}$$
+907:  $$ {}^nC_1 = n $$
+911:  $$ {}^nC_n = 1 $$
+916:  $$ {}^nC_{n-1} = n $$
+920:  $$ {}^nC_2 = \frac{n(n-1)}{2} $$
+923:  $$ {}^nC_r = {}^nC_{n-r} $$
+943:$$\begin{aligned}\text{The required number of ways} &= {}^5C_1 \cdot {}^7C_3 \cdot {}^4C_2 \\&= 5 \cdot \frac{7 \cdot 6 \cdot 5}{3 \cdot 2 \cdot 1} \cdot \frac{4 \cdot 3}{2 \cdot 1} \\&= 5 \cdot 35 \cdot 6 \\&= 1050.\end{aligned}$$
+962:$$\begin{aligned}\text{Required ways} &= {}^4C_3 + {}^7C_3 \\&= 4 + \frac{7 \cdot 6 \cdot 5}{3 \cdot 2 \cdot 1} \\&= 4 + 35 \\&= 39.\end{aligned}$$
+982:$$\begin{aligned}\text{The required number of ways} &= {}^6C_3 \cdot {}^3C_1 \cdot {}^2C_2 \\&= 20 \cdot 3 \cdot 1 \\&= 60.\end{aligned}$$
+1002:$$\begin{aligned}\text{Required ways} &= {}^8C_3 \\&= \frac{8 \cdot 7 \cdot 6}{3 \cdot 2 \cdot 1} \\&= 56.\end{aligned}$$
+1008:$$\begin{aligned}\text{Required ways} &= {}^8C_4 \\&= \frac{8 \cdot 7 \cdot 6 \cdot 5}{4 \cdot 3 \cdot 2 \cdot 1} \\&= 70.\end{aligned}$$
+1027:$$\begin{aligned}{}^{12}C_5 \cdot {}^7C_4 &= \frac{12 \cdot 11 \cdot 10 \cdot 9 \cdot 8}{5 \cdot 4 \cdot 3 \cdot 2 \cdot 1} \cdot \frac{7 \cdot 6 \cdot 5 \cdot 4}{4 \cdot 3 \cdot 2 \cdot 1} \\&= \frac{12 \cdot 11 \cdot 10 \cdot 9}{4 \cdot 3 \cdot 2 \cdot 1} \cdot \frac{8 \cdot 7 \cdot 6 \cdot 5 \cdot 4}{5 \cdot 4 \cdot 3 \cdot 2 \cdot 1} \\&= {}^{12}C_4 \cdot {}^8C_5\end{aligned}$$
+1037:$$\begin{aligned}\text{The required number of ways} &= {}^{10}C_7 \\&= {}^{10}C_3 \\&= \frac{10 \cdot 9 \cdot 8}{3 \cdot 2 \cdot 1} \\&= 120.\end{aligned}$$
+1051:$$\begin{aligned}\text{The required number of ways} &= {}^5C_5 \cdot {}^5C_4 \cdot {}^4C_3 \\&= 1 \cdot 5 \cdot 4 \\&= 20.\end{aligned}$$
+1059:$$\begin{aligned}\text{The required number of games} &= {}^9C_2 \\&= \frac{9 \cdot 8}{2 \cdot 1} \\&= 36.\end{aligned}$$
+1067:$$\begin{aligned}\text{Number of lines} &= {}^8C_2 \\&= \frac{8 \cdot 7}{2 \cdot 1} \\&= 28.\end{aligned}$$
+1071:$$\begin{aligned}\text{Number of triangles} &= {}^8C_3 \\&= \frac{8 \cdot 7 \cdot 6}{3 \cdot 2 \cdot 1} \\&= 56.\end{aligned}$$
+1081:$$\begin{aligned}\text{The required number of ways} &= {}^7C_3 \\&= \frac{7 \cdot 6 \cdot 5}{3 \cdot 2 \cdot 1} \\&= 35.\end{aligned}$$
+1106:$$
+1112:$$
+1115:$$ \frac{n!}{n_1! n_2! \dots n_r!} $$
+1127:$$
+1133:$$
+1160:$$ \text{Case 1: last digit is not } 5 = 4 \cdot 4! = 96 $$
+1167:$$ \text{Case 2: last digit is 5 and 4th digit is not 2} = 3 \cdot 3! = 18 $$
+1171:$$ \text{Required number of codes not ending in } 25 = 96 + 18 = 114 $$
+1175:$$ \text{Total number of codes} = 5! = 120 $$
+1182:$$ \text{Number of codes ending in } 25 = 3! \cdot 1 \cdot 1 = 6 $$
+1184:$$
+1190:$$
+1203:$$
+1208:$$
+1216:$$ \text{Number of permutations ending in 2R's} = 5! \cdot 1! \cdot 1 = 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 \cdot 1 \cdot 1 = 120. $$
+1217:$$ \text{Number of permutations not ending in 2R's} = 2520 - 120 = 2400. $$
+1225:$$
+1231:$$
+1232:$$ \text{Number of permutations not ending in MAP} = 2520 - 12 = 2508. $$
+1247:$$ \{a, b, c, d\}, \quad \{a, b, c, e\}, \quad \{a, b, d, e\}, \quad \{a, c, d, e\}, \quad \{b, c, d, e\}. $$
+1250:$$ {}^5C_0 + {}^5C_1 + {}^5C_2 + \dots + {}^5C_5 = 1 + 5 + 10 + 10 + 5 + 1 = 32. $$
+1269:$$ 2 \times 2 \times 2 \times 2 \times 2 = 2^5 = 32. $$
+1272:$$ {}^5C_0 + {}^5C_1 + {}^5C_2 + \dots + {}^5C_5 = 2^5 = 32. $$
+1289:$$
+1296:$$
+1302:$$ 2^9 = 512. $$
+1304:$$
+1310:$$
+1335:$$ \text{Number of 4-digit even numbers in Case 1} = 1 \times 3 \times 2 \times 1 = 6. $$
+1344:$$ \text{Number of 4-digit even numbers in Case 2} = 1 \times 3 \times 2 \times 2 = 12. $$
+1367:$$
+1373:$$
+1382:$$
+1388:$$
+1407:$$
+1413:$$
+1427:$ (1, 6), (2, 7), (3, 8) $
+1437:$ \frac{6!}{2!2!} = 180 $
+1441:$$
+1447:$$
+1495:$$
+1501:$$
+1509:$$
+1515:$$
+1523:$$
+1529:$$
+1539:$$
+1545:$$
+1549:$$
+1555:$$
+1559:$$
+1565:$$
+1575:$$
+1581:$$
+1585:$$
+1591:$$
+1605:$$
+1611:$$
+1615:$$
+1620:$$
+1624:$$
+1630:$$
+1646:$$
+1652:$$
+1657:$$
+1663:$$
+1671:$$
+1677:$$
+1692:$$
+1698:$$
+1705:$$
+1711:$$
+1718:$$
+1724:$$
+1735:$$
+1741:$$
+1745:$$
+1751:$$
+1766:$$
+1772:$$
+1781:$$
+1787:$$
+1803:$$
+1809:$$
+1814:$$
+1819:$$
+1821:If the 3 vowels are placed together $= 5! \cdot 3!$
+1822:$$
+1827:$$
+1829:If the 3 vowels are not placed together, the number of permutations $= 7! - 5! \cdot 3!$
+1830:$$
+1835:$$
+1844:$$
+1850:$$
+1854:$$
+1860:$$
+1874:$$
+1880:$$
+1896:$$
+1902:$$
+1907:$(1, 7), \quad (2, 8), \quad (3, 9), \quad (4, 10)$
+1910:$A_1 = (1, 7), \quad A_2 = (2, 8), \quad A_3 = (3, 9), \quad A_4 = (4, 10)$
+1923:သတ်မှတ်ပြီး S 2 လုံး၊ ကျန်နေရာ 8 နေရာထဲမှ S 3 လုံး ထပ်ရွေး $\Rightarrow {}^8C_3$
+1930:ထပ်ရေတွက်မိသော ပုံစံ ဥပမာ $A_1 \cap A_2$
+1934:သတ်မှတ်ပြီး S 4 လုံး၊ ကျန်နေရာ 6 နေရာထဲမှ S 1 လုံး ထပ်ရွေး $\Rightarrow {}^6C_1$
+1937:$ {}^4C_2 \cdot {}^6C_1 = 6 \cdot 6 = 36$
+1941:$$
+1947:$$
+1951:$$
+1957:$$
+1965:$$
+1967:$$
+1973:$$
+1975:$$
+1979:$$
+1984:$$
+1988:$$
+1994:$$

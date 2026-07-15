@@ -96,106 +96,54 @@ Number of ways from A to C through B $= 6 \times 4 = 24$.
 
 **Problem:** There are four blood types, namely A, B, AB, and O. Blood can also be Rh positive $(+)$ or Rh negative $(-)$. A blood donor can be classified as either male or female. How many different possible ways can a donor have his or her blood labeled?
 
-သွေးအမျိုးအစားက $\text{A, B, AB, O}$ ဆိုပြီး $4$ မျိုးရှိသည်။ ပြီးတော့ သွေးမှာ $\text{Rh positive (+)}$ နဲ့ $\text{Rh negative (-)}$ ဆိုပြီး ခွဲခြားချက်နှစ်မျိုး ရှိသေးသည်။ သွေးအလှူရှင်ကိုလည်း $\text{male}$ ဒါမှမဟုတ် $\text{female}$ လို့ ခွဲထားမည်။ ဒီအချက်တွေကို အခြေခံပြီး သွေးကို $\text{label}$ တပ်နိုင်တဲ့ နည်းလမ်းစုစုပေါင်းကို ရှာရမှာဖြစ်ပါတယ်။
+သွေးအမျိုးအစားက $\text{A, B, AB, O}$ ဆိုပြီး $4$ မျိုးရှိသည်။ ပြီးတော့ သွေးမှာ $\text{Rh positive (+)}$ နဲ့ $\text{Rh negative (-)}$ ဆိုပြီး ခွဲခြားချက်နှစ်မျိုး ရှိသေးသည်။ သွေးလှူရှင်တစ်ဦးကို ယောက်ျား (male) သို့မဟုတ် မိန်းမ (female) ဆိုပြီး ထပ်ခွဲခြားနိုင်သေးတယ်။ ဒီတော့ ရွေးချယ်မှုအဆင့် $3$ ခုရှိတာကို တွေ့ရမယ်။
+* သွေးအမျိုးအစား (Blood type) ရွေးချယ်ရန် နည်းလမ်း $= 4$ မျိုး
+* Rh factor ရွေးချယ်ရန် နည်းလမ်း $= 2$ မျိုး
+* လိင်အမျိုးအစား (Gender) ရွေးချယ်ရန် နည်းလမ်း $= 2$ မျိုး
 
-[DIAGRAM: BloodLabelDiagram]
-
-**Solution:**
-
-A person's blood classification consists of three steps:
-1. Identifying the blood group (A, B, AB, or O) — $4$ ways.
-2. Identifying the Rh factor ($+$ or $-$) — $2$ ways.
-3. Identifying the donor's gender (male or female) — $2$ ways.
-
-By the Multiplication Principle, the total number of ways to classify a person's blood is:
-$$\text{Total labels} = 4 \times 2 \times 2 = 16$$
-
-ဒါကြောင့် သွေးအလှူရှင်တစ်ဦးရဲ့ သွေးကို label တပ်နိုင်တဲ့ နည်းလမ်းစုစုပေါင်းက $16$ နည်းလမ်းဖြစ်ပါတယ်။
+**Counting by Multiplication:**
+$\text{Total number of ways} = 4 \times 2 \times 2 = 16 \text{ ways}$
 
 ---
 
 #### Example 3
-
-**Problem:** There are 3 picture nails on a wall. If there are 5 different pictures and each nail can hold only one picture, in how many different ways can the pictures be hung on all the nails?
-
-နံရံပေါ်မှာ ပုံချိတ်ဖို့ သံချောင်း 3 ချောင်းရှိတယ်။ မတူညီတဲ့ ပုံ 5 ပုံရှိပြီး သံချောင်းတစ်ချောင်းမှာ ပုံတစ်ပုံပဲ ချိတ်နိုင်တယ်ဆိုရင် သံချောင်းအားလုံးမှာ ပုံတွေကို ဘယ်နှစ်နည်းနဲ့ ချိတ်နိုင်မလဲ ရှာရမှာဖြစ်ပါတယ်။
-
+**Problem:** There are 3 nails on a wall. In how many ways can 3 out of 5 distinct pictures be hung on these nails?
+နံရံတစ်ခုပေါ်တွင် သံမှို $3$ ချောင်းရှိသည်။ မတူညီသော ပုံ $5$ ပုံထဲမှ $3$ ပုံကို ရွေးချယ်၍ အဆိုပါ သံမှိုများပေါ်တွင် ချိတ်ဆွဲမည်ဆိုပါက မည်မျှနည်းလမ်းရှိမည်နည်း။
 [DIAGRAM: PictureNailsDiagram]
 
 **Solution:**
+ဤပြဿနာတွင် ပုံများကို တစ်ခုပြီးတစ်ခု ဆက်တိုက်ချိတ်ဆွဲမည်ဟု စဉ်းစားနိုင်သည်။
+* ပထမသံမှိုတွင် ချိတ်ဆွဲရန် ပုံ $5$ ပုံထဲမှ တစ်ပုံကို ရွေးချယ်ရမည်ဖြစ်သဖြင့် ရွေးချယ်နိုင်သော နည်းလမ်း $= 5$ နည်း။
+* ဒုတိယသံမှိုတွင် ချိတ်ဆွဲရန် ကျန်ရှိသော ပုံ $4$ ပုံထဲမှ တစ်ပုံကို ရွေးချယ်ရမည်ဖြစ်သဖြင့် ရွေးချယ်နိုင်သော နည်းလမ်း $= 4$ နည်း။
+* တတိယသံမှိုတွင် ချိတ်ဆွဲရန် ကျန်ရှိသော ပုံ $3$ ပုံထဲမှ တစ်ပုံကို ရွေးချယ်ရမည်ဖြစ်သဖြင့် ရွေးချယ်နိုင်သော နည်းလမ်း $= 3$ နည်း။
 
-ပထမသံချောင်းအတွက် ပုံ 5 ပုံထဲက တစ်ပုံကို ရွေးချယ်နိုင်ပါတယ်။ ပုံတစ်ပုံကို ချိတ်ပြီးသွားရင် အဲဒီပုံကို ထပ်မသုံးနိုင်တော့လို့ ဒုတိယသံချောင်းအတွက် ပုံ 4 ပုံပဲ ကျန်ပါတယ်။ ထို့နောက် တတိယသံချောင်းအတွက် ပုံ 3 ပုံ ကျန်ပါမယ်။
-
-နောက်အဆင့်ရဲ့ ရွေးစရာအရေအတွက်က အရင်အဆင့် ရွေးပြီးသားအပေါ် မူတည်သော်လည်း အဆင့်တိုင်းအတွက် ရွေးချယ်မှုတွေကို ဆက်တိုက်လုပ်မှသာ သံချောင်း ၃ ချောင်းမှာ ပုံ ၃ ပုံ ချိတ်ဆွဲပြီးမှာဖြစ်တဲ့အတွက် Multiplication Principle ကို သုံးရမှာဖြစ်ပါတယ်။
-
-* Number of choices for the first nail $= 5$,
-* Number of choices for the second nail $= 4$,
-* Number of choices for the third nail $= 3$,
-* Number of ways to hang the pictures $= 5 \times 4 \times 3 = 60$.
-
-ဒါကြောင့် ပုံတွေကို သံချောင်း 3 ချောင်းပေါ်မှာ ချိတ်နိုင်တဲ့ နည်းလမ်းစုစုပေါင်းက 60 ဖြစ်ပါတယ်။
-
----
-
-### 5.1 Counting Principles - Addition Principle
-
-#### Addition Principle
-
-**The Addition Principle**
-
-Suppose a task can be performed in $m$ ways, and a second task can be performed in $n$ ways, and the two tasks cannot be performed at the same time (disjoint cases). Then there are $m + n$ ways to perform either of these tasks.
-
-အလုပ်တစ်ခုကို $m$ နည်းလမ်းဖြင့် လုပ်ဆောင်နိုင်ပြီး၊ အခြားအလုပ်တစ်ခုကို $n$ နည်းလမ်းဖြင့် လုပ်ဆောင်နိုင်ကာ ၎င်းအလုပ်နှစ်ခုကို တစ်ပြိုင်တည်းလုပ်ဆောင်နိုင်ခြင်းမရှိလျှင် (မထပ်သော disjoint cases ဖြစ်လျှင်)၊ ထိုအလုပ်နှစ်ခုအနက် တစ်ခုကို လုပ်ဆောင်နိုင်သော စုစုပေါင်းနည်းလမ်းသည် $m + n$ နည်းလမ်းဖြစ်ပါတယ်။
-
----
-
-#### Choosing the Right Counting Principle
-
-[DIAGRAM: AndOrFlowchart]
+Multiplication Principle အရ စုစုပေါင်း ချိတ်ဆွဲနိုင်သော နည်းလမ်းမှာ:
+$\text{Total ways} = 5 \times 4 \times 3 = 60 \text{ ways}$
 
 ---
 
 #### Example 4
-
-**Problem:** How many different numbers can be formed using the digits $3, 5, 6, 8$ and $9$ in such a way that the numbers contain two or three digits without any repetition?
-
-ပေးထားသော ဂဏန်းများမှာ $3, 5, 6, 8, 9$ ဖြစ်သည်။ ဂဏန်းများကို ထပ်မသုံးဘဲ two-digit (နှစ်လုံးတွဲကိန်း) သို့မဟုတ် three-digit (သုံးလုံးတွဲကိန်း) များ ဖန်တီးရမည်။
-
+**Problem:** In a class of 20 students, a president, a vice-president, and a secretary are to be chosen. In how many ways can this be done if no student can hold more than one office?
+ကျောင်းသား $20$ ယောက်ရှိသော အတန်းတစ်တန်းတွင် ဥက္ကဋ္ဌ၊ ဒုတိယဥက္ကဋ္ဌနှင့် အတွင်းရေးမှူး တစ်ဦးစီကို ရွေးချယ်ရမည်။ ကျောင်းသားတစ်ဦးလျှင် ရာထူးတစ်ခုထက်ပို၍ မယူနိုင်ပါက မည်မျှနည်းလမ်းများဖြင့် ရွေးချယ်နိုင်မည်နည်း။
 [DIAGRAM: Example4Diagram]
 
 **Solution:**
+ရာထူးတစ်ခုစီအတွက် ကျောင်းသားတစ်ဦးစီကို အဆင့်လိုက် ရွေးချယ်ပါမည်။
+* ဥက္ကဋ္ဌ နေရာအတွက် ရွေးချယ်နိုင်သော ကျောင်းသားအရေအတွက် $= 20$ ယောက် ($20$ နည်း)
+* ဒုတိယဥက္ကဋ္ဌ နေရာအတွက် (ဥက္ကဋ္ဌအဖြစ် ရွေးချယ်ခံရသူကို ဖယ်ထုတ်၍) ရွေးချယ်နိုင်သော ကျောင်းသားအရေအတွက် $= 19$ ယောက် ($19$ နည်း)
+* အတွင်းရေးမှူး နေရာအတွက် (ရွေးချယ်ပြီးသူ နှစ်ဦးကို ဖယ်ထုတ်၍) ရွေးချယ်နိုင်သော ကျောင်းသားအရေအတွက် $= 18$ ယောက် ($18$ နည်း)
 
-ကျွန်ုပ်တို့သည် နှစ်လုံးတွဲကိန်း (two-digit numbers) **သို့မဟုတ်** သုံးလုံးတွဲကိန်း (three-digit numbers) များကို ဖန်တီးလိုခြင်း ဖြစ်သည်။ ကိန်းတစ်ခုသည် တစ်ချိန်တည်းတွင် နှစ်လုံးတွဲကော သုံးလုံးတွဲပါ မဖြစ်နိုင်သဖြင့် ၎င်းတို့သည် မထပ်သော disjoint cases များ ဖြစ်ကြသည်။ ထို့ကြောင့် Case တစ်ခုချင်းစီကို သီးခြားစီ တွက်ချက်ပြီး Addition Principle အရ ပေါင်းရပါမည်။
-
-**Case 1: Two-digit numbers (နှစ်လုံးတွဲကိန်းများ)**
-* ရွေးချယ်နိုင်သော ဂဏန်း $5$ လုံးရှိသည်။
-* ဆယ်ဂဏန်းနေရာ ($T$) အတွက် ရွေးချယ်နိုင်သော နည်းလမ်း $= 5$ နည်း။
-* ခုဂဏန်းနေရာ ($U$) အတွက် ရွေးချယ်နိုင်သော နည်းလမ်း $= 4$ နည်း (ဂဏန်းများကို ထပ်မသုံးရသဖြင့်)။
-* Multiplication Principle အရ ဖန်တီးနိုင်သော နှစ်လုံးတွဲကိန်း $= 5 \times 4 = 20$ နည်း။
-
-**Case 2: Three-digit numbers (သုံးလုံးတွဲကိန်းများ)**
-* ရာဂဏန်းနေရာ ($H$) အတွက် ရွေးချယ်နိုင်သော နည်းလမ်း $= 5$ နည်း။
-* ဆယ်ဂဏန်းနေရာ ($T$) အတွက် ရွေးချယ်နိုင်သော နည်းလမ်း $= 4$ နည်း။
-* ခုဂဏန်းနေရာ ($U$) အတွက် ရွေးချယ်နိုင်သော နည်းလမ်း $= 3$ နည်း။
-* Multiplication Principle အရ ဖန်တီးနိုင်သော သုံးလုံးတွဲကိန်း $= 5 \times 4 \times 3 = 60$ နည်း။
-
-By the Addition Principle, the total number of possible numbers is:
-$$\text{Total possible numbers} = 20 + 60 = 80$$
-
-ဒါကြောင့် ဖန်တီးနိုင်သော ကိန်းစုစုပေါင်းမှာ $80$ ခု ဖြစ်သည်။
+Multiplication Principle အရ:
+$\text{Number of ways} = 20 \times 19 \times 18 = 6840 \text{ ways}$
 
 ---
 
 #### Example 5
-
 **Problem:** How many integers, having digit $5$ only once, are there between $0$ and $100$?
-
 ဒီမေးခွန်းမှာ $0$ နှင့် $100$ ကြားရှိ ကိန်းပြည့်များထဲမှ ဂဏန်း $5$ တစ်ကြိမ်တည်းသာ ပါသော ကိန်းများကို ရေတွက်ရမည်။
-
 [DIAGRAM: Example5Diagram]
 
 **Solution:**
-
 ဒီမေးခွန်းကို တစ်လုံးတည်းသော ကိန်းများနှင့် နှစ်လုံးတွဲ ကိန်းများဟူ၍ သီးခြားစီ ခွဲခြားစဉ်းစားပါမည်။ ၎င်းတို့သည် မထပ်သော disjoint cases များ ဖြစ်သဖြင့် စဉ်းစားရရှိလာသော နည်းလမ်းများကို Addition Principle အရ ပေါင်းရပါမည်။
 
 * **Case 1: One-digit integers (တစ်လုံးတည်းသော ကိန်းများ)**
@@ -207,11 +155,34 @@ $$\text{Total possible numbers} = 20 + 60 = 80$$
   * **ဆယ်ဂဏန်းနေရာတွင် $5$ ရှိပြီး ခုဂဏန်းနေရာတွင် $5$ မဟုတ်သော ကိန်းများ (Tens digit 5 only):**
     * ဆယ်ဂဏန်းနေရာ ($T$) တွင် $5$ ကိုသာ ထားရမည်ဖြစ်သဖြင့် $= 1$ နည်း။
     * ခုဂဏန်းနေရာ ($U$) တွင် $5$ မှတစ်ပါး ကျန်ဂဏန်း $9$ လုံး ($0, 1, 2, 3, 4, 6, 7, 8, 9$) ထဲမှ ကြိုက်ရာတစ်ခု ထားနိုင်သဖြင့် $= 9$ နည်း။
-    * ထို့ကြောင့် ဆယ်ဂဏန်းနေရာတွင် $5$ တစ်ကြိမ�$$ {}^nP_r \quad \text{or} \quad P(n, r) $$
+    * ထို့ကြောင့် ဆယ်ဂဏန်းနေရာတွင် $5$ တစ်ကြိမ်တည်းပါဝင်သော ကိန်းစုစုပေါင်း $= 1 \times 9 = 9$ ခု။
 
-**Permutations with Decreasing Choices:**
+  * **ခုဂဏန်းနေရာတွင် $5$ ရှိပြီး ဆယ်ဂဏန်းနေရာတွင် $5$ မဟုတ်သော ကိန်းများ (Units digit 5 only):**
+    * ခုဂဏန်းနေရာ ($U$) တွင် $5$ ကိုသာ ထားရမည်ဖြစ်သဖြင့် $= 1$ နည်း။
+    * ဆယ်ဂဏန်းနေရာ ($T$) တွင် $5$ မဖြစ်ရုံသာမက သုည ($0$) လည်း မဖြစ်နိုင်ပါ (သုညဖြစ်လျှင် ဂဏန်းတစ်လုံးတည်းဖြစ်သွားမည်)။ ထို့ကြောင့် ဆယ်ဂဏန်းနေရာအတွက် ရွေးချယ်စရာ $8$ လုံး ($1, 2, 3, 4, 6, 7, 8, 9$) ရှိသဖြင့် $= 8$ နည်း။
+    * ထို့ကြောင့် ခုဂဏန်းနေရာတွင် $5$ တစ်ကြိမ်တည်းပါဝင်သော ကိန်းစုစုပေါင်း $= 8 \times 1 = 8$ ခု။
 
-အရာဝတ္ထုများကို ထပ်ခါတလဲလဲ မသုံးဘဲ (without repetition) နေရာ $r$ ခုတွင် နေရာချစဥ်းစားရာ၌ ပထမဦးဆုံးနေရာတွင် ချထားရန်အတွက် ရွေးချယ်စရာ $n$ ခုရှိသည်။ ဒုတိယနေရာရောက်သောအခါ အရှေ့မှာ $1$ ခု သုံးပြီးသားဖြစ်သောကြောင့် $n-1$ နည်းကျန်သည်။ တတိယနေရာရောက်သောအခါ အရှေ့မှာ $2$ ခု သုံးပြီးသားဖြစ်သောကြောင့် $n-2$ နည်းကျန်သည်။ ဤနည်းအတိုင်း ဆက်သွားပါက နေရာ $r$ ခုအတွက် ကျန်ရှိသော ရွေးချယ်နိုင်ခွင့်များကို အောက်ပါဇယားအတိုင်း တွေ့ရှိနိုင်သည်။es 0! \implies 0! = 1$$
+Addition Principle အရ နှစ်လုံးတွဲကိန်းများထဲတွင် ဂဏန်း $5$ တစ်ကြိမ်သာပါဝင်သော ကိန်းစုစုပေါင်း $= 9 + 8 = 17$ ခု။
+
+By the Addition Principle, the total number of required integers is:
+$\text{Total required integers} = 1 + 17 = 18$
+
+(Note: $0$ and $100$ do not contain the digit $5$ exactly once, so we only consider $1$ to $99$.)
+
+---
+
+### 2. The Factorial Function and Permutations
+
+**Factorial Notation:**
+The product of the first $n$ natural numbers is denoted by $n!$ (read as "$n$ factorial").
+
+$n! = 1 \times 2 \times 3 \times \dots \times n$
+Or, more commonly written in descending order:
+$n! = n \times (n - 1) \times (n - 2) \times \dots \times 3 \times 2 \times 1$
+
+By definition, we state that:
+$0! = 1$
+This is a mathematical convention which makes the formulas for permutations and combinations consistent (e.g., $1! = 1 \times 0! \implies 0! = 1$).
 
 #### Useful Facts about Factorials
 
@@ -347,16 +318,16 @@ $$\begin{aligned}
 
    စုစုပေါင်း အက္ခရာ $12$ လုံး ($A$ မှ $L$) နှင့် ဂဏန်း $10$ လုံး ($0$ မှ $9$) ရှိသည်။
    * **(a) Repetition of letters is allowed (အက္ခရာထပ်ခွင့်ရှိလျှင်):**
-     $$\text{Number of codes} = 12 \times 12 \times 10 = 1440$$
+  $$\text{Number of codes} = 12 \times 12 \times 10 = 1440$$
    * **(b) Repetition of letters is not allowed (အက္ခရာမထပ်ရလျှင်):**
-     $$\text{Number of codes} = 12 \times 11 \times 10 = 1320$$
+  $$\text{Number of codes} = 12 \times 11 \times 10 = 1320$$
    * **(c) Two letters must be the same (အက္ခရာနှစ်လုံးတူရမည်ဆိုလျှင်):**
-     $$\text{Number of codes} = 12 \times 1 \times 10 = 120$$
+  $$\text{Number of codes} = 12 \times 1 \times 10 = 120$$
    * **(d) Two letters are different, but must be both vowels or both consonants (အက္ခရာမတူသော်လည်း အုပ်စုတူရမည်):**
-     Vowels (သရ) မှာ $\{A, E, I\}$ စုစုပေါင်း $3$ လုံးရှိပြီး Consonants (ဗျည်း) မှာ ကျန် $9$ လုံးရှိသည်။
-     * Case 1: Two different vowels $\rightarrow 3 \times 2 \times 10 = 60$
-     * Case 2: Two different consonants $\rightarrow 9 \times 8 \times 10 = 720$
-     $$\text{Total number of codes} = 60 + 720 = 780$$
+  Vowels (သရ) မှာ $\{A, E, I\}$ စုစုပေါင်း $3$ လုံးရှိပြီး Consonants (ဗျည်း) မှာ ကျန် $9$ လုံးရှိသည်။
+  * Case 1: Two different vowels $\rightarrow 3 \times 2 \times 10 = 60$
+  * Case 2: Two different consonants $\rightarrow 9 \times 8 \times 10 = 720$
+  $$\text{Total number of codes} = 60 + 720 = 780$$
 
    [DIAGRAM:Exercise51Question5]
 
@@ -366,16 +337,16 @@ $$\begin{aligned}
    (b) Evaluate $2 \cdot 9! + 82 \cdot 8!$.
 
    * **(a) Express $\frac{1}{5 \cdot 4 \cdot 3}$ in factorial form:**
-     $$\frac{1}{5 \cdot 4 \cdot 3} = \frac{1}{5 \cdot 4 \cdot 3} \times \frac{2!}{2!} = \frac{2!}{5!}$$
+  $$\frac{1}{5 \cdot 4 \cdot 3} = \frac{1}{5 \cdot 4 \cdot 3} \times \frac{2!}{2!} = \frac{2!}{5!}$$
    * **(b) Evaluate $2 \cdot 9! + 82 \cdot 8!$:**
-     $$\begin{aligned}
-     2 \cdot 9! + 82 \cdot 8! &= 2 \cdot (9 \times 8!) + 82 \cdot 8! \\
-     &= 18 \cdot 8! + 82 \cdot 8! \\
-     &= (18 + 82) \cdot 8! \\
-     &= 100 \cdot 8! \\
-     &= 100 \times 40320 \\
-     &= 4032000
-     \end{aligned}$$
+  $$\begin{aligned}
+  2 \cdot 9! + 82 \cdot 8! &= 2 \cdot (9 \times 8!) + 82 \cdot 8! \\
+  &= 18 \cdot 8! + 82 \cdot 8! \\
+  &= (18 + 82) \cdot 8! \\
+  &= 100 \cdot 8! \\
+  &= 100 \times 40320 \\
+  &= 4032000
+  \end{aligned}$$
 
 7. **Proof:**
    **Question:** Prove that:
@@ -721,14 +692,14 @@ $$\text{Total ways} = 120 + 120 = 240$$
    ဤပြဿနာကို flexible ကျောင်းသား (ကျန် 1 ယောက်) ၏ ထိုင်နိုင်သော နေရာအလိုက် Case နှစ်ခု ခွဲစဉ်းစားပါမည်။
 
    * **Case 1: Flexible student sits in the front row (ရှေ့တန်းတွင် ထိုင်လျှင်)**
-     ရှေ့တန်းတွင် ထိုင်မည့် ကျောင်းသား $5 + 1 = 6$ ယောက် ရှိလာမည်။ ရှေ့တန်းရှိ ခုံ 8 ခုံထဲမှ 6 ခုံကို ရွေးချယ်၍ ၎င်းတို့ကို စီရန်နည်းလမ်းမှာ $ {}^8P_6$ နည်း ဖြစ်သည်။
-     နောက်တန်းတွင် ထိုင်မည့် ကျောင်းသား 4 ယောက် ရှိသည်။ နောက်တန်းရှိ ခုံ 8 ခုံထဲမှ 4 ခုံကို ရွေးချယ်၍ ၎င်းတို့ကို စီရန်နည်းလမ်းမှာ $ {}^8P_4$ နည်း ဖြစ်သည်။
-     Multiplication Principle အရ နည်းလမ်းပေါင်း $= {}^8P_6 \times {}^8P_4$ နည်း။
+  ရှေ့တန်းတွင် ထိုင်မည့် ကျောင်းသား $5 + 1 = 6$ ယောက် ရှိလာမည်။ ရှေ့တန်းရှိ ခုံ 8 ခုံထဲမှ 6 ခုံကို ရွေးချယ်၍ ၎င်းတို့ကို စီရန်နည်းလမ်းမှာ $ {}^8P_6$ နည်း ဖြစ်သည်။
+  နောက်တန်းတွင် ထိုင်မည့် ကျောင်းသား 4 ယောက် ရှိသည်။ နောက်တန်းရှိ ခုံ 8 ခုံထဲမှ 4 ခုံကို ရွေးချယ်၍ ၎င်းတို့ကို စီရန်နည်းလမ်းမှာ $ {}^8P_4$ နည်း ဖြစ်သည်။
+  Multiplication Principle အရ နည်းလမ်းပေါင်း $= {}^8P_6 \times {}^8P_4$ နည်း။
 
    * **Case 2: Flexible student sits in the back row (နောက်တန်းတွင် ထိုင်လျှင်)**
-     ရှေ့တန်းတွင် ထိုင်မည့် ကျောင်းသား 5 ယောက် ရှိသည်။ ရှေ့တန်းရှိ ခုံ 8 ခုံထဲမှ 5 ခုံကို ရွေးချယ်၍ ၎င်းတို့ကို စီရန်နည်းလမ်းမှာ $ {}^8P_5$ နည်း ဖြစ်သည်။
-     နောက်တန်းတွင် ထိုင်မည့် ကျောင်းသား $4 + 1 = 5$ ယောက် ရှိလာမည်။ နောက်တန်းရှိ ခုံ 8 ခုံထဲမှ 5 ခုံကို ရွေးချယ်၍ ၎င်းတို့ကို စီရန်နည်းလမ်းမှာ $ {}^8P_5$ နည်း ဖြစ်သည်။
-     Multiplication Principle အရ နည်းလမ်းပေါင်း $= {}^8P_5 \times {}^8P_5$ နည်း။
+  ရှေ့တန်းတွင် ထိုင်မည့် ကျောင်းသား 5 ယောက် ရှိသည်။ ရှေ့တန်းရှိ ခုံ 8 ခုံထဲမှ 5 ခုံကို ရွေးချယ်၍ ၎င်းတို့ကို စီရန်နည်းလမ်းမှာ $ {}^8P_5$ နည်း ဖြစ်သည်။
+  နောက်တန်းတွင် ထိုင်မည့် ကျောင်းသား $4 + 1 = 5$ ယောက် ရှိလာမည်။ နောက်တန်းရှိ ခုံ 8 ခုံထဲမှ 5 ခုံကို ရွေးချယ်၍ ၎င်းတို့ကို စီရန်နည်းလမ်းမှာ $ {}^8P_5$ နည်း ဖြစ်သည်။
+  Multiplication Principle အရ နည်းလမ်းပေါင်း $= {}^8P_5 \times {}^8P_5$ နည်း။
 
    By the Addition Principle, the total required number of ways is:
    $$\begin{aligned}
@@ -1448,6 +1419,550 @@ $$
 
 Therefore, the required number of permutations is 540.
 
+---
+
+### Exercise 5.4
+
+#### Questions
+
+1. Find the number of permutations of the letters of each of the following words.
+   (i) INFINITY
+   (ii) PINEAPPLE
+   (iii) ACCEPTABLE
+2. Passwords for a mobile payment system are to consist of 6 digits from a set of digits $0, 1, 2, \dots, 9$ and assume that there is no other restriction. How many such passwords have repeated digits?
+3. A building has 10 windows in front. What is the number of signals that can be given, by having one or more of the windows open?
+4. At a burger shop, 3 different types of buns, 7 types of cheeses and 5 types of vegetables are available. Assume that a burger may contain no cheese or no vegetable. In how many ways can different types of burgers be ordered if a person must have a bun, and may have at most 2 types of cheeses and any number of types of vegetables?
+5. How many different 4-digit codes can be formed using the digits $0, 1, 2, 3$ if
+   (i) there is no restriction?
+   (ii) repetition is not allowed?
+   (iii) repetition is not allowed, and 0 is either the first or the last digit?
+6. Using the letters of the word EQUATION without repetitions, how many 4-letter codes can be formed:
+   (i) starting with $T$ and ending with $N$?
+   (ii) starting and ending with a consonant?
+   (iii) with vowels only?
+   (iv) if it contains 3 consonants?
+7. Three brothers and three sisters are lining up to be photographed. How many arrangements are there
+   (i) with 3 sisters standing together?
+   (ii) if brothers and sisters are in alternating positions?
+8. How many permutations of the letters $H, E, X, A, G, O, N$ are there if
+   (i) the 3 vowels are placed together?
+   (ii) the 3 vowels are not placed together?
+   (iii) consonants and vowels do not appear alternately?
+9. Find the number of permutations of all the letters of the word PENGUIN in such a way that there are exactly 3 letters between 2 $N$'s.
+10. Find the number of permutations of all the letters of the word STRESSLESS in such a way that there are exactly 5 letters between:
+  (i) 2 $E$'s.
+  (ii) 2 $S$'s.
+
+#### Solutions
+
+**1. Find the number of permutations of the letters of each of the following words.**
+
+**(i) INFINITY**
+
+INFINITY တွင် စုစုပေါင်းစာလုံး 8 လုံးရှိပြီး I သုံးလုံးနှင့် N နှစ်လုံး တူညီနေသည်။
+
+In the word INFINITY, there are 8 letters consisting of three I's, two N's, one F, one T and one Y, so the number of permutations of the letters is
+
+$$
+\begin{aligned}
+\text{Number of permutations of the letters} &= \frac{8!}{3! \cdot 2! \cdot 1! \cdot 1! \cdot 1!} \\
+&= \frac{8 \cdot 7 \cdot 6 \cdot 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1}{(3 \cdot 2 \cdot 1)(2 \cdot 1)(1)(1)(1)} \\
+&= 3360.
+\end{aligned}
+$$
+
+**(ii) PINEAPPLE**
+
+PINEAPPLE တွင် စုစုပေါင်းစာလုံး 9 လုံးရှိပြီး P သုံးလုံးနှင့် E နှစ်လုံး တူညီနေသည်။
+
+In the word PINEAPPLE, there are 9 letters consisting of one I, one N, one A, three P's, one L and two E's, so the number of permutations of the letters is
+
+$$
+\begin{aligned}
+\text{Number of permutations of the letters} &= \frac{9!}{1! \cdot 1! \cdot 1! \cdot 3! \cdot 1! \cdot 2!} \\
+&= \frac{9 \cdot 8 \cdot 7 \cdot 6 \cdot 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1}{(1)(1)(1)(3 \cdot 2 \cdot 1)(1)(2 \cdot 1)} \\
+&= 30240.
+\end{aligned}
+$$
+
+**(iii) ACCEPTABLE**
+
+ACCEPTABLE တွင် စုစုပေါင်းစာလုံး 10 လုံးရှိပြီး A နှစ်လုံး၊ C နှစ်လုံးနှင့် E နှစ်လုံး တူညီနေသည်။
+
+In the word ACCEPTABLE, there are 10 letters consisting of two A's, two C's, two E's, one P, one T, one B and one L, so the number of permutations of the letters is
+
+$$
+\begin{aligned}
+\text{Number of permutations of the letters} &= \frac{10!}{2! \cdot 2! \cdot 1! \cdot 1! \cdot 1! \cdot 1!} \\
+&= \frac{10 \cdot 9 \cdot 8 \cdot 7 \cdot 6 \cdot 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1}{(2 \cdot 1)(2 \cdot 1)(2 \cdot 1)(1)(1)(1)(1)} \\
+&= 453600.
+\end{aligned}
+$$
+
+**2. Passwords for a mobile payment system are to consist of 6 digits from a set of digits $0, 1, 2, \dots, 9$ and assume that there is no other restriction. How many such passwords have repeated digits?**
+
+လိုချင်တာက repeated digits ပါသော passwords အရေအတွက်ဖြစ်ပါတယ်။ ထို့ကြောင့် အရင်ဆုံး password အားလုံး၏ အရေအတွက်ကိုရှာပြီး repeated digit မပါသော password အရေအတွက်ကို နုတ်ရမည်။
+
+Since there is no restriction, each of the 6 positions can be filled by any one of the 10 digits $0, 1, 2, \dots, 9$.
+
+ဒီစုစုပေါင်းအရေအတွက်ထဲတွင် repeated digits ပါသော passwords များရော၊ repeated digit မပါသော passwords များရော အားလုံးပါဝင်သည်။ ဥပမာ ပထမ digit ကို 2 ဟုရွေးထားလျှင် ဒုတိယ digit သည် 2 ဖြစ်နိုင်သလို 2 မဟုတ်သော $0, 1, 3, \dots, 9$ တို့လည်း ဖြစ်နိုင်သည်။ ထို့ကြောင့် စုစုပေါင်းရေတွက်ရာတွင် ထပ်သော အခြေအနေရော မထပ်သောအခြေအနေရော ပါနေသည်။
+
+$$
+\begin{aligned}
+\text{Total number of passwords} &= 10 \cdot 10 \cdot 10 \cdot 10 \cdot 10 \cdot 10 \\
+&= 10^6 \\
+&= 1000000.
+\end{aligned}
+$$
+
+ယခု repeated digit မပါသော passwords ကိုရှာမည်။ ထိုအခါ digit များထပ်မရသောကြောင့် ပထမနေရာတွင် 10 နည်း၊ ဒုတိယနေရာတွင် 9 နည်း၊ တတိယနေရာတွင် 8 နည်း စသဖြင့် ရွေးရမည်။
+
+$$
+\begin{aligned}
+\text{Number of passwords with no repeated digits} &= {}^{10}P_6 \\
+&= 10 \cdot 9 \cdot 8 \cdot 7 \cdot 6 \cdot 5 \\
+&= 151200.
+\end{aligned}
+$$
+
+ထို့ကြောင့် repeated digits ပါသော passwords အရေအတွက်မှာ
+
+$$
+\begin{aligned}
+\text{Required number of passwords} &= \text{Total number} - \text{Number with no repeated digits} \\
+&= 1000000 - 151200 \\
+&= 848800.
+\end{aligned}
+$$
+
+**3. A building has 10 windows in front. What is the number of signals that can be given, by having one or more of the windows open?**
+
+ပြတင်းပေါက် 10 ပေါက်ရှိသည်။ signal တစ်ခုတွင် ပြတင်းပေါက်တစ်ပေါက်စီသည် ပွင့်ထားနိုင်သလို ပိတ်ထားနိုင်သည်။
+
+For each window, there are 2 choices: open or closed.
+
+ပြတင်းပေါက် 10 ပေါက်အတွက် ဖြစ်နိုင်သော အခြေအနေအားလုံးမှာ တစ်ပေါက်မှ ပွင့်မထားသော အခြေအနေမှ 10 ပေါက်လုံး ပွင့်ထားသော အခြေအနေအထိ ပါဝင်သည်။
+
+$$
+\begin{aligned}
+\text{The number of signals for all possible cases} &= {}^{10}C_0 + {}^{10}C_1 + {}^{10}C_2 + \dots + {}^{10}C_{10} \\
+&= 2^{10} \\
+&= 1024.
+\end{aligned}
+$$
+
+သို့သော် မေးခွန်းတွင် one or more of the windows open ဟုဆိုထားသောကြောင့် ပြတင်းပေါက်တစ်ပေါက်မှ မပွင့်ထားသော အခြေအနေ $ {}^{10}C_0 $ ကို ဖယ်ရမည်။
+
+$$
+\begin{aligned}
+\text{Required number of signals} &= 2^{10} - 1 \\
+&= 1024 - 1 \\
+&= 1023.
+\end{aligned}
+$$
+
+Therefore, the number of signals that can be given is 1023.
+
+မှတ်ချက်။ one or more ဆိုသည်မှာ အနည်းဆုံးတစ်ခုတော့ ရှိရမည်ဟု ဆိုလိုသည်။ တစ်ခုထက်ပိုလျှင်လည်း ဖြစ်နိုင်သော်လည်း စုစုပေါင်းရှိသော အရေအတွက်ထက်တော့ ကျော်လွန်နိုင်မည်မဟုတ်။ ဤမေးခွန်းတွင် ပြတင်းပေါက် 10 ပေါက်ရှိသောကြောင့် ပွင့်ထားသော ပြတင်းပေါက်အရေအတွက်သည် 1 ပေါက်မှ 10 ပေါက်အထိ ဖြစ်နိုင်သည်။
+
+**4. At a burger shop, 3 different types of buns, 7 types of cheeses and 5 types of vegetables are available. Assume that a burger may contain no cheese or no vegetable. In how many ways can different types of burgers be ordered if a person must have a bun, and may have at most 2 types of cheeses and any number of types of vegetables?**
+
+ဘာဂါဆိုင်တစ်ဆိုင်မှာ bun အမျိုးအစား 3 မျိုး၊ cheese အမျိုးအစား 7 မျိုးနှင့် vegetables အမျိုးအစား 5 မျိုးရှိသည်။ မေးခွန်းထဲရှိ "a burger may contain no cheese or no vegetable" ဆိုသည်မှာ ဘာဂါတစ်ခုမှာ cheese မပါလည်းရသလို vegetable မပါလည်းရသည်ဟု ဆိုလိုသည်။ ထို့ကြောင့် cheese ရွေးရာတွင် 0 မျိုးရွေးခြင်းကိုပါ ထည့်ရမည်။ vegetables ရွေးရာတွင်လည်း 0 မျိုးရွေးခြင်းကိုပါ ထည့်ရမည်။ ဘာဂါတစ်ခုမှာ bun ကိုတော့ မဖြစ်မနေ ထည့်ရမည်။ ထိုအခြေအနေများအတိုင်း မတူညီသော ဘာဂါအမျိုးအစား ဘယ်နှစ်မျိုး မှာယူနိုင်မလဲကို ရှာရမည်။
+
+First, choose the bun. Since there are 3 different types of buns, the number of choices for the bun is 3.
+
+ထို့နောက် cheese ရွေးမည်။ cheese ကို 0 မျိုး၊ 1 မျိုး၊ သို့မဟုတ် 2 မျိုး ရွေးနိုင်သည်။
+
+$$
+\begin{aligned}
+\text{Number of choices for cheeses} &= {}^7C_0 + {}^7C_1 + {}^7C_2 \\
+&= 1 + 7 + 21 \\
+&= 29.
+\end{aligned}
+$$
+
+နောက်ဆုံး vegetables ရွေးမည်။ ဟင်းသီးဟင်းရွက်တစ်မျိုးစီအတွက် ထည့်မလား၊ မထည့်ဘူးလားဆိုသော ရွေးချယ်စရာ 2 ခုစီရှိသည်။ ထို့ကြောင့် 5 မျိုးအတွက် ရွေးချယ်နိုင်သော နည်းလမ်းအရေအတွက်မှာ
+
+$$
+\begin{aligned}
+\text{Number of choices for vegetables} &= 2^5 \\
+&= 32.
+\end{aligned}
+$$
+
+ထို့ကြောင့် multiplication principle အရ မတူညီသော ဘာဂါအမျိုးအစား အရေအတွက်မှာ
+
+$$
+\begin{aligned}
+\text{Required number of burgers} &= 3 \left( {}^7C_0 + {}^7C_1 + {}^7C_2 \right) 2^5 \\
+&= 3(29)(32) \\
+&= 2784.
+\end{aligned}
+$$
+
+Therefore, 2784 different types of burgers can be ordered.
+
+မှတ်ချက်။ at most 2 types ဆိုသည်မှာ အများဆုံး 2 မျိုးပဲ ဖြစ်ရမည်ဟု ဆိုလိုသည်။ 2 မျိုးထက်ပို၍ မရပါ။ ထို့ပြင် cheese မပါလည်းရသောကြောင့် cheese ရွေးရာတွင် တစ်မျိုးမှမပါတာ၊ တစ်မျိုးပါတာ၊ နှစ်မျိုးပါတာ ဆိုပြီး အခြေအနေ 3 ခုရှိသည်။ ထို့ကြောင့် cheese အတွက် $ {}^7C_0 + {}^7C_1 + {}^7C_2 $ ဟု ရေတွက်ရသည်။ အလားတူ vegetables ကိုလည်း 0 မျိုး ရွေးနိုင်သောကြောင့် $2^5$ ထဲတွင် ဘာမှမရွေးသော အခြေအနေကိုပါ ထည့်တွက်ထားသည်။
+
+**5. How many different 4-digit codes can be formed using the digits $0, 1, 2, 3$ if**
+**(a) there is no restriction?**
+**(b) repetition is not allowed?**
+**(c) repetition is not allowed, and 0 is either the first or the last digit?**
+
+မေးခွန်းတွင် 4-digit codes များကို $0,1,2,3$ ဟူသော digits များမှ ဖွဲ့ရမည်။ code ဖြစ်သောကြောင့် ပထမနေရာတွင် 0 လာလည်း ရသည်။ ထို့ကြောင့် နေရာတစ်ခုနေရာစီတွင် မည်သည့် digit များ ရွေးနိုင်သလဲဆိုတာကို အခြေအနေအလိုက် ရေတွက်မည်။
+
+**(i) There is no restriction.**
+ကန့်သတ်ချက်မရှိသောကြောင့် နေရာတိုင်းတွင် $0,1,2,3$ ထဲမှ တစ်ခုခုကို ရွေးနိုင်သည်။ ထို့ကြောင့် နေရာတစ်နေရာစီအတွက် ရွေးချယ်စရာ 4 ခုစီရှိသည်။
+
+$$
+\begin{aligned}
+\text{Number of codes} &= 4 \cdot 4 \cdot 4 \cdot 4 \\
+&= 4^4 \\
+&= 256.
+\end{aligned}
+$$
+
+**(ii) Repetition is not allowed.**
+ထပ်မရသောကြောင့် ပထမနေရာတွင် 4 နည်း၊ ဒုတိယနေရာတွင် 3 နည်း၊ တတိယနေရာတွင် 2 နည်း၊ စတုတ္ထနေရာတွင် 1 နည်း ရွေးနိုင်သည်။
+
+$$
+\begin{aligned}
+\text{Number of codes} &= 4 \cdot 3 \cdot 2 \cdot 1 \\
+&= 4! \\
+&= 24.
+\end{aligned}
+$$
+
+**(iii) Repetition is not allowed, and 0 is either the first or the last digit.**
+ထပ်မရဘဲ 0 သည် ပထမနေရာ သို့မဟုတ် နောက်ဆုံးနေရာတွင် ရှိရမည်။
+
+ပထမနေရာတွင် 0 ရှိလျှင် 0 အတွက်နေရာကို သတ်မှတ်ပြီးသားဖြစ်သောကြောင့် ရွေးချယ်စရာ 1 မျိုးရှိသည်။ ကျန် 3 နေရာတွင် 1,2,3 ကို စီရသောကြောင့် 3! နည်းရှိသည်။ ထို့ကြောင့် $1 \cdot 3!$ နည်း ရှိသည်။ 
+နောက်ဆုံးနေရာတွင် 0 ရှိလျှင်လည်း ကျန် 3 နေရာတွင် 1,2,3 ကို စီရပြီး 0 အတွက် နောက်ဆုံးနေရာသည် သတ်မှတ်ပြီးသားဖြစ်သောကြောင့် ရွေးချယ်စရာ 1 မျိုးပဲရှိသည်။ ထို့ကြောင့် $3! \cdot 1$ နည်း ရှိသည်။
+
+$$
+\begin{aligned}
+\text{Number of codes} &= 1 \cdot 3! + 3! \cdot 1 \\
+&= 1 \cdot 6 + 6 \cdot 1 \\
+&= 12.
+\end{aligned}
+$$
+
+**6. Using the letters of the word EQUATION without repetitions, how many 4-letter codes can be formed:**
+**(a) starting with $T$ and ending with $N$?**
+**(b) starting and ending with a consonant?**
+**(c) with vowels only?**
+**(d) if it contains 3 consonants?**
+
+မေးခွန်းတွင် EQUATION ဟူသော စာလုံးမှ ထပ်မသုံးဘဲ 4-letter codes များ ဖွဲ့ရမည်။ EQUATION တွင် စုစုပေါင်း စာလုံး 8 လုံးရှိပြီး vowels များမှာ E,U,A,I,O ဖြစ်သောကြောင့် 5 လုံး၊ consonants များမှာ Q,T,N ဖြစ်သောကြောင့် 3 လုံးရှိသည်။
+
+**(i) Starting with $T$ and ending with $N$.**
+ပထမနေရာတွင် T နှင့် နောက်ဆုံးနေရာတွင် N သတ်မှတ်ပြီးသားဖြစ်သည်။ ထို့ကြောင့် ထိုနေရာနှစ်ခုအတွက် ရွေးချယ်စရာ 1 မျိုးစီသာရှိသည်။ အလယ်ရှိနေရာ 2 နေရာကို ကျန်စာလုံး 6 လုံးထဲမှ ထပ်မသုံးဘဲ စီရမည်။
+
+[DIAGRAM: Ex5_4_Q6_i_Diag]
+
+$$
+\begin{aligned}
+\text{Number of codes} &= 1 \cdot {}^6P_2 \cdot 1 \\
+&= 1 \cdot (6 \cdot 5) \cdot 1 \\
+&= 30.
+\end{aligned}
+$$
+
+**(ii) Starting and ending with a consonant.**
+ပထမနှင့် နောက်ဆုံးနေရာများတွင် consonants များထားရမည်။ consonants 3 လုံးထဲမှ ပထမနှင့် နောက်ဆုံးနေရာအတွက် ထပ်မသုံးဘဲ စီရသောကြောင့် $ {}^3P_2 $ နည်းရှိသည်။ ကျန်အလယ် 2 နေရာအတွက်တော့ ကျန်စာလုံး 6 လုံးထဲမှ ထပ်မသုံးဘဲ စီရမည်။
+
+[DIAGRAM: Ex5_4_Q6_ii_Diag]
+
+$$
+\begin{aligned}
+\text{Number of codes} &= {}^3P_2 \cdot {}^6P_2 \\
+&= (3 \cdot 2)(6 \cdot 5) \\
+&= 180.
+\end{aligned}
+$$
+
+**(iii) With vowels only.**
+vowels များသာ သုံးရမည်ဖြစ်သောကြောင့် E,U,A,I,O ဟူသော vowels 5 လုံးထဲမှ 4 လုံးကို ထပ်မသုံးဘဲ စီရမည်။
+
+[DIAGRAM: Ex5_4_Q6_iii_Diag]
+
+$$
+\begin{aligned}
+\text{Number of codes} &= {}^5P_4 \\
+&= 5 \cdot 4 \cdot 3 \cdot 2 \\
+&= 120.
+\end{aligned}
+$$
+
+**(iv) If it contains 3 consonants.**
+consonants စုစုပေါင်း 3 လုံးသာရှိသောကြောင့် 3 consonants ပါရမည်ဆိုလျှင် Q,T,N အားလုံး ပါရမည်။ 4-letter code ဖြစ်ရန် ကျန် 1 နေရာအတွက် vowels 5 လုံးထဲမှ 1 လုံး ရွေးရမည်။ ထို့ကြောင့် ပုံစံကို C,C,C,V ဟု မြင်နိုင်သည်။
+
+[DIAGRAM: Ex5_4_Q6_iv_Diag_1]
+
+ဆိုလိုသည်မှာ အရင်ဆုံး vowels 5 လုံးထဲမှ vowel တစ်လုံးကို ရွေးမည်။ ထိုအခါ ရွေးထားသော vowel တစ်လုံးနှင့် Q,T,N ဟူသော consonants 3 လုံး ရလာမည်။ V ထားနိုင်သော နေရာပုံစံမှာ VCCC, CVCC, CCVC, CCCV ဟူ၍ 4 မျိုးရှိသည်။ သို့သော် ပုံစံတစ်မျိုးစီတွင် Q,T,N ကို C နေရာ 3 နေရာတွင် 3! နည်းဖြင့် စီနိုင်သည်။
+
+[DIAGRAM: Ex5_4_Q6_iv_Diag_2]
+
+$$
+\begin{aligned}
+\text{Number of codes} &= {}^5C_1 \cdot 4 \cdot 3! \\
+&= 5 \cdot 4 \cdot 6 \\
+&= 120.
+\end{aligned}
+$$
+
+နောက်တစ်နည်း။ consonants 3 လုံးဖြစ်သော Q,T,N ကို C နေရာ 3 နေရာတွင် အရင်စီလျှင် $ {}^3P_3 $ နည်းရှိသည်။ vowels 5 လုံးထဲမှ vowel တစ်လုံးရွေးရန် $ {}^5C_1 $ နည်းရှိသည်။ ထို V ကို စာလုံး 4 နေရာထဲမှ တစ်နေရာတွင် ထည့်နိုင်သောကြောင့် 4 နည်းရှိသည်။ ထို့ကြောင့် multiplication principle အရ
+
+$$
+\begin{aligned}
+\text{Number of codes} &= {}^3P_3 \cdot {}^5C_1 \cdot 4 \\
+&= 6 \cdot 5 \cdot 4 \\
+&= 120.
+\end{aligned}
+$$
+
+မှတ်ချက်။ $ {}^5C_1 \cdot 4! $ ဟုတွက်လည်း အတူတူပင်ဖြစ်သည်။ ဤနည်းတွင် vowel တစ်လုံးရွေးပြီးနောက် Q,T,N နှင့် ထို vowel စုစုပေါင်း စာလုံး 4 လုံးကို တစ်ခါတည်း 4! နည်းဖြင့် စီခြင်းဖြစ်သည်။ ထို့ကြောင့် $ {}^3P_3 $ ကို ထပ်မြှောက်ရန် မလိုပါ။
+
+**7. Three brothers and three sisters are lining up to be photographed. How many arrangements are there**
+**(a) with 3 sisters standing together?**
+**(b) if brothers and sisters are in alternating positions?**
+
+ညီအစ်ကို 3 ယောက်နှင့် ညီအစ်မ 3 ယောက် စုစုပေါင်း 6 ယောက်ကို ဓာတ်ပုံရိုက်ရန် တန်းစီမည်။ တန်းစီခြင်းဖြစ်သောကြောင့် အစီအစဉ်အရေးကြီးပြီး လူတစ်ယောက်ကို နေရာတစ်နေရာစီတွင်သာ ထားနိုင်သည်။
+
+**(i) With 3 sisters standing together.**
+ညီအစ်မ 3 ယောက် အတူတူ ရပ်ရမည်ဖြစ်သောကြောင့် သူတို့ကို block တစ်ခုအဖြစ် ယူမည်။ ထို့ကြောင့် စီရမည့်အရာများမှာ ညီအစ်မ block တစ်ခုနှင့် ညီအစ်ကို 3 ယောက်၊ စုစုပေါင်း 4 ခု ဖြစ်သည်။ ထို 4 ခုကို 4! နည်းဖြင့် စီနိုင်သည်။ ထို့ပြင် block အတွင်းရှိ ညီအစ်မ 3 ယောက်ကိုလည်း 3! နည်းဖြင့် စီနိုင်သည်။
+
+[DIAGRAM: Ex5_4_Q7_i_Diag]
+
+$$
+\begin{aligned}
+\text{Number of arrangements} &= 4! \cdot 3! \\
+&= 24 \cdot 6 \\
+&= 144.
+\end{aligned}
+$$
+
+**(ii) If brothers and sisters are in alternating positions.**
+ညီအစ်ကိုနှင့် ညီအစ်မများ အလှည့်ကျ ရပ်ရမည်။ အစတွင် ညီအစ်ကို စမလား၊ ညီအစ်မ စမလား ဟူ၍ ဖြစ်နိုင်သော pattern နှစ်မျိုးရှိသည်။
+
+[DIAGRAM: Ex5_4_Q7_ii_Diag]
+
+ပုံစံတစ်မျိုးစီတွင် ညီအစ်ကို 3 ယောက်ကို 3! နည်းဖြင့် စီနိုင်ပြီး ညီအစ်မ 3 ယောက်ကိုလည်း 3! နည်းဖြင့် စီနိုင်သည်။ ပုံစံ 2 မျိုးရှိသောကြောင့်
+
+$$
+\begin{aligned}
+\text{Number of arrangements} &= 2 \cdot 3! \cdot 3! \\
+&= 2 \cdot 6 \cdot 6 \\
+&= 72.
+\end{aligned}
+$$
+
+**8. How many permutations of the letters $H, E, X, A, G, O, N$ are there if**
+**(a) the 3 vowels are placed together?**
+**(b) the 3 vowels are not placed together?**
+**(c) consonants and vowels do not appear alternately?**
+
+HEXAGON တွင် စုစုပေါင်းစာလုံး 7 လုံးရှိပြီး စာလုံးအားလုံး မတူကြပါ။ vowels များမှာ E,A,O ဖြစ်သောကြောင့် 3 လုံးရှိပြီး consonants များမှာ H,X,G,N ဖြစ်သောကြောင့် 4 လုံးရှိသည်။
+
+In the word HEXAGON, there are 7 letters consisting of 3 vowels $(E, A, O)$ and 4 consonants $(H, X, G, N)$.
+
+**(i) The 3 vowels are placed together.**
+သရစာလုံး 3 လုံးကို အတူတူထားရမည်ဖြစ်သောကြောင့် vowel block တစ်ခုအဖြစ် ယူမည်။ ထို့ကြောင့် စီရမည့်အရာများမှာ vowel block တစ်ခုနှင့် consonants 4 လုံး၊ စုစုပေါင်း 5 ခု ဖြစ်သည်။ ထို 5 ခုကို 5! နည်းဖြင့် စီနိုင်ပြီး vowel block အတွင်းရှိ E,A,O ကို 3! နည်းဖြင့် စီနိုင်သည်။
+
+[DIAGRAM: Ex5_4_Q8_i_Diag]
+
+$$
+\begin{aligned}
+\text{Number of permutations} &= 5! \cdot 3! \\
+&= 120 \cdot 6 \\
+&= 720.
+\end{aligned}
+$$
+
+**(ii) The 3 vowels are not placed together.**
+ဤနေရာတွင် သရစာလုံး 3 လုံးသည် အားလုံးတစ်ဆက်တည်း block အဖြစ် မရှိရခြင်းကို ဆိုလိုသည်။ ထို့ကြောင့် စုစုပေါင်းဖြစ်နိုင်ခြေထဲမှ သရစာလုံး 3 လုံး အတူတူရှိသော ဖြစ်နိုင်ခြေကို နုတ်ရမည်။
+
+$$
+\begin{aligned}
+\text{Total permutations} &= 7! \\
+&= 5040,
+\end{aligned}
+$$
+
+If the 3 vowels are placed together $= 5! \cdot 3!$
+$$
+\begin{aligned}
+&= 120 \cdot 6 \\
+&= 720.
+\end{aligned}
+$$
+
+If the 3 vowels are not placed together, the number of permutations $= 7! - 5! \cdot 3!$
+$$
+\begin{aligned}
+&= 5040 - 720 \\
+&= 4320.
+\end{aligned}
+$$
+
+**(iii) Consonants and vowels do not appear alternately.**
+အရင်ဆုံး အလှည့်ကျဖြစ်သော ဖြစ်နိုင်ခြေကို ရေတွက်မည်။ consonants က 4 လုံး၊ vowels က 3 လုံးရှိသောကြောင့် အလှည့်ကျဖြစ်ရန် ဖြစ်နိုင်သော pattern မှာ CVCVCVC တစ်မျိုးသာရှိသည်။
+
+[DIAGRAM: Ex5_4_Q8_iii_Diag]
+
+ထိုပုံစံတွင် consonants 4 လုံးကို 4! နည်းဖြင့် စီနိုင်ပြီး vowels 3 လုံးကို 3! နည်းဖြင့် စီနိုင်သည်။
+
+$$
+\begin{aligned}
+\text{Alternating permutations} &= 4! \cdot 3! \\
+&= 24 \cdot 6 \\
+&= 144.
+\end{aligned}
+$$
+
+မေးထားသည်မှာ အလှည့်ကျမဟုတ်သော permutations ဖြစ်သောကြောင့် စုစုပေါင်း permutations ထဲမှ အလှည့်ကျဖြစ်သော permutations ကို နုတ်ရမည်။
+
+$$
+\begin{aligned}
+\text{Required number of permutations} &= 7! - 4! \cdot 3! \\
+&= 5040 - 144 \\
+&= 4896.
+\end{aligned}
+$$
+
+**9. Find the number of permutations of all the letters of the word PENGUIN in such a way that there are exactly 3 letters between 2 $N$'s.**
+
+PENGUIN တွင် စုစုပေါင်းစာလုံး 7 လုံးရှိပြီး N နှစ်လုံး ပါသည်။ ကျန်စာလုံးများမှာ P,E,G,U,I ဖြစ်ပြီး အားလုံး မတူကြပါ။
+
+In the word PENGUIN, there are 7 letters with two N's and five other distinct letters $(P, E, G, U, I)$.
+
+N နှစ်လုံးကြားတွင် စာလုံး 3 လုံး အတိအကျရှိရမည်ဆိုသည်မှာ N နှစ်လုံး၏နေရာအကွာအဝေးသည် 4 နေရာ ဖြစ်ရမည်။ ထို့ကြောင့် N နှစ်လုံးထားနိုင်သော နေရာပုံစံမှာ $(1,5), (2,6), (3,7)$ ဟူ၍ 3 မျိုးရှိသည်။
+
+[DIAGRAM: Ex5_4_Q9_Diag]
+
+ပုံစံတစ်မျိုးစီတွင် ကျန်နေရာ 5 နေရာကို P,E,G,U,I ဟူသော မတူညီသော စာလုံး 5 လုံးဖြင့် 5! နည်း စီနိုင်သည်။
+
+$$
+\begin{aligned}
+\text{Required number of permutations} &= 3 \cdot 5! \\
+&= 3 \cdot 120 \\
+&= 360.
+\end{aligned}
+$$
+
+**10. Find the number of permutations of all the letters of the word STRESSLESS in such a way that there are exactly 5 letters between:**
+**(a) 2 $E$'s.**
+**(b) 2 $S$'s.**
+
+STRESSLESS တွင် စုစုပေါင်းစာလုံး 10 လုံးရှိသည်။ S ငါးလုံး၊ E နှစ်လုံး၊ T, R, L တစ်လုံးစီ ပါသည်။
+
+In the word STRESSLESS, there are 10 letters: five S's, two E's, and one each of T, R, L.
+
+**(i) Exactly 5 letters between the 2 $E$'s.**
+E နှစ်လုံးကြားတွင် စာလုံး 5 လုံး အတိအကျရှိရန် E နှစ်လုံး၏နေရာအကွာအဝေးသည် 6 နေရာဖြစ်ရမည်။ ထို့ကြောင့် E နှစ်လုံးထားနိုင်သော နေရာတွဲများမှာ
+နေရာ 1 နှင့် 7, နေရာ 2 နှင့် 8, နေရာ 3 နှင့် 9, နေရာ 4 နှင့် 10 ဟူ၍ 4 မျိုးရှိသည်။ ကျန် 8 နေရာတွင် S,S,S,S,S,T,R,L ကို စီရမည်။
+
+[DIAGRAM: Ex5_4_Q10_i_Diag]
+
+$$
+\begin{aligned}
+\text{Required number of permutations} &= 4 \cdot \frac{8!}{5!} \\
+&= 4 \cdot (8 \cdot 7 \cdot 6) \\
+&= 1344.
+\end{aligned}
+$$
+
+**(ii) Exactly 5 letters between 2 $S$'s.**
+S သည် 5 လုံးရှိသောကြောင့် S နှစ်လုံးကို အရင်ရွေးပြီး ရေတွက်လျှင် ထပ်ရေတွက်မိနိုင်မည်။ ထို့ကြောင့် အခြေအနေများကို $A_1, A_2, A_3, A_4$ ဖြင့် သတ်မှတ်ပြီး ထပ်ရေတွက်မိခြင်းကို ပြန်နုတ်မည်။
+ပုစ္ဆာထဲက အခြေအနေကို ကိုက်ညီရန်အတွက် S နှစ်လုံးကြားတွင် စာလုံး 5 လုံး အတိအကျရှိရန် S နှစ်လုံး၏ နေရာအကွာအဝေးသည် 6 ဖြစ်ရမည်။ ထို့ကြောင့် ဖြစ်နိုင်သော $S, S$ နေရာတွဲများမှာ
+$(1, 7), \quad (2, 8), \quad (3, 9), \quad (4, 10)$
+ဟူ၍ 4 စုံသာရှိသည်။ အနည်းဆုံး အတွဲတစ်တွဲသည် $S, S$ ဖြစ်ရမည်။
+
+$A_1 = (1, 7), \quad A_2 = (2, 8), \quad A_3 = (3, 9), \quad A_4 = (4, 10)$
+ဟု သတ်မှတ်မည်။ ဥပမာ $A_1$ ဆိုသည်မှာ နေရာ 1 နှင့် 7 နှစ်ခုလုံးတွင် S ရှိသောအခြေအနေဖြစ်သည်။
+
+အတွဲလေးစုံကို ပုံဖော်ကြည့်လျှင်
+
+[DIAGRAM: Ex5_4_Q10_ii_Diag1]
+
+အရင်ဆုံး အတွဲတစ်စုံကို S, S အဖြစ် သတ်မှတ်ပြီး ရေတွက်မည်။ ဥပမာ $A_1$ ဖြစ်လျှင် နေရာ 1 နှင့် 7 တွင် S နှစ်လုံးထားပြီးသားဖြစ်သည်။
+
+ဥပမာ $A_1$ တစ်တွဲကို သတ်မှတ်လျှင်
+
+[DIAGRAM: Ex5_4_Q10_ii_Diag2]
+
+သတ်မှတ်ပြီး S 2 လုံး၊ ကျန်နေရာ 8 နေရာထဲမှ S 3 လုံး ထပ်ရွေး $\Rightarrow {}^8C_3$
+ထို့ကြောင့် အတွဲတစ်စုံစီအတွက် $ {}^8C_3 $ နည်းရှိသည်။ အတွဲ 4 စုံရှိသောကြောင့် အရင်ရေတွက်လျှင်
+$4 \cdot {}^8C_3 = 4 \cdot 56 = 224$ နည်းရမည်။
+
+သို့သော် ဒီ 224 ထဲတွင် ထပ်ရေတွက်မိတာရှိသည်။ ဆိုလိုသည်မှာ $A_1$ အတွက် ရေတွက်သောအစာရင်းတွင်လည်း ဝင်ပြီး၊ $A_2$ အတွက် ရေတွက်သောစာရင်းတွင်လည်း ထပ်ဝင်နေသော နေရာရွေးချယ်ပုံစံများ ရှိနိုင်သည်ဟု ဆိုလိုသည်။
+ဥပမာ S ကို နေရာ $\{1, 2, 7, 8, 9\}$ တွင်ထားသော ပုံစံကို ကြည့်ပါ။ ဤပုံစံတွင် $(1, 7)$ လည်း S အတူရှိသော S, S အတွဲဖြစ်သဖြင့် $A_1$ စာရင်းထဲဝင်သည်။ ထိုအပြင် $(2, 8)$ လည်း S အတူရှိသော S, S အတွဲဖြစ်သဖြင့် $A_2$ စာရင်းထဲလည်း ဝင်သည်။ ထို့ကြောင့် ဒီနေရာပုံစံသည် $A_1$ ကို ရေတွက်သောအခါ တစ်ခါပါပြီး $A_2$ ကို ရေတွက်သောအခါ နောက်တစ်ခါ ထပ်ပါသွားသည်။ ထို့ကြောင့် နှစ်ခါရေတွက်မိခြင်းဖြစ်သည်။
+
+ထပ်ရေတွက်မိသော ပုံစံ ဥပမာ $A_1 \cap A_2$
+
+[DIAGRAM: Ex5_4_Q10_ii_Diag3]
+
+သတ်မှတ်ပြီး S 4 လုံး၊ ကျန်နေရာ 6 နေရာထဲမှ S 1 လုံး ထပ်ရွေး $\Rightarrow {}^6C_1$
+
+အတွဲနှစ်စုံ တစ်ပြိုင်နက်ဖြစ်သော အခြေအနေကို ရေတွက်မည်။ $A_1, A_2, A_3, A_4$ ထဲမှ အတွဲနှစ်စုံရွေးရန် $ {}^4C_2 $ နည်းရှိသည်။ အတွဲနှစ်စုံ သတ်မှတ်ပြီးလျှင် S 4 လုံးထားပြီးဖြစ်သောကြောင့် ကျန် S 1 လုံးကို ကျန်နေရာ 6 နေရာထဲမှ ရွေးရန် $ {}^6C_1 $ နည်းရှိသည်။
+$ {}^4C_2 \cdot {}^6C_1 = 6 \cdot 6 = 36$
+
+ဒီ 36 ခုသည် အပေါ်က 224 ထဲတွင် နှစ်ခါစီ ရေတွက်ထားမိသော အခြေအနေများဖြစ်သဖြင့် တစ်ခါပြန်နုတ်ရမည်။ အတွဲသုံးစုံ တစ်ပြိုင်နက်ဖြစ်ရန်ဆိုတော့ S အနည်းဆုံး 6 လုံးလိုပြီး တကယ်တွင် S 5 လုံးသာရှိသောကြောင့် မဖြစ်နိုင်ပါ။
+
+$$
+\begin{aligned}
+\text{Number of possible positions for the five S's} &= 4 \cdot {}^8C_3 - {}^4C_2 \cdot {}^6C_1 \\
+&= 224 - 36 \\
+&= 188.
+\end{aligned}
+$$
+
+ထို့နောက် ကျန် 5 နေရာတွင် E,E,T,R,L ကို $\frac{5!}{2!}$ နည်းဖြင့် စီနိုင်သည်။
+
+$$
+\begin{aligned}
+\text{Required number of permutations} &= 188 \cdot \frac{5!}{2!} \\
+&= 188 \cdot 60 \\
+&= 11280.
+\end{aligned}
+$$
+
+The two $S$'s must be 6 positions apart, so the possible pairs are
+$(1, 7), \quad (2, 8), \quad (3, 9), \quad (4, 10)$.
+
+[DIAGRAM: Ex5_4_Q10_ii_Diag4]
+
+For one fixed pair, choose the remaining 3 $S$'s from the other 8 positions. Thus
+$$
+4 \cdot {}^8C_3 = 4 \cdot 56 = 224.
+$$
+
+If two pairs occur together, choose the two pairs and then choose the last $S$ from the remaining 6 positions:
+
+[DIAGRAM: Ex5_4_Q10_ii_Diag5]
+
+$$
+{}^4C_2 \cdot {}^6C_1 = 6 \cdot 6 = 36.
+$$
+
+No three pairs can occur together, since this would require at least 6 $S$'s.
+
+$$
+\begin{aligned}
+\text{Number of positions for the five S's} &= 224 - 36 \\
+&= 188.
+\end{aligned}
+$$
+
+The remaining letters are $E, E, T, R, L$, so they can be arranged in $\frac{5!}{2!}$ ways.
+
+$$
+\begin{aligned}
+\text{Required number of permutations} &= 188 \cdot \frac{5!}{2!} \\
+&= 188 \cdot 60 \\
+&= 11280.
+\end{aligned}
+$$
 
 
 `;

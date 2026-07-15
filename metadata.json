@@ -1,5 +1,5 @@
 {
-  "name": "Grade 12 Mathematics",
+  "name": "Unlock Education",
   "description": "An interactive learning platform for Grade 12 Mathematics covering 11 core chapters with beautiful LaTeX rendering, formula sheets, interactive practice quizzes, and visualization tools.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]

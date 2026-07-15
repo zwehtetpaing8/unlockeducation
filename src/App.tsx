@@ -1,17 +1,31 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { chapters } from './data/chapters';
 import ChapterDetails from './components/ChapterDetails';
 import FormulaSheet from './components/FormulaSheet';
 import HomeView from './components/HomeView';
 import { motion, AnimatePresence } from 'motion/react';
-import { BookOpen, Calculator, Search, Menu, X, GraduationCap, ChevronRight, Hash, Home } from 'lucide-react';
+import { BookOpen, Calculator, Search, Menu, X, GraduationCap, ChevronRight, Hash, Home, Facebook, Send, Bug, Youtube } from 'lucide-react';
 import ThemeToggle from './components/ThemeToggle';
 
 export default function App() {
-  const [activeView, setActiveView] = useState<'home' | 'syllabus' | 'formulas'>('home');
-  const [selectedChapterId, setSelectedChapterId] = useState<number>(1);
+  const [activeView, setActiveView] = useState<'home' | 'syllabus' | 'formulas'>(() => {
+    const saved = localStorage.getItem('unlock_edu_activeView');
+    return (saved as 'home' | 'syllabus' | 'formulas') || 'home';
+  });
+  const [selectedChapterId, setSelectedChapterId] = useState<number>(() => {
+    const saved = localStorage.getItem('unlock_edu_selectedChapterId');
+    return saved ? parseInt(saved, 10) : 1;
+  });
   const [sidebarSearch, setSidebarSearch] = useState<string>('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    localStorage.setItem('unlock_edu_activeView', activeView);
+  }, [activeView]);
+
+  useEffect(() => {
+    localStorage.setItem('unlock_edu_selectedChapterId', selectedChapterId.toString());
+  }, [selectedChapterId]);
 
   // Filter chapters based on search query
   const filteredChapters = chapters.filter((ch) =>
@@ -35,7 +49,7 @@ export default function App() {
           </div>
           <div>
             <h1 className="font-display font-bold text-sm md:text-base tracking-tight text-slate-900 dark:text-white leading-tight group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-              Grade 12 Mathematics
+              Unlock Education
             </h1>
             <p className="text-[10px] text-slate-400 font-medium tracking-wide uppercase">
               ACADEMIC STUDY PORTAL
@@ -109,17 +123,6 @@ export default function App() {
             title="Syllabus chapters"
           >
             <BookOpen className="w-4 h-4" />
-          </button>
-          <button
-            onClick={() => setActiveView('formulas')}
-            className={`p-2 rounded-lg cursor-pointer transition-colors ${
-              activeView === 'formulas'
-                ? 'bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 font-bold'
-                : 'bg-slate-100 dark:bg-slate-900 text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
-            }`}
-            title="Formulas sheet"
-          >
-            <Calculator className="w-4 h-4" />
           </button>
           {activeView === 'syllabus' && (
             <button
@@ -245,7 +248,7 @@ export default function App() {
               >
                 <div className="mb-6 space-y-1">
                   <h2 className="font-display font-bold text-xl md:text-2xl text-slate-900 dark:text-white tracking-tight">
-                    Grade 12 Mathematics Formulas
+                    Unlock Education Formulas
                   </h2>
                   <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
                     Master formula registry cheat sheet with copyable LaTeX sources.
@@ -344,9 +347,69 @@ export default function App() {
       </AnimatePresence>
 
       {/* Footer Branding line */}
-      <footer className="py-5 bg-white dark:bg-slate-950/30 border-t border-slate-200/50 dark:border-slate-800/40 text-center text-[10px] text-slate-400 font-medium">
-        © 2026 Grade 12 Mathematics Learning Portal. Designed and organized in English.
+      <footer className="py-6 bg-white dark:bg-slate-950/30 border-t border-slate-200/50 dark:border-slate-800/40">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 px-4 md:px-8 max-w-7xl mx-auto">
+          <div className="text-[10px] text-slate-400 font-medium text-center md:text-left">
+            © 2026 Unlock Education. All rights reserved.
+          </div>
+          <div className="flex items-center gap-5">
+            <a 
+              href="https://www.facebook.com/UnlockEducation25" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-slate-400 hover:text-[#1877F2] transition-colors flex items-center gap-1.5"
+            >
+              <Facebook className="w-4 h-4" />
+              <span className="hidden md:inline text-[10px] font-bold uppercase tracking-wide">Facebook</span>
+            </a>
+            <a 
+              href="https://www.youtube.com/@unlockedu25" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-slate-400 hover:text-[#FF0000] transition-colors flex items-center gap-1.5"
+            >
+              <Youtube className="w-4 h-4" />
+              <span className="hidden md:inline text-[10px] font-bold uppercase tracking-wide">YouTube</span>
+            </a>
+            <a 
+              href="https://t.me/UnlockEducation25" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-slate-400 hover:text-[#229ED9] transition-colors flex items-center gap-1.5"
+            >
+              <Send className="w-4 h-4" />
+              <span className="hidden md:inline text-[10px] font-bold uppercase tracking-wide">Channel</span>
+            </a>
+            <a 
+              href="https://t.me/UnlockEdu25" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-slate-400 hover:text-emerald-500 transition-colors flex items-center gap-1.5 ml-2"
+            >
+              <Bug className="w-4 h-4" />
+              <span className="hidden md:inline text-[10px] font-bold uppercase tracking-wide">Report Bug</span>
+            </a>
+          </div>
+        </div>
       </footer>
+
+      {/* Mobile Floating Action Button for Formulas */}
+      <AnimatePresence>
+        {activeView !== 'formulas' && (
+          <motion.button
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0, opacity: 0 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setActiveView('formulas')}
+            className="md:hidden fixed bottom-24 right-6 z-50 bg-indigo-600 text-white p-4 rounded-full shadow-lg shadow-indigo-500/30 flex items-center justify-center"
+            title="Formulas sheet"
+          >
+            <Calculator className="w-6 h-6" />
+          </motion.button>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
