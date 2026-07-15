@@ -1079,4 +1079,375 @@ $$\begin{aligned}\text{Number of triangles} &= {}^8C_3 \\&= \frac{8 \cdot 7 \cdo
 အကြီးဆုံးအသီးတစ်လုံးကို ရွေးပြီးသားဖြစ်သောကြောင့် ထပ်လိုသောအသီးမှာ 3 လုံး ဖြစ်သည်။ အကြီးဆုံးနှင့် အသေးဆုံးကို ဖယ်ပြီးနောက် ကျန်အသီးမှာ 7 လုံးရှိသောကြောင့် ထို 7 လုံးထဲမှ 3 လုံးရွေးရမည်။ ရွေးချယ်ခြင်းသာဖြစ်ပြီး အစီအစဉ်အရေးမကြီးသောကြောင့် combination ကို အသုံးပြုရမည်။
 
 $$\begin{aligned}\text{The required number of ways} &= {}^7C_3 \\&= \frac{7 \cdot 6 \cdot 5}{3 \cdot 2 \cdot 1} \\&= 35.\end{aligned}$$
-`
+
+
+---
+
+## 5.4 Techniques for Some Counting Principle
+
+In this section, we explore advanced counting techniques that build upon the basic principles. We will discuss permutations where some objects are identical (Permutations with Repetitions), how to handle overcounting (The Exclusion Principle), and how to count the total number of subsets of a finite set.
+
+### Permutations with Repetitions
+
+အရာဝတ္ထုများကို အစီအစဉ်တကျစီရာတွင် အချို့အရာများသည် တစ်ခုနှင့်တစ်ခု ခွဲခြားမရဘဲ တူညီနေပါက permutations with repetitions ဖြင့် စဉ်းစားရမည်။
+
+ဥပမာ KEENNESS ဆိုသော စာလုံးတွင် K တစ်လုံး၊ E သုံးလုံး၊ N နှစ်လုံးနှင့် S နှစ်လုံးရှိသည်။ ပထမ E နှင့် ဒုတိယ E ကို နေရာချင်းလဲလှယ်သော်လည်း စာလုံးစီပုံအသစ်တစ်ခု မဖြစ်လာပါ။ ထို့အတူ N နှစ်လုံးအတွင်းနှင့် S နှစ်လုံးအတွင်း နေရာချင်းလဲလှယ်ခြင်းများလည်း စာလုံးစီပုံအသစ် မဖြစ်စေပါ။ ထို့ကြောင့် ထပ်နေသောအစီအစဉ်များကို ဖယ်ထုတ်ရန် လိုသည်။
+
+#### Formula for Permutations with Repetitions
+
+အရင်ဆုံး KEENNESS ကို combination နည်းဖြင့် စဉ်းစားကြည့်မယ်။ စာလုံး 8 လုံးထားမည့်နေရာ 8 နေရာရှိသည် ဟု ယူဆပါ။
+
+- ပထမဆုံး K တစ်လုံးထားမည့်နေရာ 1 နေရာကို နေရာ 8 နေရာထဲမှ ရွေးမည်။ နည်းလမ်းအရေအတွက်မှာ $ {}^8C_1 $ ဖြစ်သည်။
+- ကျန်နေရာ 7 နေရာထဲမှ E သုံးလုံးထားမည့်နေရာ 3 နေရာကို ရွေးမည်။ နည်းလမ်းအရေအတွက်မှာ $ {}^7C_3 $ ဖြစ်သည်။
+- ကျန်နေရာ 4 နေရာထဲမှ N နှစ်လုံးထားမည့်နေရာ 2 နေရာကို ရွေးမည်။ နည်းလမ်းအရေအတွက်မှာ $ {}^4C_2 $ ဖြစ်သည်။
+- နောက်ဆုံး ကျန်နေရာ 2 နေရာတွင် S နှစ်လုံးထားရမည်။ နည်းလမ်းအရေအတွက်မှာ $ {}^2C_2 $ ဖြစ်သည်။
+
+ထို့ကြောင့် Multiplication Principle အရ
+$$
+\begin{aligned}
+\text{Number of arrangements of } KEENNESS &= {}^8C_1 \cdot {}^7C_3 \cdot {}^4C_2 \cdot {}^2C_2 \\
+&= \frac{8!}{1!7!} \cdot \frac{7!}{3!4!} \cdot \frac{4!}{2!2!} \cdot \frac{2!}{2!0!} \\
+&= \frac{8!}{3!2!2!}
+\end{aligned}
+$$
+
+ဆိုလိုသည်မှာ တူညီသောစာလုံးများ၏ နေရာများကို combination ဖြင့် အဆင့်လိုက် ရွေးသွားလျှင် အဆုံးတွင် ထပ်နေသောအရေးအတွက်များကို စားထားသလိုခံရလာသည်။ ဒီအယူအဆကို ယေဘုယျပြုလျှင် စုစုပေါင်း အရာဝတ္ထု $n$ ခုရှိပြီး ထို $n$ ခုထဲတွင်ပါသည့် တူညီသောအရာများ၏ အရေအတွက်များသည် $n_1, n_2, \dots, n_r$ အထိ ရှိမည်ဆိုပါက စီနိုင်သောနည်းလမ်းအရေအတွက်မှာ
+$$ \frac{n!}{n_1! n_2! \dots n_r!} $$
+ဖြစ်သည်။
+
+---
+
+##### Example 20
+In how many ways can a permutation of all the letters of the word EXCELLENCE be formed?
+
+**Solution**
+EXCELLENCE တွင် စုစုပေါင်းစာလုံး 10 လုံးရှိသည်။ ထိုအထဲတွင် E သည် 4 လုံး၊ C သည် 2 လုံး၊ L သည် 2 လုံး၊ X သည် 1 လုံးနှင့် N သည် 1 လုံး ပါသည်။
+တူညီသောစာလုံးများပါသောကြောင့် permutations with repetitions ပုံသေနည်းကို အသုံးပြုရမည်။
+In the word EXCELLENCE, there are 10 letters consisting of four E's, one X, two C's, two L's and one N. So the number of ways is
+$$
+\begin{aligned}
+\frac{10!}{4! 2! 2! 1! 1!} &= \frac{10 \cdot 9 \cdot 8 \cdot 7 \cdot 6 \cdot 5 \cdot 4!}{4! \cdot (2 \cdot 1) \cdot (2 \cdot 1) \cdot 1} \\
+&= \frac{10 \cdot 9 \cdot 8 \cdot 7 \cdot 6 \cdot 5}{1 \cdot 2 \cdot 2 \cdot 1} \\
+&= 37800.
+\end{aligned}
+$$
+Therefore, all the letters of EXCELLENCE can be arranged in 37800 different ways.
+
+---
+
+### The Exclusion Principle
+
+**Note** The exclusion principle is a way to count what you are interested in by first counting what you are not interested in. This is often needed for counting where a certain property is prohibited (not allowed).
+
+ဆိုလိုသည်မှာ လိုချင်သောနည်းလမ်း သို့မဟုတ် စိတ်ဝင်စားသောနည်းလမ်းအရေအတွက်ကိုရဖို့ မလိုချင်သောအရာ သို့မဟုတ် မပါစေချင်သောနည်းလမ်းများကို အရင်ရေတွက်ပြီး စုစုပေါင်းနည်းလမ်းထဲမှ ပြန်နုတ်ခြင်းဖြင့် လိုချင်သောနည်းလမ်းအရေအတွက်ကို ရှာခြင်းဖြစ်သည်။
+
+**General Rule** Required number of ways = Total number of ways $ - $ Number of excluded ways.
+
+#### ဥပမာတစ်ခုနဲ့ လေ့လာကြည့်ရအောင်
+
+Consider 5-digit codes containing each of the digits 1, 2, 3, 4, 5 exactly once. Find the number of codes not ending in 25.
+
+**Solution**
+
+ကိန်းဂဏန်း 1, 2, 3, 4, 5 တို့ကို တစ်လုံးစီသာသုံးပြီး 5-digit codes ဖန်တီးရမည်။ လိုချင်သော codes များသည် 25 ဖြင့် မဆုံးရပါ။
+ထို့ကြောင့် last digit သည် 5 မဖြစ်သောအခြေအနေနှင့် last digit သည် 5 ဖြစ်ပြီး 4th digit သည် 2 မဖြစ်သောအခြေအနေဟူ၍ case 2 ခုခွဲပြီး စဉ်းစားကြည့်မည်။
+
+###### Case 1: last digit is not 5
+[DIAGRAM:ExclusionPrincipleExample1Case1Diagram]
+
+ပထမပုံတွင် ပြထားသကဲ့သို့ Case 1 တွင် last digit သည် 5 မဖြစ်ရသောကြောင့် 1, 2, 3, 4 ထဲမှ ရွေးရန် နည်းလမ်း 4 နည်းရှိသည်။ တစ်လုံးကိုရွေးလိုက်လျှင် 3 လုံးကျန်မည်ဖြစ်ပြီး ဖယ်ထားသော 5 နှင့်ဆိုလျှင် digit 4 လုံးဖြစ်မည်။ ထို့ကြောင့် ထို digit 4 လုံးကို ပထမနေရာ 4 နေရာတွင် စီနိုင်သောနည်းလမ်းမှာ $4!$ ဖြစ်သည်။
+
+$$ \text{Case 1: last digit is not } 5 = 4 \cdot 4! = 96 $$
+
+###### Case 2: last digit is 5, but 4th digit is not 2
+[DIAGRAM:ExclusionPrincipleExample1Case2Diagram]
+
+ထို့နောက် Case 2 တွင် last digit ကို 5 ဟုသတ်မှတ်ထားပြီးဖြစ်သည့်အတွက် ရွေးချယ်နိုင်သော နည်းလမ်းမှာ 1 နည်းသာရှိသည်။ 4th digit သည် 2 မဖြစ်ရသောကြောင့် ကျန်သော 1, 3, 4 ထဲမှ တစ်ခုကို ရွေးနိုင်ပြီး နည်းလမ်း 3 နည်းရှိသည်။ တစ်လုံးကို ရွေးလိုက်လျှင် 2 လုံးကျန်မည်ဖြစ်ပြီး ဖယ်ထားသော 2 နှင့်ဆိုလျှင် စုစုပေါင်း 3 လုံးကျန်မည်။ ကျန်နေသော 3 လုံးကို ပထမနေရာ 3 နေရာတွင် စီနိုင်သောနည်းလမ်းမှာ $3!$ ဖြစ်သည်။
+
+$$ \text{Case 2: last digit is 5 and 4th digit is not 2} = 3 \cdot 3! = 18 $$
+
+ဖြစ်ရပ်နှစ်ခုသည် တစ်ခုနှင့်တစ်ခု အဆက်အစပ်မရှိသော သီးခြားဖြစ်ရပ် (disjoint cases) များဖြစ်သောကြောင့် Addition Principle ကိုသုံးပြီး စုစုပေါင်းနည်းလမ်းကို ရှာရမည်။
+
+$$ \text{Required number of codes not ending in } 25 = 96 + 18 = 114 $$
+
+ဒီတစ်ခါတော့ Exclusion Principle ကိုသုံးပြီး တွက်ကြည့်ကြမည်။
+
+$$ \text{Total number of codes} = 5! = 120 $$
+
+လိုချင်သည်မှာ 25 ဖြင့်မဆုံးသော codes များဖြစ်သည့်အတွက် မလိုချင်သော codes များသည် 25 ဖြင့်ဆုံးသော codes များဖြစ်သည်။ နောက်ဆုံးနေရာနှစ်ခုတွင် 2 နှင့် 5 ကို အစဉ်လိုက်အသေထားလျှင် ကျန်နေရာ 3 နေရာတွင် 1, 3, 4 တို့ကို စီရမည်။
+
+###### Excluded codes: ending in 25
+[DIAGRAM:ExclusionPrincipleExample1ExcludedDiagram]
+
+$$ \text{Number of codes ending in } 25 = 3! \cdot 1 \cdot 1 = 6 $$
+
+$$
+\begin{aligned}
+\text{Required number of codes not ending in } 25 &= \text{Total number} - \text{Number ending in } 25 \\
+&= 120 - 6 \\
+&= 114.
+\end{aligned}
+$$
+
+ထို့ကြောင့် Exclusion Principle ကိုသုံးလျှင် မလိုချင်သောအခြေအနေကိုသာ နုတ်ပယ်ရသောကြောင့် ပိုတိုပြီး ပိုရှင်းလင်းသည်။
+Therefore, the number of codes not ending in 25 is 114.
+
+---
+
+##### Example 21
+How many permutations are there of the letters of the word PROGRAM, if they do not end in: (a) 2R's (b) MAP?
+
+**Solution**
+PROGRAM တွင် စုစုပေါင်းစာလုံး 7 လုံးရှိပြီး R နှစ်လုံး တူညီနေသည်။
+In the word PROGRAM, there are 7 letters consisting of one P, two R's, one O, one G, one A and one M, so the number of permutations of the letters is
+$$
+\begin{aligned}
+\text{Total number of permutations of the letters} &= \frac{7!}{2! \cdot 1! \cdot 1! \cdot 1! \cdot 1! \cdot 1!} \\
+&= 2520.
+\end{aligned}
+$$
+
+**(a) Not ending in 2R's.**
+လိုချင်တာက 2R's နဲ့မဆုံးသော permutations များဖြစ်သည်။ ဒါကြောင့် မလိုချင်သော permutations များဖြစ်သည့် 2R's ဖြင့်ဆုံးသော permutations များကို အရင်ရှာပြီး စုစုပေါင်းနည်းလမ်းထဲက နုတ်ရမည်။ နောက်ဆုံးနေရာနှစ်ခုတွင် R နှစ်လုံးကို အသေထားလျှင် ကျန်သော P, O, G, A, M စာလုံး 5 လုံးကို ပထမနေရာ 5 နေရာတွင် စီရမည်။
+
+###### Excluded permutations: ending in 2R's
+[DIAGRAM:ProgramExampleDiagramA]
+
+$$ \text{Number of permutations ending in 2R's} = 5! \cdot 1! \cdot 1 = 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 \cdot 1 \cdot 1 = 120. $$
+$$ \text{Number of permutations not ending in 2R's} = 2520 - 120 = 2400. $$
+
+**(b) Not ending in MAP.**
+မလိုချင်သော permutations များသည် နောက်ဆုံးနေရာသုံးခုတွင် MAP ဖြင့်ဆုံးသော permutations များဖြစ်သည်။ နောက်ဆုံးနေရာများတွင် M, A, P ကို အစဉ်လိုက်အသေထားလျှင် ကျန်သော R, O, G, R စာလုံး 4 လုံးကို ပထမနေရာ 4 နေရာတွင် စီရမည်။ ထိုကျန်စာလုံးများတွင် R နှစ်လုံး တူညီနေသည်။
+
+###### Excluded permutations: ending in MAP
+[DIAGRAM:ProgramExampleDiagramB]
+
+$$
+\begin{aligned}
+\text{Number of permutations ending in MAP} &= \frac{4!}{2!} \cdot 1! \cdot 1! \cdot 1! \\
+&= \frac{4 \cdot 3 \cdot 2 \cdot 1}{2 \cdot 1} \cdot 1 \cdot 1 \cdot 1 \\
+&= 12.
+\end{aligned}
+$$
+$$ \text{Number of permutations not ending in MAP} = 2520 - 12 = 2508. $$
+
+**Note** ကျန်သောစာလုံးများကို စီရာတွင် တူသောစာလုံးများရှိ/မရှိ သတိထားရမည်။ တူသောစာလုံးများရှိပါက ထိုတူသောအရေးအတွက်၏ factorial ဖြင့် ပြန်စားရမည်။ တစ်လုံးတည်းရှိသောစာလုံးများအတွက် $1!$ များကို ပိုင်းခြေတွင် ထည့်တွက်လျှင်လည်း အဖြေမပြောင်းသောကြောင့် ထည့်ရေးလည်းရသည်။
+
+---
+
+### Counting the Subsets of a Finite Set
+
+Consider a set $X = \{a, b, c, d, e\}$. A subset is formed by choosing some elements from $X$. Since the order of chosen elements is not important, counting subsets is a combination problem.
+
+ဥပမာ $X = \{a, b, c, d, e\}$ တွင် အစင် 5 ခုရှိသည်။ subset တစ်ခုလုပ်သည်ဆိုသည်မှာ ထို 5 ခုထဲမှ အချို့ကိုရွေးခြင်းဖြစ်သည်။ ရွေးထားသောအစင်များ၏ အစီအစဉ်မလိုသောကြောင့် combination နည်းဖြင့် ရေတွက်နိုင်သည်။
+
+**Concept Check** အစုဝင် $r$ ခုပါသော subset အရေအတွက်သည် 5 ခုထဲမှ $r$ ခုကို ရွေးသည့်နည်းလမ်းအရေအတွက်ဖြစ်သည်။ ထို့ကြောင့် Number of subsets containing $r$ elements $= {}^5C_r, \quad 0 \le r \le 5$.
+
+For example, there are $ {}^5C_4 = 5 $ subsets containing 4 elements, as listed below.
+$$ \{a, b, c, d\}, \quad \{a, b, c, e\}, \quad \{a, b, d, e\}, \quad \{a, c, d, e\}, \quad \{b, c, d, e\}. $$
+
+So, by the Addition Principle, the number of all the subsets of $X$ is given by
+$$ {}^5C_0 + {}^5C_1 + {}^5C_2 + \dots + {}^5C_5 = 1 + 5 + 10 + 10 + 5 + 1 = 32. $$
+
+ဒီပေါင်းလဒ်၏ အဓိပ္ပါယ်မှာ subsets အားလုံးကို ပါဝင်သောအစုဝင်အရေအတွက်အလိုက် အုပ်စုခွဲရေတွက်ခြင်းဖြစ်သည်။
+
+- $ {}^5C_0 $ သည် အစုဝင် 0 ခုပါသော subset အရေအတွက်ဖြစ်သည်။
+- $ {}^5C_1 $ သည် အစုဝင် 1 ခုပါသော subsets အရေအတွက်ဖြစ်သည်။
+- $ {}^5C_2 $ သည် အစုဝင် 2 ခုပါသော subsets အရေအတွက်ဖြစ်သည်။
+- $\dots$ သည် အလားတူ အစုဝင် 3 ခု၊ 4 ခုပါသော subsets များကို ဆက်ရေတွက်မည်ဟု ဆိုလိုသည်။
+- $ {}^5C_5 $ သည် အစုဝင် 5 ခုလုံးပါသော subset အရေအတွက်ဖြစ်သည်။
+
+အုပ်စုတစ်ခုနှင့်တစ်ခု ဆက်စပ်မှုမရှိသော ရွေးချယ်မှုများဖြစ်သောကြောင့် စုစုပေါင်း subsets အရေအတွက်ကို ရရန် Addition Principle အရ ပေါင်းပေးရမည်။
+
+There is another simple way to count all subsets. For each element of $X$, we only have two choices: include it in the subset or exclude it from the subset.
+
+တစ်နည်းအားဖြင့် subset တစ်ခုကို တည်ဆောက်ရန် အစုဝင်တစ်ခုချင်းစီအတွက် ပါဝင်မလား၊ မပါဝင်ဘူးလားဟု ဆုံးဖြတ်ရမည်။ အစုဝင်တစ်ခုစီအတွက် ရွေးချယ်စရာ 2 မျိုးရှိသည်။
+
+[DIAGRAM:SubsetCountingTable]
+
+Thus, by the Multiplication Principle, the number of all the subsets of $X$ is
+$$ 2 \times 2 \times 2 \times 2 \times 2 = 2^5 = 32. $$
+
+Therefore,
+$$ {}^5C_0 + {}^5C_1 + {}^5C_2 + \dots + {}^5C_5 = 2^5 = 32. $$
+
+ထို့ကြောင့် $X$ ၏ subsets အားလုံးကို နည်းလမ်းနှစ်မျိုးဖြင့် ရေတွက်နိုင်ပြီး အဖြေတူကြောင်းတွေ့နိုင်သည်။
+
+**General Rule** We can generalize the above results as follows. If a finite set contains $n$ elements, then it has $2^n$ subsets. If $n$ is an integer with $n \ge 0$, then $ {}^nC_0 +  {}^nC_1 +  {}^nC_2 + \dots +  {}^nC_n = 2^n$. အဓိကမှတ်ရန်မှာ အစုဝင် $n$ ခုရှိသော finite set တစ်ခုတွင် အစုဝင်တစ်ခုချင်းစီအတွက် ရွေးချယ်စရာ 2 မျိုးစီရှိခြင်းဖြစ်သည်။ ထို့ကြောင့် subsets စုစုပေါင်းအရေအတွက်သည် $2^n$ ဖြစ်သည်။ အစုဝင် 0 ခုပါသော subset မှ အစုဝင် $n$ ခုလုံးပါသော subset အထိ အုပ်စုခွဲရေတွက်ပြီး ပေါင်းလျှင်လည်း ထိုအရေအတွက်ပင်ဖြစ်သည်။
+
+---
+
+##### Example 22
+If $A$ is a set containing 9 distinct elements.
+How many subsets of $A$ contain: (a) at most 2 elements? (b) at least 3 elements?
+
+**Solution**
+အစု $A$ တွင် မတူညီသော အစုဝင် 9 ခုရှိသည်။ မေးခွန်းအအရ (a) အများဆုံး အစုဝင် 2 ခုပါလျှင်၊ (b) အနည်းဆုံး အစုဝင် 3 ခုပါလျှင် $A$ ၏ အပိုင်းအစုအရေအတွက်ကို ရှာရမည်။
+
+**(a) At most 2 elements.**
+အများဆုံး 2 ခုပါသော subsets ဆိုသည်မှာ အစုဝင် 0 ခု၊ 1 ခု၊ သို့မဟုတ် 2 ခုပါသော subsets များဖြစ်သည်။
+$$
+\begin{aligned}
+\text{Number of subsets containing at most 2 elements} &= {}^9C_0 + {}^9C_1 + {}^9C_2 \\
+&= 1 + 9 + \frac{9 \cdot 8}{2 \cdot 1} \\
+&= 1 + 9 + 36 \\
+&= 46.
+\end{aligned}
+$$
+Therefore, the number of subsets of $A$ containing at most 2 elements is 46.
+
+**(b) At least 3 elements.**
+အနည်းဆုံး 3 ခုပါသော subsets များကို တိုက်ရိုက်ရေတွက်လျှင် $ {}^9C_3 + {}^9C_4 + \dots + {}^9C_9 $ ကို ပေါင်းရမည်။ ဒါပေမဲ့ စုစုပေါင်း subsets အရေအတွက်ထဲမှ အစုဝင် 0, 1, 2 ခုပါသော subsets များကို နုတ်လျှင် ပိုလွယ်သည်။
+The total number of subsets of $A$ is
+$$ 2^9 = 512. $$
+Hence,
+$$
+\begin{aligned}
+\text{Number of subsets containing at least 3 elements} &= 2^9 - ({}^9C_0 + {}^9C_1 + {}^9C_2) \\
+&= 512 - 46 \\
+&= 466.
+\end{aligned}
+$$
+Therefore, the number of subsets of $A$ containing at least 3 elements is 466.
+
+**Note** "At most 2" ဆိုသည်မှာ အများဆုံး 2 ခုပါရမည်။ 2 ထက် ပို၍မရပါ။ တစ်ခုမှမပါလည်း ရသည်။ ထို့ကြောင့် 0, 1, 2 ခုပါသော subsets များကို ရေတွက်ရမည်။ "At least 3" ဆိုသည်မှာ အနည်းဆုံး 3 ခုပါရမည်။ 3 ထက်ပို၍ရသည်။ သို့သော် အစု $A$ တွင် စုစုပေါင်း အစုဝင် 9 ခုသာရှိသောကြောင့် 9 ခုထက် ပို၍မရပါ။ ထို့ကြောင့် 3, 4, ..., 9 ခုပါသော subsets များကို ရေတွက်ရမည်။ ထို့ကြောင့် အပိုင်း (b) တွင် complement method ကို သုံး၍ ပိုတိုအောင်တွက်နိုင်သည်။
+
+
+
+### Miscellaneous Counting Principle
+
+##### Example 23
+How many 4-digit even numbers, greater than 4000, can be formed using the digits 1, 2, 3, 4 and 5 without repeating any digit?
+
+**Solution**
+ဂဏန်းများမှာ 1, 2, 3, 4, 5 ဖြစ်ပြီး ဂဏန်းတစ်လုံးကို တစ်ကြိမ်ထက်ပို မသုံးရပါ။ 4-digit ကိန်းဖြစ်ပြီး 4000 ထက်ကြီးရမည်၊ ထို့ပြင် even number ဖြစ်ရမည်။
+
+မေးခွန်းအရ 1, 2, 3, 4, 5 ဂဏန်းများကို အသုံးပြု၍ ဂဏန်းမထပ်ဘဲ 4000 ထက်ကြီးသော 4-digit even numbers အရေအတွက်ကို ရှာရမည်။
+
+Since the numbers are greater than 4000, the first digit must be 4 or 5.
+ကိန်းများသည် 4000 ထက်ကြီးရမည်ဖြစ်သောကြောင့် ပထမဂဏန်းသည် 4 သို့မဟုတ် 5 ဖြစ်ရမည်။
+
+**Case 1: If the first digit is 4 and the last digit is 2.**
+ပထမဂဏန်းကို 4 ထားပြီး even number ဖြစ်ရန် နောက်ဆုံးဂဏန်းကို 2 ထားသောအခြေအနေကို စဉ်းစားမည်။
+
+[DIAGRAM:Example23Case1Diagram]
+
+$$ \text{Number of 4-digit even numbers in Case 1} = 1 \times 3 \times 2 \times 1 = 6. $$
+
+**Case 2: If the first digit is 5 and the last digit is 2 or 4.**
+ပထမဂဏန်းကို 5 ထားပြီး even number ဖြစ်ရန် နောက်ဆုံးဂဏန်းကို 2 သို့မဟုတ် 4 ထားသောအခြေအနေကို စဉ်းစားမည်။
+
+နောက်ဆုံးဂဏန်းသည် 2 သို့မဟုတ် 4 ထဲမှ တစ်ခုခုဖြစ်မည်ဖြစ်သောကြောင့် ထိုနှစ်လုံးထဲမှ တစ်လုံးကျန်မည်။ ထို့ကြောင့် ဒုတိယဂဏန်းနေရာတွင် ကျန်သော 1, 3 နှင့် 2 သို့မဟုတ် 4 ထဲမှ ကျန်သောတစ်လုံးကို ပေါင်း၍ ရွေးစရာ 3 ခုရှိသည်။
+
+[DIAGRAM:Example23Case2Diagram]
+
+$$ \text{Number of 4-digit even numbers in Case 2} = 1 \times 3 \times 2 \times 2 = 12. $$
+
+Thererfore, the number of 4-digit even number greater than $4000 = 6 + 12 = 18$.
+
+---
+
+##### Example 24
+In how many ways can 2 different chemistry books, 4 different mathematics books and 3 different physics books be arranged in a line on a shelf:
+(a) the 2 chemistry books are to be placed on the left, the 4 mathematics books in the middle and the 3 physics books on the right?
+(b) books of the same subjects are together?
+
+**Solution**
+စာအုပ်အားလုံးသည် မတူညီသောစာအုပ်များဖြစ်သည်။ ထို့ကြောင့် Chemistry စာအုပ်နှစ်အုပ်ပင်ဖြစ်စေဦးတော့ နေရာလဲလျှင် အစီအစဉ်ပြောင်းသွားမည်ကို သတိပြုမိရန်လိုသည်။
+
+**(a) Chemistry on the left, Mathematics in the middle and Physics on the right.**
+ဤအပိုင်းတွင် subject အုပ်စုများ၏နေရာသည် သတ်မှတ်ပြီးသားဖြစ်သည်။ ထို့ကြောင့် subject တစ်ခုချင်းအတွင်းရှိ စာအုပ်များကိုသာ စီရမည်။
+
+[DIAGRAM:Example24DiagramA]
+
+The number of ways to place the 2 chemistry books in the left part $= 2! = 2$.
+The number of ways to place the 4 mathematics books in the middle part $= 4! = 24$.
+The number of ways to place the 3 physics books in the right part $= 3! = 6$.
+
+$$
+\begin{aligned}
+\text{Number of arrangements} &= 2! \times 4! \times 3! \\
+&= 2 \times 24 \times 6 \\
+&= 288.
+\end{aligned}
+$$
+
+Therefore, the books can be arranged in 288 ways.
+
+**(b) Books of the same subjects are together.**
+Subject တူသောစာအုပ်များ အတူတကွရှိရမည်ဖြစ်သောကြောင့် Chemistry, Mathematics, Physics ကို block သုံးခုအဖြစ် စဉ်းစားနိုင်သည်။ block သုံးခုကို စီနိုင်သောနည်းလမ်းမှာ $3!$ ဖြစ်သည်။ တစ်ဖန် block တစ်ခုချင်းစီထဲတွင်ရှိသော စာအုပ်အသီးသီးကို စီနိုင်သောနည်းလမ်းမှာ (a) တွင်ရခဲ့သော 288 နည်းဖြစ်သည်။ စီစဉ်
+
+[DIAGRAM:Example24DiagramB]
+
+$$
+\begin{aligned}
+\text{Number of arrangements} &= 3! \times 288 \\
+&= 6 \times 288 \\
+&= 1728.
+\end{aligned}
+$$
+
+Therefore, the books can be arranged in 1728 ways when books of the same subjects are together.
+
+**Key difference.** (a) နှင့် (b) ၏ အဓိက ကွာခြားချက်မှာ (a) တွင် Chemistry ကို ဘယ်ဘက်၊ Mathematics ကို အလယ်၊ Physics ကို ညာဘက်ဟု နေရာသတ်မှတ်ပြီးသားဖြစ်သည်။ ထို့ကြောင့် subject အုပ်စုသုံးခုကို ထပ်စီရန် မလိုပါ။ (b) တွင်မူ subject တူသောစာအုပ်များ အတူတကွရှိရမည်ဟုသာ သတ်မှတ်ထားသောကြောင့် Chemistry, Mathematics, Physics ဖြစ်သော block သုံးခုကို $3!$ နည်းဖြင့် စီရသည်။
+
+---
+
+##### Example 25
+How many permutations of the letters $S, U, N, D, A, Y$ are there if the two vowels are placed together?
+
+**Solution**
+ပေးထားသော စာလုံးများမှာ $S, U, N, D, A, Y$ ဖြစ်ပြီး စာလုံးအားလုံး မတူညီကြပါ။ Vowels နှစ်လုံးမှာ $U$ နှင့် $A$ ဖြစ်သည်။ ထို vowels နှစ်လုံး အတူတကွရှိရမည်ဖြစ်သောကြောင့် $(UA)$ ကို block တစ်ခုအဖြစ် စဉ်းစားနိုင်သည်။
+
+[DIAGRAM:Example25Diagram]
+
+ယခုအခါ စီရမည့် အရာများမှာ $(UA), S, N, D, Y$ ဟူ၍ 5 ခုဖြစ်သည်။ ထို့ကြောင့် ထို 5 ခုကို စီနိုင်သောနည်းလမ်းမှာ $5!$ ဖြစ်သည်။
+ထို့ပြင် vowel block အတွင်းရှိ $U$ နှင့် $A$ ကိုလည်း $UA$ သို့မဟုတ် $AU$ ဟု စီနိုင်သောကြောင့် $2!$ နည်းရှိသည်။
+
+$$
+\begin{aligned}
+\text{Number of permutations} &= 5! \times 2! \\
+&= 120 \times 2 \\
+&= 240.
+\end{aligned}
+$$
+
+Therefore, there are 240 permutations when the two vowels are placed together.
+
+**Note.** "Place together" ဟုဆိုလျှင် အတူတူထားရမည့် အရာများကို တစ်ခုတည်းဖြစ်သွားပြီဟု သတ်မှတ်ရမည်။ ထို့နောက် အတူတူထားထားသော block အတွင်းတွင် ပြန်စီနိုင်တာ ရှိမရှိ ထပ်စဉ်းစားရမည်။ ပြန်စီနိုင်တာရှိလျှင် ထိုအတွင်းပိုင်း စီနိုင်သောနည်းလမ်းကိုလည်း ထပ်တွက်ရမည်။
+
+---
+
+##### Example 26
+Find the number of permutations of all the letters of the word INTERNET in such a way that there are exactly 4 letters between the two T's.
+
+**Solution**
+INTERNET တွင် စုစုပေါင်း စာလုံး 8 လုံးရှိသည်။ T နှစ်လုံးကြားတွင် စာလုံး 4 လုံး အတိအကျရှိရမည်ဆိုသည်မှာ $T \_ \_ \_ \_ T$ ပုံစံဖြစ်ရမည်ဟု ဆိုလိုသည်။ ဥပမာ ပထမ T သည် ပထမဆုံးနေရာ တွင်ရှိလျှင် ကြားတွင် နေရာ 2, 3, 4, 5 လေးနေရာရှိပြီး ဒုတိယ T သည် 6 လုံးမြောက်နေရာတွင် ရှိရမည်။ ထို့ကြောင့် T နှစ်လုံး၏ ဖြစ်နိုင်သော နေရာများမှာ
+
+$ (1, 6), (2, 7), (3, 8) $
+
+တို့သာဖြစ်သည်။
+
+[DIAGRAM:Example26Diagram]
+
+ထို့ကြောင့် T နှစ်လုံးကို နေရာချနိုင်သောနည်းလမ်းမှာ 3 နည်းရှိသည်။
+
+ကျန်နေသော စာလုံးများမှာ $I, N, E, R, N, E$ ဖြစ်သည်။ ထိုစာလုံးများထဲတွင် $N$ နှစ်လုံးနှင့် $E$ နှစ်လုံး ထပ်နေသောကြောင့် ကျန် 6 နေရာကို စီနိုင်သောနည်းလမ်းမှာ
+
+$ \frac{6!}{2!2!} = 180 $
+
+နည်းဖြစ်သည်။
+
+$$
+\begin{aligned}
+\text{Required number of permutations} &= 3 \times \frac{6!}{2!2!} \\
+&= 3 \times 180 \\
+&= 540.
+\end{aligned}
+$$
+
+Therefore, the required number of permutations is 540.
+
+
+
+`;

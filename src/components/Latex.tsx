@@ -1056,6 +1056,9 @@ function renderMathText(text: string): React.ReactNode {
   let match;
 
   while ((match = regex.exec(text)) !== null) {
+    if (match.index === regex.lastIndex) {
+      regex.lastIndex++;
+    }
     const matchIndex = match.index;
 
     // Add normal text preceding math match
@@ -1407,8 +1410,45 @@ export default function Latex({ text, block = false }: LatexProps) {
         case 'Exercise53Question5Diagram':
           renderedElements.push(<Exercise53Question5Diagram key={`diag-${i}`} />);
           break;
+        case 'ExclusionPrincipleExample1Case1Diagram':
+          renderedElements.push(<ExclusionPrincipleExample1Case1Diagram key={`diag-${i}`} />);
+          break;
+        case 'ExclusionPrincipleExample1Case2Diagram':
+          renderedElements.push(<ExclusionPrincipleExample1Case2Diagram key={`diag-${i}`} />);
+          break;
+        case 'ExclusionPrincipleExample1ExcludedDiagram':
+          renderedElements.push(<ExclusionPrincipleExample1ExcludedDiagram key={`diag-${i}`} />);
+          break;
+        case 'ProgramExampleDiagramA':
+          renderedElements.push(<ProgramExampleDiagramA key={`diag-${i}`} />);
+          break;
+        case 'ProgramExampleDiagramB':
+          renderedElements.push(<ProgramExampleDiagramB key={`diag-${i}`} />);
+          break;
+        case 'SubsetCountingTable':
+          renderedElements.push(<SubsetCountingTable key={`diag-${i}`} />);
+          break;
         case 'Exercise53Question6Diagram':
           renderedElements.push(<Exercise53Question6Diagram key={`diag-${i}`} />);
+          break;
+        
+        case 'Example23Case1Diagram':
+          renderedElements.push(<Example23Case1Diagram key={`diag-${i}`} />);
+          break;
+        case 'Example23Case2Diagram':
+          renderedElements.push(<Example23Case2Diagram key={`diag-${i}`} />);
+          break;
+        case 'Example24DiagramA':
+          renderedElements.push(<Example24DiagramA key={`diag-${i}`} />);
+          break;
+        case 'Example24DiagramB':
+          renderedElements.push(<Example24DiagramB key={`diag-${i}`} />);
+          break;
+        case 'Example25Diagram':
+          renderedElements.push(<Example25Diagram key={`diag-${i}`} />);
+          break;
+        case 'Example26Diagram':
+          renderedElements.push(<Example26Diagram key={`diag-${i}`} />);
           break;
         default:
           renderedElements.push(
@@ -1654,7 +1694,7 @@ function Ex51Q1Diagram() {
       </div>
       <div className="mt-5 flex flex-col sm:flex-row justify-center items-center gap-3 p-3 bg-indigo-500/10 rounded-xl border border-indigo-500/20 text-center">
         <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300 font-sans">Multiplication Principle:</span>
-        <div className="flex items-center gap-1.5 font-mono text-xs md:text-sm">
+        <div className="flex flex-wrap items-center justify-center gap-1.5 font-mono text-xs md:text-sm">
           <span className="text-indigo-600 dark:text-indigo-400 font-black">6</span>
           <span className="text-slate-400">×</span>
           <span className="text-emerald-600 dark:text-emerald-400 font-black">4</span>
@@ -1710,7 +1750,7 @@ function Ex51Q2Diagram() {
       </div>
       <div className="mt-5 flex justify-center items-center gap-3 p-3 bg-indigo-500/10 rounded-xl border border-indigo-500/20 text-center">
         <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300 font-sans">Permutations:</span>
-        <div className="flex items-center gap-1.5 font-mono text-xs md:text-sm">
+        <div className="flex flex-wrap items-center justify-center gap-1.5 font-mono text-xs md:text-sm">
           <span className="text-indigo-600 dark:text-indigo-400 font-black">7</span>
           <span className="text-slate-400">×</span>
           <span className="text-emerald-600 dark:text-emerald-400 font-black">6</span>
@@ -1749,7 +1789,7 @@ function Ex51Q3Diagram() {
 
       <div className="flex justify-center items-center gap-3 p-3 bg-indigo-500/10 rounded-xl border border-indigo-500/20 text-center max-w-sm mx-auto">
         <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300 font-sans">Total Codes:</span>
-        <div className="flex items-center gap-1.5 font-mono text-xs md:text-sm">
+        <div className="flex flex-wrap items-center justify-center gap-1.5 font-mono text-xs md:text-sm">
           <span className="font-black text-indigo-500">10</span>
           <span className="text-slate-400">×</span>
           <span className="font-black text-indigo-500">10</span>
@@ -1972,7 +2012,7 @@ function Ex52Q2Diagram() {
 
       <div className="mt-5 flex flex-col sm:flex-row justify-center items-center gap-3 p-3 bg-indigo-500/10 rounded-xl border border-indigo-500/20 text-center">
         <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300 font-sans">Permutation Calculation:</span>
-        <div className="flex items-center gap-1.5 font-mono text-xs md:text-sm">
+        <div className="flex flex-wrap items-center justify-center gap-1.5 font-mono text-xs md:text-sm">
           <span className="text-indigo-600 dark:text-indigo-400 font-black">14</span>
           <span className="text-slate-400">×</span>
           <span className="text-emerald-600 dark:text-emerald-400 font-black">13</span>
@@ -2023,7 +2063,7 @@ function Ex52Q3Diagram() {
 
       <div className="flex justify-center items-center gap-3 p-3 bg-indigo-500/10 rounded-xl border border-indigo-500/20 text-center max-w-md mx-auto">
         <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300 font-sans">Signals:</span>
-        <div className="flex items-center gap-1.5 font-mono text-xs md:text-sm">
+        <div className="flex flex-wrap items-center justify-center gap-1.5 font-mono text-xs md:text-sm">
           <span className="font-black text-rose-500">9</span>
           <span className="text-slate-400">×</span>
           <span className="font-black text-sky-500">8</span>
@@ -2073,7 +2113,7 @@ function Ex52Q4Diagram() {
 
       <div className="flex justify-center items-center gap-3 p-3 bg-indigo-500/10 rounded-xl border border-indigo-500/20 text-center max-w-md mx-auto">
         <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300 font-sans">Total Ways:</span>
-        <div className="flex items-center gap-1.5 font-mono text-xs md:text-sm">
+        <div className="flex flex-wrap items-center justify-center gap-1.5 font-mono text-xs md:text-sm">
           <span className="font-black text-violet-500">12</span>
           <span className="text-slate-400">×</span>
           <span className="font-black text-fuchsia-500">11</span>
@@ -2128,7 +2168,7 @@ function Ex52Q5Diagram() {
         
         {/* Front Row (8 Seats) */}
         <div className="mb-6">
-          <div className="flex justify-between items-center px-1 mb-2">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center px-1 mb-2 gap-1 sm:gap-0">
             <span className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">Front Row (8 seats)</span>
             <span className="text-[9px] font-sans bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 px-2 py-0.5 rounded font-bold inline-flex items-center gap-1">
               {activeCase === 'case1' ? (
@@ -2163,7 +2203,7 @@ function Ex52Q5Diagram() {
 
         {/* Back Row (8 Seats) */}
         <div>
-          <div className="flex justify-between items-center px-1 mb-2">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center px-1 mb-2 gap-1 sm:gap-0">
             <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wide">Back Row (8 seats)</span>
             <span className="text-[9px] font-sans bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-2 py-0.5 rounded font-bold inline-flex items-center gap-1">
               {activeCase === 'case1' ? (
@@ -2205,11 +2245,11 @@ function Ex52Q5Diagram() {
             : 'bg-slate-100/30 dark:bg-slate-950/20 border-slate-100 dark:border-slate-800'
         }`}>
           <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 mb-2 block font-sans">Case 1: Flexible student in Front Row</span>
-          <ul className="text-[10px] text-slate-600 dark:text-slate-400 space-y-1 mb-2 leading-relaxed">
+          <ul className="text-[10px] text-slate-600 dark:text-slate-400 space-y-2 sm:space-y-1 mb-2 leading-relaxed">
             <li>• Front Row Occupied: <strong className="text-indigo-500">5 + 1 = 6 students</strong></li>
-            <li>• Front Ways: <strong className="font-sans font-bold inline-flex items-center gap-0.5"><sup>8</sup>P<sub>6</sub> = 20,160</strong></li>
+            <li>• Front Ways: <strong className="font-sans font-bold inline-flex flex-wrap items-center gap-0.5"><sup>8</sup>P<sub>6</sub> = 20,160</strong></li>
             <li>• Back Row Occupied: <strong className="text-emerald-500">4 students</strong></li>
-            <li>• Back Ways: <strong className="font-sans font-bold inline-flex items-center gap-0.5"><sup>8</sup>P<sub>4</sub> = 1,680</strong></li>
+            <li>• Back Ways: <strong className="font-sans font-bold inline-flex flex-wrap items-center gap-0.5"><sup>8</sup>P<sub>4</sub> = 1,680</strong></li>
           </ul>
           <div className="text-[11px] font-mono font-bold text-indigo-700 dark:text-indigo-300 bg-indigo-500/10 p-1.5 rounded text-center">
             20,160 × 1,680 = 33,868,800 ways
@@ -2222,11 +2262,11 @@ function Ex52Q5Diagram() {
             : 'bg-slate-100/30 dark:bg-slate-950/20 border-slate-100 dark:border-slate-800'
         }`}>
           <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 mb-2 block font-sans">Case 2: Flexible student in Back Row</span>
-          <ul className="text-[10px] text-slate-600 dark:text-slate-400 space-y-1 mb-2 leading-relaxed">
+          <ul className="text-[10px] text-slate-600 dark:text-slate-400 space-y-2 sm:space-y-1 mb-2 leading-relaxed">
             <li>• Front Row Occupied: <strong className="text-indigo-500">5 students</strong></li>
-            <li>• Front Ways: <strong className="font-sans font-bold inline-flex items-center gap-0.5"><sup>8</sup>P<sub>5</sub> = 6,720</strong></li>
+            <li>• Front Ways: <strong className="font-sans font-bold inline-flex flex-wrap items-center gap-0.5"><sup>8</sup>P<sub>5</sub> = 6,720</strong></li>
             <li>• Back Row Occupied: <strong className="text-emerald-500">4 + 1 = 5 students</strong></li>
-            <li>• Back Ways: <strong className="font-sans font-bold inline-flex items-center gap-0.5"><sup>8</sup>P<sub>5</sub> = 6,720</strong></li>
+            <li>• Back Ways: <strong className="font-sans font-bold inline-flex flex-wrap items-center gap-0.5"><sup>8</sup>P<sub>5</sub> = 6,720</strong></li>
           </ul>
           <div className="text-[11px] font-mono font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-500/10 p-1.5 rounded text-center">
             6,720 × 6,720 = 45,158,400 ways
@@ -2236,7 +2276,7 @@ function Ex52Q5Diagram() {
 
       <div className="flex flex-col sm:flex-row justify-between items-center gap-3 p-4 bg-indigo-500/10 rounded-2xl border border-indigo-500/20 text-center">
         <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300 font-sans">Addition Principle (Sum of Both Disjoint Cases):</span>
-        <div className="flex items-center gap-2 font-mono text-xs md:text-sm">
+        <div className="flex flex-wrap items-center justify-center gap-2 font-mono text-xs md:text-sm">
           <span className="text-indigo-600 dark:text-indigo-400 font-black">33,868,800</span>
           <span className="text-slate-400 font-bold">+</span>
           <span className="text-emerald-600 dark:text-emerald-400 font-black">45,158,400</span>
@@ -2292,7 +2332,7 @@ function Example10Diagram() {
 
       <div className="mt-5 flex flex-col sm:flex-row justify-center items-center gap-3 p-3 bg-indigo-500/10 rounded-xl border border-indigo-500/20 text-center">
         <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300 font-sans">Permutation Calculation:</span>
-        <div className="flex items-center gap-1.5 font-mono text-xs md:text-sm">
+        <div className="flex flex-wrap items-center justify-center gap-1.5 font-mono text-xs md:text-sm">
           <span className="text-indigo-600 dark:text-indigo-400 font-black">15</span>
           <span className="text-slate-400">×</span>
           <span className="text-emerald-600 dark:text-emerald-400 font-black">14</span>
@@ -2337,7 +2377,7 @@ function Example11Diagram() {
 
       <div className="flex flex-col sm:flex-row justify-center items-center gap-3 p-3 bg-indigo-500/10 rounded-xl border border-indigo-500/20 text-center">
         <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300 font-sans">Factorial Permutation:</span>
-        <div className="flex items-center gap-1 font-mono text-xs md:text-sm">
+        <div className="flex flex-wrap items-center justify-center gap-1 font-mono text-xs md:text-sm">
           <span className="text-rose-500 font-bold">6</span>
           <span className="text-slate-400">×</span>
           <span className="text-sky-500 font-bold">5</span>
@@ -2460,7 +2500,7 @@ function Example12Diagram() {
 
       <div className="flex flex-col sm:flex-row justify-between items-center gap-3 p-4 bg-indigo-500/10 rounded-2xl border border-indigo-500/20 text-center">
         <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300 font-sans">Addition Principle (Disjoint Cases):</span>
-        <div className="flex items-center gap-2 font-mono text-xs md:text-sm">
+        <div className="flex flex-wrap items-center justify-center gap-2 font-mono text-xs md:text-sm">
           <span className="text-indigo-600 dark:text-indigo-400 font-black">120 ways (Bus A)</span>
           <span className="text-slate-400 font-bold">+</span>
           <span className="text-emerald-600 dark:text-emerald-400 font-black">24 ways (Bus B)</span>
@@ -2611,7 +2651,7 @@ function Example13Diagram() {
 
       <div className="flex flex-col sm:flex-row justify-between items-center gap-3 p-4 bg-indigo-500/10 rounded-2xl border border-indigo-500/20 text-center font-sans">
         <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300">Addition Principle (Disjoint End Cases):</span>
-        <div className="flex items-center gap-2 font-mono text-xs md:text-sm">
+        <div className="flex flex-wrap items-center justify-center gap-2 font-mono text-xs md:text-sm">
           <span className="text-indigo-600 dark:text-indigo-400 font-black">120 ways (Left End)</span>
           <span className="text-slate-400 font-bold">+</span>
           <span className="text-emerald-600 dark:text-emerald-400 font-black">120 ways (Right End)</span>
@@ -3287,9 +3327,9 @@ function Example15Diagram() {
           <span className="font-bold text-xs text-indigo-600 dark:text-indigo-400 block mb-1.5">
             {renderMathText(`အဆင့် ၂ - တွက်ချက်ရလွယ်ကူစေရန် အကြီးဆုံး Factorial ($${maxD}!$) ကို ချေဖျက်ခြင်း:`)}
           </span>
-          <p className="text-[11px] text-slate-500 dark:text-slate-400 mb-2 leading-relaxed">
+          <div className="text-[11px] text-slate-500 dark:text-slate-400 mb-2 leading-relaxed">
             {renderMathText(`${expansionExplanationText} ပိုင်းခြေမှ $${maxD}!$ နှင့် အပေါ်အောက် ချေလိုက်ပါသည် -`)}
-          </p>
+          </div>
           <div className="overflow-x-auto w-full py-1">
             {renderMathText(`$$ ${step2LaTex} $$`)}
           </div>
@@ -3434,10 +3474,10 @@ function Example15Diagram() {
               <p className="leading-relaxed font-bold">
                 💡 ရွေးချယ်မှု၏ အချိုးညီသဘောတရား (Symmetry Rule):
               </p>
-              <p className="mt-1 leading-relaxed text-slate-600 dark:text-slate-300">
+              <div className="mt-1 leading-relaxed text-slate-600 dark:text-slate-300">
                 အရာဝတ္ထု {n} ခုထဲက <strong>{r}</strong> ခုကို ရွေးတာဟာ ချန်ထားခဲ့မည့် <strong>{n - r}</strong> ခုကို ရွေးတာနဲ့ ထပ်တူညီသည်။ <br className="hidden sm:inline" />
                 ထို့ကြောင့် {renderMathText(`$ {}^{${n}}C_{${r}} $`)} ၏ တန်ဖိုးသည် {renderMathText(`$ {}^{${n}}C_{${n - r}} $`)} ၏ တန်ဖိုးနှင့် အမြဲတူညီပါသည်-
-              </p>
+              </div>
               <div className="mt-2 text-sm font-bold text-indigo-600 dark:text-indigo-400">
                 {renderMathText(`$$ {}^{${n}}C_{${r}} = {}^{${n}}C_{${n - r}} = ${combVal} $$`)}
               </div>
@@ -3450,7 +3490,7 @@ function Example15Diagram() {
 }
 
 function Exercise53Question2Diagram() {
-  const candles = [1, 1, 1, 1, 1, 1, 1, 0, 0, 0]; // 7 candles, 3 empty
+  const candles = [1, 1, 1, 0, 1, 1, 0, 1, 1, 0]; // 7 candles, 3 empty
   return (
     <div className="my-6 p-4 sm:p-6 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700/50 shadow-sm overflow-hidden flex flex-col items-center">
       <div className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-4 relative z-10 w-full max-w-2xl mx-auto">
@@ -3463,13 +3503,13 @@ function Exercise53Question2Diagram() {
               ) : null}
             </div>
             {/* Candle Body */}
-            <div className="h-8 w-4 bg-amber-100 dark:bg-amber-50 rounded-t-sm flex justify-center items-start shadow-inner relative z-10">
+            <div className={`h-8 w-4 rounded-t-sm flex justify-center items-start shadow-inner relative z-10 ${hasCandle ? 'bg-amber-100 dark:bg-amber-50' : 'bg-transparent'}`}>
               {hasCandle ? (
                 <div className="w-0.5 h-1.5 bg-slate-800 dark:bg-slate-700" /> /* Wick */
-              ) : <div className="w-full h-full bg-transparent" />}
+              ) : null}
             </div>
             {/* Candle Holder */}
-            <div className="w-8 h-6 border-b-2 border-l-2 border-r-2 border-slate-500 dark:border-slate-400 rounded-b-md shadow-sm -mt-2 bg-gradient-to-b from-transparent to-slate-200 dark:to-slate-800 z-0">
+            <div className="w-8 h-6 border-b-2 border-l-2 border-r-2 border-slate-400 dark:border-slate-500 rounded-b-md shadow-sm -mt-2 bg-gradient-to-b from-transparent to-slate-200 dark:to-slate-800 z-0">
             </div>
             {/* Holder number */}
             <div className="mt-2 text-[10px] sm:text-xs font-mono font-bold text-slate-500 dark:text-slate-400">{i + 1}</div>
@@ -3553,51 +3593,65 @@ function Exercise53Question3Diagram() {
 }
 
 function Exercise53Question4Diagram() {
+  const n = 9;
+  const r = 40;
+  const points = Array.from({ length: n }).map((_, i) => {
+    const angle = (i * 360) / n - 90;
+    const rad = (angle * Math.PI) / 180;
+    return {
+      x: 50 + r * Math.cos(rad),
+      y: 50 + r * Math.sin(rad)
+    };
+  });
+
   return (
     <div className="my-6 p-4 sm:p-6 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700/50 shadow-sm overflow-hidden flex flex-col items-center">
       <div className="relative w-48 h-48 mx-auto mb-4">
-        {/* Lines between a few teams to show matches */}
-        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100">
+        <svg className="absolute inset-0 w-full h-full z-0" viewBox="0 0 100 100">
           <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" className="text-slate-200 dark:text-slate-700" strokeWidth="1" strokeDasharray="2,2"/>
-          {/* Draw lines from team 1 to others to represent matches */}
-          <line x1="50" y1="10" x2="80" y2="23" stroke="currentColor" className="text-indigo-300 dark:text-indigo-500/50" strokeWidth="1"/>
-          <line x1="50" y1="10" x2="90" y2="50" stroke="currentColor" className="text-indigo-300 dark:text-indigo-500/50" strokeWidth="1"/>
-          <line x1="50" y1="10" x2="80" y2="77" stroke="currentColor" className="text-indigo-300 dark:text-indigo-500/50" strokeWidth="1"/>
-          <line x1="80" y1="23" x2="90" y2="50" stroke="currentColor" className="text-amber-300 dark:text-amber-500/50" strokeWidth="1"/>
-          <line x1="80" y1="23" x2="80" y2="77" stroke="currentColor" className="text-amber-300 dark:text-amber-500/50" strokeWidth="1"/>
+          {points.map((pt, i) => {
+            if (i === 0) return null;
+            return <line key={`line-0-${i}`} x1={points[0].x} y1={points[0].y} x2={pt.x} y2={pt.y} stroke="currentColor" className="text-indigo-300 dark:text-indigo-500/30" strokeWidth="1"/>
+          })}
+          <line x1={points[1].x} y1={points[1].y} x2={points[2].x} y2={points[2].y} stroke="currentColor" className="text-amber-300 dark:text-amber-500/50" strokeWidth="1"/>
+          <line x1={points[1].x} y1={points[1].y} x2={points[3].x} y2={points[3].y} stroke="currentColor" className="text-amber-300 dark:text-amber-500/50" strokeWidth="1"/>
         </svg>
         
-        {Array.from({ length: 9 }).map((_, i) => {
-          const angle = (i * 360) / 9 - 90; // Start at top
-          const rad = (angle * Math.PI) / 180;
-          const r = 40; // radius of circle placement
-          const x = 50 + r * Math.cos(rad);
-          const y = 50 + r * Math.sin(rad);
-          
+        {points.map((pt, i) => {
           return (
             <div 
               key={i}
               className="absolute w-6 h-6 -ml-3 -mt-3 bg-white dark:bg-slate-800 border-2 border-indigo-500 text-indigo-600 dark:text-indigo-400 rounded-full flex items-center justify-center text-[10px] font-bold shadow-sm z-10"
-              style={{ left: `${x}%`, top: `${y}%` }}
+              style={{ left: `${pt.x}%`, top: `${pt.y}%` }}
             >
               {i + 1}
             </div>
           );
         })}
       </div>
-      <div className="bg-white dark:bg-slate-800 px-4 py-2 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-center">
-        <p className="text-xs font-medium text-slate-700 dark:text-slate-300">
+      <div className="bg-white dark:bg-slate-800 px-4 py-3 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-center w-full max-w-sm">
+        <p className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide mb-1">
           9 Teams total
         </p>
-        <p className="text-[10px] text-slate-500 mt-1">
-          Each game requires choosing <span className="font-bold text-indigo-500">2</span> teams: <Latex text="$ {}^{9}C_{2} $" />
-        </p>
+        <div className="text-[11px] text-slate-500 dark:text-slate-400 flex items-center justify-center gap-1">
+          Each game requires choosing <span className="font-bold text-indigo-500">2</span> teams: <span className="font-semibold text-indigo-600 dark:text-indigo-400"><Latex text="$ {}^{9}C_{2} $" /></span>
+        </div>
       </div>
     </div>
   );
 }
 
 function Exercise53Question5Diagram() {
+  const r = 35;
+  const points = Array.from({ length: 8 }).map((_, i) => {
+    const angle = (i * 360) / 8 - 90;
+    const rad = (angle * Math.PI) / 180;
+    return {
+      x: 50 + r * Math.cos(rad),
+      y: 50 + r * Math.sin(rad)
+    };
+  });
+
   return (
     <div className="my-6 p-4 sm:p-6 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700/50 shadow-sm overflow-hidden flex flex-col items-center">
       <div className="flex flex-col sm:flex-row justify-center items-center gap-8 w-full max-w-2xl">
@@ -3605,30 +3659,23 @@ function Exercise53Question5Diagram() {
         {/* Lines Diagram */}
         <div className="flex flex-col items-center">
           <div className="relative w-40 h-40 mb-4 bg-white dark:bg-slate-800 rounded-full border border-slate-200 dark:border-slate-700 shadow-sm">
-            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100">
-              <line x1="30" y1="15" x2="85" y2="70" stroke="currentColor" className="text-indigo-500" strokeWidth="2"/>
+            <svg className="absolute inset-0 w-full h-full z-0" viewBox="0 0 100 100">
+              <line x1={points[2].x} y1={points[2].y} x2={points[6].x} y2={points[6].y} stroke="currentColor" className="text-indigo-500" strokeWidth="2"/>
             </svg>
-            {Array.from({ length: 8 }).map((_, i) => {
-              const angle = (i * 360) / 8 - 90;
-              const rad = (angle * Math.PI) / 180;
-              const r = 35;
-              const x = 50 + r * Math.cos(rad);
-              const y = 50 + r * Math.sin(rad);
-              // Highlight the 2 points forming the line (index 7 and index 3 roughly correspond to 30,15 and 85,70)
-              const isSelected = i === 7 || i === 3;
-              
+            {points.map((pt, i) => {
+              const isSelected = i === 2 || i === 6;
               return (
                 <div 
                   key={i}
-                  className={`absolute w-3 h-3 -ml-1.5 -mt-1.5 rounded-full ${isSelected ? 'bg-indigo-500 ring-4 ring-indigo-500/20' : 'bg-slate-300 dark:bg-slate-600'}`}
-                  style={{ left: `${x}%`, top: `${y}%` }}
+                  className={`absolute w-3 h-3 -ml-1.5 -mt-1.5 rounded-full z-10 ${isSelected ? 'bg-indigo-500 ring-4 ring-indigo-500/20' : 'bg-slate-300 dark:bg-slate-600'}`}
+                  style={{ left: `${pt.x}%`, top: `${pt.y}%` }}
                 />
               );
             })}
           </div>
           <div className="text-center">
             <p className="text-xs font-bold text-slate-700 dark:text-slate-300">Determining a Line</p>
-            <p className="text-[10px] text-slate-500 mt-1">Choose 2 points from 8: <span className="font-bold text-indigo-500"><Latex text="$ {}^{8}C_{2} $" /></span></p>
+            <div className="text-[10px] text-slate-500 mt-1">Choose 2 points from 8: <span className="font-bold text-indigo-500"><Latex text="$ {}^{8}C_{2} $" /></span></div>
           </div>
         </div>
 
@@ -3637,30 +3684,23 @@ function Exercise53Question5Diagram() {
         {/* Triangles Diagram */}
         <div className="flex flex-col items-center">
           <div className="relative w-40 h-40 mb-4 bg-white dark:bg-slate-800 rounded-full border border-slate-200 dark:border-slate-700 shadow-sm">
-            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100">
-              <polygon points="50,15 15,70 85,70" fill="currentColor" className="text-amber-500/20" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" style={{color: '#f59e0b'}}/>
+            <svg className="absolute inset-0 w-full h-full z-0" viewBox="0 0 100 100">
+              <polygon points={`${points[0].x},${points[0].y} ${points[3].x},${points[3].y} ${points[5].x},${points[5].y}`} fill="currentColor" className="text-amber-500/20" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" style={{color: '#f59e0b'}}/>
             </svg>
-            {Array.from({ length: 8 }).map((_, i) => {
-              const angle = (i * 360) / 8 - 90;
-              const rad = (angle * Math.PI) / 180;
-              const r = 35;
-              const x = 50 + r * Math.cos(rad);
-              const y = 50 + r * Math.sin(rad);
-              // Highlight the 3 points forming the triangle
+            {points.map((pt, i) => {
               const isSelected = i === 0 || i === 3 || i === 5;
-              
               return (
                 <div 
                   key={i}
                   className={`absolute w-3 h-3 -ml-1.5 -mt-1.5 rounded-full z-10 ${isSelected ? 'bg-amber-500 ring-4 ring-amber-500/20' : 'bg-slate-300 dark:bg-slate-600'}`}
-                  style={{ left: `${x}%`, top: `${y}%` }}
+                  style={{ left: `${pt.x}%`, top: `${pt.y}%` }}
                 />
               );
             })}
           </div>
           <div className="text-center">
             <p className="text-xs font-bold text-slate-700 dark:text-slate-300">Determining a Triangle</p>
-            <p className="text-[10px] text-slate-500 mt-1">Choose 3 points from 8: <span className="font-bold text-amber-500"><Latex text="$ {}^{8}C_{3} $" /></span></p>
+            <div className="text-[10px] text-slate-500 mt-1">Choose 3 points from 8: <span className="font-bold text-amber-500"><Latex text="$ {}^{8}C_{3} $" /></span></div>
           </div>
         </div>
 
@@ -3673,49 +3713,51 @@ function Exercise53Question6Diagram() {
   return (
     <div className="my-6 p-4 sm:p-6 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700/50 shadow-sm overflow-hidden flex flex-col items-center">
       <div className="w-full max-w-2xl bg-white dark:bg-slate-800 rounded-xl p-4 shadow-sm border border-slate-200 dark:border-slate-700">
-        <div className="flex flex-wrap items-end justify-center gap-3 sm:gap-4 h-24">
+        <div className="flex flex-wrap items-end justify-center gap-x-2 sm:gap-x-4 gap-y-8 min-h-[120px] py-2">
           {Array.from({ length: 9 }).map((_, i) => {
-            // Let's make index 8 the largest and index 0 the smallest
             const size = 16 + (i * 4); 
             const isSmallest = i === 0;
             const isLargest = i === 8;
-            const isSelected = i === 4 || i === 6 || isLargest; // Example selected
+            const isSelected = i === 2 || i === 4 || i === 6 || isLargest;
             
             return (
-              <div key={i} className="flex flex-col items-center justify-end h-full relative group">
-                {isSmallest && (
-                  <div className="absolute top-0 w-full h-full flex items-center justify-center z-20">
-                    <div className="w-8 h-1 bg-red-500 rotate-45 rounded-full"></div>
-                    <div className="absolute w-8 h-1 bg-red-500 -rotate-45 rounded-full"></div>
-                  </div>
-                )}
-                
-                <div 
-                  className={`rounded-full shadow-sm transition-all ${
-                    isSmallest ? 'bg-slate-200 dark:bg-slate-700 opacity-50 grayscale' : 
-                    isLargest ? 'bg-indigo-500 ring-4 ring-indigo-500/20' :
-                    isSelected ? 'bg-indigo-400 ring-2 ring-indigo-400/20' : 
-                    'bg-amber-400 dark:bg-amber-500 opacity-60'
-                  }`}
-                  style={{ width: `${size}px`, height: `${size}px` }}
-                >
+              <div key={i} className="flex flex-col items-center justify-end relative group w-10 sm:w-14">
+                <div className="h-8 flex items-end justify-center mb-2">
+                  {isLargest && (
+                    <div className="text-[9px] font-bold text-indigo-500 uppercase tracking-tight whitespace-nowrap bg-indigo-50 dark:bg-indigo-500/10 px-1.5 py-0.5 rounded border border-indigo-200 dark:border-indigo-500/30">
+                      Include
+                    </div>
+                  )}
+                  {isSmallest && (
+                    <div className="text-[9px] font-bold text-red-500 uppercase tracking-tight whitespace-nowrap bg-red-50 dark:bg-red-500/10 px-1.5 py-0.5 rounded border border-red-200 dark:border-red-500/30">
+                      Exclude
+                    </div>
+                  )}
+                  {(!isSmallest && !isLargest && isSelected) && (
+                    <div className="text-[9px] font-bold text-amber-600 dark:text-amber-400 uppercase tracking-tight whitespace-nowrap">
+                      Selected
+                    </div>
+                  )}
                 </div>
                 
-                {isLargest && (
-                  <div className="absolute -top-6 text-[9px] font-bold text-indigo-500 uppercase tracking-tight whitespace-nowrap bg-indigo-50 dark:bg-indigo-500/10 px-1.5 py-0.5 rounded border border-indigo-200 dark:border-indigo-500/30">
-                    Always Include
+                <div className="relative flex items-center justify-center" style={{ height: '50px' }}>
+                  {isSmallest && (
+                    <div className="absolute w-full h-full flex items-center justify-center z-20">
+                      <div className="w-6 h-0.5 bg-red-500 rotate-45 rounded-full"></div>
+                      <div className="absolute w-6 h-0.5 bg-red-500 -rotate-45 rounded-full"></div>
+                    </div>
+                  )}
+                  <div 
+                    className={`rounded-full shadow-sm transition-all ${
+                      isSmallest ? 'bg-slate-200 dark:bg-slate-700 opacity-50 grayscale' : 
+                      isLargest ? 'bg-indigo-500 ring-4 ring-indigo-500/20' :
+                      isSelected ? 'bg-amber-400 dark:bg-amber-500 ring-4 ring-amber-500/40' : 
+                      'bg-amber-400 dark:bg-amber-500 opacity-50'
+                    }`}
+                    style={{ width: `${size}px`, height: `${size}px` }}
+                  >
                   </div>
-                )}
-                {isSmallest && (
-                  <div className="absolute -top-6 text-[9px] font-bold text-red-500 uppercase tracking-tight whitespace-nowrap bg-red-50 dark:bg-red-500/10 px-1.5 py-0.5 rounded border border-red-200 dark:border-red-500/30">
-                    Exclude
-                  </div>
-                )}
-                {(!isSmallest && !isLargest && isSelected) && (
-                  <div className="absolute -top-6 text-[9px] font-bold text-slate-500 uppercase tracking-tight whitespace-nowrap">
-                    Selected
-                  </div>
-                )}
+                </div>
               </div>
             );
           })}
@@ -3724,10 +3766,290 @@ function Exercise53Question6Diagram() {
       <div className="mt-4 text-center">
         <p className="text-xs font-medium text-slate-600 dark:text-slate-300">
           Remaining 7 fruits to choose from. Need 3 more to make 4 fruits total.
-        </p>
-        <p className="text-xs font-bold text-indigo-600 dark:text-indigo-400 mt-1">
+        </p>        
+        <div className="text-xs font-bold text-indigo-600 dark:text-indigo-400 mt-1">
           <Latex text="$ {}^{7}C_{3} $" /> ways
-        </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+
+function ExclusionPrincipleExample1Case1Diagram() {
+  return (
+    <div className="flex justify-center gap-2 my-4 text-sm sm:text-base">
+      <div className="w-10 h-12 flex items-center justify-center border-b-2 border-slate-400 font-mono font-bold text-slate-800 dark:text-slate-200">4</div>
+      <div className="w-10 h-12 flex items-center justify-center border-b-2 border-slate-400 font-mono font-bold text-slate-800 dark:text-slate-200">3</div>
+      <div className="w-10 h-12 flex items-center justify-center border-b-2 border-slate-400 font-mono font-bold text-slate-800 dark:text-slate-200">2</div>
+      <div className="w-10 h-12 flex items-center justify-center border-b-2 border-slate-400 font-mono font-bold text-slate-800 dark:text-slate-200">1</div>
+      <div className="w-10 h-12 flex items-center justify-center border-b-2 border-indigo-500 font-mono font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/30">4</div>
+    </div>
+  );
+}
+
+function ExclusionPrincipleExample1Case2Diagram() {
+  return (
+    <div className="flex justify-center gap-2 my-4 text-sm sm:text-base">
+      <div className="w-10 h-12 flex items-center justify-center border-b-2 border-slate-400 font-mono font-bold text-slate-800 dark:text-slate-200">3</div>
+      <div className="w-10 h-12 flex items-center justify-center border-b-2 border-slate-400 font-mono font-bold text-slate-800 dark:text-slate-200">2</div>
+      <div className="w-10 h-12 flex items-center justify-center border-b-2 border-slate-400 font-mono font-bold text-slate-800 dark:text-slate-200">1</div>
+      <div className="w-10 h-12 flex items-center justify-center border-b-2 border-emerald-500 font-mono font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/30">3</div>
+      <div className="w-10 h-12 flex items-center justify-center border-b-2 border-slate-400 font-mono font-bold text-slate-800 dark:text-slate-200 bg-slate-100 dark:bg-slate-800">1</div>
+    </div>
+  );
+}
+
+function ExclusionPrincipleExample1ExcludedDiagram() {
+  return (
+    <div className="flex justify-center gap-2 my-4 text-sm sm:text-base">
+      <div className="w-10 h-12 flex items-center justify-center border-b-2 border-slate-400 font-mono font-bold text-slate-800 dark:text-slate-200">3</div>
+      <div className="w-10 h-12 flex items-center justify-center border-b-2 border-slate-400 font-mono font-bold text-slate-800 dark:text-slate-200">2</div>
+      <div className="w-10 h-12 flex items-center justify-center border-b-2 border-slate-400 font-mono font-bold text-slate-800 dark:text-slate-200">1</div>
+      <div className="w-10 h-12 flex items-center justify-center border-b-2 border-rose-500 font-mono font-bold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/30">1</div>
+      <div className="w-10 h-12 flex items-center justify-center border-b-2 border-rose-500 font-mono font-bold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/30">1</div>
+    </div>
+  );
+}
+
+function ProgramExampleDiagramA() {
+  return (
+    <div className="flex justify-center gap-2 my-4 text-sm sm:text-base overflow-x-auto pb-2">
+      <div className="min-w-8 w-10 h-12 flex items-center justify-center border-b-2 border-slate-400 font-mono font-bold text-slate-800 dark:text-slate-200">5</div>
+      <div className="min-w-8 w-10 h-12 flex items-center justify-center border-b-2 border-slate-400 font-mono font-bold text-slate-800 dark:text-slate-200">4</div>
+      <div className="min-w-8 w-10 h-12 flex items-center justify-center border-b-2 border-slate-400 font-mono font-bold text-slate-800 dark:text-slate-200">3</div>
+      <div className="min-w-8 w-10 h-12 flex items-center justify-center border-b-2 border-slate-400 font-mono font-bold text-slate-800 dark:text-slate-200">2</div>
+      <div className="min-w-8 w-10 h-12 flex items-center justify-center border-b-2 border-slate-400 font-mono font-bold text-slate-800 dark:text-slate-200">1</div>
+      <div className="min-w-8 w-10 h-12 flex items-center justify-center border-b-2 border-rose-500 font-mono font-bold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/30">1</div>
+      <div className="min-w-8 w-10 h-12 flex items-center justify-center border-b-2 border-rose-500 font-mono font-bold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/30">1</div>
+    </div>
+  );
+}
+
+function ProgramExampleDiagramB() {
+  return (
+    <div className="flex justify-center gap-2 my-4 text-sm sm:text-base overflow-x-auto pb-2">
+      <div className="min-w-8 w-10 h-12 flex flex-col items-center justify-center border-b-2 border-slate-400 font-mono font-bold text-slate-800 dark:text-slate-200">
+        <span>4</span>
+      </div>
+      <div className="min-w-8 w-10 h-12 flex items-center justify-center border-b-2 border-slate-400 font-mono font-bold text-slate-800 dark:text-slate-200">3</div>
+      <div className="min-w-8 w-10 h-12 flex items-center justify-center border-b-2 border-slate-400 font-mono font-bold text-slate-800 dark:text-slate-200">2</div>
+      <div className="min-w-8 w-10 h-12 flex items-center justify-center border-b-2 border-slate-400 font-mono font-bold text-slate-800 dark:text-slate-200">1</div>
+      <div className="min-w-8 w-10 h-12 flex items-center justify-center border-b-2 border-rose-500 font-mono font-bold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/30">1</div>
+      <div className="min-w-8 w-10 h-12 flex items-center justify-center border-b-2 border-rose-500 font-mono font-bold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/30">1</div>
+      <div className="min-w-8 w-10 h-12 flex items-center justify-center border-b-2 border-rose-500 font-mono font-bold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/30">1</div>
+    </div>
+  );
+}
+
+function SubsetCountingTable() {
+  return (
+    <div className="my-5 overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30 shadow-sm">
+      <table className="w-full text-left border-collapse font-sans text-xs md:text-sm">
+        <thead>
+          <tr className="bg-slate-50 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800">
+            <th className="p-3 font-semibold text-slate-800 dark:text-slate-200">Element</th>
+            <th className="p-3 font-semibold text-slate-800 dark:text-slate-200">Choice 1</th>
+            <th className="p-3 font-semibold text-slate-800 dark:text-slate-200">Choice 2</th>
+            <th className="p-3 font-semibold text-slate-800 dark:text-slate-200 text-right">No. of Choices</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr className="border-b border-slate-100 dark:border-slate-800">
+            <td className="p-3 font-mono text-slate-600 dark:text-slate-400">a</td>
+            <td className="p-3 text-emerald-600 dark:text-emerald-400 font-medium">Include</td>
+            <td className="p-3 text-rose-600 dark:text-rose-400 font-medium">Exclude</td>
+            <td className="p-3 font-bold text-slate-800 dark:text-slate-200 text-right">2</td>
+          </tr>
+          <tr className="border-b border-slate-100 dark:border-slate-800">
+            <td className="p-3 font-mono text-slate-600 dark:text-slate-400">b</td>
+            <td className="p-3 text-emerald-600 dark:text-emerald-400 font-medium">Include</td>
+            <td className="p-3 text-rose-600 dark:text-rose-400 font-medium">Exclude</td>
+            <td className="p-3 font-bold text-slate-800 dark:text-slate-200 text-right">2</td>
+          </tr>
+          <tr className="border-b border-slate-100 dark:border-slate-800">
+            <td className="p-3 font-mono text-slate-600 dark:text-slate-400">c</td>
+            <td className="p-3 text-emerald-600 dark:text-emerald-400 font-medium">Include</td>
+            <td className="p-3 text-rose-600 dark:text-rose-400 font-medium">Exclude</td>
+            <td className="p-3 font-bold text-slate-800 dark:text-slate-200 text-right">2</td>
+          </tr>
+          <tr className="border-b border-slate-100 dark:border-slate-800">
+            <td className="p-3 font-mono text-slate-600 dark:text-slate-400">d</td>
+            <td className="p-3 text-emerald-600 dark:text-emerald-400 font-medium">Include</td>
+            <td className="p-3 text-rose-600 dark:text-rose-400 font-medium">Exclude</td>
+            <td className="p-3 font-bold text-slate-800 dark:text-slate-200 text-right">2</td>
+          </tr>
+          <tr>
+            <td className="p-3 font-mono text-slate-600 dark:text-slate-400">e</td>
+            <td className="p-3 text-emerald-600 dark:text-emerald-400 font-medium">Include</td>
+            <td className="p-3 text-rose-600 dark:text-rose-400 font-medium">Exclude</td>
+            <td className="p-3 font-bold text-slate-800 dark:text-slate-200 text-right">2</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
+}
+function Example23Case1Diagram() {
+  return (
+    <div className="my-6 p-4 bg-white dark:bg-slate-900 rounded-2xl border border-slate-150 dark:border-slate-800 shadow-sm flex flex-col items-center">
+      <div className="flex gap-2 sm:gap-6 mb-3">
+        {[
+          { label: "First\ndigit", val: "4", ways: "1 way" },
+          { label: "Second\ndigit", val: "", ways: "3 ways" },
+          { label: "Third\ndigit", val: "any one of\nremaining two", ways: "2 ways" },
+          { label: "Last\ndigit", val: "2", ways: "1 way" }
+        ].map((col, idx) => (
+          <div key={idx} className="flex flex-col items-center">
+            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 text-center whitespace-pre-line">{col.label}</span>
+            <div className="w-14 h-14 sm:w-20 sm:h-20 bg-indigo-50/50 dark:bg-indigo-950/20 border-2 border-indigo-100 dark:border-indigo-900/50 rounded-xl flex items-center justify-center mb-2">
+              <span className="font-display font-bold text-lg text-indigo-700 dark:text-indigo-400 whitespace-pre-line text-center text-xs sm:text-lg">{col.val || "1, 3, or 5"}</span>
+            </div>
+            <span className="text-[10px] sm:text-xs font-bold text-slate-700 dark:text-slate-300">{col.ways}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Example23Case2Diagram() {
+  return (
+    <div className="my-6 p-4 bg-white dark:bg-slate-900 rounded-2xl border border-slate-150 dark:border-slate-800 shadow-sm flex flex-col items-center">
+      <div className="flex gap-2 sm:gap-6 mb-3">
+        {[
+          { label: "First\ndigit", val: "5", ways: "1 way" },
+          { label: "Second\ndigit", val: "any one of the three digits\n1 or 3 or (2 or 4)", ways: "3 ways" },
+          { label: "Third\ndigit", val: "any one of\nremaining two", ways: "2 ways" },
+          { label: "Last\ndigit", val: "2 or 4", ways: "2 ways" }
+        ].map((col, idx) => (
+          <div key={idx} className="flex flex-col items-center">
+            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 text-center whitespace-pre-line">{col.label}</span>
+            <div className="w-14 h-14 sm:w-24 sm:h-20 bg-emerald-50/50 dark:bg-emerald-950/20 border-2 border-emerald-100 dark:border-emerald-900/50 rounded-xl flex items-center justify-center mb-2 p-1 text-center">
+              <span className="font-display font-bold text-[10px] sm:text-sm text-emerald-700 dark:text-emerald-400 whitespace-pre-line leading-tight">{col.val}</span>
+            </div>
+            <span className="text-[10px] sm:text-xs font-bold text-slate-700 dark:text-slate-300">{col.ways}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Example24DiagramA() {
+  return (
+    <div className="my-6 p-4 bg-white dark:bg-slate-900 rounded-2xl border border-slate-150 dark:border-slate-800 shadow-sm flex flex-col items-center overflow-x-auto">
+      <div className="flex gap-4">
+        {/* Chemistry Block */}
+        <div className="flex flex-col items-center">
+          <div className="flex gap-1 border-b-2 border-rose-400 pb-2 mb-1 px-2">
+            {['C1', 'C2'].map(b => (
+              <div key={b} className="w-8 h-12 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/50 flex justify-center items-center rounded text-xs font-bold text-rose-700 dark:text-rose-400">{b}</div>
+            ))}
+          </div>
+          <span className="text-[10px] font-bold uppercase text-rose-500 text-center">Left<br/>Chemistry: 2!</span>
+        </div>
+        
+        {/* Math Block */}
+        <div className="flex flex-col items-center">
+          <div className="flex gap-1 border-b-2 border-blue-400 pb-2 mb-1 px-2">
+            {['M1', 'M2', 'M3', 'M4'].map(b => (
+              <div key={b} className="w-8 h-12 bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/50 flex justify-center items-center rounded text-xs font-bold text-blue-700 dark:text-blue-400">{b}</div>
+            ))}
+          </div>
+          <span className="text-[10px] font-bold uppercase text-blue-500 text-center">Middle<br/>Mathematics: 4!</span>
+        </div>
+
+        {/* Physics Block */}
+        <div className="flex flex-col items-center">
+          <div className="flex gap-1 border-b-2 border-emerald-400 pb-2 mb-1 px-2">
+            {['P1', 'P2', 'P3'].map(b => (
+              <div key={b} className="w-8 h-12 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/50 flex justify-center items-center rounded text-xs font-bold text-emerald-700 dark:text-emerald-400">{b}</div>
+            ))}
+          </div>
+          <span className="text-[10px] font-bold uppercase text-emerald-500 text-center">Right<br/>Physics: 3!</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Example24DiagramB() {
+  return (
+    <div className="my-6 p-4 sm:p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col items-center">
+      <span className="text-xs font-bold text-slate-500 uppercase mb-4 tracking-wider">Arrange the three subject blocks: 3! ways</span>
+      <div className="flex items-center gap-3 mb-6">
+        <div className="px-3 py-2 bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300 font-bold text-xs rounded border border-rose-300 dark:border-rose-800 text-center">Chemistry<br/>block</div>
+        <ArrowRight className="w-4 h-4 text-slate-400" />
+        <div className="px-3 py-2 bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 font-bold text-xs rounded border border-blue-300 dark:border-blue-800 text-center">Mathematics<br/>block</div>
+        <ArrowRight className="w-4 h-4 text-slate-400" />
+        <div className="px-3 py-2 bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300 font-bold text-xs rounded border border-emerald-300 dark:border-emerald-800 text-center">Physics<br/>block</div>
+      </div>
+      <div className="text-sm font-bold text-slate-800 dark:text-slate-200 text-center">
+        Inside the blocks: <span className="font-mono text-indigo-600 dark:text-indigo-400">2! × 4! × 3! = 288</span> ways<br/>
+        <span className="mt-2 inline-block">Total: <span className="font-mono text-indigo-600 dark:text-indigo-400">3! × 288</span></span>
+      </div>
+    </div>
+  );
+}
+
+function Example25Diagram() {
+  return (
+    <div className="my-6 p-4 sm:p-6 bg-amber-50/50 dark:bg-amber-950/20 rounded-2xl border border-amber-100 dark:border-amber-900/40 shadow-sm flex flex-col items-center">
+      <span className="text-[10px] font-bold text-amber-600/80 uppercase tracking-wider mb-3">Treat the two vowels as one block</span>
+      <div className="flex gap-2 sm:gap-4 items-center">
+        <div className="w-10 h-10 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 flex items-center justify-center font-bold rounded-lg shadow-sm">S</div>
+        <div className="flex flex-col items-center">
+          <div className="flex px-1 py-0.5 bg-amber-100 dark:bg-amber-900/40 border border-amber-300 dark:border-amber-800 rounded-lg shadow-sm gap-1">
+            <div className="w-8 h-8 bg-white dark:bg-slate-900 border border-amber-200 dark:border-amber-800/60 flex items-center justify-center font-bold rounded text-amber-700 dark:text-amber-400">U</div>
+            <div className="w-8 h-8 bg-white dark:bg-slate-900 border border-amber-200 dark:border-amber-800/60 flex items-center justify-center font-bold rounded text-amber-700 dark:text-amber-400">A</div>
+          </div>
+          <span className="text-[10px] font-bold text-amber-600 mt-1 uppercase">Block</span>
+        </div>
+        <div className="w-10 h-10 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 flex items-center justify-center font-bold rounded-lg shadow-sm">N</div>
+        <div className="w-10 h-10 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 flex items-center justify-center font-bold rounded-lg shadow-sm">D</div>
+        <div className="w-10 h-10 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 flex items-center justify-center font-bold rounded-lg shadow-sm">Y</div>
+      </div>
+      
+      <div className="mt-4 text-center">
+        <div className="text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+          <span className="text-indigo-600 dark:text-indigo-400">5!</span> ways to arrange the five objects
+        </div>
+        <div className="text-[10px] font-bold text-amber-700 dark:text-amber-500 uppercase tracking-wide">
+          Inside the vowel block: 2! ways
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Example26Diagram() {
+  const options = [
+    { t1: 0, t2: 5, label: "(1, 6)" },
+    { t1: 1, t2: 6, label: "(2, 7)" },
+    { t1: 2, t2: 7, label: "(3, 8)" },
+  ];
+  
+  return (
+    <div className="my-6 p-4 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col items-center">
+      <span className="text-[10px] font-bold text-indigo-500 uppercase tracking-wider mb-4">Possible positions for the two T's</span>
+      <div className="space-y-3">
+        {options.map((opt, i) => (
+          <div key={i} className="flex items-center gap-3">
+            <div className="flex gap-1.5">
+              {Array.from({ length: 8 }).map((_, j) => {
+                const isT = j === opt.t1 || j === opt.t2;
+                return (
+                  <div key={j} className={`w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center text-xs font-bold rounded border ${isT ? 'bg-indigo-100 border-indigo-300 text-indigo-700 dark:bg-indigo-900/40 dark:border-indigo-700 dark:text-indigo-300' : 'bg-white border-slate-300 text-slate-300 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-600'}`}>
+                    {isT ? 'T' : ''}
+                  </div>
+                );
+              })}
+            </div>
+            <span className="font-mono text-sm font-bold text-slate-600 dark:text-slate-400">{opt.label}</span>
+          </div>
+        ))}
       </div>
     </div>
   );
