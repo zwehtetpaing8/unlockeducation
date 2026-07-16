@@ -1,0 +1,10 @@
+const fs = require('fs');
+let lines = fs.readFileSync('src/data/chapters.ts', 'utf8').split('\n');
+
+for (let i = 2650; i < 2700; i++) {
+  if (lines[i] && lines[i].includes('> $$') && !lines[i].includes('\\\\langle')) {
+    lines[i] = lines[i].replace(/(?<!\\)\\(?![\\`])/g, '\\\\');
+  }
+}
+
+fs.writeFileSync('src/data/chapters.ts', lines.join('\n'), 'utf8');
