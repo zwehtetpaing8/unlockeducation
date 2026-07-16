@@ -305,7 +305,11 @@ export default function App() {
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.22 }}
               >
-                <ChapterDetails chapter={selectedChapter} />
+                <ChapterDetails 
+                  chapter={selectedChapter} 
+                  onNavigateHome={() => setActiveView('home')}
+                  onSelectChapter={(id) => setSelectedChapterId(id)}
+                />
               </motion.div>
             ) : (
               <motion.div

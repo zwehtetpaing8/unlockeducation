@@ -3,6 +3,7 @@ import { Chapter } from '../types';
 import Latex from './Latex';
 import Visualizer from './Visualizers';
 import PracticeQuiz from './PracticeQuiz';
+import { motion } from 'motion/react';
 import { 
   BookOpen, 
   Award, 
@@ -13,11 +14,16 @@ import {
   ChevronRight,
   ChevronDown,
   List,
-  Check
+  Check,
+  Hourglass,
+  Sparkles,
+  GraduationCap
 } from 'lucide-react';
 
 interface ChapterDetailsProps {
   chapter: Chapter;
+  onNavigateHome?: () => void;
+  onSelectChapter?: (id: number) => void;
 }
 
 interface ContentSection {
@@ -61,7 +67,7 @@ function parseMarkdownSections(markdown: string): ContentSection[] {
   return sections;
 }
 
-export default function ChapterDetails({ chapter }: ChapterDetailsProps) {
+export default function ChapterDetails({ chapter, onNavigateHome, onSelectChapter }: ChapterDetailsProps) {
   const [activeTab, setActiveTab] = useState<'study' | 'formulas' | 'visualizer' | 'quiz'>('study');
   const [activeSectionIndex, setActiveSectionIndex] = useState<number>(0);
   const [isMobileOutlineOpen, setIsMobileOutlineOpen] = useState(false);
@@ -98,6 +104,153 @@ export default function ChapterDetails({ chapter }: ChapterDetailsProps) {
 
   const sections = parseMarkdownSections(chapter.content);
   const activeSection = sections[activeSectionIndex] || sections[0];
+
+  const isPublished = [1, 2, 3, 5].includes(chapter.id);
+
+  if (!isPublished) {
+    return (
+      <div className="space-y-6">
+        {/* Chapter Overview Hero Header card */}
+        <div className="relative overflow-hidden bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 text-white p-6 md:p-8 rounded-3xl shadow-md border border-slate-800">
+          <div className="absolute top-0 right-0 transform translate-x-12 -translate-y-6 w-72 h-72 rounded-full bg-indigo-500/10 blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 transform -translate-x-12 translate-y-6 w-72 h-72 rounded-full bg-violet-500/10 blur-3xl pointer-events-none" />
+
+          <div className="relative space-y-3 z-10">
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] uppercase font-mono tracking-widest bg-indigo-500/20 text-indigo-300 px-3 py-1 rounded-full border border-indigo-500/30 font-bold">
+                Chapter {chapter.id}
+              </span>
+              <span className="text-[10px] text-slate-400 font-medium flex items-center gap-1">
+                <Calendar className="w-3.5 h-3.5" /> Unlock Education Math Syllabus
+              </span>
+            </div>
+
+            <h2 className="font-display font-bold text-xl md:text-3xl text-slate-100 tracking-tight leading-tight">
+              {chapter.title}
+            </h2>
+
+            <div className="text-xs md:text-sm text-slate-300/95 max-w-2xl leading-relaxed italic">
+              <Latex text={chapter.tagline} />
+            </div>
+          </div>
+        </div>
+
+        {/* Beautiful Coming Soon Placeholder with elegant animation */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+          className="relative overflow-hidden bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/80 shadow-md p-8 md:p-12 rounded-3xl flex flex-col items-center text-center space-y-8"
+        >
+          {/* Animated Mathematical Orbital Circles & Hourglass icon */}
+          <div className="relative w-40 h-40 flex items-center justify-center">
+            {/* Pulsing glow background */}
+            <div className="absolute inset-0 bg-indigo-500/10 dark:bg-indigo-400/5 rounded-full blur-2xl animate-pulse" />
+            
+            {/* Outer orbiting ring */}
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ repeat: Infinity, duration: 15, ease: 'linear' }}
+              className="absolute w-36 h-36 rounded-full border border-dashed border-indigo-300 dark:border-indigo-800/60"
+            />
+
+            {/* Inner reverse orbiting ring */}
+            <motion.div
+              animate={{ rotate: -360 }}
+              transition={{ repeat: Infinity, duration: 10, ease: 'linear' }}
+              className="absolute w-28 h-28 rounded-full border border-dashed border-violet-400/50 dark:border-violet-800/40"
+            />
+
+            {/* Glowing active orbital node */}
+            <motion.div
+              animate={{
+                scale: [1, 1.15, 1],
+                opacity: [0.8, 1, 0.8]
+              }}
+              transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
+              className="absolute w-20 h-20 rounded-full bg-gradient-to-tr from-indigo-500 to-violet-500 text-white flex items-center justify-center shadow-lg shadow-indigo-500/20"
+            >
+              <Hourglass className="w-8 h-8 animate-spin" style={{ animationDuration: '6s' }} />
+            </motion.div>
+
+            {/* Mathematical particles */}
+            <motion.div
+              animate={{
+                y: [-5, 5, -5],
+                x: [-3, 3, -3]
+              }}
+              transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}
+              className="absolute top-2 right-4 text-xs font-mono font-bold text-indigo-500/60 select-none"
+            >
+              $f(x)$
+            </motion.div>
+            <motion.div
+              animate={{
+                y: [4, -4, 4],
+                x: [2, -2, 2]
+              }}
+              transition={{ repeat: Infinity, duration: 4.5, ease: 'easeInOut' }}
+              className="absolute bottom-4 left-2 text-xs font-mono font-bold text-violet-500/60 select-none"
+            >
+              $\sum$
+            </motion.div>
+            <motion.div
+              animate={{
+                scale: [0.8, 1.1, 0.8],
+                opacity: [0.5, 0.9, 0.5]
+              }}
+              transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }}
+              className="absolute top-24 right-2 text-indigo-400"
+            >
+              <Sparkles className="w-4 h-4" />
+            </motion.div>
+          </div>
+
+          {/* Typography */}
+          <div className="space-y-4 max-w-xl">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 text-[10px] font-bold border border-amber-200/40 dark:border-amber-900/30 uppercase tracking-wider">
+              <Sparkles className="w-3 h-3" /> Coming Soon
+            </span>
+            <h3 className="font-display font-bold text-xl md:text-2xl text-slate-800 dark:text-slate-100 tracking-tight leading-tight">
+              မကြာမီလာမည် (Under Construction)
+            </h3>
+            <p className="text-xs md:text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
+              ဤအခန်းသည် ပြင်ဆင်ရေးဆွဲနေဆဲ ဖြစ်ပါသည်။ အဆင့်မြင့် သင်ခန်းစာများ၊ interactive graphic simulations များနှင့် ဉာဏ်စမ်းလေ့ကျင့်ခန်းများကို မကြာမီ အပြည့်အစုံ လေ့လာနိုင်တော့မည် ဖြစ်သည်။
+            </p>
+            <p className="text-xs md:text-sm text-slate-500 dark:text-slate-500 leading-relaxed italic">
+              This chapter is currently under development. Fully-interactive 3D mathematical visualization modules, step-by-step solved exercises, and practice quizzes will be available here soon!
+            </p>
+          </div>
+
+          {/* Active Navigation/Action Buttons */}
+          <div className="flex flex-col sm:flex-row gap-3 pt-4 w-full justify-center max-w-md">
+            <button
+              onClick={() => {
+                if (onSelectChapter) {
+                  onSelectChapter(1);
+                }
+              }}
+              className="flex items-center justify-center gap-2 px-5 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-all shadow-md hover:shadow-lg cursor-pointer"
+            >
+              <GraduationCap className="w-4 h-4" />
+              Chapter 1 လေ့လာရန်
+            </button>
+            <button
+              onClick={() => {
+                if (onNavigateHome) {
+                  onNavigateHome();
+                }
+              }}
+              className="flex items-center justify-center gap-2 px-5 py-3 bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold transition-all cursor-pointer"
+            >
+              <Compass className="w-4 h-4" />
+              ပင်မစာမျက်နှာသို့ (Home)
+            </button>
+          </div>
+        </motion.div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
