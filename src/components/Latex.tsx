@@ -1080,78 +1080,34 @@ function SkewLinesDiagram() {
   );
 }
 
-
-export function Chap3_5_Intro_Sphere() {
+function SpherePlaneTangentDiagram() {
   return (
-    <div className="my-6 flex justify-center p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80 overflow-hidden">
-      <svg viewBox="0 0 250 250" className="w-full max-w-[250px] h-auto overflow-visible font-serif">
-        <circle cx="125" cy="125" r="90" fill="none" stroke="#64748b" strokeWidth="1.5" />
-        <ellipse cx="125" cy="125" rx="90" ry="25" fill="none" stroke="#64748b" strokeWidth="1.5" />
+    <div className="my-6 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+      <h5 className="text-xs font-bold text-indigo-500 mb-2">Sphere with Tangent Plane</h5>
+      <svg width="240" height="180" viewBox="0 0 240 180" className="overflow-visible">
+        {/* Draw 3D Sphere outline */}
+        <circle cx="120" cy="95" r="50" fill="rgba(109, 40, 217, 0.03)" stroke="#6d28d9" strokeWidth="1.5" />
+        {/* Equatorial Hoop dashed/solid */}
+        <ellipse cx="120" cy="95" rx="50" ry="15" fill="none" stroke="#8b5cf6" strokeWidth="1" strokeDasharray="3 3" />
         
-        {/* Center Point */}
-        <circle cx="125" cy="125" r="3" className="fill-slate-900 dark:fill-slate-300" />
-        <text x="130" y="140" fontSize="13" className="fill-slate-900 dark:fill-slate-300 font-sans">(x₁, y₁, z₁)</text>
-        
-        {/* Surface Point */}
-        <circle cx="185" cy="58" r="3" className="fill-slate-900 dark:fill-slate-300" />
-        <text x="195" y="55" fontSize="13" className="fill-slate-900 dark:fill-slate-300 font-sans">(x, y, z)</text>
-        
-        {/* Radius line */}
-        <line x1="125" y1="125" x2="185" y2="58" className="stroke-slate-900 dark:stroke-slate-300" strokeWidth="1.2" />
-        <text x="145" y="85" fontSize="16" className="fill-slate-900 dark:fill-slate-300 font-serif italic">r</text>
-      </svg>
-    </div>
-  );
-}
+        {/* Center Point C */}
+        <circle cx="120" cy="95" r="4" fill="#6d28d9" />
+        <text x="110" y="108" className="text-[10px] fill-indigo-800 dark:fill-indigo-400 font-semibold font-mono">C(x₁,y₁,z₁)</text>
 
-export function Chap3_5_Ex11_Sphere() {
-  return (
-    <div className="my-6 flex justify-center p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80 overflow-hidden">
-      <svg viewBox="0 0 280 220" className="w-full max-w-[280px] h-auto overflow-visible font-serif">
-        <circle cx="110" cy="130" r="70" fill="none" stroke="#64748b" strokeWidth="1.5" />
-        <ellipse cx="110" cy="130" rx="70" ry="20" fill="none" stroke="#64748b" strokeWidth="1.5" />
-        
-        {/* Center Point */}
-        <circle cx="110" cy="130" r="3" className="fill-slate-900 dark:fill-slate-300" />
-        <text x="75" y="145" fontSize="12" className="fill-slate-900 dark:fill-slate-300 font-sans">C(2, 1, -1)</text>
-        
-        {/* Surface Point P */}
-        <circle cx="160" cy="80" r="3" className="fill-slate-900 dark:fill-slate-300" />
-        <text x="175" y="75" fontSize="12" className="fill-slate-900 dark:fill-slate-300 font-sans">P(3, 4, 1)</text>
-        
-        {/* Radius line */}
-        <line x1="110" y1="130" x2="160" y2="80" className="stroke-slate-900 dark:stroke-slate-300" strokeWidth="1" />
-        
-        {/* Tangent Plane */}
-        <polygon points="120,40 210,20 260,80 170,100" fill="none" className="stroke-slate-900 dark:stroke-slate-300" strokeWidth="1.5" />
-        <path d="M 152 88 L 145 81 L 151 75" fill="none" className="stroke-slate-900 dark:stroke-slate-300" strokeWidth="1" />
-      </svg>
-    </div>
-  );
-}
+        {/* Tangent point on top-right of sphere surface */}
+        <circle cx="155" cy="60" r="4" fill="#ef4444" />
+        <text x="162" y="58" className="text-[10px] fill-red-600 font-bold font-sans">P(3, 2, -2)</text>
 
-export function Chap3_5_Q4_Sphere() {
-  return (
-    <div className="my-6 flex justify-center p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80 overflow-hidden">
-      <svg viewBox="0 0 280 220" className="w-full max-w-[280px] h-auto overflow-visible font-serif">
-        <circle cx="110" cy="130" r="70" fill="none" stroke="#64748b" strokeWidth="1.5" />
-        <ellipse cx="110" cy="130" rx="70" ry="20" fill="none" stroke="#64748b" strokeWidth="1.5" />
-        
-        {/* Center Point */}
-        <circle cx="110" cy="130" r="3" className="fill-slate-900 dark:fill-slate-300" />
-        <text x="65" y="145" fontSize="12" className="fill-slate-900 dark:fill-slate-300 font-sans">C(-2, 1, -3)</text>
-        
-        {/* Surface Point P */}
-        <circle cx="160" cy="80" r="3" className="fill-slate-900 dark:fill-slate-300" />
-        <text x="175" y="75" fontSize="12" className="fill-slate-900 dark:fill-slate-300 font-sans">P(3, 2, -2)</text>
-        
-        {/* Radius line */}
-        <line x1="110" y1="130" x2="160" y2="80" className="stroke-slate-900 dark:stroke-slate-300" strokeWidth="1" />
-        
-        {/* Tangent Plane */}
-        <polygon points="120,40 210,20 260,80 170,100" fill="none" className="stroke-slate-900 dark:stroke-slate-300" strokeWidth="1.5" />
-        <path d="M 152 88 L 145 81 L 151 75" fill="none" className="stroke-slate-900 dark:stroke-slate-300" strokeWidth="1" />
+        {/* Normal radius vector line from C to P */}
+        <line x1="120" y1="95" x2="155" y2="60" stroke="#ef4444" strokeWidth="1.5" strokeDasharray="2 2" />
+        <text x="130" y="75" className="text-[9px] fill-red-500 font-mono italic">Radius r</text>
+
+        {/* Tangent Plane patch */}
+        <polygon points="120,30 180,20 195,90 135,100" fill="rgba(13, 148, 136, 0.18)" stroke="#0d9488" strokeWidth="1.5" />
+        <text x="175" y="92" className="text-[9px] fill-teal-700 font-bold">Tangent Plane</text>
+        <text x="175" y="101" className="text-[8px] fill-teal-600 font-mono">5x + y + z = 15</text>
       </svg>
+      <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-2 italic font-sans text-center">Radius vector CP is always perpendicular to the Tangent Plane at point P</span>
     </div>
   );
 }
@@ -2279,7 +2235,6 @@ export function Ex5_4_Q10_ii_Diag5() {
 }
 
 
-
 const DIAGRAM_MAP: Record<string, React.FC> = {
   MathematicianTimeline,
   ArgandPolar,
@@ -2307,9 +2262,7 @@ const DIAGRAM_MAP: Record<string, React.FC> = {
   RootsExample10,
   Solid3DPointDiagram,
   SkewLinesDiagram,
-  Chap3_5_Intro_Sphere,
-  Chap3_5_Ex11_Sphere,
-  Chap3_5_Q4_Sphere,
+  SpherePlaneTangentDiagram,
   RootsUnity4,
   DrinksSnacksTree,
   PermCombComparison,

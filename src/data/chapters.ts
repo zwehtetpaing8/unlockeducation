@@ -2786,13 +2786,16 @@ $$-2x + y + 3z = -4$$
 
 ### 3.5 Spheres
 
-[DIAGRAM:Chap3_5_Intro_Sphere]
+#### 1. Equation of the Sphere
+*   **Standard Form**:
+    $$(x - x_1)^2 + (y - y_1)^2 + (z - z_1)^2 = r^2$$
+*   **General Form**:
+    $$x^2 + y^2 + z^2 + 2ux + 2vy + 2wz + d = 0$$
+    with Center $= (-u, -v, -w)$ and Radius $r = \\sqrt{u^2 + v^2 + w^2 - d}$.
 
-The distance between center $(x_1, y_1, z_1)$ of a sphere and any point $(x, y, z)$ on the sphere is radius $r$.
-> $$\sqrt{(x - x_1)^2 + (y - y_1)^2 + (z - z_1)^2} = r$$
-
-Therefore, the equation of the sphere with center $(x_1, y_1, z_1)$ and radius $r$ is
-> $$(x - x_1)^2 + (y - y_1)^2 + (z - z_1)^2 = r^2$$
+#### 2. Tangent Plane to a Sphere
+The equation of the tangent plane at $(x_0, y_0, z_0)$ is:
+$$(x_0 - x_1)(x - x_1) + (y_0 - y_1)(y - y_1) + (z_0 - z_1)(z - z_1) = r^2$$
 
 ---
 
@@ -2810,127 +2813,899 @@ Using point $P(3, 4, 1)$:
 $$d = 3 + 3(4) + 2(1) = 17$$
 Equation: **$x + 3y + 2z = 17$**
 
-[DIAGRAM:Chap3_5_Ex11_Sphere]
+[DIAGRAM:SpherePlaneTangentDiagram]
 
 ###### **Exercise 3.5 Q1**
-1. Find the equation of the sphere with center $C$ and radius $r$,
+Find the equation of the sphere with center $C$ and radius $r$:
 (a) $C(1, -2, 4)$, $r = 3$
 (b) $C(2, 6, -3)$, $r = 2$
 (c) $C(2, 3, 5)$, $r = 5$
 
-**Solution**
-**(a)** The equation of the sphere with center $C(1, -2, 4)$ and radius $3$ is
-$$(x - 1)^2 + (y + 2)^2 + (z - 4)^2 = 9$$
-
-**(b)** The equation of the sphere with center $C(2, 6, -3)$ and radius $2$ is
-$$(x - 2)^2 + (y - 6)^2 + (z + 3)^2 = 4$$
-
-**(c)** The equation of the sphere with center $C(2, 3, 5)$ and radius $5$ is
-$$(x - 2)^2 + (y - 3)^2 + (z - 5)^2 = 25$$
-
-###### **Exercise 3.5 Q2**
-2. Check whether the given point $P$ lies inside, outside or on a sphere.
-(a) $C(0, 0, 0)$, $r = 3$ and $P(1, 1, 1)$
-(b) $C(0, 0, 0)$, $r = 3$ and $P(2, 1, 2)$
-(c) $C(0, 0, 0)$, $r = 3$ and $P(10, 10, 10)$
-
-**Solution**
-**(a)** $CP = \sqrt{1^2 + 1^2 + 1^2} = \sqrt{3}$. Since $CP < r$, the point $P(1, 1, 1)$ lies inside the sphere.
-**(b)** $CP = \sqrt{2^2 + 1^2 + 2^2} = \sqrt{9} = 3$. Since $CP = r$, the point $P(2, 1, 2)$ lies on the sphere.
-**(c)** $CP = \sqrt{10^2 + 10^2 + 10^2} = \sqrt{300} = 10\sqrt{3}$. Since $CP > r$, the point $P(10, 10, 10)$ lies outside the sphere.
-
-###### **Exercise 3.5 Q6**
-6. What is the equation of the sphere which passes through the points $(3, 0, 2)$, $(-1, 1, 1)$ and $(2, -5, 4)$ and whose center lies on the plane $2x + 3y + 4z = 6$?
-
-**Solution**
-Let the center of the sphere be $C(x_1, y_1, z_1)$ and the radius be $r$. Then the equation of the sphere is
+**Solution:**
+The standard equation of a sphere with center $(x_1, y_1, z_1)$ and radius $r$ is:
 $$(x - x_1)^2 + (y - y_1)^2 + (z - z_1)^2 = r^2$$
 
-Since the sphere passes through the points $(3, 0, 2)$, $(-1, 1, 1)$ and $(2, -5, 4)$, we have
-$$(3 - x_1)^2 + (0 - y_1)^2 + (2 - z_1)^2 = r^2$$
-$$x_1^2 - 6x_1 + 9 + y_1^2 + z_1^2 - 4z_1 + 4 = r^2 \quad \text{--- (1)}$$
+*   **(a) Center $C(1, -2, 4)$ and radius $r = 3$**:
+    Substitute $x_1 = 1, \\, y_1 = -2, \\, z_1 = 4$, and $r = 3$:
+    $$(x - 1)^2 + (y - (-2))^2 + (z - 4)^2 = 3^2$$
+    **$$(x - 1)^2 + (y + 2)^2 + (z - 4)^2 = 9$$**
 
-$$(-1 - x_1)^2 + (1 - y_1)^2 + (1 - z_1)^2 = r^2$$
-$$x_1^2 + 2x_1 + 1 + y_1^2 - 2y_1 + 1 + z_1^2 - 2z_1 + 1 = r^2 \quad \text{--- (2)}$$
+*   **(b) Center $C(2, 6, -3)$ and radius $r = 2$**:
+    Substitute $x_1 = 2, \\, y_1 = 6, \\, z_1 = -3$, and $r = 2$:
+    $$(x - 2)^2 + (y - 6)^2 + (z - (-3))^2 = 2^2$$
+    **$$(x - 2)^2 + (y - 6)^2 + (z + 3)^2 = 4$$**
 
-$$(2 - x_1)^2 + (-5 - y_1)^2 + (4 - z_1)^2 = r^2$$
-$$x_1^2 - 4x_1 + 4 + y_1^2 + 10y_1 + 25 + z_1^2 - 8z_1 + 16 = r^2 \quad \text{--- (3)}$$
+*   **(c) Center $C(2, 3, 5)$ and radius $r = 5$**:
+    Substitute $x_1 = 2, \\, y_1 = 3, \\, z_1 = 5$, and $r = 5$:
+    $$(x - 2)^2 + (y - 3)^2 + (z - 5)^2 = 5^2$$
+    **$$(x - 2)^2 + (y - 3)^2 + (z - 5)^2 = 25$$**
 
-Also, since the center lies on the plane $2x + 3y + 4z = 6$,
-$$2x_1 + 3y_1 + 4z_1 = 6 \quad \text{--- (4)}$$
+###### **Exercise 3.5 Q2**
+Check whether the given point $P$ lies inside, outside or on the sphere centered at $C(0, 0, 0)$ with radius $r = 3$:
+(a) $P(1, 1, 1)$, (b) $P(2, 1, 2)$, (c) $P(10, 10, 10)$
 
-Subtracting (2) from (1), we get
-$$-6x_1 + 9 - 4z_1 + 4 = 2x_1 + 1 - 2y_1 + 1 - 2z_1 + 1$$
-$$-8x_1 + 2y_1 - 2z_1 + 10 = 0$$
-$$-4x_1 + y_1 - z_1 = -5 \quad \text{--- (5)}$$
+**Solution:**
+The distance $CP$ from the center $C(0, 0, 0)$ to any point $P(x, y, z)$ is given by the distance formula:
+$$CP = \\sqrt{(x - 0)^2 + (y - 0)^2 + (z - 0)^2} = \\sqrt{x^2 + y^2 + z^2}$$
+We compare $CP$ with the sphere's radius $r = 3$:
+*   If $CP < 3$, the point is **inside** the sphere.
+*   If $CP = 3$, the point is **on** the sphere.
+*   If $CP > 3$, the point is **outside** the sphere.
 
-Multiplying (4) by $2$, we get
+*   **(a) Point $P(1, 1, 1)$**:
+    $$CP = \\sqrt{1^2 + 1^2 + 1^2} = \\sqrt{3} \\approx 1.732$$
+    Since $\\sqrt{3} < 3$, the point lies **inside** the sphere.
+
+*   **(b) Point $P(2, 1, 2)$**:
+    $$CP = \\sqrt{2^2 + 1^2 + 2^2} = \\sqrt{4 + 1 + 4} = \\sqrt{9} = 3$$
+    Since $3 = 3$, the point lies **on** the sphere.
+
+*   **(c) Point $P(10, 10, 10)$**:
+    $$CP = \\sqrt{10^2 + 10^2 + 10^2} = \\sqrt{100 + 100 + 100} = \\sqrt{300} = 10\\sqrt{3} \\approx 17.32$$
+    Since $10\\sqrt{3} > 3$, the point lies **outside** the sphere.
+
+###### **Exercise 3.5 Q3**
+Find the equation of the sphere on the join of $A(1, -1, 1)$ and $B(-3, 4, 5)$ as diameter.
+
+**Solution:**
+**Method 1: Using the Diameter Formula**
+The equation of a sphere with $A(x_1, y_1, z_1)$ and $B(x_2, y_2, z_2)$ as the ends of a diameter is:
+$$(x - x_1)(x - x_2) + (y - y_1)(y - y_2) + (z - z_1)(z - z_2) = 0$$
+
+Substitute the coordinates of $A(1, -1, 1)$ and $B(-3, 4, 5)$:
+$$(x - 1)(x - (-3)) + (y - (-1))(y - 4) + (z - 1)(z - 5) = 0$$
+$$(x - 1)(x + 3) + (y + 1)(y - 4) + (z - 1)(z - 5) = 0$$
+
+Now, expand each term:
+$$(x^2 + 2x - 3) + (y^2 - 3y - 4) + (z^2 - 6z + 5) = 0$$
+
+Group and combine the constants:
+$$x^2 + y^2 + z^2 + 2x - 3y - 6z + (-3 - 4 + 5) = 0$$
+**$$x^2 + y^2 + z^2 + 2x - 3y - 6z - 2 = 0$$**
+
+**Method 2: Using Center and Radius**
+1.  **Find the Center $C$ (the midpoint of $AB$)**:
+    $$C = \\left(\\frac{1 + (-3)}{2}, \\, \\frac{-1 + 4}{2}, \\, \\frac{1 + 5}{2}\\right) = \\left(-1, \\, \\frac{3}{2}, \\, 3\\right)$$
+2.  **Find the Radius $r$ (half the diameter length $AB$)**:
+    $$AB = \\sqrt{(-3 - 1)^2 + (4 - (-1))^2 + (5 - 1)^2}$$
+    $$AB = \\sqrt{(-4)^2 + 5^2 + 4^2} = \\sqrt{16 + 25 + 16} = \\sqrt{57}$$
+    $$r = \\frac{\\sqrt{57}}{2} \\implies r^2 = \\frac{57}{4}$$
+3.  **Write the Standard Form Equation**:
+    **$$(x + 1)^2 + \\left(y - \\frac{3}{2}\\right)^2 + (z - 3)^2 = \\frac{57}{4}$$**
+
+###### **Exercise 3.5 Q4**
+Find the equation of the plane tangent to the sphere $(x + 2)^2 + (y - 1)^2 + (z + 3)^2 = 27$ at the point $P(3, 2, -2)$.
+
+**Solution:**
+1.  **Find the center $C$ of the sphere**:
+    Comparing with the standard form $(x - x_1)^2 + (y - y_1)^2 + (z - z_1)^2 = r^2$, the center is:
+    $$C(-2, 1, -3)$$
+2.  **Find the direction ratios of the normal vector to the tangent plane**:
+    The normal vector is the radius vector $CP$ joining the center $C(-2, 1, -3)$ to the point of tangency $P(3, 2, -2)$:
+    $$\\vec{CP} = \\langle 3 - (-2), \\, 2 - 1, \\, -2 - (-3) \\rangle = \\langle 5, \\, 1, \\, 1 \\rangle$$
+    Thus, the direction ratios of the normal vector are $a = 5, \\, b = 1, \\, c = 1$.
+3.  **Find the equation of the plane**:
+    The equation of a plane through $(x_0, y_0, z_0) = (3, 2, -2)$ with normal direction ratios $\\langle a, b, c \\rangle = \\langle 5, 1, 1 \\rangle$ is:
+    $$a(x - x_0) + b(y - y_0) + c(z - z_0) = 0$$
+    $$5(x - 3) + 1(y - 2) + 1(z - (-2)) = 0$$
+    $$5x - 15 + y - 2 + z + 2 = 0$$
+    **$$5x + y + z = 15$$**
+
+###### **Example 12**
+Find the equation of the sphere with center $(0, 1, 0)$ and touching the plane $x - 2y + 2z + 5 = 0$.
+
+**Solution:**
+1.  **Find the radius $r$**:
+    Since the sphere touches the plane, the radius $r$ is the perpendicular distance from the center $C(0, 1, 0)$ to the plane $x - 2y + 2z + 5 = 0$:
+    $$r = \\frac{|Ax_0 + By_0 + Cz_0 + D|}{\\sqrt{A^2 + B^2 + C^2}}$$
+    Substitute $A = 1, \\, B = -2, \\, C = 2, \\, D = 5$ and $(x_0, y_0, z_0) = (0, 1, 0)$:
+    $$r = \\frac{|1(0) - 2(1) + 2(0) + 5|}{\\sqrt{1^2 + (-2)^2 + 2^2}} = \\frac{|0 - 2 + 0 + 5|}{\\sqrt{1 + 4 + 4}} = \\frac{|3|}{\\sqrt{9}} = \\frac{3}{3} = 1$$
+    So, $r = 1 \\implies r^2 = 1$.
+2.  **Write the equation of the sphere**:
+    With center $C(0, 1, 0)$ and radius $r = 1$:
+    $$(x - 0)^2 + (y - 1)^2 + (z - 0)^2 = 1^2$$
+    **$$x^2 + (y - 1)^2 + z^2 = 1$$**
+
+###### **Exercise 3.5 Q5**
+Find the equation of the sphere with center $(6, -7, -3)$ and touching the plane $4x - 2y - z = 17$.
+
+**Solution:**
+1.  **Find the radius $r$**:
+    Since the sphere touches the plane $4x - 2y - z - 17 = 0$, the radius $r$ is the perpendicular distance from the center $C(6, -7, -3)$ to this plane:
+    $$r = \\frac{|Ax_0 + By_0 + Cz_0 + D|}{\\sqrt{A^2 + B^2 + C^2}}$$
+    Substitute $A = 4, \\, B = -2, \\, C = -1, \\, D = -17$ and $(x_0, y_0, z_0) = (6, -7, -3)$:
+    $$r = \\frac{|4(6) - 2(-7) - 1(-3) - 17|}{\\sqrt{4^2 + (-2)^2 + (-1)^2}}$$
+    $$r = \\frac{|24 + 14 + 3 - 17|}{\\sqrt{16 + 4 + 1}} = \\frac{|41 - 17|}{\\sqrt{21}} = \\frac{24}{\\sqrt{21}}$$
+    
+    The radius squared is:
+    $$r^2 = \\left(\\frac{24}{\\sqrt{21}}\\right)^2 = \\frac{576}{21} = \\frac{192}{7}$$
+2.  **Write the equation of the sphere**:
+    Using the standard sphere equation with center $C(6, -7, -3)$ and $r^2 = \\frac{192}{7}$:
+    $$(x - 6)^2 + (y - (-7))^2 + (z - (-3))^2 = r^2$$
+    **$$(x - 6)^2 + (y + 7)^2 + (z + 3)^2 = \\frac{192}{7}$$**
+
+###### **Exercise 3.5 Q6**
+What is the equation of the sphere which passes through the points $P(3, 0, 2)$, $Q(-1, 1, 1)$, and $R(2, -5, 4)$ and whose center lies on the plane $2x + 3y + 4z = 6$?
+
+**Solution:**
+Let the center of the sphere be $C(x_1, y_1, z_1)$.
+1.  Since $C$ lies on the plane $2x + 3y + 4z = 6$, we have:
+    $$2x_1 + 3y_1 + 4z_1 = 6 \\quad \\text{--- (1)}$$
+2.  Since $C$ is the center of the sphere, the distance from $C$ to any point on the sphere is equal to the radius $r$. Therefore, $CP^2 = CQ^2 = CR^2$.
+
+**Step 1: Equate $CP^2 = CQ^2$**
+$$(x_1 - 3)^2 + (y_1 - 0)^2 + (z_1 - 2)^2 = (x_1 - (-1))^2 + (y_1 - 1)^2 + (z_1 - 1)^2$$
+$$(x_1 - 3)^2 + y_1^2 + (z_1 - 2)^2 = (x_1 + 1)^2 + (y_1 - 1)^2 + (z_1 - 1)^2$$
+Expand both sides:
+$$(x_1^2 - 6x_1 + 9) + y_1^2 + (z_1^2 - 4z_1 + 4) = (x_1^2 + 2x_1 + 1) + (y_1^2 - 2y_1 + 1) + (z_1^2 - 2z_1 + 1)$$
+Simplify by canceling $x_1^2, \\, y_1^2, \\, z_1^2$ from both sides:
+$$-6x_1 - 4z_1 + 13 = 2x_1 - 2y_1 - 2z_1 + 3$$
+Rearrange the terms:
+$$8x_1 - 2y_1 + 2z_1 = 10 \\implies 4x_1 - y_1 + z_1 = 5 \\quad \\text{--- (2)}$$
+
+**Step 2: Equate $CP^2 = CR^2$**
+$$(x_1 - 3)^2 + (y_1 - 0)^2 + (z_1 - 2)^2 = (x_1 - 2)^2 + (y_1 - (-5))^2 + (z_1 - 4)^2$$
+$$(x_1 - 3)^2 + y_1^2 + (z_1 - 2)^2 = (x_1 - 2)^2 + (y_1 + 5)^2 + (z_1 - 4)^2$$
+Expand both sides:
+$$(x_1^2 - 6x_1 + 9) + y_1^2 + (z_1^2 - 4z_1 + 4) = (x_1^2 - 4x_1 + 4) + (y_1^2 + 10y_1 + 25) + (z_1^2 - 8z_1 + 16)$$
+Simplify by canceling $x_1^2, \\, y_1^2, \\, z_1^2$ from both sides:
+$$-6x_1 - 4z_1 + 13 = -4x_1 + 10y_1 - 8z_1 + 45$$
+Rearrange the terms:
+$$-2x_1 - 10y_1 + 4z_1 = 32 \\implies x_1 + 5y_1 - 2z_1 = -16 \\quad \\text{--- (3)}$$
+
+**Step 3: Solve the Linear System (1), (2), and (3)**
+Let's eliminate $x_1$ using equations (1) and (2).
+Multiply (1) by 2:
 $$4x_1 + 6y_1 + 8z_1 = 12$$
-Adding this to (5), $x_1$ is eliminated. Therefore,
-$$7y_1 + 7z_1 = 7$$
-$$y_1 + z_1 = 1 \quad \text{--- (6)}$$
+Subtract equation (2) from this:
+$$(4x_1 + 6y_1 + 8z_1) - (4x_1 - y_1 + z_1) = 12 - 5$$
+$$7y_1 + 7z_1 = 7 \\implies y_1 + z_1 = 1 \\implies y_1 = 1 - z_1 \\quad \\text{--- (4)}$$
 
-Subtracting (2) from (3), we get
-$$-4x_1 + 4 + 10y_1 + 25 - 8z_1 + 16 = 2x_1 + 1 - 2y_1 + 1 - 2z_1 + 1$$
-$$-6x_1 + 12y_1 - 6z_1 + 42 = 0$$
-$$x_1 - 2y_1 + z_1 = 7 \quad \text{--- (7)}$$
+Now eliminate $x_1$ using equations (1) and (3).
+Multiply equation (3) by 2:
+$$2x_1 + 10y_1 - 4z_1 = -32$$
+Subtract this from equation (1):
+$$(2x_1 + 3y_1 + 4z_1) - (2x_1 + 10y_1 - 4z_1) = 6 - (-32)$$
+$$-7y_1 + 8z_1 = 38 \\quad \\text{--- (5)}$$
 
-Multiplying (7) by $2$ and subtracting it from (4), $x_1$ is eliminated. Therefore,
-$$2x_1 + 3y_1 + 4z_1 - (2x_1 - 4y_1 + 2z_1) = 6 - 14$$
-$$7y_1 + 2z_1 = -8 \quad \text{--- (8)}$$
+Substitute equation (4) into equation (5):
+$$-7(1 - z_1) + 8z_1 = 38$$
+$$-7 + 7z_1 + 8z_1 = 38$$
+$$15z_1 = 45 \\implies z_1 = 3$$
 
-Multiplying (6) by $2$ and subtracting it from (8), we get
-$$7y_1 + 2z_1 - (2y_1 + 2z_1) = -8 - 2$$
-$$5y_1 = -10, \quad y_1 = -2$$
-$$z_1 = 3 \quad \text{from (6)}$$
-$$x_1 = 0 \quad \text{from (7)}$$
+Using $z_1 = 3$ in equation (4):
+$$y_1 = 1 - 3 = -2$$
 
-Since, the center of the sphere is $C(0, -2, 3)$. Substituting in (1),
-$$(3 - 0)^2 + (0 + 2)^2 + (2 - 3)^2 = r^2$$
-$$r^2 = 14$$
-$$r = \sqrt{14}$$
+Substitute $y_1 = -2$ and $z_1 = 3$ into equation (2):
+$$4x_1 - (-2) + 3 = 5 \\implies 4x_1 + 5 = 5 \\implies 4x_1 = 0 \\implies x_1 = 0$$
 
-Therefore, the equation of the sphere is
-$$x^2 + (y + 2)^2 + (z - 3)^2 = 14$$
+So, the center of the sphere is **$C(0, -2, 3)$**.
+
+**Step 4: Find the Radius Squared $r^2$**
+Using point $P(3, 0, 2)$:
+$$r^2 = CP^2 = (3 - 0)^2 + (0 - (-2))^2 + (2 - 3)^2 = 3^2 + 2^2 + (-1)^2 = 9 + 4 + 1 = 14$$
+
+**Step 5: Write the Sphere Equation**
+$$(x - 0)^2 + (y - (-2))^2 + (z - 3)^2 = 14$$
+**$$x^2 + (y + 2)^2 + (z - 3)^2 = 14$$**
 
 ###### **Example 13**
-Find the equation of a sphere that passes through the points $(9, 0, 0)$, $(3, 13, 5)$ and $(11, 0, 10)$, given that its center lies on the $yz$-plane.
+Find the equation of a sphere that passes through the points $A(9, 0, 0)$, $B(3, 13, 5)$, and $C(11, 0, 10)$, given that its center lies on the $yz$-plane.
 
-**Solution**
-Since the center lies on the $yz$-plane, let the center of the sphere be $C(0, y_1, z_1)$ and the radius be $r$. Then the equation of the sphere is
-$$x^2 + (y - y_1)^2 + (z - z_1)^2 = r^2$$
+**Solution:**
+Since the center lies on the $yz$-plane, its $x$-coordinate is $0$. Let the center be $P(0, y_1, z_1)$.
+1.  **Equate distances from $P$ to $A(9,0,0)$ and $C(11,0,10)$**:
+    $$PA^2 = PC^2$$
+    $$(9 - 0)^2 + (0 - y_1)^2 + (0 - z_1)^2 = (11 - 0)^2 + (0 - y_1)^2 + (10 - z_1)^2$$
+    $$81 + y_1^2 + z_1^2 = 121 + y_1^2 + (100 - 20z_1 + z_1^2)$$
+    Cancel out $y_1^2$ and $z_1^2$:
+    $$81 = 121 + 100 - 20z_1$$
+    $$20z_1 = 221 - 81 = 140 \\implies z_1 = 7$$
+2.  **Equate distances from $P$ to $A(9,0,0)$ and $B(3,13,5)$ with $z_1 = 7$**:
+    $$PA^2 = PB^2$$
+    $$(9 - 0)^2 + (0 - y_1)^2 + (0 - 7)^2 = (3 - 0)^2 + (13 - y_1)^2 + (5 - 7)^2$$
+    $$81 + y_1^2 + 49 = 9 + (169 - 26y_1 + y_1^2) + 4$$
+    Cancel out $y_1^2$:
+    $$130 = 182 - 26y_1$$
+    $$26y_1 = 182 - 130 = 52 \\implies y_1 = 2$$
 
-Since the sphere passes through the points $(9, 0, 0)$, $(3, 13, 5)$ and $(11, 0, 10)$, we have
-$$9^2 + y_1^2 + z_1^2 = r^2$$
-$$81 + y_1^2 + z_1^2 = r^2 \quad \text{--- (1)}$$
+Thus, the center is **$P(0, 2, 7)$**.
 
-$$3^2 + (13 - y_1)^2 + (5 - z_1)^2 = r^2$$
-$$203 - 26y_1 - 10z_1 + y_1^2 + z_1^2 = r^2 \quad \text{--- (2)}$$
+3.  **Find the Radius Squared $r^2$**:
+    $$r^2 = PA^2 = (9 - 0)^2 + (0 - 2)^2 + (0 - 7)^2 = 81 + 4 + 49 = 134$$
+4.  **Write the Sphere Equation**:
+    **$$x^2 + (y - 2)^2 + (z - 7)^2 = 134$$**`,
+    formulas: [
+      {
+        id: "c3-f1",
+        name: "3D Distance Formula",
+        latex: "d = \\sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2 + (z_2 - z_1)^2}",
+        description: "Calculates the straight-line distance between two points $P_1(x_1,y_1,z_1)$ and $P_2(x_2,y_2,z_2)$ in space."
+      },
+      {
+        id: "c3-f2",
+        name: "Direction Cosines Fundamental Relation",
+        latex: "l^2 + m^2 + n^2 = 1",
+        description: "For direction angles $\\alpha, \\beta, \\gamma$ with coordinate axes, $\\cos^2\\alpha + \\cos^2\\beta + \\cos^2\\gamma = 1$."
+      },
+      {
+        id: "c3-f3",
+        name: "Symmetric Equation of a Line",
+        latex: "\\frac{x-x_1}{a} = \\frac{y-y_1}{b} = \\frac{z-z_1}{c}",
+        description: "Represents a straight line in 3D through point $(x_1, y_1, z_1)$ with direction ratios $(a, b, c)$."
+      },
+      {
+        id: "c3-f4",
+        name: "Cartesian Equation of a Plane",
+        latex: "ax + by + cz = d",
+        description: "The general flat plane where the coefficients $(a,b,c)$ represent the perpendicular Normal Vector coordinates."
+      },
+      {
+        id: "c3-f5",
+        name: "Standard Equation of a Sphere",
+        latex: "(x-x_1)^2 + (y-y_1)^2 + (z-z_1)^2 = r^2",
+        description: "A sphere centered at $(x_1, y_1, z_1)$ with radius $r$."
+      },
+      {
+        id: "c3-f6",
+        name: "Sphere Radius from General Form",
+        latex: "r = \\sqrt{u^2 + v^2 + w^2 - d}",
+        description: "Finds the radius of a sphere written in general polynomial form: $x^2 + y^2 + z^2 + 2ux + 2vy + 2wz + d = 0$."
+      }
+    ],
+    quiz: [
+      {
+        id: "c3-q1",
+        questionText: "Find the distance between the points $A(1, 2, 3)$ and $B(4, 6, 3)$.",
+        options: ["$3$", "$5$", "$2\\sqrt{5}$", "$\\sqrt{13}$"],
+        correctAnswerIndex: 1,
+        explanation: "Using the distance formula: $d = \\sqrt{(4-1)^2 + (6-2)^2 + (3-3)^2} = \\sqrt{3^2 + 4^2 + 0^2} = \\sqrt{9 + 16} = \\sqrt{25} = 5$."
+      },
+      {
+        id: "c3-q2",
+        questionText: "What do the coefficients $(a, b, c)$ represent in the plane equation $ax + by + cz = d$?",
+        options: [
+          "A point on the plane",
+          "The coordinate intercepts with the axes",
+          "The direction ratios of the normal vector to the plane",
+          "The angles the plane makes with the coordinate axes"
+        ],
+        correctAnswerIndex: 2,
+        explanation: "The coefficients $(a, b, c)$ represent the components of the normal vector, which is a vector perpendicular to the surface of the plane."
+      },
+      {
+        id: "c3-q3",
+        questionText: "Which of the following points represents the projection of $P(3, -4, 5)$ onto the $yz$-plane?",
+        options: [
+          "$(3, 0, 0)$",
+          "$(3, -4, 0)$",
+          "$(0, -4, 5)$",
+          "$(0, 0, 5)$"
+        ],
+        correctAnswerIndex: 2,
+        explanation: "On the $yz$-plane, the $x$-coordinate is always $0$. Thus, projecting $(3, -4, 5)$ onto $yz$-plane yields $(0, -4, 5)$."
+      },
+      {
+        id: "c3-q4",
+        questionText: "If a line has direction cosines $l = 1/2$ and $m = 1/2$, find the absolute value of the third direction cosine $n$.",
+        options: [
+          "$1/4$",
+          "$1/2$",
+          "$\\sqrt{2}/2$",
+          "$\\sqrt{3}/2$"
+        ],
+        correctAnswerIndex: 2,
+        explanation: "Since $l^2 + m^2 + n^2 = 1$, we have $(1/2)^2 + (1/2)^2 + n^2 = 1 \\implies 1/4 + 1/4 + n^2 = 1 \\implies n^2 = 1/2 \\implies |n| = \\sqrt{1/2} = \\sqrt{2}/2$."
+      },
+      {
+        id: "c3-q5",
+        questionText: "Find the center and radius of the sphere represented by: $x^2 + y^2 + z^2 - 2x + 4y - 6z - 2 = 0$.",
+        options: [
+          "Center $(1, -2, 3)$, Radius $4$",
+          "Center $(-1, 2, -3)$, Radius $4$",
+          "Center $(1, -2, 3)$, Radius $16$",
+          "Center $(-2, 4, -6)$, Radius $2$"
+        ],
+        correctAnswerIndex: 0,
+        explanation: "Rearranging by completing the squares: $(x-1)^2 + (y+2)^2 + (z-3)^2 - 1 - 4 - 9 - 2 = 0 \\implies (x-1)^2 + (y+2)^2 + (z-3)^2 = 16$. So the center is $(1, -2, 3)$ and the radius is $\\sqrt{16} = 4$."
+      },
+      {
+        id: "c3-q6",
+        questionText: "If lines $L_1$ with direction ratios $\\langle 1, 2, k \\rangle$ and $L_2$ with direction ratios $\\langle -2, 1, 3 \\rangle$ are perpendicular, find the value of $k$.",
+        options: [
+          "$0$",
+          "$1$",
+          "$-1$",
+          "$2$"
+        ],
+        correctAnswerIndex: 0,
+        explanation: "For perpendicular lines, the sum of products of direction ratios is $0$: $(1)(-2) + (2)(1) + (k)(3) = 0 \\implies -2 + 2 + 3k = 0 \\implies 3k = 0 \\implies k = 0$."
+      }
+    ],
+    visualizerType: "solid-geometry"
+  },
+  {
+    id: 4,
+    title: "Vector Algebra",
+    tagline: "Unlocking spatial reasoning using vectors, dot products, and cross products.",
+    description: "This chapter covers vector representations in 3D space, position vectors, direction, operations like vector addition, dot products, cross products, and their physical applications.",
+    content: `A **Vector** is a mathematical object that has both **magnitude** and **direction**. It is commonly represented as an arrow from an initial point to a terminal point.
 
-$$11^2 + y_1^2 + (10 - z_1)^2 = r^2$$
-$$221 + y_1^2 - 20z_1 + z_1^2 = r^2 \quad \text{--- (3)}$$
+### 1. Component Form of a Vector
+In 3D Cartesian coordinates, any vector $\\mathbf{a}$ can be decomposed into unit vectors along the coordinate axes: $\\mathbf{i}$, $\\mathbf{j}$, and $\\mathbf{k}$:
+$$\\mathbf{a} = a_x\\mathbf{i} + a_y\\mathbf{j} + a_z\\mathbf{k}$$
+The magnitude of $\\mathbf{a}$ is:
+$$|\\mathbf{a}| = \\sqrt{a_x^2 + a_y^2 + a_z^2}$$
 
-Subtracting (1) from (2), we get
-$$122 - 26y_1 - 10z_1 = 0$$
-$$13y_1 + 5z_1 = 61 \quad \text{--- (4)}$$
+### 2. The Dot Product (Scalar Product)
+The dot product of two vectors $\\mathbf{a}$ and $\\mathbf{b}$ yields a scalar:
+$$\\mathbf{a} \\cdot \\mathbf{b} = |\\mathbf{a}| |\\mathbf{b}| \\cos \\theta$$
+where $\\theta$ is the angle between the vectors ($0 \\le \\theta \\le \\pi$).
+In component form:
+$$\\mathbf{a} \\cdot \\mathbf{b} = a_x b_x + a_y b_y + a_z b_z$$
+- **Orthogonality:** If $\\mathbf{a}$ and $\\mathbf{b}$ are non-zero, then $\\mathbf{a} \\cdot \\mathbf{b} = 0$ if and only if they are perpendicular (orthogonal).
 
-Subtracting (1) from (3), we get
-$$140 - 20z_1 = 0$$
-$$z_1 = 7$$
+### 3. The Cross Product (Vector Product)
+The cross product of two vectors $\\mathbf{a}$ and $\\mathbf{b}$ yields a **new vector** perpendicular to both:
+$$\\mathbf{a} \\times \\mathbf{b} = (|\\mathbf{a}| |\\mathbf{b}| \\sin \\theta) \\mathbf{n}$$
+where $\\mathbf{n}$ is a unit vector perpendicular to the plane containing $\\mathbf{a}$ and $\\mathbf{b}$, with its direction determined by the right-hand rule.
+In determinant form:
+$$\\mathbf{a} \\times \\mathbf{b} = \\begin{vmatrix} \\mathbf{i} & \\mathbf{j} & \\mathbf{k} \\\\ a_x & a_y & a_z \\\\ b_x & b_y & b_z \\end{vmatrix}$$
+- **Area of a Parallelogram:** The magnitude $|\\mathbf{a} \\times \\mathbf{b}|$ is equal to the area of the parallelogram formed by $\\mathbf{a}$ and $\\mathbf{b}$.`,
+    formulas: [
+      {
+        id: "c4-f1",
+        name: "Vector Magnitude",
+        latex: "|\\mathbf{a}| = \\sqrt{a_x^2 + a_y^2 + a_z^2}",
+        description: "The length of vector $\\mathbf{a}$."
+      },
+      {
+        id: "c4-f2",
+        name: "Dot Product",
+        latex: "\\mathbf{a} \\cdot \\mathbf{b} = a_x b_x + a_y b_y + a_z b_z = |\\mathbf{a}||\\mathbf{b}|\\cos\\theta",
+        description: "The scalar product, used to find angles and check for perpendicular vectors."
+      },
+      {
+        id: "c4-f3",
+        name: "Cross Product Determinant",
+        latex: "\\mathbf{a} \\times \\mathbf{b} = \\det \\begin{pmatrix} \\mathbf{i} & \\mathbf{j} & \\mathbf{k} \\\\ a_x & a_y & a_z \\\\ b_x & b_y & b_z \\end{pmatrix}",
+        description: "The vector product, perpendicular to both input vectors."
+      }
+    ],
+    quiz: [
+      {
+        id: "c4-q1",
+        questionText: "Find the dot product of $\\mathbf{a} = 2\\mathbf{i} + 3\\mathbf{j} - \\mathbf{k}$ and $\\mathbf{b} = \\mathbf{i} - 2\\mathbf{j} + 2\\mathbf{k}$.",
+        options: ["$-6$", "$6$", "$-4$", "$0$"],
+        correctAnswerIndex: 0,
+        explanation: "Use the dot product formula: $\\mathbf{a} \\cdot \\mathbf{b} = (2)(1) + (3)(-2) + (-1)(2) = 2 - 6 - 2 = -6$."
+      },
+      {
+        id: "c4-q2",
+        questionText: "If $\\mathbf{a} \\cdot \\mathbf{b} = 0$, what can you say about the non-zero vectors $\\mathbf{a}$ and $\\mathbf{b}$?",
+        options: ["They are parallel", "They are orthogonal (perpendicular)", "They have equal magnitudes", "They are opposite in direction"],
+        correctAnswerIndex: 1,
+        explanation: "Since $\\mathbf{a} \\cdot \\mathbf{b} = |\\mathbf{a}||\\mathbf{b}|\\cos\\theta$, a dot product of zero implies $\\cos\\theta = 0$, which means $\\theta = 90^\\circ$ (they are perpendicular)."
+      }
+    ],
+    visualizerType: "vector-calc"
+  },
+  {
+    id: 5,
+    title: "Permutations and Combinations",
+    tagline: "Mastering the rules of systematic counting, arrangements, and selection.",
+    description: "This chapter covers the Fundamental Counting Principle, factorials, permutations (arranging items where order matters), combinations (selecting items where order does not matter), and permutations with repetitions.",
+    content: chapter5Content,
+    formulas: [
+      {
+        id: "c5-f1",
+        name: "Permutations Formula (No Repetition)",
+        latex: "P(n, r) = {}^nP_r = n(n-1)(n-2)\\cdots(n-r+1) = \\frac{n!}{(n-r)!}",
+        description: "Number of ordered arrangements of $r$ objects selected from $n$ unique objects."
+      },
+      {
+        id: "c5-f2",
+        name: "Combinations Formula",
+        latex: "C(n, r) = \\binom{n}{r} = \\frac{n!}{r!(n-r)!}",
+        description: "Number of unordered selections (groups) of $r$ objects chosen from $n$ unique objects."
+      },
+      {
+        id: "c5-f3",
+        name: "Permutations with Repetitions",
+        latex: "N = \\frac{n!}{n_1! n_2! \\dots n_k!}",
+        description: "Arranging $n$ objects where some groups of objects are identical ($n_i$ represent count of duplicates)."
+      },
+      {
+        id: "c5-f4",
+        name: "The Exclusion Principle",
+        latex: "\\text{Required} = \\text{Total} - \\text{Excluded}",
+        description: "Calculating allowable outcomes by subtracting prohibited states from all possible permutations."
+      }
+    ],
+    quiz: [
+      {
+        id: "c5-q1",
+        questionText: "Solve for $n$ if the permutation satisfies $^nP_2 = 42$.",
+        options: ["$5$", "$6$", "$7$", "$8$"],
+        correctAnswerIndex: 2,
+        explanation: "Expanding the permutation formula gives $n(n - 1) = 42$. This yields the quadratic equation $n^2 - n - 42 = 0$, which factors into $(n - 7)(n + 6) = 0$. Since $n \\geq 2$, we find $n = 7$."
+      },
+      {
+        id: "c5-q2",
+        questionText: "How many different possible label combinations can a blood donor have if there are 4 blood types ($A$, $B$, $AB$, $O$), 2 Rh factors ($+$, $-$), and 2 donor gender classifications (male, female)?",
+        options: ["$8$", "$12$", "$16$", "$32$"],
+        correctAnswerIndex: 2,
+        explanation: "By the Multiplication Principle, we multiply the independent choices together: $4 \\text{ blood types} \\times 2 \\text{ Rh factors} \\times 2 \\text{ genders} = 16$ labels."
+      },
+      {
+        id: "c5-q3",
+        questionText: "Evaluate the expression: $^{10}P_5 + {^{10}P_0}$",
+        options: ["$30,240$", "$30,241$", "$3,628,801$", "$3,628,800$"],
+        correctAnswerIndex: 1,
+        explanation: "$^{10}P_5 = 10 \\times 9 \\times 8 \\times 7 \\times 6 = 30,240$. Since $^nP_0 = 1$, we have $^{10}P_0 = 1$. The sum is $30,240 + 1 = 30,241$."
+      },
+      {
+        id: "c5-q4",
+        questionText: "In how many ways can 6 different books be arranged along a line on a shelf if one of the books is a dictionary and it must be at one of the ends?",
+        options: ["$120$", "$240$", "$720$", "$1,440$"],
+        correctAnswerIndex: 1,
+        explanation: "There are two disjoint cases: Case 1: Dictionary at the left end. The remaining 5 books can be arranged in $5! = 120$ ways. Case 2: Dictionary at the right end. The remaining 5 books can be arranged in $5! = 120$ ways. Since these are disjoint, we add them: $120 + 120 = 240$."
+      },
+      {
+        id: "c5-q5",
+        questionText: "Find the number of unique permutations of all the letters of the word EXCELLENCE.",
+        options: ["$3,628,800$", "$302,400$", "$37,800$", "$151,200$"],
+        correctAnswerIndex: 2,
+        explanation: "The word EXCELLENCE has 10 letters in total. The letter counts are: E = 4, C = 2, L = 2, X = 1, N = 1. Applying the repetition formula, we get $\\frac{10!}{4! \\times 2! \\times 2! \\times 1! \\times 1!} = \\frac{3,628,800}{24 \\times 2 \\times 2} = 37,800$."
+      }
+    ],
+    visualizerType: "perm-comb"
+  },
+  {
+    id: 6,
+    title: "Conic Sections",
+    tagline: "Exploring curves formed by the intersection of a cone and a plane.",
+    description: "This chapter covers the geometric definitions and standard equations of curves including circles, parabolas, ellipses, and hyperbolas, and their features (foci, vertices, directrices).",
+    content: `**Conic Sections** are curves obtained by intersecting a double-napped right circular cone with a flat plane. Depending on the angle of the plane, we obtain four distinct shapes:
 
-Substituting this in (4), we get
-$$13y_1 + 5(7) = 61$$
-$$13y_1 = 26$$
-$$y_1 = 2$$
+### 1. The Circle
+Formed when the plane cuts perpendicular to the axis of the cone.
+Standard equation centered at $(h, k)$ with radius $r$:
+$$(x - h)^2 + (y - k)^2 = r^2$$
 
-Therefore, the center of the sphere is $C(0, 2, 7)$. Substituting in (1),
-$$81 + 2^2 + 7^2 = r^2$$
-$$r^2 = 134$$
-$$r = \sqrt{134}$$
+### 2. The Parabola
+Formed when the plane is parallel to a generator line of the cone. It represents the set of all points equidistant from a fixed point (focus) and a fixed line (directrix).
+Standard equation opening horizontally:
+$$y^2 = 4ax \\quad (a > 0)$$
+- **Focus:** $(a, 0)$
+- **Directrix:** $x = -a$
 
-Therefore, the equation of the sphere is
-$$x^2 + (y - 2)^2 + (z - 7)^2 = 134$$
+### 3. The Ellipse
+Formed when the plane slices through one nap at an angle. The sum of the distances from any point on the ellipse to two fixed points (foci) is constant ($2a$).
+Standard equation centered at $(0, 0)$ with major axis along the $x$-axis:
+$$\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1 \\quad (a > b)$$
+- **Eccentricity:** $e = \\sqrt{1 - \\frac{b^2}{a^2}} < 1$
+- **Foci:** $(\\pm ae, 0)$
 
-    `
+### 4. The Hyperbola
+Formed when the plane slices through both naps of the cone. The difference of the distances from any point to two fixed foci is constant ($2a$).
+Standard equation centered at $(0, 0)$:
+$$\\frac{x^2}{a^2} - \\frac{y^2}{b^2} = 1$$
+- **Eccentricity:** $e = \\sqrt{1 + \\frac{b^2}{a^2}} > 1$
+- **Asymptotes:** $y = \\pm \\frac{b}{a} x$
+`,
+    formulas: [
+      {
+        id: "c6-f1",
+        name: "Circle Equation",
+        latex: "(x-h)^2 + (y-k)^2 = r^2",
+        description: "Equation of a circle with center $(h, k)$ and radius $r$."
+      },
+      {
+        id: "c6-f2",
+        name: "Parabola Equation",
+        latex: "y^2 = 4ax",
+        description: "Parabola symmetric to the x-axis, vertex at $(0, 0)$, focus at $(a, 0)$."
+      },
+      {
+        id: "c6-f3",
+        name: "Ellipse Equation",
+        latex: "\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1 \\quad (a > b)",
+        description: "Horizontal ellipse centered at origin with semi-major axis $a$ and semi-minor axis $b$."
+      },
+      {
+        id: "c6-f4",
+        name: "Hyperbola Equation",
+        latex: "\\frac{x^2}{a^2} - \\frac{y^2}{b^2} = 1",
+        description: "Horizontal hyperbola with asymptotes $y = \\pm \\frac{b}{a}x$."
+      }
+    ],
+    quiz: [
+      {
+        id: "c6-q1",
+        questionText: "What is the focus of the parabola $y^2 = 12x$?",
+        options: ["$(12, 0)$", "$(3, 0)$", "$(0, 3)$", "$(6, 0)$"],
+        correctAnswerIndex: 1,
+        explanation: "Compare $y^2 = 12x$ with $y^2 = 4ax$. We find $4a = 12 \\implies a = 3$. The focus is $(a, 0) = (3, 0)$."
+      },
+      {
+        id: "c6-q2",
+        questionText: "What is the eccentricity $e$ of a circle?",
+        options: ["$e = 1$", "$e > 1$", "$e = 0$", "$0 < e < 1$"],
+        correctAnswerIndex: 2,
+        explanation: "For a circle, the two foci merge into a single center, meaning the distance between them is zero. Thus, the eccentricity $e = 0$."
+      }
+    ],
+    visualizerType: "conic-explorer"
+  },
+  {
+    id: 7,
+    title: "Trigonometric Functions",
+    tagline: "Analyzing periodic behaviors, identities, and wave equations.",
+    description: "This chapter covers trigonometric definitions on the unit circle, fundamental identities, double-angle and half-angle formulas, addition formulas, periodic properties, and graphing.",
+    content: `**Trigonometry** is the study of relationship between side lengths and angles of triangles, extended to periodic functions on the unit circle.
+
+### 1. Circular Definitions
+In a unit circle (radius $= 1$), any angle $\\theta$ corresponds to a point $(x, y) = (\\cos\\theta, \\sin\\theta)$.
+- $\\tan \\theta = \\frac{\\sin\\theta}{\\cos\\theta}$
+- $\\sec \\theta = \\frac{1}{\\cos\\theta}$
+- $\\csc \\theta = \\frac{1}{\\sin\\theta}$
+- $\\cot \\theta = \\frac{\\cos\\theta}{\\sin\\theta}$
+
+### 2. Pythagorean Identities
+The coordinate relation $x^2 + y^2 = 1$ leads directly to:
+$$\\sin^2 \\theta + \\cos^2 \\theta = 1$$
+Dividing by $\\cos^2 \\theta$ and $\\sin^2 \\theta$ gives:
+$$1 + \\tan^2 \\theta = \\sec^2 \\theta$$
+$$1 + \\cot^2 \\theta = \\csc^2 \\theta$$
+
+### 3. Compound Angle Formulas
+$$\\sin(A \\pm B) = \\sin A \\cos B \\pm \\cos A \\sin B$$
+$$\\cos(A \\pm B) = \\cos A \\cos B \\mp \\sin A \\sin B$$
+$$\\tan(A \\pm B) = \\frac{\\tan A \\pm \\tan B}{1 \\mp \\tan A \\tan B}$$
+
+### 4. Double Angle Formulas
+Setting $B = A$ in the compound angle formulas yields:
+$$\\sin 2\\theta = 2 \\sin \\theta \\cos \\theta$$
+$$\\cos 2\\theta = \\cos^2 \\theta - \\sin^2 \\theta = 2\\cos^2 \\theta - 1 = 1 - 2\\sin^2 \\theta$$
+$$\\tan 2\\theta = \\frac{2\\tan\\theta}{1 - \\tan^2 \\theta}$$
+`,
+    formulas: [
+      {
+        id: "c7-f1",
+        name: "Pythagorean Identity",
+        latex: "\\sin^2 \\theta + \\cos^2 \\theta = 1",
+        description: "The fundamental identity relating sine and cosine."
+      },
+      {
+        id: "c7-f2",
+        name: "Sine Double-Angle",
+        latex: "\\sin 2\\theta = 2\\sin\\theta\\cos\\theta",
+        description: "Expands the sine of a double angle."
+      },
+      {
+        id: "c7-f3",
+        name: "Cosine Double-Angle",
+        latex: "\\cos 2\\theta = \\cos^2\\theta - \\sin^2\\theta",
+        description: "Expands the cosine of a double angle. Can also be written as $2\\cos^2\\theta - 1$ or $1 - 2\\sin^2\\theta$."
+      }
+    ],
+    quiz: [
+      {
+        id: "c7-q1",
+        questionText: "Simplify the expression: $\\frac{\\sin 2x}{2\\sin x}$",
+        options: ["$\\sin x$", "$\\cos x$", "$2\\cos x$", "$\\tan x$"],
+        correctAnswerIndex: 1,
+        explanation: "By substituting the double-angle formula $\\sin 2x = 2\\sin x \\cos x$, we get: $\\frac{2\\sin x \\cos x}{2\\sin x} = \\cos x$."
+      },
+      {
+        id: "c7-q2",
+        questionText: "If $\\sin \\theta = 3/5$ and $\\theta$ is in the first quadrant, what is $\\cos \\theta$?",
+        options: ["$4/5$", "$16/25$", "$2/5$", "$3/4$"],
+        correctAnswerIndex: 0,
+        explanation: "Using the identity $\\sin^2\\theta + \\cos^2\\theta = 1$: $(3/5)^2 + \\cos^2\\theta = 1 \\implies 9/25 + \\cos^2\\theta = 1 \\implies \\cos^2\\theta = 16/25$. Since $\\theta$ is in the first quadrant, $\\cos\\theta$ is positive, so $\\cos\\theta = 4/5$."
+      }
+    ],
+    visualizerType: "trig-wave"
+  },
+  {
+    id: 8,
+    title: "Logarithmic & Exponential Functions",
+    tagline: "Exploring rapid growth, decay, and computational scaling.",
+    description: "This chapter covers properties of exponents, definitions of logarithmic functions, standard algebraic properties of logarithms, change-of-base rules, and solving exponential/logarithmic equations.",
+    content: `**Exponential and Logarithmic functions** are inverse operations. They are critical for modeling growth (populations, finance) and decay (radioactive half-life).
+
+### 1. Exponential Functions
+An exponential function has the form:
+$$f(x) = a^x \\quad (a > 0, a \\neq 1)$$
+The most famous base is the Euler number:
+$$e \\approx 2.71828$$
+which forms the natural exponential function $f(x) = e^x$.
+
+### 2. Logarithmic Functions
+The logarithm is the inverse ofexponentiation:
+$$\\log_a y = x \\iff a^x = y$$
+- Base 10 logarithms are **Common Logarithms**: $\\log_{10} x = \\log x$.
+- Base $e$ logarithms are **Natural Logarithms**: $\\log_e x = \\ln x$.
+
+### 3. Algebraic Properties of Logarithms
+For any positive real numbers $M$, $N$, and base $a > 0$:
+- **Product Rule:** $\\log_a(MN) = \\log_a M + \\log_a N$
+- **Quotient Rule:** $\\log_a(\\frac{M}{N}) = \\log_a M - \\log_a N$
+- **Power Rule:** $\\log_a(M^k) = k \\log_a M$
+- **Identity Property:** $\\log_a a = 1$ and $\\log_a 1 = 0$
+
+### 4. Change of Base Formula
+To calculate logarithms of arbitrary bases on standard calculators, we use:
+$$\\log_b x = \\frac{\\log_a x}{\\log_a b} = \\frac{\\ln x}{\\ln b}$$
+`,
+    formulas: [
+      {
+        id: "c8-f1",
+        name: "Logarithm Definition",
+        latex: "y = a^x \\iff \\log_a y = x",
+        description: "The core inverse relationship of exponentials and logarithms."
+      },
+      {
+        id: "c8-f2",
+        name: "Product Property",
+        latex: "\\log_a (MN) = \\log_a M + \\log_a N",
+        description: "Converts multiplication inside a logarithm into addition."
+      },
+      {
+        id: "c8-f3",
+        name: "Power Property",
+        latex: "\\log_a (M^k) = k \\log_a M",
+        description: "Allows exponents inside a log to be brought to the front as multipliers."
+      },
+      {
+        id: "c8-f4",
+        name: "Change of Base",
+        latex: "\\log_b x = \\frac{\\ln x}{\\ln b}",
+        description: "Rewriting logarithms in terms of natural logarithms."
+      }
+    ],
+    quiz: [
+      {
+        id: "c8-q1",
+        questionText: "Solve for $x$: $\\log_2 (x - 3) = 4$",
+        options: ["$7$", "$19$", "$11$", "$13$"],
+        correctAnswerIndex: 1,
+        explanation: "Rewrite in exponential form: $x - 3 = 2^4 \\implies x - 3 = 16 \\implies x = 19$."
+      },
+      {
+        id: "c8-q2",
+        questionText: "What is the simplified value of $e^{\\ln 5}$?",
+        options: ["$e$", "$5$", "$\\ln 5$", "$2.718$"],
+        correctAnswerIndex: 1,
+        explanation: "Since exponential $e^x$ and natural logarithm $\\ln x$ are inverse operations, they cancel out, leaving: $e^{\\ln 5} = 5$."
+      }
+    ],
+    visualizerType: "log-exp"
+  },
+  {
+    id: 9,
+    title: "Application of Differentiation",
+    tagline: "Using instantaneous rates of change to find tangents, curvature, and optimal values.",
+    description: "In this chapter, we use derivatives to determine equations of tangents and normals, solve rates of change, find local maxima/minima, and analyze optimization issues.",
+    content: `The derivative of a function, $f'(x) = \\frac{dy}{dx}$, represents its **instantaneous rate of change** and corresponds to the slope of the tangent line to the graph at any point.
+
+### 1. Equations of Tangents and Normals
+For a curve $y = f(x)$ at point $P(x_1, y_1)$:
+- The slope of the tangent is $m = f'(x_1)$.
+- The equation of the **tangent line** is:
+  $$y - y_1 = f'(x_1)(x - x_1)$$
+- Since the normal is perpendicular to the tangent, its slope is $-\\frac{1}{f'(x_1)}$.
+- The equation of the **normal line** is:
+  $$y - y_1 = -\\frac{1}{f'(x_1)}(x - x_1) \\quad (\\text{provided } f'(x_1) \\neq 0)$$
+
+### 2. Increasing and Decreasing Functions
+- A function is strictly **increasing** on an interval if $f'(x) > 0$ for all $x$ in that interval.
+- A function is strictly **decreasing** on an interval if $f'(x) < 0$ for all $x$ in that interval.
+
+### 3. Local Maxima and Minima (Optimization)
+Points where $f'(x) = 0$ are called **Critical Points** (or stationary points). We determine if they are peaks (maxima) or valleys (minima) using:
+
+- **First Derivative Test:**
+  - If $f'(x)$ changes from $+$ to $-$ as $x$ increases, it is a **local maximum**.
+  - If $f'(x)$ changes from $-$ to $+$ as $x$ increases, it is a **local minimum**.
+
+- **Second Derivative Test:**
+  - If $f'(c) = 0$ and $f''(c) < 0$, then $c$ is a **local maximum**.
+  - If $f'(c) = 0$ and $f''(c) > 0$, then $c$ is a **local minimum**.`,
+    formulas: [
+      {
+        id: "c9-f1",
+        name: "Equation of Tangent",
+        latex: "y - y_1 = m(x - x_1) \\quad \\text{where } m = f'(x_1)",
+        description: "Formula for the tangent line to curve $f(x)$ at $(x_1, y_1)$."
+      },
+      {
+        id: "c9-f2",
+        name: "Equation of Normal",
+        latex: "y - y_1 = -\\frac{1}{m}(x - x_1) \\quad \\text{where } m = f'(x_1)",
+        description: "Formula for the normal line perpendicular to the tangent at $(x_1, y_1)$."
+      },
+      {
+        id: "c9-f3",
+        name: "Critical Point Condition",
+        latex: "f'(x) = 0",
+        description: "Used to locate local extrema and stationary points."
+      }
+    ],
+    quiz: [
+      {
+        id: "c9-q1",
+        questionText: "Find the slope of the tangent to the curve $y = x^2 - 4x + 5$ at $x = 3$.",
+        options: ["$2$", "$-2$", "$5$", "$1$"],
+        correctAnswerIndex: 0,
+        explanation: "The derivative is $y' = 2x - 4$. At $x = 3$, $y'(3) = 2(3) - 4 = 6 - 4 = 2$. Thus, the slope of the tangent is 2."
+      },
+      {
+        id: "c9-q2",
+        questionText: "If a critical point $x=c$ satisfies $f'(c) = 0$ and $f''(c) > 0$, then $c$ is a:",
+        options: ["Local maximum", "Local minimum", "Point of inflection", "Discontinuity"],
+        correctAnswerIndex: 1,
+        explanation: "By the Second Derivative Test, if $f''(c) > 0$, the graph is concave up, meaning the point is a local minimum."
+      }
+    ],
+    visualizerType: "derivative-tangent"
+  },
+  {
+    id: 10,
+    title: "Method of Integration",
+    tagline: "Reversing differentiation to find antiderivatives using multiple tactical methods.",
+    description: "This chapter covers indefinite integrals, fundamental integration formulas, integration by substitution, and integration by parts.",
+    content: `**Integration** is the inverse operation of differentiation. The result is called the antiderivative or indefinite integral.
+$$\\int f(x) \\, dx = F(x) + C \\iff F'(x) = f(x)$$
+where $C$ is the constant of integration.
+
+### 1. Basic Standard Integrals
+- $\\int x^n \\, dx = \\frac{x^{n+1}}{n+1} + C \\quad (n \\neq -1)$
+- $\\int \\frac{1}{x} \\, dx = \\ln|x| + C$
+- $\\int e^x \\, dx = e^x + C$
+- $\\int \\sin x \\, dx = -\\cos x + C$
+- $\\int \\cos x \\, dx = \\sin x + C$
+
+### 2. Integration by Substitution (u-Substitution)
+Used when an integral contains both a function and its derivative:
+$$\\int f(g(x)) g'(x) \\, dx$$
+Let $u = g(x)$, then $du = g'(x) dx$. Substituting these converts the integral into:
+$$\\int f(u) \\, du$$
+This simplifies integration of complex compositions.
+
+### 3. Integration by Parts
+Derived from the product rule of differentiation:
+$$\\int u \\, dv = uv - \\int v \\, du$$
+To choose $u$ and $dv$, we often use the **LIATE** priority rule:
+1. **L**ogarithmic functions
+2. **I**nverse trigonometric functions
+3. **A**lgebraic functions
+4. **T**rigonometric functions
+5. **E**xponential functions
+(Choose $u$ as the function appearing first in this list).`,
+    formulas: [
+      {
+        id: "c10-f1",
+        name: "Power Rule of Integration",
+        latex: "\\int x^n \\, dx = \\frac{x^{n+1}}{n+1} + C \\quad (n \\neq -1)",
+        description: "The core rule for integrating algebraic variables."
+      },
+      {
+        id: "c10-f2",
+        name: "Integration by Substitution",
+        latex: "\\int f(g(x))g'(x)\\,dx = \\int f(u)\\,du",
+        description: "Reverses the chain rule by choosing a strategic substitute variable $u = g(x)$."
+      },
+      {
+        id: "c10-f3",
+        name: "Integration by Parts",
+        latex: "\\int u \\, dv = uv - \\int v \\, du",
+        description: "Reverses the product rule to break down integrals of product functions."
+      }
+    ],
+    quiz: [
+      {
+        id: "c10-q1",
+        questionText: "Find the integral: $\\int e^{3x} \\, dx$.",
+        options: ["$3e^{3x} + C$", "$\\frac{1}{3}e^{3x} + C$", "$e^{3x} + C$", "$\\frac{1}{4}e^{4x} + C$"],
+        correctAnswerIndex: 1,
+        explanation: "Using substitution $u = 3x$, we have $du = 3dx \\implies dx = du/3$. The integral becomes $\\int e^u \\frac{du}{3} = \\frac{1}{3}e^u + C = \\frac{1}{3}e^{3x} + C$."
+      },
+      {
+        id: "c10-q2",
+        questionText: "Which part should be chosen as $u$ when integrating $\\int x \\ln(x) \\, dx$ using Integration by Parts?",
+        options: ["$x$", "$\\ln(x)$", "$dx$", "$x \\ln(x)$"],
+        correctAnswerIndex: 1,
+        explanation: "According to the LIATE rule, Logarithmic functions (L) have higher priority than Algebraic functions (A) for $u$. Therefore, we choose $u = \\ln(x)$ and $dv = x \\, dx$."
+      }
+    ],
+    visualizerType: "integration-area"
+  },
+  {
+    id: 11,
+    title: "Application of Integration",
+    tagline: "Computing exact areas under curves and volumes of 3D solids.",
+    description: "This chapter covers definite integrals, calculating the area under a curve, the area between curves, and finding the volume of solids of revolution.",
+    content: `The **Definite Integral** represents the cumulative sum of products on an interval, which geometrically corresponds to the **signed area** bounded by a curve and axes.
+$$\\int_{a}^{b} f(x) \\, dx = F(b) - F(a)$$
+where $F'(x) = f(x)$ (The Fundamental Theorem of Calculus).
+
+### 1. Area Under a Curve
+If a function $f(x)$ is continuous and non-negative ($f(x) \\ge 0$) on the interval $[a, b]$, the area $A$ bounded by the curve $y = f(x)$, the $x$-axis, and vertical boundary lines $x = a$ and $x = b$ is:
+$$A = \\int_{a}^{b} f(x) \\, dx$$
+
+### 2. Area Between Two Curves
+If $f(x) \\ge g(x)$ for all $x$ in interval $[a, b]$, the area bounded between the two curves is:
+$$A = \\int_{a}^{b} [f(x) - g(x)] \\, dx$$
+Always subtract the "lower curve" from the "upper curve".
+
+### 3. Volume of Solid of Revolution (Disk Method)
+If a region bounded by $y = f(x)$, the $x$-axis, and lines $x = a$ and $x = b$ is rotated $360^\\circ$ around the $x$-axis, it creates a 3D solid.
+The volume $V$ of this solid of revolution is calculated by summing infinitesimal circular disks of radius $R(x) = f(x)$:
+$$V = \\pi \\int_{a}^{b} [f(x)]^2 \\, dx$$
+`,
+    formulas: [
+      {
+        id: "c11-f1",
+        name: "Fundamental Theorem of Calculus",
+        latex: "\\int_{a}^{b} f(x) \\, dx = F(b) - F(a)",
+        description: "Connects antiderivatives to finding definite physical sums."
+      },
+      {
+        id: "c11-f2",
+        name: "Area Under a Curve",
+        latex: "A = \\int_{a}^{b} f(x) \\, dx",
+        description: "Defines the exact area between the function and the horizontal axis on $[a, b]$."
+      },
+      {
+        id: "c11-f3",
+        name: "Volume of Revolution (x-axis)",
+        latex: "V = \\pi \\int_{a}^{b} [f(x)]^2 \\, dx",
+        description: "Calculates the solid volume created by rotating a curve around the x-axis."
+      }
+    ],
+    quiz: [
+      {
+        id: "c11-q1",
+        questionText: "Find the exact area under the curve $y = 3x^2$ from $x=1$ to $x=2$.",
+        options: ["$7$", "$9$", "$3$", "$15$"],
+        correctAnswerIndex: 0,
+        explanation: "Integrate $y = 3x^2$: $\\int_{1}^{2} 3x^2 \\, dx = [x^3]_{1}^{2} = 2^3 - 1^3 = 8 - 1 = 7$."
+      },
+      {
+        id: "c11-q2",
+        questionText: "What is the formula for the volume generated when curve $y=f(x)$ is rotated around the $x$-axis between $x=a$ and $x=b$?",
+        options: [
+          "$\\int_{a}^{b} y \\, dx$",
+          "$\\pi \\int_{a}^{b} y^2 \\, dx$",
+          "$2\\pi \\int_{a}^{b} xy \\, dx$",
+          "$\\pi \\int_{a}^{b} y \\, dx$"
+        ],
+        correctAnswerIndex: 1,
+        explanation: "By dividing the solid into circular slices (disks), each disk has volume $dV = \\pi r^2 dx$ where $r = y$. Summing these yields $V = \\pi \\int_{a}^{b} y^2 \\, dx$."
+      }
+    ],
+    visualizerType: "integration-area"
   }
 ];
