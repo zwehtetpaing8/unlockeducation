@@ -87,7 +87,7 @@ function ArgandPolar() {
         <text x="144" y="112" className="text-xs font-serif italic fill-amber-500 font-bold">θ</text>
 
         {/* Origin Label */}
-        <text x="110" y="132" className="text-xs fill-slate-500 italic font-serif">O</text>
+        <text x="104" y="134" className="text-xs fill-slate-500 italic font-serif">O</text>
 
         {/* Labels for coordinates */}
         <text x="185" y="132" className="text-[10px] fill-slate-500 font-mono" textAnchor="middle">x</text>
@@ -138,7 +138,7 @@ function ArgandExample5a() {
         
         <text x="210" y="118" className="text-[9px] font-mono fill-slate-400">Re</text>
         <text x="115" y="15" className="text-[9px] font-mono fill-slate-400">Im</text>
-        <text x="100" y="122" className="text-[10px] fill-slate-400">O</text>
+        <text x="98" y="124" className="text-[10px] fill-slate-400">O</text>
         
         <defs>
           <marker id="arrow-axis-5a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
@@ -177,7 +177,7 @@ function ArgandExample5b() {
         
         <text x="210" y="118" className="text-[9px] font-mono fill-slate-400">Re</text>
         <text x="115" y="15" className="text-[9px] font-mono fill-slate-400">Im</text>
-        <text x="100" y="122" className="text-[10px] fill-slate-400">O</text>
+        <text x="116" y="124" className="text-[10px] fill-slate-400">O</text>
         
         <defs>
           <marker id="arrow-axis-5b" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
@@ -216,7 +216,7 @@ function ArgandExample5c() {
         
         <text x="210" y="118" className="text-[9px] font-mono fill-slate-400">Re</text>
         <text x="115" y="15" className="text-[9px] font-mono fill-slate-400">Im</text>
-        <text x="100" y="122" className="text-[10px] fill-slate-400">O</text>
+        <text x="116" y="102" className="text-[10px] fill-slate-400">O</text>
         
         <defs>
           <marker id="arrow-axis-5c" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
@@ -255,7 +255,7 @@ function ArgandExample5d() {
         
         <text x="210" y="118" className="text-[9px] font-mono fill-slate-400">Re</text>
         <text x="115" y="15" className="text-[9px] font-mono fill-slate-400">Im</text>
-        <text x="100" y="122" className="text-[10px] fill-slate-400">O</text>
+        <text x="116" y="124" className="text-[10px] fill-slate-400">O</text>
         
         <defs>
           <marker id="arrow-axis-5d" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
@@ -265,6 +265,240 @@ function ArgandExample5d() {
             <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
           </marker>
           <marker id="arrow-amber-5d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
+          </marker>
+        </defs>
+      </svg>
+    </div>
+  );
+}
+
+function ArgandEx1_4_1a() {
+  return (
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+      <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for (a) z = 1 - √3i</h5>
+      <svg width="220" height="220" viewBox="0 0 220 220">
+        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1a)" markerEnd="url(#arrow-axis-1a)" />
+        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1a)" markerEnd="url(#arrow-axis-1a)" />
+        
+        {/* Draw Vector */}
+        <line x1="110" y1="110" x2="155" y2="188" stroke="#6366f1" strokeWidth="2.2" markerEnd="url(#arrow-vector-1a)" />
+        <circle cx="155" cy="188" r="4.5" className="fill-indigo-500 stroke-white" strokeWidth="1.5" />
+        
+        {/* Labeled angles */}
+        <path d="M 130 110 A 20 20 0 0 1 120 127" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1a)" />
+        <text x="142" y="123" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
+        
+        <text x="162" y="195" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = 1 - √3i</text>
+        <text x="148" y="145" className="text-xs fill-indigo-500 font-bold font-mono">r</text>
+        
+        <text x="210" y="118" className="text-[9px] font-mono fill-slate-400">Re</text>
+        <text x="115" y="15" className="text-[9px] font-mono fill-slate-400">Im</text>
+        <text x="98" y="102" className="text-[10px] fill-slate-400">O</text>
+        
+        <defs>
+          <marker id="arrow-axis-1a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
+          </marker>
+          <marker id="arrow-vector-1a" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
+          </marker>
+          <marker id="arrow-amber-1a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
+          </marker>
+        </defs>
+      </svg>
+    </div>
+  );
+}
+
+function ArgandEx1_4_1b() {
+  return (
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+      <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for (b) z = -√2 + √2i</h5>
+      <svg width="220" height="220" viewBox="0 0 220 220">
+        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1b)" markerEnd="url(#arrow-axis-1b)" />
+        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1b)" markerEnd="url(#arrow-axis-1b)" />
+        
+        {/* Draw Vector */}
+        <line x1="110" y1="110" x2="65" y2="65" stroke="#6366f1" strokeWidth="2.2" markerEnd="url(#arrow-vector-1b)" />
+        <circle cx="65" cy="65" r="4.5" className="fill-indigo-500 stroke-white" strokeWidth="1.5" />
+        
+        {/* Labeled angles */}
+        <path d="M 130 110 A 20 20 0 0 0 96 96" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1b)" />
+        <text x="126" y="85" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
+        
+        <text x="25" y="55" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = -√2 + √2i</text>
+        <text x="95" y="75" className="text-xs fill-indigo-500 font-bold font-mono">r</text>
+        
+        <text x="210" y="118" className="text-[9px] font-mono fill-slate-400">Re</text>
+        <text x="115" y="15" className="text-[9px] font-mono fill-slate-400">Im</text>
+        <text x="116" y="124" className="text-[10px] fill-slate-400">O</text>
+        
+        <defs>
+          <marker id="arrow-axis-1b" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
+          </marker>
+          <marker id="arrow-vector-1b" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
+          </marker>
+          <marker id="arrow-amber-1b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
+          </marker>
+        </defs>
+      </svg>
+    </div>
+  );
+}
+
+function ArgandEx1_4_1c() {
+  return (
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+      <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for (c) z = -2 - 2i</h5>
+      <svg width="220" height="220" viewBox="0 0 220 220">
+        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1c)" markerEnd="url(#arrow-axis-1c)" />
+        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1c)" markerEnd="url(#arrow-axis-1c)" />
+        
+        {/* Draw Vector */}
+        <line x1="110" y1="110" x2="65" y2="155" stroke="#6366f1" strokeWidth="2.2" markerEnd="url(#arrow-vector-1c)" />
+        <circle cx="65" cy="155" r="4.5" className="fill-indigo-500 stroke-white" strokeWidth="1.5" />
+        
+        {/* Labeled angles */}
+        <path d="M 130 110 A 20 20 0 0 1 96 124" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1c)" />
+        <text x="125" y="135" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
+        
+        <text x="25" y="172" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = -2 - 2i</text>
+        <text x="72" y="128" className="text-xs fill-indigo-500 font-bold font-mono">r</text>
+        
+        <text x="210" y="118" className="text-[9px] font-mono fill-slate-400">Re</text>
+        <text x="115" y="15" className="text-[9px] font-mono fill-slate-400">Im</text>
+        <text x="116" y="102" className="text-[10px] fill-slate-400">O</text>
+        
+        <defs>
+          <marker id="arrow-axis-1c" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
+          </marker>
+          <marker id="arrow-vector-1c" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
+          </marker>
+          <marker id="arrow-amber-1c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
+          </marker>
+        </defs>
+      </svg>
+    </div>
+  );
+}
+
+function ArgandEx1_4_1d() {
+  return (
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+      <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for (d) z = √3 - i</h5>
+      <svg width="220" height="220" viewBox="0 0 220 220">
+        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1d)" markerEnd="url(#arrow-axis-1d)" />
+        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1d)" markerEnd="url(#arrow-axis-1d)" />
+        
+        {/* Draw Vector */}
+        <line x1="110" y1="110" x2="188" y2="155" stroke="#6366f1" strokeWidth="2.2" markerEnd="url(#arrow-vector-1d)" />
+        <circle cx="188" cy="155" r="4.5" className="fill-indigo-500 stroke-white" strokeWidth="1.5" />
+        
+        {/* Labeled angles */}
+        <path d="M 130 110 A 20 20 0 0 1 127 120" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1d)" />
+        <text x="142" y="120" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
+        
+        <text x="155" y="175" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = √3 - i</text>
+        <text x="140" y="142" className="text-xs fill-indigo-500 font-bold font-mono">r</text>
+        
+        <text x="210" y="118" className="text-[9px] font-mono fill-slate-400">Re</text>
+        <text x="115" y="15" className="text-[9px] font-mono fill-slate-400">Im</text>
+        <text x="98" y="102" className="text-[10px] fill-slate-400">O</text>
+        
+        <defs>
+          <marker id="arrow-axis-1d" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
+          </marker>
+          <marker id="arrow-vector-1d" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
+          </marker>
+          <marker id="arrow-amber-1d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
+          </marker>
+        </defs>
+      </svg>
+    </div>
+  );
+}
+
+function ArgandEx1_4_1e() {
+  return (
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+      <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for (e) z = i</h5>
+      <svg width="220" height="220" viewBox="0 0 220 220">
+        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1e)" markerEnd="url(#arrow-axis-1e)" />
+        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1e)" markerEnd="url(#arrow-axis-1e)" />
+        
+        {/* Draw Vector */}
+        <line x1="110" y1="110" x2="110" y2="50" stroke="#6366f1" strokeWidth="2.2" markerEnd="url(#arrow-vector-1e)" />
+        <circle cx="110" cy="50" r="4.5" className="fill-indigo-500 stroke-white" strokeWidth="1.5" />
+        
+        {/* Labeled angles */}
+        <path d="M 130 110 A 20 20 0 0 0 110 90" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1e)" />
+        <text x="126" y="85" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
+        
+        <text x="120" y="45" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = i</text>
+        <text x="92" y="75" className="text-xs fill-indigo-500 font-bold font-mono">r</text>
+        
+        <text x="210" y="118" className="text-[9px] font-mono fill-slate-400">Re</text>
+        <text x="115" y="15" className="text-[9px] font-mono fill-slate-400">Im</text>
+        <text x="98" y="124" className="text-[10px] fill-slate-400">O</text>
+        
+        <defs>
+          <marker id="arrow-axis-1e" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
+          </marker>
+          <marker id="arrow-vector-1e" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
+          </marker>
+          <marker id="arrow-amber-1e" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
+          </marker>
+        </defs>
+      </svg>
+    </div>
+  );
+}
+
+function ArgandEx1_4_1f() {
+  return (
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+      <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for (f) z = -3i</h5>
+      <svg width="220" height="220" viewBox="0 0 220 220">
+        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1f)" markerEnd="url(#arrow-axis-1f)" />
+        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1f)" markerEnd="url(#arrow-axis-1f)" />
+        
+        {/* Draw Vector */}
+        <line x1="110" y1="110" x2="110" y2="180" stroke="#6366f1" strokeWidth="2.2" markerEnd="url(#arrow-vector-1f)" />
+        <circle cx="110" cy="180" r="4.5" className="fill-indigo-500 stroke-white" strokeWidth="1.5" />
+        
+        {/* Labeled angles */}
+        <path d="M 130 110 A 20 20 0 0 1 110 130" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1f)" />
+        <text x="126" y="142" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
+        
+        <text x="120" y="185" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = -3i</text>
+        <text x="92" y="140" className="text-xs fill-indigo-500 font-bold font-mono">r</text>
+        
+        <text x="210" y="118" className="text-[9px] font-mono fill-slate-400">Re</text>
+        <text x="115" y="15" className="text-[9px] font-mono fill-slate-400">Im</text>
+        <text x="98" y="102" className="text-[10px] fill-slate-400">O</text>
+        
+        <defs>
+          <marker id="arrow-axis-1f" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
+          </marker>
+          <marker id="arrow-vector-1f" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
+          </marker>
+          <marker id="arrow-amber-1f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto">
             <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
           </marker>
         </defs>
@@ -329,6 +563,380 @@ function RootsUnity6() {
         <text x="100" y="120" className="text-[9px] fill-slate-400">O</text>
       </svg>
       <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-3 italic font-sans text-center">Symmetric distribution of the 6 roots of z^6 = 1 on the complex unit circle forming a regular hexagon.</span>
+    </div>
+  );
+}
+
+function ArgandEx1_5_1a() {
+  return (
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+      <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for 1.(a) z = 1 + √3i</h5>
+      <svg width="220" height="220" viewBox="0 0 220 220">
+        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1_5a)" markerEnd="url(#arrow-axis-1_5a)" />
+        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1_5a)" markerEnd="url(#arrow-axis-1_5a)" />
+        
+        {/* Draw Vector */}
+        <line x1="110" y1="110" x2="147.5" y2="45" stroke="#6366f1" strokeWidth="2.2" markerEnd="url(#arrow-vector-1_5a)" />
+        <circle cx="147.5" cy="45" r="4.5" className="fill-indigo-500 stroke-white" strokeWidth="1.5" />
+        
+        {/* Labeled angles */}
+        <path d="M 130 110 A 20 20 0 0 0 120 92.7" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1_5a)" />
+        <text x="126" y="95" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
+        
+        <text x="152" y="38" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = 1 + √3i</text>
+        <text x="136" y="85" className="text-xs fill-indigo-500 font-bold font-mono">r</text>
+        
+        <text x="210" y="118" className="text-[9px] font-mono fill-slate-400">Re</text>
+        <text x="115" y="15" className="text-[9px] font-mono fill-slate-400">Im</text>
+        <text x="98" y="124" className="text-[10px] fill-slate-400">O</text>
+        
+        <defs>
+          <marker id="arrow-axis-1_5a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
+          </marker>
+          <marker id="arrow-vector-1_5a" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
+          </marker>
+          <marker id="arrow-amber-1_5a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
+          </marker>
+        </defs>
+      </svg>
+    </div>
+  );
+}
+
+function ArgandEx1_5_1b() {
+  return (
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+      <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for 1.(b) z = i</h5>
+      <svg width="220" height="220" viewBox="0 0 220 220">
+        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1_5b)" markerEnd="url(#arrow-axis-1_5b)" />
+        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1_5b)" markerEnd="url(#arrow-axis-1_5b)" />
+        
+        {/* Draw Vector */}
+        <line x1="110" y1="110" x2="110" y2="40" stroke="#6366f1" strokeWidth="2.2" markerEnd="url(#arrow-vector-1_5b)" />
+        <circle cx="110" cy="40" r="4.5" className="fill-indigo-500 stroke-white" strokeWidth="1.5" />
+        
+        {/* Labeled angles */}
+        <path d="M 130 110 A 20 20 0 0 0 110 90" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1_5b)" />
+        <text x="126" y="95" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
+        
+        <text x="115" y="30" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = i</text>
+        <text x="118" y="75" className="text-xs fill-indigo-500 font-bold font-mono">r</text>
+        
+        <text x="210" y="118" className="text-[9px] font-mono fill-slate-400">Re</text>
+        <text x="115" y="15" className="text-[9px] font-mono fill-slate-400">Im</text>
+        <text x="98" y="124" className="text-[10px] fill-slate-400">O</text>
+        
+        <defs>
+          <marker id="arrow-axis-1_5b" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
+          </marker>
+          <marker id="arrow-vector-1_5b" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
+          </marker>
+          <marker id="arrow-amber-1_5b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
+          </marker>
+        </defs>
+      </svg>
+    </div>
+  );
+}
+
+function ArgandEx1_5_1c() {
+  return (
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+      <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for 1.(c) z = -√3 + i</h5>
+      <svg width="220" height="220" viewBox="0 0 220 220">
+        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1_5c)" markerEnd="url(#arrow-axis-1_5c)" />
+        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1_5c)" markerEnd="url(#arrow-axis-1_5c)" />
+        
+        {/* Draw Vector */}
+        <line x1="110" y1="110" x2="45" y2="72.5" stroke="#6366f1" strokeWidth="2.2" markerEnd="url(#arrow-vector-1_5c)" />
+        <circle cx="45" cy="72.5" r="4.5" className="fill-indigo-500 stroke-white" strokeWidth="1.5" />
+        
+        {/* Labeled angles */}
+        <path d="M 130 110 A 20 20 0 0 0 92.7 100" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1_5c)" />
+        <text x="115" y="85" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
+        
+        <text x="30" y="55" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = -√3 + i</text>
+        <text x="80" y="80" className="text-xs fill-indigo-500 font-bold font-mono">r</text>
+        
+        <text x="210" y="118" className="text-[9px] font-mono fill-slate-400">Re</text>
+        <text x="115" y="15" className="text-[9px] font-mono fill-slate-400">Im</text>
+        <text x="116" y="124" className="text-[10px] fill-slate-400">O</text>
+        
+        <defs>
+          <marker id="arrow-axis-1_5c" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
+          </marker>
+          <marker id="arrow-vector-1_5c" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
+          </marker>
+          <marker id="arrow-amber-1_5c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
+          </marker>
+        </defs>
+      </svg>
+    </div>
+  );
+}
+
+function ArgandEx1_5_1d() {
+  return (
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+      <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for 1.(d) z = -1 - √3i</h5>
+      <svg width="220" height="220" viewBox="0 0 220 220">
+        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1_5d)" markerEnd="url(#arrow-axis-1_5d)" />
+        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1_5d)" markerEnd="url(#arrow-axis-1_5d)" />
+        
+        {/* Draw Vector */}
+        <line x1="110" y1="110" x2="72.5" y2="175" stroke="#6366f1" strokeWidth="2.2" markerEnd="url(#arrow-vector-1_5d)" />
+        <circle cx="72.5" cy="175" r="4.5" className="fill-indigo-500 stroke-white" strokeWidth="1.5" />
+        
+        {/* Labeled angles */}
+        <path d="M 130 110 A 20 20 0 0 1 100 127.3" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1_5d)" />
+        <text x="112" y="142" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
+        
+        <text x="50" y="190" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = -1 - √3i</text>
+        <text x="85" y="145" className="text-xs fill-indigo-500 font-bold font-mono">r</text>
+        
+        <text x="210" y="118" className="text-[9px] font-mono fill-slate-400">Re</text>
+        <text x="115" y="15" className="text-[9px] font-mono fill-slate-400">Im</text>
+        <text x="116" y="102" className="text-[10px] fill-slate-400">O</text>
+        
+        <defs>
+          <marker id="arrow-axis-1_5d" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
+          </marker>
+          <marker id="arrow-vector-1_5d" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
+          </marker>
+          <marker id="arrow-amber-1_5d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
+          </marker>
+        </defs>
+      </svg>
+    </div>
+  );
+}
+
+function ArgandEx1_5_1e() {
+  return (
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+      <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for 1.(e) z = -i</h5>
+      <svg width="220" height="220" viewBox="0 0 220 220">
+        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1_5e)" markerEnd="url(#arrow-axis-1_5e)" />
+        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1_5e)" markerEnd="url(#arrow-axis-1_5e)" />
+        
+        {/* Draw Vector */}
+        <line x1="110" y1="110" x2="110" y2="180" stroke="#6366f1" strokeWidth="2.2" markerEnd="url(#arrow-vector-1_5e)" />
+        <circle cx="110" cy="180" r="4.5" className="fill-indigo-500 stroke-white" strokeWidth="1.5" />
+        
+        {/* Labeled angles */}
+        <path d="M 130 110 A 20 20 0 0 1 110 130" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1_5e)" />
+        <text x="126" y="125" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
+        
+        <text x="115" y="195" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = -i</text>
+        <text x="118" y="145" className="text-xs fill-indigo-500 font-bold font-mono">r</text>
+        
+        <text x="210" y="118" className="text-[9px] font-mono fill-slate-400">Re</text>
+        <text x="115" y="15" className="text-[9px] font-mono fill-slate-400">Im</text>
+        <text x="98" y="102" className="text-[10px] fill-slate-400">O</text>
+        
+        <defs>
+          <marker id="arrow-axis-1_5e" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
+          </marker>
+          <marker id="arrow-vector-1_5e" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
+          </marker>
+          <marker id="arrow-amber-1_5e" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
+          </marker>
+        </defs>
+      </svg>
+    </div>
+  );
+}
+
+function ArgandEx1_5_1f() {
+  return (
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+      <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for 1.(f) z = √3 - i</h5>
+      <svg width="220" height="220" viewBox="0 0 220 220">
+        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1_5f)" markerEnd="url(#arrow-axis-1_5f)" />
+        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1_5f)" markerEnd="url(#arrow-axis-1_5f)" />
+        
+        {/* Draw Vector */}
+        <line x1="110" y1="110" x2="175" y2="147.5" stroke="#6366f1" strokeWidth="2.2" markerEnd="url(#arrow-vector-1_5f)" />
+        <circle cx="175" cy="147.5" r="4.5" className="fill-indigo-500 stroke-white" strokeWidth="1.5" />
+        
+        {/* Labeled angles */}
+        <path d="M 130 110 A 20 20 0 0 1 127.3 120" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1_5f)" />
+        <text x="142" y="120" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
+        
+        <text x="155" y="165" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = √3 - i</text>
+        <text x="140" y="142" className="text-xs fill-indigo-500 font-bold font-mono">r</text>
+        
+        <text x="210" y="118" className="text-[9px] font-mono fill-slate-400">Re</text>
+        <text x="115" y="15" className="text-[9px] font-mono fill-slate-400">Im</text>
+        <text x="98" y="102" className="text-[10px] fill-slate-400">O</text>
+        
+        <defs>
+          <marker id="arrow-axis-1_5f" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
+          </marker>
+          <marker id="arrow-vector-1_5f" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
+          </marker>
+          <marker id="arrow-amber-1_5f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
+          </marker>
+        </defs>
+      </svg>
+    </div>
+  );
+}
+
+function RootsEx1_5_3a() {
+  return (
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+      <h5 className="text-xs font-bold text-indigo-500 mb-2">Equation z⁴ = -i Roots (distributed at 90° intervals)</h5>
+      <svg width="220" height="220" viewBox="0 0 220 220">
+        <line x1="15" y1="110" x2="205" y2="110" stroke="#cbd5e1" strokeWidth="1" />
+        <line x1="110" y1="15" x2="110" y2="205" stroke="#cbd5e1" strokeWidth="1" />
+        
+        {/* Circle of radius 60px */}
+        <circle cx="110" cy="110" r="60" fill="none" stroke="#94a3b8" strokeWidth="1" strokeDasharray="3 3" />
+        
+        {/* Draw square vertex roots (rotated by -22.5 deg) */}
+        <polygon points="165.4,133 133,54.6 54.6,87 87,165.4" fill="rgba(99, 102, 241, 0.05)" stroke="#6366f1" strokeWidth="1.5" />
+
+        <circle cx="165.4" cy="133" r="4" className="fill-indigo-600 stroke-white" />
+        <circle cx="133" cy="54.6" r="4" className="fill-indigo-600 stroke-white" />
+        <circle cx="54.6" cy="87" r="4" className="fill-indigo-600 stroke-white" />
+        <circle cx="87" cy="165.4" r="4" className="fill-indigo-600 stroke-white" />
+
+        {/* Labels for roots */}
+        <text x="172" y="136" className="text-[9px] font-mono font-semibold fill-slate-700 dark:fill-slate-300">w₀</text>
+        <text x="138" y="48" className="text-[9px] font-mono font-semibold fill-slate-700 dark:fill-slate-300">w₁</text>
+        <text x="46" y="83" className="text-[9px] font-mono font-semibold fill-slate-700 dark:fill-slate-300" textAnchor="end">w₂</text>
+        <text x="78" y="172" className="text-[9px] font-mono font-semibold fill-slate-700 dark:fill-slate-300" textAnchor="end">w₃</text>
+
+        <text x="210" y="114" className="text-[9px] font-mono fill-slate-400">Re</text>
+        <text x="110" y="12" className="text-[9px] font-mono fill-slate-400" textAnchor="middle">Im</text>
+        <text x="98" y="124" className="text-[10px] fill-slate-400">O</text>
+      </svg>
+      <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-2 italic font-sans text-center">Four roots of z⁴ = -i forming a square rotated by -22.5° on the complex unit circle.</span>
+    </div>
+  );
+}
+
+function RootsEx1_5_3b() {
+  return (
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+      <h5 className="text-xs font-bold text-indigo-500 mb-2">Equation z⁴ = -1 Roots</h5>
+      <svg width="220" height="220" viewBox="0 0 220 220">
+        <line x1="15" y1="110" x2="205" y2="110" stroke="#cbd5e1" strokeWidth="1" />
+        <line x1="110" y1="15" x2="110" y2="205" stroke="#cbd5e1" strokeWidth="1" />
+        
+        {/* Circle of radius 60px */}
+        <circle cx="110" cy="110" r="60" fill="none" stroke="#94a3b8" strokeWidth="1" strokeDasharray="3 3" />
+        
+        {/* Draw square vertex roots (rotated by 45 deg) */}
+        <polygon points="152.4,67.6 67.6,67.6 67.6,152.4 152.4,152.4" fill="rgba(99, 102, 241, 0.05)" stroke="#6366f1" strokeWidth="1.5" />
+
+        <circle cx="152.4" cy="67.6" r="4" className="fill-indigo-600 stroke-white" />
+        <circle cx="67.6" cy="67.6" r="4" className="fill-indigo-600 stroke-white" />
+        <circle cx="67.6" cy="152.4" r="4" className="fill-indigo-600 stroke-white" />
+        <circle cx="152.4" cy="152.4" r="4" className="fill-indigo-600 stroke-white" />
+
+        {/* Labels for roots with Cartesian coordinates */}
+        <text x="158" y="63" className="text-[9px] font-mono font-semibold fill-slate-700 dark:fill-slate-300">w₀ (√2/2, √2/2)</text>
+        <text x="62" y="63" className="text-[9px] font-mono font-semibold fill-slate-700 dark:fill-slate-300" textAnchor="end">w₁ (-√2/2, √2/2)</text>
+        <text x="62" y="162" className="text-[9px] font-mono font-semibold fill-slate-700 dark:fill-slate-300" textAnchor="end">w₂ (-√2/2, -√2/2)</text>
+        <text x="158" y="162" className="text-[9px] font-mono font-semibold fill-slate-700 dark:fill-slate-300">w₃ (√2/2, -√2/2)</text>
+
+        <text x="210" y="114" className="text-[9px] font-mono fill-slate-400">Re</text>
+        <text x="110" y="12" className="text-[9px] font-mono fill-slate-400" textAnchor="middle">Im</text>
+        <text x="98" y="124" className="text-[10px] fill-slate-400">O</text>
+      </svg>
+      <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-2 italic font-sans text-center">Four roots of z⁴ = -1 forming an inscribed square rotated by 45° on the unit circle.</span>
+    </div>
+  );
+}
+
+function RootsEx1_5_3c() {
+  return (
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+      <h5 className="text-xs font-bold text-indigo-500 mb-2">Equation z⁴ = -8 - 8√3i Roots</h5>
+      <svg width="220" height="220" viewBox="0 0 220 220">
+        <line x1="15" y1="110" x2="205" y2="110" stroke="#cbd5e1" strokeWidth="1" />
+        <line x1="110" y1="15" x2="110" y2="205" stroke="#cbd5e1" strokeWidth="1" />
+        
+        {/* Circle of radius 60px */}
+        <circle cx="110" cy="110" r="60" fill="none" stroke="#94a3b8" strokeWidth="1" strokeDasharray="3 3" />
+        
+        {/* Draw square vertex roots (rotated by -30 deg) */}
+        <polygon points="162,140 140,58 58,80 80,162" fill="rgba(99, 102, 241, 0.05)" stroke="#6366f1" strokeWidth="1.5" />
+
+        <circle cx="162" cy="140" r="4" className="fill-indigo-600 stroke-white" />
+        <circle cx="140" cy="58" r="4" className="fill-indigo-600 stroke-white" />
+        <circle cx="58" cy="80" r="4" className="fill-indigo-600 stroke-white" />
+        <circle cx="80" cy="162" r="4" className="fill-indigo-600 stroke-white" />
+
+        {/* Labels for roots with exact values */}
+        <text x="168" y="145" className="text-[9px] font-mono font-semibold fill-slate-700 dark:fill-slate-300">w₀ (√3, -1)</text>
+        <text x="144" y="52" className="text-[9px] font-mono font-semibold fill-slate-700 dark:fill-slate-300">w₁ (1, √3)</text>
+        <text x="50" y="75" className="text-[9px] font-mono font-semibold fill-slate-700 dark:fill-slate-300" textAnchor="end">w₂ (-√3, 1)</text>
+        <text x="74" y="172" className="text-[9px] font-mono font-semibold fill-slate-700 dark:fill-slate-300" textAnchor="end">w₃ (-1, -√3)</text>
+
+        <text x="210" y="114" className="text-[9px] font-mono fill-slate-400">Re</text>
+        <text x="110" y="12" className="text-[9px] font-mono fill-slate-400" textAnchor="middle">Im</text>
+        <text x="98" y="124" className="text-[10px] fill-slate-400">O</text>
+      </svg>
+      <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-2 italic font-sans text-center">Four roots of z⁴ = -8 - 8√3i on a circle of radius r = 2.</span>
+    </div>
+  );
+}
+
+function RootsEx1_5_3d() {
+  return (
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+      <h5 className="text-xs font-bold text-indigo-500 mb-2">Equation z⁶ = -1 Roots</h5>
+      <svg width="220" height="220" viewBox="0 0 220 220">
+        <line x1="15" y1="110" x2="205" y2="110" stroke="#cbd5e1" strokeWidth="1" />
+        <line x1="110" y1="15" x2="110" y2="205" stroke="#cbd5e1" strokeWidth="1" />
+        
+        {/* Circle of radius 60px */}
+        <circle cx="110" cy="110" r="60" fill="none" stroke="#94a3b8" strokeWidth="1" strokeDasharray="3 3" />
+        
+        {/* Draw hexagon vertex roots (rotated by 30 deg) */}
+        <polygon points="162,80 110,50 58,80 58,140 110,170 162,140" fill="rgba(99, 102, 241, 0.05)" stroke="#6366f1" strokeWidth="1.5" />
+
+        <circle cx="162" cy="80" r="4" className="fill-indigo-600 stroke-white" />
+        <circle cx="110" cy="50" r="4" className="fill-indigo-600 stroke-white" />
+        <circle cx="58" cy="80" r="4" className="fill-indigo-600 stroke-white" />
+        <circle cx="58" cy="140" r="4" className="fill-indigo-600 stroke-white" />
+        <circle cx="110" cy="170" r="4" className="fill-indigo-600 stroke-white" />
+        <circle cx="162" cy="140" r="4" className="fill-indigo-600 stroke-white" />
+
+        {/* Labels for roots */}
+        <text x="168" y="75" className="text-[8px] font-mono font-semibold fill-slate-700 dark:fill-slate-300">w₀ (√3/2, 1/2)</text>
+        <text x="110" y="42" className="text-[8px] font-mono font-semibold fill-slate-700 dark:fill-slate-300" textAnchor="middle">w₁ (0, 1)</text>
+        <text x="52" y="75" className="text-[8px] font-mono font-semibold fill-slate-700 dark:fill-slate-300" textAnchor="end">w₂ (-√3/2, 1/2)</text>
+        <text x="52" y="145" className="text-[8px] font-mono font-semibold fill-slate-700 dark:fill-slate-300" textAnchor="end">w₃ (-√3/2, -1/2)</text>
+        <text x="110" y="181" className="text-[8px] font-mono font-semibold fill-slate-700 dark:fill-slate-300" textAnchor="middle">w₄ (0, -1)</text>
+        <text x="168" y="145" className="text-[8px] font-mono font-semibold fill-slate-700 dark:fill-slate-300">w₅ (√3/2, -1/2)</text>
+
+        <text x="210" y="114" className="text-[9px] font-mono fill-slate-400">Re</text>
+        <text x="110" y="12" className="text-[9px] font-mono fill-slate-400" textAnchor="middle">Im</text>
+        <text x="98" y="124" className="text-[10px] fill-slate-400">O</text>
+      </svg>
+      <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-2 italic font-sans text-center">Six roots of z⁶ = -1 forming an inscribed regular hexagon rotated by 30° on the unit circle.</span>
     </div>
   );
 }
@@ -1237,6 +1845,34 @@ export default function Latex({ text, block = false }: LatexProps) {
       continue;
     }
 
+    // Blockquote handling (lines starting with >)
+    if (line.startsWith('>')) {
+      flushList(i);
+      const quoteLines: string[] = [];
+      let j = i;
+      while (j < lines.length) {
+        const nextLine = lines[j].trim();
+        if (nextLine.startsWith('>')) {
+          let content = nextLine.slice(1);
+          if (content.startsWith(' ')) {
+            content = content.slice(1);
+          }
+          quoteLines.push(content);
+          j++;
+        } else {
+          break;
+        }
+      }
+      i = j - 1; // skip forward to the end of the blockquote
+
+      renderedElements.push(
+        <blockquote key={`quote-${i}`} className="border-l-4 border-indigo-500 bg-indigo-50/40 dark:bg-indigo-950/10 p-4 rounded-r-xl my-4 text-slate-700 dark:text-slate-300">
+          <Latex text={quoteLines.join('\n')} />
+        </blockquote>
+      );
+      continue;
+    }
+
     // Check for multi-line block math starting with $$
     if (line.startsWith('$$') && (!line.endsWith('$$') || line === '$$')) {
       flushList(i);
@@ -1308,11 +1944,59 @@ export default function Latex({ text, block = false }: LatexProps) {
         case 'ArgandExample5d':
           renderedElements.push(<ArgandExample5d key={`diag-${i}`} />);
           break;
+        case 'ArgandEx1_4_1a':
+          renderedElements.push(<ArgandEx1_4_1a key={`diag-${i}`} />);
+          break;
+        case 'ArgandEx1_4_1b':
+          renderedElements.push(<ArgandEx1_4_1b key={`diag-${i}`} />);
+          break;
+        case 'ArgandEx1_4_1c':
+          renderedElements.push(<ArgandEx1_4_1c key={`diag-${i}`} />);
+          break;
+        case 'ArgandEx1_4_1d':
+          renderedElements.push(<ArgandEx1_4_1d key={`diag-${i}`} />);
+          break;
+        case 'ArgandEx1_4_1e':
+          renderedElements.push(<ArgandEx1_4_1e key={`diag-${i}`} />);
+          break;
+        case 'ArgandEx1_4_1f':
+          renderedElements.push(<ArgandEx1_4_1f key={`diag-${i}`} />);
+          break;
+        case 'ArgandEx1_5_1a':
+          renderedElements.push(<ArgandEx1_5_1a key={`diag-${i}`} />);
+          break;
+        case 'ArgandEx1_5_1b':
+          renderedElements.push(<ArgandEx1_5_1b key={`diag-${i}`} />);
+          break;
+        case 'ArgandEx1_5_1c':
+          renderedElements.push(<ArgandEx1_5_1c key={`diag-${i}`} />);
+          break;
+        case 'ArgandEx1_5_1d':
+          renderedElements.push(<ArgandEx1_5_1d key={`diag-${i}`} />);
+          break;
+        case 'ArgandEx1_5_1e':
+          renderedElements.push(<ArgandEx1_5_1e key={`diag-${i}`} />);
+          break;
+        case 'ArgandEx1_5_1f':
+          renderedElements.push(<ArgandEx1_5_1f key={`diag-${i}`} />);
+          break;
         case 'RootsUnity6':
           renderedElements.push(<RootsUnity6 key={`diag-${i}`} />);
           break;
         case 'RootsUnity4':
           renderedElements.push(<RootsUnity4 key={`diag-${i}`} />);
+          break;
+        case 'RootsEx1_5_3a':
+          renderedElements.push(<RootsEx1_5_3a key={`diag-${i}`} />);
+          break;
+        case 'RootsEx1_5_3b':
+          renderedElements.push(<RootsEx1_5_3b key={`diag-${i}`} />);
+          break;
+        case 'RootsEx1_5_3c':
+          renderedElements.push(<RootsEx1_5_3c key={`diag-${i}`} />);
+          break;
+        case 'RootsEx1_5_3d':
+          renderedElements.push(<RootsEx1_5_3d key={`diag-${i}`} />);
           break;
         case 'RootsExample10':
           renderedElements.push(<RootsExample10 key={`diag-${i}`} />);

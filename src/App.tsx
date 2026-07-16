@@ -4,7 +4,7 @@ import ChapterDetails from './components/ChapterDetails';
 import FormulaSheet from './components/FormulaSheet';
 import HomeView from './components/HomeView';
 import { motion, AnimatePresence } from 'motion/react';
-import { BookOpen, Calculator, Search, Menu, X, GraduationCap, ChevronRight, Hash, Home, Facebook, Send, Bug, Youtube } from 'lucide-react';
+import { BookOpen, Calculator, Search, Menu, X, GraduationCap, ChevronRight, Hash, Home, Facebook, Send, Bug, Youtube, Mail, Copy, Check, ExternalLink } from 'lucide-react';
 import ThemeToggle from './components/ThemeToggle';
 
 export default function App() {
@@ -26,6 +26,14 @@ export default function App() {
   });
   const [sidebarSearch, setSidebarSearch] = useState<string>('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+  const [isBugModalOpen, setIsBugModalOpen] = useState<boolean>(false);
+  const [copied, setCopied] = useState<boolean>(false);
+
+  const copyEmail = () => {
+    navigator.clipboard.writeText('unlockeducation@icloud.com');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   // Sync state to URL and localStorage
   useEffect(() => {
@@ -432,18 +440,159 @@ export default function App() {
               <Send className="w-4 h-4" />
               <span className="hidden md:inline text-[10px] font-bold uppercase tracking-wide">Channel</span>
             </a>
-            <a 
-              href="https://t.me/UnlockEdu25" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-slate-400 hover:text-emerald-500 transition-colors flex items-center gap-1.5 ml-2"
+            <button 
+              onClick={() => setIsBugModalOpen(true)}
+              className="text-slate-400 hover:text-emerald-500 transition-colors flex items-center gap-1.5 ml-2 cursor-pointer focus:outline-none"
             >
               <Bug className="w-4 h-4" />
               <span className="hidden md:inline text-[10px] font-bold uppercase tracking-wide">Report Bug</span>
-            </a>
+            </button>
           </div>
         </div>
       </footer>
+
+      {/* Bug Report Modal */}
+      <AnimatePresence>
+        {isBugModalOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.5 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsBugModalOpen(false)}
+              className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 cursor-pointer"
+            />
+            {/* Modal Box */}
+            <div className="fixed inset-0 flex items-center justify-center p-4 z-50 pointer-events-none">
+              <motion.div
+                initial={{ scale: 0.95, opacity: 0, y: 15 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.95, opacity: 0, y: 15 }}
+                transition={{ type: 'spring', duration: 0.3 }}
+                className="w-full max-w-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl p-6 relative overflow-hidden pointer-events-auto"
+              >
+                {/* Header */}
+                <div className="flex items-start justify-between pb-4 border-b border-slate-100 dark:border-slate-800">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 rounded-xl">
+                      <Bug className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h3 className="font-display font-bold text-base text-slate-900 dark:text-white">
+                        Report a Bug / Feedback
+                      </h3>
+                      <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
+                        Help us improve Unlock Education
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => setIsBugModalOpen(false)}
+                    className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg transition cursor-pointer"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+
+                {/* Body Content */}
+                <div className="py-5 space-y-4">
+                  <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
+                    သင့်ရဲ့ အကြံပြုချက်တွေနဲ့ အမှားပြင်ဆင်ချက်တွေကို အောက်ပါနည်းလမ်း နှစ်မျိုးဖြင့် တိုက်ရိုက် ပေးပို့နိုင်ပါတယ်။
+                  </p>
+
+                  <div className="space-y-3">
+                    {/* Telegram Option */}
+                    <div className="p-4 bg-slate-50 dark:bg-slate-950/40 border border-slate-100 dark:border-slate-800/60 rounded-xl flex items-start gap-3.5 hover:border-indigo-100 dark:hover:border-indigo-950/50 transition-colors">
+                      <div className="p-2 bg-[#229ED9]/10 text-[#229ED9] rounded-xl shrink-0 mt-0.5">
+                        <Send className="w-4 h-4" />
+                      </div>
+                      <div className="flex-1 space-y-1.5">
+                        <div>
+                          <h4 className="text-xs font-bold text-slate-900 dark:text-white">
+                            Telegram Direct Support
+                          </h4>
+                          <p className="text-[10px] text-slate-500 dark:text-slate-400">
+                            တိုက်ရိုက်စကားပြောဆိုပြီး ပုံများဖြင့် ပြသရန်
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-[11px] font-mono font-bold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">
+                            @UnlockEdu25
+                          </span>
+                          <a
+                            href="https://t.me/UnlockEdu25"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[11px] font-bold text-[#229ED9] hover:underline flex items-center gap-0.5"
+                          >
+                            Open Telegram <ExternalLink className="w-3 h-3" />
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Email Option */}
+                    <div className="p-4 bg-slate-50 dark:bg-slate-950/40 border border-slate-100 dark:border-slate-800/60 rounded-xl flex items-start gap-3.5 hover:border-indigo-100 dark:hover:border-indigo-950/50 transition-colors">
+                      <div className="p-2 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 rounded-xl shrink-0 mt-0.5">
+                        <Mail className="w-4 h-4" />
+                      </div>
+                      <div className="flex-1 space-y-2">
+                        <div>
+                          <h4 className="text-xs font-bold text-slate-900 dark:text-white">
+                            Official Email Support
+                          </h4>
+                          <p className="text-[10px] text-slate-500 dark:text-slate-400">
+                            အသေးစိတ်စာဖြင့် ပေးပို့တင်ပြရန်
+                          </p>
+                        </div>
+                        <div className="text-[11px] font-mono font-bold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded break-all select-all">
+                          unlockeducation@icloud.com
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <a
+                            href="mailto:unlockeducation@icloud.com?subject=Unlock%20Education%20-%20Bug%20Report%20%26%20Feedback"
+                            className="text-[11px] font-bold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-0.5"
+                          >
+                            Send Mail <ExternalLink className="w-3 h-3" />
+                          </a>
+                          <span className="text-slate-300 dark:text-slate-700">|</span>
+                          <button
+                            onClick={copyEmail}
+                            className="text-[11px] font-bold text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 flex items-center gap-1 cursor-pointer"
+                          >
+                            {copied ? (
+                              <>
+                                <Check className="w-3 h-3 text-emerald-500" />
+                                <span className="text-emerald-500 font-bold">Copied!</span>
+                              </>
+                            ) : (
+                              <>
+                                <Copy className="w-3 h-3" />
+                                <span>Copy Email</span>
+                              </>
+                            )}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Footer of modal */}
+                <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex justify-end">
+                  <button
+                    onClick={() => setIsBugModalOpen(false)}
+                    className="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold text-xs rounded-xl transition cursor-pointer"
+                  >
+                    Close
+                  </button>
+                </div>
+              </motion.div>
+            </div>
+          </>
+        )}
+      </AnimatePresence>
 
       {/* Mobile Floating Action Button for Formulas */}
       <AnimatePresence>

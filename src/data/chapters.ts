@@ -80,13 +80,13 @@ $$x = \\pm\\sqrt{n}i$$
   x^2 + 2x + 3 &= (-1 + \\sqrt{2}i)^2 + 2(-1 + \\sqrt{2}i) + 3 \\\\
   &= (1 - 2\\sqrt{2}i - 2) - 2 + 2\\sqrt{2}i + 3 \\\\
   &= 0
-  \\end{aligned}$$
+  \\\end{aligned}$$
 - For $x = -1 - \\sqrt{2}i$:
   $$\\begin{aligned}
   x^2 + 2x + 3 &= (-1 - \\sqrt{2}i)^2 + 2(-1 - \\sqrt{2}i) + 3 \\\\
   &= (1 + 2\\sqrt{2}i - 2) - 2 - 2\\sqrt{2}i + 3 \\\\
   &= 0
-  \\end{aligned}$$
+  \\\end{aligned}$$
 
 #### Powers of the Pure Imaginary Unit $i$
 Let's find the values of $i^n$ for every positive integer $n$:
@@ -108,9 +108,12 @@ Let's find the values of $i^n$ for every positive integer $n$:
 
 **Note. Sum of four consecutive powers.**
 Any four consecutive powers of $i$ have sum 0. For example,
-- $i^0 + i^1 + i^2 + i^3 = 1 + i - 1 - i = 0$
-- $i^1 + i^2 + i^3 + i^4 = i - 1 - i + 1 = 0$
-- $i^2 + i^3 + i^4 + i^5 = -1 - i + 1 + i = 0$
+
+$$\\begin{aligned}
+  i^0 + i^1 + i^2 + i^3 &= 1 + i - 1 - i = 0, \\\\
+  i^1 + i^2 + i^3 + i^4 &= i - 1 - i + 1 = 0, \\\\
+  i^2 + i^3 + i^4 + i^5 &= -1 - i + 1 + i = 0.
+\\\end{aligned}$$
 
 ---
 
@@ -124,7 +127,7 @@ Any four consecutive powers of $i$ have sum 0. For example,
   (x - 3)^2 &= -1 \\\\
   x - 3 &= \\pm i \\\\
   x &= 3 \\pm i
-  \\end{aligned}$$
+  \\\end{aligned}$$
 
 - **(b) $-2x^2 + 4x - 3 = 0$**
   **Solution.** Divide by $-2$:
@@ -135,7 +138,7 @@ Any four consecutive powers of $i$ have sum 0. For example,
   (x - 1)^2 &= -\\frac{1}{2} \\\\
   x - 1 &= \\pm\\frac{\\sqrt{2}}{2}i \\\\
   x &= 1 \\pm \\frac{\\sqrt{2}}{2}i
-  \\end{aligned}$$
+  \\\end{aligned}$$
 
 - **(c) $5x^2 - 2x + 1 = 0$**
   **Solution.** Divide by 5:
@@ -145,7 +148,7 @@ Any four consecutive powers of $i$ have sum 0. For example,
   \\left(x - \\frac{1}{5}\\right)^2 &= -\\frac{4}{25} \\\\
   x - \\frac{1}{5} &= \\pm\\frac{2}{5}i \\\\
   x &= \\frac{1}{5} \\pm \\frac{2}{5}i
-  \\end{aligned}$$
+  \\\end{aligned}$$
 
 - **(d) $3x^2 + 7x + 5 = 0$**
   **Solution.** Divide by 3:
@@ -155,7 +158,7 @@ Any four consecutive powers of $i$ have sum 0. For example,
   \\left(x + \\frac{7}{6}\\right)^2 &= -\\frac{11}{36} \\\\
   x + \\frac{7}{6} &= \\pm\\frac{\\sqrt{11}}{6}i \\\\
   x &= -\\frac{7}{6} \\pm \\frac{\\sqrt{11}}{6}i
-  \\end{aligned}$$
+  \\\end{aligned}$$
 
 **2. Solve the following equations and check your answers.**
 - **(a) $x^2 - 2x + 4 = 0$**
@@ -166,18 +169,18 @@ Any four consecutive powers of $i$ have sum 0. For example,
   (x - 1)^2 &= -3 \\\\
   x - 1 &= \\pm\\sqrt{3}i \\\\
   x &= 1 \\pm \\sqrt{3}i
-  \\end{aligned}$$
+  \\\end{aligned}$$
   **Check.**
   - For $x = 1 + \\sqrt{3}i$:
     $$\\begin{aligned}
     (1 + \\sqrt{3}i)^2 - 2(1 + \\sqrt{3}i) + 4 &= (1 + 2\\sqrt{3}i - 3) - 2 - 2\\sqrt{3}i + 4 \\\\
     &= 0 \\quad (\\text{OK})
-    \\end{aligned}$$
+    \\\end{aligned}$$
   - For $x = 1 - \\sqrt{3}i$:
     $$\\begin{aligned}
     (1 - \\sqrt{3}i)^2 - 2(1 - \\sqrt{3}i) + 4 &= (1 - 2\\sqrt{3}i - 3) - 2 + 2\\sqrt{3}i + 4 \\\\
     &= 0 \\quad (\\text{OK})
-    \\end{aligned}$$
+    \\\end{aligned}$$
 
 - **(b) $x^2 - 4x + 5 = 0$**
   **Solution.**
@@ -187,21 +190,34 @@ Any four consecutive powers of $i$ have sum 0. For example,
   (x - 2)^2 &= -1 \\\\
   x - 2 &= \\pm i \\\\
   x &= 2 \\pm i
-  \\end{aligned}$$
+  \\\end{aligned}$$
   **Check.**
   - For $x = 2 + i$:
     $$\\begin{aligned}
     (2 + i)^2 - 4(2 + i) + 5 &= (4 + 4i - 1) - 8 - 4i + 5 \\\\
     &= 0 \\quad (\\text{OK})
-    \\end{aligned}$$
+    \\\end{aligned}$$
   - For $x = 2 - i$:
     $$\\begin{aligned}
     (2 - i)^2 - 4(2 - i) + 5 &= (4 - 4i - 1) - 8 + 4i + 5 \\\\
     &= 0 \\quad (\\text{OK})
-    \\end{aligned}$$
+    \\\end{aligned}$$
 
 **3. Find the value of $i^n$ for every positive integer $n$.**
-*See general power rules above.*
+**Solution.**
+
+$$i^0 = 1$$
+$$\\begin{aligned}
+  i^1 &= i & i^5 &= i^4i = i \\\\
+  i^2 &= -1 & i^6 &= i^4i^2 = -1 \\\\
+  i^3 &= i^2i = -i & i^7 &= i^4i^3 = -i \\\\
+  i^4 &= i^2i^2 = 1 & i^8 &= i^4i^4 = 1
+\\\end{aligned}$$
+
+- If $n$ is divisible by 4 (remainder=0), $i^n = 1$.
+- If $n$ has a remainder of 1 when divided by 4, $i^n = i$.
+- If $n$ has a remainder of 2 when divided by 4, $i^n = -1$.
+- If $n$ has a remainder of 3 when divided by 4, $i^n = -i$.
 
 ---
 
@@ -280,7 +296,7 @@ $$x + yi = (x, 0) + (y, 0)(0, 1) = (x, 0) + (0, y) = (x, y)$$
   (-2, 3)(1, -2) + (1, 1)(0, 1) &= (-2 - (-6), \\, 4 + 3) + (0 - 1, \\, 1 + 0) \\\\
   &= (4, 7) + (-1, 1) \\\\
   &= (3, 8)
-  \\end{aligned}$$
+  \\\end{aligned}$$
 
 **Method 2. Cartesian form**
   $$\\begin{aligned}
@@ -288,7 +304,7 @@ $$x + yi = (x, 0) + (y, 0)(0, 1) = (x, 0) + (0, y) = (x, y)$$
   &= (-2 + 4i + 3i - 6i^2) + (i + i^2) \\\\
   &= (4 + 7i) + (-1 + i) \\\\
   &= 3 + 8i \\leftrightarrow (3, 8)
-  \\end{aligned}$$
+  \\\end{aligned}$$
 
 ---
 
@@ -300,7 +316,7 @@ $$x + yi = (x, 0) + (y, 0)(0, 1) = (x, 0) + (0, y) = (x, y)$$
   (2, 0)(2, 5) + (3, -2)(0, 1) &= (4 - 0, \\, 10 + 0) + (0 - (-2), \\, 3 + 0) \\\\
   &= (4, 10) + (2, 3) \\\\
   &= (6, 13)
-  \\end{aligned}$$
+  \\\end{aligned}$$
 
 - **(b) $(2, -5)(-1, 0) + (1, 0)(5, 1)$**
   **Solution.**
@@ -308,7 +324,7 @@ $$x + yi = (x, 0) + (y, 0)(0, 1) = (x, 0) + (0, y) = (x, y)$$
   (2, -5)(-1, 0) + (1, 0)(5, 1) &= (-2 - 0, \\, 0 + 5) + (5 - 0, \\, 1 + 0) \\\\
   &= (-2, 5) + (5, 1) \\\\
   &= (3, 6)
-  \\end{aligned}$$
+  \\\end{aligned}$$
 
 - **(c) $(-3, -2)(-2, -3) + (-2, -3)(-3, -2)$**
   **Solution.**
@@ -316,7 +332,7 @@ $$x + yi = (x, 0) + (y, 0)(0, 1) = (x, 0) + (0, y) = (x, y)$$
   (-3, -2)(-2, -3) + (-2, -3)(-3, -2) &= (6 - 6, \\, 9 + 4) + (6 - 6, \\, 4 + 9) \\\\
   &= (0, 13) + (0, 13) \\\\
   &= (0, 26)
-  \\end{aligned}$$
+  \\\end{aligned}$$
 
 - **(d) $(1, 0)(0, 1) + (0, 1)(1, 0)$**
   **Solution.**
@@ -324,7 +340,7 @@ $$x + yi = (x, 0) + (y, 0)(0, 1) = (x, 0) + (0, y) = (x, y)$$
   (1, 0)(0, 1) + (0, 1)(1, 0) &= (0 - 0, \\, 1 + 0) + (0 - 0, \\, 0 + 1) \\\\
   &= (0, 1) + (0, 1) \\\\
   &= (0, 2)
-  \\end{aligned}$$
+  \\\end{aligned}$$
 
 **2. Compute.**
 - **(a) $(3 + 2i)(3 - 2i) + (-5 + 7i)(-1 - i)$**
@@ -333,7 +349,7 @@ $$x + yi = (x, 0) + (y, 0)(0, 1) = (x, 0) + (0, y) = (x, y)$$
   (3 + 2i)(3 - 2i) + (-5 + 7i)(-1 - i) &= (9 - 6i + 6i - 4i^2) + (5 + 5i - 7i - 7i^2) \\\\
   &= 13 + (12 - 2i) \\\\
   &= 25 - 2i
-  \\end{aligned}$$
+  \\\end{aligned}$$
 
 - **(b) $(-1 + i)(1 - i) + (2 + 3i)$**
   **Solution.**
@@ -341,7 +357,7 @@ $$x + yi = (x, 0) + (y, 0)(0, 1) = (x, 0) + (0, y) = (x, y)$$
   (-1 + i)(1 - i) + (2 + 3i) &= -1 + i + i - i^2 + 2 + 3i \\\\
   &= 2i + 2 + 3i \\\\
   &= 2 + 5i
-  \\end{aligned}$$
+  \\\end{aligned}$$
 
 - **(c) $(1 + i)(1 - i) + (-2 + i)(-2 + i)$**
   **Solution.**
@@ -349,7 +365,7 @@ $$x + yi = (x, 0) + (y, 0)(0, 1) = (x, 0) + (0, y) = (x, y)$$
   (1 + i)(1 - i) + (-2 + i)(-2 + i) &= (1 - i + i - i^2) + (4 - 2i - 2i + i^2) \\\\
   &= 2 + (3 - 4i) \\\\
   &= 5 - 4i
-  \\end{aligned}$$
+  \\\end{aligned}$$
 
 - **(d) $(3 + 2i) + (7 - i)(-3 + 3i)$**
   **Solution.**
@@ -357,7 +373,7 @@ $$x + yi = (x, 0) + (y, 0)(0, 1) = (x, 0) + (0, y) = (x, y)$$
   (3 + 2i) + (7 - i)(-3 + 3i) &= 3 + 2i + (-21 + 21i + 3i - 3i^2) \\\\
   &= 3 + 2i + (-18 + 24i) \\\\
   &= -15 + 26i
-  \\end{aligned}$$
+  \\\end{aligned}$$
 
 ---
 
@@ -382,7 +398,7 @@ $$\\frac{z_1}{z_2} = \\frac{z_1}{z_2} \\cdot \\frac{\\bar{z}_2}{\\bar{z}_2} = \\
   &= \\frac{6 - 2i + 9i - 3i^2}{9 - i^2} \\\\
   &= \\frac{9 + 7i}{10} \\\\
   &= \\frac{9}{10} + \\frac{7}{10}i
-  \\end{aligned}$$
+  \\\end{aligned}$$
 
 #### Reciprocal of a Complex Number
 Let $z = x + yi$ and $z \\neq 0$. Find $\\frac{1}{z}$:
@@ -391,7 +407,7 @@ Let $z = x + yi$ and $z \\neq 0$. Find $\\frac{1}{z}$:
   &= \\frac{1}{x + yi} \\cdot \\frac{x - yi}{x - yi} \\\\
   &= \\frac{x - yi}{(x + yi)(x - yi)} \\\\
   &= \\frac{x}{x^2 + y^2} - \\frac{y}{x^2 + y^2}i
-  \\end{aligned}$$
+  \\\end{aligned}$$
 
 Let's compute $z\\left(\\frac{1}{z}\\right)$:
   $$\\begin{aligned}
@@ -399,7 +415,7 @@ Let's compute $z\\left(\\frac{1}{z}\\right)$:
   &= \\frac{(x + yi)(x - yi)}{x^2 + y^2} \\\\
   &= \\frac{x^2 + y^2}{x^2 + y^2} \\\\
   &= 1
-  \\end{aligned}$$
+  \\\end{aligned}$$
 
 Therefore, for a non-zero complex number $z$, $\\frac{1}{z}$ is the multiplicative inverse of $z$ and is denoted by $z^{-1}$.
 
@@ -414,7 +430,7 @@ Therefore, for a non-zero complex number $z$, $\\frac{1}{z}$ is the multiplicati
   &= (4 - 12i + 9i^2) + (4 - 6i) + 1 \\\\
   &= (4 - 9 + 4 + 1) + (-12i - 6i) \\\\
   &= -18i
-  \\end{aligned}$$
+  \\\end{aligned}$$
 
 - **(b) $3z_2^2 + 2z_2 - 1$**
   **Solution.**
@@ -424,7 +440,7 @@ Therefore, for a non-zero complex number $z$, $\\frac{1}{z}$ is the multiplicati
   &= 3(21 + 20i) + 9 + 4i \\\\
   &= 63 + 60i + 9 + 4i \\\\
   &= 72 + 64i
-  \\end{aligned}$$
+  \\\end{aligned}$$
 
 - **(c) $z_1\\bar{z}_2 + z_2\\bar{z}_1$**
   **Solution.**
@@ -433,7 +449,7 @@ Therefore, for a non-zero complex number $z$, $\\frac{1}{z}$ is the multiplicati
   &= (-10 + 4i + 15i - 6i^2) + (-10 - 15i - 4i - 6i^2) \\\\
   &= (-4 + 19i) + (-4 - 19i) \\\\
   &= -8
-  \\end{aligned}$$
+  \\\end{aligned}$$
 
 - **(d) $\\frac{1}{z_1}$**
   **Solution.**
@@ -442,7 +458,7 @@ Therefore, for a non-zero complex number $z$, $\\frac{1}{z}$ is the multiplicati
   &= \\frac{1}{-2 + 3i} \\cdot \\frac{-2 - 3i}{-2 - 3i} \\\\
   &= \\frac{-2 - 3i}{(-2)^2 + 3^2} \\\\
   &= -\\frac{2}{13} - \\frac{3}{13}i
-  \\end{aligned}$$
+  \\\end{aligned}$$
 
 - **(e) $\\frac{1}{z_2}$**
   **Solution.**
@@ -451,7 +467,7 @@ Therefore, for a non-zero complex number $z$, $\\frac{1}{z}$ is the multiplicati
   &= \\frac{1}{5 + 2i} \\cdot \\frac{5 - 2i}{5 - 2i} \\\\
   &= \\frac{5 - 2i}{5^2 + 2^2} \\\\
   &= \\frac{5}{29} - \\frac{2}{29}i
-  \\end{aligned}$$
+  \\\end{aligned}$$
 
 - **(f) $\\frac{1}{z_1 z_2}$**
   **Solution.** First compute $z_1 z_2$:
@@ -459,14 +475,14 @@ Therefore, for a non-zero complex number $z$, $\\frac{1}{z}$ is the multiplicati
   z_1 z_2 &= (-2 + 3i)(5 + 2i) \\\\
   &= -10 - 4i + 15i + 6i^2 \\\\
   &= -16 + 11i
-  \\end{aligned}$$
+  \\\end{aligned}$$
   Now compute $\\frac{1}{z_1 z_2}$:
   $$\\begin{aligned}
   \\frac{1}{z_1 z_2} &= \\frac{1}{-16 + 11i} \\\\
   &= \\frac{1}{-16 + 11i} \\cdot \\frac{-16 - 11i}{-16 - 11i} \\\\
   &= \\frac{-16 - 11i}{(-16)^2 + 11^2} \\\\
   &= -\\frac{16}{377} - \\frac{11}{377}i
-  \\end{aligned}$$
+  \\\end{aligned}$$
 
 - **(g) $\\frac{z_1}{z_2}$**
   **Solution.**
@@ -476,7 +492,7 @@ Therefore, for a non-zero complex number $z$, $\\frac{1}{z}$ is the multiplicati
   &= \\frac{(-2 + 3i)(5 - 2i)}{29} \\\\
   &= \\frac{-4 + 19i}{29} \\\\
   &= -\\frac{4}{29} + \\frac{19}{29}i
-  \\end{aligned}$$
+  \\\end{aligned}$$
 
 - **(h) $\\frac{\\bar{z}_1}{\\bar{z}_2}$**
   **Solution.**
@@ -486,7 +502,7 @@ Therefore, for a non-zero complex number $z$, $\\frac{1}{z}$ is the multiplicati
   &= \\frac{(-2 - 3i)(5 + 2i)}{29} \\\\
   &= \\frac{-4 - 19i}{29} \\\\
   &= -\\frac{4}{29} - \\frac{19}{29}i
-  \\end{aligned}$$
+  \\\end{aligned}$$
 
 - **(i) $\\frac{z_2}{z_1}$**
   **Solution.**
@@ -496,14 +512,14 @@ Therefore, for a non-zero complex number $z$, $\\frac{1}{z}$ is the multiplicati
   &= \\frac{(5 + 2i)(-2 - 3i)}{13} \\\\
   &= \\frac{-4 - 19i}{13} \\\\
   &= -\\frac{4}{13} - \\frac{19}{13}i
-  \\end{aligned}$$
+  \\\end{aligned}$$
 
 - **(j) $\\overline{\\left(\\frac{z_2}{z_1}\\right)}$**
   **Solution.** Conjugate of result in (i):
   $$\\begin{aligned}
   \\overline{\\left(\\frac{z_2}{z_1}\\right)} &= \\overline{\\left(-\\frac{4}{13} - \\frac{19}{13}i\\right)} \\\\
   &= -\\frac{4}{13} + \\frac{19}{13}i
-  \\end{aligned}$$
+  \\\end{aligned}$$
 
 - **(k) $\\frac{\\bar{z}_1 z_2}{z_1 \\bar{z}_2}$**
   **Solution.**
@@ -516,7 +532,7 @@ Therefore, for a non-zero complex number $z$, $\\frac{1}{z}$ is the multiplicati
   &= \\frac{16 + 152i - 361}{16 + 361} \\\\
   &= \\frac{-345 + 152i}{377} \\\\
   &= -\\frac{345}{377} + \\frac{152}{377}i
-  \\end{aligned}$$
+  \\\end{aligned}$$
 
 - **(l) $\\frac{z_2}{\\bar{z}_1} + \\frac{z_1}{\\bar{z}_2}$**
   **Solution.**
@@ -530,7 +546,7 @@ Therefore, for a non-zero complex number $z$, $\\frac{1}{z}$ is the multiplicati
   &= \\frac{42(-16 + 11i)}{377} \\\\
   &= \\frac{-672 + 462i}{377} \\\\
   &= -\\frac{672}{377} + \\frac{462}{377}i
-  \\end{aligned}$$
+  \\\end{aligned}$$
 
 **2. Let $z_1 = 3 - 2i$ and $z_2 = -1 + 4i$. Show that.**
 - **(a) $\\overline{z_1 + z_2} = \\bar{z}_1 + \\bar{z}_2$**
@@ -539,7 +555,7 @@ Therefore, for a non-zero complex number $z$, $\\frac{1}{z}$ is the multiplicati
   $$\\begin{aligned}
   z_1 + z_2 &= (3 - 2i) + (-1 + 4i) \\\\
   &= 2 + 2i
-  \\end{aligned}$$
+  \\\end{aligned}$$
   Taking the conjugate:
   $$\\overline{z_1 + z_2} = 2 - 2i$$
 
@@ -547,7 +563,7 @@ Therefore, for a non-zero complex number $z$, $\\frac{1}{z}$ is the multiplicati
   $$\\begin{aligned}
   \\bar{z}_1 + \\bar{z}_2 &= (3 + 2i) + (-1 - 4i) \\\\
   &= 2 - 2i
-  \\end{aligned}$$
+  \\\end{aligned}$$
   Since both sides are equal, the statement is verified.
 
 - **(b) $\\overline{z_1 z_2} = \\bar{z}_1 \\bar{z}_2$**
@@ -557,7 +573,7 @@ Therefore, for a non-zero complex number $z$, $\\frac{1}{z}$ is the multiplicati
   z_1 z_2 &= (3 - 2i)(-1 + 4i) \\\\
   &= -3 + 12i + 2i - 8i^2 \\\\
   &= 5 + 14i
-  \\end{aligned}$$
+  \\\end{aligned}$$
   Taking the conjugate:
   $$\\overline{z_1 z_2} = 5 - 14i$$
 
@@ -566,7 +582,7 @@ Therefore, for a non-zero complex number $z$, $\\frac{1}{z}$ is the multiplicati
   \\bar{z}_1 \\bar{z}_2 &= (3 + 2i)(-1 - 4i) \\\\
   &= -3 - 12i - 2i - 8i^2 \\\\
   &= 5 - 14i
-  \\end{aligned}$$
+  \\\end{aligned}$$
   Since both sides are equal, the statement is verified.
 
 - **(c) $\\overline{\\left(\\frac{z_1}{z_2}\\right)} = \\frac{\\bar{z}_1}{\\bar{z}_2}$**
@@ -576,7 +592,7 @@ Therefore, for a non-zero complex number $z$, $\\frac{1}{z}$ is the multiplicati
   \\frac{z_1}{z_2} &= \\frac{3 - 2i}{-1 + 4i} \\cdot \\frac{-1 - 4i}{-1 - 4i} \\\\
   &= \\frac{-11 - 10i}{17} \\\\
   &= -\\frac{11}{17} - \\frac{10}{17}i
-  \\end{aligned}$$
+  \\\end{aligned}$$
   Taking the conjugate:
   $$\\overline{\\left(\\frac{z_1}{z_2}\\right)} = -\\frac{11}{17} + \\frac{10}{17}i$$
 
@@ -585,7 +601,7 @@ Therefore, for a non-zero complex number $z$, $\\frac{1}{z}$ is the multiplicati
   \\frac{\\bar{z}_1}{\\bar{z}_2} &= \\frac{3 + 2i}{-1 - 4i} \\cdot \\frac{-1 + 4i}{-1 + 4i} \\\\
   &= \\frac{-11 + 10i}{17} \\\\
   &= -\\frac{11}{17} + \\frac{10}{17}i
-  \\end{aligned}$$
+  \\\end{aligned}$$
   Since both sides are equal, the statement is verified.
 
 ---
@@ -611,6 +627,8 @@ This is called the **trigonometric form** or **polar form** of $z$.
 
 **Example 5.** Find the trigonometric form with $-\\pi < \\theta \\le \\pi$ for:
 - **(a) $z = 1 + \\sqrt{3}i$**
+  **Solution.**
+  The point is in the first quadrant: $P(1, \\sqrt{3})$.
   $$\\begin{aligned}
   r &= \\sqrt{1^2 + (\\sqrt{3})^2} = 2 \\\\
   \\cos \\theta &= \\frac{1}{2}, \\quad \\sin \\theta = \\frac{\\sqrt{3}}{2} \\implies \\theta = \\frac{\\pi}{3} \\\\
@@ -619,6 +637,8 @@ This is called the **trigonometric form** or **polar form** of $z$.
   [DIAGRAM: ArgandExample5a]
 
 - **(b) $z = -1 + i$**
+  **Solution.**
+  The point is in the second quadrant: $P(-1, 1)$.
   $$\\begin{aligned}
   r &= \\sqrt{(-1)^2 + 1^2} = \\sqrt{2} \\\\
   \\cos \\theta &= -\\frac{\\sqrt{2}}{2}, \\quad \\sin \\theta = \\frac{\\sqrt{2}}{2} \\implies \\theta = \\frac{3\\pi}{4} \\\\
@@ -627,6 +647,8 @@ This is called the **trigonometric form** or **polar form** of $z$.
   [DIAGRAM: ArgandExample5b]
 
 - **(c) $z = -\\sqrt{3} - i$**
+  **Solution.**
+  The point is in the third quadrant: $P(-\\sqrt{3}, -1)$.
   $$\\begin{aligned}
   r &= \\sqrt{(-\\sqrt{3})^2 + (-1)^2} = 2 \\\\
   \\cos \\theta &= -\\frac{\\sqrt{3}}{2}, \\quad \\sin \\theta = -\\frac{1}{2} \\implies \\theta = -\\frac{5\\pi}{6} \\\\
@@ -635,6 +657,8 @@ This is called the **trigonometric form** or **polar form** of $z$.
   [DIAGRAM: ArgandExample5c]
 
 - **(d) $z = -1$**
+  **Solution.**
+  The point lies on the negative real axis: $P(-1, 0)$.
   $$\\begin{aligned}
   r &= \\sqrt{(-1)^2 + 0^2} = 1 \\\\
   \\cos \\theta &= -1, \\quad \\sin \\theta = 0 \\implies \\theta = \\pi \\\\
@@ -642,206 +666,369 @@ This is called the **trigonometric form** or **polar form** of $z$.
   \\end{aligned}$$
   [DIAGRAM: ArgandExample5d]
 
-#### Operations in Trigonometric Form
-Let $z_1 = r_1(\\cos \\theta_1 + i \\sin \\theta_1)$ and $z_2 = r_2(\\cos \\theta_2 + i \\sin \\theta_2)$.
+#### Product in Trigonometric Form
+Let $z_1 = r_1(\\cos \\theta_1 + i \\sin \\theta_1)$ and $z_2 = r_2(\\cos \\theta_2 + i \\sin \\theta_2)$. Then their product is:
+$$\\begin{aligned}
+z_1 z_2 &= r_1 (\\cos \\theta_1 + i \\sin \\theta_1) r_2 (\\cos \\theta_2 + i \\sin \\theta_2) \\\\
+&= r_1 r_2 ((\\cos \\theta_1 \\cos \\theta_2 - \\sin \\theta_1 \\sin \\theta_2) + i(\\sin \\theta_1 \\cos \\theta_2 + \\cos \\theta_1 \\sin \\theta_2)) \\\\
+&= r_1 r_2 (\\cos(\\theta_1 + \\theta_2) + i \\sin(\\theta_1 + \\theta_2))
+\\end{aligned}$$
 
-1. **Product in Trigonometric Form:**
-   $$z_1 z_2 = r_1 r_2 (\\cos(\\theta_1 + \\theta_2) + i \\sin(\\theta_1 + \\theta_2))$$
+> **Product Rule:**
+> $$z_1 z_2 = r_1 r_2 (\\cos(\\theta_1 + \\theta_2) + i \\sin(\\theta_1 + \\theta_2))$$
 
-2. **Multiplicative Inverse:**
-   $$z^{-1} = \\frac{1}{r} (\\cos(-\\theta) + i \\sin(-\\theta))$$
-
-3. **Division in Trigonometric Form:**
-   $$\\frac{z_1}{z_2} = \\frac{r_1}{r_2} (\\cos(\\theta_1 - \\theta_2) + i \\sin(\\theta_1 - \\theta_2))$$
-
-4. **Power of Complex Numbers (De Moivre's Formula):**
-   $$z^n = r^n (\\cos n\\theta + i \\sin n\\theta), \\quad n \\in \\mathbb{N}$$
-
-**Example 6.** Given $z_1 = 1 + \\sqrt{3}i$ and $z_2 = -1 + i$, find $z_1 z_2$ by using trigonometric forms.
+**Example 6.** Given $z_1 = 1 + \\sqrt{3}i$ and $z_2 = -1 + i$, find $z_1 z_2$ by using trigonometric forms. Check your answer by direct multiplication.
 **Solution.**
-  $$\\begin{aligned}
-  z_1 z_2 &= 2\\sqrt{2}\\left(\\cos\\left(\\frac{\\pi}{3} + \\frac{3\\pi}{4}\\right) + i \\sin\\left(\\frac{\\pi}{3} + \\frac{3\\pi}{4}\\right)\\right) \\\\
-  &= 2\\sqrt{2}\\left(\\cos \\frac{13\\pi}{12} + i \\sin \\frac{13\\pi}{12}\\right) \\\\
-  &= 2\\sqrt{2}\\left(\\cos\\left(-\\frac{11\\pi}{12}\\right) + i \\sin\\left(-\\frac{11\\pi}{12}\\right)\\right) \\\\
-  &= -(1 + \\sqrt{3}) + (1 - \\sqrt{3})i
-  \\end{aligned}$$
-**Example 7.** Find $z^{-1}$ for $z = -\\sqrt{3} - i$.
+Expressing $z_1$ and $z_2$ in trigonometric form from Example 5:
+$$z_1 = 2\\left(\\cos \\frac{\\pi}{3} + i \\sin \\frac{\\pi}{3}\\right), \\quad z_2 = \\sqrt{2}\\left(\\cos \\frac{3\\pi}{4} + i \\sin \\frac{3\\pi}{4}\\right)$$
+Using the product formula:
+$$\\begin{aligned}
+z_1 z_2 &= 2\\sqrt{2}\\left(\\cos\\left(\\frac{\\pi}{3} + \\frac{3\\pi}{4}\\right) + i \\sin\\left(\\frac{\\pi}{3} + \\frac{3\\pi}{4}\\right)\\right) \\\\
+&= 2\\sqrt{2}\\left(\\cos \\frac{13\\pi}{12} + i \\sin \\frac{13\\pi}{12}\\right)
+\\end{aligned}$$
+Since $\\frac{13\\pi}{12} > \\pi$, we find the principal argument by subtracting $2\\pi$:
+$$\\theta = \\frac{13\\pi}{12} - 2\\pi = -\\frac{11\\pi}{12}$$
+Thus:
+$$z_1 z_2 = 2\\sqrt{2}\\left(\\cos\\left(-\\frac{11\\pi}{12}\\right) + i \\sin\\left(-\\frac{11\\pi}{12}\\right)\\right) = -(1 + \\sqrt{3}) + (1 - \\sqrt{3})i$$
+
+**Check by direct multiplication:**
+$$\\begin{aligned}
+z_1 z_2 &= (1 + \\sqrt{3}i)(-1 + i) \\\\
+&= -1 + i - \\sqrt{3}i + \\sqrt{3}i^2 \\\\
+&= -(1 + \\sqrt{3}) + (1 - \\sqrt{3})i
+\\end{aligned}$$
+Both methods yield the same result, confirming the calculation.
+
+#### Multiplicative Inverse in Trigonometric Form
+Let $z = x + yi$ be a non-zero complex number ($z \\neq 0$). Its multiplicative inverse in Cartesian form is:
+$$z^{-1} = \\frac{x}{x^2 + y^2} - \\frac{y}{x^2 + y^2}i = \\frac{1}{x^2 + y^2}(x - yi)$$
+Since $r^2 = x^2 + y^2$, $x = r\\cos\\theta$, and $y = r\\sin\\theta$:
+$$\\begin{aligned}
+z^{-1} &= \\frac{1}{r^2}(r \\cos \\theta - i r \\sin \\theta) \\\\
+&= \\frac{1}{r}(\\cos \\theta - i \\sin \\theta) \\\\
+&= \\frac{1}{r}(\\cos(-\\theta) + i \\sin(-\\theta))
+\\end{aligned}$$
+
+> **Multiplicative Inverse Rule:**
+> $$z^{-1} = \\frac{1}{r} (\\cos(-\\theta) + i \\sin(-\\theta))$$
+
+**Example 7.** Given $z = -\\sqrt{3} - i$, find $z^{-1}$ using the trigonometric form of $z$. Check your answer by showing that $z z^{-1} = 1$.
 **Solution.**
-  $$\\begin{aligned}
-  z &= 2\\left(\\cos\\left(-\\frac{5\\pi}{6}\\right) + i \\sin\\left(-\\frac{5\\pi}{6}\\right)\\right) \\\\
-  z^{-1} &= \\frac{1}{2}\\left(\\cos\\left(\\frac{5\\pi}{6}\\right) + i \\sin\\left(\\frac{5\\pi}{6}\\right)\\right) \\\\
-  &= -\\frac{\\sqrt{3}}{4} + \\frac{1}{4}i
-  \\end{aligned}$$
-**Example 8.** Find $\\frac{z_1}{z_2}$ for $z_1 = 1 + \\sqrt{3}i$ and $z_2 = -1 + i$.
+In Example 5(c), we found the trigonometric form of $z = -\\sqrt{3} - i$:
+$$z = 2\\left(\\cos\\left(-\\frac{5\\pi}{6}\\right) + i \\sin\\left(-\\frac{5\\pi}{6}\\right)\\right)$$
+Using the multiplicative inverse formula:
+$$\\begin{aligned}
+z^{-1} &= \\frac{1}{2}\\left(\\cos\\left(-\\left(-\\frac{5\\pi}{6}\\right)\\right) + i \\sin\\left(-\\left(-\\frac{5\\pi}{6}\\right)\\right)\\right) \\\\
+&= \\frac{1}{2}\\left(\\cos\\left(\\frac{5\\pi}{6}\\right) + i \\sin\\left(\\frac{5\\pi}{6}\\right)\\right) \\\\
+&= \\frac{1}{2}\\left(-\\frac{\\sqrt{3}}{2} + \\frac{1}{2}i\\right) \\\\
+&= -\\frac{\\sqrt{3}}{4} + \\frac{1}{4}i
+\\end{aligned}$$
+
+**Check:**
+$$\\begin{aligned}
+z z^{-1} &= (-\\sqrt{3} - i)\\left(-\\frac{\\sqrt{3}}{4} + \\frac{1}{4}i\\right) \\\\
+&= \\frac{3}{4} - \\frac{\\sqrt{3}}{4}i + \\frac{\\sqrt{3}}{4}i - \\frac{1}{4}i^2 \\\\
+&= \\frac{3}{4} - \\left(-\\frac{1}{4}\\right) \\\\
+&= 1
+\\end{aligned}$$
+Since $z z^{-1} = 1$, the multiplicative inverse of $z$ is indeed $z^{-1}$.
+
+#### Division in Trigonometric Form
+Let $z_1 = r_1(\\cos \\theta_1 + i \\sin \\theta_1)$ and $z_2 = r_2(\\cos \\theta_2 + i \\sin \\theta_2)$, where $z_2 \\neq 0$. Then:
+$$\\begin{aligned}
+\\frac{z_1}{z_2} &= z_1 z_2^{-1} \\\\
+&= r_1(\\cos \\theta_1 + i \\sin \\theta_1) \\cdot \\frac{1}{r_2}(\\cos(-\\theta_2) + i \\sin(-\\theta_2)) \\\\
+&= \\frac{r_1}{r_2}((\\cos \\theta_1 + i \\sin \\theta_1)(\\cos(-\\theta_2) + i \\sin(-\\theta_2))) \\\\
+&= \\frac{r_1}{r_2}(\\cos(\\theta_1 - \\theta_2) + i \\sin(\\theta_1 - \\theta_2))
+\\end{aligned}$$
+
+> **Division Rule:**
+> $$\\frac{z_1}{z_2} = \\frac{r_1}{r_2} (\\cos(\\theta_1 - \\theta_2) + i \\sin(\\theta_1 - \\theta_2))$$
+
+**Example 8.** Given $z_1 = 1 + \\sqrt{3}i$ and $z_2 = -1 + i$, find $\\frac{z_1}{z_2}$ by using trigonometric form. Check your answer by direct calculation.
 **Solution.**
-  $$\\begin{aligned}
-  \\frac{z_1}{z_2} &= \\frac{2}{\\sqrt{2}}\\left(\\cos\\left(\\frac{\\pi}{3} - \\frac{3\\pi}{4}\\right) + i \\sin\\left(\\frac{\\pi}{3} - \\frac{3\\pi}{4}\\right)\\right) \\\\
-  &= \\sqrt{2}\\left( \\cos\\left(-\\frac{5\\pi}{12}\\right) + i \\sin\\left(-\\frac{5\\pi}{12}\\right) \\right) \\\\
-  &= \\frac{\\sqrt{3}-1}{2} - \\frac{\\sqrt{3}+1}{2}i
-  \\end{aligned}$$
-**Example 9.** Find $z^{10}$ and $z^{-10}$ for $z = 1 + \\sqrt{3}i$.
+Using the trigonometric forms:
+$$z_1 = 2\\left(\\cos \\frac{\\pi}{3} + i \\sin \\frac{\\pi}{3}\\right), \\quad z_2 = \\sqrt{2}\\left(\\cos \\frac{3\\pi}{4} + i \\sin \\frac{3\\pi}{4}\\right)$$
+Applying the division formula:
+$$\\begin{aligned}
+\\frac{z_1}{z_2} &= \\frac{2}{\\sqrt{2}}\\left(\\cos\\left(\\frac{\\pi}{3} - \\frac{3\\pi}{4}\\right) + i \\sin\\left(\\frac{\\pi}{3} - \\frac{3\\pi}{4}\\right)\\right) \\\\
+&= \\sqrt{2}\\left( \\cos\\left(-\\frac{5\\pi}{12}\\right) + i \\sin\\left(-\\frac{5\\pi}{12}\\right) \\right) \\\\
+&= \\sqrt{2}\\left(\\frac{\\sqrt{6} - \\sqrt{2}}{4} - \\frac{\\sqrt{6} + \\sqrt{2}}{4}i\\right) \\\\
+&= \\frac{\\sqrt{3}-1}{2} - \\frac{\\sqrt{3}+1}{2}i
+\\end{aligned}$$
+
+**Check by direct calculation:**
+$$\\begin{aligned}
+\\frac{z_1}{z_2} &= \\frac{1 + \\sqrt{3}i}{-1 + i} \\\\
+&= \\frac{(1 + \\sqrt{3}i)(-1 - i)}{(-1 + i)(-1 - i)} \\\\
+&= \\frac{-1 - i - \\sqrt{3}i - \\sqrt{3}i^2}{1^2 + 1^2} \\\\
+&= \\frac{(\\sqrt{3} - 1) - (1 + \\sqrt{3})i}{2} \\\\
+&= \\frac{\\sqrt{3}-1}{2} - \\frac{\\sqrt{3}+1}{2}i
+\\end{aligned}$$
+Both methods give the exact same result.
+
+#### Power of Complex Numbers (De Moivre's Formula)
+Let $z = r(\\cos \\theta + i \\sin \\theta)$. For any positive integer $n$:
+$$z^n = (r(\\cos \\theta + i \\sin \\theta))^n = r^n(\\cos n\\theta + i \\sin n\\theta)$$
+Thus, to find the $n$-th power of a complex number in trigonometric form, we raise the modulus to the $n$-th power and multiply the argument by $n$.
+
+> **De Moivre's Theorem:**
+> $$z^n = r^n (\\cos n\\theta + i \\sin n\\theta), \\quad n \\in \\mathbb{N}$$
+
+**Example 9.** Given $z = 1 + \\sqrt{3}i$, find **(a)** $z^{10}$, **(b)** $z^{-10}$.
 **Solution.**
-  $$\\begin{aligned}
-  z^{10} &= 2^{10}\\left(\\cos \\frac{10\\pi}{3} + i \\sin \\frac{10\\pi}{3}\\right) \\\\
-  &= 1024\\left(-\\frac{1}{2} - \\frac{\\sqrt{3}}{2}i\\right) \\\\
-  &= -512 - 512\\sqrt{3}i
-  \\end{aligned}$$
-  and:
-  $$\\begin{aligned}
-  z^{-10} &= 2^{-10}\\left(\\cos\\left(-\\frac{10\\pi}{3}\\right) + i \\sin\\left(-\\frac{10\\pi}{3}\\right)\\right) \\\\
-  &= -\\frac{1}{2048} + \\frac{\\sqrt{3}}{2048}i
-  \\end{aligned}$$
+The trigonometric form of $z = 1 + \\sqrt{3}i$ is:
+$$z = 2\\left(\\cos \\frac{\\pi}{3} + i \\sin \\frac{\\pi}{3}\\right)$$
+
+**(a)** Applying De Moivre's Theorem for $n = 10$:
+$$\\begin{aligned}
+z^{10} &= 2^{10}\\left(\\cos \\frac{10\\pi}{3} + i \\sin \\frac{10\\pi}{3}\\right) \\\\
+&= 1024\\left(-\\frac{1}{2} - \\frac{\\sqrt{3}}{2}i\\right) \\\\
+&= -512 - 512\\sqrt{3}i
+\\end{aligned}$$
+
+**(b)** For $n = -10$:
+$$\\begin{aligned}
+z^{-10} &= 2^{-10}\\left(\\cos\\left(-\\frac{10\\pi}{3}\\right) + i \\sin\\left(-\\frac{10\\pi}{3}\\right)\\right) \\\\
+&= \\frac{1}{1024}\\left(-\\frac{1}{2} + \\frac{\\sqrt{3}}{2}i\\right) \\\\
+&= -\\frac{1}{2048} + \\frac{\\sqrt{3}}{2048}i
+\\end{aligned}$$
 ---
 
 ### Exercise 1.4 Solutions
-**1. Find the trigonometric form with $-\pi < \\theta \\le \\pi$ for:**
+**1. Find the trigonometric form with $-\\pi < \\theta \\le \\pi$ for:**
 - **(a) $z = 1 - \\sqrt{3}i$**
   **Solution.**
+  The point is in the fourth quadrant: $P(1, -\\sqrt{3})$.
   $$\\begin{aligned}
-  r &= 2 \\\\
-  \\theta &= -\\frac{\\pi}{3} \\\\
+  r &= \\sqrt{1^2 + (-\\sqrt{3})^2} = 2 \\\\
+  \\cos \\theta &= \\frac{1}{2}, \\quad \\sin \\theta = -\\frac{\\sqrt{3}}{2} \\implies \\theta = -\\frac{\\pi}{3} \\\\
   z &= 2\\left(\\cos\\left(-\\frac{\\pi}{3}\\right) + i \\sin\\left(-\\frac{\\pi}{3}\\right)\\right)
   \\end{aligned}$$
 
+  [DIAGRAM: ArgandEx1_4_1a]
+
 - **(b) $z = -\\sqrt{2} + \\sqrt{2}i$**
   **Solution.**
+  The point is in the second quadrant: $P(-\\sqrt{2}, \\sqrt{2})$.
   $$\\begin{aligned}
-  r &= 2 \\\\
-  \\theta &= \\frac{3\\pi}{4} \\\\
+  r &= \\sqrt{(-\\sqrt{2})^2 + (\\sqrt{2})^2} = \\sqrt{2+2} = 2 \\\\
+  \\cos \\theta &= -\\frac{\\sqrt{2}}{2}, \\quad \\sin \\theta = \\frac{\\sqrt{2}}{2} \\implies \\theta = \\frac{3\\pi}{4} \\\\
   z &= 2\\left(\\cos \\frac{3\\pi}{4} + i \\sin \\frac{3\\pi}{4}\\right)
   \\end{aligned}$$
 
+  [DIAGRAM: ArgandEx1_4_1b]
+
 - **(c) $z = -2 - 2i$**
   **Solution.**
+  The point is in the third quadrant: $P(-2, -2)$.
   $$\\begin{aligned}
-  r &= 2\\sqrt{2} \\\\
-  \\theta &= -\\frac{3\\pi}{4} \\\\
+  r &= \\sqrt{(-2)^2 + (-2)^2} = 2\\sqrt{2} \\\\
+  \\cos \\theta &= -\\frac{\\sqrt{2}}{2}, \\quad \\sin \\theta = -\\frac{\\sqrt{2}}{2} \\implies \\theta = -\\frac{3\\pi}{4} \\\\
   z &= 2\\sqrt{2}\\left(\\cos\\left(-\\frac{3\\pi}{4}\\right) + i \\sin\\left(-\\frac{3\\pi}{4}\\right)\\right)
   \\end{aligned}$$
 
+  [DIAGRAM: ArgandEx1_4_1c]
+
 - **(d) $z = \\sqrt{3} - i$**
   **Solution.**
+  The point is in the fourth quadrant: $P(\\sqrt{3}, -1)$.
   $$\\begin{aligned}
-  r &= 2 \\\\
-  \\theta &= -\\frac{\\pi}{6} \\\\
+  r &= \\sqrt{(\\sqrt{3})^2 + (-1)^2} = 2 \\\\
+  \\cos \\theta &= \\frac{\\sqrt{3}}{2}, \\quad \\sin \\theta = -\\frac{1}{2} \\implies \\theta = -\\frac{\\pi}{6} \\\\
   z &= 2\\left(\\cos\\left(-\\frac{\\pi}{6}\\right) + i \\sin\\left(-\\frac{\\pi}{6}\\right)\\right)
   \\end{aligned}$$
 
+  [DIAGRAM: ArgandEx1_4_1d]
+
 - **(e) $z = i$**
   **Solution.**
+  The point lies on the positive imaginary axis: $P(0, 1)$.
   $$\\begin{aligned}
-  r &= 1 \\\\
-  \\theta &= \\frac{\\pi}{2} \\\\
+  r &= \\sqrt{0^2 + 1^2} = 1 \\\\
+  \\cos \\theta &= 0, \\quad \\sin \\theta = 1 \\implies \\theta = \\frac{\\pi}{2} \\\\
   z &= 1\\left(\\cos \\frac{\\pi}{2} + i \\sin \\frac{\\pi}{2}\\right)
   \\end{aligned}$$
 
+  [DIAGRAM: ArgandEx1_4_1e]
+
 - **(f) $z = -3i$**
   **Solution.**
+  The point lies on the negative imaginary axis: $P(0, -3)$.
   $$\\begin{aligned}
-  r &= 3 \\\\
-  \\theta &= -\\frac{\\pi}{2} \\\\
+  r &= \\sqrt{0^2 + (-3)^2} = 3 \\\\
+  \\cos \\theta &= 0, \\quad \\sin \\theta = -1 \\implies \\theta = -\\frac{\\pi}{2} \\\\
   z &= 3\\left(\\cos\\left(-\\frac{\\pi}{2}\\right) + i \\sin\\left(-\\frac{\\pi}{2}\\right)\\right)
   \\end{aligned}$$
+
+  [DIAGRAM: ArgandEx1_4_1f]
+
 **2. Given $z_1 = 2 - 2\\sqrt{3}i$ and $z_2 = -1 - i$, find the following using trigonometric forms. Check by direct calculation.**
-Trig forms: $z_1 = 4\\left(\\cos\\left(-\\frac{\\pi}{3}\\right) + i \\sin\\left(-\\frac{\\pi}{3}\\right)\\right)$, $z_2 = \\sqrt{2}\\left(\\cos\\left(-\\frac{3\\pi}{4}\\right) + i \\sin\\left(-\\frac{3\\pi}{4}\\right)\\right)$
+First, we find the trigonometric forms of $z_1$ and $z_2$:
+- For $z_1 = 2 - 2\\sqrt{3}i$:
+  $$r_1 = \\sqrt{2^2 + (-2\\sqrt{3})^2} = \\sqrt{4+12} = 4$$
+  $$\\cos \\theta_1 = \\frac{1}{2}, \\quad \\sin \\theta_1 = -\\frac{\\sqrt{3}}{2} \\implies \\theta_1 = -\\frac{\\pi}{3}$$
+  $$z_1 = 4\\left(\\cos\\left(-\\frac{\\pi}{3}\\right) + i \\sin\\left(-\\frac{\\pi}{3}\\right)\\right)$$
+- For $z_2 = -1 - i$:
+  $$r_2 = \\sqrt{(-1)^2 + (-1)^2} = \\sqrt{2}$$
+  $$\\cos \\theta_2 = -\\frac{\\sqrt{2}}{2}, \\quad \\sin \\theta_2 = -\\frac{\\sqrt{2}}{2} \\implies \\theta_2 = -\\frac{3\\pi}{4}$$
+  $$z_2 = \\sqrt{2}\\left(\\cos\\left(-\\frac{3\\pi}{4}\\right) + i \\sin\\left(-\\frac{3\\pi}{4}\\right)\\right)$$
+
 - **(a) $z_1 z_2$**
   **Solution.**
   $$\\begin{aligned}
-  z_1 z_2 &= 4\\sqrt{2}\\left(\\cos\\left(-\\frac{13\\pi}{12}\\right) + i \\sin\\left(-\\frac{13\\pi}{12}\\right)\\right) \\\\
+  z_1 z_2 &= 4\\sqrt{2}\\left(\\cos\\left(-\\frac{\\pi}{3} + \\left(-\\frac{3\\pi}{4}\\right)\\right) + i \\sin\\left(-\\frac{\\pi}{3} + \\left(-\\frac{3\\pi}{4}\\right)\\right)\\right) \\\\
+  &= 4\\sqrt{2}\\left(\\cos\\left(-\\frac{13\\pi}{12}\\right) + i \\sin\\left(-\\frac{13\\pi}{12}\\right)\\right) \\\\
+  &= 4\\sqrt{2}\\left(\\cos \\frac{11\\pi}{12} + i \\sin \\frac{11\\pi}{12}\\right) \\\\
   &= -(2 + 2\\sqrt{3}) + (2\\sqrt{3} - 2)i
   \\end{aligned}$$
+  
+  **Check by direct calculation:**
+  $$\\begin{aligned}
+  z_1 z_2 &= (2 - 2\\sqrt{3}i)(-1 - i) \\\\
+  &= -2 - 2i + 2\\sqrt{3}i + 2\\sqrt{3}i^2 \\\\
+  &= -2 - 2\\sqrt{3} + (2\\sqrt{3} - 2)i \\\\
+  &= -(2 + 2\\sqrt{3}) + (2\\sqrt{3} - 2)i
+  \\end{aligned}$$
+
 - **(b) $z_1^{-1}$**
   **Solution.**
   $$\\begin{aligned}
-  z_1^{-1} &= \\frac{1}{4}\\left(\\cos \\frac{\\pi}{3} + i \\sin \\frac{\\pi}{3}\\right) \\\\
+  z_1^{-1} &= \\frac{1}{4}\\left(\\cos\\left(-\\left(-\\frac{\\pi}{3}\\right)\\right) + i \\sin\\left(-\\left(-\\frac{\\pi}{3}\\right)\\right)\\right) \\\\
+  &= \\frac{1}{4}\\left(\\cos \\frac{\\pi}{3} + i \\sin \\frac{\\pi}{3}\\right) \\\\
+  &= \\frac{1}{4}\\left(\\frac{1}{2} + \\frac{\\sqrt{3}}{2}i\\right) \\\\
   &= \\frac{1}{8} + \\frac{\\sqrt{3}}{8}i
   \\end{aligned}$$
+  
+  **Check by direct calculation:**
+  $$\\begin{aligned}
+  z_1^{-1} &= \\frac{1}{2 - 2\\sqrt{3}i} \\\\
+  &= \\frac{2 + 2\\sqrt{3}i}{(2 - 2\\sqrt{3}i)(2 + 2\\sqrt{3}i)} \\\\
+  &= \\frac{2 + 2\\sqrt{3}i}{4 + 12} \\\\
+  &= \\frac{2 + 2\\sqrt{3}i}{16} \\\\
+  &= \\frac{1}{8} + \\frac{\\sqrt{3}}{8}i
+  \\end{aligned}$$
+
 - **(c) $\\frac{z_1}{z_2}$**
   **Solution.**
   $$\\begin{aligned}
-  \\frac{z_1}{z_2} &= 2\\sqrt{2}\\left(\\cos \\frac{5\\pi}{12} + i \\sin \\frac{5\\pi}{12}\\right) \\\\
+  \\frac{z_1}{z_2} &= \\frac{4}{\\sqrt{2}}\\left(\\cos\\left(-\\frac{\\pi}{3} - \\left(-\\frac{3\\pi}{4}\\right)\\right) + i \\sin\\left(-\\frac{\\pi}{3} - \\left(-\\frac{3\\pi}{4}\\right)\\right)\\right) \\\\
+  &= 2\\sqrt{2}\\left(\\cos\\left(-\\frac{\\pi}{3} + \\frac{3\\pi}{4}\\right) + i \\sin\\left(-\\frac{\\pi}{3} + \\frac{3\\pi}{4}\\right)\\right) \\\\
+  &= 2\\sqrt{2}\\left(\\cos \\frac{5\\pi}{12} + i \\sin \\frac{5\\pi}{12}\\right) \\\\
   &= \\sqrt{3}-1 + (\\sqrt{3}+1)i
   \\end{aligned}$$
+  
+  **Check by direct calculation:**
+  $$\\begin{aligned}
+  \\frac{z_1}{z_2} &= \\frac{2 - 2\\sqrt{3}i}{-1 - i} \\\\
+  &= \\frac{(2 - 2\\sqrt{3}i)(-1 + i)}{(-1 - i)(-1 + i)} \\\\
+  &= \\frac{-2 + 2i + 2\\sqrt{3}i - 2\\sqrt{3}i^2}{1^2 + (-1)^2} \\\\
+  &= \\frac{(-2 + 2\\sqrt{3}) + (2 + 2\\sqrt{3})i}{2} \\\\
+  &= \\sqrt{3}-1 + (\\sqrt{3}+1)i
+  \\end{aligned}$$
+
 - **(d) $\\frac{z_2}{z_1}$**
   **Solution.**
   $$\\begin{aligned}
-  \\frac{z_2}{z_1} &= \\frac{\\sqrt{2}}{4}\\left(\\cos\\left(-\\frac{5\\pi}{12}\\right) + i \\sin\\left(-\\frac{5\\pi}{12}\\right)\\right) \\\\
+  \\frac{z_2}{z_1} &= \\frac{\\sqrt{2}}{4}\\left(\\cos\\left(-\\frac{3\\pi}{4} - \\left(-\\frac{\\pi}{3}\\right)\\right) + i \\sin\\left(-\\frac{3\\pi}{4} - \\left(-\\frac{\\pi}{3}\\right)\\right)\\right) \\\\
+  &= \\frac{\\sqrt{2}}{4}\\left(\\cos\\left(-\\frac{5\\pi}{12}\\right) + i \\sin\\left(-\\frac{5\\pi}{12}\\right)\\right) \\\\
   &= \\frac{\\sqrt{3}-1}{8} - \\frac{\\sqrt{3}+1}{8}i
   \\end{aligned}$$
+  
+  **Check by direct calculation:**
+  $$\\begin{aligned}
+  \\frac{z_2}{z_1} &= \\frac{-1 - i}{2 - 2\\sqrt{3}i} \\\\
+  &= \\frac{(-1 - i)(2 + 2\\sqrt{3}i)}{(2 - 2\\sqrt{3}i)(2 + 2\\sqrt{3}i)} \\\\
+  &= \\frac{-2 - 2\\sqrt{3}i - 2i - 2\\sqrt{3}i^2}{16} \\\\
+  &= \\frac{(2\\sqrt{3} - 2) - (2\\sqrt{3} + 2)i}{16} \\\\
+  &= \\frac{\\sqrt{3}-1}{8} - \\frac{\\sqrt{3}+1}{8}i
+  \\end{aligned}$$
+
 **3. Given $z = -2\\sqrt{3} - 2i$, find:**
 Trig form: $z = 4\\left(\\cos\\left(-\\frac{5\\pi}{6}\\right) + i \\sin\\left(-\\frac{5\\pi}{6}\\right)\\right)$
 - **(a) $z^5$**
   **Solution.**
+  Using De Moivre's Theorem:
   $$\\begin{aligned}
-  z^5 &= 1024\\left(\\cos\\left(-\\frac{25\\pi}{6}\\right) + i \\sin\\left(-\\frac{25\\pi}{6}\\right)\\right) \\\\
+  z^5 &= 4^5\\left(\\cos\\left(5\\left(-\\frac{5\\pi}{6}\\right)\\right) + i \\sin\\left(5\\left(-\\frac{5\\pi}{6}\\right)\\right)\\right) \\\\
+  &= 1024\\left(\\cos\\left(-\\frac{25\\pi}{6}\\right) + i \\sin\\left(-\\frac{25\\pi}{6}\\right)\\right) \\\\
   &= 1024\\left(\\cos\\left(-\\frac{\\pi}{6}\\right) + i \\sin\\left(-\\frac{\\pi}{6}\\right)\\right) \\\\
+  &= 1024\\left(\\frac{\\sqrt{3}}{2} - \\frac{1}{2}i\\right) \\\\
   &= 512\\sqrt{3} - 512i
   \\end{aligned}$$
+
 - **(b) $z^{-5}$**
   **Solution.**
+  Using De Moivre's Theorem:
   $$\\begin{aligned}
-  z^{-5} &= \\frac{1}{1024}\\left(\\cos \\frac{\\pi}{6} + i \\sin \\frac{\\pi}{6}\\right) \\\\
+  z^{-5} &= 4^{-5}\\left(\\cos\\left(-5\\left(-\\frac{5\\pi}{6}\\right)\\right) + i \\sin\\left(-5\\left(-\\frac{5\\pi}{6}\\right)\\right)\\right) \\\\
+  &= \\frac{1}{1024}\\left(\\cos \\frac{25\\pi}{6} + i \\sin \\frac{25\\pi}{6}\\right) \\\\
+  &= \\frac{1}{1024}\\left(\\cos \\frac{\\pi}{6} + i \\sin \\frac{\\pi}{6}\\right) \\\\
+  &= \\frac{1}{1024}\\left(\\frac{\\sqrt{3}}{2} + \\frac{1}{2}i\\right) \\\\
   &= \\frac{\\sqrt{3}}{2048} + \\frac{1}{2048}i
   \\end{aligned}$$
----
-
 ### 1.5 Roots of Complex Numbers
-Let $n \\in \\mathbb{N}$, $n \\ge 2$, and $z \\neq 0$ where $z = r(\\cos \\theta + i \\sin \\theta)$.
-The $n$ distinct $n$-th roots of $z$ are given by De Moivre's Formula:
-$$w_k = \\sqrt[n]{r} \\left( \\cos \\frac{\\theta + 2k\\pi}{n} + i \\sin \\frac{\\theta + 2k\\pi}{n} \\right) \\quad \\text{for } k = 0, 1, 2, \\dots, n - 1$$
+
+**Think:**
+$$\\sqrt[3]{8} = 2 \\iff 2^3 = 8$$
+$$\\sqrt[5]{243} = 3 \\iff 3^5 = 243$$
+$$\\sqrt{z} = w \\iff w^2 = z$$
+
+Let $n \\in \\mathbb{N}$, $n \\ge 2$, and $z \\neq 0$.
+$$z = r(\\cos \\theta + i \\sin \\theta), \\quad r > 0.$$
+Note: If $z = 0$, then its only $n^{\\text{th}}$ root is 0.
+Since $w^n = z$,
+$$w^n = r(\\cos \\theta + i \\sin \\theta).$$
+Since all angles $\\theta + 2k\\pi$, where $k \\in \\mathbb{Z}$, represent the same complex number,
+$$w^n = r(\\cos(\\theta + 2k\\pi) + i \\sin(\\theta + 2k\\pi)).$$
+The modulus of each root must be $\\sqrt[n]{r}$, and its argument must be $\\frac{\\theta + 2k\\pi}{n}$. Indeed,
+$$\\left[ \\sqrt[n]{r} \\left( \\cos\\frac{\\theta + 2k\\pi}{n} + i\\sin\\frac{\\theta + 2k\\pi}{n} \\right) \\right]^n$$
+$$= r(\\cos(\\theta + 2k\\pi) + i\\sin(\\theta + 2k\\pi)) = z.$$
+Therefore, by De Moivre's formula,
+$$w_k = \\sqrt[n]{r} \\left( \\cos\\frac{\\theta + 2k\\pi}{n} + i\\sin\\frac{\\theta + 2k\\pi}{n} \\right).$$
+Since increasing $k$ by $n$ gives the same root again, we take only $k = 0, 1, 2, \\dots, n - 1$.
 
 **Example 10.** Find the cube roots of $z = -2 - 2i$.
-**Solution.** Write $z = 2\\sqrt{2}\\left(\\cos\\left(-\\frac{3\\pi}{4}\\right) + i \\sin\\left(-\\frac{3\\pi}{4}\\right)\\right)$.
-For cube roots ($n=3$):
-  $$\\begin{aligned}
-  w_k &= \\sqrt{2}\\left( \\cos \\frac{-\\frac{3\\pi}{4} + 2k\\pi}{3} + i \\sin \\frac{-\\frac{3\\pi}{4} + 2k\\pi}{3} \\right)
-  \\end{aligned}$$
-  - **For $k=0$:**
-    $$\\begin{aligned}
-    w_0 &= \\sqrt{2}\\left(\\cos\\left(-\\frac{\\pi}{4}\\right) + i \\sin\\left(-\\frac{\\pi}{4}\\right)\\right) \\\\
-    &= 1 - i
-    \\end{aligned}$$
-  - **For $k=1$:**
-    $$\\begin{aligned}
-    w_1 &= \\sqrt{2}\\left(\\cos \\frac{5\\pi}{12} + i \\sin \\frac{5\\pi}{12}\\right) \\\\
-    &= \\frac{\\sqrt{3}-1}{2} + \\frac{\\sqrt{3}+1}{2}i
-    \\end{aligned}$$
-  - **For $k=2$:**
-    $$\\begin{aligned}
-    w_2 &= \\sqrt{2}\\left(\\cos \\frac{13\\pi}{12} + i \\sin \\frac{13\\pi}{12}\\right) \\\\
-    &= -\\frac{\\sqrt{3}+1}{2} - \\frac{\\sqrt{3}-1}{2}i
-    \\end{aligned}$$
-[DIAGRAM: RootsExample10]
+**Solution**
+$z = -2 - 2i = (-2, -2)$
+$$r = \\sqrt{(-2)^2 + (-2)^2} = 2\\sqrt{2}$$
+$$\\cos\\theta = -\\frac{\\sqrt{2}}{2} \\quad \\text{and} \\quad \\sin\\theta = -\\frac{\\sqrt{2}}{2}$$
+$$\\theta = -\\frac{3\\pi}{4}$$
+$$z = 2\\sqrt{2}\\left(\\cos\\left(-\\frac{3\\pi}{4}\\right) + i \\sin\\left(-\\frac{3\\pi}{4}\\right)\\right)$$
+For cube roots,
+$$w_k = \\sqrt{2}\\left(\\cos \\frac{-\\frac{3\\pi}{4} + 2k\\pi}{3} + i \\sin \\frac{-\\frac{3\\pi}{4} + 2k\\pi}{3}\\right), \\quad k = 0, 1, 2.$$
+Therefore, the cube roots are
+$$w_0 = \\sqrt{2}\\left(\\cos\\left(-\\frac{\\pi}{4}\\right) + i \\sin\\left(-\\frac{\\pi}{4}\\right)\\right) = 1 - i,$$
+$$w_1 = \\sqrt{2}\\left(\\cos \\frac{5\\pi}{12} + i \\sin \\frac{5\\pi}{12}\\right) = \\frac{\\sqrt{3}-1}{2} + \\frac{\\sqrt{3}+1}{2}i,$$
+$$w_2 = \\sqrt{2}\\left(\\cos \\frac{13\\pi}{12} + i \\sin \\frac{13\\pi}{12}\\right) = -\\frac{\\sqrt{3}+1}{2} - \\frac{\\sqrt{3}-1}{2}i.$$
 
 **Example 11.** Solve $z^6 = 1$. Indicate the positions of the roots on the $xy$-coordinate plane.
-**Solution.**
-  $$\\begin{aligned}
-  z &= \\sqrt[6]{1}\\left(\\cos \\frac{2k\\pi}{6} + i \\sin \\frac{2k\\pi}{6}\\right) \\quad \\text{for } k = 0, 1, 2, 3, 4, 5
-  \\end{aligned}$$
-  - **For $k=0$:**
-    $$z = 1$$
-  - **For $k=1$:**
-    $$\\begin{aligned}
-    z &= \\cos \\frac{\\pi}{3} + i \\sin \\frac{\\pi}{3} \\\\
-    &= \\frac{1}{2} + \\frac{\\sqrt{3}}{2}i
-    \\end{aligned}$$
-  - **For $k=2$:**
-    $$\\begin{aligned}
-    z &= \\cos \\frac{2\\pi}{3} + i \\sin \\frac{2\\pi}{3} \\\\
-    &= -\\frac{1}{2} + \\frac{\\sqrt{3}}{2}i
-    \\end{aligned}$$
-  - **For $k=3$:**
-    $$z = -1$$
-  - **For $k=4$:**
-    $$\\begin{aligned}
-    z &= \\cos \\frac{4\\pi}{3} + i \\sin \\frac{4\\pi}{3} \\\\
-    &= -\\frac{1}{2} - \\frac{\\sqrt{3}}{2}i
-    \\end{aligned}$$
-  - **For $k=5$:**
-    $$\\begin{aligned}
-    z &= \\cos \\frac{5\\pi}{3} + i \\sin \\frac{5\\pi}{3} \\\\
-    &= \\frac{1}{2} - \\frac{\\sqrt{3}}{2}i
-    \\end{aligned}$$
+**Solution**
+$$\\begin{aligned}
+1 &= (1, 0) \\\\
+&= 1(\\cos 0 + i \\sin 0) \\\\
+&= 1(\\cos(0 + 2k\\pi) + i \\sin(0 + 2k\\pi)), \\quad k \\in \\mathbb{Z}.
+\\end{aligned}$$
+
+$$\\begin{aligned}
+z^6 &= 1 \\\\
+z^6 &= 1(\\cos(0 + 2k\\pi) + i \\sin(0 + 2k\\pi)) \\\\
+z &= [1(\\cos(0 + 2k\\pi) + i \\sin(0 + 2k\\pi))]^{\\frac{1}{6}} \\\\
+z &= \\sqrt[6]{1}\\left(\\cos\\frac{0 + 2k\\pi}{6} + i \\sin\\frac{0 + 2k\\pi}{6}\\right), \\quad k = 0, 1, 2, \\dots, 5.
+\\end{aligned}$$
+
+- **When $k = 0$:**
+  $$z = \\cos 0 + i \\sin 0 = 1$$
+- **When $k = 1$:**
+  $$z = \\cos\\frac{\\pi}{3} + i \\sin\\frac{\\pi}{3} = \\frac{1}{2} + \\frac{\\sqrt{3}}{2}i$$
+- **When $k = 2$:**
+  $$z = \\cos\\frac{2\\pi}{3} + i \\sin\\frac{2\\pi}{3} = -\\frac{1}{2} + \\frac{\\sqrt{3}}{2}i$$
+- **When $k = 3$:**
+  $$z = \\cos\\pi + i \\sin\\pi = -1$$
+- **When $k = 4$:**
+  $$z = \\cos\\frac{4\\pi}{3} + i \\sin\\frac{4\\pi}{3} = -\\frac{1}{2} - \\frac{\\sqrt{3}}{2}i$$
+- **When $k = 5$:**
+  $$z = \\cos\\frac{5\\pi}{3} + i \\sin\\frac{5\\pi}{3} = \\frac{1}{2} - \\frac{\\sqrt{3}}{2}i$$
 [DIAGRAM: RootsUnity6]
 
 ---
@@ -856,6 +1043,7 @@ For cube roots ($n=3$):
   w_0 &= \\sqrt{2}\\left(\\cos\\frac{\\pi}{6} + i \\sin\\frac{\\pi}{6}\\right) = \\frac{\\sqrt{6}}{2} + \\frac{\\sqrt{2}}{2}i \\\\
   w_1 &= \\sqrt{2}\\left(\\cos\\frac{7\\pi}{6} + i \\sin\\frac{7\\pi}{6}\\right) = -\\frac{\\sqrt{6}}{2} - \\frac{\\sqrt{2}}{2}i
   \\end{aligned}$$
+[DIAGRAM: ArgandEx1_5_1a]
 
 - **(b) $i$**
   **Solution.**
@@ -865,6 +1053,7 @@ For cube roots ($n=3$):
   w_0 &= \\cos\\frac{\\pi}{4} + i \\sin\\frac{\\pi}{4} = \\frac{\\sqrt{2}}{2} + \\frac{\\sqrt{2}}{2}i \\\\
   w_1 &= \\cos\\frac{5\\pi}{4} + i \\sin\\frac{5\\pi}{4} = -\\frac{\\sqrt{2}}{2} - \\frac{\\sqrt{2}}{2}i
   \\end{aligned}$$
+[DIAGRAM: ArgandEx1_5_1b]
 
 - **(c) $-\\sqrt{3} + i$**
   **Solution.**
@@ -873,6 +1062,7 @@ For cube roots ($n=3$):
   w_0 &= \\sqrt{2}\\left(\\cos\\frac{5\\pi}{12} + i \\sin\\frac{5\\pi}{12}\\right) \\\\
   w_1 &= \\sqrt{2}\\left(\\cos\\frac{17\\pi}{12} + i \\sin\\frac{17\\pi}{12}\\right)
   \\end{aligned}$$
+[DIAGRAM: ArgandEx1_5_1c]
 
 - **(d) $-1 - \\sqrt{3}i$**
   **Solution.**
@@ -881,6 +1071,7 @@ For cube roots ($n=3$):
   w_0 &= \\sqrt{2}\\left(\\cos\\left(-\\frac{\\pi}{3}\\right) + i \\sin\\left(-\\frac{\\pi}{3}\\right)\\right) = \\frac{\\sqrt{2}}{2} - \\frac{\\sqrt{6}}{2}i \\\\
   w_1 &= \\sqrt{2}\\left(\\cos\\frac{2\\pi}{3} + i \\sin\\frac{2\\pi}{3}\\right) = -\\frac{\\sqrt{2}}{2} + \\frac{\\sqrt{6}}{2}i
   \\end{aligned}$$
+[DIAGRAM: ArgandEx1_5_1d]
 
 - **(e) $-i$**
   **Solution.**
@@ -889,6 +1080,7 @@ For cube roots ($n=3$):
   w_0 &= \\cos\\left(-\\frac{\\pi}{4}\\right) + i \\sin\\left(-\\frac{\\pi}{4}\\right) = \\frac{\\sqrt{2}}{2} - \\frac{\\sqrt{2}}{2}i \\\\
   w_1 &= \\cos\\frac{3\\pi}{4} + i \\sin\\frac{3\\pi}{4} = -\\frac{\\sqrt{2}}{2} + \\frac{\\sqrt{2}}{2}i
   \\end{aligned}$$
+[DIAGRAM: ArgandEx1_5_1e]
 
 - **(f) $\\sqrt{3} - i$**
   **Solution.**
@@ -897,40 +1089,79 @@ For cube roots ($n=3$):
   w_0 &= \\sqrt{2}\\left(\\cos\\left(-\\frac{\\pi}{12}\\right) + i \\sin\\left(-\\frac{\\pi}{12}\\right)\\right) \\\\
   w_1 &= \\sqrt{2}\\left(\\cos\\frac{11\\pi}{12} + i \\sin\\frac{11\\pi}{12}\\right)
   \\end{aligned}$$
+[DIAGRAM: ArgandEx1_5_1f]
 **2. Find the cube roots of the following.**
 - **(a) $1 + i$**
   **Solution.**
-  $$\\begin{aligned}
-  w_k &= \\sqrt[6]{2}\\left(\\cos \\frac{\\pi/4 + 2k\\pi}{3} + i \\sin \\frac{\\pi/4 + 2k\\pi}{3}\\right)
-  \\end{aligned}$$
+  Let $z = 1 + i = (1, 1)$.
+  $$r = \\sqrt{1^2 + 1^2} = \\sqrt{2}, \\quad \\cos\\theta = \\frac{\\sqrt{2}}{2}, \\quad \\sin\\theta = \\frac{\\sqrt{2}}{2} \\implies \\theta = \\frac{\\pi}{4}$$
+  $$z = \\sqrt{2}\\left(\\cos\\frac{\\pi}{4} + i \\sin\\frac{\\pi}{4}\\right)$$
+  For cube roots ($n=3$):
+  $$w_k = \\sqrt[6]{2}\\left(\\cos\\frac{\\pi/4 + 2k\\pi}{3} + i \\sin\\frac{\\pi/4 + 2k\\pi}{3}\\right), \\quad k = 0, 1, 2$$
+  Therefore, the cube roots of $z$ are:
+  - **For $k = 0$:** $w_0 = \\sqrt[6]{2}\\left(\\cos\\frac{\\pi}{12} + i \\sin\\frac{\\pi}{12}\\right)$
+  - **For $k = 1$:** $w_1 = \\sqrt[6]{2}\\left(\\cos\\frac{3\\pi}{4} + i \\sin\\frac{3\\pi}{4}\right)$
+  - **For $k = 2$:** $w_2 = \\sqrt[6]{2}\\left(\\cos\\frac{17\\pi}{12} + i \\sin\\frac{17\\pi}{12}\\right)$
+
 - **(b) $i$**
   **Solution.**
-  $$\\begin{aligned}
-  w_k &= \\cos \\frac{\\pi/2 + 2k\\pi}{3} + i \\sin \\frac{\\pi/2 + 2k\\pi}{3} \\\\
-  w_0 &= \\frac{\\sqrt{3}}{2} + \\frac{1}{2}i \\\\
-  w_1 &= -\\frac{\\sqrt{3}}{2} + \\frac{1}{2}i \\\\
-  w_2 &= -i
-  \\end{aligned}$$
+  Let $z = i = (0, 1)$.
+  $$r = \\sqrt{0^2 + 1^2} = 1, \\quad \\cos\\theta = 0, \\quad \\sin\\theta = 1 \\implies \\theta = \\frac{\\pi}{2}$$
+  $$z = \\cos\\frac{\\pi}{2} + i \\sin\\frac{\\pi}{2}$$
+  For cube roots ($n=3$):
+  $$w_k = \\cos\\frac{\\pi/2 + 2k\\pi}{3} + i \\sin\\frac{\\pi/2 + 2k\\pi}{3}, \\quad k = 0, 1, 2$$
+  Therefore, the cube roots of $z$ are:
+  - **For $k = 0$:** $w_0 = \\cos\\frac{\\pi}{6} + i \\sin\\frac{\\pi}{6} = \\frac{\\sqrt{3}}{2} + \\frac{1}{2}i$
+  - **For $k = 1$:** $w_1 = \\cos\\frac{5\\pi}{6} + i \\sin\\frac{5\\pi}{6} = -\\frac{\\sqrt{3}}{2} + \\frac{1}{2}i$
+  - **For $k = 2$:** $w_2 = \\cos\\frac{3\\pi}{2} + i \\sin\\frac{3\\pi}{2} = -i$
+
 - **(c) $-1 + i$**
   **Solution.**
-  $$\\begin{aligned}
-  w_k &= \\sqrt[6]{2}\\left(\\cos \\frac{3\\pi/4 + 2k\\pi}{3} + i \\sin \\frac{3\\pi/4 + 2k\\pi}{3}\\right)
-  \\end{aligned}$$
+  Let $z = -1 + i = (-1, 1)$.
+  $$r = \\sqrt{(-1)^2 + 1^2} = \\sqrt{2}, \\quad \\cos\\theta = -\\frac{\\sqrt{2}}{2}, \\quad \\sin\\theta = \\frac{\\sqrt{2}}{2} \\implies \\theta = \\frac{3\pi}{4}$$
+  $$z = \\sqrt{2}\\left(\\cos\\frac{3\\pi}{4} + i \\sin\\frac{3\\pi}{4}\\right)$$
+  For cube roots ($n=3$):
+  $$w_k = \\sqrt[6]{2}\\left(\\cos\\frac{3\\pi/4 + 2k\\pi}{3} + i \\sin\\frac{3\\pi/4 + 2k\\pi}{3}\\right), \\quad k = 0, 1, 2$$
+  Therefore, the cube roots of $z$ are:
+  - **For $k = 0$:** $w_0 = \\sqrt[6]{2}\\left(\\cos\\frac{\\pi}{4} + i \\sin\\frac{\\pi}{4}\\right)$
+  - **For $k = 1$:** $w_1 = \\sqrt[6]{2}\\left(\\cos\\frac{11\\pi}{12} + i \\sin\\frac{11\\pi}{12}\\right)$
+  - **For $k = 2$:** $w_2 = \\sqrt[6]{2}\\left(\\cos\\frac{19\\pi}{12} + i \\sin\\frac{19\\pi}{12}\\right)$
+
 - **(d) $-1 - i$**
   **Solution.**
-  $$\\begin{aligned}
-  w_k &= \\sqrt[6]{2}\\left(\\cos \\frac{-3\\pi/4 + 2k\\pi}{3} + i \\sin \\frac{-3\\pi/4 + 2k\\pi}{3}\\right)
-  \\end{aligned}$$
+  Let $z = -1 - i = (-1, -1)$.
+  $$r = \\sqrt{(-1)^2 + (-1)^2} = \\sqrt{2}, \\quad \\cos\\theta = -\\frac{\\sqrt{2}}{2}, \\quad \\sin\\theta = -\\frac{\\sqrt{2}}{2} \\implies \\theta = -\\frac{3\pi}{4}$$
+  $$z = \\sqrt{2}\\left(\\cos\\left(-\\frac{3\\pi}{4}\\right) + i \\sin\\left(-\\frac{3\\pi}{4}\\right)\\right)$$
+  For cube roots ($n=3$):
+  $$w_k = \\sqrt[6]{2}\\left(\\cos\\frac{-3\\pi/4 + 2k\\pi}{3} + i \\sin\\frac{-3\\pi/4 + 2k\\pi}{3}\\right), \\quad k = 0, 1, 2$$
+  Therefore, the cube roots of $z$ are:
+  - **For $k = 0$:** $w_0 = \\sqrt[6]{2}\\left(\\cos\\left(-\\frac{\\pi}{4}\\right) + i \\sin\\left(-\\frac{\\pi}{4}\\right)\\right)$
+  - **For $k = 1$:** $w_1 = \\sqrt[6]{2}\\left(\\cos\\frac{5\\pi}{12} + i \\sin\\frac{5\\pi}{12}\\right)$
+  - **For $k = 2$:** $w_2 = \\sqrt[6]{2}\\left(\\cos\\frac{13\\pi}{12} + i \\sin\\frac{13\\pi}{12}\\right)$
+
 - **(e) $-i$**
   **Solution.**
-  $$\\begin{aligned}
-  w_k &= \\cos \\frac{-\\pi/2 + 2k\\pi}{3} + i \\sin \\frac{-\\pi/2 + 2k\\pi}{3}
-  \\end{aligned}$$
+  Let $z = -i = (0, -1)$.
+  $$r = \\sqrt{0^2 + (-1)^2} = 1, \\quad \\cos\\theta = 0, \\quad \\sin\\theta = -1 \\implies \\theta = -\\frac{\\pi}{2}$$
+  $$z = \\cos\\left(-\\frac{\\pi}{2}\right) + i \\sin\\left(-\\frac{\\pi}{2}\right)$$
+  For cube roots ($n=3$):
+  $$w_k = \\cos\\frac{-\\pi/2 + 2k\\pi}{3} + i \\sin\\frac{-\\pi/2 + 2k\\pi}{3}, \\quad k = 0, 1, 2$$
+  Therefore, the cube roots of $z$ are:
+  - **For $k = 0$:** $w_0 = \\cos\\left(-\\frac{\\pi}{6}\\right) + i \\sin\\left(-\\frac{\\pi}{6}\\right)$
+  - **For $k = 1$:** $w_1 = \\cos\\frac{\\pi}{2} + i \\sin\\frac{\\pi}{2}$
+  - **For $k = 2$:** $w_2 = \\cos\\frac{7\\pi}{6} + i \\sin\\frac{7\\pi}{6}$
+
 - **(f) $1 - i$**
   **Solution.**
-  $$\\begin{aligned}
-  w_k &= \\sqrt[6]{2}\\left(\\cos \\frac{-\\pi/4 + 2k\\pi}{3} + i \\sin \\frac{-\\pi/4 + 2k\\pi}{3}\\right)
-  \\end{aligned}$$
+  Let $z = 1 - i = (1, -1)$.
+  $$r = \\sqrt{1^2 + (-1)^2} = \\sqrt{2}, \\quad \\cos\\theta = \\frac{\\sqrt{2}}{2}, \\quad \\sin\\theta = -\\frac{\\sqrt{2}}{2} \\implies \\theta = -\\frac{\\pi}{4}$$
+  $$z = \\sqrt{2}\\left(\\cos\\left(-\\frac{\\pi}{4}\\right) + i \\sin\\left(-\\frac{\\pi}{4}\\right)\\right)$$
+  For cube roots ($n=3$):
+  $$w_k = \\sqrt[6]{2}\\left(\\cos\\frac{-\\pi/4 + 2k\\pi}{3} + i \\sin\\frac{-\\pi/4 + 2k\\pi}{3}\\right), \\quad k = 0, 1, 2$$
+  Therefore, the cube roots of $z$ are:
+  - **For $k = 0$:** $w_0 = \\sqrt[6]{2}\\left(\\cos\\left(-\\frac{\\pi}{12}\\right) + i \\sin\\left(-\\frac{\\pi}{12}\\right)\\right)$
+  - **For $k = 1$:** $w_1 = \\sqrt[6]{2}\\left(\\cos\\frac{7\\pi}{12} + i \\sin\\frac{7\\pi}{12}\right)$
+  - **For $k = 2$:** $w_2 = \\sqrt[6]{2}\\left(\\cos\\frac{5\\pi}{4} + i \\sin\\frac{5\\pi}{4}\right)$
 **3. Solve the following equations.**
 - **(a) $z^4 = -i$**
   **Solution.**
@@ -958,7 +1189,7 @@ For cube roots ($n=3$):
     z &= \\cos\\frac{11\\pi}{8} + i \\sin\\frac{11\\pi}{8} \\\\
     &= -\\frac{\\sqrt{2-\\sqrt{2}}}{2} - \\frac{\\sqrt{2+\\sqrt{2}}}{2}i
     \\end{aligned}$$
-  [DIAGRAM: RootsUnity4]
+  [DIAGRAM: RootsEx1_5_3a]
 
 - **(b) $z^4 = -1$**
   **Solution.**
@@ -985,6 +1216,7 @@ For cube roots ($n=3$):
     z &= \\cos\\frac{7\\pi}{4} + i \\sin\\frac{7\\pi}{4} \\\\
     &= \\frac{\\sqrt{2}}{2} - \\frac{\\sqrt{2}}{2}i
     \\end{aligned}$$
+  [DIAGRAM: RootsEx1_5_3b]
 
 - **(c) $z^4 = -8 - 8\\sqrt{3}i$**
   **Solution.** Modulus $r = 16$, argument $\\theta = -2\\pi/3$.
@@ -1011,6 +1243,7 @@ For cube roots ($n=3$):
     z &= 2\\left(\\cos\\frac{4\\pi}{3} + i \\sin\\frac{4\\pi}{3}\\right) \\\\
     &= -1 - \\sqrt{3}i
     \\end{aligned}$$
+  [DIAGRAM: RootsEx1_5_3c]
 
 - **(d) $z^6 = -1$**
   **Solution.**
@@ -1044,6 +1277,7 @@ For cube roots ($n=3$):
     z &= \\cos\\frac{11\\pi}{6} + i \\sin\\frac{11\\pi}{6} \\\\
     &= \\frac{\\sqrt{3}}{2} - \\frac{1}{2}i
     \\end{aligned}$$
+  [DIAGRAM: RootsEx1_5_3d]
     `,
     formulas: [
       {
@@ -1184,7 +1418,7 @@ Let $P(n)$ denote the statement: $1 + 3 + 5 + \\dots + (2n - 1) = n^2$.
    &= k^2 + 2k + 1 \\\\
    &= (k + 1)^2 \\\\
    &= \\text{R.H.S.}
-   \\end{aligned}$$
+   \\\end{aligned}$$
    Therefore, the statement is true for $n = k + 1$.
 
 3. **Conclusion:** Hence, by the principle of mathematical induction, the statement $P(n)$ is true for all natural numbers $n$.
@@ -1213,7 +1447,7 @@ Let $P(n)$ denote the statement: $1 + 2 + 3 + \\dots + n = \\frac{n(n + 1)}{2}$.
    &= \\frac{k(k + 1) + 2(k + 1)}{2} \\\\
    &= \\frac{(k + 1)(k + 2)}{2} \\\\
    &= \\text{R.H.S.}
-   \\end{aligned}$$
+   \\\end{aligned}$$
    Therefore, the statement is true for $n = k + 1$.
 
 3. **Conclusion:** Hence, by the principle of mathematical induction, the statement $P(n)$ is true for all natural numbers $n$.
@@ -1243,7 +1477,7 @@ Let $P(n)$ denote the statement: $1 + 3 + 3^2 + \\dots + 3^{n-1} = \\frac{3^n - 
    &= \\frac{3 \\cdot 3^k - 1}{2} \\\\
    &= \\frac{3^{k+1} - 1}{2} \\\\
    &= \\text{R.H.S.}
-   \\end{aligned}$$
+   \\\end{aligned}$$
    Therefore, the statement is true for $n = k + 1$.
 
 3. **Conclusion:** Hence, by the principle of mathematical induction, the statement $P(n)$ is true for all natural numbers $n$.
@@ -1273,7 +1507,7 @@ Let $P(n)$ denote the statement: $1^3 + 2^3 + 3^3 + \\dots + n^3 = \\left(\\frac
    &= (k + 1)^2 \\left( \\frac{(k + 2)^2}{4} \\right) \\\\
    &= \\left( \\frac{(k + 1)(k + 2)}{2} \\right)^2 \\\\
    &= \\text{R.H.S.}
-   \\end{aligned}$$
+   \\\end{aligned}$$
    Therefore, the statement is true for $n = k + 1$.
 
 3. **Conclusion:** Hence, by the principle of mathematical induction, the statement $P(n)$ is true for all natural numbers $n$.
@@ -1302,7 +1536,7 @@ Let $P(n)$ denote the statement: $2^3 + 4^3 + 6^3 + \\dots + (2n)^3 = 2n^2(n + 1
    &= 2(k+1)^2 \\left( k^2 + 4k + 4 \\right) \\\\
    &= 2(k+1)^2 (k+2)^2 \\\\
    &= \\text{R.H.S.}
-   \\end{aligned}$$
+   \\\end{aligned}$$
    Therefore, true for $n = k + 1$.
 
 3. **Conclusion:** Hence, by PMI, true for all natural numbers $n$.
@@ -1330,7 +1564,7 @@ Let $P(n)$ denote the statement: $1 \\cdot 2 + 2 \\cdot 3 + 3 \\cdot 4 + \\dots 
    &= (k + 1)(k + 2) \\left( \\frac{k}{3} + 1 \\right) \\\\
    &= \\frac{(k + 1)(k + 2)(k + 3)}{3} \\\\
    &= \\text{R.H.S.}
-   \\end{aligned}$$
+   \\\end{aligned}$$
    Therefore, true for $n = k + 1$.
 
 3. **Conclusion:** Hence, by PMI, true for all natural numbers $n$.
@@ -1358,7 +1592,7 @@ Let $P(n)$ denote the statement: $\\frac{1}{2} + \\frac{1}{4} + \\frac{1}{8} + \
    &= 1 - \\frac{2}{2^{k+1}} + \\frac{1}{2^{k+1}} \\\\
    &= 1 - \\frac{1}{2^{k+1}} \\\\
    &= \\text{R.H.S.}
-   \\end{aligned}$$
+   \\\end{aligned}$$
    Therefore, true for $n = k + 1$.
 
 3. **Conclusion:** Hence, by PMI, true for all natural numbers $n$.
@@ -1386,7 +1620,7 @@ Let $P(n)$ denote the statement: $1 + 2 + 2^2 + \\dots + 2^{n-1} = 2^n - 1$.
    &= 2 \\cdot 2^k - 1 \\\\
    &= 2^{k+1} - 1 \\\\
    &= \\text{R.H.S.}
-   \\end{aligned}$$
+   \\\end{aligned}$$
    Therefore, true for $n = k + 1$.
 
 3. **Conclusion:** Hence, by PMI, true for all natural numbers $n$.
@@ -1416,7 +1650,7 @@ Let $P(n)$ denote the statement: $\\frac{1}{1 \\cdot 2} + \\frac{1}{2 \\cdot 3} 
    &= \\frac{(k+1)^2}{(k+1)(k+2)} \\\\
    &= \\frac{k+1}{k+2} \\\\
    &= \\text{R.H.S.}
-   \\end{aligned}$$
+   \\\end{aligned}$$
    Therefore, true for $n = k + 1$.
 
 3. **Conclusion:** Hence, by PMI, true for all natural numbers $n$.
@@ -1449,7 +1683,7 @@ Let $P(n)$ denote the statement: $1 \\cdot 3 + 2 \\cdot 3^2 + 3 \\cdot 3^3 + \\d
    &= \\frac{3 \\cdot 3^{k+1} (2k + 1) + 3}{4} \\\\
    &= \\frac{(2k+1)3^{k+2} + 3}{4} \\\\
    &= \\text{R.H.S.}
-   \\end{aligned}$$
+   \\\end{aligned}$$
    Therefore, true for $n = k + 1$.
 
 3. **Conclusion:** Hence, by PMI, true for all natural numbers $n$.
@@ -1479,7 +1713,7 @@ Let $P(n)$ denote the statement: \"$3^n - 1$ is a multiple of $2$\".
    3^{k+1} - 1 &= 3 \\cdot 3^k - 1 \\\\
    &= 3 \\cdot 3^k - 3 + 2 \\\\
    &= 3(3^k - 1) + 2
-   \end{aligned}$$
+   \\end{aligned}$$
    Since $3(3^k - 1)$ is a multiple of 2 (by our Inductive Hypothesis) and $2$ is clearly a multiple of 2, their sum is also a multiple of 2.
    Therefore, the statement is true for $n = k + 1$.
 
@@ -1505,7 +1739,7 @@ Let $P(n)$ denote the statement: \"$4^n - 1$ is divisible by $3$\".
    4^{k+1} - 1 &= 4 \\cdot 4^k - 1 \\\\
    &= 4 \\cdot 4^k - 4 + 3 \\\\
    &= 4(4^k - 1) + 3
-   \end{aligned}$$
+   \\end{aligned}$$
    Since $4(4^k - 1)$ is divisible by 3 (by Inductive Hypothesis) and $3$ is divisible by 3, their sum is also divisible by 3.
    Therefore, the statement is true for $n = k + 1$.
 
@@ -1532,7 +1766,7 @@ Let $P(n)$ denote the statement: \"$n^3 - n + 3$ is divisible by 3\".
    &= k^3 + 3k^2 + 3k + 1 - k - 1 + 3 \\\\
    &= (k^3 - k + 3) + 3k^2 + 3k \\\\
    &= (k^3 - k + 3) + 3(k^2 + k)
-   \end{aligned}$$
+   \\end{aligned}$$
    Since $(k^3 - k + 3)$ is divisible by 3 (by Inductive Hypothesis) and $3(k^2 + k)$ is clearly divisible by 3, their sum is also divisible by 3.
    Therefore, the statement is true for $n = k + 1$.
 
@@ -1559,7 +1793,7 @@ Let $P(n)$ denote the statement: \"$3^{2n} - 1$ is divisible by $8$\".
    &= 9 \\cdot 3^{2k} - 1 \\\\
    &= 9 \\cdot 3^{2k} - 9 + 8 \\\\
    &= 9(3^{2k} - 1) + 8
-   \end{aligned}$$
+   \\end{aligned}$$
    Since $9(3^{2k} - 1)$ is divisible by 8 (by Inductive Hypothesis) and $8$ is divisible by 8, their sum is also divisible by 8.
    Therefore, the statement is true for $n = k + 1$.
 
@@ -1586,7 +1820,7 @@ Let $P(n)$ denote the statement: \"$a - b$ is a factor of $a^n - b^n$\".
    a^{k+1} - b^{k+1} &= a \\cdot a^k - b \\cdot b^k \\\\
    &= a \\cdot a^k - a \\cdot b^k + a \\cdot b^k - b \\cdot b^k \\\\
    &= a(a^k - b^k) + b^k(a - b)
-   \end{aligned}$$
+   \\end{aligned}$$
    Since $a(a^k - b^k)$ is divisible by $a - b$ (by Inductive Hypothesis) and $b^k(a - b)$ clearly has $a - b$ as a factor, their sum is also divisible by $a - b$.
    Therefore, $a^{k+1} - b^{k+1}$ is divisible by $a - b$. Hence, true for $n = k+1$.
 
@@ -1615,7 +1849,7 @@ Let $P(n)$ denote the statement: \"$x^{2n} - y^{2n}$ is divisible by $x + y$\".
    &= x^2 \\cdot x^{2k} - x^2 \\cdot y^{2k} + x^2 \\cdot y^{2k} - y^2 \\cdot y^{2k} \\\\
    &= x^2(x^{2k} - y^{2k}) + y^{2k}(x^2 - y^2) \\\\
    &= x^2(x^{2k} - y^{2k}) + y^{2k}(x + y)(x - y)
-   \end{aligned}$$
+   \\end{aligned}$$
    Since $x^2(x^{2k} - y^{2k})$ is divisible by $x+y$ (by Inductive Hypothesis) and $y^{2k}(x+y)(x-y)$ clearly has $x+y$ as a factor, their sum is also divisible by $x+y$.
    Therefore, $x^{2(k+1)} - y^{2(k+1)}$ is divisible by $x + y$.
 
@@ -1645,7 +1879,7 @@ Let $P(n)$ denote the statement: $(ab)^n = a^n b^n$.
    &= a^k b^k a b \\\\
    &= a^k a b^k b \\\\
    &= a^{k+1} b^{k+1}
-   \\end{aligned}$$
+   \\\end{aligned}$$
    Therefore, the statement is true for $n = k + 1$.
 
 3. **Conclusion:** Hence, by the principle of mathematical induction, the statement holds for every natural number $n$.
@@ -1679,7 +1913,7 @@ Let $P(n)$ denote the statement: \"$4n < 2^n$ for $n \\ge 5$\".
    &< 2^k + 2^k \\quad [\\text{by Inductive Hypothesis } 4k < 2^k] \\\\
    &= 2 \\cdot 2^k \\\\
    &= 2^{k+1}
-   \\end{aligned}$$
+   \\\end{aligned}$$
    Therefore, $4(k+1) < 2^{k+1}$. Hence, the statement is true for $n = k + 1$.
 
 3. **Conclusion:** Hence, by the principle of mathematical induction, the statement is true for all natural numbers $n \\ge 5$.
@@ -1708,7 +1942,7 @@ Let $P(n)$ denote the statement: \"$(n+1)^2 < 2n^2$ for $n \\ge 3$\".
    &< 2k^2 + 4k + 2 \\quad [\\text{since } 2k + 3 < 4k + 2 \\text{ for } k \\ge 3] \\\\
    &= 2(k^2 + 2k + 1) \\\\
    &= 2(k + 1)^2
-   \\end{aligned}$$
+   \\\end{aligned}$$
    Therefore, $(k+2)^2 < 2(k+1)^2$. Hence, the statement is true for $n = k + 1$.
 
 3. **Conclusion:** Hence, by the principle of mathematical induction, the statement is true for all natural numbers $n \\ge 3$.
@@ -1741,7 +1975,7 @@ Let $P(n)$ denote the statement: \"$2n + 7 < (n + 3)^2$\".
    &= k^2 + 8k + 16 \\\\
    &= (k + 4)^2 \\\\
    &= ((k + 1) + 3)^2
-   \\end{aligned}$$
+   \\\end{aligned}$$
    Therefore, $2(k+1) + 7 < ((k+1)+3)^2$.
 
 3. **Conclusion:** Hence, by the principle of mathematical induction, the statement is true for all natural numbers $n$.
@@ -1777,7 +2011,7 @@ Let $P(n)$ denote the statement: \"$x_n < 4$\".
    &= \\sqrt{9} \\\\
    &= 3 \\\\
    &< 4
-   \\end{aligned}$$
+   \\\end{aligned}$$
    Therefore, the statement is true for $n = k + 1$.
 
 3. **Conclusion:** Hence, by the principle of mathematical induction, the statement $P(n)$ is true for all natural numbers $n$.
@@ -1806,7 +2040,7 @@ Let $P(n)$ denote the statement: \"$T(n) = 2^n - 1$\".
    &= 2(2^k - 1) + 1 \\quad [\\text{by Inductive Hypothesis}] \\\\
    &= 2^{k+1} - 2 + 1 \\\\
    &= 2^{k+1} - 1
-   \\end{aligned}$$
+   \\\end{aligned}$$
    Therefore, the statement is true for $n = k + 1$.
 
 3. **Conclusion:** Hence, by the principle of mathematical induction, the statement $P(n)$ is true for all natural numbers $n$.
@@ -1836,7 +2070,7 @@ Let $P(n)$ denote the statement: \"$U_n = 5^{n-1} + 2$\".
    &= 5(5^{k-1} + 2) - 8 \\quad [\\text{by Inductive Hypothesis}] \\\\
    &= 5^k + 10 - 8 \\\\
    &= 5^k + 2
-   \\end{aligned}$$
+   \\\end{aligned}$$
    Therefore, the statement is true for $n = k + 1$.
 
 3. **Conclusion:** Hence, by the principle of mathematical induction, the statement is true for all positive integers $n$.
@@ -1866,7 +2100,7 @@ Let $P(n)$ denote the statement: \"$U_n = 3^n - 2$\".
    &= 3(3^k - 2) + 4 \\quad [\\text{by Inductive Hypothesis}] \\\\
    &= 3^{k+1} - 6 + 4 \\\\
    &= 3^{k+1} - 2
-   \\end{aligned}$$
+   \\\end{aligned}$$
    Therefore, the statement is true for $n = k + 1$.
 
 3. **Conclusion:** Hence, by the principle of mathematical induction, the statement is true for all natural integers $n$.`,
@@ -2344,8 +2578,8 @@ Determine whether the lines $PQ$ and $RS$ are parallel or skew or intersect. If 
     If they intersect, from $y$: $-1-2s = -2 \\implies s = \\frac{1}{2}$.
     From $x$: $3-s = 3-4t \\implies 3 - \\frac{1}{2} = 3-4t \\implies t = \\frac{1}{8}$.
     Check $z$: $-3+4s = -3+4(\\frac{1}{2}) = -1$.
-    $$5-4t = 5-4(\\frac{1}{8}) = \\frac{9}{2}$$.
-    Since $-1 \\neq \\frac{9}{2}$, the lines are **skew**.
+    $$5-4t = 5-4(\\frac{1}{8}) = \\frac{9}{2}$$
+    Since $-1 \\neq \\frac{9}{2}$$, the lines are **skew**.
 *   **(c)** $\\langle PQ \\rangle = \\langle -6, 8, -4 \\rangle, \\, \\langle RS \\rangle = \\langle 4, 2, -2 \\rangle$. Not parallel.
     $$PQ: (4-6s, -2+8s, 5-4s)$$
     $$RS: (-1+4t, 1+2t, 4-2t)$$
@@ -3006,7 +3240,8 @@ Formed when the plane slices through both naps of the cone. The difference of th
 Standard equation centered at $(0, 0)$:
 $$\\frac{x^2}{a^2} - \\frac{y^2}{b^2} = 1$$
 - **Eccentricity:** $e = \\sqrt{1 + \\frac{b^2}{a^2}} > 1$
-- **Asymptotes:** $y = \\pm \\frac{b}{a} x$`,
+- **Asymptotes:** $y = \\pm \\frac{b}{a} x$
+`,
     formulas: [
       {
         id: "c6-f1",
@@ -3081,7 +3316,8 @@ $$\\tan(A \\pm B) = \\frac{\\tan A \\pm \\tan B}{1 \\mp \\tan A \\tan B}$$
 Setting $B = A$ in the compound angle formulas yields:
 $$\\sin 2\\theta = 2 \\sin \\theta \\cos \\theta$$
 $$\\cos 2\\theta = \\cos^2 \\theta - \\sin^2 \\theta = 2\\cos^2 \\theta - 1 = 1 - 2\\sin^2 \\theta$$
-$$\\tan 2\\theta = \\frac{2\\tan\\theta}{1 - \\tan^2 \\theta}$$`,
+$$\\tan 2\\theta = \\frac{2\\tan\\theta}{1 - \\tan^2 \\theta}$$
+`,
     formulas: [
       {
         id: "c7-f1",
@@ -3149,7 +3385,8 @@ For any positive real numbers $M$, $N$, and base $a > 0$:
 
 ### 4. Change of Base Formula
 To calculate logarithms of arbitrary bases on standard calculators, we use:
-$$\\log_b x = \\frac{\\log_a x}{\\log_a b} = \\frac{\\ln x}{\\ln b}$$`,
+$$\\log_b x = \\frac{\\log_a x}{\\log_a b} = \\frac{\\ln x}{\\ln b}$$
+`,
     formulas: [
       {
         id: "c8-f1",
@@ -3354,7 +3591,8 @@ Always subtract the "lower curve" from the "upper curve".
 ### 3. Volume of Solid of Revolution (Disk Method)
 If a region bounded by $y = f(x)$, the $x$-axis, and lines $x = a$ and $x = b$ is rotated $360^\\circ$ around the $x$-axis, it creates a 3D solid.
 The volume $V$ of this solid of revolution is calculated by summing infinitesimal circular disks of radius $R(x) = f(x)$:
-$$V = \\pi \\int_{a}^{b} [f(x)]^2 \\, dx$$`,
+$$V = \\pi \\int_{a}^{b} [f(x)]^2 \\, dx$$
+`,
     formulas: [
       {
         id: "c11-f1",

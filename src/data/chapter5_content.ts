@@ -171,7 +171,7 @@ $\text{Total required integers} = 1 + 17 = 18$
 
 ---
 
-### 2. The Factorial Function and Permutations
+### Factorial Notation
 
 **Factorial Notation:**
 The product of the first $n$ natural numbers is denoted by $n!$ (read as "$n$ factorial").
