@@ -87,6 +87,15 @@ export default function App() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
+  // Scroll main container to top when view or chapter changes
+  useEffect(() => {
+    const mainEl = document.querySelector('main');
+    if (mainEl) {
+      mainEl.scrollTo({ top: 0, behavior: 'instant' });
+    }
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [activeView, selectedChapterId]);
+
   // Filter chapters based on search query
   const filteredChapters = chapters.filter((ch) =>
     ch.title.toLowerCase().includes(sidebarSearch.toLowerCase()) ||

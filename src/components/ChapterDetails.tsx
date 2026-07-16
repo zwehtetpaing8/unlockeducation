@@ -75,6 +75,17 @@ export default function ChapterDetails({ chapter }: ChapterDetailsProps) {
     setViewMode('sections');
   }, [chapter.id]);
 
+  // Scroll to top of the content container on section, tab, or viewMode changes
+  useEffect(() => {
+    if (viewMode === 'sections') {
+      const mainEl = document.querySelector('main');
+      if (mainEl) {
+        mainEl.scrollTo({ top: 0, behavior: 'instant' });
+      }
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+  }, [activeSectionIndex, activeTab, viewMode]);
+
   const handleSectionClick = (idx: number) => {
     setActiveSectionIndex(idx);
     if (viewMode === 'full') {

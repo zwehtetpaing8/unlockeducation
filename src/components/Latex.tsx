@@ -98,7 +98,7 @@ function ArgandPolar() {
 
         {/* Plot Point P(x, y) */}
         <circle cx="185" cy="55" r="5" className="fill-indigo-500 stroke-white dark:stroke-slate-900" strokeWidth="1.5" />
-        <text x="193" y="52" className="text-[10px] font-bold fill-slate-800 dark:fill-slate-200 font-sans">z = x + yi = r(cos θ + i sin θ)</text>
+        <text x="193" y="52" className="text-[10px] font-bold fill-slate-800 dark:fill-slate-200 font-sans">z = (x, y)</text>
         
         <defs>
           <marker id="arrow-p" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
@@ -133,7 +133,7 @@ function ArgandExample5a() {
         <path d="M 130 110 A 20 20 0 0 0 120 93" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-5a)" />
         <text x="136" y="100" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
         
-        <text x="162" y="28" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = 1 + √3i</text>
+        <text x="162" y="28" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (1, √3)</text>
         <text x="140" y="76" className="text-xs fill-indigo-500 font-bold font-mono">r</text>
         
         <text x="210" y="118" className="text-[9px] font-mono fill-slate-400">Re</text>
@@ -172,7 +172,7 @@ function ArgandExample5b() {
         <path d="M 130 110 A 20 20 0 0 0 96 96" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-5b)" />
         <text x="115" y="82" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
         
-        <text x="32" y="58" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = -1 + i</text>
+        <text x="32" y="58" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (-1, 1)</text>
         <text x="90" y="72" className="text-xs fill-indigo-500 font-bold font-mono">r</text>
         
         <text x="210" y="118" className="text-[9px] font-mono fill-slate-400">Re</text>
@@ -211,7 +211,7 @@ function ArgandExample5c() {
         <path d="M 130 110 A 20 20 0 0 1 93 120" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-5c)" />
         <text x="118" y="142" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
         
-        <text x="20" y="155" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = -√3 - i</text>
+        <text x="20" y="155" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (-√3, -1)</text>
         <text x="78" y="122" className="text-xs fill-indigo-500 font-bold font-mono">r</text>
         
         <text x="210" y="118" className="text-[9px] font-mono fill-slate-400">Re</text>
@@ -250,7 +250,7 @@ function ArgandExample5d() {
         <path d="M 130 110 A 20 20 0 0 0 90 110" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-5d)" />
         <text x="102" y="80" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
         
-        <text x="25" y="125" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = -1</text>
+        <text x="25" y="125" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (-1, 0)</text>
         <text x="80" y="130" className="text-xs fill-indigo-500 font-bold font-mono">r</text>
         
         <text x="210" y="118" className="text-[9px] font-mono fill-slate-400">Re</text>
@@ -289,7 +289,7 @@ function ArgandEx1_4_1a() {
         <path d="M 130 110 A 20 20 0 0 1 120 127" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1a)" />
         <text x="142" y="123" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
         
-        <text x="162" y="195" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = 1 - √3i</text>
+        <text x="162" y="195" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (1, -√3)</text>
         <text x="148" y="145" className="text-xs fill-indigo-500 font-bold font-mono">r</text>
         
         <text x="210" y="118" className="text-[9px] font-mono fill-slate-400">Re</text>
@@ -328,7 +328,7 @@ function ArgandEx1_4_1b() {
         <path d="M 130 110 A 20 20 0 0 0 96 96" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1b)" />
         <text x="126" y="85" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
         
-        <text x="25" y="55" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = -√2 + √2i</text>
+        <text x="25" y="55" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (-√2, √2)</text>
         <text x="95" y="75" className="text-xs fill-indigo-500 font-bold font-mono">r</text>
         
         <text x="210" y="118" className="text-[9px] font-mono fill-slate-400">Re</text>
@@ -367,7 +367,7 @@ function ArgandEx1_4_1c() {
         <path d="M 130 110 A 20 20 0 0 1 96 124" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1c)" />
         <text x="125" y="135" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
         
-        <text x="25" y="172" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = -2 - 2i</text>
+        <text x="25" y="172" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (-2, -2)</text>
         <text x="72" y="128" className="text-xs fill-indigo-500 font-bold font-mono">r</text>
         
         <text x="210" y="118" className="text-[9px] font-mono fill-slate-400">Re</text>
@@ -406,7 +406,7 @@ function ArgandEx1_4_1d() {
         <path d="M 130 110 A 20 20 0 0 1 127 120" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1d)" />
         <text x="142" y="120" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
         
-        <text x="155" y="175" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = √3 - i</text>
+        <text x="155" y="175" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (√3, -1)</text>
         <text x="140" y="142" className="text-xs fill-indigo-500 font-bold font-mono">r</text>
         
         <text x="210" y="118" className="text-[9px] font-mono fill-slate-400">Re</text>
@@ -445,7 +445,7 @@ function ArgandEx1_4_1e() {
         <path d="M 130 110 A 20 20 0 0 0 110 90" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1e)" />
         <text x="126" y="85" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
         
-        <text x="120" y="45" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = i</text>
+        <text x="120" y="45" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (0, 1)</text>
         <text x="92" y="75" className="text-xs fill-indigo-500 font-bold font-mono">r</text>
         
         <text x="210" y="118" className="text-[9px] font-mono fill-slate-400">Re</text>
@@ -484,7 +484,7 @@ function ArgandEx1_4_1f() {
         <path d="M 130 110 A 20 20 0 0 1 110 130" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1f)" />
         <text x="126" y="142" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
         
-        <text x="120" y="185" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = -3i</text>
+        <text x="120" y="185" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (0, -3)</text>
         <text x="92" y="140" className="text-xs fill-indigo-500 font-bold font-mono">r</text>
         
         <text x="210" y="118" className="text-[9px] font-mono fill-slate-400">Re</text>
@@ -510,12 +510,12 @@ function ArgandEx1_4_1f() {
 function RootsUnity6() {
   const angles = [0, 60, 120, 180, 240, 300];
   const coordinates = [
-    { label: "w₀ = 1", x: 184, y: 113, align: "start" },
-    { label: "w₁ = 1/2 + i√3/2", x: 148, y: 44, align: "start" },
-    { label: "w₂ = -1/2 + i√3/2", x: 72, y: 44, align: "end" },
-    { label: "w₃ = -1", x: 36, y: 113, align: "end" },
-    { label: "w₄ = -1/2 - i√3/2", x: 72, y: 182, align: "end" },
-    { label: "w₅ = 1/2 - i√3/2", x: 148, y: 182, align: "start" }
+    { label: "(1, 0)", x: 184, y: 113, align: "start" },
+    { label: "(1/2, √3/2)", x: 148, y: 44, align: "start" },
+    { label: "(-1/2, √3/2)", x: 72, y: 44, align: "end" },
+    { label: "(-1, 0)", x: 36, y: 113, align: "end" },
+    { label: "(-1/2, -√3/2)", x: 72, y: 182, align: "end" },
+    { label: "(1/2, -√3/2)", x: 148, y: 182, align: "start" }
   ];
 
   return (
@@ -583,7 +583,7 @@ function ArgandEx1_5_1a() {
         <path d="M 130 110 A 20 20 0 0 0 120 92.7" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1_5a)" />
         <text x="126" y="95" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
         
-        <text x="152" y="38" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = 1 + √3i</text>
+        <text x="152" y="38" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (1, √3)</text>
         <text x="136" y="85" className="text-xs fill-indigo-500 font-bold font-mono">r</text>
         
         <text x="210" y="118" className="text-[9px] font-mono fill-slate-400">Re</text>
@@ -622,7 +622,7 @@ function ArgandEx1_5_1b() {
         <path d="M 130 110 A 20 20 0 0 0 110 90" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1_5b)" />
         <text x="126" y="95" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
         
-        <text x="115" y="30" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = i</text>
+        <text x="115" y="30" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (0, 1)</text>
         <text x="118" y="75" className="text-xs fill-indigo-500 font-bold font-mono">r</text>
         
         <text x="210" y="118" className="text-[9px] font-mono fill-slate-400">Re</text>
@@ -661,7 +661,7 @@ function ArgandEx1_5_1c() {
         <path d="M 130 110 A 20 20 0 0 0 92.7 100" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1_5c)" />
         <text x="115" y="85" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
         
-        <text x="30" y="55" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = -√3 + i</text>
+        <text x="30" y="55" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (-√3, 1)</text>
         <text x="80" y="80" className="text-xs fill-indigo-500 font-bold font-mono">r</text>
         
         <text x="210" y="118" className="text-[9px] font-mono fill-slate-400">Re</text>
@@ -700,7 +700,7 @@ function ArgandEx1_5_1d() {
         <path d="M 130 110 A 20 20 0 0 1 100 127.3" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1_5d)" />
         <text x="112" y="142" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
         
-        <text x="50" y="190" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = -1 - √3i</text>
+        <text x="50" y="190" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (-1, -√3)</text>
         <text x="85" y="145" className="text-xs fill-indigo-500 font-bold font-mono">r</text>
         
         <text x="210" y="118" className="text-[9px] font-mono fill-slate-400">Re</text>
@@ -739,7 +739,7 @@ function ArgandEx1_5_1e() {
         <path d="M 130 110 A 20 20 0 0 1 110 130" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1_5e)" />
         <text x="126" y="125" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
         
-        <text x="115" y="195" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = -i</text>
+        <text x="115" y="195" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (0, -1)</text>
         <text x="118" y="145" className="text-xs fill-indigo-500 font-bold font-mono">r</text>
         
         <text x="210" y="118" className="text-[9px] font-mono fill-slate-400">Re</text>
@@ -778,7 +778,7 @@ function ArgandEx1_5_1f() {
         <path d="M 130 110 A 20 20 0 0 1 127.3 120" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1_5f)" />
         <text x="142" y="120" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
         
-        <text x="155" y="165" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = √3 - i</text>
+        <text x="155" y="165" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (√3, -1)</text>
         <text x="140" y="142" className="text-xs fill-indigo-500 font-bold font-mono">r</text>
         
         <text x="210" y="118" className="text-[9px] font-mono fill-slate-400">Re</text>
@@ -952,7 +952,7 @@ function RootsExample10() {
         {/* Draw original point z = -2-2i */}
         <line x1="120" y1="120" x2="60" y2="180" stroke="#ef4444" strokeWidth="1.5" strokeDasharray="2 2" />
         <circle cx="60" cy="180" r="5" className="fill-red-500 stroke-white" strokeWidth="1.5" />
-        <text x="50" y="195" className="text-[10px] font-bold fill-red-500">z = -2 - 2i</text>
+        <text x="50" y="195" className="text-[10px] font-bold fill-red-500">z = (-2, -2)</text>
         
         {/* Circle of radius √2 ~ 42px */}
         <circle cx="120" cy="120" r="42" fill="none" stroke="#94a3b8" strokeWidth="1" strokeDasharray="3 3" />
