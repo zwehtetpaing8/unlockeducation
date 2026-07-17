@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "motion/react";
 export default function AuthButton() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isAuthenticating, setIsAuthenticating] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
 
   useEffect(() => {
@@ -33,10 +34,23 @@ export default function AuthButton() {
   }, []);
 
   const handleLogin = async () => {
+    if (isAuthenticating) return;
+    setIsAuthenticating(true);
     try {
       await signInWithPopup(auth, googleProvider);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Login failed:", error);
+      if (error.code === 'auth/popup-blocked') {
+        alert("Sign in popup was blocked by your browser. Please allow popups for this site or open the app in a new tab.");
+      } else if (error.code === 'auth/network-request-failed') {
+        alert("Network error during sign in. Please try opening the app in a new tab.");
+      } else if (error.code === 'auth/cancelled-popup-request' || error.code === 'auth/popup-closed-by-user') {
+        // User cancelled the login, just ignore
+      } else {
+        // Show generic error for other cases if needed
+      }
+    } finally {
+      setIsAuthenticating(false);
     }
   };
 
