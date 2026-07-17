@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Chapter } from '../types';
 import { chapters } from '../data/chapters';
 import { 
@@ -17,7 +17,9 @@ import {
   ChevronRight,
   Brain,
   Facebook,
-  Send
+  Send,
+  PlayCircle,
+  Clock
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import Latex from './Latex';
@@ -28,6 +30,75 @@ interface HomeViewProps {
 }
 
 export default function HomeView({ onSelectChapter, onNavigateToFormulas }: HomeViewProps) {
+  // Retrieve last accessed chapter
+  const [lastAccessedChapterId] = useState<number | null>(() => {
+    const saved = localStorage.getItem('unlock_edu_selectedChapterId');
+    return saved ? parseInt(saved, 10) : null;
+  });
+
+  const lastChapter = lastAccessedChapterId ? chapters.find(ch => ch.id === lastAccessedChapterId) : null;
+
+  // Retrieve recent quizzes
+  const [recentQuizzes, setRecentQuizzes] = useState<{chapterId: number, chapterTitle: string, score: number, total: number, date: string}[]>(() => {
+    try {
+      if (typeof window !== 'undefined') {
+        const saved = localStorage.getItem('unlock_edu_recentQuizzes');
+        return saved ? JSON.parse(saved) : [];
+      }
+      return [];
+    } catch (e) {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    let unsubscribeFirestore: (() => void) | undefined;
+    
+    import('../lib/firebase').then(({ auth, db }) => {
+      import('firebase/auth').then(({ onAuthStateChanged }) => {
+        import('firebase/firestore').then(({ collection, query, where, orderBy, limit, onSnapshot }) => {
+          onAuthStateChanged(auth, (user) => {
+            if (user) {
+              const q = query(
+                collection(db, "quizHistory"),
+                where("userId", "==", user.uid),
+                orderBy("date", "desc"),
+                limit(3)
+              );
+              unsubscribeFirestore = onSnapshot(q, (snapshot) => {
+                const quizzes = snapshot.docs.map(doc => {
+                  const data = doc.data();
+                  return {
+                    chapterId: data.chapterId,
+                    chapterTitle: data.chapterTitle,
+                    score: data.score,
+                    total: data.total,
+                    date: data.date
+                  };
+                });
+                if (quizzes.length > 0) {
+                  setRecentQuizzes(quizzes);
+                }
+              });
+            } else {
+              if (unsubscribeFirestore) {
+                unsubscribeFirestore();
+              }
+              try {
+                const saved = localStorage.getItem('unlock_edu_recentQuizzes');
+                if (saved) setRecentQuizzes(JSON.parse(saved));
+              } catch (e) {}
+            }
+          });
+        });
+      });
+    });
+
+    return () => {
+      if (unsubscribeFirestore) unsubscribeFirestore();
+    };
+  }, []);
+
   // Solver widget state
   const [a, setA] = useState<number>(1);
   const [b, setB] = useState<number>(-2);
@@ -154,6 +225,73 @@ export default function HomeView({ onSelectChapter, onNavigateToFormulas }: Home
           </div>
         </div>
       </motion.div>
+
+      {/* Continue Learning Section (Dynamic) */}
+      {lastChapter && (
+        <motion.div variants={itemVariants} className="bg-white dark:bg-slate-900/60 p-6 rounded-3xl border border-indigo-100 dark:border-indigo-900/40 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <div className="p-3 bg-indigo-50 dark:bg-indigo-950/40 rounded-2xl text-indigo-600 dark:text-indigo-400">
+              <Clock className="w-6 h-6" />
+            </div>
+            <div>
+              <div className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-1">
+                Continue Learning
+              </div>
+              <h3 className="text-sm md:text-base font-bold text-slate-900 dark:text-white">
+                Chapter {lastChapter.id}: {lastChapter.title}
+              </h3>
+            </div>
+          </div>
+          <button
+            onClick={() => onSelectChapter(lastChapter.id)}
+            className="flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl font-bold text-xs tracking-wide transition-all shadow-md hover:shadow-lg cursor-pointer shrink-0"
+          >
+            <PlayCircle className="w-4 h-4" />
+            Resume Chapter
+          </button>
+        </motion.div>
+      )}
+
+      {/* Recent Activity Section */}
+      {recentQuizzes.length > 0 && (
+        <motion.div variants={itemVariants} className="space-y-4 pt-2">
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg md:text-xl font-display font-bold text-slate-900 dark:text-white tracking-tight">
+              Recent Activity
+            </h2>
+            <p className="text-xs text-slate-500 font-medium">Your last {recentQuizzes.length} quiz scores</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {recentQuizzes.map((quiz, idx) => (
+              <div
+                key={idx}
+                onClick={() => onSelectChapter(quiz.chapterId)}
+                className="group bg-white dark:bg-slate-900/60 p-5 rounded-2xl border border-slate-200/50 dark:border-slate-800/40 shadow-sm hover:shadow-md hover:border-indigo-200 dark:hover:border-indigo-900 transition-all cursor-pointer flex flex-col justify-between"
+              >
+                <div className="space-y-1 mb-4">
+                  <div className="text-[10px] font-bold font-mono px-2 py-0.5 rounded-md bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 border border-indigo-100/30 dark:border-indigo-900/10 w-fit">
+                    MODULE {quiz.chapterId}
+                  </div>
+                  <h3 className="font-display font-bold text-sm text-slate-900 dark:text-white leading-tight group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                    {quiz.chapterTitle}
+                  </h3>
+                </div>
+                <div className="flex items-center justify-between mt-auto">
+                  <div className="flex items-center gap-1.5">
+                    <Award className="w-4 h-4 text-emerald-500" />
+                    <span className="text-xs font-bold text-slate-700 dark:text-slate-300">
+                      Score: {quiz.score}/{quiz.total}
+                    </span>
+                  </div>
+                  <span className="text-[10px] font-medium text-slate-400">
+                    {new Date(quiz.date).toLocaleDateString()}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      )}
 
       {/* 2. Platform Interactive Statistics Grid */}
       <motion.div

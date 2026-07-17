@@ -4,11 +4,12 @@ import Latex from './Latex';
 import { Check, X, Award, RotateCcw, ArrowRight, Lightbulb } from 'lucide-react';
 
 interface PracticeQuizProps {
+  chapterId: number;
   questions: Question[];
   chapterTitle: string;
 }
 
-export default function PracticeQuiz({ questions, chapterTitle }: PracticeQuizProps) {
+export default function PracticeQuiz({ chapterId, questions, chapterTitle }: PracticeQuizProps) {
   const [currentQuestionIdx, setCurrentQuestionIdx] = useState<number>(0);
   const [selectedAnswerIdx, setSelectedAnswerIdx] = useState<number | null>(null);
   const [isAnswered, setIsAnswered] = useState<boolean>(false);
@@ -45,6 +46,35 @@ export default function PracticeQuiz({ questions, chapterTitle }: PracticeQuizPr
       setCurrentQuestionIdx((prev) => prev + 1);
     } else {
       setShowResults(true);
+      try {
+        const newRecord = {
+          chapterId,
+          chapterTitle,
+          score,
+          total: questions.length,
+          date: new Date().toISOString()
+        };
+        const historyStr = localStorage.getItem('unlock_edu_recentQuizzes');
+        let history = historyStr ? JSON.parse(historyStr) : [];
+        history.unshift(newRecord);
+        history = history.slice(0, 3);
+        localStorage.setItem('unlock_edu_recentQuizzes', JSON.stringify(history));
+
+        // Save to Firestore if authenticated
+        import('../lib/firebase').then(({ auth, db }) => {
+          const user = auth.currentUser;
+          if (user) {
+            import('firebase/firestore').then(({ collection, addDoc }) => {
+              addDoc(collection(db, "quizHistory"), {
+                ...newRecord,
+                userId: user.uid,
+              }).catch((e) => console.error("Error saving to Firestore", e));
+            });
+          }
+        });
+      } catch (e) {
+        console.error("Could not save quiz history", e);
+      }
     }
   };
 

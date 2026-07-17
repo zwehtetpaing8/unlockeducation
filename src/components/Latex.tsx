@@ -1080,34 +1080,234 @@ function SkewLinesDiagram() {
   );
 }
 
+function SphereStandardDiagram() {
+  return (
+    <div className="my-6 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+      <h5 className="text-xs font-bold text-indigo-500 mb-2 font-sans uppercase tracking-wider">Standard Sphere Geometry</h5>
+      <svg width="360" height="270" viewBox="0 0 240 180" className="overflow-visible max-w-full h-auto">
+        {/* Draw 3D Sphere outline */}
+        <circle cx="120" cy="90" r="55" fill="rgba(109, 40, 217, 0.02)" stroke="#6d28d9" strokeWidth="1.5" />
+        
+        {/* Equatorial Hoop */}
+        <ellipse cx="120" cy="90" rx="55" ry="16" fill="none" stroke="#8b5cf6" strokeWidth="1" strokeDasharray="3 3" />
+        <path d="M 65 90 A 55 16 0 0 0 175 90" fill="none" stroke="#8b5cf6" strokeWidth="1" />
+        
+        {/* Center Point */}
+        <circle cx="120" cy="90" r="4.5" className="fill-violet-700 stroke-white" strokeWidth="1.5" />
+        <text x="120" y="112" className="text-[10px] fill-violet-950 dark:fill-violet-300 font-bold font-mono" textAnchor="middle">Center C(x₁, y₁, z₁)</text>
+
+        {/* Radius line */}
+        <line x1="120" y1="90" x2="160" y2="52" stroke="#db2777" strokeWidth="1.5" />
+        
+        {/* Point on sphere */}
+        <circle cx="160" cy="52" r="4" className="fill-pink-600 stroke-white" strokeWidth="1" />
+        <text x="166" y="48" className="text-[10px] fill-pink-700 dark:fill-pink-400 font-bold font-mono">P(x, y, z)</text>
+        
+        {/* Radius Label */}
+        <text x="135" y="66" className="text-[10px] fill-pink-600 font-mono italic font-bold">r</text>
+      </svg>
+      <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-2 italic font-sans text-center">
+        The equation of a sphere: (x - x₁)² + (y - y₁)² + (z - z₁)² = r²
+      </span>
+    </div>
+  );
+}
+
 function SpherePlaneTangentDiagram() {
   return (
     <div className="my-6 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
-      <h5 className="text-xs font-bold text-indigo-500 mb-2">Sphere with Tangent Plane</h5>
-      <svg width="240" height="180" viewBox="0 0 240 180" className="overflow-visible">
+      <h5 className="text-xs font-bold text-indigo-500 mb-2 font-sans uppercase tracking-wider">Sphere with Tangent Plane (Example 11)</h5>
+      <svg width="360" height="300" viewBox="0 0 240 200" className="overflow-visible max-w-full h-auto">
         {/* Draw 3D Sphere outline */}
-        <circle cx="120" cy="95" r="50" fill="rgba(109, 40, 217, 0.03)" stroke="#6d28d9" strokeWidth="1.5" />
-        {/* Equatorial Hoop dashed/solid */}
-        <ellipse cx="120" cy="95" rx="50" ry="15" fill="none" stroke="#8b5cf6" strokeWidth="1" strokeDasharray="3 3" />
+        <circle cx="110" cy="115" r="45" fill="rgba(109, 40, 217, 0.02)" stroke="#6d28d9" strokeWidth="1.5" />
+        {/* Equatorial Hoop */}
+        <ellipse cx="110" cy="115" rx="45" ry="14" fill="none" stroke="#8b5cf6" strokeWidth="1" strokeDasharray="3 3" />
+        <path d="M 65 115 A 45 14 0 0 0 155 115" fill="none" stroke="#8b5cf6" strokeWidth="1" />
         
-        {/* Center Point C */}
-        <circle cx="120" cy="95" r="4" fill="#6d28d9" />
-        <text x="110" y="108" className="text-[10px] fill-indigo-800 dark:fill-indigo-400 font-semibold font-mono">C(x₁,y₁,z₁)</text>
+        {/* Tangent Plane patch (parallelogram) */}
+        <polygon points="90,75 170,45 195,105 115,135" fill="rgba(13, 148, 136, 0.15)" stroke="#0d9488" strokeWidth="1.5" />
 
-        {/* Tangent point on top-right of sphere surface */}
-        <circle cx="155" cy="60" r="4" fill="#ef4444" />
-        <text x="162" y="58" className="text-[10px] fill-red-600 font-bold font-sans">P(3, 2, -2)</text>
+        {/* Center Point C */}
+        <circle cx="110" cy="115" r="4.5" fill="#6d28d9" />
+        <text x="110" y="142" className="text-[9px] fill-indigo-800 dark:fill-indigo-400 font-semibold font-mono" textAnchor="middle">C(2, 1, -1)</text>
 
         {/* Normal radius vector line from C to P */}
-        <line x1="120" y1="95" x2="155" y2="60" stroke="#ef4444" strokeWidth="1.5" strokeDasharray="2 2" />
-        <text x="130" y="75" className="text-[9px] fill-red-500 font-mono italic">Radius r</text>
+        <line x1="110" y1="115" x2="140" y2="85" stroke="#db2777" strokeWidth="1.5" />
+        
+        {/* Perpendicular / Right-angle marker at P */}
+        <path d="M 135.8 89.2 L 131.6 85 L 135.8 80.8" fill="none" stroke="#db2777" strokeWidth="1.2" />
 
-        {/* Tangent Plane patch */}
-        <polygon points="120,30 180,20 195,90 135,100" fill="rgba(13, 148, 136, 0.18)" stroke="#0d9488" strokeWidth="1.5" />
-        <text x="175" y="92" className="text-[9px] fill-teal-700 font-bold">Tangent Plane</text>
-        <text x="175" y="101" className="text-[8px] fill-teal-600 font-mono">5x + y + z = 15</text>
+        {/* Tangent point P */}
+        <circle cx="140" cy="85" r="4" fill="#db2777" />
+        <text x="148" y="82" className="text-[10px] fill-pink-600 font-bold font-sans">P(3, 4, 1)</text>
+
+        {/* Labels */}
+        <text x="120" y="96" className="text-[9px] fill-pink-500 font-mono italic">Radius r</text>
+        <text x="165" y="132" className="text-[9px] fill-teal-700 font-bold font-sans">Tangent Plane</text>
+        <text x="165" y="143" className="text-[9px] fill-teal-600 font-mono font-bold">x + 3y + 2z = 17</text>
       </svg>
-      <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-2 italic font-sans text-center">Radius vector CP is always perpendicular to the Tangent Plane at point P</span>
+      <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-2 italic font-sans text-center">
+        The normal vector to the tangent plane is the radius vector CP = ⟨1, 3, 2⟩
+      </span>
+    </div>
+  );
+}
+
+function SphereEx3_5_Q4_Diag() {
+  return (
+    <div className="my-6 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+      <h5 className="text-xs font-bold text-indigo-500 mb-2 font-sans uppercase tracking-wider">Sphere with Tangent Plane (Exercise 3.5 Q4)</h5>
+      <svg width="360" height="300" viewBox="0 0 240 200" className="overflow-visible max-w-full h-auto">
+        {/* Draw 3D Sphere outline */}
+        <circle cx="110" cy="115" r="45" fill="rgba(109, 40, 217, 0.02)" stroke="#6d28d9" strokeWidth="1.5" />
+        {/* Equatorial Hoop */}
+        <ellipse cx="110" cy="115" rx="45" ry="14" fill="none" stroke="#8b5cf6" strokeWidth="1" strokeDasharray="3 3" />
+        <path d="M 65 115 A 45 14 0 0 0 155 115" fill="none" stroke="#8b5cf6" strokeWidth="1" />
+        
+        {/* Tangent Plane patch (parallelogram) */}
+        <polygon points="90,75 170,45 195,105 115,135" fill="rgba(13, 148, 136, 0.15)" stroke="#0d9488" strokeWidth="1.5" />
+
+        {/* Center Point C */}
+        <circle cx="110" cy="115" r="4.5" fill="#6d28d9" />
+        <text x="110" y="142" className="text-[9px] fill-indigo-800 dark:fill-indigo-400 font-semibold font-mono" textAnchor="middle">C(-2, 1, -3)</text>
+
+        {/* Normal radius vector line from C to P */}
+        <line x1="110" y1="115" x2="140" y2="85" stroke="#db2777" strokeWidth="1.5" />
+        
+        {/* Perpendicular / Right-angle marker at P */}
+        <path d="M 135.8 89.2 L 131.6 85 L 135.8 80.8" fill="none" stroke="#db2777" strokeWidth="1.2" />
+
+        {/* Tangent point P */}
+        <circle cx="140" cy="85" r="4" fill="#db2777" />
+        <text x="148" y="82" className="text-[10px] fill-pink-600 font-bold font-sans">P(3, 2, -2)</text>
+
+        {/* Labels */}
+        <text x="120" y="96" className="text-[9px] fill-pink-500 font-mono italic">Radius r</text>
+        <text x="165" y="132" className="text-[9px] fill-teal-700 font-bold font-sans">Tangent Plane</text>
+        <text x="165" y="143" className="text-[9px] fill-teal-600 font-mono font-bold">5x + y + z = 15</text>
+      </svg>
+      <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-2 italic font-sans text-center">
+        The normal vector to the tangent plane is the radius vector CP = ⟨5, 1, 1⟩
+      </span>
+    </div>
+  );
+}
+
+function SphereDiameterDiagram() {
+  return (
+    <div className="my-6 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+      <h5 className="text-xs font-bold text-indigo-500 mb-2 font-sans uppercase tracking-wider">Sphere with Diameter (Exercise 3.5 Q3)</h5>
+      <svg width="360" height="270" viewBox="0 0 240 180" className="overflow-visible max-w-full h-auto">
+        {/* Draw 3D Sphere outline */}
+        <circle cx="120" cy="90" r="55" fill="rgba(109, 40, 217, 0.02)" stroke="#6d28d9" strokeWidth="1.5" />
+        
+        {/* Equatorial Hoop */}
+        <ellipse cx="120" cy="90" rx="55" ry="16" fill="none" stroke="#8b5cf6" strokeWidth="1" strokeDasharray="3 3" />
+        <path d="M 65 90 A 55 16 0 0 0 175 90" fill="none" stroke="#8b5cf6" strokeWidth="1" />
+        
+        {/* Center Point C (midpoint) */}
+        <circle cx="120" cy="90" r="4.5" className="fill-violet-700 stroke-white" strokeWidth="1.5" />
+        <text x="125" y="94" className="text-[10px] fill-violet-950 dark:fill-violet-300 font-bold font-mono">Center C(-1, 1.5, 3)</text>
+
+        {/* Diameter line */}
+        <line x1="75" y1="122" x2="165" y2="58" stroke="#db2777" strokeWidth="2" />
+        
+        {/* Diameter endpoint A */}
+        <circle cx="75" cy="122" r="4.5" className="fill-pink-600 stroke-white" strokeWidth="1" />
+        <text x="70" y="138" className="text-[10px] fill-pink-700 dark:fill-pink-400 font-bold font-mono" textAnchor="middle">A(1, -1, 1)</text>
+
+        {/* Diameter endpoint B */}
+        <circle cx="165" cy="58" r="4.5" className="fill-pink-600 stroke-white" strokeWidth="1" />
+        <text x="165" y="46" className="text-[10px] fill-pink-700 dark:fill-pink-400 font-bold font-mono" textAnchor="middle">B(-3, 4, 5)</text>
+        
+        {/* Radius Labels */}
+        <text x="94" y="100" className="text-[9px] fill-pink-600 font-mono italic font-bold">r</text>
+        <text x="144" y="80" className="text-[9px] fill-pink-600 font-mono italic font-bold">r</text>
+      </svg>
+      <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-2 italic font-sans text-center">
+        The diameter AB has length √57, and the center C is the midpoint of AB.
+      </span>
+    </div>
+  );
+}
+
+function SphereTouchingPlaneDiagram() {
+  return (
+    <div className="my-6 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+      <h5 className="text-xs font-bold text-indigo-500 mb-2 font-sans uppercase tracking-wider">Sphere Touching Plane (Example 12)</h5>
+      <svg width="360" height="300" viewBox="0 0 240 200" className="overflow-visible max-w-full h-auto">
+        {/* Draw 3D Sphere outline */}
+        <circle cx="120" cy="70" r="45" fill="rgba(109, 40, 217, 0.02)" stroke="#6d28d9" strokeWidth="1.5" />
+        {/* Equatorial Hoop */}
+        <ellipse cx="120" cy="70" rx="45" ry="14" fill="none" stroke="#8b5cf6" strokeWidth="1" strokeDasharray="3 3" />
+        <path d="M 75 70 A 45 14 0 0 0 165 70" fill="none" stroke="#8b5cf6" strokeWidth="1" />
+        
+        {/* Center Point C */}
+        <circle cx="120" cy="70" r="4.5" fill="#6d28d9" />
+        <text x="120" y="54" className="text-[10px] fill-indigo-800 dark:fill-indigo-400 font-semibold font-mono" textAnchor="middle">Center C(0, 1, 0)</text>
+
+        {/* Tangent Plane patch (parallelogram at bottom) */}
+        <polygon points="60,135 180,135 210,165 90,165" fill="rgba(13, 148, 136, 0.15)" stroke="#0d9488" strokeWidth="1.5" />
+
+        {/* Normal radius vector line from C to touching point P */}
+        <line x1="120" y1="70" x2="135" y2="150" stroke="#db2777" strokeWidth="1.5" />
+        
+        {/* Perpendicular / Right-angle marker at touching point */}
+        <path d="M 132 134 L 126 135 L 128 141" fill="none" stroke="#db2777" strokeWidth="1.2" />
+
+        {/* Touching point P */}
+        <circle cx="135" cy="150" r="4" fill="#db2777" />
+        <text x="145" y="154" className="text-[10px] fill-pink-600 font-bold font-mono">P(-1/3, 5/3, -2/3)</text>
+
+        {/* Labels */}
+        <text x="118" y="115" textAnchor="end" className="text-[9px] fill-pink-500 font-mono italic">Radius r = 1</text>
+        <text x="150" y="178" className="text-[9px] fill-teal-700 font-bold font-sans text-center" textAnchor="middle">Tangent Plane: x - 2y + 2z + 5 = 0</text>
+      </svg>
+      <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-2 italic font-sans text-center">
+        The normal line from C(0, 1, 0) perpendicular to the plane intersects at the touching point.
+      </span>
+    </div>
+  );
+}
+
+function SpherePointPositionsDiagram() {
+  return (
+    <div className="my-6 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+      <h5 className="text-xs font-bold text-indigo-500 mb-2 font-sans uppercase tracking-wider">Point Positions Relative to Sphere (Exercise 3.5 Q2)</h5>
+      <svg width="420" height="270" viewBox="0 0 280 180" className="overflow-visible max-w-full h-auto">
+        {/* Draw 3D Sphere outline */}
+        <circle cx="100" cy="90" r="50" fill="rgba(109, 40, 217, 0.02)" stroke="#6d28d9" strokeWidth="1.5" />
+        
+        {/* Equatorial Hoop */}
+        <ellipse cx="100" cy="90" rx="50" ry="15" fill="none" stroke="#8b5cf6" strokeWidth="1" strokeDasharray="3 3" />
+        <path d="M 50 90 A 50 15 0 0 0 150 90" fill="none" stroke="#8b5cf6" strokeWidth="1" />
+        
+        {/* Center Point C */}
+        <circle cx="100" cy="90" r="4.5" className="fill-violet-700 stroke-white" strokeWidth="1.5" />
+        <text x="100" y="112" className="text-[10px] fill-violet-950 dark:fill-violet-300 font-bold font-mono" textAnchor="middle">Center C(0,0,0)</text>
+
+        {/* Inside point P(1,1,1) */}
+        <circle cx="85" cy="110" r="4" className="fill-emerald-600 stroke-white" strokeWidth="1" />
+        <text x="85" y="123" className="text-[9px] fill-emerald-700 dark:fill-emerald-400 font-bold font-mono" textAnchor="middle">P(1,1,1) [Inside]</text>
+        <line x1="100" y1="90" x2="85" y2="110" stroke="#10b981" strokeWidth="1" strokeDasharray="2 2" />
+
+        {/* On point P(2,1,2) */}
+        <circle cx="140" cy="60" r="4" className="fill-amber-600 stroke-white" strokeWidth="1" />
+        <text x="146" y="55" className="text-[9px] fill-amber-700 dark:fill-amber-400 font-bold font-mono">P(2,1,2) [On]</text>
+        <line x1="100" y1="90" x2="140" y2="60" stroke="#f59e0b" strokeWidth="1" strokeDasharray="2 2" />
+
+        {/* Outside point P(10,10,10) */}
+        <circle cx="210" cy="80" r="4" className="fill-rose-600 stroke-white" strokeWidth="1" />
+        <text x="210" y="70" className="text-[9px] fill-rose-700 dark:fill-rose-400 font-bold font-mono" textAnchor="middle">P(10,10,10) [Outside]</text>
+        <line x1="100" y1="90" x2="210" y2="80" stroke="#f43f5e" strokeWidth="1" strokeDasharray="2 2" />
+
+        {/* Radius marker */}
+        <line x1="100" y1="90" x2="50" y2="90" stroke="#6d28d9" strokeWidth="1.2" strokeDasharray="1 1" />
+        <text x="75" y="86" className="text-[9px] fill-indigo-600 font-mono italic" textAnchor="middle">Radius r = 3</text>
+      </svg>
+      <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-2 italic font-sans text-center">
+        Points are classified by comparing their distance from C to the radius r.
+      </span>
     </div>
   );
 }
@@ -1740,25 +1940,26 @@ export function Chap3_4_PlaneABC() {
             <path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" className="text-slate-900 dark:text-white" />
           </marker>
         </defs>
+        {/* Plane A B C */}
         <polygon points="50,150 250,150 280,50 80,50" fill="none" stroke="#64748b" strokeWidth="1.5" />
         
         {/* Points */}
         <circle cx="100" cy="120" r="3" fill="currentColor" className="text-slate-900 dark:text-white" />
         <text x="80" y="115" fontSize="12" fill="currentColor" className="text-slate-900 dark:text-white font-serif italic">A</text>
-        <text x="60" y="135" fontSize="10" fill="#64748b"> (x₁, y₁, z₁) </text>
+        <text x="85" y="140" fontSize="10" fill="#64748b"> (x₁, y₁, z₁) </text>
 
         <circle cx="180" cy="60" r="3" fill="currentColor" className="text-slate-900 dark:text-white" />
-        <text x="185" y="55" fontSize="12" fill="currentColor" className="text-slate-900 dark:text-white font-serif italic">B</text>
+        <text x="185" y="70" fontSize="12" fill="currentColor" className="text-slate-900 dark:text-white font-serif italic">B</text>
 
         <circle cx="230" cy="120" r="3" fill="currentColor" className="text-slate-900 dark:text-white" />
-        <text x="235" y="125" fontSize="12" fill="currentColor" className="text-slate-900 dark:text-white font-serif italic">C</text>
+        <text x="235" y="115" fontSize="12" fill="currentColor" className="text-slate-900 dark:text-white font-serif italic">C</text>
 
         {/* Vectors */}
         <line x1="100" y1="120" x2="175" y2="64" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.2" markerEnd="url(#arrow-p)" />
-        <text x="110" y="85" fontSize="11" fill="currentColor" className="text-slate-900 dark:text-white">⟨l₁, m₁, n₁⟩</text>
+        <text x="130" y="85" transform="rotate(-37 130 85)" fontSize="10" fill="currentColor" className="text-slate-900 dark:text-white font-mono" textAnchor="middle">⟨l₁, m₁, n₁⟩</text>
 
         <line x1="100" y1="120" x2="225" y2="120" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.2" markerEnd="url(#arrow-p)" />
-        <text x="145" y="135" fontSize="11" fill="currentColor" className="text-slate-900 dark:text-white">⟨l₂, m₂, n₂⟩</text>
+        <text x="165" y="135" fontSize="10" fill="currentColor" className="text-slate-900 dark:text-white font-mono" textAnchor="middle">⟨l₂, m₂, n₂⟩</text>
       </svg>
     </div>
   );
@@ -1767,34 +1968,32 @@ export function Chap3_4_PlaneABC() {
 export function Chap3_4_Ex9() {
   return (
     <div className="my-6 flex justify-center p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80 overflow-x-auto">
-      <svg width="250" height="200" viewBox="0 0 250 200" className="max-w-full h-auto">
-        <defs>
-          <marker id="arrow-ex9" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" className="text-slate-900 dark:text-white" />
-          </marker>
-        </defs>
-        <polygon points="60,160 220,160 240,80 80,80" fill="none" stroke="#64748b" strokeWidth="1.5" />
-        <text x="140" y="130" fontSize="12" fill="currentColor" className="text-slate-900 dark:text-white font-mono">3x - 2y - z = 3</text>
+      <svg width="400" height="220" viewBox="0 0 400 220" className="max-w-full h-auto">
+        {/* Plane - Sloping downwards to right */}
+        <polygon points="100,60 260,80 260,150 100,130" fill="none" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" />
+        <text x="290" y="150" fontSize="11" fill="currentColor" className="text-slate-900 dark:text-white font-mono" textAnchor="start">3x - 2y - z = 3</text>
         
-        {/* Line */}
-        <line x1="100" y1="30" x2="100" y2="135" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" />
-        <line x1="100" y1="135" x2="100" y2="170" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" strokeDasharray="4 2" />
+        {/* Main Vertical Line */}
+        <line x1="180" y1="20" x2="180" y2="105" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" />
+        <line x1="180" y1="105" x2="180" y2="140" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" strokeDasharray="4 2" />
+        <line x1="180" y1="140" x2="180" y2="180" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" />
         
-        {/* Right angle symbol */}
-        <path d="M 100 125 L 108 125 L 108 135" fill="none" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1" />
+        {/* Line on plane for right angle reference */}
+        <line x1="180" y1="105" x2="140" y2="100" stroke="currentColor" className="text-slate-400 dark:text-slate-500" strokeWidth="1.5" strokeDasharray="3 3" />
+
+        {/* Right angle symbol on the left */}
+        <path d="M 180 95 L 170 93.75 L 170 103.75" fill="none" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.2" />
         
         {/* Point P */}
-        <circle cx="100" cy="135" r="3" fill="currentColor" className="text-slate-900 dark:text-white" />
-        <text x="110" y="145" fontSize="12" fill="currentColor" className="text-slate-900 dark:text-white font-serif italic">P</text>
+        <circle cx="180" cy="105" r="2" fill="currentColor" className="text-slate-900 dark:text-white" />
+        <text x="188" y="110" fontSize="13" fill="currentColor" className="text-slate-900 dark:text-white font-serif italic">P</text>
         
         {/* Top point */}
-        <circle cx="100" cy="40" r="3" fill="currentColor" className="text-slate-900 dark:text-white" />
-        <text x="110" y="45" fontSize="11" fill="currentColor" className="text-slate-900 dark:text-white">(-1, 3, 2)</text>
-
-        {/* Direction vector */}
-        <line x1="140" y1="60" x2="140" y2="100" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" markerEnd="url(#arrow-ex9)" />
-        <text x="150" y="75" fontSize="11" fill="currentColor" className="text-slate-900 dark:text-white font-serif italic">d</text>
-        <text x="150" y="90" fontSize="10" fill="#64748b">= ⟨3, -2, -1⟩</text>
+        <circle cx="180" cy="45" r="2" fill="currentColor" className="text-slate-900 dark:text-white" />
+        <text x="188" y="49" fontSize="11" fill="currentColor" className="text-slate-900 dark:text-white">(-1, 3, 2)</text>
+        
+        {/* Vector Text */}
+        <text x="165" y="103" transform="rotate(-90 165 103)" fontSize="10" fill="currentColor" className="text-slate-900 dark:text-white font-mono" textAnchor="middle">⟨3, -2, -1⟩</text>
       </svg>
     </div>
   );
@@ -1803,34 +2002,32 @@ export function Chap3_4_Ex9() {
 export function Chap3_4_Q2() {
   return (
     <div className="my-6 flex justify-center p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80 overflow-x-auto">
-      <svg width="250" height="200" viewBox="0 0 250 200" className="max-w-full h-auto">
-        <defs>
-          <marker id="arrow-q2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" className="text-slate-900 dark:text-white" />
-          </marker>
-        </defs>
-        <polygon points="60,160 220,160 240,80 80,80" fill="none" stroke="#64748b" strokeWidth="1.5" />
-        <text x="130" y="130" fontSize="12" fill="currentColor" className="text-slate-900 dark:text-white font-mono">-2x + 3y - z = 4</text>
+      <svg width="400" height="220" viewBox="0 0 400 220" className="max-w-full h-auto">
+        {/* Plane - Sloping downwards to right */}
+        <polygon points="100,60 260,80 260,150 100,130" fill="none" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" />
+        <text x="290" y="150" fontSize="11" fill="currentColor" className="text-slate-900 dark:text-white font-mono" textAnchor="start">-2x + 3y - z = 4</text>
         
-        {/* Line */}
-        <line x1="100" y1="30" x2="100" y2="135" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" />
-        <line x1="100" y1="135" x2="100" y2="170" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" strokeDasharray="4 2" />
+        {/* Main Vertical Line */}
+        <line x1="180" y1="20" x2="180" y2="105" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" />
+        <line x1="180" y1="105" x2="180" y2="140" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" strokeDasharray="4 2" />
+        <line x1="180" y1="140" x2="180" y2="180" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" />
         
-        {/* Right angle symbol */}
-        <path d="M 100 125 L 108 125 L 108 135" fill="none" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1" />
+        {/* Line on plane for right angle reference */}
+        <line x1="180" y1="105" x2="140" y2="100" stroke="currentColor" className="text-slate-400 dark:text-slate-500" strokeWidth="1.5" strokeDasharray="3 3" />
+
+        {/* Right angle symbol on the left */}
+        <path d="M 180 95 L 170 93.75 L 170 103.75" fill="none" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.2" />
         
         {/* Point P */}
-        <circle cx="100" cy="135" r="3" fill="currentColor" className="text-slate-900 dark:text-white" />
-        <text x="110" y="145" fontSize="12" fill="currentColor" className="text-slate-900 dark:text-white font-serif italic">P</text>
+        <circle cx="180" cy="105" r="2" fill="currentColor" className="text-slate-900 dark:text-white" />
+        <text x="188" y="110" fontSize="13" fill="currentColor" className="text-slate-900 dark:text-white font-serif italic">P</text>
         
         {/* Top point */}
-        <circle cx="100" cy="40" r="3" fill="currentColor" className="text-slate-900 dark:text-white" />
-        <text x="110" y="45" fontSize="11" fill="currentColor" className="text-slate-900 dark:text-white">(3, -2, -2)</text>
-
-        {/* Direction vector */}
-        <line x1="140" y1="60" x2="140" y2="100" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" markerEnd="url(#arrow-q2)" />
-        <text x="150" y="75" fontSize="11" fill="currentColor" className="text-slate-900 dark:text-white font-serif italic">d</text>
-        <text x="150" y="90" fontSize="10" fill="#64748b">= ⟨-2, 3, -1⟩</text>
+        <circle cx="180" cy="45" r="2" fill="currentColor" className="text-slate-900 dark:text-white" />
+        <text x="188" y="49" fontSize="11" fill="currentColor" className="text-slate-900 dark:text-white">(3, -2, -2)</text>
+        
+        {/* Vector Text */}
+        <text x="165" y="103" transform="rotate(-90 165 103)" fontSize="10" fill="currentColor" className="text-slate-900 dark:text-white font-mono" textAnchor="middle">⟨-2, 3, -1⟩</text>
       </svg>
     </div>
   );
@@ -1839,74 +2036,36 @@ export function Chap3_4_Q2() {
 export function Chap3_4_Ex10_Sol1() {
   return (
     <div className="my-6 flex justify-center p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80 overflow-x-auto">
-      <svg width="250" height="200" viewBox="0 0 250 200" className="max-w-full h-auto">
-        <defs>
-          <marker id="arrow-ex10-1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" className="text-slate-900 dark:text-white" />
-          </marker>
-        </defs>
+      <svg width="400" height="260" viewBox="0 0 400 260" className="max-w-full h-auto">
         {/* Top Plane */}
-        <polygon points="50,80 190,80 210,30 70,30" fill="none" stroke="#64748b" strokeWidth="1.5" />
-        <circle cx="120" cy="55" r="3" fill="currentColor" className="text-slate-900 dark:text-white" />
-        <text x="130" y="60" fontSize="11" fill="currentColor" className="text-slate-900 dark:text-white">(-1, 3, 2)</text>
-        <text x="80" y="60" fontSize="14" fill="currentColor" className="text-slate-900 dark:text-white font-serif italic">Π</text>
+        <polygon points="100,40 260,60 260,110 100,90" fill="none" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" />
         
-        {/* Normal Vector 1 (Top Plane) */}
-        <line x1="140" y1="65" x2="140" y2="20" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" markerEnd="url(#arrow-ex10-1)" />
-        <text x="150" y="30" fontSize="11" fill="currentColor" className="text-slate-900 dark:text-white font-serif italic">n</text>
-        <text x="150" y="45" fontSize="10" fill="#64748b">= ⟨3, -2, -3⟩</text>
-        <path d="M 140 55 L 148 55 L 148 65" fill="none" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1" />
-        <circle cx="140" cy="65" r="2" fill="currentColor" className="text-slate-900 dark:text-white" />
+        <circle cx="180" cy="75" r="2" fill="currentColor" className="text-slate-900 dark:text-white" />
+        <text x="188" y="79" fontSize="11" fill="currentColor" className="text-slate-900 dark:text-white">(-1, 3, 2)</text>
 
         {/* Bottom Plane */}
-        <polygon points="50,150 190,150 210,100 70,100" fill="none" stroke="#64748b" strokeWidth="1.5" />
-        <text x="90" y="130" fontSize="12" fill="currentColor" className="text-slate-900 dark:text-white font-mono">3x - 2y - 3z = 2</text>
+        <polygon points="100,160 260,180 260,230 100,210" fill="none" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" />
+        <text x="290" y="230" fontSize="11" fill="currentColor" className="text-slate-900 dark:text-white font-mono" textAnchor="start">3x - 2y - 3z = 2</text>
         
-        {/* Normal Vector 2 (Bottom Plane) */}
-        <line x1="140" y1="135" x2="140" y2="90" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" markerEnd="url(#arrow-ex10-1)" />
-        <text x="150" y="100" fontSize="11" fill="currentColor" className="text-slate-900 dark:text-white font-serif italic">n</text>
-        <text x="150" y="115" fontSize="10" fill="#64748b">= ⟨3, -2, -3⟩</text>
-        <path d="M 140 125 L 148 125 L 148 135" fill="none" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1" />
-        <circle cx="140" cy="135" r="2" fill="currentColor" className="text-slate-900 dark:text-white" />
-      </svg>
-    </div>
-  );
-}
+        {/* Main Vertical Line */}
+        <line x1="180" y1="20" x2="180" y2="75" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" />
+        <line x1="180" y1="75" x2="180" y2="100" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" strokeDasharray="4 2" />
+        <line x1="180" y1="100" x2="180" y2="195" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" />
+        <line x1="180" y1="195" x2="180" y2="220" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" strokeDasharray="4 2" />
+        <line x1="180" y1="220" x2="180" y2="245" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" />
+        
+        {/* Lines on planes for right angle reference */}
+        <line x1="180" y1="75" x2="140" y2="70" stroke="currentColor" className="text-slate-400 dark:text-slate-500" strokeWidth="1.5" strokeDasharray="3 3" />
+        <line x1="180" y1="195" x2="140" y2="190" stroke="currentColor" className="text-slate-400 dark:text-slate-500" strokeWidth="1.5" strokeDasharray="3 3" />
 
-export function Chap3_4_Ex10_Sol2() {
-  return (
-    <div className="my-6 flex justify-center p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80 overflow-x-auto">
-      <svg width="250" height="200" viewBox="0 0 250 200" className="max-w-full h-auto">
-        <defs>
-          <marker id="arrow-ex10-2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" className="text-slate-900 dark:text-white" />
-          </marker>
-        </defs>
-        {/* Top Plane */}
-        <polygon points="50,80 190,80 210,30 70,30" fill="none" stroke="#64748b" strokeWidth="1.5" />
-        <circle cx="120" cy="55" r="3" fill="currentColor" className="text-slate-900 dark:text-white" />
-        <text x="130" y="60" fontSize="11" fill="currentColor" className="text-slate-900 dark:text-white">(-1, 3, 2)</text>
-        <text x="80" y="60" fontSize="14" fill="currentColor" className="text-slate-900 dark:text-white font-serif italic">Π</text>
+        {/* Right angle symbols (on the left) */}
+        {/* Top plane */}
+        <path d="M 180 65 L 170 63.75 L 170 73.75" fill="none" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.2" />
+        {/* Bottom plane */}
+        <path d="M 180 185 L 170 183.75 L 170 193.75" fill="none" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.2" />
         
-        {/* Bottom Plane */}
-        <polygon points="50,150 190,150 210,100 70,100" fill="none" stroke="#64748b" strokeWidth="1.5" />
-        <text x="90" y="130" fontSize="12" fill="currentColor" className="text-slate-900 dark:text-white font-mono">3x - 2y - 3z = 2</text>
-        
-        {/* Line perpendicular to both planes */}
-        <line x1="120" y1="20" x2="120" y2="55" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" />
-        <line x1="120" y1="55" x2="120" y2="125" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" strokeDasharray="4 2" />
-        <line x1="120" y1="125" x2="120" y2="180" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" />
-        
-        {/* Right angles */}
-        <path d="M 120 45 L 128 45 L 128 55" fill="none" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1" />
-        <path d="M 120 115 L 128 115 L 128 125" fill="none" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1" />
-        
-        <circle cx="120" cy="125" r="3" fill="currentColor" className="text-slate-900 dark:text-white" />
-        
-        {/* Direction vector arrow */}
-        <line x1="175" y1="60" x2="175" y2="100" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" markerEnd="url(#arrow-ex10-2)" />
-        <text x="185" y="75" fontSize="11" fill="currentColor" className="text-slate-900 dark:text-white font-serif italic">d</text>
-        <text x="185" y="90" fontSize="10" fill="#64748b">= ⟨3, -2, -3⟩</text>
+        {/* Vector Text */}
+        <text x="165" y="135" transform="rotate(-90 165 135)" fontSize="10" fill="currentColor" className="text-slate-900 dark:text-white font-mono" textAnchor="middle">⟨3, -2, -3⟩</text>
       </svg>
     </div>
   );
@@ -1915,37 +2074,36 @@ export function Chap3_4_Ex10_Sol2() {
 export function Chap3_4_Q3_Sol() {
   return (
     <div className="my-6 flex justify-center p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80 overflow-x-auto">
-      <svg width="250" height="200" viewBox="0 0 250 200" className="max-w-full h-auto">
-        <defs>
-          <marker id="arrow-q3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" className="text-slate-900 dark:text-white" />
-          </marker>
-        </defs>
+      <svg width="400" height="260" viewBox="0 0 400 260" className="max-w-full h-auto">
         {/* Top Plane */}
-        <polygon points="50,80 190,80 210,30 70,30" fill="none" stroke="#64748b" strokeWidth="1.5" />
-        <circle cx="120" cy="55" r="3" fill="currentColor" className="text-slate-900 dark:text-white" />
-        <text x="130" y="60" fontSize="11" fill="currentColor" className="text-slate-900 dark:text-white">(2, 3, -1)</text>
-        <text x="80" y="60" fontSize="14" fill="currentColor" className="text-slate-900 dark:text-white font-serif italic">Π</text>
+        <polygon points="100,40 260,60 260,110 100,90" fill="none" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" />
         
+        <circle cx="180" cy="75" r="2" fill="currentColor" className="text-slate-900 dark:text-white" />
+        <text x="188" y="79" fontSize="11" fill="currentColor" className="text-slate-900 dark:text-white">(2, 3, -1)</text>
+
         {/* Bottom Plane */}
-        <polygon points="50,150 190,150 210,100 70,100" fill="none" stroke="#64748b" strokeWidth="1.5" />
-        <text x="90" y="130" fontSize="12" fill="currentColor" className="text-slate-900 dark:text-white font-mono">-2x + y + 3z = 6</text>
+        <polygon points="100,160 260,180 260,230 100,210" fill="none" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" />
+        <text x="290" y="230" fontSize="11" fill="currentColor" className="text-slate-900 dark:text-white font-mono" textAnchor="start">-2x + y + 3z = 6</text>
         
-        {/* Line perpendicular to both planes */}
-        <line x1="120" y1="20" x2="120" y2="55" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" />
-        <line x1="120" y1="55" x2="120" y2="125" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" strokeDasharray="4 2" />
-        <line x1="120" y1="125" x2="120" y2="180" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" />
+        {/* Main Vertical Line */}
+        <line x1="180" y1="20" x2="180" y2="75" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" />
+        <line x1="180" y1="75" x2="180" y2="100" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" strokeDasharray="4 2" />
+        <line x1="180" y1="100" x2="180" y2="195" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" />
+        <line x1="180" y1="195" x2="180" y2="220" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" strokeDasharray="4 2" />
+        <line x1="180" y1="220" x2="180" y2="245" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" />
         
-        {/* Right angles */}
-        <path d="M 120 45 L 128 45 L 128 55" fill="none" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1" />
-        <path d="M 120 115 L 128 115 L 128 125" fill="none" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1" />
+        {/* Lines on planes for right angle reference */}
+        <line x1="180" y1="75" x2="140" y2="70" stroke="currentColor" className="text-slate-400 dark:text-slate-500" strokeWidth="1.5" strokeDasharray="3 3" />
+        <line x1="180" y1="195" x2="140" y2="190" stroke="currentColor" className="text-slate-400 dark:text-slate-500" strokeWidth="1.5" strokeDasharray="3 3" />
+
+        {/* Right angle symbols (on the left) */}
+        {/* Top plane */}
+        <path d="M 180 65 L 170 63.75 L 170 73.75" fill="none" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.2" />
+        {/* Bottom plane */}
+        <path d="M 180 185 L 170 183.75 L 170 193.75" fill="none" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.2" />
         
-        <circle cx="120" cy="125" r="3" fill="currentColor" className="text-slate-900 dark:text-white" />
-        
-        {/* Direction vector arrow */}
-        <line x1="175" y1="60" x2="175" y2="100" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" markerEnd="url(#arrow-q3)" />
-        <text x="185" y="75" fontSize="11" fill="currentColor" className="text-slate-900 dark:text-white font-serif italic">d</text>
-        <text x="185" y="90" fontSize="10" fill="#64748b">= ⟨-2, 1, 3⟩</text>
+        {/* Vector Text */}
+        <text x="165" y="135" transform="rotate(-90 165 135)" fontSize="10" fill="currentColor" className="text-slate-900 dark:text-white font-mono" textAnchor="middle">⟨-2, 1, 3⟩</text>
       </svg>
     </div>
   );
@@ -2160,8 +2318,6 @@ export default function Latex({ text, block = false }: LatexProps) {
         case 'Chap3_4_Ex10_Sol1':
           renderedElements.push(<Chap3_4_Ex10_Sol1 key={`diag-${i}`} />);
           break;
-        case 'Chap3_4_Ex10_Sol2':
-          renderedElements.push(<Chap3_4_Ex10_Sol2 key={`diag-${i}`} />);
           break;
         case 'Chap3_4_Q3_Sol':
           renderedElements.push(<Chap3_4_Q3_Sol key={`diag-${i}`} />);
@@ -2249,6 +2405,21 @@ export default function Latex({ text, block = false }: LatexProps) {
           break;
         case 'SpherePlaneTangentDiagram':
           renderedElements.push(<SpherePlaneTangentDiagram key={`diag-${i}`} />);
+          break;
+        case 'SphereStandardDiagram':
+          renderedElements.push(<SphereStandardDiagram key={`diag-${i}`} />);
+          break;
+        case 'SphereEx3_5_Q4_Diag':
+          renderedElements.push(<SphereEx3_5_Q4_Diag key={`diag-${i}`} />);
+          break;
+        case 'SphereDiameterDiagram':
+          renderedElements.push(<SphereDiameterDiagram key={`diag-${i}`} />);
+          break;
+        case 'SphereTouchingPlaneDiagram':
+          renderedElements.push(<SphereTouchingPlaneDiagram key={`diag-${i}`} />);
+          break;
+        case 'SpherePointPositionsDiagram':
+          renderedElements.push(<SpherePointPositionsDiagram key={`diag-${i}`} />);
           break;
         case 'DrinksSnacksTree':
           renderedElements.push(<DrinksSnacksTree key={`diag-${i}`} />);
@@ -5025,10 +5196,11 @@ function Example26Diagram() {
   );
 }
 
+
 export function Ex5_4_Q6_i_Diag() {
   return (
-    <div className="my-6 w-full overflow-x-auto flex justify-center">
-      <div className="flex gap-2">
+    <div className="my-6 w-full overflow-x-auto pb-4">
+      <div className="w-max mx-auto flex gap-2">
         <div className="flex flex-col items-center border border-slate-300 dark:border-slate-600 rounded overflow-hidden">
           <div className="px-4 py-2 border-b border-slate-300 dark:border-slate-600 font-bold bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200">T</div>
           <div className="px-4 py-2 text-indigo-600 dark:text-indigo-400 font-mono">1</div>
@@ -5052,8 +5224,8 @@ export function Ex5_4_Q6_i_Diag() {
 
 export function Ex5_4_Q6_ii_Diag() {
   return (
-    <div className="my-6 w-full overflow-x-auto flex justify-center">
-      <div className="flex gap-2">
+    <div className="my-6 w-full overflow-x-auto pb-4">
+      <div className="w-max mx-auto flex gap-2">
         <div className="flex flex-col items-center border border-slate-300 dark:border-slate-600 rounded overflow-hidden">
           <div className="px-4 py-2 border-b border-slate-300 dark:border-slate-600 font-bold bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200">C</div>
           <div className="px-4 py-2 text-indigo-600 dark:text-indigo-400 font-mono">3</div>
@@ -5077,35 +5249,30 @@ export function Ex5_4_Q6_ii_Diag() {
 
 export function Ex5_4_Q6_iii_Diag() {
   return (
-    <div className="my-6 w-full overflow-x-auto flex justify-center gap-2">
-      {[5, 4, 3, 2].map(n => (
-         <div key={n} className="w-12 h-12 flex items-center justify-center border border-slate-300 dark:border-slate-600 rounded bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 font-mono text-lg font-semibold">
-           {n}
-         </div>
-      ))}
+    <div className="my-6 w-full overflow-x-auto pb-4">
+      <div className="w-max mx-auto flex gap-2">
+        {[5, 4, 3, 2].map(n => (
+          <div key={n} className="w-12 h-12 flex items-center justify-center border border-slate-300 dark:border-slate-600 rounded bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 font-mono text-lg font-semibold">
+            {n}
+          </div>
+        ))}
+      </div>
     </div>
-  )
+  );
 }
 
 export function Ex5_4_Q6_iv_Diag_1() {
   return (
-    <div className="my-6 w-full overflow-x-auto flex justify-center">
-      <div className="flex gap-2">
+    <div className="my-6 w-full overflow-x-auto pb-4">
+      <div className="w-max mx-auto flex gap-2">
         <div className="flex flex-col items-center border border-slate-300 dark:border-slate-600 rounded overflow-hidden">
-          <div className="px-4 py-2 border-b border-slate-300 dark:border-slate-600 font-bold bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200">C</div>
-          <div className="px-4 py-2 text-indigo-600 dark:text-indigo-400 font-mono">Q</div>
+          <div className="px-4 py-2 border-b border-slate-300 dark:border-slate-600 font-bold bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200">Vowels</div>
+          <div className="px-4 py-2 text-indigo-600 dark:text-indigo-400 font-mono">2!</div>
         </div>
+        <div className="flex items-center justify-center font-bold text-slate-400 px-2">×</div>
         <div className="flex flex-col items-center border border-slate-300 dark:border-slate-600 rounded overflow-hidden">
-          <div className="px-4 py-2 border-b border-slate-300 dark:border-slate-600 font-bold bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200">C</div>
-          <div className="px-4 py-2 text-indigo-600 dark:text-indigo-400 font-mono">T</div>
-        </div>
-        <div className="flex flex-col items-center border border-slate-300 dark:border-slate-600 rounded overflow-hidden">
-          <div className="px-4 py-2 border-b border-slate-300 dark:border-slate-600 font-bold bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200">C</div>
-          <div className="px-4 py-2 text-indigo-600 dark:text-indigo-400 font-mono">N</div>
-        </div>
-        <div className="flex flex-col items-center border border-slate-300 dark:border-slate-600 rounded overflow-hidden">
-          <div className="px-4 py-2 border-b border-slate-300 dark:border-slate-600 font-bold bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200">V</div>
-          <div className="px-4 py-2 text-indigo-600 dark:text-indigo-400 font-mono">5</div>
+          <div className="px-4 py-2 border-b border-slate-300 dark:border-slate-600 font-bold bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200">Others</div>
+          <div className="px-4 py-2 text-indigo-600 dark:text-indigo-400 font-mono">6!</div>
         </div>
       </div>
     </div>
@@ -5114,20 +5281,17 @@ export function Ex5_4_Q6_iv_Diag_1() {
 
 export function Ex5_4_Q6_iv_Diag_2() {
   return (
-    <div className="my-6 w-full overflow-x-auto flex justify-center items-center gap-4">
-      <div className="flex flex-col items-center">
-        <span className="text-[10px] font-bold text-slate-600 dark:text-slate-400 mb-1">Choose V</span>
-        <div className="w-16 h-10 border border-slate-300 dark:border-slate-600 rounded flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-mono bg-white dark:bg-slate-900">5</div>
-      </div>
-      <span className="text-slate-400 font-bold">&times;</span>
-      <div className="flex flex-col items-center">
-        <span className="text-[10px] font-bold text-slate-600 dark:text-slate-400 mb-1">Place V</span>
-        <div className="w-16 h-10 border border-slate-300 dark:border-slate-600 rounded flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-mono bg-white dark:bg-slate-900">4</div>
-      </div>
-      <span className="text-slate-400 font-bold">&times;</span>
-      <div className="flex flex-col items-center">
-        <span className="text-[10px] font-bold text-slate-600 dark:text-slate-400 mb-1">Arrange C</span>
-        <div className="w-16 h-10 border border-slate-300 dark:border-slate-600 rounded flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-mono bg-white dark:bg-slate-900">3!</div>
+    <div className="my-6 w-full overflow-x-auto pb-4">
+      <div className="w-max mx-auto flex items-center gap-4">
+        <div className="flex gap-1 border border-slate-300 dark:border-slate-600 rounded p-2 bg-slate-50 dark:bg-slate-800/50">
+          <div className="w-8 h-8 flex items-center justify-center border border-indigo-300 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 font-bold rounded">I</div>
+          <div className="w-8 h-8 flex items-center justify-center border border-indigo-300 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 font-bold rounded">A</div>
+        </div>
+        <div className="font-bold text-slate-400">or</div>
+        <div className="flex gap-1 border border-slate-300 dark:border-slate-600 rounded p-2 bg-slate-50 dark:bg-slate-800/50">
+          <div className="w-8 h-8 flex items-center justify-center border border-indigo-300 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 font-bold rounded">A</div>
+          <div className="w-8 h-8 flex items-center justify-center border border-indigo-300 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 font-bold rounded">I</div>
+        </div>
       </div>
     </div>
   );
@@ -5135,116 +5299,141 @@ export function Ex5_4_Q6_iv_Diag_2() {
 
 export function Ex5_4_Q7_i_Diag() {
   return (
-    <div className="my-6 w-full overflow-x-auto flex justify-center items-center gap-3">
-      <div className="flex flex-col items-center border border-slate-300 dark:border-slate-600 rounded p-2 bg-slate-50 dark:bg-slate-800">
-        <div className="font-bold flex gap-2 text-slate-800 dark:text-slate-200">
-          <span>S<sub>1</sub></span><span>S<sub>2</sub></span><span>S<sub>3</sub></span>
+    <div className="my-6 w-full overflow-x-auto pb-4">
+      <div className="w-max mx-auto flex items-center gap-3">
+        <div className="flex flex-col items-center border border-slate-300 dark:border-slate-600 rounded overflow-hidden">
+          <div className="px-4 py-2 border-b border-slate-300 dark:border-slate-600 font-bold bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200">First</div>
+          <div className="px-4 py-2 text-indigo-600 dark:text-indigo-400 font-mono">1</div>
         </div>
-        <span className="text-[10px] text-slate-500 mt-1">block</span>
-      </div>
-      <div className="w-12 h-12 border border-slate-300 dark:border-slate-600 rounded flex items-center justify-center font-bold bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200">
-        B<sub>1</sub>
-      </div>
-      <div className="w-12 h-12 border border-slate-300 dark:border-slate-600 rounded flex items-center justify-center font-bold bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200">
-        B<sub>2</sub>
-      </div>
-      <div className="w-12 h-12 border border-slate-300 dark:border-slate-600 rounded flex items-center justify-center font-bold bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200">
-        B<sub>3</sub>
+        <div className="flex items-center justify-center font-bold text-slate-400">×</div>
+        <div className="flex flex-col items-center border border-slate-300 dark:border-slate-600 rounded overflow-hidden">
+          <div className="px-4 py-2 border-b border-slate-300 dark:border-slate-600 font-bold bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200">Middle 4</div>
+          <div className="px-4 py-2 text-indigo-600 dark:text-indigo-400 font-mono">4!</div>
+        </div>
+        <div className="flex items-center justify-center font-bold text-slate-400">×</div>
+        <div className="flex flex-col items-center border border-slate-300 dark:border-slate-600 rounded overflow-hidden">
+          <div className="px-4 py-2 border-b border-slate-300 dark:border-slate-600 font-bold bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200">Last</div>
+          <div className="px-4 py-2 text-indigo-600 dark:text-indigo-400 font-mono">1</div>
+        </div>
       </div>
     </div>
   );
 }
 
 export function Ex5_4_Q7_ii_Diag() {
-  const row1 = ['B', 'S', 'B', 'S', 'B', 'S'];
-  const row2 = ['S', 'B', 'S', 'B', 'S', 'B'];
   return (
-    <div className="my-6 w-full overflow-x-auto flex flex-col items-center gap-2">
-      <div className="flex gap-2">
-        {row1.map((l, i) => (
-           <div key={i} className={`w-10 h-10 border border-slate-300 dark:border-slate-600 rounded flex items-center justify-center font-bold bg-white dark:bg-slate-900 ${l === 'B' ? 'text-blue-600 dark:text-blue-400' : 'text-rose-600 dark:text-rose-400'}`}>{l}</div>
-        ))}
-      </div>
-      <div className="flex gap-2">
-        {row2.map((l, i) => (
-           <div key={i} className={`w-10 h-10 border border-slate-300 dark:border-slate-600 rounded flex items-center justify-center font-bold bg-white dark:bg-slate-900 ${l === 'B' ? 'text-blue-600 dark:text-blue-400' : 'text-rose-600 dark:text-rose-400'}`}>{l}</div>
-        ))}
+    <div className="my-6 w-full overflow-x-auto pb-4">
+      <div className="w-max mx-auto flex flex-col items-center gap-2">
+        <div className="flex gap-2">
+          {['T', 'O', 'M', 'O', 'R', 'R', 'O', 'W'].map((l, i) => (
+            <div key={i} className="w-10 h-10 flex items-center justify-center border border-slate-300 dark:border-slate-600 rounded bg-white dark:bg-slate-900 font-bold text-slate-700 dark:text-slate-300">
+              {l}
+            </div>
+          ))}
+        </div>
+        <div className="text-sm text-slate-500 font-mono mt-2">
+          Total 8 letters
+        </div>
       </div>
     </div>
-  )
+  );
 }
 
 export function Ex5_4_Q8_i_Diag() {
   return (
-    <div className="my-6 w-full overflow-x-auto flex justify-center items-center gap-2">
-      <div className="border border-slate-300 dark:border-slate-600 rounded p-2 px-3 bg-slate-50 dark:bg-slate-800 flex items-center font-bold text-sm text-slate-700 dark:text-slate-300 h-10">
-        Vowel block <span className="text-indigo-600 dark:text-indigo-400 ml-2 font-mono">(E, A, O)</span>
+    <div className="my-6 w-full overflow-x-auto pb-4">
+      <div className="w-max mx-auto flex items-center gap-2">
+        {[5, 4, 3, 2, 1].map(n => (
+          <div key={n} className="w-10 h-10 flex items-center justify-center border border-indigo-200 dark:border-indigo-800 rounded bg-indigo-50 dark:bg-indigo-900/20 text-indigo-700 dark:text-indigo-400 font-mono font-bold">
+            {n}
+          </div>
+        ))}
       </div>
-      {['H', 'X', 'G', 'N'].map(l => (
-        <div key={l} className="w-10 h-10 border border-slate-300 dark:border-slate-600 rounded flex items-center justify-center font-bold bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200">{l}</div>
-      ))}
     </div>
-  )
+  );
 }
 
 export function Ex5_4_Q8_iii_Diag() {
   return (
-    <div className="my-6 w-full overflow-x-auto flex justify-center items-center gap-2">
-      {['C', 'V', 'C', 'V', 'C', 'V', 'C'].map((l, i) => (
-        <div key={i} className={`w-10 h-10 border border-slate-300 dark:border-slate-600 rounded flex items-center justify-center font-bold bg-white dark:bg-slate-900 ${l === 'C' ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>{l}</div>
-      ))}
+    <div className="my-6 w-full overflow-x-auto pb-4">
+      <div className="w-max mx-auto flex items-center gap-2">
+        <div className="w-10 h-10 flex items-center justify-center border border-rose-300 dark:border-rose-700 rounded bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-400 font-bold">
+          A
+        </div>
+        <div className="w-10 h-10 flex items-center justify-center border border-rose-300 dark:border-rose-700 rounded bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-400 font-bold">
+          R
+        </div>
+        <div className="w-10 h-10 flex items-center justify-center border border-slate-300 dark:border-slate-600 rounded bg-slate-50 dark:bg-slate-800 text-slate-500 font-mono">
+          3
+        </div>
+        <div className="w-10 h-10 flex items-center justify-center border border-slate-300 dark:border-slate-600 rounded bg-slate-50 dark:bg-slate-800 text-slate-500 font-mono">
+          2
+        </div>
+        <div className="w-10 h-10 flex items-center justify-center border border-slate-300 dark:border-slate-600 rounded bg-slate-50 dark:bg-slate-800 text-slate-500 font-mono">
+          1
+        </div>
+      </div>
     </div>
-  )
+  );
 }
 
 export function Ex5_4_Q9_Diag() {
-  const rows = [
-    [ {t: 'N', b: '1'}, {t: '', b: '2'}, {t: '', b: '3'}, {t: '', b: '4'}, {t: 'N', b: '5'}, {t: '', b: '6'}, {t: '', b: '7'} ],
-    [ {t: '', b: '1'}, {t: 'N', b: '2'}, {t: '', b: '3'}, {t: '', b: '4'}, {t: '', b: '5'}, {t: 'N', b: '6'}, {t: '', b: '7'} ],
-    [ {t: '', b: '1'}, {t: '', b: '2'}, {t: 'N', b: '3'}, {t: '', b: '4'}, {t: '', b: '5'}, {t: '', b: '6'}, {t: 'N', b: '7'} ],
-  ];
   return (
-    <div className="my-6 w-full overflow-x-auto flex flex-col items-center gap-4">
-      {rows.map((row, i) => (
-        <div key={i} className="flex gap-2">
-          {row.map((cell, j) => (
-            <div key={j} className="flex flex-col items-center border border-slate-300 dark:border-slate-600 rounded overflow-hidden w-10">
-              <div className="h-8 w-full border-b border-slate-300 dark:border-slate-600 font-bold bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-rose-600 dark:text-rose-400">{cell.t}</div>
-              <div className="h-8 w-full flex items-center justify-center text-slate-500 font-mono text-xs bg-white dark:bg-slate-900">{cell.b}</div>
+    <div className="my-6 w-full overflow-x-auto pb-4">
+      <div className="w-max mx-auto flex flex-col gap-4">
+        {[
+          { pos: [0, 4], label: "(1, 5)" },
+          { pos: [1, 5], label: "(2, 6)" },
+          { pos: [2, 6], label: "(3, 7)" }
+        ].map((config, row) => (
+          <div key={row} className="flex items-center gap-4">
+            <span className="font-mono text-sm w-24 whitespace-nowrap text-right text-slate-600 dark:text-slate-400">Pos {config.label}:</span>
+            <div className="flex gap-1">
+              {Array.from({length: 7}).map((_, col) => {
+                const isN = config.pos.includes(col);
+                return (
+                  <div key={col} className={`w-10 h-10 border flex items-center justify-center font-bold text-lg rounded ${isN ? 'border-amber-400 bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-400' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-300 dark:text-slate-700'}`}>
+                    {isN ? 'N' : ''}
+                  </div>
+                );
+              })}
             </div>
-          ))}
-        </div>
-      ))}
+          </div>
+        ))}
+      </div>
     </div>
-  )
+  );
 }
+
 
 export function Ex5_4_Q10_i_Diag() {
   return (
-    <div className="my-6 w-full overflow-x-auto flex flex-col items-center gap-2">
-      {Array.from({length: 4}).map((_, row) => (
-        <div key={row} className="flex gap-1">
-          {Array.from({length: 10}).map((_, col) => {
-            const isE = col === row || col === row + 6;
-            return (
-              <div key={col} className={`w-8 h-8 border flex items-center justify-center font-bold text-sm ${isE ? 'border-indigo-300 bg-indigo-50 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-400' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-300 dark:text-slate-700'}`}>
-                {isE ? 'E' : ''}
-              </div>
-            )
-          })}
-        </div>
-      ))}
+    <div className="my-6 w-full overflow-x-auto pb-4">
+      <div className="w-max mx-auto flex flex-col items-center gap-2">
+        {Array.from({length: 4}).map((_, row) => (
+          <div key={row} className="flex gap-1">
+            {Array.from({length: 10}).map((_, col) => {
+              const isE = col === row || col === row + 6;
+              return (
+                <div key={col} className={`w-8 h-8 border flex items-center justify-center font-bold text-sm ${isE ? 'border-indigo-300 bg-indigo-50 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-400' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-300 dark:text-slate-700'}`}>
+                  {isE ? 'E' : ''}
+                </div>
+              );
+            })}
+          </div>
+        ))}
+      </div>
     </div>
-  )
+  );
 }
 
 export function Ex5_4_Q10_ii_Diag1() {
   return (
-    <div className="my-6 w-full overflow-x-auto flex justify-center">
-      <div className="flex flex-col gap-2">
+    <div className="my-6 w-full overflow-x-auto pb-4">
+      <div className="w-max mx-auto flex flex-col gap-2">
         {Array.from({length: 4}).map((_, row) => (
           <div key={row} className="flex items-center gap-3">
-            <span className="font-mono text-sm w-8 text-slate-600 dark:text-slate-400">A<sub>{row+1}</sub> :</span>
+            <span className="font-mono text-sm w-12 whitespace-nowrap text-right text-slate-600 dark:text-slate-400">A<sub>{row+1}</sub> :</span>
             <div className="flex gap-1">
               {Array.from({length: 10}).map((_, col) => {
                 const isS = col === row || col === row + 6;
@@ -5252,57 +5441,57 @@ export function Ex5_4_Q10_ii_Diag1() {
                   <div key={col} className={`w-8 h-8 border flex items-center justify-center font-bold text-sm ${isS ? 'border-emerald-300 bg-emerald-50 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-300 dark:text-slate-700'}`}>
                     {isS ? 'S' : ''}
                   </div>
-                )
+                );
               })}
             </div>
           </div>
         ))}
       </div>
     </div>
-  )
+  );
 }
 
 export function Ex5_4_Q10_ii_Diag2() {
   return (
-    <div className="my-6 w-full overflow-x-auto flex justify-center">
-      <div className="flex gap-1">
+    <div className="my-6 w-full overflow-x-auto pb-4">
+      <div className="w-max mx-auto flex gap-1">
         {Array.from({length: 10}).map((_, col) => {
           const isS = col === 0 || col === 6;
           return (
             <div key={col} className={`w-8 h-8 border flex items-center justify-center font-bold text-sm ${isS ? 'border-emerald-300 bg-emerald-50 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-300 dark:text-slate-700'}`}>
               {isS ? 'S' : ''}
             </div>
-          )
+          );
         })}
       </div>
     </div>
-  )
+  );
 }
 
 export function Ex5_4_Q10_ii_Diag3() {
   return (
-    <div className="my-6 w-full overflow-x-auto flex justify-center">
-      <div className="flex gap-1">
+    <div className="my-6 w-full overflow-x-auto pb-4">
+      <div className="w-max mx-auto flex gap-1">
         {Array.from({length: 10}).map((_, col) => {
           const isS = col === 0 || col === 1 || col === 6 || col === 7;
           return (
             <div key={col} className={`w-8 h-8 border flex items-center justify-center font-bold text-sm ${isS ? 'border-emerald-300 bg-emerald-50 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-300 dark:text-slate-700'}`}>
               {isS ? 'S' : ''}
             </div>
-          )
+          );
         })}
       </div>
     </div>
-  )
+  );
 }
 
 export function Ex5_4_Q10_ii_Diag4() {
   return (
-    <div className="my-6 w-full overflow-x-auto flex justify-center">
-      <div className="flex flex-col gap-2">
+    <div className="my-6 w-full overflow-x-auto pb-4">
+      <div className="w-max mx-auto flex flex-col gap-2">
         {Array.from({length: 4}).map((_, row) => (
           <div key={row} className="flex items-center gap-3">
-            <span className="font-mono text-sm w-16 text-slate-600 dark:text-slate-400">({row+1}, {row+7}) :</span>
+            <span className="font-mono text-sm w-24 whitespace-nowrap text-right text-slate-600 dark:text-slate-400">({row+1}, {row+7}) :</span>
             <div className="flex gap-1">
               {Array.from({length: 10}).map((_, col) => {
                 const isS = col === row || col === row + 6;
@@ -5310,29 +5499,30 @@ export function Ex5_4_Q10_ii_Diag4() {
                   <div key={col} className={`w-8 h-8 border flex items-center justify-center font-bold text-sm ${isS ? 'border-amber-300 bg-amber-50 dark:bg-amber-900/40 text-amber-700 dark:text-amber-400' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-300 dark:text-slate-700'}`}>
                     {isS ? 'S' : ''}
                   </div>
-                )
+                );
               })}
             </div>
           </div>
         ))}
       </div>
     </div>
-  )
+  );
 }
 
 export function Ex5_4_Q10_ii_Diag5() {
   return (
-    <div className="my-6 w-full overflow-x-auto flex justify-center">
-      <div className="flex gap-1">
+    <div className="my-6 w-full overflow-x-auto pb-4">
+      <div className="w-max mx-auto flex gap-1">
         {Array.from({length: 10}).map((_, col) => {
           const isS = col === 0 || col === 1 || col === 6 || col === 7;
           return (
             <div key={col} className={`w-8 h-8 border flex items-center justify-center font-bold text-sm ${isS ? 'border-amber-300 bg-amber-50 dark:bg-amber-900/40 text-amber-700 dark:text-amber-400' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-300 dark:text-slate-700'}`}>
               {isS ? 'S' : ''}
             </div>
-          )
+          );
         })}
       </div>
     </div>
-  )
+  );
 }
+

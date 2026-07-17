@@ -6,6 +6,7 @@ import HomeView from './components/HomeView';
 import { motion, AnimatePresence } from 'motion/react';
 import { BookOpen, Calculator, Search, Menu, X, GraduationCap, ChevronRight, Hash, Home, Facebook, Send, Bug, Youtube, Mail, Copy, Check, ExternalLink } from 'lucide-react';
 import ThemeToggle from './components/ThemeToggle';
+import AuthButton from './components/AuthButton';
 
 export default function App() {
   const [activeView, setActiveView] = useState<'home' | 'syllabus' | 'formulas'>(() => {
@@ -166,11 +167,13 @@ export default function App() {
           </div>
 
           <ThemeToggle />
+          <AuthButton />
         </div>
 
         {/* Mobile menu triggers & Theme Toggle */}
         <div className="flex items-center gap-1.5 md:hidden">
           <ThemeToggle />
+          <AuthButton />
           <button
             onClick={() => setActiveView('home')}
             className={`p-2 rounded-lg cursor-pointer transition-colors ${

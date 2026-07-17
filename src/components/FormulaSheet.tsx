@@ -138,7 +138,7 @@ export default function FormulaSheet() {
 
               {/* Centered LaTeX expression equation card */}
               <div className="p-4 bg-slate-50 dark:bg-slate-950/60 border border-slate-100 dark:border-slate-800 rounded-xl flex items-center justify-center text-center overflow-x-auto min-h-[56px]">
-                <Latex text={`$$${formula.latex}$$`} />
+                <Latex block={true} text={formula.latex} />
               </div>
             </div>
           ))

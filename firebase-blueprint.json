@@ -1,0 +1,56 @@
+{
+  "project_id": "gen-lang-client-0326860327",
+  "database_id": "ai-studio-unlockeducation-3af1f2a7-3055-41fd-bcc4-9e461f5a611a",
+  "auth": {
+    "enabled": true,
+    "providers": ["google.com"]
+  },
+  "firestore": {
+    "enabled": true,
+    "collections": [
+      {
+        "name": "users",
+        "description": "User profiles",
+        "fields": [
+          { "name": "uid", "type": "string" },
+          { "name": "email", "type": "string" },
+          { "name": "name", "type": "string" },
+          { "name": "photoURL", "type": "string" },
+          { "name": "createdAt", "type": "timestamp" }
+        ],
+        "rules": [
+          {
+            "operations": ["read", "write"],
+            "condition": "request.auth != null && request.auth.uid == resource.data.uid"
+          },
+          {
+            "operations": ["create"],
+            "condition": "request.auth != null && request.auth.uid == request.resource.data.uid"
+          }
+        ]
+      },
+      {
+        "name": "quizHistory",
+        "description": "User's quiz history records",
+        "fields": [
+          { "name": "userId", "type": "string" },
+          { "name": "chapterId", "type": "number" },
+          { "name": "chapterTitle", "type": "string" },
+          { "name": "score", "type": "number" },
+          { "name": "total", "type": "number" },
+          { "name": "date", "type": "timestamp" }
+        ],
+        "rules": [
+          {
+            "operations": ["read", "write"],
+            "condition": "request.auth != null && request.auth.uid == resource.data.userId"
+          },
+          {
+            "operations": ["create"],
+            "condition": "request.auth != null && request.auth.uid == request.resource.data.userId"
+          }
+        ]
+      }
+    ]
+  }
+}

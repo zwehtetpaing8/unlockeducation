@@ -729,6 +729,7 @@ export default function ChapterDetails({
 
             {activeTab === "quiz" && (
               <PracticeQuiz
+                chapterId={chapter.id}
                 questions={chapter.quiz}
                 chapterTitle={chapter.title}
               />
