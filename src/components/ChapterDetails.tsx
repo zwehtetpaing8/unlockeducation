@@ -50,7 +50,7 @@ function parseMarkdownSections(markdown: string): ContentSection[] {
       }
       currentTitle = match[2].replace(/\*/g, "").trim();
     } else {
-      if (line.trim() === "---") {
+      if (line.trim() === "---" && currentLines.length === 0) {
         continue;
       }
       currentLines.push(line);
