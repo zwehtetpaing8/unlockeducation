@@ -101,7 +101,7 @@ export default function ChapterDetails({
   const handleSectionClick = (idx: number) => {
     setActiveSectionIndex(idx);
     if (viewMode === "full") {
-      const element = document.getElementById(`section-${idx}`);
+      const element = document.getElementById(`chapter-${chapter.id}-section-${idx}`);
       if (element) {
         element.scrollIntoView({ behavior: "smooth", block: "start" });
       }
@@ -581,7 +581,7 @@ export default function ChapterDetails({
                         {sections.map((section, idx) => (
                           <div
                             key={idx}
-                            id={`section-${idx}`}
+                            id={`chapter-${chapter.id}-section-${idx}`}
                             className="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-2xl border border-slate-100 dark:border-slate-800/80 shadow-sm space-y-6 scroll-mt-20"
                           >
                             {/* Section Title */}

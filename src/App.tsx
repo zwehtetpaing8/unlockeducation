@@ -87,14 +87,28 @@ export default function App() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  // Scroll main container to top when view or chapter changes
+  // Scroll main container to top when view changes
   useEffect(() => {
-    const mainEl = document.querySelector('main');
-    if (mainEl) {
-      mainEl.scrollTo({ top: 0, behavior: 'instant' });
+    if (activeView === 'home' || activeView === 'formulas') {
+      const mainEl = document.querySelector('main');
+      if (mainEl) {
+        mainEl.scrollTo({ top: 0, behavior: 'instant' });
+      }
+      window.scrollTo({ top: 0, behavior: 'instant' });
     }
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  }, [activeView, selectedChapterId]);
+  }, [activeView]);
+
+  // Scroll to selected chapter when entering syllabus view from another view
+  useEffect(() => {
+    if (activeView === 'syllabus') {
+      setTimeout(() => {
+        const el = document.getElementById(`chapter-section-${selectedChapterId}`);
+        if (el) {
+          el.scrollIntoView({ behavior: 'instant', block: 'start' });
+        }
+      }, 50);
+    }
+  }, [activeView]);
 
   // Filter chapters based on search query
   const filteredChapters = chapters.filter((ch) =>
@@ -102,6 +116,40 @@ export default function App() {
     ch.tagline.toLowerCase().includes(sidebarSearch.toLowerCase()) ||
     ch.id.toString().includes(sidebarSearch)
   );
+
+  // Scroll spy for chapters
+  useEffect(() => {
+    if (activeView !== 'syllabus') return;
+
+    const observer = new IntersectionObserver((entries) => {
+      let visibleEntries = entries.filter(entry => entry.isIntersecting);
+      if (visibleEntries.length > 0) {
+        const topEntry = visibleEntries.reduce((prev, current) => {
+          return (prev.boundingClientRect.top < current.boundingClientRect.top) ? prev : current;
+        });
+        const idStr = topEntry.target.id.replace('chapter-section-', '');
+        const id = parseInt(idStr, 10);
+        if (!isNaN(id)) {
+          setSelectedChapterId(id);
+        }
+      }
+    }, {
+      root: document.querySelector('main'),
+      rootMargin: '-10% 0px -80% 0px',
+      threshold: 0
+    });
+
+    // Give DOM time to update before observing
+    const timeout = setTimeout(() => {
+      const elements = document.querySelectorAll('[id^="chapter-section-"]');
+      elements.forEach(el => observer.observe(el));
+    }, 100);
+
+    return () => {
+      clearTimeout(timeout);
+      observer.disconnect();
+    };
+  }, [activeView, filteredChapters]);
 
   const selectedChapter = chapters.find((ch) => ch.id === selectedChapterId) || chapters[0];
 
@@ -243,6 +291,10 @@ export default function App() {
                       onClick={() => {
                         setSelectedChapterId(ch.id);
                         setActiveView('syllabus');
+                        const el = document.getElementById(`chapter-section-${ch.id}`);
+                        if (el) {
+                          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
                       }}
                       className={`w-full flex items-start gap-3 p-3 rounded-xl text-left transition-all group cursor-pointer ${
                         isSelected && activeView === 'syllabus'
@@ -299,17 +351,28 @@ export default function App() {
               </motion.div>
             ) : activeView === 'syllabus' ? (
               <motion.div
-                key={`chapter-${selectedChapterId}`}
+                key="syllabus-view"
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.22 }}
+                className="space-y-16 pb-24"
               >
-                <ChapterDetails 
-                  chapter={selectedChapter} 
-                  onNavigateHome={() => setActiveView('home')}
-                  onSelectChapter={(id) => setSelectedChapterId(id)}
-                />
+                {filteredChapters.map(chapter => (
+                  <div key={chapter.id} id={`chapter-section-${chapter.id}`} className="scroll-mt-8">
+                    <ChapterDetails 
+                      chapter={chapter} 
+                      onNavigateHome={() => setActiveView('home')}
+                      onSelectChapter={(id) => {
+                        setSelectedChapterId(id);
+                        const el = document.getElementById(`chapter-section-${id}`);
+                        if (el) {
+                          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                      }}
+                    />
+                  </div>
+                ))}
               </motion.div>
             ) : (
               <motion.div
@@ -392,6 +455,10 @@ export default function App() {
                         setSelectedChapterId(ch.id);
                         setActiveView('syllabus');
                         setMobileMenuOpen(false);
+                        const el = document.getElementById(`chapter-section-${ch.id}`);
+                        if (el) {
+                          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
                       }}
                       className={`w-full flex items-center justify-between p-3 rounded-xl text-left border transition-all ${
                         isSelected && activeView === 'syllabus'
