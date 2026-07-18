@@ -1,4 +1,5 @@
 import { Chapter } from '../types';
+import { chapter4Content } from './chapter4_content';
 import { chapter5Content } from './chapter5_content';
 
 export const chapters: Chapter[] = [
@@ -3155,29 +3156,7 @@ $$x^2 + (y - 2)^2 + (z - 7)^2 = 134$$`,
     title: "Vector Algebra",
     tagline: "Unlocking spatial reasoning using vectors, dot products, and cross products.",
     description: "This chapter covers vector representations in 3D space, position vectors, direction, operations like vector addition, dot products, cross products, and their physical applications.",
-    content: `A **Vector** is a mathematical object that has both **magnitude** and **direction**. It is commonly represented as an arrow from an initial point to a terminal point.
-
-### 1. Component Form of a Vector
-In 3D Cartesian coordinates, any vector $\\mathbf{a}$ can be decomposed into unit vectors along the coordinate axes: $\\mathbf{i}$, $\\mathbf{j}$, and $\\mathbf{k}$:
-$$\\mathbf{a} = a_x\\mathbf{i} + a_y\\mathbf{j} + a_z\\mathbf{k}$$
-The magnitude of $\\mathbf{a}$ is:
-$$|\\mathbf{a}| = \\sqrt{a_x^2 + a_y^2 + a_z^2}$$
-
-### 2. The Dot Product (Scalar Product)
-The dot product of two vectors $\\mathbf{a}$ and $\\mathbf{b}$ yields a scalar:
-$$\\mathbf{a} \\cdot \\mathbf{b} = |\\mathbf{a}| |\\mathbf{b}| \\cos \\theta$$
-where $\\theta$ is the angle between the vectors ($0 \\le \\theta \\le \\pi$).
-In component form:
-$$\\mathbf{a} \\cdot \\mathbf{b} = a_x b_x + a_y b_y + a_z b_z$$
-- **Orthogonality:** If $\\mathbf{a}$ and $\\mathbf{b}$ are non-zero, then $\\mathbf{a} \\cdot \\mathbf{b} = 0$ if and only if they are perpendicular (orthogonal).
-
-### 3. The Cross Product (Vector Product)
-The cross product of two vectors $\\mathbf{a}$ and $\\mathbf{b}$ yields a **new vector** perpendicular to both:
-$$\\mathbf{a} \\times \\mathbf{b} = (|\\mathbf{a}| |\\mathbf{b}| \\sin \\theta) \\mathbf{n}$$
-where $\\mathbf{n}$ is a unit vector perpendicular to the plane containing $\\mathbf{a}$ and $\\mathbf{b}$, with its direction determined by the right-hand rule.
-In determinant form:
-$$\\mathbf{a} \\times \\mathbf{b} = \\begin{vmatrix} \\mathbf{i} & \\mathbf{j} & \\mathbf{k} \\\\ a_x & a_y & a_z \\\\ b_x & b_y & b_z \\end{vmatrix}$$
-- **Area of a Parallelogram:** The magnitude $|\\mathbf{a} \\times \\mathbf{b}|$ is equal to the area of the parallelogram formed by $\\mathbf{a}$ and $\\mathbf{b}$.`,
+    content: chapter4Content,
     formulas: [
       {
         id: "c4-f1",

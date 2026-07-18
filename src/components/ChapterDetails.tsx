@@ -41,7 +41,7 @@ function parseMarkdownSections(markdown: string): ContentSection[] {
     const line = lines[i];
     const match = line.match(/^(###|##)\s+(.+)$/);
     if (match) {
-      if (currentLines.length > 0) {
+      if (currentLines.join("").trim().length > 0) {
         sections.push({
           title: currentTitle,
           content: currentLines.join("\n").trim(),
@@ -50,7 +50,7 @@ function parseMarkdownSections(markdown: string): ContentSection[] {
       }
       currentTitle = match[2].replace(/\*/g, "").trim();
     } else {
-      if (line.trim() === "---" && currentLines.length === 0) {
+      if (line.trim() === "---" && currentLines.join("").trim().length === 0) {
         continue;
       }
       currentLines.push(line);
@@ -101,7 +101,7 @@ export default function ChapterDetails({
   const handleSectionClick = (idx: number) => {
     setActiveSectionIndex(idx);
     if (viewMode === "full") {
-      const element = document.getElementById(`chapter-${chapter.id}-section-${idx}`);
+      const element = document.getElementById(`section-${idx}`);
       if (element) {
         element.scrollIntoView({ behavior: "smooth", block: "start" });
       }
@@ -111,7 +111,7 @@ export default function ChapterDetails({
   const sections = parseMarkdownSections(chapter.content);
   const activeSection = sections[activeSectionIndex] || sections[0];
 
-  const isPublished = [1, 2, 3, 5].includes(chapter.id);
+  const isPublished = [1, 2, 3, 4, 5].includes(chapter.id);
 
   if (!isPublished) {
     return (
@@ -303,7 +303,7 @@ export default function ChapterDetails({
         </div>
       </div>
 
-      {![1, 2, 3, 5].includes(chapter.id) ? (
+      {![1, 2, 3, 4, 5].includes(chapter.id) ? (
         <div className="flex flex-col items-center justify-center p-12 mt-8 bg-slate-50 dark:bg-slate-900/50 rounded-3xl border border-slate-200/50 dark:border-slate-800/40 text-center animate-pulse">
           <div className="w-16 h-16 bg-indigo-100 dark:bg-indigo-900/30 rounded-full flex items-center justify-center mb-6">
             <BookOpen className="w-8 h-8 text-indigo-500" />
@@ -581,7 +581,7 @@ export default function ChapterDetails({
                         {sections.map((section, idx) => (
                           <div
                             key={idx}
-                            id={`chapter-${chapter.id}-section-${idx}`}
+                            id={`section-${idx}`}
                             className="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-2xl border border-slate-100 dark:border-slate-800/80 shadow-sm space-y-6 scroll-mt-20"
                           >
                             {/* Section Title */}
@@ -723,16 +723,40 @@ export default function ChapterDetails({
               </div>
             )}
 
-            {activeTab === "visualizer" && chapter.visualizerType && (
-              <Visualizer type={chapter.visualizerType} />
+            {activeTab === "visualizer" && (
+              chapter.id === 4 ? (
+                <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm rounded-2xl p-10 flex flex-col items-center justify-center text-center space-y-4">
+                  <div className="w-16 h-16 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-500 dark:text-indigo-400 rounded-full flex items-center justify-center mb-2">
+                    <Hourglass className="w-8 h-8 animate-pulse" />
+                  </div>
+                  <h3 className="font-display font-bold text-xl text-slate-800 dark:text-slate-100">Coming Soon</h3>
+                  <p className="text-sm text-slate-500 dark:text-slate-400 max-w-md mx-auto leading-relaxed">
+                    We are currently preparing the interactive content, visualizers, and exercises for Vector Algebra. Please check back later!
+                  </p>
+                </div>
+              ) : chapter.visualizerType ? (
+                <Visualizer type={chapter.visualizerType} />
+              ) : null
             )}
 
             {activeTab === "quiz" && (
-              <PracticeQuiz
-                chapterId={chapter.id}
-                questions={chapter.quiz}
-                chapterTitle={chapter.title}
-              />
+              chapter.id === 4 ? (
+                <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm rounded-2xl p-10 flex flex-col items-center justify-center text-center space-y-4">
+                  <div className="w-16 h-16 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-500 dark:text-indigo-400 rounded-full flex items-center justify-center mb-2">
+                    <Hourglass className="w-8 h-8 animate-pulse" />
+                  </div>
+                  <h3 className="font-display font-bold text-xl text-slate-800 dark:text-slate-100">Coming Soon</h3>
+                  <p className="text-sm text-slate-500 dark:text-slate-400 max-w-md mx-auto leading-relaxed">
+                    We are currently preparing the interactive content, visualizers, and exercises for Vector Algebra. Please check back later!
+                  </p>
+                </div>
+              ) : (
+                <PracticeQuiz
+                  chapterId={chapter.id}
+                  questions={chapter.quiz}
+                  chapterTitle={chapter.title}
+                />
+              )
             )}
           </div>
         </>

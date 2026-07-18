@@ -1,0 +1,24 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper function to check authentication
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    match /users/{userId} {
+      // Allow read and write if the document's uid matches the authenticated user's uid
+      allow read, write: if isAuthenticated() && request.auth.uid == resource.data.uid;
+      // Allow create if the request data's uid matches the authenticated user's uid
+      allow create: if isAuthenticated() && request.auth.uid == request.resource.data.uid;
+    }
+
+    match /quizHistory/{documentId} {
+      // Allow read and write if the document's userId matches the authenticated user's uid
+      allow read, write: if isAuthenticated() && request.auth.uid == resource.data.userId;
+      // Allow create if the request data's userId matches the authenticated user's uid
+      allow create: if isAuthenticated() && request.auth.uid == request.resource.data.userId;
+    }
+  }
+}

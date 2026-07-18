@@ -1469,14 +1469,14 @@ function AtoBtoCRoads() {
         <path d="M 90 22 L 135 22 L 180 22" fill="none" stroke="#f59e0b" strokeWidth="1.5" strokeDasharray="3 3" />
         <path d="M 90 20 L 90 25" fill="none" stroke="#f59e0b" strokeWidth="1.5" />
         <path d="M 180 20 L 180 25" fill="none" stroke="#f59e0b" strokeWidth="1.5" />
-        <rect x="110" y="10" width="50" height="20" rx="4" className="fill-amber-500" />
+        <rect x="100" y="10" width="70" height="20" rx="4" className="fill-amber-500" />
         <text x="135" y="24" className="text-[10px] font-bold fill-white font-sans" textAnchor="middle">6 roads</text>
 
         {/* Label: 4 roads on top with bracket */}
         <path d="M 240 22 L 285 22 L 330 22" fill="none" stroke="#3b82f6" strokeWidth="1.5" strokeDasharray="3 3" />
         <path d="M 240 20 L 240 25" fill="none" stroke="#3b82f6" strokeWidth="1.5" />
         <path d="M 330 20 L 330 25" fill="none" stroke="#3b82f6" strokeWidth="1.5" />
-        <rect x="260" y="10" width="50" height="20" rx="4" className="fill-blue-500" />
+        <rect x="250" y="10" width="70" height="20" rx="4" className="fill-blue-500" />
         <text x="285" y="24" className="text-[10px] font-bold fill-white font-sans" textAnchor="middle">4 roads</text>
 
         {/* Town Nodes */}
@@ -2108,6 +2108,617 @@ export function Chap3_4_Q3_Sol() {
     </div>
   );
 }
+
+export function Chap4_Fig1() {
+  return (
+    <div className="flex justify-center my-6">
+      <div className="relative w-64 h-64">
+        <svg viewBox="-40 -20 200 180" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none overflow-visible" strokeWidth="1">
+          <defs><marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" /></marker></defs>
+          
+          {/* Axes */}
+          <line x1="50" y1="100" x2="-10" y2="140" markerEnd="url(#arrow)" />
+          <line x1="50" y1="100" x2="140" y2="100" markerEnd="url(#arrow)" />
+          <line x1="50" y1="100" x2="50" y2="10" markerEnd="url(#arrow)" />
+          
+          {/* Axis Labels */}
+          <text x="-15" y="145" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">x</tspan></text>
+          <text x="145" y="105" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">y</tspan></text>
+          <text x="50" y="0" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">z</tspan></text>
+          <text x="40" y="95" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">O</tspan></text>
+          
+          {/* Box edges (dashed) */}
+          <line x1="20" y1="120" x2="80" y2="120" strokeDasharray="4,4" /> {/* X to XY */}
+          <line x1="110" y1="100" x2="80" y2="120" strokeDasharray="4,4" /> {/* Y to XY */}
+          <line x1="80" y1="120" x2="80" y2="50" strokeDasharray="4,4" /> {/* XY to XYZ */}
+          <line x1="20" y1="120" x2="20" y2="50" strokeDasharray="4,4" /> {/* X to XZ */}
+          <line x1="50" y1="30" x2="20" y2="50" strokeDasharray="4,4" /> {/* Z to XZ */}
+          <line x1="20" y1="50" x2="80" y2="50" strokeDasharray="4,4" /> {/* XZ to XYZ */}
+          <line x1="50" y1="30" x2="110" y2="30" strokeDasharray="4,4" /> {/* Z to YZ */}
+          <line x1="110" y1="100" x2="110" y2="30" strokeDasharray="4,4" /> {/* Y to YZ */}
+          <line x1="110" y1="30" x2="80" y2="50" strokeDasharray="4,4" /> {/* YZ to XYZ */}
+          
+          {/* Points */}
+          <circle cx="80" cy="50" r="2" className="fill-slate-800 dark:fill-slate-200" />
+          <circle cx="20" cy="120" r="1.5" className="fill-slate-800 dark:fill-slate-200" />
+          <circle cx="110" cy="100" r="1.5" className="fill-slate-800 dark:fill-slate-200" />
+          <circle cx="50" cy="30" r="1.5" className="fill-slate-800 dark:fill-slate-200" />
+          <text x="85" y="45" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-serif italic">P(x, y, z)</text>
+          
+          {/* Coordinate Labels */}
+          <text x="15" y="115" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">(x, 0, 0)</text>
+          <text x="110" y="115" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">(0, y, 0)</text>
+          <text x="45" y="25" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">(0, 0, z)</text>
+          
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+export function Chap4_Fig2() {
+  return (
+    <div className="flex flex-col md:flex-row justify-center gap-8 my-6">
+      <div className="relative w-48 h-48">
+        <svg viewBox="-40 -20 180 180" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1"><defs><marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" /></marker></defs>
+          <line x1="30" y1="90" x2="-10" y2="110" markerEnd="url(#arrow)" />
+          <line x1="30" y1="90" x2="110" y2="90" markerEnd="url(#arrow)" />
+          <line x1="30" y1="90" x2="30" y2="10" markerEnd="url(#arrow)" />
+          <text x="-15" y="120" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">x</tspan></text>
+          <text x="115" y="95" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">y</tspan></text>
+          <text x="30" y="5" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">z</tspan></text>
+          <text x="20" y="105" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">O</tspan></text>
+          <circle cx="80" cy="90" r="2" className="fill-slate-800 dark:fill-slate-200" />
+          <text x="80" y="80" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">A</tspan></text>
+          <text x="50" y="105" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono">3</text>
+          <text x="40" y="130" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono">(a)</text>
+        </svg>
+      </div>
+      <div className="relative w-48 h-48">
+        <svg viewBox="-40 -20 180 180" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1"><defs><marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" /></marker></defs>
+          <line x1="30" y1="90" x2="-10" y2="110" markerEnd="url(#arrow)" />
+          <line x1="30" y1="90" x2="110" y2="90" markerEnd="url(#arrow)" />
+          <line x1="30" y1="90" x2="30" y2="10" markerEnd="url(#arrow)" />
+          <text x="-15" y="120" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">x</tspan></text>
+          <text x="115" y="95" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">y</tspan></text>
+          <text x="30" y="5" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">z</tspan></text>
+          <text x="20" y="105" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">O</tspan></text>
+          <circle cx="-10" cy="70" r="2" className="fill-slate-800 dark:fill-slate-200" />
+          <text x="-25" y="70" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">B</tspan></text>
+          <line x1="30" y1="50" x2="-10" y2="70" strokeDasharray="4,4" />
+          <line x1="-10" y1="70" x2="-10" y2="110" strokeDasharray="4,4" />
+          <text x="15" y="65" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono">2</text>
+          <text x="0" y="115" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono">4</text>
+          <text x="40" y="130" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono">(b)</text>
+        </svg>
+      </div>
+      <div className="relative w-48 h-48">
+        <svg viewBox="-40 -20 180 180" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1"><defs><marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" /></marker></defs>
+          <line x1="30" y1="90" x2="-10" y2="110" markerEnd="url(#arrow)" />
+          <line x1="30" y1="90" x2="50" y2="80" strokeDasharray="4,4" />
+          <line x1="30" y1="90" x2="110" y2="90" markerEnd="url(#arrow)" />
+          <line x1="30" y1="90" x2="30" y2="10" markerEnd="url(#arrow)" />
+          <text x="-15" y="120" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">x</tspan></text>
+          <text x="115" y="95" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">y</tspan></text>
+          <text x="30" y="5" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">z</tspan></text>
+          <text x="20" y="105" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">O</tspan></text>
+          <circle cx="100" cy="30" r="2" className="fill-slate-800 dark:fill-slate-200" />
+          <text x="105" y="25" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">C</tspan></text>
+          <line x1="50" y1="80" x2="100" y2="80" strokeDasharray="4,4" />
+          <line x1="100" y1="80" x2="80" y2="90" strokeDasharray="4,4" />
+          <line x1="50" y1="80" x2="50" y2="30" strokeDasharray="4,4" />
+          <line x1="50" y1="30" x2="100" y2="30" strokeDasharray="4,4" />
+          <line x1="100" y1="30" x2="100" y2="80" strokeDasharray="4,4" />
+          <line x1="100" y1="30" x2="80" y2="40" strokeDasharray="4,4" />
+          <line x1="80" y1="40" x2="80" y2="90" strokeDasharray="4,4" />
+          <line x1="30" y1="40" x2="80" y2="40" strokeDasharray="4,4" />
+          <line x1="30" y1="40" x2="50" y2="30" strokeDasharray="4,4" />
+          <text x="35" y="80" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">-1</text>
+          <text x="80" y="105" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">2</text>
+          <text x="20" y="45" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">2</text>
+          <text x="40" y="130" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono">(c)</text>
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+
+export function Chap4_Fig3() {
+  return (
+    <div className="flex justify-center my-6">
+      <div className="relative w-64 h-64">
+        <svg viewBox="-50 -50 200 200" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" />
+            </marker>
+          </defs>
+          <line x1="50" y1="100" x2="-20" y2="135" markerEnd="url(#arrow)" />
+          <line x1="50" y1="100" x2="130" y2="100" markerEnd="url(#arrow)" />
+          <line x1="50" y1="100" x2="50" y2="0" markerEnd="url(#arrow)" />
+          
+          <text x="-25" y="140" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">x</tspan></text>
+          <text x="135" y="105" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">y</tspan></text>
+          <text x="50" y="-10" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">z</tspan></text>
+          
+          <text x="55" y="115" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">O</tspan></text>
+          
+          <line x1="50" y1="100" x2="10" y2="120" stroke="currentColor" strokeWidth="2" markerEnd="url(#arrow)" />
+          <line x1="50" y1="100" x2="90" y2="100" stroke="currentColor" strokeWidth="2" markerEnd="url(#arrow)" />
+          <line x1="50" y1="100" x2="50" y2="60" stroke="currentColor" strokeWidth="2" markerEnd="url(#arrow)" />
+          
+          <text x="28" y="120" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">i</text>
+          <text x="70" y="112" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">j</text>
+          <text x="42" y="80" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">k</text>
+          
+          <text x="5" y="135" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">(1, 0, 0)</text>
+          <text x="90" y="88" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">(0, 1, 0)</text>
+          <text x="55" y="60" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">(0, 0, 1)</text>
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+export function Chap4_Fig4() {
+  return (
+    <div className="flex justify-center my-6">
+      <div className="relative w-64 h-64">
+        <svg viewBox="-40 -20 180 180" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" />
+            </marker>
+          </defs>
+          <line x1="30" y1="90" x2="-20" y2="115" markerEnd="url(#arrow)" />
+          <line x1="30" y1="90" x2="130" y2="90" markerEnd="url(#arrow)" />
+          <line x1="30" y1="90" x2="30" y2="-10" markerEnd="url(#arrow)" />
+          
+          <text x="-25" y="120" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">x</tspan></text>
+          <text x="135" y="95" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">y</tspan></text>
+          <text x="30" y="-20" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">z</tspan></text>
+          <text x="35" y="105" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">O</tspan></text>
+          
+          <line x1="10" y1="100" x2="70" y2="100" strokeDasharray="4,4" />
+          <line x1="90" y1="90" x2="70" y2="100" strokeDasharray="4,4" />
+          <line x1="10" y1="100" x2="10" y2="40" strokeDasharray="4,4" />
+          <line x1="30" y1="30" x2="10" y2="40" strokeDasharray="4,4" />
+          <line x1="30" y1="30" x2="90" y2="30" strokeDasharray="4,4" />
+          <line x1="90" y1="90" x2="90" y2="30" strokeDasharray="4,4" />
+          <line x1="10" y1="40" x2="70" y2="40" strokeDasharray="4,4" />
+          <line x1="90" y1="30" x2="70" y2="40" strokeDasharray="4,4" />
+          <line x1="70" y1="100" x2="70" y2="40" strokeDasharray="4,4" />
+          
+          <line x1="30" y1="90" x2="70" y2="40" strokeWidth="1.5" markerEnd="url(#arrow)" />
+          
+          <line x1="30" y1="90" x2="15" y2="97.5" stroke="currentColor" strokeWidth="2" markerEnd="url(#arrow)" />
+          <line x1="30" y1="90" x2="55" y2="90" stroke="currentColor" strokeWidth="2" markerEnd="url(#arrow)" />
+          <line x1="30" y1="90" x2="30" y2="65" stroke="currentColor" strokeWidth="2" markerEnd="url(#arrow)" />
+          
+          <text x="12" y="98" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">i</text>
+          <text x="45" y="83" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">j</text>
+          <text x="22" y="75" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">k</text>
+
+          <g className="fill-slate-800 dark:fill-slate-200 text-[10px] font-mono">
+            <text x="46" y="53" textAnchor="end">OA</text>
+            <line x1="33" y1="44" x2="45" y2="44" stroke="currentColor" strokeWidth="0.8" />
+            <path d="M 42 42 L 45 44 L 42 46" stroke="currentColor" fill="none" strokeWidth="0.8" />
+          </g>
+          <circle cx="70" cy="40" r="2" className="fill-slate-800 dark:fill-slate-200" />
+          <text x="75" y="35" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono"><tspan className="italic font-serif">A</tspan>(2, 3, 4)</text>
+          
+          <circle cx="10" cy="100" r="1.5" className="fill-slate-800 dark:fill-slate-200" />
+          <circle cx="90" cy="90" r="1.5" className="fill-slate-800 dark:fill-slate-200" />
+          <circle cx="30" cy="30" r="1.5" className="fill-slate-800 dark:fill-slate-200" />
+          
+          <text x="5" y="105" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">2</text>
+          <text x="95" y="90" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">3</text>
+          <text x="25" y="33" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">4</text>
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+export function Chap4_Fig6() {
+  return (
+    <div className="flex justify-center my-6">
+      <div className="relative w-64 h-32">
+        <svg viewBox="0 0 200 100" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" />
+            </marker>
+          </defs>
+          {/* Parallelogram outline */}
+          <line x1="40" y1="20" x2="20" y2="70" strokeDasharray="4,4" className="stroke-slate-400 dark:stroke-slate-600" />
+          <line x1="160" y1="40" x2="140" y2="90" strokeDasharray="4,4" className="stroke-slate-400 dark:stroke-slate-600" />
+          
+          <line x1="40" y1="20" x2="160" y2="40" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
+          <line x1="140" y1="90" x2="20" y2="70" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
+          
+          <text x="100" y="25" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold italic">a</text>
+          <text x="80" y="95" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold italic">-a</text>
+          
+          {/* Vector arrows for a and -a */}
+          
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+export function Chap4_Fig7() {
+  return (
+    <div className="flex justify-center my-6">
+      <div className="relative w-64 h-32">
+        <svg viewBox="0 0 200 100" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" />
+            </marker>
+          </defs>
+          <line x1="20" y1="80" x2="100" y2="60" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
+          <line x1="100" y1="60" x2="160" y2="20" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
+          <line x1="20" y1="80" x2="160" y2="20" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
+          
+          <text x="65" y="85" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold italic">a</text>
+          <text x="135" y="55" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold italic">b</text>
+          <text x="85" y="40" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold italic">a + b</text>
+          
+          {/* Vector arrows for a, b, a+b */}
+          
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+export function Chap4_Fig8() {
+  return (
+    <div className="flex justify-center my-6">
+      <div className="relative w-64 h-48">
+        <svg viewBox="0 0 200 160" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" />
+            </marker>
+          </defs>
+          
+          {/* Parallelogram lines */}
+          <line x1="50" y1="100" x2="100" y2="140" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
+          <line x1="150" y1="100" x2="100" y2="140" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
+          
+          {/* Main vectors */}
+          <line x1="100" y1="60" x2="50" y2="100" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
+          <line x1="100" y1="60" x2="150" y2="100" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
+          <line x1="100" y1="60" x2="100" y2="140" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
+          <line x1="100" y1="60" x2="50" y2="20" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
+          
+          {/* Vector labels */}
+          <text x="65" y="80" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold italic">a</text>
+          <text x="75" y="40" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold italic">b</text>
+          <text x="135" y="85" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold italic">-b</text>
+          <text x="105" y="110" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold italic">a - b</text>
+          
+          {/* Top arrow markers */}
+          
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+export function Chap4_Fig9() {
+  return (
+    <div className="flex justify-center my-6">
+      <div className="relative w-64 h-32">
+        <svg viewBox="0 0 200 120" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" />
+            </marker>
+          </defs>
+          
+          {/* a */}
+          <line x1="80" y1="50" x2="120" y2="35" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
+          <text x="95" y="35" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold italic">a</text>
+          
+          {/* -a */}
+          <line x1="60" y1="80" x2="20" y2="95" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
+          <text x="45" y="105" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold italic">-a</text>
+          
+          {/* 2a */}
+          <line x1="90" y1="95" x2="170" y2="65" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
+          <text x="135" y="70" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold italic">2a</text>
+          
+          
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+export function Chap4_Fig10() {
+  return (
+    <div className="flex justify-center my-6">
+      <div className="relative w-64 h-32">
+        <svg viewBox="0 0 200 120" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" />
+            </marker>
+          </defs>
+          
+          <line x1="40" y1="40" x2="80" y2="80" strokeDasharray="4,4" className="stroke-slate-400 dark:stroke-slate-600" />
+          <line x1="120" y1="70" x2="160" y2="110" strokeDasharray="4,4" className="stroke-slate-400 dark:stroke-slate-600" />
+          
+          <line x1="40" y1="40" x2="120" y2="70" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
+          <line x1="80" y1="80" x2="160" y2="110" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
+          
+          <text x="80" y="45" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold italic">a</text>
+          <text x="135" y="105" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold italic">b</text>
+          
+          <text x="100" y="125" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold italic">a = b</text>
+          
+          
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+export function Chap4_Fig11() {
+  return (
+    <div className="flex justify-center my-6">
+      <div className="relative w-72 h-32">
+        <svg viewBox="0 0 220 120" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" />
+            </marker>
+          </defs>
+          
+          <polygon points="40,80 120,50 180,50 100,80" fill="#fbbf24" fillOpacity="0.1" stroke="none" />
+          
+          <line x1="40" y1="80" x2="120" y2="50" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
+          <line x1="120" y1="50" x2="180" y2="50" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
+          <line x1="40" y1="80" x2="100" y2="80" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
+          <line x1="100" y1="80" x2="180" y2="50" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
+          
+          <text x="35" y="90" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono"><tspan className="italic font-serif">A</tspan></text>
+          <text x="120" y="45" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono"><tspan className="italic font-serif">B</tspan></text>
+          <text x="185" y="45" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono"><tspan className="italic font-serif">C</tspan></text>
+          <text x="95" y="90" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono"><tspan className="italic font-serif">D</tspan></text>
+          
+          <text x="75" y="60" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">a</text>
+          <text x="150" y="45" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">c</text>
+          <text x="70" y="88" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">d</text>
+          <text x="145" y="70" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">b</text>
+          
+          
+          
+          <text x="110" y="115" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">
+            <tspan className="italic font-serif">AB</tspan> || <tspan className="italic font-serif">DC</tspan>, <tspan className="italic font-serif">AD</tspan> || <tspan className="italic font-serif">BC</tspan>
+          </text>
+          
+          
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+export function Chap4_Fig12() {
+  return (
+    <div className="flex justify-center my-6">
+      <div className="relative w-80 h-32">
+        <svg viewBox="0 0 240 120" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" />
+            </marker>
+          </defs>
+          
+          <polygon points="40,80 80,40 160,40 120,80" fill="#fbbf24" fillOpacity="0.1" stroke="none" />
+          
+          <line x1="40" y1="80" x2="80" y2="40" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
+          <line x1="80" y1="40" x2="160" y2="40" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
+          <line x1="40" y1="80" x2="120" y2="80" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
+          <line x1="120" y1="80" x2="160" y2="40" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
+          
+          <text x="35" y="85" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono"><tspan className="italic font-serif">A</tspan>(-1, 1, 1)</text>
+          <text x="80" y="35" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono"><tspan className="italic font-serif">B</tspan>(2, 0, -2)</text>
+          <text x="165" y="35" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono"><tspan className="italic font-serif">C</tspan>(x, y, z)</text>
+          <text x="120" y="95" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono"><tspan className="italic font-serif">D</tspan>(3, 1, 4)</text>
+          
+          <text x="50" y="55" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">AB</text>
+          <text x="120" y="35" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">BC</text>
+          <text x="80" y="95" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">AD</text>
+          <text x="150" y="70" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">DC</text>
+          
+          
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+export function Chap4_Fig13() {
+  return (
+    <div className="flex justify-center my-6">
+      <div className="relative w-64 h-32">
+        <svg viewBox="0 0 200 100" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" />
+            </marker>
+          </defs>
+          
+          <line x1="40" y1="80" x2="160" y2="40" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
+          
+          <circle cx="40" cy="80" r="2" className="fill-slate-800 dark:fill-slate-200" />
+          <text x="35" y="85" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">O</tspan></text>
+          
+          <circle cx="80" cy="66.66" r="2" className="fill-slate-800 dark:fill-slate-200" />
+          
+          <text x="100" y="55" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold italic">a</text>
+          <text x="65" y="80" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold italic">â</text>
+          
+          
+          
+          <text x="100" y="100" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">
+            |â| = 1 and â has the same direction as a
+          </text>
+          
+          
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+export function Chap4_Fig14() {
+  return (
+    <div className="flex justify-center my-6">
+      <div className="relative w-full max-w-lg h-32">
+        <svg viewBox="0 0 300 100" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" />
+            </marker>
+          </defs>
+          
+          {/* Group 1: a and a_hat */}
+          <line x1="20" y1="50" x2="80" y2="20" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
+          <line x1="20" y1="70" x2="50" y2="55" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
+          <text x="45" y="25" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">a</text>
+          <text x="35" y="55" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">â</text>
+          <text x="35" y="80" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">1</text>
+          
+          <line x1="20" y1="75" x2="20" y2="80" stroke="currentColor" strokeWidth="0.5" />
+          <line x1="50" y1="60" x2="50" y2="80" stroke="currentColor" strokeWidth="0.5" />
+          
+          {/* Group 2: b and a_hat (same direction) */}
+          <line x1="120" y1="50" x2="180" y2="20" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
+          <line x1="120" y1="70" x2="150" y2="55" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
+          <text x="145" y="25" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">b</text>
+          <text x="135" y="55" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">â</text>
+          <text x="135" y="80" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">1</text>
+          <text x="150" y="95" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">same direction: <tspan className="font-bold italic">b̂</tspan> = <tspan className="font-bold italic">â</tspan></text>
+          
+          <line x1="120" y1="75" x2="120" y2="80" stroke="currentColor" strokeWidth="0.5" />
+          <line x1="150" y1="60" x2="150" y2="80" stroke="currentColor" strokeWidth="0.5" />
+          
+          {/* Group 3: b and -a_hat (opposite direction) */}
+          <line x1="220" y1="50" x2="280" y2="20" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
+          <line x1="250" y1="55" x2="220" y2="70" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
+          <text x="245" y="25" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">b</text>
+          <text x="235" y="55" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">-â</text>
+          <text x="235" y="80" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">1</text>
+          <text x="250" y="95" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">opposite direction: <tspan className="font-bold italic">b̂</tspan> = -<tspan className="font-bold italic">â</tspan></text>
+          
+          <line x1="220" y1="75" x2="220" y2="80" stroke="currentColor" strokeWidth="0.5" />
+          <line x1="250" y1="60" x2="250" y2="80" stroke="currentColor" strokeWidth="0.5" />
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+export function Chap4_Fig15() {
+  return (
+    <div className="flex justify-center my-6">
+      <div className="relative w-72 h-32">
+        <svg viewBox="0 0 240 100" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" />
+            </marker>
+          </defs>
+          
+          <line x1="20" y1="80" x2="220" y2="20" stroke="#fbbf24" strokeWidth="1" strokeDasharray="4,4" />
+          
+          <line x1="40" y1="74" x2="100" y2="56" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
+          <line x1="40" y1="74" x2="200" y2="26" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
+          
+          <circle cx="40" cy="74" r="2" className="fill-slate-800 dark:fill-slate-200" />
+          <circle cx="100" cy="56" r="2" className="fill-slate-800 dark:fill-slate-200" />
+          <circle cx="200" cy="26" r="2" className="fill-slate-800 dark:fill-slate-200" />
+          
+          <text x="35" y="85" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono"><tspan className="italic font-serif">A</tspan></text>
+          <text x="100" y="70" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono"><tspan className="italic font-serif">B</tspan></text>
+          <text x="200" y="20" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono"><tspan className="italic font-serif">C</tspan></text>
+          
+          <text x="70" y="75" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">AB</text>
+          
+          
+          <text x="120" y="45" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">AC</text>
+          
+          
+          <text x="120" y="90" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">
+            <tspan className="italic font-serif">AB</tspan> || <tspan className="italic font-serif">AC</tspan>
+          </text>
+          
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+export function Chap4_Fig5() {
+  return (
+    <div className="flex justify-center my-6">
+      <div className="relative w-64 h-64">
+        <svg viewBox="-40 -20 180 180" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" />
+            </marker>
+          </defs>
+          <line x1="30" y1="90" x2="-20" y2="115" markerEnd="url(#arrow)" />
+          <line x1="30" y1="90" x2="130" y2="90" markerEnd="url(#arrow)" />
+          <line x1="30" y1="90" x2="30" y2="-10" markerEnd="url(#arrow)" />
+          
+          <text x="-25" y="120" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">x</tspan></text>
+          <text x="135" y="95" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">y</tspan></text>
+          <text x="30" y="-20" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">z</tspan></text>
+          <text x="35" y="105" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">O</tspan></text>
+          
+          <line x1="10" y1="100" x2="70" y2="100" strokeDasharray="4,4" />
+          <line x1="90" y1="90" x2="70" y2="100" strokeDasharray="4,4" />
+          <line x1="10" y1="100" x2="10" y2="40" strokeDasharray="4,4" />
+          <line x1="30" y1="30" x2="10" y2="40" strokeDasharray="4,4" />
+          <line x1="30" y1="30" x2="90" y2="30" strokeDasharray="4,4" />
+          <line x1="90" y1="90" x2="90" y2="30" strokeDasharray="4,4" />
+          <line x1="10" y1="40" x2="70" y2="40" strokeDasharray="4,4" />
+          <line x1="90" y1="30" x2="70" y2="40" strokeDasharray="4,4" />
+          <line x1="70" y1="100" x2="70" y2="40" strokeDasharray="4,4" />
+          
+          <line x1="30" y1="90" x2="70" y2="40" strokeWidth="1.5" markerEnd="url(#arrow)" />
+          
+          <line x1="30" y1="90" x2="15" y2="97.5" stroke="currentColor" strokeWidth="2" markerEnd="url(#arrow)" />
+          <line x1="30" y1="90" x2="55" y2="90" stroke="currentColor" strokeWidth="2" markerEnd="url(#arrow)" />
+          <line x1="30" y1="90" x2="30" y2="65" stroke="currentColor" strokeWidth="2" markerEnd="url(#arrow)" />
+          
+          <text x="12" y="98" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">i</text>
+          <text x="45" y="83" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">j</text>
+          <text x="22" y="75" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">k</text>
+
+          <g className="fill-slate-800 dark:fill-slate-200 text-[10px] font-mono">
+            <text x="46" y="53" textAnchor="end">OP</text>
+            <line x1="33" y1="44" x2="45" y2="44" stroke="currentColor" strokeWidth="0.8" />
+            <path d="M 42 42 L 45 44 L 42 46" stroke="currentColor" fill="none" strokeWidth="0.8" />
+          </g>
+          <circle cx="70" cy="40" r="2" className="fill-slate-800 dark:fill-slate-200" />
+          <text x="75" y="35" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono"><tspan className="italic font-serif">P</tspan>(a, b, c)</text>
+        </svg>
+      </div>
+    </div>
+  );
+}
+
 export default function Latex({ text, block = false }: LatexProps) {
   // 1. Render pure block formula if explicitly requested via props
   if (block) {
@@ -2327,6 +2938,51 @@ export default function Latex({ text, block = false }: LatexProps) {
           break;
         case 'ArgandPolar':
           renderedElements.push(<ArgandPolar key={`diag-${i}`} />);
+          break;
+        case 'Chap4_Fig4':
+          renderedElements.push(<Chap4_Fig4 key={`diag-${i}`} />);
+          break;
+                case 'Chap4_Fig6':
+          renderedElements.push(<Chap4_Fig6 key={`diag-${i}`} />);
+          break;
+        case 'Chap4_Fig7':
+          renderedElements.push(<Chap4_Fig7 key={`diag-${i}`} />);
+          break;
+        case 'Chap4_Fig8':
+          renderedElements.push(<Chap4_Fig8 key={`diag-${i}`} />);
+          break;
+        case 'Chap4_Fig9':
+          renderedElements.push(<Chap4_Fig9 key={`diag-${i}`} />);
+          break;
+        case 'Chap4_Fig10':
+          renderedElements.push(<Chap4_Fig10 key={`diag-${i}`} />);
+          break;
+        case 'Chap4_Fig11':
+          renderedElements.push(<Chap4_Fig11 key={`diag-${i}`} />);
+          break;
+        case 'Chap4_Fig12':
+          renderedElements.push(<Chap4_Fig12 key={`diag-${i}`} />);
+          break;
+        case 'Chap4_Fig13':
+          renderedElements.push(<Chap4_Fig13 key={`diag-${i}`} />);
+          break;
+        case 'Chap4_Fig14':
+          renderedElements.push(<Chap4_Fig14 key={`diag-${i}`} />);
+          break;
+        case 'Chap4_Fig15':
+          renderedElements.push(<Chap4_Fig15 key={`diag-${i}`} />);
+          break;
+case 'Chap4_Fig5':
+          renderedElements.push(<Chap4_Fig5 key={`diag-${i}`} />);
+          break;
+        case 'Chap4_Fig1':
+          renderedElements.push(<Chap4_Fig1 key={`diag-${i}`} />);
+          break;
+        case 'Chap4_Fig2':
+          renderedElements.push(<Chap4_Fig2 key={`diag-${i}`} />);
+          break;
+        case 'Chap4_Fig3':
+          renderedElements.push(<Chap4_Fig3 key={`diag-${i}`} />);
           break;
         case 'ArgandExample5a':
           renderedElements.push(<ArgandExample5a key={`diag-${i}`} />);

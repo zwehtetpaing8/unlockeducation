@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Chapter } from '../types';
 import { chapters } from '../data/chapters';
 import { 
@@ -39,7 +39,7 @@ export default function HomeView({ onSelectChapter, onNavigateToFormulas }: Home
   const lastChapter = lastAccessedChapterId ? chapters.find(ch => ch.id === lastAccessedChapterId) : null;
 
   // Retrieve recent quizzes
-  const [recentQuizzes] = useState<{chapterId: number, chapterTitle: string, score: number, total: number, date: string}[]>(() => {
+  const [recentQuizzes, setRecentQuizzes] = useState<{chapterId: number, chapterTitle: string, score: number, total: number, date: string}[]>(() => {
     try {
       if (typeof window !== 'undefined') {
         const saved = localStorage.getItem('unlock_edu_recentQuizzes');
@@ -50,6 +50,54 @@ export default function HomeView({ onSelectChapter, onNavigateToFormulas }: Home
       return [];
     }
   });
+
+  useEffect(() => {
+    let unsubscribeFirestore: (() => void) | undefined;
+    
+    import('../lib/firebase').then(({ auth, db }) => {
+      import('firebase/auth').then(({ onAuthStateChanged }) => {
+        import('firebase/firestore').then(({ collection, query, where, orderBy, limit, onSnapshot }) => {
+          onAuthStateChanged(auth, (user) => {
+            if (user) {
+              const q = query(
+                collection(db, "quizHistory"),
+                where("userId", "==", user.uid),
+                orderBy("date", "desc"),
+                limit(3)
+              );
+              unsubscribeFirestore = onSnapshot(q, (snapshot) => {
+                const quizzes = snapshot.docs.map(doc => {
+                  const data = doc.data();
+                  return {
+                    chapterId: data.chapterId,
+                    chapterTitle: data.chapterTitle,
+                    score: data.score,
+                    total: data.total,
+                    date: data.date
+                  };
+                });
+                if (quizzes.length > 0) {
+                  setRecentQuizzes(quizzes);
+                }
+              });
+            } else {
+              if (unsubscribeFirestore) {
+                unsubscribeFirestore();
+              }
+              try {
+                const saved = localStorage.getItem('unlock_edu_recentQuizzes');
+                if (saved) setRecentQuizzes(JSON.parse(saved));
+              } catch (e) {}
+            }
+          });
+        });
+      });
+    });
+
+    return () => {
+      if (unsubscribeFirestore) unsubscribeFirestore();
+    };
+  }, []);
 
   // Solver widget state
   const [a, setA] = useState<number>(1);
