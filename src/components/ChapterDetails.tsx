@@ -18,6 +18,7 @@ import {
   Hourglass,
   Sparkles,
   GraduationCap,
+  Printer,
 } from "lucide-react";
 
 interface ChapterDetailsProps {
@@ -282,24 +283,34 @@ export default function ChapterDetails({
         <div className="absolute top-0 right-0 transform translate-x-12 -translate-y-6 w-72 h-72 rounded-full bg-indigo-500/10 blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-0 transform -translate-x-12 translate-y-6 w-72 h-72 rounded-full bg-violet-500/10 blur-3xl pointer-events-none" />
 
-        <div className="relative space-y-3 z-10">
-          <div className="flex items-center gap-2">
-            <span className="text-[10px] uppercase font-mono tracking-widest bg-indigo-500/20 text-indigo-300 px-3 py-1 rounded-full border border-indigo-500/30 font-bold">
-              Chapter {chapter.id}
-            </span>
-            <span className="text-[10px] text-slate-400 font-medium flex items-center gap-1">
-              <Calendar className="w-3.5 h-3.5" /> Unlock Education Math
-              Syllabus
-            </span>
-          </div>
+        <div className="relative z-10 flex flex-col md:flex-row md:items-start justify-between gap-4">
+          <div className="space-y-3">
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] uppercase font-mono tracking-widest bg-indigo-500/20 text-indigo-300 px-3 py-1 rounded-full border border-indigo-500/30 font-bold">
+                Chapter {chapter.id}
+              </span>
+              <span className="text-[10px] text-slate-400 font-medium flex items-center gap-1">
+                <Calendar className="w-3.5 h-3.5" /> Unlock Education Math
+                Syllabus
+              </span>
+            </div>
 
-          <h2 className="font-display font-bold text-xl md:text-3xl text-slate-100 tracking-tight leading-tight">
-            {chapter.title}
-          </h2>
+            <h2 className="font-display font-bold text-xl md:text-3xl text-slate-100 tracking-tight leading-tight">
+              {chapter.title}
+            </h2>
 
-          <div className="text-xs md:text-sm text-slate-300/95 max-w-2xl leading-relaxed italic">
-            <Latex text={chapter.tagline} />
+            <div className="text-xs md:text-sm text-slate-300/95 max-w-2xl leading-relaxed italic">
+              <Latex text={chapter.tagline} />
+            </div>
           </div>
+          
+          <button
+            onClick={() => window.print()}
+            className="print:hidden shrink-0 flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-semibold transition-colors border border-white/10 cursor-pointer"
+          >
+            <Printer className="w-4 h-4" />
+            <span>Print Chapter</span>
+          </button>
         </div>
       </div>
 
@@ -323,7 +334,7 @@ export default function ChapterDetails({
       ) : (
         <>
           {/* Chapter Navigation Tabs menu */}
-          <div className="flex flex-wrap gap-1.5 p-1 bg-slate-100/80 dark:bg-slate-950/40 rounded-xl border border-slate-200/50 dark:border-slate-800/40">
+          <div className="print:hidden flex flex-wrap gap-1.5 p-1 bg-slate-100/80 dark:bg-slate-950/40 rounded-xl border border-slate-200/50 dark:border-slate-800/40">
             <button
               onClick={() => setActiveTab("study")}
               className={`flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
@@ -418,7 +429,7 @@ export default function ChapterDetails({
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
                   {/* Desktop Side Table of Contents Outline */}
-                  <div className="lg:col-span-4 hidden lg:flex flex-col gap-2 p-4 bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/40 rounded-2xl shadow-sm">
+                  <div className="print:hidden lg:col-span-4 hidden lg:flex flex-col gap-2 p-4 bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/40 rounded-2xl shadow-sm">
                     <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 px-1">
                       {viewMode === "full"
                         ? "Jump to Section"
@@ -458,7 +469,7 @@ export default function ChapterDetails({
                   </div>
 
                   {/* Mobile Navigation Outlines (Horizontal Quick Tabs + Custom Dropdown) */}
-                  <div className="lg:hidden w-full space-y-4">
+                  <div className="print:hidden lg:hidden w-full space-y-4">
                     {/* 1. Horizontal swipeable quick section bar */}
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
@@ -575,9 +586,8 @@ export default function ChapterDetails({
                   </div>
 
                   {/* Main Content card */}
-                  <div className="lg:col-span-8 space-y-4">
-                    {viewMode === "full" ? (
-                      <div className="space-y-6">
+                  <div className="lg:col-span-8 print:col-span-12 print:block space-y-4">
+                                        <div className={`space-y-6 ${viewMode === "full" ? "block" : "hidden print:block"}`}>
                         {sections.map((section, idx) => (
                           <div
                             key={idx}
@@ -602,7 +612,7 @@ export default function ChapterDetails({
                         ))}
 
                         {/* Full Reading End Action cards */}
-                        <div className="bg-slate-50 dark:bg-slate-900/60 p-6 rounded-2xl border border-slate-200/50 dark:border-slate-800/50 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div className="print:hidden bg-slate-50 dark:bg-slate-900/60 p-6 rounded-2xl border border-slate-200/50 dark:border-slate-800/50 flex flex-col sm:flex-row items-center justify-between gap-4">
                           <div className="space-y-1 text-center sm:text-left">
                             <h4 className="text-sm font-bold text-slate-800 dark:text-slate-200">
                               You've completed Chapter {chapter.id}!
@@ -628,9 +638,8 @@ export default function ChapterDetails({
                             </button>
                           </div>
                         </div>
-                      </div>
-                    ) : (
-                      <div className="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-2xl border border-slate-100 dark:border-slate-800/80 shadow-sm space-y-6">
+                    </div>
+                    <div className={`bg-white dark:bg-slate-900 p-6 md:p-8 rounded-2xl border border-slate-100 dark:border-slate-800/80 shadow-sm space-y-6 ${viewMode === "sections" ? "block print:hidden" : "hidden"}`}>
                         {/* Active Section title */}
                         <div className="border-b border-slate-100 dark:border-slate-800 pb-4">
                           <div className="text-[10px] text-indigo-600 dark:text-indigo-400 font-bold uppercase tracking-wide mb-1">
@@ -694,8 +703,7 @@ export default function ChapterDetails({
                           )}
                         </div>
                       </div>
-                    )}
-                  </div>
+                    </div>
                 </div>
               </div>
             )}

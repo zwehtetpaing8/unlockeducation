@@ -40,3 +40,35 @@
   text-align: center;
   min-width: 100%;
 }
+
+@media print {
+  body {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    background-color: white !important;
+    color: black !important;
+  }
+  
+  @page {
+    margin: 1cm;
+  }
+  
+  .print\:hidden {
+    display: none !important;
+  }
+  
+  /* Break pages correctly */
+  h1, h2, h3 {
+    page-break-after: avoid;
+  }
+  
+  .katex-display, img, svg {
+    page-break-inside: avoid;
+  }
+  
+  /* Ensure main content is visible and takes full width */
+  main, .flex-1, .w-full {
+    width: 100% !important;
+    max-width: none !important;
+  }
+}

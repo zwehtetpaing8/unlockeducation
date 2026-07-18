@@ -106,9 +106,9 @@ export default function App() {
   const selectedChapter = chapters.find((ch) => ch.id === selectedChapterId) || chapters[0];
 
   return (
-    <div className="min-h-screen bg-slate-50/60 dark:bg-slate-950 font-sans text-slate-800 dark:text-slate-200 antialiased flex flex-col">
+    <div className="min-h-screen bg-slate-50/60 dark:bg-slate-950 print:bg-white print:text-black font-sans text-slate-800 dark:text-slate-200 antialiased flex flex-col">
       {/* Top Main Navigation Header */}
-      <header className="sticky top-0 z-40 bg-white/85 dark:bg-slate-950/85 backdrop-blur-md border-b border-slate-200/50 dark:border-slate-800/40 px-4 md:px-8 py-3.5 flex items-center justify-between">
+      <header className="print:hidden sticky top-0 z-40 bg-white/85 dark:bg-slate-950/85 backdrop-blur-md border-b border-slate-200/50 dark:border-slate-800/40 px-4 md:px-8 py-3.5 flex items-center justify-between">
         <button 
           onClick={() => setActiveView('home')}
           className="flex items-center gap-3 text-left cursor-pointer group focus:outline-none transition-all"
@@ -210,7 +210,7 @@ export default function App() {
         
         {/* Left Side Navigation bar (always visible on desktop when viewing syllabus) */}
         {activeView === 'syllabus' && (
-          <aside className="hidden md:flex flex-col w-72 shrink-0 border-r border-slate-200/50 dark:border-slate-800/40 p-5 bg-white dark:bg-slate-950/20 overflow-y-auto max-h-[calc(100vh-64px)] space-y-4">
+          <aside className="print:hidden hidden md:flex flex-col w-72 shrink-0 border-r border-slate-200/50 dark:border-slate-800/40 p-5 bg-white dark:bg-slate-950/20 overflow-y-auto max-h-[calc(100vh-64px)] space-y-4">
             <div className="space-y-1">
               <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                 Course syllabus
@@ -420,7 +420,7 @@ export default function App() {
       </AnimatePresence>
 
       {/* Footer Branding line */}
-      <footer className="py-6 bg-white dark:bg-slate-950/30 border-t border-slate-200/50 dark:border-slate-800/40">
+      <footer className="print:hidden py-6 bg-white dark:bg-slate-950/30 border-t border-slate-200/50 dark:border-slate-800/40">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 px-4 md:px-8 max-w-7xl mx-auto">
           <div className="text-[10px] text-slate-400 font-medium text-center md:text-left">
             © 2026 Unlock Education. All rights reserved.
@@ -617,7 +617,7 @@ export default function App() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setActiveView('formulas')}
-            className="md:hidden fixed bottom-24 right-6 z-50 bg-indigo-600 text-white p-4 rounded-full shadow-lg shadow-indigo-500/30 flex items-center justify-center"
+            className="print:hidden md:hidden fixed bottom-24 right-6 z-50 bg-indigo-600 text-white p-4 rounded-full shadow-lg shadow-indigo-500/30 flex items-center justify-center"
             title="Formulas sheet"
           >
             <Calculator className="w-6 h-6" />
