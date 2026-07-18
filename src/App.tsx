@@ -24,10 +24,28 @@ export default function App() {
     const saved = localStorage.getItem('unlock_edu_selectedChapterId');
     return saved ? parseInt(saved, 10) : 1;
   });
+  const [completedChapters, setCompletedChapters] = useState<number[]>(() => {
+    const saved = localStorage.getItem('unlock_edu_completedChapters');
+    return saved ? JSON.parse(saved) : [];
+  });
   const [sidebarSearch, setSidebarSearch] = useState<string>('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [isBugModalOpen, setIsBugModalOpen] = useState<boolean>(false);
   const [copied, setCopied] = useState<boolean>(false);
+
+  
+  const handleToggleComplete = (id: number, completed: boolean) => {
+    setCompletedChapters(prev => {
+      let updated;
+      if (completed) {
+        updated = prev.includes(id) ? prev : [...prev, id];
+      } else {
+        updated = prev.filter(c => c !== id);
+      }
+      localStorage.setItem('unlock_edu_completedChapters', JSON.stringify(updated));
+      return updated;
+    });
+  };
 
   const copyEmail = () => {
     navigator.clipboard.writeText('unlockeducation@icloud.com');
@@ -215,9 +233,20 @@ export default function App() {
               <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                 Course syllabus
               </h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-                11 Core Learning Chapters
-              </p>
+              <div className="flex items-center justify-between pt-1">
+                <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                  {completedChapters.length} of 11 Completed
+                </p>
+                <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400">{Math.round((completedChapters.length / 11) * 100)}%</span>
+              </div>
+              <div className="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-1.5 mt-2">
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: `${(completedChapters.length / 11) * 100}%` }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  className="bg-indigo-600 dark:bg-indigo-500 h-1.5 rounded-full"
+                />
+              </div>
             </div>
 
             {/* Chapter Quick Finder search input */}
@@ -258,8 +287,11 @@ export default function App() {
                         {ch.id}
                       </span>
                       <div className="flex-1 space-y-0.5">
-                        <div className="text-xs font-semibold leading-tight tracking-tight">
-                          {ch.title}
+                        <div className="text-xs font-semibold leading-tight tracking-tight flex items-center justify-between">
+                          <span>{ch.title}</span>
+                          {completedChapters.includes(ch.id) && (
+                            <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                          )}
                         </div>
                         <div className="text-[10px] text-slate-400 dark:text-slate-500 line-clamp-1 group-hover:text-slate-500 dark:group-hover:text-slate-400">
                           {ch.tagline.replace(/\$/g, '')}
@@ -306,9 +338,14 @@ export default function App() {
                 transition={{ duration: 0.22 }}
               >
                 <ChapterDetails 
-                  chapter={selectedChapter} 
+                  chapter={selectedChapter}
                   onNavigateHome={() => setActiveView('home')}
-                  onSelectChapter={(id) => setSelectedChapterId(id)}
+                  onSelectChapter={(id) => {
+                    setSelectedChapterId(id);
+                    setActiveView('syllabus');
+                  }}
+                  isCompleted={completedChapters.includes(selectedChapterId)}
+                  onToggleComplete={handleToggleComplete}
                 />
               </motion.div>
             ) : (
@@ -367,6 +404,23 @@ export default function App() {
                 >
                   <X className="w-4 h-4" />
                 </button>
+              </div>
+              
+              <div className="space-y-2 pb-2">
+                <div className="flex items-center justify-between">
+                  <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                    {completedChapters.length} of 11 Completed
+                  </p>
+                  <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400">{Math.round((completedChapters.length / 11) * 100)}%</span>
+                </div>
+                <div className="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-1.5">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    animate={{ width: `${(completedChapters.length / 11) * 100}%` }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    className="bg-indigo-600 dark:bg-indigo-500 h-1.5 rounded-full"
+                  />
+                </div>
               </div>
 
               {/* Mobile Quick Finder Search */}

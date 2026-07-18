@@ -27,6 +27,8 @@ interface ChapterDetailsProps {
   chapter: Chapter;
   onNavigateHome?: () => void;
   onSelectChapter?: (id: number) => void;
+  isCompleted?: boolean;
+  onToggleComplete?: (id: number, completed: boolean) => void;
 }
 
 interface ContentSection {
@@ -101,6 +103,8 @@ export default function ChapterDetails({
   chapter,
   onNavigateHome,
   onSelectChapter,
+  isCompleted = false,
+  onToggleComplete,
 }: ChapterDetailsProps) {
   const [activeTab, setActiveTab] = useState<
     "study" | "formulas" | "visualizer" | "quiz"
@@ -731,7 +735,15 @@ export default function ChapterDetails({
                               Ready to test your math and formula understanding?
                             </p>
                           </div>
-                          <div className="flex gap-2 shrink-0">
+                          <div className="flex flex-wrap gap-2 shrink-0 justify-center sm:justify-start">
+                            <button
+                              onClick={() => onToggleComplete?.(chapter.id, !isCompleted)}
+                              className={`flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold cursor-pointer shadow-sm transition-colors ${isCompleted ? 'bg-emerald-100 hover:bg-emerald-200 text-emerald-700 dark:bg-emerald-900/40 dark:hover:bg-emerald-900/60 dark:text-emerald-400' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-300'}`}
+                            >
+                              <Check className="w-4 h-4" />
+                              {isCompleted ? 'Completed' : 'Mark as Complete'}
+                            </button>
+
                             <button
                               onClick={() => setActiveTab("formulas")}
                               className="flex items-center gap-1.5 px-4 py-2.5 bg-white hover:bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-300 cursor-pointer shadow-sm"
@@ -873,6 +885,7 @@ export default function ChapterDetails({
                   chapterId={chapter.id}
                   questions={chapter.quiz}
                   chapterTitle={chapter.title}
+                  chapterContent={chapter.content}
                 />
               )
             )}
