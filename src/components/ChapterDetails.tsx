@@ -3,7 +3,7 @@ import { Chapter } from "../types";
 import Latex from "./Latex";
 import Visualizer from "./Visualizers";
 import PracticeQuiz from "./PracticeQuiz";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import {
   BookOpen,
   Award,
@@ -19,6 +19,8 @@ import {
   Sparkles,
   GraduationCap,
   Printer,
+  FileText,
+  X,
 } from "lucide-react";
 
 interface ChapterDetailsProps {
@@ -30,6 +32,33 @@ interface ChapterDetailsProps {
 interface ContentSection {
   title: string;
   content: string;
+}
+
+
+function slugify(text: string) {
+  return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+}
+
+interface InnerHeader {
+  level: number;
+  text: string;
+  id: string;
+}
+
+function extractInnerHeaders(content: string): InnerHeader[] {
+  const lines = content.split('\n');
+  const headers: InnerHeader[] = [];
+  for (const line of lines) {
+    const match = line.match(/^(#{1,6})\s+(.+)$/);
+    if (match) {
+      headers.push({
+        level: match[1].length,
+        text: match[2].replace(/\*/g, '').trim(),
+        id: slugify(match[2].trim())
+      });
+    }
+  }
+  return headers;
 }
 
 function parseMarkdownSections(markdown: string): ContentSection[] {
@@ -80,6 +109,37 @@ export default function ChapterDetails({
   const [isMobileOutlineOpen, setIsMobileOutlineOpen] = useState(false);
   const [viewMode, setViewMode] = useState<"sections" | "full">("sections");
 
+  const [isNotesOpen, setIsNotesOpen] = useState(false);
+  const [chapterNotes, setChapterNotes] = useState("");
+  const [isSavingNotes, setIsSavingNotes] = useState(false);
+
+  // Load notes when chapter changes
+  useEffect(() => {
+    const savedNotes = localStorage.getItem(`unlock_edu_notes_${chapter.id}`);
+    if (savedNotes) {
+      setChapterNotes(savedNotes);
+    } else {
+      setChapterNotes("");
+    }
+  }, [chapter.id]);
+
+  const handleNotesChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setChapterNotes(e.target.value);
+    setIsSavingNotes(true);
+  };
+
+  // Debounced save
+  useEffect(() => {
+    if (!isSavingNotes) return;
+    
+    const timeoutId = setTimeout(() => {
+      localStorage.setItem(`unlock_edu_notes_${chapter.id}`, chapterNotes);
+      setIsSavingNotes(false);
+    }, 500);
+
+    return () => clearTimeout(timeoutId);
+  }, [chapterNotes, chapter.id, isSavingNotes]);
+
   // Reset active section and tab whenever the chapter selection changes
   useEffect(() => {
     setActiveSectionIndex(0);
@@ -99,7 +159,20 @@ export default function ChapterDetails({
     }
   }, [activeSectionIndex, activeTab, viewMode]);
 
-  const handleSectionClick = (idx: number) => {
+
+  const handleSubheaderClick = (e: React.MouseEvent, idx: number, id: string) => {
+    e.stopPropagation();
+    setActiveSectionIndex(idx);
+    setTimeout(() => {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 50);
+  };
+
+  const handleSectionClick
+ = (idx: number) => {
     setActiveSectionIndex(idx);
     if (viewMode === "full") {
       const element = document.getElementById(`section-${idx}`);
@@ -436,35 +509,52 @@ export default function ChapterDetails({
                         : `Sections outline (${sections.length})`}
                     </h3>
                     <div className="space-y-1 max-h-[420px] overflow-y-auto pr-1">
+                      
                       {sections.map((section, idx) => {
                         const isActive = idx === activeSectionIndex;
+                        const innerHeaders = extractInnerHeaders(section.content).filter(h => h.level === 4 || h.level === 5);
                         return (
-                          <button
-                            key={idx}
-                            onClick={() => handleSectionClick(idx)}
-                            className={`w-full text-left p-2.5 text-xs font-semibold rounded-xl transition-all cursor-pointer border ${
-                              isActive
-                                ? "bg-indigo-50 dark:bg-indigo-950/40 border-indigo-100 dark:border-indigo-900/40 text-indigo-700 dark:text-indigo-300 font-bold"
-                                : "hover:bg-slate-50 dark:hover:bg-slate-800/60 border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
-                            }`}
-                          >
-                            <div className="flex items-start gap-2.5">
-                              <span
-                                className={`text-[9px] font-mono px-1.5 py-0.5 rounded ${
-                                  isActive
-                                    ? "bg-indigo-600 text-white"
-                                    : "bg-slate-100 dark:bg-slate-800 text-slate-500"
-                                }`}
-                              >
-                                {idx + 1}
-                              </span>
-                              <span className="leading-tight flex-1">
-                                <Latex text={section.title} />
-                              </span>
-                            </div>
-                          </button>
+                          <div key={idx} className="flex flex-col">
+                            <button
+                              onClick={() => handleSectionClick(idx)}
+                              className={`w-full text-left p-2.5 text-xs font-semibold rounded-xl transition-all cursor-pointer border ${
+                                isActive
+                                  ? "bg-indigo-50 dark:bg-indigo-950/40 border-indigo-100 dark:border-indigo-900/40 text-indigo-700 dark:text-indigo-300 font-bold"
+                                  : "hover:bg-slate-50 dark:hover:bg-slate-800/60 border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
+                              }`}
+                            >
+                              <div className="flex items-start gap-2.5">
+                                <span
+                                  className={`text-[9px] font-mono px-1.5 py-0.5 rounded ${
+                                    isActive
+                                      ? "bg-indigo-600 text-white"
+                                      : "bg-slate-100 dark:bg-slate-800 text-slate-500"
+                                  }`}
+                                >
+                                  {idx + 1}
+                                </span>
+                                <span className="leading-tight flex-1">
+                                  <Latex text={section.title} />
+                                </span>
+                              </div>
+                            </button>
+                            {(isActive || viewMode === "full") && innerHeaders.length > 0 && (
+                              <div className="flex flex-col ml-6 mt-1 mb-2 border-l-2 border-slate-100 dark:border-slate-800 pl-2 space-y-1">
+                                {innerHeaders.map((header, hIdx) => (
+                                  <button
+                                    key={hIdx}
+                                    onClick={(e) => handleSubheaderClick(e, idx, header.id)}
+                                    className="text-left text-[11px] text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 py-1 px-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+                                  >
+                                    {header.text.replace(/\$/g, "")}
+                                  </button>
+                                ))}
+                              </div>
+                            )}
+                          </div>
                         );
                       })}
+
                     </div>
                   </div>
 
@@ -544,41 +634,61 @@ export default function ChapterDetails({
                             onClick={() => setIsMobileOutlineOpen(false)}
                           />
                           <div className="absolute left-0 right-0 mt-2 p-2 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/80 rounded-2xl shadow-xl z-30 max-h-[280px] overflow-y-auto space-y-1 divide-y divide-slate-50 dark:divide-slate-800/40">
+                            
                             {sections.map((sec, idx) => {
                               const isActive = idx === activeSectionIndex;
+                              const innerHeaders = extractInnerHeaders(sec.content).filter(h => h.level === 4 || h.level === 5);
                               return (
-                                <button
-                                  key={idx}
-                                  onClick={() => {
-                                    handleSectionClick(idx);
-                                    setIsMobileOutlineOpen(false);
-                                  }}
-                                  className={`w-full text-left p-2.5 text-xs font-medium rounded-xl transition-all cursor-pointer flex items-center justify-between ${
-                                    isActive
-                                      ? "bg-indigo-50/80 dark:bg-indigo-950/20 text-indigo-700 dark:text-indigo-400 font-bold"
-                                      : "hover:bg-slate-50 dark:hover:bg-slate-800/50 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
-                                  }`}
-                                >
-                                  <div className="flex items-center gap-2.5 flex-1 min-w-0 pr-2">
-                                    <span
-                                      className={`text-[9px] font-bold font-mono px-1.5 py-0.5 rounded ${
-                                        isActive
-                                          ? "bg-indigo-600 text-white"
-                                          : "bg-slate-100 dark:bg-slate-800 text-slate-500"
-                                      }`}
-                                    >
-                                      {idx + 1}
-                                    </span>
-                                    <span className="truncate">
-                                      {sec.title.replace(/\$/g, "")}
-                                    </span>
-                                  </div>
-                                  {isActive && (
-                                    <Check className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400 shrink-0" />
+                                <div key={idx} className="flex flex-col">
+                                  <button
+                                    onClick={() => {
+                                      handleSectionClick(idx);
+                                      setIsMobileOutlineOpen(false);
+                                    }}
+                                    className={`w-full text-left p-2.5 text-xs font-medium rounded-xl transition-all cursor-pointer flex items-center justify-between ${
+                                      isActive
+                                        ? "bg-indigo-50/80 dark:bg-indigo-950/20 text-indigo-700 dark:text-indigo-400 font-bold"
+                                        : "hover:bg-slate-50 dark:hover:bg-slate-800/50 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
+                                    }`}
+                                  >
+                                    <div className="flex items-center gap-2.5 flex-1 min-w-0 pr-2">
+                                      <span
+                                        className={`text-[9px] font-bold font-mono px-1.5 py-0.5 rounded ${
+                                          isActive
+                                            ? "bg-indigo-600 text-white"
+                                            : "bg-slate-100 dark:bg-slate-800 text-slate-500"
+                                        }`}
+                                      >
+                                        {idx + 1}
+                                      </span>
+                                      <span className="truncate">
+                                        {sec.title.replace(/\$/g, "")}
+                                      </span>
+                                    </div>
+                                    {isActive && (
+                                      <Check className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400 shrink-0" />
+                                    )}
+                                  </button>
+                                  {(isActive || viewMode === "full") && innerHeaders.length > 0 && (
+                                    <div className="flex flex-col ml-8 mt-1 mb-2 border-l-2 border-slate-100 dark:border-slate-800 pl-2 space-y-1">
+                                      {innerHeaders.map((header, hIdx) => (
+                                        <button
+                                          key={hIdx}
+                                          onClick={(e) => {
+                                            handleSubheaderClick(e, idx, header.id);
+                                            setIsMobileOutlineOpen(false);
+                                          }}
+                                          className="text-left text-[11px] text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 py-1.5 px-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+                                        >
+                                          {header.text.replace(/\$/g, "")}
+                                        </button>
+                                      ))}
+                                    </div>
                                   )}
-                                </button>
+                                </div>
                               );
                             })}
+
                           </div>
                         </>
                       )}
@@ -769,6 +879,63 @@ export default function ChapterDetails({
           </div>
         </>
       )}
+
+      {/* Floating Notes Widget */}
+      <div className="print:hidden fixed bottom-6 left-6 z-50 flex flex-col items-start pointer-events-none">
+        <AnimatePresence>
+          {isNotesOpen && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="mb-4 w-72 md:w-80 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl overflow-hidden pointer-events-auto"
+            >
+              <div className="flex items-center justify-between p-3 border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50">
+                <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400">
+                  <FileText className="w-4 h-4" />
+                  <span className="text-xs font-bold font-display">Chapter Notes</span>
+                </div>
+                <button
+                  onClick={() => setIsNotesOpen(false)}
+                  className="p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+              <div className="p-3">
+                <textarea
+                  value={chapterNotes}
+                  onChange={handleNotesChange}
+                  placeholder="Jot down formulas, ideas, or questions here..."
+                  className="w-full h-48 resize-none bg-transparent border-none focus:ring-0 p-0 text-sm text-slate-700 dark:text-slate-300 placeholder:text-slate-400 dark:placeholder:text-slate-600"
+                />
+              </div>
+              <div className="px-3 py-2 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 text-[10px] text-slate-400 font-medium flex items-center justify-between">
+                <span>{chapterNotes.length} chars</span>
+                <span className="flex items-center gap-1">
+                  {isSavingNotes ? (
+                    <span className="animate-pulse">Saving...</span>
+                  ) : (
+                    <>
+                      <Check className="w-3 h-3 text-emerald-500" />
+                      Saved
+                    </>
+                  )}
+                </span>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <button
+          onClick={() => setIsNotesOpen(!isNotesOpen)}
+          className="pointer-events-auto flex items-center justify-center w-12 h-12 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-lg shadow-indigo-600/20 hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer"
+          title="Chapter Notes"
+        >
+          <FileText className="w-5 h-5" />
+        </button>
+      </div>
     </div>
   );
 }
+

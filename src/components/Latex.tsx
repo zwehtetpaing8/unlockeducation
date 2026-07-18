@@ -2719,6 +2719,10 @@ export function Chap4_Fig5() {
   );
 }
 
+function slugify(text: string) {
+  return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+}
+
 export default function Latex({ text, block = false }: LatexProps) {
   // 1. Render pure block formula if explicitly requested via props
   if (block) {
@@ -3263,7 +3267,7 @@ case 'Chap4_Fig5':
     if (line.startsWith('###### ')) {
       flushList(i);
       renderedElements.push(
-        <h6 key={`h6-${i}`} className="font-display font-bold text-slate-900 dark:text-slate-100 mt-4 mb-2 text-xs md:text-sm flex items-center gap-1.5 border-b border-dashed border-slate-100 dark:border-slate-800 pb-1 w-full">
+        <h6 key={`h6-${i}`} id={slugify(line.slice(7))} className="font-display font-bold text-slate-900 dark:text-slate-100 mt-4 mb-2 text-xs md:text-sm flex items-center gap-1.5 border-b border-dashed border-slate-100 dark:border-slate-800 pb-1 w-full">
           <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0" />
           <span>{renderMathText(line.slice(7))}</span>
         </h6>
@@ -3274,7 +3278,7 @@ case 'Chap4_Fig5':
     if (line.startsWith('##### ')) {
       flushList(i);
       renderedElements.push(
-        <h5 key={`h5-${i}`} className="font-display font-semibold text-indigo-600 dark:text-indigo-400 mt-5 mb-2.5 text-xs uppercase tracking-wider flex items-center gap-1.5">
+        <h5 key={`h5-${i}`} id={slugify(line.slice(6))} className="font-display font-semibold text-indigo-600 dark:text-indigo-400 mt-5 mb-2.5 text-xs uppercase tracking-wider flex items-center gap-1.5">
           <Sparkles className="w-3.5 h-3.5 text-indigo-500 shrink-0" />
           <span>{renderMathText(line.slice(6))}</span>
         </h5>
@@ -3285,7 +3289,7 @@ case 'Chap4_Fig5':
     if (line.startsWith('#### ')) {
       flushList(i);
       renderedElements.push(
-        <h4 key={`h4-${i}`} className="font-display font-semibold text-slate-800 dark:text-slate-200 mt-4 mb-2 text-xs md:text-sm flex items-center gap-1.5">
+        <h4 key={`h4-${i}`} id={slugify(line.slice(5))} className="font-display font-semibold text-slate-800 dark:text-slate-200 mt-4 mb-2 text-xs md:text-sm flex items-center gap-1.5">
           <ChevronRight className="w-3.5 h-3.5 text-indigo-500 shrink-0" />
           <span>{renderMathText(line.slice(5))}</span>
         </h4>
@@ -3296,7 +3300,7 @@ case 'Chap4_Fig5':
     if (line.startsWith('### ')) {
       flushList(i);
       renderedElements.push(
-        <h3 key={`h3-${i}`} className="font-display font-bold text-slate-900 dark:text-slate-100 mt-6 mb-3 text-sm md:text-base border-b border-slate-100 dark:border-slate-800/60 pb-1.5 flex items-center gap-2">
+        <h3 key={`h3-${i}`} id={slugify(line.slice(4))} className="font-display font-bold text-slate-900 dark:text-slate-100 mt-6 mb-3 text-sm md:text-base border-b border-slate-100 dark:border-slate-800/60 pb-1.5 flex items-center gap-2">
           <GraduationCap className="w-4 h-4 text-indigo-500" />
           <span>{renderMathText(line.slice(4))}</span>
         </h3>
@@ -3307,7 +3311,7 @@ case 'Chap4_Fig5':
     if (line.startsWith('## ')) {
       flushList(i);
       renderedElements.push(
-        <h2 key={`h2-${i}`} className="font-display font-bold text-slate-950 dark:text-white mt-8 mb-4 text-base md:text-lg border-b border-slate-200 dark:border-slate-800 pb-2 flex items-center gap-2">
+        <h2 key={`h2-${i}`} id={slugify(line.slice(3))} className="font-display font-bold text-slate-950 dark:text-white mt-8 mb-4 text-base md:text-lg border-b border-slate-200 dark:border-slate-800 pb-2 flex items-center gap-2">
           <Layers className="w-5 h-5 text-indigo-600" />
           <span>{renderMathText(line.slice(3))}</span>
         </h2>
@@ -3318,7 +3322,7 @@ case 'Chap4_Fig5':
     if (line.startsWith('# ')) {
       flushList(i);
       renderedElements.push(
-        <h1 key={`h1-${i}`} className="font-display font-extrabold text-slate-950 dark:text-white mt-10 mb-6 text-lg md:text-xl border-b-2 border-indigo-100 dark:border-indigo-900 pb-3 flex items-center gap-2">
+        <h1 key={`h1-${i}`} id={slugify(line.slice(2))} className="font-display font-extrabold text-slate-950 dark:text-white mt-10 mb-6 text-lg md:text-xl border-b-2 border-indigo-100 dark:border-indigo-900 pb-3 flex items-center gap-2">
           <BookOpen className="w-6 h-6 text-indigo-600" />
           <span>{renderMathText(line.slice(2))}</span>
         </h1>
