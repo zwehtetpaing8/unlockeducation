@@ -51,53 +51,7 @@ export default function HomeView({ onSelectChapter, onNavigateToFormulas }: Home
     }
   });
 
-  useEffect(() => {
-    let unsubscribeFirestore: (() => void) | undefined;
-    
-    import('../lib/firebase').then(({ auth, db }) => {
-      import('firebase/auth').then(({ onAuthStateChanged }) => {
-        import('firebase/firestore').then(({ collection, query, where, orderBy, limit, onSnapshot }) => {
-          onAuthStateChanged(auth, (user) => {
-            if (user) {
-              const q = query(
-                collection(db, "quizHistory"),
-                where("userId", "==", user.uid),
-                orderBy("date", "desc"),
-                limit(3)
-              );
-              unsubscribeFirestore = onSnapshot(q, (snapshot) => {
-                const quizzes = snapshot.docs.map(doc => {
-                  const data = doc.data();
-                  return {
-                    chapterId: data.chapterId,
-                    chapterTitle: data.chapterTitle,
-                    score: data.score,
-                    total: data.total,
-                    date: data.date
-                  };
-                });
-                if (quizzes.length > 0) {
-                  setRecentQuizzes(quizzes);
-                }
-              });
-            } else {
-              if (unsubscribeFirestore) {
-                unsubscribeFirestore();
-              }
-              try {
-                const saved = localStorage.getItem('unlock_edu_recentQuizzes');
-                if (saved) setRecentQuizzes(JSON.parse(saved));
-              } catch (e) {}
-            }
-          });
-        });
-      });
-    });
 
-    return () => {
-      if (unsubscribeFirestore) unsubscribeFirestore();
-    };
-  }, []);
 
   // Solver widget state
   const [a, setA] = useState<number>(1);

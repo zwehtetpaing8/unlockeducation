@@ -60,18 +60,6 @@ export default function PracticeQuiz({ chapterId, questions, chapterTitle }: Pra
         history = history.slice(0, 3);
         localStorage.setItem('unlock_edu_recentQuizzes', JSON.stringify(history));
 
-        // Save to Firestore if authenticated
-        import('../lib/firebase').then(({ auth, db }) => {
-          const user = auth.currentUser;
-          if (user) {
-            import('firebase/firestore').then(({ collection, addDoc }) => {
-              addDoc(collection(db, "quizHistory"), {
-                ...newRecord,
-                userId: user.uid,
-              }).catch((e) => console.error("Error saving to Firestore", e));
-            });
-          }
-        });
       } catch (e) {
         console.error("Could not save quiz history", e);
       }
