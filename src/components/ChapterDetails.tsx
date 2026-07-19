@@ -18,8 +18,8 @@ import {
   Hourglass,
   Sparkles,
   GraduationCap,
-  Printer,
-  FileText,
+
+
   X,
 } from "lucide-react";
 
@@ -113,38 +113,7 @@ export default function ChapterDetails({
   const [isMobileOutlineOpen, setIsMobileOutlineOpen] = useState(false);
   const [viewMode, setViewMode] = useState<"sections" | "full">("sections");
 
-  const [isNotesOpen, setIsNotesOpen] = useState(false);
-  const [chapterNotes, setChapterNotes] = useState("");
-  const [isSavingNotes, setIsSavingNotes] = useState(false);
-
-  // Load notes when chapter changes
-  useEffect(() => {
-    const savedNotes = localStorage.getItem(`unlock_edu_notes_${chapter.id}`);
-    if (savedNotes) {
-      setChapterNotes(savedNotes);
-    } else {
-      setChapterNotes("");
-    }
-  }, [chapter.id]);
-
-  const handleNotesChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setChapterNotes(e.target.value);
-    setIsSavingNotes(true);
-  };
-
-  // Debounced save
-  useEffect(() => {
-    if (!isSavingNotes) return;
-    
-    const timeoutId = setTimeout(() => {
-      localStorage.setItem(`unlock_edu_notes_${chapter.id}`, chapterNotes);
-      setIsSavingNotes(false);
-    }, 500);
-
-    return () => clearTimeout(timeoutId);
-  }, [chapterNotes, chapter.id, isSavingNotes]);
-
-  // Reset active section and tab whenever the chapter selection changes
+    // Reset active section and tab whenever the chapter selection changes
   useEffect(() => {
     setActiveSectionIndex(0);
     setActiveTab("study");
@@ -381,13 +350,7 @@ export default function ChapterDetails({
             </div>
           </div>
           
-          <button
-            onClick={() => window.print()}
-            className="print:hidden shrink-0 flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-semibold transition-colors border border-white/10 cursor-pointer"
-          >
-            <Printer className="w-4 h-4" />
-            <span>Print Chapter</span>
-          </button>
+          
         </div>
       </div>
 
@@ -835,7 +798,7 @@ export default function ChapterDetails({
                 {chapter.formulas.map((f) => (
                   <div
                     key={f.id}
-                    className="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-100 dark:border-slate-800/80 shadow-sm space-y-3 flex flex-col justify-between"
+                    className="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-100 dark:border-slate-800/80 shadow-sm space-y-3 flex flex-col justify-between overflow-hidden min-w-0"
                   >
                     <div>
                       <h4 className="font-display font-bold text-slate-800 dark:text-slate-200 text-xs md:text-sm">
@@ -845,7 +808,7 @@ export default function ChapterDetails({
                         <Latex text={f.description} />
                       </div>
                     </div>
-                    <div className="p-3 bg-slate-50 dark:bg-slate-950/60 border border-slate-100 dark:border-slate-800 rounded-xl flex items-center justify-center text-center overflow-x-auto min-h-[50px]">
+                    <div className="p-3 bg-slate-50 dark:bg-slate-950/60 border border-slate-100 dark:border-slate-800 rounded-xl overflow-x-auto min-h-[50px] w-full">
                       <Latex text={`$$${f.latex}$$`} />
                     </div>
                   </div>
@@ -893,62 +856,7 @@ export default function ChapterDetails({
         </>
       )}
 
-      {/* Floating Notes Widget */}
-      <div className="print:hidden fixed bottom-6 left-6 z-50 flex flex-col items-start pointer-events-none">
-        <AnimatePresence>
-          {isNotesOpen && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="mb-4 w-72 md:w-80 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl overflow-hidden pointer-events-auto"
-            >
-              <div className="flex items-center justify-between p-3 border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50">
-                <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400">
-                  <FileText className="w-4 h-4" />
-                  <span className="text-xs font-bold font-display">Chapter Notes</span>
-                </div>
-                <button
-                  onClick={() => setIsNotesOpen(false)}
-                  className="p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors cursor-pointer"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              </div>
-              <div className="p-3">
-                <textarea
-                  value={chapterNotes}
-                  onChange={handleNotesChange}
-                  placeholder="Jot down formulas, ideas, or questions here..."
-                  className="w-full h-48 resize-none bg-transparent border-none focus:ring-0 p-0 text-sm text-slate-700 dark:text-slate-300 placeholder:text-slate-400 dark:placeholder:text-slate-600"
-                />
-              </div>
-              <div className="px-3 py-2 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 text-[10px] text-slate-400 font-medium flex items-center justify-between">
-                <span>{chapterNotes.length} chars</span>
-                <span className="flex items-center gap-1">
-                  {isSavingNotes ? (
-                    <span className="animate-pulse">Saving...</span>
-                  ) : (
-                    <>
-                      <Check className="w-3 h-3 text-emerald-500" />
-                      Saved
-                    </>
-                  )}
-                </span>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        <button
-          onClick={() => setIsNotesOpen(!isNotesOpen)}
-          className="pointer-events-auto flex items-center justify-center w-12 h-12 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-lg shadow-indigo-600/20 hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer"
-          title="Chapter Notes"
-        >
-          <FileText className="w-5 h-5" />
-        </button>
-      </div>
-    </div>
+        </div>
   );
 }
 
