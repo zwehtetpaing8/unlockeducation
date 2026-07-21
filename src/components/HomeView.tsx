@@ -250,9 +250,9 @@ export default function HomeView({ onSelectChapter, onNavigateToFormulas }: Home
       {/* 2. Platform Interactive Statistics Grid */}
       <motion.div
         variants={containerVariants}
-        className="grid grid-cols-2 lg:grid-cols-4 gap-4"
+        className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4"
       >
-        <motion.div variants={itemVariants} whileHover={{ y: -5 }} className="bg-white dark:bg-slate-900/60 p-5 rounded-2xl border border-slate-200/50 dark:border-slate-800/40 shadow-sm flex items-center gap-4">
+        <motion.div variants={itemVariants} whileHover={{ y: -5 }} className="bg-white dark:bg-slate-900/60 p-4 sm:p-5 rounded-2xl border border-slate-200/50 dark:border-slate-800/40 shadow-sm flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
           <div className="p-3 bg-indigo-50 dark:bg-indigo-950/40 rounded-xl text-indigo-600 dark:text-indigo-400">
             <Layers className="w-5 h-5" />
           </div>
@@ -262,7 +262,7 @@ export default function HomeView({ onSelectChapter, onNavigateToFormulas }: Home
           </div>
         </motion.div>
 
-        <motion.div variants={itemVariants} whileHover={{ y: -5 }} className="bg-white dark:bg-slate-900/60 p-5 rounded-2xl border border-slate-200/50 dark:border-slate-800/40 shadow-sm flex items-center gap-4">
+        <motion.div variants={itemVariants} whileHover={{ y: -5 }} className="bg-white dark:bg-slate-900/60 p-4 sm:p-5 rounded-2xl border border-slate-200/50 dark:border-slate-800/40 shadow-sm flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
           <div className="p-3 bg-emerald-50 dark:bg-emerald-950/40 rounded-xl text-emerald-600 dark:text-emerald-400">
             <Calculator className="w-5 h-5" />
           </div>
@@ -272,7 +272,7 @@ export default function HomeView({ onSelectChapter, onNavigateToFormulas }: Home
           </div>
         </motion.div>
 
-        <motion.div variants={itemVariants} whileHover={{ y: -5 }} className="bg-white dark:bg-slate-900/60 p-5 rounded-2xl border border-slate-200/50 dark:border-slate-800/40 shadow-sm flex items-center gap-4">
+        <motion.div variants={itemVariants} whileHover={{ y: -5 }} className="bg-white dark:bg-slate-900/60 p-4 sm:p-5 rounded-2xl border border-slate-200/50 dark:border-slate-800/40 shadow-sm flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
           <div className="p-3 bg-amber-50 dark:bg-amber-950/40 rounded-xl text-amber-600 dark:text-amber-400">
             <Award className="w-5 h-5" />
           </div>
@@ -282,7 +282,7 @@ export default function HomeView({ onSelectChapter, onNavigateToFormulas }: Home
           </div>
         </motion.div>
 
-        <motion.div variants={itemVariants} whileHover={{ y: -5 }} className="bg-white dark:bg-slate-900/60 p-5 rounded-2xl border border-slate-200/50 dark:border-slate-800/40 shadow-sm flex items-center gap-4">
+        <motion.div variants={itemVariants} whileHover={{ y: -5 }} className="bg-white dark:bg-slate-900/60 p-4 sm:p-5 rounded-2xl border border-slate-200/50 dark:border-slate-800/40 shadow-sm flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
           <div className="p-3 bg-violet-50 dark:bg-violet-950/40 rounded-xl text-violet-600 dark:text-violet-400">
             <Activity className="w-5 h-5" />
           </div>
