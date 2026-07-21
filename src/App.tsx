@@ -29,6 +29,7 @@ export default function App() {
     return saved ? JSON.parse(saved) : [];
   });
   const [sidebarSearch, setSidebarSearch] = useState<string>('');
+  const [isReadingMode, setIsReadingMode] = useState<boolean>(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [isBugModalOpen, setIsBugModalOpen] = useState<boolean>(false);
   const [copied, setCopied] = useState<boolean>(false);
@@ -126,6 +127,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-slate-50/60 dark:bg-slate-950 print:bg-white print:text-black font-sans text-slate-800 dark:text-slate-200 antialiased flex flex-col">
       {/* Top Main Navigation Header */}
+      {!isReadingMode && (
       <header className="print:hidden sticky top-0 z-40 bg-white/85 dark:bg-slate-950/85 backdrop-blur-md border-b border-slate-200/50 dark:border-slate-800/40 px-4 md:px-8 py-3.5 flex items-center justify-between">
         <button 
           onClick={() => setActiveView('home')}
@@ -222,12 +224,13 @@ export default function App() {
           )}
         </div>
       </header>
+      )}
 
       {/* Main Grid Workspace */}
-      <div className="flex-1 flex flex-col md:flex-row w-full max-w-7xl mx-auto items-stretch">
+      <div className={`flex-1 flex flex-col md:flex-row w-full mx-auto items-stretch ${isReadingMode ? 'max-w-4xl' : 'max-w-7xl'}`}>
         
         {/* Left Side Navigation bar (always visible on desktop when viewing syllabus) */}
-        {activeView === 'syllabus' && (
+        {activeView === 'syllabus' && !isReadingMode && (
           <aside className="print:hidden hidden md:flex flex-col w-72 shrink-0 border-r border-slate-200/50 dark:border-slate-800/40 p-5 bg-white dark:bg-slate-950/20 overflow-y-auto max-h-[calc(100vh-64px)] space-y-4">
             <div className="space-y-1">
               <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
@@ -346,6 +349,8 @@ export default function App() {
                   }}
                   isCompleted={completedChapters.includes(selectedChapterId)}
                   onToggleComplete={handleToggleComplete}
+                  isReadingMode={isReadingMode}
+                  onToggleReadingMode={() => setIsReadingMode(!isReadingMode)}
                 />
               </motion.div>
             ) : (

@@ -23,6 +23,8 @@ import {
 
 
   X,
+  Maximize,
+  Minimize,
 } from "lucide-react";
 
 interface ChapterDetailsProps {
@@ -31,6 +33,8 @@ interface ChapterDetailsProps {
   onSelectChapter?: (id: number) => void;
   isCompleted?: boolean;
   onToggleComplete?: (id: number, completed: boolean) => void;
+  isReadingMode?: boolean;
+  onToggleReadingMode?: () => void;
 }
 
 interface ContentSection {
@@ -107,6 +111,8 @@ export default function ChapterDetails({
   onSelectChapter,
   isCompleted = false,
   onToggleComplete,
+  isReadingMode,
+  onToggleReadingMode,
 }: ChapterDetailsProps) {
   const [activeTab, setActiveTab] = useState<
     "study" | "formulas" | "visualizer" | "quiz"
@@ -352,7 +358,26 @@ export default function ChapterDetails({
             </div>
           </div>
           
-          
+          <div className="flex shrink-0">
+            {onToggleReadingMode && (
+              <button
+                onClick={onToggleReadingMode}
+                className="flex items-center gap-2 px-4 py-2 bg-slate-800/50 hover:bg-slate-700/60 border border-slate-700/50 rounded-xl text-xs font-semibold text-slate-200 transition-colors"
+              >
+                {isReadingMode ? (
+                  <>
+                    <Minimize className="w-4 h-4" />
+                    <span>Exit Reading Mode</span>
+                  </>
+                ) : (
+                  <>
+                    <Maximize className="w-4 h-4" />
+                    <span>Reading Mode</span>
+                  </>
+                )}
+              </button>
+            )}
+          </div>
         </div>
       </div>
 
