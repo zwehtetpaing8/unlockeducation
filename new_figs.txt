@@ -1,0 +1,91 @@
+export function Chap4_Fig13() {
+  return (
+    <div className="flex flex-col items-center my-6">
+      <div className="relative w-full max-w-[320px] aspect-[320/120]">
+        <svg viewBox="0 0 320 120" overflow="visible" className="w-full h-full fill-none" strokeWidth="1.5">
+          <line x1="60" y1="80" x2="258.0" y2="40.4" className="stroke-[#ca8a04]" strokeWidth="2" />
+          <polygon points="260.0,40.0 252.5,46.6 250.5,36.8" className="fill-[#ca8a04] stroke-none" />
+          <foreignObject x="140" y="30" width="60" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
+              <Latex text="$\\vec{a}$" />
+            </div>
+          </foreignObject>
+          <line x1="60" y1="80" x2="98.0" y2="72.4" className="stroke-slate-900 dark:stroke-slate-100" strokeWidth="2" />
+          <polygon points="100.0,72.0 92.5,78.6 90.5,68.8" className="fill-slate-900 dark:fill-slate-100 stroke-none" />
+          <foreignObject x="70" y="40" width="60" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100">
+              <Latex text="$\\hat{\\mathbf{a}}$" />
+            </div>
+          </foreignObject>
+          <circle cx="60" cy="80" r="2.5" className="fill-slate-800 dark:fill-slate-200 stroke-none" />
+        </svg>
+      </div>
+    </div>
+  );
+}
+export function Chap4_Fig14() {
+  return (
+    <div className="flex flex-col items-center my-6">
+      <div className="relative w-full max-w-[320px] aspect-[320/150]">
+        <svg viewBox="0 0 320 150" overflow="visible" className="w-full h-full fill-none" strokeWidth="1.5">
+          <line x1="60" y1="50" x2="98.0" y2="42.4" className="stroke-slate-900 dark:stroke-slate-100" strokeWidth="2" />
+          <polygon points="100.0,42.0 92.5,48.6 90.5,38.8" className="fill-slate-900 dark:fill-slate-100 stroke-none" />
+          <foreignObject x="70" y="10" width="60" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100">
+              <Latex text="$\\hat{\\mathbf{a}}$" />
+            </div>
+          </foreignObject>
+          <line x1="60" y1="90" x2="258.0" y2="50.4" className="stroke-[#ca8a04]" strokeWidth="2" />
+          <polygon points="260.0,50.0 252.5,56.6 250.5,46.8" className="fill-[#ca8a04] stroke-none" />
+          <foreignObject x="140" y="40" width="60" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
+              <Latex text="$\\vec{b} = 5\\hat{\\mathbf{a}}$" />
+            </div>
+          </foreignObject>
+          <line x1="260" y1="120" x2="62.0" y2="159.6" className="stroke-[#d97706]" strokeWidth="2" />
+          <polygon points="60.0,160.0 67.5,153.4 69.5,163.2" className="fill-[#d97706] stroke-none" />
+          <foreignObject x="140" y="110" width="60" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-[#d97706]">
+              <Latex text="$\\vec{b} = -5\\hat{\\mathbf{a}}$" />
+            </div>
+          </foreignObject>
+          <circle cx="60" cy="50" r="2.5" className="fill-slate-800 dark:fill-slate-200 stroke-none" />
+          <circle cx="60" cy="90" r="2.5" className="fill-slate-800 dark:fill-slate-200 stroke-none" />
+          <circle cx="260" cy="120" r="2.5" className="fill-slate-800 dark:fill-slate-200 stroke-none" />
+        </svg>
+      </div>
+    </div>
+  );
+}
+export function Chap4_Fig15() {
+  return (
+    <div className="flex flex-col items-center my-6">
+      <div className="relative w-full max-w-[320px] aspect-[320/120]">
+        <svg viewBox="0 0 320 120" overflow="visible" className="w-full h-full fill-none" strokeWidth="1.5">
+          <line x1="40" y1="90" x2="280" y2="30" className="stroke-slate-300 dark:stroke-slate-700" strokeWidth="1" strokeDasharray="4,4" />
+          <line x1="60" y1="85" x2="138.1" y2="65.5" className="stroke-[#ca8a04]" strokeWidth="2" />
+          <polygon points="140.0,65.0 132.8,72.0 130.4,62.2" className="fill-[#ca8a04] stroke-none" />
+          <foreignObject x="90" y="45" width="60" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
+              <Latex text="$\\overrightarrow{AB}$" />
+            </div>
+          </foreignObject>
+          <line x1="60" y1="85" x2="258.1" y2="35.5" className="stroke-slate-900 dark:stroke-slate-100" strokeWidth="2" />
+          <polygon points="260.0,35.0 252.8,42.0 250.4,32.2" className="fill-slate-900 dark:fill-slate-100 stroke-none" />
+          <foreignObject x="160" y="10" width="60" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100">
+              <Latex text="$\\overrightarrow{AC}$" />
+            </div>
+          </foreignObject>
+          
+          <circle cx="60" cy="85" r="2.5" className="fill-[#ca8a04] stroke-none" />
+          <circle cx="140" cy="65" r="2.5" className="fill-[#ca8a04] stroke-none" />
+          <circle cx="260" cy="35" r="2.5" className="fill-slate-800 dark:fill-slate-200 stroke-none" />
+          
+          <text x="55" y="105" className="fill-[#ca8a04] text-[12px] font-serif italic stroke-none">A</text>
+          <text x="135" y="85" className="fill-[#ca8a04] text-[12px] font-serif italic stroke-none">B</text>
+          <text x="255" y="55" className="fill-slate-800 dark:fill-slate-200 text-[12px] font-serif italic stroke-none">C</text>        </svg>
+      </div>
+    </div>
+  );
+}

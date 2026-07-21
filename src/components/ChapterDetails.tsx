@@ -1,3 +1,5 @@
+import React from "react";
+import DraggableScroll from "./DraggableScroll";
 import { useState, useEffect } from "react";
 import { Chapter } from "../types";
 import Latex from "./Latex";
@@ -539,7 +541,7 @@ export default function ChapterDetails({
                           Swipe left/right
                         </span>
                       </div>
-                      <div className="flex gap-2 overflow-x-auto pb-1 -mx-4 px-4 scrollbar-none snap-x scroll-smooth">
+                      <DraggableScroll className="flex gap-2 min-h-[40px] pb-1 -mx-4 px-4 scrollbar-none snap-x scroll-smooth">
                         {sections.map((sec, idx) => {
                           const isActive = idx === activeSectionIndex;
                           return (
@@ -570,7 +572,7 @@ export default function ChapterDetails({
                             </button>
                           );
                         })}
-                      </div>
+                      </DraggableScroll>
                     </div>
 
                     {/* 2. Beautiful Custom Expandable Dropdown */}
@@ -682,7 +684,7 @@ export default function ChapterDetails({
                             </div>
 
                             {/* Section Content */}
-                            <div className="leading-relaxed prose dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 text-xs md:text-sm">
+                            <div className="leading-relaxed prose dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 text-xs md:text-sm min-w-0 break-words ">
                               <Latex text={section.content} />
                             </div>
                           </div>
@@ -737,7 +739,7 @@ export default function ChapterDetails({
                         </div>
 
                         {/* Section Content with LaTeX */}
-                        <div className="leading-relaxed prose dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 text-xs md:text-sm">
+                        <div className="leading-relaxed prose dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 text-xs md:text-sm min-w-0 break-words ">
                           <Latex text={activeSection.content} />
                         </div>
 
@@ -808,9 +810,9 @@ export default function ChapterDetails({
                         <Latex text={f.description} />
                       </div>
                     </div>
-                    <div className="p-3 bg-slate-50 dark:bg-slate-950/60 border border-slate-100 dark:border-slate-800 rounded-xl overflow-x-auto min-h-[50px] w-full">
-                      <Latex text={`$$${f.latex}$$`} />
-                    </div>
+                    <DraggableScroll className="p-3 bg-slate-50 dark:bg-slate-950/60 border border-slate-100 dark:border-slate-800 rounded-xl min-h-[50px] w-full">
+                      <Latex text={`$${f.latex}$`} />
+                    </DraggableScroll>
                   </div>
                 ))}
               </div>

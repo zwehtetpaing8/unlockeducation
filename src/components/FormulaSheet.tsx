@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { chapters } from '../data/chapters';
 import Latex from './Latex';
 import { Search, Filter, Copy, Check, Hash } from 'lucide-react';
+import DraggableScroll from "./DraggableScroll";
 
 export default function FormulaSheet() {
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -137,9 +138,9 @@ export default function FormulaSheet() {
               </div>
 
               {/* Centered LaTeX expression equation card */}
-              <div className="p-4 bg-slate-50 dark:bg-slate-950/60 border border-slate-100 dark:border-slate-800 rounded-xl overflow-x-auto min-h-[56px] w-full">
+              <DraggableScroll className="p-4 bg-slate-50 dark:bg-slate-950/60 border border-slate-100 dark:border-slate-800 rounded-xl min-h-[56px] w-full">
                 <Latex block={true} text={formula.latex} />
-              </div>
+              </DraggableScroll>
             </div>
           ))
         ) : (

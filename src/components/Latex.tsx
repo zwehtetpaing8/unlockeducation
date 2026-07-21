@@ -1,3 +1,4 @@
+import DraggableScroll from "./DraggableScroll";
 import React from 'react';
 import katex from 'katex';
 import { 
@@ -66,24 +67,41 @@ function ArgandPolar() {
   return (
     <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
       <svg width="240" height="240" className="overflow-visible" viewBox="0 0 240 240">
+<defs>
+          <marker id="arrow-p-ArgandPolar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#64748b" />
+          </marker>
+          <marker id="arrow-vector-ArgandPolar" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
+          </marker>
+          <marker id="arrow-amber-polar-ArgandPolar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
+          </marker>
+        </defs>
         {/* Grid lines */}
         <line x1="20" y1="120" x2="220" y2="120" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="2 2" className="dark:stroke-slate-700" />
         <line x1="120" y1="20" x2="120" y2="220" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="2 2" className="dark:stroke-slate-700" />
         {/* Axes */}
-        <line x1="10" y1="120" x2="230" y2="120" stroke="#64748b" strokeWidth="1.5" markerStart="url(#arrow-p)" markerEnd="url(#arrow-p)" className="dark:stroke-slate-400" />
-        <line x1="120" y1="230" x2="120" y2="10" stroke="#64748b" strokeWidth="1.5" markerStart="url(#arrow-p)" markerEnd="url(#arrow-p)" className="dark:stroke-slate-400" />
+        <line x1="10" y1="120" x2="230" y2="120" stroke="#64748b" strokeWidth="1.5" className="dark:stroke-slate-400" />
+        <polygon points="10,120 18.0,124.0 18.0,116.0" fill="#64748b" />
+        <polygon points="230,120 222.0,116.0 222.0,124.0" fill="#64748b" />
+        <line x1="120" y1="230" x2="120" y2="10" stroke="#64748b" strokeWidth="1.5" className="dark:stroke-slate-400" />
+        <polygon points="120,230 124.0,222.0 116.0,222.0" fill="#64748b" />
+        <polygon points="120,10 116.0,18.0 124.0,18.0" fill="#64748b" />
         {/* Axis Labels */}
         <text x="235" y="124" className="text-[10px] font-mono fill-slate-500 dark:fill-slate-400 font-bold">Re</text>
         <text x="120" y="5" className="text-[10px] font-mono fill-slate-500 dark:fill-slate-400 font-bold" textAnchor="middle">Im</text>
         
         {/* Vector line to P(x,y) */}
-        <line x1="120" y1="120" x2="185" y2="55" stroke="#6366f1" strokeWidth="2.5" markerEnd="url(#arrow-vector)" />
+        <line x1="120" y1="120" x2="185" y2="55" stroke="#6366f1" strokeWidth="2.5" />
+        <polygon points="185,55 176.5,57.8 182.2,63.5" fill="#6366f1" />
         {/* Dashed drop-downs */}
         <line x1="185" y1="55" x2="185" y2="120" stroke="#94a3b8" strokeWidth="1.2" strokeDasharray="3 3" />
         <line x1="185" y1="55" x2="120" y2="55" stroke="#94a3b8" strokeWidth="1.2" strokeDasharray="3 3" />
 
         {/* Angle Arc */}
-        <path d="M 140 120 A 20 20 0 0 0 134 106" fill="none" stroke="#f59e0b" strokeWidth="2" markerEnd="url(#arrow-amber-polar)" />
+        <path d="M 140 120 A 20 20 0 0 0 134 106" fill="none" stroke="#f59e0b" strokeWidth="2" />
+        <polygon points="134,106 136.8,114.5 142.5,108.8" fill="#f59e0b" />
         <text x="144" y="112" className="text-xs font-serif italic fill-amber-500 font-bold">θ</text>
 
         {/* Origin Label */}
@@ -100,17 +118,7 @@ function ArgandPolar() {
         <circle cx="185" cy="55" r="5" className="fill-indigo-500 stroke-white dark:stroke-slate-900" strokeWidth="1.5" />
         <text x="193" y="52" className="text-[10px] font-bold fill-slate-800 dark:fill-slate-200 font-sans">z = (x, y)</text>
         
-        <defs>
-          <marker id="arrow-p" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#64748b" />
-          </marker>
-          <marker id="arrow-vector" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
-          </marker>
-          <marker id="arrow-amber-polar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
-          </marker>
-        </defs>
+        
       </svg>
       <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-3 italic font-sans">Geometric representation of the Polar / Trigonometric form z = r(cos θ + i sin θ)</span>
     </div>
@@ -122,15 +130,32 @@ function ArgandExample5a() {
     <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
       <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for (a) z = 1 + √3i</h5>
       <svg width="220" height="220" viewBox="0 0 220 220">
-        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-5a)" markerEnd="url(#arrow-axis-5a)" />
-        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-5a)" markerEnd="url(#arrow-axis-5a)" />
+<defs>
+          <marker id="arrow-axis-5a-ArgandExample5a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
+          </marker>
+          <marker id="arrow-vector-5a-ArgandExample5a" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
+          </marker>
+          <marker id="arrow-amber-5a-ArgandExample5a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
+          </marker>
+        </defs>
+        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2"   />
+        <polygon points="10.0,110.0 18.0,114.0 18.0,106.0" fill="#94a3b8" />
+        <polygon points="210.0,110.0 202.0,106.0 202.0,114.0" fill="#94a3b8" />
+        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2"   />
+        <polygon points="110.0,210.0 114.0,202.0 106.0,202.0" fill="#94a3b8" />
+        <polygon points="110.0,10.0 106.0,18.0 114.0,18.0" fill="#94a3b8" />
         
         {/* Draw Vector */}
-        <line x1="110" y1="110" x2="155" y2="32" stroke="#6366f1" strokeWidth="2.2" markerEnd="url(#arrow-vector-5a)" />
+        <line x1="110" y1="110" x2="155" y2="32" stroke="#6366f1" strokeWidth="2.2" />
+        <polygon points="155,32 147.5,36.9 154.5,40.9" fill="#6366f1" />
         <circle cx="155" cy="32" r="4.5" className="fill-indigo-500 stroke-white" strokeWidth="1.5" />
         
         {/* Labeled angles */}
-        <path d="M 130 110 A 20 20 0 0 0 120 93" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-5a)" />
+        <path d="M 130 110 A 20 20 0 0 0 120 93" fill="none" stroke="#f59e0b" strokeWidth="1.5" />
+        <polygon points="120,93 124.9,100.5 128.9,93.6" fill="#f59e0b" />
         <text x="136" y="100" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
         
         <text x="162" y="28" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (1, √3)</text>
@@ -140,17 +165,7 @@ function ArgandExample5a() {
         <text x="115" y="15" className="text-[9px] font-mono fill-slate-400">Im</text>
         <text x="98" y="124" className="text-[10px] fill-slate-400">O</text>
         
-        <defs>
-          <marker id="arrow-axis-5a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
-          </marker>
-          <marker id="arrow-vector-5a" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
-          </marker>
-          <marker id="arrow-amber-5a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
-          </marker>
-        </defs>
+        
       </svg>
     </div>
   );
@@ -161,15 +176,32 @@ function ArgandExample5b() {
     <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
       <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for (b) z = -1 + i</h5>
       <svg width="220" height="220" viewBox="0 0 220 220">
-        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-5b)" markerEnd="url(#arrow-axis-5b)" />
-        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-5b)" markerEnd="url(#arrow-axis-5b)" />
+<defs>
+          <marker id="arrow-axis-5b-ArgandExample5b" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
+          </marker>
+          <marker id="arrow-vector-5b-ArgandExample5b" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
+          </marker>
+          <marker id="arrow-amber-5b-ArgandExample5b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
+          </marker>
+        </defs>
+        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2"   />
+        <polygon points="10.0,110.0 18.0,114.0 18.0,106.0" fill="#94a3b8" />
+        <polygon points="210.0,110.0 202.0,106.0 202.0,114.0" fill="#94a3b8" />
+        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2"   />
+        <polygon points="110.0,210.0 114.0,202.0 106.0,202.0" fill="#94a3b8" />
+        <polygon points="110.0,10.0 106.0,18.0 114.0,18.0" fill="#94a3b8" />
         
         {/* Draw Vector */}
-        <line x1="110" y1="110" x2="65" y2="65" stroke="#6366f1" strokeWidth="2.2" markerEnd="url(#arrow-vector-5b)" />
+        <line x1="110" y1="110" x2="65" y2="65" stroke="#6366f1" strokeWidth="2.2" />
+        <polygon points="65,65 67.8,73.5 73.5,67.8" fill="#6366f1" />
         <circle cx="65" cy="65" r="4.5" className="fill-indigo-500 stroke-white" strokeWidth="1.5" />
         
         {/* Labeled angles */}
-        <path d="M 130 110 A 20 20 0 0 0 96 96" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-5b)" />
+        <path d="M 130 110 A 20 20 0 0 0 96 96" fill="none" stroke="#f59e0b" strokeWidth="1.5" />
+        <polygon points="96,96 104.5,93.2 98.8,87.5" fill="#f59e0b" />
         <text x="115" y="82" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
         
         <text x="32" y="58" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (-1, 1)</text>
@@ -179,17 +211,7 @@ function ArgandExample5b() {
         <text x="115" y="15" className="text-[9px] font-mono fill-slate-400">Im</text>
         <text x="116" y="124" className="text-[10px] fill-slate-400">O</text>
         
-        <defs>
-          <marker id="arrow-axis-5b" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
-          </marker>
-          <marker id="arrow-vector-5b" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
-          </marker>
-          <marker id="arrow-amber-5b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
-          </marker>
-        </defs>
+        
       </svg>
     </div>
   );
@@ -200,15 +222,32 @@ function ArgandExample5c() {
     <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
       <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for (c) z = -√3 - i</h5>
       <svg width="220" height="220" viewBox="0 0 220 220">
-        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-5c)" markerEnd="url(#arrow-axis-5c)" />
-        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-5c)" markerEnd="url(#arrow-axis-5c)" />
+<defs>
+          <marker id="arrow-axis-5c-ArgandExample5c" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
+          </marker>
+          <marker id="arrow-vector-5c-ArgandExample5c" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
+          </marker>
+          <marker id="arrow-amber-5c-ArgandExample5c" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
+          </marker>
+        </defs>
+        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2"   />
+        <polygon points="10.0,110.0 18.0,114.0 18.0,106.0" fill="#94a3b8" />
+        <polygon points="210.0,110.0 202.0,106.0 202.0,114.0" fill="#94a3b8" />
+        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2"   />
+        <polygon points="110.0,210.0 114.0,202.0 106.0,202.0" fill="#94a3b8" />
+        <polygon points="110.0,10.0 106.0,18.0 114.0,18.0" fill="#94a3b8" />
         
         {/* Draw Vector */}
-        <line x1="110" y1="110" x2="65" y2="135" stroke="#6366f1" strokeWidth="2.2" markerEnd="url(#arrow-vector-5c)" />
+        <line x1="110" y1="110" x2="65" y2="135" stroke="#6366f1" strokeWidth="2.2" />
+        <polygon points="65,135 73.9,134.6 70.1,127.6" fill="#6366f1" />
         <circle cx="65" cy="135" r="4.5" className="fill-indigo-500 stroke-white" strokeWidth="1.5" />
         
         {/* Labeled angles */}
-        <path d="M 130 110 A 20 20 0 0 1 93 120" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-5c)" />
+        <path d="M 130 110 A 20 20 0 0 1 93 120" fill="none" stroke="#f59e0b" strokeWidth="1.5" />
+        <polygon points="93,120 93.6,128.9 100.5,124.9" fill="#f59e0b" />
         <text x="118" y="142" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
         
         <text x="20" y="155" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (-√3, -1)</text>
@@ -218,17 +257,7 @@ function ArgandExample5c() {
         <text x="115" y="15" className="text-[9px] font-mono fill-slate-400">Im</text>
         <text x="116" y="102" className="text-[10px] fill-slate-400">O</text>
         
-        <defs>
-          <marker id="arrow-axis-5c" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
-          </marker>
-          <marker id="arrow-vector-5c" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
-          </marker>
-          <marker id="arrow-amber-5c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
-          </marker>
-        </defs>
+        
       </svg>
     </div>
   );
@@ -239,15 +268,32 @@ function ArgandExample5d() {
     <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
       <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for (d) z = -1</h5>
       <svg width="220" height="220" viewBox="0 0 220 220">
-        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-5d)" markerEnd="url(#arrow-axis-5d)" />
-        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-5d)" markerEnd="url(#arrow-axis-5d)" />
+<defs>
+          <marker id="arrow-axis-5d-ArgandExample5d" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
+          </marker>
+          <marker id="arrow-vector-5d-ArgandExample5d" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
+          </marker>
+          <marker id="arrow-amber-5d-ArgandExample5d" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
+          </marker>
+        </defs>
+        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2"   />
+        <polygon points="10.0,110.0 18.0,114.0 18.0,106.0" fill="#94a3b8" />
+        <polygon points="210.0,110.0 202.0,106.0 202.0,114.0" fill="#94a3b8" />
+        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2"   />
+        <polygon points="110.0,210.0 114.0,202.0 106.0,202.0" fill="#94a3b8" />
+        <polygon points="110.0,10.0 106.0,18.0 114.0,18.0" fill="#94a3b8" />
         
         {/* Draw Vector */}
-        <line x1="110" y1="110" x2="50" y2="110" stroke="#6366f1" strokeWidth="2.5" markerEnd="url(#arrow-vector-5d)" />
+        <line x1="110" y1="110" x2="50" y2="110" stroke="#6366f1" strokeWidth="2.5" />
+        <polygon points="50,110 58.0,114.0 58.0,106.0" fill="#6366f1" />
         <circle cx="50" cy="110" r="4.5" className="fill-indigo-500 stroke-white" strokeWidth="1.5" />
         
         {/* Labeled angles */}
-        <path d="M 130 110 A 20 20 0 0 0 90 110" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-5d)" />
+        <path d="M 130 110 A 20 20 0 0 0 90 110" fill="none" stroke="#f59e0b" strokeWidth="1.5" />
+        <polygon points="90,110 94.0,102.0 86.0,102.0" fill="#f59e0b" />
         <text x="102" y="80" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
         
         <text x="25" y="125" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (-1, 0)</text>
@@ -257,17 +303,7 @@ function ArgandExample5d() {
         <text x="115" y="15" className="text-[9px] font-mono fill-slate-400">Im</text>
         <text x="116" y="124" className="text-[10px] fill-slate-400">O</text>
         
-        <defs>
-          <marker id="arrow-axis-5d" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
-          </marker>
-          <marker id="arrow-vector-5d" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
-          </marker>
-          <marker id="arrow-amber-5d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
-          </marker>
-        </defs>
+        
       </svg>
     </div>
   );
@@ -278,15 +314,32 @@ function ArgandEx1_4_1a() {
     <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
       <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for (a) z = 1 - √3i</h5>
       <svg width="220" height="220" viewBox="0 0 220 220">
-        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1a)" markerEnd="url(#arrow-axis-1a)" />
-        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1a)" markerEnd="url(#arrow-axis-1a)" />
+<defs>
+          <marker id="arrow-axis-1a-ArgandEx1_4_1a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
+          </marker>
+          <marker id="arrow-vector-1a-ArgandEx1_4_1a" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
+          </marker>
+          <marker id="arrow-amber-1a-ArgandEx1_4_1a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
+          </marker>
+        </defs>
+        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2"   />
+        <polygon points="10.0,110.0 18.0,114.0 18.0,106.0" fill="#94a3b8" />
+        <polygon points="210.0,110.0 202.0,106.0 202.0,114.0" fill="#94a3b8" />
+        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2"   />
+        <polygon points="110.0,210.0 114.0,202.0 106.0,202.0" fill="#94a3b8" />
+        <polygon points="110.0,10.0 106.0,18.0 114.0,18.0" fill="#94a3b8" />
         
         {/* Draw Vector */}
-        <line x1="110" y1="110" x2="155" y2="188" stroke="#6366f1" strokeWidth="2.2" markerEnd="url(#arrow-vector-1a)" />
+        <line x1="110" y1="110" x2="155" y2="188" stroke="#6366f1" strokeWidth="2.2" />
+        <polygon points="155,188 154.5,179.1 147.5,183.1" fill="#6366f1" />
         <circle cx="155" cy="188" r="4.5" className="fill-indigo-500 stroke-white" strokeWidth="1.5" />
         
         {/* Labeled angles */}
-        <path d="M 130 110 A 20 20 0 0 1 120 127" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1a)" />
+        <path d="M 130 110 A 20 20 0 0 1 120 127" fill="none" stroke="#f59e0b" strokeWidth="1.5" />
+        <polygon points="120,127 128.9,126.4 124.9,119.5" fill="#f59e0b" />
         <text x="142" y="123" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
         
         <text x="162" y="195" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (1, -√3)</text>
@@ -296,17 +349,7 @@ function ArgandEx1_4_1a() {
         <text x="115" y="15" className="text-[9px] font-mono fill-slate-400">Im</text>
         <text x="98" y="102" className="text-[10px] fill-slate-400">O</text>
         
-        <defs>
-          <marker id="arrow-axis-1a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
-          </marker>
-          <marker id="arrow-vector-1a" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
-          </marker>
-          <marker id="arrow-amber-1a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
-          </marker>
-        </defs>
+        
       </svg>
     </div>
   );
@@ -317,15 +360,32 @@ function ArgandEx1_4_1b() {
     <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
       <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for (b) z = -√2 + √2i</h5>
       <svg width="220" height="220" viewBox="0 0 220 220">
-        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1b)" markerEnd="url(#arrow-axis-1b)" />
-        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1b)" markerEnd="url(#arrow-axis-1b)" />
+<defs>
+          <marker id="arrow-axis-1b-ArgandEx1_4_1b" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
+          </marker>
+          <marker id="arrow-vector-1b-ArgandEx1_4_1b" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
+          </marker>
+          <marker id="arrow-amber-1b-ArgandEx1_4_1b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
+          </marker>
+        </defs>
+        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2"   />
+        <polygon points="10.0,110.0 18.0,114.0 18.0,106.0" fill="#94a3b8" />
+        <polygon points="210.0,110.0 202.0,106.0 202.0,114.0" fill="#94a3b8" />
+        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2"   />
+        <polygon points="110.0,210.0 114.0,202.0 106.0,202.0" fill="#94a3b8" />
+        <polygon points="110.0,10.0 106.0,18.0 114.0,18.0" fill="#94a3b8" />
         
         {/* Draw Vector */}
-        <line x1="110" y1="110" x2="65" y2="65" stroke="#6366f1" strokeWidth="2.2" markerEnd="url(#arrow-vector-1b)" />
+        <line x1="110" y1="110" x2="65" y2="65" stroke="#6366f1" strokeWidth="2.2" />
+        <polygon points="65,65 67.8,73.5 73.5,67.8" fill="#6366f1" />
         <circle cx="65" cy="65" r="4.5" className="fill-indigo-500 stroke-white" strokeWidth="1.5" />
         
         {/* Labeled angles */}
-        <path d="M 130 110 A 20 20 0 0 0 96 96" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1b)" />
+        <path d="M 130 110 A 20 20 0 0 0 96 96" fill="none" stroke="#f59e0b" strokeWidth="1.5" />
+        <polygon points="96,96 104.5,93.2 98.8,87.5" fill="#f59e0b" />
         <text x="126" y="85" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
         
         <text x="25" y="55" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (-√2, √2)</text>
@@ -335,17 +395,7 @@ function ArgandEx1_4_1b() {
         <text x="115" y="15" className="text-[9px] font-mono fill-slate-400">Im</text>
         <text x="116" y="124" className="text-[10px] fill-slate-400">O</text>
         
-        <defs>
-          <marker id="arrow-axis-1b" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
-          </marker>
-          <marker id="arrow-vector-1b" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
-          </marker>
-          <marker id="arrow-amber-1b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
-          </marker>
-        </defs>
+        
       </svg>
     </div>
   );
@@ -356,15 +406,32 @@ function ArgandEx1_4_1c() {
     <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
       <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for (c) z = -2 - 2i</h5>
       <svg width="220" height="220" viewBox="0 0 220 220">
-        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1c)" markerEnd="url(#arrow-axis-1c)" />
-        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1c)" markerEnd="url(#arrow-axis-1c)" />
+<defs>
+          <marker id="arrow-axis-1c-ArgandEx1_4_1c" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
+          </marker>
+          <marker id="arrow-vector-1c-ArgandEx1_4_1c" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
+          </marker>
+          <marker id="arrow-amber-1c-ArgandEx1_4_1c" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
+          </marker>
+        </defs>
+        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2"   />
+        <polygon points="10.0,110.0 18.0,114.0 18.0,106.0" fill="#94a3b8" />
+        <polygon points="210.0,110.0 202.0,106.0 202.0,114.0" fill="#94a3b8" />
+        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2"   />
+        <polygon points="110.0,210.0 114.0,202.0 106.0,202.0" fill="#94a3b8" />
+        <polygon points="110.0,10.0 106.0,18.0 114.0,18.0" fill="#94a3b8" />
         
         {/* Draw Vector */}
-        <line x1="110" y1="110" x2="65" y2="155" stroke="#6366f1" strokeWidth="2.2" markerEnd="url(#arrow-vector-1c)" />
+        <line x1="110" y1="110" x2="65" y2="155" stroke="#6366f1" strokeWidth="2.2" />
+        <polygon points="65,155 73.5,152.2 67.8,146.5" fill="#6366f1" />
         <circle cx="65" cy="155" r="4.5" className="fill-indigo-500 stroke-white" strokeWidth="1.5" />
         
         {/* Labeled angles */}
-        <path d="M 130 110 A 20 20 0 0 1 96 124" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1c)" />
+        <path d="M 130 110 A 20 20 0 0 1 96 124" fill="none" stroke="#f59e0b" strokeWidth="1.5" />
+        <polygon points="96,124 98.8,132.5 104.5,126.8" fill="#f59e0b" />
         <text x="125" y="135" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
         
         <text x="25" y="172" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (-2, -2)</text>
@@ -374,17 +441,7 @@ function ArgandEx1_4_1c() {
         <text x="115" y="15" className="text-[9px] font-mono fill-slate-400">Im</text>
         <text x="116" y="102" className="text-[10px] fill-slate-400">O</text>
         
-        <defs>
-          <marker id="arrow-axis-1c" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
-          </marker>
-          <marker id="arrow-vector-1c" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
-          </marker>
-          <marker id="arrow-amber-1c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
-          </marker>
-        </defs>
+        
       </svg>
     </div>
   );
@@ -395,15 +452,32 @@ function ArgandEx1_4_1d() {
     <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
       <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for (d) z = √3 - i</h5>
       <svg width="220" height="220" viewBox="0 0 220 220">
-        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1d)" markerEnd="url(#arrow-axis-1d)" />
-        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1d)" markerEnd="url(#arrow-axis-1d)" />
+<defs>
+          <marker id="arrow-axis-1d-ArgandEx1_4_1d" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
+          </marker>
+          <marker id="arrow-vector-1d-ArgandEx1_4_1d" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
+          </marker>
+          <marker id="arrow-amber-1d-ArgandEx1_4_1d" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
+          </marker>
+        </defs>
+        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2"   />
+        <polygon points="10.0,110.0 18.0,114.0 18.0,106.0" fill="#94a3b8" />
+        <polygon points="210.0,110.0 202.0,106.0 202.0,114.0" fill="#94a3b8" />
+        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2"   />
+        <polygon points="110.0,210.0 114.0,202.0 106.0,202.0" fill="#94a3b8" />
+        <polygon points="110.0,10.0 106.0,18.0 114.0,18.0" fill="#94a3b8" />
         
         {/* Draw Vector */}
-        <line x1="110" y1="110" x2="188" y2="155" stroke="#6366f1" strokeWidth="2.2" markerEnd="url(#arrow-vector-1d)" />
+        <line x1="110" y1="110" x2="188" y2="155" stroke="#6366f1" strokeWidth="2.2" />
+        <polygon points="188,155 183.1,147.5 179.1,154.5" fill="#6366f1" />
         <circle cx="188" cy="155" r="4.5" className="fill-indigo-500 stroke-white" strokeWidth="1.5" />
         
         {/* Labeled angles */}
-        <path d="M 130 110 A 20 20 0 0 1 127 120" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1d)" />
+        <path d="M 130 110 A 20 20 0 0 1 127 120" fill="none" stroke="#f59e0b" strokeWidth="1.5" />
+        <polygon points="127,120 134.5,115.1 127.6,111.1" fill="#f59e0b" />
         <text x="142" y="120" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
         
         <text x="155" y="175" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (√3, -1)</text>
@@ -413,17 +487,7 @@ function ArgandEx1_4_1d() {
         <text x="115" y="15" className="text-[9px] font-mono fill-slate-400">Im</text>
         <text x="98" y="102" className="text-[10px] fill-slate-400">O</text>
         
-        <defs>
-          <marker id="arrow-axis-1d" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
-          </marker>
-          <marker id="arrow-vector-1d" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
-          </marker>
-          <marker id="arrow-amber-1d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
-          </marker>
-        </defs>
+        
       </svg>
     </div>
   );
@@ -434,15 +498,32 @@ function ArgandEx1_4_1e() {
     <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
       <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for (e) z = i</h5>
       <svg width="220" height="220" viewBox="0 0 220 220">
-        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1e)" markerEnd="url(#arrow-axis-1e)" />
-        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1e)" markerEnd="url(#arrow-axis-1e)" />
+<defs>
+          <marker id="arrow-axis-1e-ArgandEx1_4_1e" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
+          </marker>
+          <marker id="arrow-vector-1e-ArgandEx1_4_1e" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
+          </marker>
+          <marker id="arrow-amber-1e-ArgandEx1_4_1e" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
+          </marker>
+        </defs>
+        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2"   />
+        <polygon points="10.0,110.0 18.0,114.0 18.0,106.0" fill="#94a3b8" />
+        <polygon points="210.0,110.0 202.0,106.0 202.0,114.0" fill="#94a3b8" />
+        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2"   />
+        <polygon points="110.0,210.0 114.0,202.0 106.0,202.0" fill="#94a3b8" />
+        <polygon points="110.0,10.0 106.0,18.0 114.0,18.0" fill="#94a3b8" />
         
         {/* Draw Vector */}
-        <line x1="110" y1="110" x2="110" y2="50" stroke="#6366f1" strokeWidth="2.2" markerEnd="url(#arrow-vector-1e)" />
+        <line x1="110" y1="110" x2="110" y2="50" stroke="#6366f1" strokeWidth="2.2" />
+        <polygon points="110,50 106.0,58.0 114.0,58.0" fill="#6366f1" />
         <circle cx="110" cy="50" r="4.5" className="fill-indigo-500 stroke-white" strokeWidth="1.5" />
         
         {/* Labeled angles */}
-        <path d="M 130 110 A 20 20 0 0 0 110 90" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1e)" />
+        <path d="M 130 110 A 20 20 0 0 0 110 90" fill="none" stroke="#f59e0b" strokeWidth="1.5" />
+        <polygon points="110,90 118.0,94.0 118.0,86.0" fill="#f59e0b" />
         <text x="126" y="85" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
         
         <text x="120" y="45" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (0, 1)</text>
@@ -452,17 +533,7 @@ function ArgandEx1_4_1e() {
         <text x="115" y="15" className="text-[9px] font-mono fill-slate-400">Im</text>
         <text x="98" y="124" className="text-[10px] fill-slate-400">O</text>
         
-        <defs>
-          <marker id="arrow-axis-1e" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
-          </marker>
-          <marker id="arrow-vector-1e" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
-          </marker>
-          <marker id="arrow-amber-1e" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
-          </marker>
-        </defs>
+        
       </svg>
     </div>
   );
@@ -473,15 +544,32 @@ function ArgandEx1_4_1f() {
     <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
       <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for (f) z = -3i</h5>
       <svg width="220" height="220" viewBox="0 0 220 220">
-        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1f)" markerEnd="url(#arrow-axis-1f)" />
-        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1f)" markerEnd="url(#arrow-axis-1f)" />
+<defs>
+          <marker id="arrow-axis-1f-ArgandEx1_4_1f" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
+          </marker>
+          <marker id="arrow-vector-1f-ArgandEx1_4_1f" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
+          </marker>
+          <marker id="arrow-amber-1f-ArgandEx1_4_1f" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
+          </marker>
+        </defs>
+        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2"   />
+        <polygon points="10.0,110.0 18.0,114.0 18.0,106.0" fill="#94a3b8" />
+        <polygon points="210.0,110.0 202.0,106.0 202.0,114.0" fill="#94a3b8" />
+        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2"   />
+        <polygon points="110.0,210.0 114.0,202.0 106.0,202.0" fill="#94a3b8" />
+        <polygon points="110.0,10.0 106.0,18.0 114.0,18.0" fill="#94a3b8" />
         
         {/* Draw Vector */}
-        <line x1="110" y1="110" x2="110" y2="180" stroke="#6366f1" strokeWidth="2.2" markerEnd="url(#arrow-vector-1f)" />
+        <line x1="110" y1="110" x2="110" y2="180" stroke="#6366f1" strokeWidth="2.2" />
+        <polygon points="110,180 114.0,172.0 106.0,172.0" fill="#6366f1" />
         <circle cx="110" cy="180" r="4.5" className="fill-indigo-500 stroke-white" strokeWidth="1.5" />
         
         {/* Labeled angles */}
-        <path d="M 130 110 A 20 20 0 0 1 110 130" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1f)" />
+        <path d="M 130 110 A 20 20 0 0 1 110 130" fill="none" stroke="#f59e0b" strokeWidth="1.5" />
+        <polygon points="110,130 118.0,134.0 118.0,126.0" fill="#f59e0b" />
         <text x="126" y="142" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
         
         <text x="120" y="185" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (0, -3)</text>
@@ -491,17 +579,7 @@ function ArgandEx1_4_1f() {
         <text x="115" y="15" className="text-[9px] font-mono fill-slate-400">Im</text>
         <text x="98" y="102" className="text-[10px] fill-slate-400">O</text>
         
-        <defs>
-          <marker id="arrow-axis-1f" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
-          </marker>
-          <marker id="arrow-vector-1f" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
-          </marker>
-          <marker id="arrow-amber-1f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
-          </marker>
-        </defs>
+        
       </svg>
     </div>
   );
@@ -522,6 +600,17 @@ function RootsUnity6() {
     <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
       <h5 className="text-xs font-bold text-indigo-500 mb-2">Example 11: 6th Roots of Unity on the Coordinate Plane</h5>
       <svg width="240" height="240" viewBox="0 0 240 240" className="overflow-visible">
+<defs>
+          <marker id="arrow-axis-1_5a-ArgandEx1_5_1a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
+          </marker>
+          <marker id="arrow-vector-1_5a-ArgandEx1_5_1a" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
+          </marker>
+          <marker id="arrow-amber-1_5a-ArgandEx1_5_1a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
+          </marker>
+        </defs>
         {/* Axes */}
         <line x1="20" y1="110" x2="200" y2="110" stroke="#cbd5e1" strokeWidth="1" />
         <line x1="110" y1="20" x2="110" y2="200" stroke="#cbd5e1" strokeWidth="1" />
@@ -572,15 +661,21 @@ function ArgandEx1_5_1a() {
     <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
       <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for 1.(a) z = 1 + √3i</h5>
       <svg width="220" height="220" viewBox="0 0 220 220">
-        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1_5a)" markerEnd="url(#arrow-axis-1_5a)" />
-        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1_5a)" markerEnd="url(#arrow-axis-1_5a)" />
+        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2"   />
+        <polygon points="10.0,110.0 18.0,114.0 18.0,106.0" fill="#94a3b8" />
+        <polygon points="210.0,110.0 202.0,106.0 202.0,114.0" fill="#94a3b8" />
+        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2"   />
+        <polygon points="110.0,210.0 114.0,202.0 106.0,202.0" fill="#94a3b8" />
+        <polygon points="110.0,10.0 106.0,18.0 114.0,18.0" fill="#94a3b8" />
         
         {/* Draw Vector */}
-        <line x1="110" y1="110" x2="147.5" y2="45" stroke="#6366f1" strokeWidth="2.2" markerEnd="url(#arrow-vector-1_5a)" />
+        <line x1="110" y1="110" x2="147.5" y2="45" stroke="#6366f1" strokeWidth="2.2" />
+        <polygon points="147.5,45 140.0,49.9 147.0,53.9" fill="#6366f1" />
         <circle cx="147.5" cy="45" r="4.5" className="fill-indigo-500 stroke-white" strokeWidth="1.5" />
         
         {/* Labeled angles */}
-        <path d="M 130 110 A 20 20 0 0 0 120 92.7" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1_5a)" />
+        <path d="M 130 110 A 20 20 0 0 0 120 92.7" fill="none" stroke="#f59e0b" strokeWidth="1.5" />
+        <polygon points="120,92.7 124.9,100.2 128.9,93.2" fill="#f59e0b" />
         <text x="126" y="95" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
         
         <text x="152" y="38" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (1, √3)</text>
@@ -590,17 +685,7 @@ function ArgandEx1_5_1a() {
         <text x="115" y="15" className="text-[9px] font-mono fill-slate-400">Im</text>
         <text x="98" y="124" className="text-[10px] fill-slate-400">O</text>
         
-        <defs>
-          <marker id="arrow-axis-1_5a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
-          </marker>
-          <marker id="arrow-vector-1_5a" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
-          </marker>
-          <marker id="arrow-amber-1_5a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
-          </marker>
-        </defs>
+        
       </svg>
     </div>
   );
@@ -611,15 +696,32 @@ function ArgandEx1_5_1b() {
     <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
       <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for 1.(b) z = i</h5>
       <svg width="220" height="220" viewBox="0 0 220 220">
-        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1_5b)" markerEnd="url(#arrow-axis-1_5b)" />
-        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1_5b)" markerEnd="url(#arrow-axis-1_5b)" />
+<defs>
+          <marker id="arrow-axis-1_5b-ArgandEx1_5_1b" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
+          </marker>
+          <marker id="arrow-vector-1_5b-ArgandEx1_5_1b" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
+          </marker>
+          <marker id="arrow-amber-1_5b-ArgandEx1_5_1b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
+          </marker>
+        </defs>
+        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2"   />
+        <polygon points="10.0,110.0 18.0,114.0 18.0,106.0" fill="#94a3b8" />
+        <polygon points="210.0,110.0 202.0,106.0 202.0,114.0" fill="#94a3b8" />
+        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2"   />
+        <polygon points="110.0,210.0 114.0,202.0 106.0,202.0" fill="#94a3b8" />
+        <polygon points="110.0,10.0 106.0,18.0 114.0,18.0" fill="#94a3b8" />
         
         {/* Draw Vector */}
-        <line x1="110" y1="110" x2="110" y2="40" stroke="#6366f1" strokeWidth="2.2" markerEnd="url(#arrow-vector-1_5b)" />
+        <line x1="110" y1="110" x2="110" y2="40" stroke="#6366f1" strokeWidth="2.2" />
+        <polygon points="110,40 106.0,48.0 114.0,48.0" fill="#6366f1" />
         <circle cx="110" cy="40" r="4.5" className="fill-indigo-500 stroke-white" strokeWidth="1.5" />
         
         {/* Labeled angles */}
-        <path d="M 130 110 A 20 20 0 0 0 110 90" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1_5b)" />
+        <path d="M 130 110 A 20 20 0 0 0 110 90" fill="none" stroke="#f59e0b" strokeWidth="1.5" />
+        <polygon points="110,90 118.0,94.0 118.0,86.0" fill="#f59e0b" />
         <text x="126" y="95" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
         
         <text x="115" y="30" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (0, 1)</text>
@@ -629,17 +731,7 @@ function ArgandEx1_5_1b() {
         <text x="115" y="15" className="text-[9px] font-mono fill-slate-400">Im</text>
         <text x="98" y="124" className="text-[10px] fill-slate-400">O</text>
         
-        <defs>
-          <marker id="arrow-axis-1_5b" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
-          </marker>
-          <marker id="arrow-vector-1_5b" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
-          </marker>
-          <marker id="arrow-amber-1_5b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
-          </marker>
-        </defs>
+        
       </svg>
     </div>
   );
@@ -650,15 +742,32 @@ function ArgandEx1_5_1c() {
     <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
       <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for 1.(c) z = -√3 + i</h5>
       <svg width="220" height="220" viewBox="0 0 220 220">
-        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1_5c)" markerEnd="url(#arrow-axis-1_5c)" />
-        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1_5c)" markerEnd="url(#arrow-axis-1_5c)" />
+<defs>
+          <marker id="arrow-axis-1_5c-ArgandEx1_5_1c" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
+          </marker>
+          <marker id="arrow-vector-1_5c-ArgandEx1_5_1c" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
+          </marker>
+          <marker id="arrow-amber-1_5c-ArgandEx1_5_1c" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
+          </marker>
+        </defs>
+        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2"   />
+        <polygon points="10.0,110.0 18.0,114.0 18.0,106.0" fill="#94a3b8" />
+        <polygon points="210.0,110.0 202.0,106.0 202.0,114.0" fill="#94a3b8" />
+        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2"   />
+        <polygon points="110.0,210.0 114.0,202.0 106.0,202.0" fill="#94a3b8" />
+        <polygon points="110.0,10.0 106.0,18.0 114.0,18.0" fill="#94a3b8" />
         
         {/* Draw Vector */}
-        <line x1="110" y1="110" x2="45" y2="72.5" stroke="#6366f1" strokeWidth="2.2" markerEnd="url(#arrow-vector-1_5c)" />
+        <line x1="110" y1="110" x2="45" y2="72.5" stroke="#6366f1" strokeWidth="2.2" />
+        <polygon points="45,72.5 49.9,80.0 53.9,73.0" fill="#6366f1" />
         <circle cx="45" cy="72.5" r="4.5" className="fill-indigo-500 stroke-white" strokeWidth="1.5" />
         
         {/* Labeled angles */}
-        <path d="M 130 110 A 20 20 0 0 0 92.7 100" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1_5c)" />
+        <path d="M 130 110 A 20 20 0 0 0 92.7 100" fill="none" stroke="#f59e0b" strokeWidth="1.5" />
+        <polygon points="92.7,100 100.2,95.1 93.2,91.1" fill="#f59e0b" />
         <text x="115" y="85" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
         
         <text x="30" y="55" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (-√3, 1)</text>
@@ -668,17 +777,7 @@ function ArgandEx1_5_1c() {
         <text x="115" y="15" className="text-[9px] font-mono fill-slate-400">Im</text>
         <text x="116" y="124" className="text-[10px] fill-slate-400">O</text>
         
-        <defs>
-          <marker id="arrow-axis-1_5c" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
-          </marker>
-          <marker id="arrow-vector-1_5c" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
-          </marker>
-          <marker id="arrow-amber-1_5c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
-          </marker>
-        </defs>
+        
       </svg>
     </div>
   );
@@ -689,15 +788,32 @@ function ArgandEx1_5_1d() {
     <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
       <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for 1.(d) z = -1 - √3i</h5>
       <svg width="220" height="220" viewBox="0 0 220 220">
-        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1_5d)" markerEnd="url(#arrow-axis-1_5d)" />
-        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1_5d)" markerEnd="url(#arrow-axis-1_5d)" />
+<defs>
+          <marker id="arrow-axis-1_5d-ArgandEx1_5_1d" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
+          </marker>
+          <marker id="arrow-vector-1_5d-ArgandEx1_5_1d" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
+          </marker>
+          <marker id="arrow-amber-1_5d-ArgandEx1_5_1d" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
+          </marker>
+        </defs>
+        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2"   />
+        <polygon points="10.0,110.0 18.0,114.0 18.0,106.0" fill="#94a3b8" />
+        <polygon points="210.0,110.0 202.0,106.0 202.0,114.0" fill="#94a3b8" />
+        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2"   />
+        <polygon points="110.0,210.0 114.0,202.0 106.0,202.0" fill="#94a3b8" />
+        <polygon points="110.0,10.0 106.0,18.0 114.0,18.0" fill="#94a3b8" />
         
         {/* Draw Vector */}
-        <line x1="110" y1="110" x2="72.5" y2="175" stroke="#6366f1" strokeWidth="2.2" markerEnd="url(#arrow-vector-1_5d)" />
+        <line x1="110" y1="110" x2="72.5" y2="175" stroke="#6366f1" strokeWidth="2.2" />
+        <polygon points="72.5,175 80.0,170.1 73.0,166.1" fill="#6366f1" />
         <circle cx="72.5" cy="175" r="4.5" className="fill-indigo-500 stroke-white" strokeWidth="1.5" />
         
         {/* Labeled angles */}
-        <path d="M 130 110 A 20 20 0 0 1 100 127.3" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1_5d)" />
+        <path d="M 130 110 A 20 20 0 0 1 100 127.3" fill="none" stroke="#f59e0b" strokeWidth="1.5" />
+        <polygon points="100,127.3 104.9,134.8 108.9,127.8" fill="#f59e0b" />
         <text x="112" y="142" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
         
         <text x="50" y="190" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (-1, -√3)</text>
@@ -707,17 +823,7 @@ function ArgandEx1_5_1d() {
         <text x="115" y="15" className="text-[9px] font-mono fill-slate-400">Im</text>
         <text x="116" y="102" className="text-[10px] fill-slate-400">O</text>
         
-        <defs>
-          <marker id="arrow-axis-1_5d" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
-          </marker>
-          <marker id="arrow-vector-1_5d" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
-          </marker>
-          <marker id="arrow-amber-1_5d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
-          </marker>
-        </defs>
+        
       </svg>
     </div>
   );
@@ -728,15 +834,32 @@ function ArgandEx1_5_1e() {
     <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
       <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for 1.(e) z = -i</h5>
       <svg width="220" height="220" viewBox="0 0 220 220">
-        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1_5e)" markerEnd="url(#arrow-axis-1_5e)" />
-        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1_5e)" markerEnd="url(#arrow-axis-1_5e)" />
+<defs>
+          <marker id="arrow-axis-1_5e-ArgandEx1_5_1e" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
+          </marker>
+          <marker id="arrow-vector-1_5e-ArgandEx1_5_1e" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
+          </marker>
+          <marker id="arrow-amber-1_5e-ArgandEx1_5_1e" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
+          </marker>
+        </defs>
+        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2"   />
+        <polygon points="10.0,110.0 18.0,114.0 18.0,106.0" fill="#94a3b8" />
+        <polygon points="210.0,110.0 202.0,106.0 202.0,114.0" fill="#94a3b8" />
+        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2"   />
+        <polygon points="110.0,210.0 114.0,202.0 106.0,202.0" fill="#94a3b8" />
+        <polygon points="110.0,10.0 106.0,18.0 114.0,18.0" fill="#94a3b8" />
         
         {/* Draw Vector */}
-        <line x1="110" y1="110" x2="110" y2="180" stroke="#6366f1" strokeWidth="2.2" markerEnd="url(#arrow-vector-1_5e)" />
+        <line x1="110" y1="110" x2="110" y2="180" stroke="#6366f1" strokeWidth="2.2" />
+        <polygon points="110,180 114.0,172.0 106.0,172.0" fill="#6366f1" />
         <circle cx="110" cy="180" r="4.5" className="fill-indigo-500 stroke-white" strokeWidth="1.5" />
         
         {/* Labeled angles */}
-        <path d="M 130 110 A 20 20 0 0 1 110 130" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1_5e)" />
+        <path d="M 130 110 A 20 20 0 0 1 110 130" fill="none" stroke="#f59e0b" strokeWidth="1.5" />
+        <polygon points="110,130 118.0,134.0 118.0,126.0" fill="#f59e0b" />
         <text x="126" y="125" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
         
         <text x="115" y="195" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (0, -1)</text>
@@ -746,17 +869,7 @@ function ArgandEx1_5_1e() {
         <text x="115" y="15" className="text-[9px] font-mono fill-slate-400">Im</text>
         <text x="98" y="102" className="text-[10px] fill-slate-400">O</text>
         
-        <defs>
-          <marker id="arrow-axis-1_5e" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
-          </marker>
-          <marker id="arrow-vector-1_5e" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
-          </marker>
-          <marker id="arrow-amber-1_5e" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
-          </marker>
-        </defs>
+        
       </svg>
     </div>
   );
@@ -767,15 +880,32 @@ function ArgandEx1_5_1f() {
     <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
       <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for 1.(f) z = √3 - i</h5>
       <svg width="220" height="220" viewBox="0 0 220 220">
-        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1_5f)" markerEnd="url(#arrow-axis-1_5f)" />
-        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2" markerStart="url(#arrow-axis-1_5f)" markerEnd="url(#arrow-axis-1_5f)" />
+<defs>
+          <marker id="arrow-axis-1_5f-ArgandEx1_5_1f" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
+          </marker>
+          <marker id="arrow-vector-1_5f-ArgandEx1_5_1f" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
+          </marker>
+          <marker id="arrow-amber-1_5f-ArgandEx1_5_1f" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
+          </marker>
+        </defs>
+        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2"   />
+        <polygon points="10.0,110.0 18.0,114.0 18.0,106.0" fill="#94a3b8" />
+        <polygon points="210.0,110.0 202.0,106.0 202.0,114.0" fill="#94a3b8" />
+        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2"   />
+        <polygon points="110.0,210.0 114.0,202.0 106.0,202.0" fill="#94a3b8" />
+        <polygon points="110.0,10.0 106.0,18.0 114.0,18.0" fill="#94a3b8" />
         
         {/* Draw Vector */}
-        <line x1="110" y1="110" x2="175" y2="147.5" stroke="#6366f1" strokeWidth="2.2" markerEnd="url(#arrow-vector-1_5f)" />
+        <line x1="110" y1="110" x2="175" y2="147.5" stroke="#6366f1" strokeWidth="2.2" />
+        <polygon points="175,147.5 170.1,140.0 166.1,147.0" fill="#6366f1" />
         <circle cx="175" cy="147.5" r="4.5" className="fill-indigo-500 stroke-white" strokeWidth="1.5" />
         
         {/* Labeled angles */}
-        <path d="M 130 110 A 20 20 0 0 1 127.3 120" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrow-amber-1_5f)" />
+        <path d="M 130 110 A 20 20 0 0 1 127.3 120" fill="none" stroke="#f59e0b" strokeWidth="1.5" />
+        <polygon points="127.3,120 134.8,115.1 127.8,111.1" fill="#f59e0b" />
         <text x="142" y="120" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
         
         <text x="155" y="165" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (√3, -1)</text>
@@ -785,17 +915,7 @@ function ArgandEx1_5_1f() {
         <text x="115" y="15" className="text-[9px] font-mono fill-slate-400">Im</text>
         <text x="98" y="102" className="text-[10px] fill-slate-400">O</text>
         
-        <defs>
-          <marker id="arrow-axis-1_5f" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#94a3b8" />
-          </marker>
-          <marker id="arrow-vector-1_5f" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#6366f1" />
-          </marker>
-          <marker id="arrow-amber-1_5f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#f59e0b" />
-          </marker>
-        </defs>
+        
       </svg>
     </div>
   );
@@ -806,6 +926,11 @@ function RootsEx1_5_3a() {
     <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
       <h5 className="text-xs font-bold text-indigo-500 mb-2">Equation z⁴ = -i Roots (distributed at 90° intervals)</h5>
       <svg width="220" height="220" viewBox="0 0 220 220">
+<defs>
+          <marker id="arrow-axis-solid-Solid3DPointDiagram" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#64748b" />
+          </marker>
+        </defs>
         <line x1="15" y1="110" x2="205" y2="110" stroke="#cbd5e1" strokeWidth="1" />
         <line x1="110" y1="15" x2="110" y2="205" stroke="#cbd5e1" strokeWidth="1" />
         
@@ -991,15 +1116,18 @@ function Solid3DPointDiagram() {
 
         {/* Axes */}
         {/* X-axis: down-left */}
-        <line x1="100" y1="130" x2="40" y2="160" stroke="#ef4444" strokeWidth="1.5" markerEnd="url(#arrow-axis-solid)" />
+        <line x1="100" y1="130" x2="40" y2="160" stroke="#ef4444" strokeWidth="1.5" />
+        <polygon points="40,160 48.9,160.0 45.4,152.8" fill="#ef4444" />
         <text x="32" y="165" className="text-[10px] font-bold fill-red-500">X</text>
 
         {/* Y-axis: down-right */}
-        <line x1="100" y1="130" x2="180" y2="160" stroke="#10b981" strokeWidth="1.5" markerEnd="url(#arrow-axis-solid)" />
+        <line x1="100" y1="130" x2="180" y2="160" stroke="#10b981" strokeWidth="1.5" />
+        <polygon points="180,160 173.9,153.4 171.1,160.9" fill="#10b981" />
         <text x="185" y="165" className="text-[10px] font-bold fill-emerald-500">Y</text>
 
         {/* Z-axis: vertical up */}
-        <line x1="100" y1="130" x2="100" y2="40" stroke="#3b82f6" strokeWidth="1.5" markerEnd="url(#arrow-axis-solid)" />
+        <line x1="100" y1="130" x2="100" y2="40" stroke="#3b82f6" strokeWidth="1.5" />
+        <polygon points="100,40 96.0,48.0 104.0,48.0" fill="#3b82f6" />
         <text x="98" y="32" className="text-[10px] font-bold fill-blue-500">Z</text>
 
         {/* Projection Box for Point P(x, y, z) */}
@@ -1034,11 +1162,7 @@ function Solid3DPointDiagram() {
         {/* Distance label */}
         <text x="105" y="115" className="text-[9px] fill-purple-600 font-mono font-bold" transform="rotate(-48 105 115)">OP</text>
 
-        <defs>
-          <marker id="arrow-axis-solid" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#64748b" />
-          </marker>
-        </defs>
+        
       </svg>
       <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-2 italic font-sans text-center">Projection box in 3D space illustrating coordinates x, y, and z of Point P</span>
     </div>
@@ -1050,6 +1174,11 @@ function SkewLinesDiagram() {
     <div className="my-6 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
       <h5 className="text-xs font-bold text-indigo-500 mb-2">Skew Lines in a 3D Prism</h5>
       <svg width="240" height="180" viewBox="0 0 240 180" className="overflow-visible">
+<defs>
+          <marker id="arrow-p-Chap3_4_PlaneABC" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" className="text-slate-900 dark:text-white" />
+          </marker>
+        </defs>
         {/* Draw 3D Box (prism) wireframe */}
         {/* Back face */}
         <rect x="70" y="30" width="100" height="80" fill="none" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="3 3" className="dark:stroke-slate-700" />
@@ -1856,6 +1985,7 @@ function renderTextWithStyles(text: string, keyPrefix: string): React.ReactNode 
 }
 
 function renderMathText(text: string): React.ReactNode {
+  if (text.includes("overrightarrow")) console.log("RENDERMATH TEXT:", JSON.stringify(text));
   const parts: React.ReactNode[] = [];
   let currentIndex = 0;
 
@@ -1889,9 +2019,9 @@ function renderMathText(text: string): React.ReactNode {
 
       if (isBlock) {
         parts.push(
-          <div
+          <DraggableScroll
             key={`math-${matchIndex}`}
-            className="katex-block my-3 overflow-x-auto py-1 w-full font-serif text-slate-800 dark:text-slate-200"
+            className="katex-block w-full font-serif text-slate-800 dark:text-slate-200"
             dangerouslySetInnerHTML={{ __html: html }}
           />
         );
@@ -1899,7 +2029,7 @@ function renderMathText(text: string): React.ReactNode {
         parts.push(
           <span
             key={`math-${matchIndex}`}
-            className="katex-inline inline-block px-0.5 font-serif text-slate-800 dark:text-slate-200"
+            className="katex-inline font-serif text-slate-800 dark:text-slate-200 max-w-full overflow-visible"
             dangerouslySetInnerHTML={{ __html: html }}
           />
         );
@@ -1935,11 +2065,7 @@ export function Chap3_4_PlaneABC() {
   return (
     <div className="my-6 flex justify-center p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80 overflow-x-auto">
       <svg width="300" height="200" viewBox="0 0 300 200" className="max-w-full h-auto">
-        <defs>
-          <marker id="arrow-p" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" className="text-slate-900 dark:text-white" />
-          </marker>
-        </defs>
+        
         {/* Plane A B C */}
         <polygon points="50,150 250,150 280,50 80,50" fill="none" stroke="#64748b" strokeWidth="1.5" />
         
@@ -1955,10 +2081,12 @@ export function Chap3_4_PlaneABC() {
         <text x="235" y="115" fontSize="12" fill="currentColor" className="text-slate-900 dark:text-white font-serif italic">C</text>
 
         {/* Vectors */}
-        <line x1="100" y1="120" x2="175" y2="64" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.2" markerEnd="url(#arrow-p)" />
+        <line x1="100" y1="120" x2="173.4" y2="65.2" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.2"   />
+        <polygon points="175.0,64.0 166.2,65.6 171.0,72.0" fill="currentColor" />
         <text x="130" y="85" transform="rotate(-37 130 85)" fontSize="10" fill="currentColor" className="text-slate-900 dark:text-white font-mono" textAnchor="middle">⟨l₁, m₁, n₁⟩</text>
 
-        <line x1="100" y1="120" x2="225" y2="120" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.2" markerEnd="url(#arrow-p)" />
+        <line x1="100" y1="120" x2="223.0" y2="120.0" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.2"   />
+        <polygon points="225.0,120.0 217.0,116.0 217.0,124.0" fill="currentColor" />
         <text x="165" y="135" fontSize="10" fill="currentColor" className="text-slate-900 dark:text-white font-mono" textAnchor="middle">⟨l₂, m₂, n₂⟩</text>
       </svg>
     </div>
@@ -1969,6 +2097,14 @@ export function Chap3_4_Ex9() {
   return (
     <div className="my-6 flex justify-center p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80 overflow-x-auto">
       <svg width="400" height="220" viewBox="0 0 400 220" className="max-w-full h-auto">
+<defs>
+          <marker id="arrow-pq-Chap4_Ex9" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" overflow="visible">
+            <path d="M 0 0 L 8 4 L 0 8 Z" fill="#3b82f6" />
+          </marker>
+          <marker id="arrow-pr-Chap4_Ex9" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" overflow="visible">
+            <path d="M 0 0 L 8 4 L 0 8 Z" fill="#10b981" />
+          </marker>
+        </defs>
         {/* Plane - Sloping downwards to right */}
         <polygon points="100,60 260,80 260,150 100,130" fill="none" stroke="currentColor" className="text-slate-900 dark:text-white" strokeWidth="1.5" />
         <text x="290" y="150" fontSize="11" fill="currentColor" className="text-slate-900 dark:text-white font-mono" textAnchor="start">3x - 2y - z = 3</text>
@@ -2109,17 +2245,185 @@ export function Chap3_4_Q3_Sol() {
   );
 }
 
+
+
+
+
+
+
+
+
+
+
+export function Chap4_AngleBetweenVectors() {
+  return (
+    <div className="flex flex-col items-center justify-center p-6 bg-slate-50/50 dark:bg-slate-900/20 border border-slate-100 dark:border-slate-800/80 rounded-2xl shadow-sm my-6">
+      <svg width="320" height="260" viewBox="-20 -20 300 240" className="drop-shadow-sm overflow-visible">
+        {/* Axes */}
+        <line x1="20" y1="200" x2="258" y2="200" stroke="#ca8a04" strokeWidth="1.5" />
+        <polygon points="260,200 252,196 252,204" fill="#ca8a04" />
+        
+        <line x1="20" y1="200" x2="20" y2="22" stroke="#ca8a04" strokeWidth="1.5" />
+        <polygon points="20,20 16,28 24,28" fill="#ca8a04" />
+        
+        {/* Axis Labels */}
+        <text x="265" y="205" fontSize="14" fill="#ca8a04" fontFamily="serif" fontStyle="italic">x</text>
+        <text x="5" y="30" fontSize="14" fill="#ca8a04" fontFamily="serif" fontStyle="italic">y</text>
+
+        {/* Origin */}
+        <text x="0" y="215" fontSize="14" fill="#ca8a04" className="font-serif font-italic">O</text>
+
+                {/* Angle arc */}
+        <path d="M 59.2 192.2 A 40 40 0 0 0 44.9 168.7" fill="none" stroke="#ca8a04" strokeWidth="1.5" />
+        <polygon points="43.3,167.5 46.4,173.4 49.9,168.6" fill="#ca8a04" />
+        <text x="56" y="172" fontSize="14" fill="#ca8a04" className="font-serif font-italic">θ</text>
+
+        {/* Vectors */}
+        {/* Vector a: O to A (220, 160) */}
+        <line x1="20" y1="200" x2="218" y2="160.4" stroke="#eab308" strokeWidth="2" />
+        <polygon points="220,160 212.9,165.5 211.4,157.6" fill="#eab308" />
+        
+        {/* Vector b: O to B (120, 60) */}
+        <line x1="20" y1="200" x2="118.8" y2="61.7" stroke="#eab308" strokeWidth="2" />
+        <polygon points="120,60 118.6,68.8 112.1,64.2" fill="#eab308" />
+        
+        {/* Vector b-a: A to B */}
+        <line x1="220" y1="160" x2="121.4" y2="61.4" stroke="#eab308" strokeWidth="2" />
+        <polygon points="120,60 122.8,68.5 128.5,62.8" fill="#eab308" />
+
+        {/* Labels */}
+        <text x="225" y="160" fontSize="12" fill="#ca8a04" className="font-serif">A(x₁, y₁)</text>
+        <text x="125" y="55" fontSize="12" fill="#ca8a04" className="font-serif">B(x₂, y₂)</text>
+
+        {/* Vector names */}
+        {/* Vector a */}
+        <g transform="translate(130, 195)">
+          <text x="0" y="0" fontSize="14" fill="#ca8a04" className="font-serif italic">a</text>
+          <path d="M 0 -12 L 6 -12 L 4 -14 M 6 -12 L 4 -10" stroke="#ca8a04" strokeWidth="1" fill="none" />
+        </g>
+
+        {/* Vector b */}
+        <g transform="translate(60, 130)">
+          <text x="0" y="0" fontSize="14" fill="#ca8a04" className="font-serif italic">b</text>
+          <path d="M 0 -12 L 6 -12 L 4 -14 M 6 -12 L 4 -10" stroke="#ca8a04" strokeWidth="1" fill="none" />
+        </g>
+
+        {/* Vector b - a */}
+        <g transform="translate(180, 100)">
+          <text x="0" y="0" fontSize="14" fill="#ca8a04" className="font-serif italic">b - a</text>
+          <path d="M 0 -12 L 6 -12 L 4 -14 M 6 -12 L 4 -10" stroke="#ca8a04" strokeWidth="1" fill="none" />
+          <path d="M 23 -12 L 29 -12 L 27 -14 M 29 -12 L 27 -10" stroke="#ca8a04" strokeWidth="1" fill="none" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+export function Chap4_Ex9() {
+  return (
+    <div className="flex flex-col items-center justify-center p-6 bg-slate-50/50 dark:bg-slate-900/20 border border-slate-100 dark:border-slate-800/80 rounded-2xl shadow-sm my-6">
+      <svg width="240" height="200" viewBox="0 0 240 200" className="drop-shadow-sm">
+        
+
+        {/* Triangle sides */}
+        <line x1="40" y1="160" x2="200" y2="160" stroke="#3b82f6" strokeWidth="2.5" />
+        <polygon points="200,160 192.0,156.0 192.0,164.0" fill="#3b82f6" />
+        <line x1="40" y1="160" x2="120" y2="40" stroke="#10b981" strokeWidth="2.5" />
+        <polygon points="120,40 112.2,44.4 118.9,48.9" fill="#10b981" />
+        <line x1="200" y1="160" x2="120" y2="40" stroke="#64748b" strokeWidth="2" strokeDasharray="4 2" />
+
+        {/* Points */}
+        <circle cx="40" cy="160" r="4" fill="#334155" className="dark:fill-slate-300" />
+        <circle cx="200" cy="160" r="4" fill="#334155" className="dark:fill-slate-300" />
+        <circle cx="120" cy="40" r="4" fill="#334155" className="dark:fill-slate-300" />
+
+        {/* Angle arc */}
+        <path d="M 65 160 A 25 25 0 0 0 55 138" fill="none" stroke="#64748b" strokeWidth="2" />
+
+        {/* Labels */}
+        <text x="25" y="175" fontSize="14" fill="#334155" className="dark:fill-slate-300 font-bold font-serif">P</text>
+        <text x="205" y="175" fontSize="14" fill="#334155" className="dark:fill-slate-300 font-bold font-serif">Q</text>
+        <text x="115" y="30" fontSize="14" fill="#334155" className="dark:fill-slate-300 font-bold font-serif">R</text>
+
+        {/* Vector names */}
+        <text x="110" y="180" fontSize="16" fill="#3b82f6" className="font-bold font-serif font-italic">PQ</text>
+        <text x="50" y="90" fontSize="16" fill="#10b981" className="font-bold font-serif font-italic">PR</text>
+      </svg>
+      <div className="text-xs text-slate-500 font-medium mt-3">Triangle PQR</div>
+    </div>
+  );
+}
+
+export function Chap4_Ex4_2_Q6() {
+  return (
+    <div className="flex flex-col items-center justify-center p-6 bg-slate-50/50 dark:bg-slate-900/20 border border-slate-100 dark:border-slate-800/80 rounded-2xl shadow-sm my-6">
+      <svg width="260" height="200" viewBox="0 0 260 200" className="drop-shadow-sm">
+<defs>
+          <marker id="arrow-ab-Chap4_Ex4_2_Q6" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" overflow="visible">
+            <path d="M 0 0 L 8 4 L 0 8 Z" fill="#3b82f6" />
+          </marker>
+          <marker id="arrow-ad-Chap4_Ex4_2_Q6" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" overflow="visible">
+            <path d="M 0 0 L 8 4 L 0 8 Z" fill="#10b981" />
+          </marker>
+          <marker id="arrow-dc-Chap4_Ex4_2_Q6" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" overflow="visible">
+            <path d="M 0 0 L 8 4 L 0 8 Z" fill="#3b82f6" />
+          </marker>
+          <marker id="arrow-bc-Chap4_Ex4_2_Q6" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" overflow="visible">
+            <path d="M 0 0 L 8 4 L 0 8 Z" fill="#10b981" />
+          </marker>
+        </defs>
+        
+
+        {/* Parallelogram sides */}
+        <line x1="40" y1="160" x2="160" y2="160" stroke="#3b82f6" strokeWidth="2.5" />
+        <polygon points="160,160 152.0,156.0 152.0,164.0" fill="#3b82f6" />
+        <line x1="40" y1="160" x2="100" y2="40" stroke="#10b981" strokeWidth="2.5" />
+        <polygon points="100,40 92.8,45.4 100.0,48.9" fill="#10b981" />
+        <line x1="100" y1="40" x2="220" y2="40" stroke="#3b82f6" strokeWidth="2.5" />
+        <polygon points="220,40 212.0,36.0 212.0,44.0" fill="#3b82f6" />
+        <line x1="160" y1="160" x2="220" y2="40" stroke="#10b981" strokeWidth="2.5" />
+        <polygon points="220,40 212.8,45.4 220.0,48.9" fill="#10b981" />
+
+        {/* Diagonals */}
+        <line x1="40" y1="160" x2="220" y2="40" stroke="#64748b" strokeWidth="1.5" strokeDasharray="4 2" />
+        <line x1="160" y1="160" x2="100" y2="40" stroke="#64748b" strokeWidth="1.5" strokeDasharray="4 2" />
+
+        {/* Points */}
+        <circle cx="40" cy="160" r="4" fill="#334155" className="dark:fill-slate-300" />
+        <circle cx="160" cy="160" r="4" fill="#334155" className="dark:fill-slate-300" />
+        <circle cx="220" cy="40" r="4" fill="#334155" className="dark:fill-slate-300" />
+        <circle cx="100" cy="40" r="4" fill="#334155" className="dark:fill-slate-300" />
+
+        {/* Labels */}
+        <text x="25" y="175" fontSize="14" fill="#334155" className="dark:fill-slate-300 font-bold font-serif">A</text>
+        <text x="165" y="175" fontSize="14" fill="#334155" className="dark:fill-slate-300 font-bold font-serif">B</text>
+        <text x="230" y="45" fontSize="14" fill="#334155" className="dark:fill-slate-300 font-bold font-serif">C</text>
+        <text x="85" y="45" fontSize="14" fill="#334155" className="dark:fill-slate-300 font-bold font-serif">D</text>
+
+        {/* Vector names */}
+        <text x="90" y="180" fontSize="16" fill="#3b82f6" className="font-bold font-serif font-italic">a</text>
+        <text x="50" y="100" fontSize="16" fill="#10b981" className="font-bold font-serif font-italic">b</text>
+      </svg>
+      <div className="text-xs text-slate-500 font-medium mt-3">Parallelogram ABCD</div>
+    </div>
+  );
+}
+
 export function Chap4_Fig1() {
   return (
     <div className="flex justify-center my-6">
       <div className="relative w-64 h-64">
         <svg viewBox="-40 -20 200 180" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none overflow-visible" strokeWidth="1">
-          <defs><marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" /></marker></defs>
+<defs><marker id="arrow-Chap4_Fig1" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible"><path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" /></marker></defs>
+          
           
           {/* Axes */}
-          <line x1="50" y1="100" x2="-10" y2="140" markerEnd="url(#arrow)" />
-          <line x1="50" y1="100" x2="140" y2="100" markerEnd="url(#arrow)" />
-          <line x1="50" y1="100" x2="50" y2="10" markerEnd="url(#arrow)" />
+          <line x1="50" y1="100" x2="-8.3" y2="138.9"   stroke="#64748b" />
+        <polygon points="-10.0,140.0 -1.1,138.9 -5.6,132.2" fill="#64748b" />
+          <line x1="50" y1="100" x2="138.0" y2="100.0"   />
+        <polygon points="140.0,100.0 132.0,96.0 132.0,104.0" fill="#6366f1" />
+          <line x1="50" y1="100" x2="50.0" y2="12.0"   />
+        <polygon points="50.0,10.0 46.0,18.0 54.0,18.0" fill="#6366f1" />
           
           {/* Axis Labels */}
           <text x="-15" y="145" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">x</tspan></text>
@@ -2160,10 +2464,14 @@ export function Chap4_Fig2() {
   return (
     <div className="flex flex-col md:flex-row justify-center gap-8 my-6">
       <div className="relative w-48 h-48">
-        <svg viewBox="-40 -20 180 180" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1"><defs><marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" /></marker></defs>
-          <line x1="30" y1="90" x2="-10" y2="110" markerEnd="url(#arrow)" />
-          <line x1="30" y1="90" x2="110" y2="90" markerEnd="url(#arrow)" />
-          <line x1="30" y1="90" x2="30" y2="10" markerEnd="url(#arrow)" />
+        <svg viewBox="-40 -20 180 180" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1">
+<defs><marker id="arrow-Chap4_Fig2" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible"><path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" /></marker></defs>
+          <line x1="30" y1="90" x2="-8.2" y2="109.1"   stroke="#64748b" />
+        <polygon points="-10.0,110.0 -1.1,110.0 -4.6,102.8" fill="#64748b" />
+          <line x1="30" y1="90" x2="108.0" y2="90.0"   />
+        <polygon points="110.0,90.0 102.0,86.0 102.0,94.0" fill="#6366f1" />
+          <line x1="30" y1="90" x2="30.0" y2="12.0"   />
+        <polygon points="30.0,10.0 26.0,18.0 34.0,18.0" fill="#6366f1" />
           <text x="-15" y="120" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">x</tspan></text>
           <text x="115" y="95" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">y</tspan></text>
           <text x="30" y="5" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">z</tspan></text>
@@ -2175,10 +2483,14 @@ export function Chap4_Fig2() {
         </svg>
       </div>
       <div className="relative w-48 h-48">
-        <svg viewBox="-40 -20 180 180" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1"><defs><marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" /></marker></defs>
-          <line x1="30" y1="90" x2="-10" y2="110" markerEnd="url(#arrow)" />
-          <line x1="30" y1="90" x2="110" y2="90" markerEnd="url(#arrow)" />
-          <line x1="30" y1="90" x2="30" y2="10" markerEnd="url(#arrow)" />
+        <svg viewBox="-40 -20 180 180" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1">
+<defs><marker id="arrow-Chap4_Fig2" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible"><path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" /></marker></defs>
+          <line x1="30" y1="90" x2="-8.2" y2="109.1"   stroke="#64748b" />
+        <polygon points="-10.0,110.0 -1.1,110.0 -4.6,102.8" fill="#64748b" />
+          <line x1="30" y1="90" x2="108.0" y2="90.0"   />
+        <polygon points="110.0,90.0 102.0,86.0 102.0,94.0" fill="#6366f1" />
+          <line x1="30" y1="90" x2="30.0" y2="12.0"   />
+        <polygon points="30.0,10.0 26.0,18.0 34.0,18.0" fill="#6366f1" />
           <text x="-15" y="120" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">x</tspan></text>
           <text x="115" y="95" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">y</tspan></text>
           <text x="30" y="5" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">z</tspan></text>
@@ -2193,11 +2505,15 @@ export function Chap4_Fig2() {
         </svg>
       </div>
       <div className="relative w-48 h-48">
-        <svg viewBox="-40 -20 180 180" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1"><defs><marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" /></marker></defs>
-          <line x1="30" y1="90" x2="-10" y2="110" markerEnd="url(#arrow)" />
+        <svg viewBox="-40 -20 180 180" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1">
+<defs><marker id="arrow-Chap4_Fig2" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible"><path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" /></marker></defs>
+          <line x1="30" y1="90" x2="-8.2" y2="109.1"   stroke="#64748b" />
+        <polygon points="-10.0,110.0 -1.1,110.0 -4.6,102.8" fill="#64748b" />
           <line x1="30" y1="90" x2="50" y2="80" strokeDasharray="4,4" />
-          <line x1="30" y1="90" x2="110" y2="90" markerEnd="url(#arrow)" />
-          <line x1="30" y1="90" x2="30" y2="10" markerEnd="url(#arrow)" />
+          <line x1="30" y1="90" x2="108.0" y2="90.0"   />
+        <polygon points="110.0,90.0 102.0,86.0 102.0,94.0" fill="#6366f1" />
+          <line x1="30" y1="90" x2="30.0" y2="12.0"   />
+        <polygon points="30.0,10.0 26.0,18.0 34.0,18.0" fill="#6366f1" />
           <text x="-15" y="120" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">x</tspan></text>
           <text x="115" y="95" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">y</tspan></text>
           <text x="30" y="5" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">z</tspan></text>
@@ -2227,492 +2543,191 @@ export function Chap4_Fig2() {
 export function Chap4_Fig3() {
   return (
     <div className="flex justify-center my-6">
-      <div className="relative w-64 h-64">
-        <svg viewBox="-50 -50 200 200" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1">
+      <div className="relative w-72 h-72">
+        <svg viewBox="-80 -60 280 250" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1">
           <defs>
-            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <marker id="arrow-Chap4_Fig3" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto" overflow="visible">
               <path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" />
             </marker>
           </defs>
-          <line x1="50" y1="100" x2="-20" y2="135" markerEnd="url(#arrow)" />
-          <line x1="50" y1="100" x2="130" y2="100" markerEnd="url(#arrow)" />
-          <line x1="50" y1="100" x2="50" y2="0" markerEnd="url(#arrow)" />
           
-          <text x="-25" y="140" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">x</tspan></text>
-          <text x="135" y="105" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">y</tspan></text>
-          <text x="50" y="-10" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">z</tspan></text>
+          <line x1="50" y1="100" x2="-57.3" y2="153.7" stroke="#64748b" />
+          <polygon points="-57.3,153.7 -48.4,153.7 -51.9,146.5" fill="#64748b" />
+          <line x1="50" y1="100" x2="170" y2="100" stroke="#64748b" />
+          <polygon points="170.0,100.0 162.0,96.0 162.0,104.0" fill="#64748b" />
+          <line x1="50" y1="100" x2="50" y2="-20" stroke="#64748b" />
+          <polygon points="50.0,-20.0 46.0,-12.0 54.0,-12.0" fill="#64748b" />
+          
+          <text x="-65" y="160" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">x</tspan></text>
+          <text x="175" y="105" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">y</tspan></text>
+          <text x="50" y="-30" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">z</tspan></text>
           
           <text x="55" y="115" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">O</tspan></text>
           
-          <line x1="50" y1="100" x2="10" y2="120" stroke="currentColor" strokeWidth="2" markerEnd="url(#arrow)" />
-          <line x1="50" y1="100" x2="90" y2="100" stroke="currentColor" strokeWidth="2" markerEnd="url(#arrow)" />
-          <line x1="50" y1="100" x2="50" y2="60" stroke="currentColor" strokeWidth="2" markerEnd="url(#arrow)" />
+          <line x1="50" y1="100" x2="-39.4" y2="144.7" stroke="#6366f1" strokeWidth="2" />
+          <polygon points="-39.4,144.7 -30.5,144.7 -34.0,137.5" fill="#6366f1" />
           
-          <text x="28" y="120" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">i</text>
-          <text x="70" y="112" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">j</text>
-          <text x="42" y="80" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">k</text>
+          <line x1="50" y1="100" x2="150" y2="100" stroke="#6366f1" strokeWidth="2" />
+          <polygon points="150.0,100.0 142.0,96.0 142.0,104.0" fill="#6366f1" />
           
-          <text x="5" y="135" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">(1, 0, 0)</text>
-          <text x="90" y="88" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">(0, 1, 0)</text>
-          <text x="55" y="60" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">(0, 0, 1)</text>
+          <line x1="50" y1="100" x2="50" y2="0" stroke="#6366f1" strokeWidth="2" />
+          <polygon points="50.0,0.0 46.0,8.0 54.0,8.0" fill="#6366f1" />
+          
+          <text x="-25" y="130" textAnchor="end" className="fill-indigo-600 dark:fill-indigo-400 stroke-none text-sm font-mono font-bold italic">î</text>
+          <text x="130" y="90" textAnchor="middle" className="fill-indigo-600 dark:fill-indigo-400 stroke-none text-sm font-mono font-bold italic">ĵ</text>
+          <text x="40" y="30" textAnchor="end" className="fill-indigo-600 dark:fill-indigo-400 stroke-none text-sm font-mono font-bold italic">k̂</text>
+          
+          <text x="-5" y="165" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[11px] font-mono">(1, 0, 0)</text>
+          <text x="150" y="120" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[11px] font-mono">(0, 1, 0)</text>
+          <text x="65" y="10" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[11px] font-mono">(0, 0, 1)</text>
         </svg>
       </div>
     </div>
   );
 }
-
 export function Chap4_Fig4() {
   return (
-    <div className="flex justify-center my-6">
-      <div className="relative w-64 h-64">
-        <svg viewBox="-40 -20 180 180" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1">
-          <defs>
-            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-              <path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" />
-            </marker>
-          </defs>
-          <line x1="30" y1="90" x2="-20" y2="115" markerEnd="url(#arrow)" />
-          <line x1="30" y1="90" x2="130" y2="90" markerEnd="url(#arrow)" />
-          <line x1="30" y1="90" x2="30" y2="-10" markerEnd="url(#arrow)" />
+    <div className="flex justify-center my-8">
+      <div className="relative w-full max-w-lg aspect-square">
+        <svg viewBox="0 0 320 300" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1.5">
           
-          <text x="-25" y="120" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">x</tspan></text>
-          <text x="135" y="95" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">y</tspan></text>
-          <text x="30" y="-20" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">z</tspan></text>
-          <text x="35" y="105" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">O</tspan></text>
+          {/* Axes */}
+          <line x1="120" y1="220" x2="45" y2="265" stroke="#ca8a04" />
+          <polygon points="45.0,265.0 57.9,263.1 52.7,254.5" fill="#ca8a04" />
           
-          <line x1="10" y1="100" x2="70" y2="100" strokeDasharray="4,4" />
-          <line x1="90" y1="90" x2="70" y2="100" strokeDasharray="4,4" />
-          <line x1="10" y1="100" x2="10" y2="40" strokeDasharray="4,4" />
-          <line x1="30" y1="30" x2="10" y2="40" strokeDasharray="4,4" />
-          <line x1="30" y1="30" x2="90" y2="30" strokeDasharray="4,4" />
-          <line x1="90" y1="90" x2="90" y2="30" strokeDasharray="4,4" />
-          <line x1="10" y1="40" x2="70" y2="40" strokeDasharray="4,4" />
-          <line x1="90" y1="30" x2="70" y2="40" strokeDasharray="4,4" />
-          <line x1="70" y1="100" x2="70" y2="40" strokeDasharray="4,4" />
+          <line x1="120" y1="220" x2="277.5" y2="220" stroke="#ca8a04" />
+          <polygon points="277.5,220.0 265.5,215.0 265.5,225.0" fill="#ca8a04" />
           
-          <line x1="30" y1="90" x2="70" y2="40" strokeWidth="1.5" markerEnd="url(#arrow)" />
+          <line x1="120" y1="220" x2="120" y2="45" stroke="#ca8a04" />
+          <polygon points="120.0,45.0 115.0,57.0 125.0,57.0" fill="#ca8a04" />
           
-          <line x1="30" y1="90" x2="15" y2="97.5" stroke="currentColor" strokeWidth="2" markerEnd="url(#arrow)" />
-          <line x1="30" y1="90" x2="55" y2="90" stroke="currentColor" strokeWidth="2" markerEnd="url(#arrow)" />
-          <line x1="30" y1="90" x2="30" y2="65" stroke="currentColor" strokeWidth="2" markerEnd="url(#arrow)" />
+          <text x="35" y="275" textAnchor="end" className="fill-yellow-600 dark:fill-yellow-500 stroke-none text-base font-mono"><tspan className="italic font-serif">x</tspan></text>
+          <text x="285" y="225" textAnchor="start" className="fill-yellow-600 dark:fill-yellow-500 stroke-none text-base font-mono"><tspan className="italic font-serif">y</tspan></text>
+          <text x="120" y="35" textAnchor="middle" className="fill-yellow-600 dark:fill-yellow-500 stroke-none text-base font-mono"><tspan className="italic font-serif">z</tspan></text>
           
-          <text x="12" y="98" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">i</text>
-          <text x="45" y="83" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">j</text>
-          <text x="22" y="75" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">k</text>
+          <text x="125" y="235" textAnchor="start" className="fill-yellow-600 dark:fill-yellow-500 stroke-none text-base font-mono"><tspan className="italic font-serif">O</tspan></text>
+          
+          {/* Dashed Box */}
+          <line x1="70" y1="250" x2="175" y2="250" strokeDasharray="5,5" stroke="#ca8a04" />
+          <line x1="225" y1="220" x2="175" y2="250" strokeDasharray="5,5" stroke="#ca8a04" />
+          <line x1="70" y1="250" x2="70" y2="110" strokeDasharray="5,5" stroke="#ca8a04" />
+          <line x1="120" y1="80" x2="70" y2="110" strokeDasharray="5,5" stroke="#ca8a04" />
+          <line x1="120" y1="80" x2="225" y2="80" strokeDasharray="5,5" stroke="#ca8a04" />
+          <line x1="225" y1="220" x2="225" y2="80" strokeDasharray="5,5" stroke="#ca8a04" />
+          <line x1="70" y1="110" x2="175" y2="110" strokeDasharray="5,5" stroke="#ca8a04" />
+          <line x1="225" y1="80" x2="175" y2="110" strokeDasharray="5,5" stroke="#ca8a04" />
+          <line x1="175" y1="250" x2="175" y2="110" strokeDasharray="5,5" stroke="#ca8a04" />
+          
+          {/* Ticks and values */}
+          <text x="55" y="245" textAnchor="end" className="fill-yellow-600 dark:fill-yellow-500 stroke-none text-sm font-mono">2</text>
 
-          <g className="fill-slate-800 dark:fill-slate-200 text-[10px] font-mono">
-            <text x="46" y="53" textAnchor="end">OA</text>
-            <line x1="33" y1="44" x2="45" y2="44" stroke="currentColor" strokeWidth="0.8" />
-            <path d="M 42 42 L 45 44 L 42 46" stroke="currentColor" fill="none" strokeWidth="0.8" />
-          </g>
-          <circle cx="70" cy="40" r="2" className="fill-slate-800 dark:fill-slate-200" />
-          <text x="75" y="35" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono"><tspan className="italic font-serif">A</tspan>(2, 3, 4)</text>
+          <text x="232" y="238" textAnchor="start" className="fill-yellow-600 dark:fill-yellow-500 stroke-none text-sm font-mono">3</text>
+
+          <text x="105" y="85" textAnchor="end" className="fill-yellow-600 dark:fill-yellow-500 stroke-none text-sm font-mono">4</text>
           
-          <circle cx="10" cy="100" r="1.5" className="fill-slate-800 dark:fill-slate-200" />
-          <circle cx="90" cy="90" r="1.5" className="fill-slate-800 dark:fill-slate-200" />
-          <circle cx="30" cy="30" r="1.5" className="fill-slate-800 dark:fill-slate-200" />
+          {/* Unit vectors (i, j, k) */}
+          <line x1="120" y1="220" x2="98" y2="233.2" stroke="#ca8a04" strokeWidth="2" />
+          <polygon points="95.0,235.0 107.9,233.1 102.7,224.5" fill="#ca8a04" />
+          <text x="88" y="225" textAnchor="end" className="fill-yellow-600 dark:fill-yellow-500 stroke-none text-base font-bold font-serif">î</text>
+
+          <line x1="120" y1="220" x2="152" y2="220" stroke="#ca8a04" strokeWidth="2" />
+          <polygon points="155.0,220.0 143.0,215.0 143.0,225.0" fill="#ca8a04" />
+          <text x="145" y="210" textAnchor="middle" className="fill-yellow-600 dark:fill-yellow-500 stroke-none text-base font-bold font-serif">ĵ</text>
+
+          <line x1="120" y1="220" x2="120" y2="188" stroke="#ca8a04" strokeWidth="2" />
+          <polygon points="120.0,185.0 115.0,197.0 125.0,197.0" fill="#ca8a04" />
+          <text x="112" y="195" textAnchor="end" className="fill-yellow-600 dark:fill-yellow-500 stroke-none text-base font-bold font-serif">k̂</text>
           
-          <text x="5" y="105" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">2</text>
-          <text x="95" y="90" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">3</text>
-          <text x="25" y="33" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">4</text>
+          {/* Vector OP */}
+          <line x1="120" y1="220" x2="171" y2="118" strokeWidth="2" className="stroke-slate-900 dark:stroke-slate-100" />
+          <polygon points="173.5,113.1 163.7,121.6 172.6,126.1" className="fill-slate-900 dark:fill-slate-100" />
+          
+          {/* Point P */}
+          <circle cx="175" cy="110" r="3.5" className="fill-slate-800 dark:fill-slate-200" />
+          
+          <text x="185" y="125" className="fill-yellow-600 dark:fill-yellow-500 stroke-none text-sm font-serif italic">A(2, 3, 4)</text>
+          
+          {/* Text vector OA */}
+          <foreignObject x="110" y="145" width="40" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-slate-800 dark:text-slate-200">
+              <Latex text="$\overrightarrow{OA}$" />
+            </div>
+          </foreignObject>
+
         </svg>
       </div>
     </div>
   );
 }
-
-export function Chap4_Fig6() {
-  return (
-    <div className="flex justify-center my-6">
-      <div className="relative w-64 h-32">
-        <svg viewBox="0 0 200 100" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1">
-          <defs>
-            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-              <path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" />
-            </marker>
-          </defs>
-          {/* Parallelogram outline */}
-          <line x1="40" y1="20" x2="20" y2="70" strokeDasharray="4,4" className="stroke-slate-400 dark:stroke-slate-600" />
-          <line x1="160" y1="40" x2="140" y2="90" strokeDasharray="4,4" className="stroke-slate-400 dark:stroke-slate-600" />
-          
-          <line x1="40" y1="20" x2="160" y2="40" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
-          <line x1="140" y1="90" x2="20" y2="70" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
-          
-          <text x="100" y="25" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold italic">a</text>
-          <text x="80" y="95" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold italic">-a</text>
-          
-          {/* Vector arrows for a and -a */}
-          
-        </svg>
-      </div>
-    </div>
-  );
-}
-
-export function Chap4_Fig7() {
-  return (
-    <div className="flex justify-center my-6">
-      <div className="relative w-64 h-32">
-        <svg viewBox="0 0 200 100" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1">
-          <defs>
-            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-              <path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" />
-            </marker>
-          </defs>
-          <line x1="20" y1="80" x2="100" y2="60" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
-          <line x1="100" y1="60" x2="160" y2="20" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
-          <line x1="20" y1="80" x2="160" y2="20" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
-          
-          <text x="65" y="85" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold italic">a</text>
-          <text x="135" y="55" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold italic">b</text>
-          <text x="85" y="40" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold italic">a + b</text>
-          
-          {/* Vector arrows for a, b, a+b */}
-          
-        </svg>
-      </div>
-    </div>
-  );
-}
-
-export function Chap4_Fig8() {
-  return (
-    <div className="flex justify-center my-6">
-      <div className="relative w-64 h-48">
-        <svg viewBox="0 0 200 160" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1">
-          <defs>
-            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-              <path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" />
-            </marker>
-          </defs>
-          
-          {/* Parallelogram lines */}
-          <line x1="50" y1="100" x2="100" y2="140" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
-          <line x1="150" y1="100" x2="100" y2="140" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
-          
-          {/* Main vectors */}
-          <line x1="100" y1="60" x2="50" y2="100" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
-          <line x1="100" y1="60" x2="150" y2="100" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
-          <line x1="100" y1="60" x2="100" y2="140" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
-          <line x1="100" y1="60" x2="50" y2="20" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
-          
-          {/* Vector labels */}
-          <text x="65" y="80" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold italic">a</text>
-          <text x="75" y="40" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold italic">b</text>
-          <text x="135" y="85" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold italic">-b</text>
-          <text x="105" y="110" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold italic">a - b</text>
-          
-          {/* Top arrow markers */}
-          
-        </svg>
-      </div>
-    </div>
-  );
-}
-
-export function Chap4_Fig9() {
-  return (
-    <div className="flex justify-center my-6">
-      <div className="relative w-64 h-32">
-        <svg viewBox="0 0 200 120" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1">
-          <defs>
-            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-              <path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" />
-            </marker>
-          </defs>
-          
-          {/* a */}
-          <line x1="80" y1="50" x2="120" y2="35" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
-          <text x="95" y="35" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold italic">a</text>
-          
-          {/* -a */}
-          <line x1="60" y1="80" x2="20" y2="95" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
-          <text x="45" y="105" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold italic">-a</text>
-          
-          {/* 2a */}
-          <line x1="90" y1="95" x2="170" y2="65" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
-          <text x="135" y="70" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold italic">2a</text>
-          
-          
-        </svg>
-      </div>
-    </div>
-  );
-}
-
-export function Chap4_Fig10() {
-  return (
-    <div className="flex justify-center my-6">
-      <div className="relative w-64 h-32">
-        <svg viewBox="0 0 200 120" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1">
-          <defs>
-            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-              <path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" />
-            </marker>
-          </defs>
-          
-          <line x1="40" y1="40" x2="80" y2="80" strokeDasharray="4,4" className="stroke-slate-400 dark:stroke-slate-600" />
-          <line x1="120" y1="70" x2="160" y2="110" strokeDasharray="4,4" className="stroke-slate-400 dark:stroke-slate-600" />
-          
-          <line x1="40" y1="40" x2="120" y2="70" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
-          <line x1="80" y1="80" x2="160" y2="110" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
-          
-          <text x="80" y="45" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold italic">a</text>
-          <text x="135" y="105" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold italic">b</text>
-          
-          <text x="100" y="125" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold italic">a = b</text>
-          
-          
-        </svg>
-      </div>
-    </div>
-  );
-}
-
-export function Chap4_Fig11() {
-  return (
-    <div className="flex justify-center my-6">
-      <div className="relative w-72 h-32">
-        <svg viewBox="0 0 220 120" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1">
-          <defs>
-            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-              <path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" />
-            </marker>
-          </defs>
-          
-          <polygon points="40,80 120,50 180,50 100,80" fill="#fbbf24" fillOpacity="0.1" stroke="none" />
-          
-          <line x1="40" y1="80" x2="120" y2="50" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
-          <line x1="120" y1="50" x2="180" y2="50" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
-          <line x1="40" y1="80" x2="100" y2="80" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
-          <line x1="100" y1="80" x2="180" y2="50" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
-          
-          <text x="35" y="90" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono"><tspan className="italic font-serif">A</tspan></text>
-          <text x="120" y="45" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono"><tspan className="italic font-serif">B</tspan></text>
-          <text x="185" y="45" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono"><tspan className="italic font-serif">C</tspan></text>
-          <text x="95" y="90" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono"><tspan className="italic font-serif">D</tspan></text>
-          
-          <text x="75" y="60" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">a</text>
-          <text x="150" y="45" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">c</text>
-          <text x="70" y="88" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">d</text>
-          <text x="145" y="70" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">b</text>
-          
-          
-          
-          <text x="110" y="115" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">
-            <tspan className="italic font-serif">AB</tspan> || <tspan className="italic font-serif">DC</tspan>, <tspan className="italic font-serif">AD</tspan> || <tspan className="italic font-serif">BC</tspan>
-          </text>
-          
-          
-        </svg>
-      </div>
-    </div>
-  );
-}
-
-export function Chap4_Fig12() {
-  return (
-    <div className="flex justify-center my-6">
-      <div className="relative w-80 h-32">
-        <svg viewBox="0 0 240 120" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1">
-          <defs>
-            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-              <path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" />
-            </marker>
-          </defs>
-          
-          <polygon points="40,80 80,40 160,40 120,80" fill="#fbbf24" fillOpacity="0.1" stroke="none" />
-          
-          <line x1="40" y1="80" x2="80" y2="40" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
-          <line x1="80" y1="40" x2="160" y2="40" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
-          <line x1="40" y1="80" x2="120" y2="80" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
-          <line x1="120" y1="80" x2="160" y2="40" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
-          
-          <text x="35" y="85" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono"><tspan className="italic font-serif">A</tspan>(-1, 1, 1)</text>
-          <text x="80" y="35" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono"><tspan className="italic font-serif">B</tspan>(2, 0, -2)</text>
-          <text x="165" y="35" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono"><tspan className="italic font-serif">C</tspan>(x, y, z)</text>
-          <text x="120" y="95" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono"><tspan className="italic font-serif">D</tspan>(3, 1, 4)</text>
-          
-          <text x="50" y="55" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">AB</text>
-          <text x="120" y="35" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">BC</text>
-          <text x="80" y="95" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">AD</text>
-          <text x="150" y="70" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">DC</text>
-          
-          
-        </svg>
-      </div>
-    </div>
-  );
-}
-
-export function Chap4_Fig13() {
-  return (
-    <div className="flex justify-center my-6">
-      <div className="relative w-64 h-32">
-        <svg viewBox="0 0 200 100" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1">
-          <defs>
-            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-              <path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" />
-            </marker>
-          </defs>
-          
-          <line x1="40" y1="80" x2="160" y2="40" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
-          
-          <circle cx="40" cy="80" r="2" className="fill-slate-800 dark:fill-slate-200" />
-          <text x="35" y="85" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">O</tspan></text>
-          
-          <circle cx="80" cy="66.66" r="2" className="fill-slate-800 dark:fill-slate-200" />
-          
-          <text x="100" y="55" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold italic">a</text>
-          <text x="65" y="80" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold italic">â</text>
-          
-          
-          
-          <text x="100" y="100" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">
-            |â| = 1 and â has the same direction as a
-          </text>
-          
-          
-        </svg>
-      </div>
-    </div>
-  );
-}
-
-export function Chap4_Fig14() {
-  return (
-    <div className="flex justify-center my-6">
-      <div className="relative w-full max-w-lg h-32">
-        <svg viewBox="0 0 300 100" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1">
-          <defs>
-            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-              <path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" />
-            </marker>
-          </defs>
-          
-          {/* Group 1: a and a_hat */}
-          <line x1="20" y1="50" x2="80" y2="20" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
-          <line x1="20" y1="70" x2="50" y2="55" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
-          <text x="45" y="25" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">a</text>
-          <text x="35" y="55" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">â</text>
-          <text x="35" y="80" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">1</text>
-          
-          <line x1="20" y1="75" x2="20" y2="80" stroke="currentColor" strokeWidth="0.5" />
-          <line x1="50" y1="60" x2="50" y2="80" stroke="currentColor" strokeWidth="0.5" />
-          
-          {/* Group 2: b and a_hat (same direction) */}
-          <line x1="120" y1="50" x2="180" y2="20" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
-          <line x1="120" y1="70" x2="150" y2="55" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
-          <text x="145" y="25" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">b</text>
-          <text x="135" y="55" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">â</text>
-          <text x="135" y="80" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">1</text>
-          <text x="150" y="95" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">same direction: <tspan className="font-bold italic">b̂</tspan> = <tspan className="font-bold italic">â</tspan></text>
-          
-          <line x1="120" y1="75" x2="120" y2="80" stroke="currentColor" strokeWidth="0.5" />
-          <line x1="150" y1="60" x2="150" y2="80" stroke="currentColor" strokeWidth="0.5" />
-          
-          {/* Group 3: b and -a_hat (opposite direction) */}
-          <line x1="220" y1="50" x2="280" y2="20" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
-          <line x1="250" y1="55" x2="220" y2="70" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
-          <text x="245" y="25" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">b</text>
-          <text x="235" y="55" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">-â</text>
-          <text x="235" y="80" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">1</text>
-          <text x="250" y="95" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">opposite direction: <tspan className="font-bold italic">b̂</tspan> = -<tspan className="font-bold italic">â</tspan></text>
-          
-          <line x1="220" y1="75" x2="220" y2="80" stroke="currentColor" strokeWidth="0.5" />
-          <line x1="250" y1="60" x2="250" y2="80" stroke="currentColor" strokeWidth="0.5" />
-        </svg>
-      </div>
-    </div>
-  );
-}
-
-export function Chap4_Fig15() {
-  return (
-    <div className="flex justify-center my-6">
-      <div className="relative w-72 h-32">
-        <svg viewBox="0 0 240 100" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1">
-          <defs>
-            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-              <path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" />
-            </marker>
-          </defs>
-          
-          <line x1="20" y1="80" x2="220" y2="20" stroke="#fbbf24" strokeWidth="1" strokeDasharray="4,4" />
-          
-          <line x1="40" y1="74" x2="100" y2="56" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
-          <line x1="40" y1="74" x2="200" y2="26" stroke="#fbbf24" strokeWidth="2" markerEnd="url(#arrow)" />
-          
-          <circle cx="40" cy="74" r="2" className="fill-slate-800 dark:fill-slate-200" />
-          <circle cx="100" cy="56" r="2" className="fill-slate-800 dark:fill-slate-200" />
-          <circle cx="200" cy="26" r="2" className="fill-slate-800 dark:fill-slate-200" />
-          
-          <text x="35" y="85" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono"><tspan className="italic font-serif">A</tspan></text>
-          <text x="100" y="70" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono"><tspan className="italic font-serif">B</tspan></text>
-          <text x="200" y="20" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono"><tspan className="italic font-serif">C</tspan></text>
-          
-          <text x="70" y="75" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">AB</text>
-          
-          
-          <text x="120" y="45" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">AC</text>
-          
-          
-          <text x="120" y="90" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">
-            <tspan className="italic font-serif">AB</tspan> || <tspan className="italic font-serif">AC</tspan>
-          </text>
-          
-        </svg>
-      </div>
-    </div>
-  );
-}
-
 export function Chap4_Fig5() {
   return (
-    <div className="flex justify-center my-6">
-      <div className="relative w-64 h-64">
-        <svg viewBox="-40 -20 180 180" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1">
-          <defs>
-            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-              <path d="M 0 2 L 10 5 L 0 8 z" fill="currentColor" />
-            </marker>
-          </defs>
-          <line x1="30" y1="90" x2="-20" y2="115" markerEnd="url(#arrow)" />
-          <line x1="30" y1="90" x2="130" y2="90" markerEnd="url(#arrow)" />
-          <line x1="30" y1="90" x2="30" y2="-10" markerEnd="url(#arrow)" />
+    <div className="flex justify-center my-8">
+      <div className="relative w-full max-w-lg aspect-square">
+        <svg viewBox="0 0 320 300" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1.5">
           
-          <text x="-25" y="120" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">x</tspan></text>
-          <text x="135" y="95" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">y</tspan></text>
-          <text x="30" y="-20" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">z</tspan></text>
-          <text x="35" y="105" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono"><tspan className="italic font-serif">O</tspan></text>
+          {/* Axes */}
+          <line x1="120" y1="220" x2="45" y2="265" stroke="#ca8a04" />
+          <polygon points="45.0,265.0 57.9,263.1 52.7,254.5" fill="#ca8a04" />
           
-          <line x1="10" y1="100" x2="70" y2="100" strokeDasharray="4,4" />
-          <line x1="90" y1="90" x2="70" y2="100" strokeDasharray="4,4" />
-          <line x1="10" y1="100" x2="10" y2="40" strokeDasharray="4,4" />
-          <line x1="30" y1="30" x2="10" y2="40" strokeDasharray="4,4" />
-          <line x1="30" y1="30" x2="90" y2="30" strokeDasharray="4,4" />
-          <line x1="90" y1="90" x2="90" y2="30" strokeDasharray="4,4" />
-          <line x1="10" y1="40" x2="70" y2="40" strokeDasharray="4,4" />
-          <line x1="90" y1="30" x2="70" y2="40" strokeDasharray="4,4" />
-          <line x1="70" y1="100" x2="70" y2="40" strokeDasharray="4,4" />
+          <line x1="120" y1="220" x2="277.5" y2="220" stroke="#ca8a04" />
+          <polygon points="277.5,220.0 265.5,215.0 265.5,225.0" fill="#ca8a04" />
           
-          <line x1="30" y1="90" x2="70" y2="40" strokeWidth="1.5" markerEnd="url(#arrow)" />
+          <line x1="120" y1="220" x2="120" y2="45" stroke="#ca8a04" />
+          <polygon points="120.0,45.0 115.0,57.0 125.0,57.0" fill="#ca8a04" />
           
-          <line x1="30" y1="90" x2="15" y2="97.5" stroke="currentColor" strokeWidth="2" markerEnd="url(#arrow)" />
-          <line x1="30" y1="90" x2="55" y2="90" stroke="currentColor" strokeWidth="2" markerEnd="url(#arrow)" />
-          <line x1="30" y1="90" x2="30" y2="65" stroke="currentColor" strokeWidth="2" markerEnd="url(#arrow)" />
+          <text x="35" y="275" textAnchor="end" className="fill-yellow-600 dark:fill-yellow-500 stroke-none text-base font-mono"><tspan className="italic font-serif">x</tspan></text>
+          <text x="285" y="225" textAnchor="start" className="fill-yellow-600 dark:fill-yellow-500 stroke-none text-base font-mono"><tspan className="italic font-serif">y</tspan></text>
+          <text x="120" y="35" textAnchor="middle" className="fill-yellow-600 dark:fill-yellow-500 stroke-none text-base font-mono"><tspan className="italic font-serif">z</tspan></text>
           
-          <text x="12" y="98" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">i</text>
-          <text x="45" y="83" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">j</text>
-          <text x="22" y="75" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">k</text>
+          <text x="125" y="235" textAnchor="start" className="fill-yellow-600 dark:fill-yellow-500 stroke-none text-base font-mono"><tspan className="italic font-serif">O</tspan></text>
+          
+          {/* Dashed Box */}
+          <line x1="70" y1="250" x2="175" y2="250" strokeDasharray="5,5" stroke="#ca8a04" />
+          <line x1="225" y1="220" x2="175" y2="250" strokeDasharray="5,5" stroke="#ca8a04" />
+          <line x1="70" y1="250" x2="70" y2="110" strokeDasharray="5,5" stroke="#ca8a04" />
+          <line x1="120" y1="80" x2="70" y2="110" strokeDasharray="5,5" stroke="#ca8a04" />
+          <line x1="120" y1="80" x2="225" y2="80" strokeDasharray="5,5" stroke="#ca8a04" />
+          <line x1="225" y1="220" x2="225" y2="80" strokeDasharray="5,5" stroke="#ca8a04" />
+          <line x1="70" y1="110" x2="175" y2="110" strokeDasharray="5,5" stroke="#ca8a04" />
+          <line x1="225" y1="80" x2="175" y2="110" strokeDasharray="5,5" stroke="#ca8a04" />
+          <line x1="175" y1="250" x2="175" y2="110" strokeDasharray="5,5" stroke="#ca8a04" />
+          
+          {/* Labels for ticks */}
+          <text x="55" y="245" textAnchor="end" className="fill-yellow-600 dark:fill-yellow-500 stroke-none text-sm font-mono"><tspan className="italic font-serif">a</tspan></text>
 
-          <g className="fill-slate-800 dark:fill-slate-200 text-[10px] font-mono">
-            <text x="46" y="53" textAnchor="end">OP</text>
-            <line x1="33" y1="44" x2="45" y2="44" stroke="currentColor" strokeWidth="0.8" />
-            <path d="M 42 42 L 45 44 L 42 46" stroke="currentColor" fill="none" strokeWidth="0.8" />
-          </g>
-          <circle cx="70" cy="40" r="2" className="fill-slate-800 dark:fill-slate-200" />
-          <text x="75" y="35" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono"><tspan className="italic font-serif">P</tspan>(a, b, c)</text>
+          <text x="232" y="238" textAnchor="start" className="fill-yellow-600 dark:fill-yellow-500 stroke-none text-sm font-mono"><tspan className="italic font-serif">b</tspan></text>
+
+          <text x="105" y="85" textAnchor="end" className="fill-yellow-600 dark:fill-yellow-500 stroke-none text-sm font-mono"><tspan className="italic font-serif">c</tspan></text>
+          
+          {/* Unit vectors (i, j, k) */}
+          <line x1="120" y1="220" x2="98" y2="233.2" stroke="#ca8a04" strokeWidth="2" />
+          <polygon points="95.0,235.0 107.9,233.1 102.7,224.5" fill="#ca8a04" />
+          <text x="88" y="225" textAnchor="end" className="fill-yellow-600 dark:fill-yellow-500 stroke-none text-base font-bold font-serif">î</text>
+
+          <line x1="120" y1="220" x2="152" y2="220" stroke="#ca8a04" strokeWidth="2" />
+          <polygon points="155.0,220.0 143.0,215.0 143.0,225.0" fill="#ca8a04" />
+          <text x="145" y="210" textAnchor="middle" className="fill-yellow-600 dark:fill-yellow-500 stroke-none text-base font-bold font-serif">ĵ</text>
+
+          <line x1="120" y1="220" x2="120" y2="188" stroke="#ca8a04" strokeWidth="2" />
+          <polygon points="120.0,185.0 115.0,197.0 125.0,197.0" fill="#ca8a04" />
+          <text x="112" y="195" textAnchor="end" className="fill-yellow-600 dark:fill-yellow-500 stroke-none text-base font-bold font-serif">k̂</text>
+          
+          {/* Vector OP */}
+          <line x1="120" y1="220" x2="171" y2="118" strokeWidth="2" className="stroke-slate-900 dark:stroke-slate-100" />
+          <polygon points="173.5,113.1 163.7,121.6 172.6,126.1" className="fill-slate-900 dark:fill-slate-100" />
+          
+          {/* Point P */}
+          <circle cx="175" cy="110" r="3.5" className="fill-slate-800 dark:fill-slate-200" />
+          
+          <text x="185" y="125" className="fill-yellow-600 dark:fill-yellow-500 stroke-none text-sm font-serif italic">P(a, b, c)</text>
+          
+          {/* Text vector OP */}
+          <foreignObject x="110" y="145" width="40" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-slate-800 dark:text-slate-200">
+              <Latex text="$\overrightarrow{OP}$" />
+            </div>
+          </foreignObject>
+
         </svg>
       </div>
     </div>
@@ -2724,6 +2739,8 @@ function slugify(text: string) {
 }
 
 export default function Latex({ text, block = false }: LatexProps) {
+  if (!text) return null;
+
   // 1. Render pure block formula if explicitly requested via props
   if (block) {
     try {
@@ -2731,7 +2748,7 @@ export default function Latex({ text, block = false }: LatexProps) {
         displayMode: true,
         throwOnError: false,
       });
-      return <div className="katex-block my-3 overflow-x-auto py-1" dangerouslySetInnerHTML={{ __html: html }} />;
+      return <DraggableScroll className="katex-block my-1" dangerouslySetInnerHTML={{ __html: html }} />;
     } catch (e) {
       console.error(e);
       return <pre className="p-2 bg-red-50 dark:bg-red-950/20 text-red-700 dark:text-red-400 font-mono text-xs rounded">{text}</pre>;
@@ -2836,7 +2853,7 @@ export default function Latex({ text, block = false }: LatexProps) {
     // Skip empty lines, but close list if open
     if (line === '') {
       flushList(i);
-      renderedElements.push(<div key={`empty-${i}`} className="h-2" />);
+      // empty line spacer removed
       continue;
     }
 
@@ -2891,9 +2908,9 @@ export default function Latex({ text, block = false }: LatexProps) {
           throwOnError: false,
         });
         renderedElements.push(
-          <div
+          <DraggableScroll
             key={`math-block-${i}`}
-            className="katex-block my-3 overflow-x-auto py-1 w-full font-serif text-slate-800 dark:text-slate-200"
+            className="katex-block w-full font-serif text-slate-800 dark:text-slate-200"
             dangerouslySetInnerHTML={{ __html: html }}
           />
         );
@@ -2978,6 +2995,17 @@ export default function Latex({ text, block = false }: LatexProps) {
           break;
 case 'Chap4_Fig5':
           renderedElements.push(<Chap4_Fig5 key={`diag-${i}`} />);
+          break;
+        
+        
+        case 'Chap4_Ex9':
+          renderedElements.push(<Chap4_Ex9 key={`diag-${i}`} />);
+          break;
+        case 'Chap4_Ex4_2_Q6':
+          renderedElements.push(<Chap4_Ex4_2_Q6 key={`diag-${i}`} />);
+          break;
+        case 'Chap4_AngleBetweenVectors':
+          renderedElements.push(<Chap4_AngleBetweenVectors key={`diag-${i}`} />);
           break;
         case 'Chap4_Fig1':
           renderedElements.push(<Chap4_Fig1 key={`diag-${i}`} />);
@@ -3336,7 +3364,7 @@ case 'Chap4_Fig5':
       listItems.push(
         <li key={`li-${i}-${listItems.length}`} className="flex items-start gap-2.5 text-slate-700 dark:text-slate-300">
           <span className="text-indigo-500 dark:text-indigo-400 mt-1.5 shrink-0 text-sm leading-none">•</span>
-          <div className="flex-1 leading-relaxed text-xs md:text-sm">
+          <div className="flex-1 leading-relaxed text-xs md:text-sm overflow-x-auto scrollbar-none py-1">
             {renderMathText(line.substring(2))}
           </div>
         </li>
@@ -3357,7 +3385,7 @@ case 'Chap4_Fig5':
             <span className="flex items-center justify-center w-5 h-5 rounded-md bg-indigo-50 dark:bg-indigo-950/40 text-[10px] font-bold text-indigo-600 dark:text-indigo-400 shrink-0 border border-indigo-100/40 dark:border-indigo-900/10 mt-0.5">
               {num}
             </span>
-            <div className="flex-1 leading-relaxed text-xs md:text-sm">
+            <div className="flex-1 leading-relaxed text-xs md:text-sm overflow-x-auto scrollbar-none py-1">
               {renderMathText(content)}
             </div>
           </div>
@@ -3415,7 +3443,7 @@ case 'Chap4_Fig5':
                 {category}
               </span>
             </div>
-            <div className={`text-xs md:text-sm leading-relaxed ${textAccent}`}>
+            <div className={`text-xs md:text-sm leading-relaxed overflow-x-auto scrollbar-none py-1 ${textAccent}`}>
               {renderMathText(remainder)}
             </div>
           </div>
@@ -3427,7 +3455,7 @@ case 'Chap4_Fig5':
     // Default: regular text lines parsed with KaTeX
     flushList(i);
     renderedElements.push(
-      <div key={`p-${i}`} className="text-slate-700 dark:text-slate-300 leading-relaxed text-xs md:text-sm my-2">
+      <div key={`p-${i}`} className="text-slate-700 dark:text-slate-300 leading-relaxed text-xs md:text-sm my-0.5 overflow-x-auto scrollbar-none py-0.5">
         {renderMathText(line)}
       </div>
     );
@@ -5857,6 +5885,442 @@ function Example26Diagram() {
 }
 
 
+
+export function Chap4_Fig6() {
+  return (
+    <div className="flex justify-center my-6">
+      <div className="relative w-full max-w-[256px] aspect-[256/128]">
+        <svg viewBox="0 0 200 120" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1.5">
+          <line x1="30" y1="80" x2="121.1" y2="43.6" className="stroke-[#ca8a04]" strokeWidth="2" />
+          <polygon points="130.0,40.0 122.1,49.0 118.0,38.9" className="fill-[#ca8a04] stroke-none" />
+          <foreignObject x="65" y="25" width="30" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
+              <Latex text="$\vec{a}$" />
+            </div>
+          </foreignObject>
+          
+          <line x1="170" y1="60" x2="78.9" y2="96.4" className="stroke-slate-900 dark:stroke-slate-100" strokeWidth="2" />
+          <polygon points="70.0,100.0 77.9,91.0 82.0,101.1" className="fill-slate-900 dark:fill-slate-100 stroke-none" />
+          <foreignObject x="110" y="85" width="30" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100">
+              <Latex text="$-\vec{a}$" />
+            </div>
+          </foreignObject>
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+export function Chap4_Fig7() {
+  return (
+    <div className="flex justify-center my-6">
+      <div className="relative w-full max-w-[256px] aspect-[256/192]">
+        <svg viewBox="0 0 200 150" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1.5">
+          <line x1="20" y1="120" x2="100.4" y2="120.0" className="stroke-[#ca8a04]" strokeWidth="2" />
+          <polygon points="110.0,120.0 99.3,125.4 99.3,114.6" className="fill-[#ca8a04] stroke-none" />
+          <foreignObject x="50" y="125" width="30" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
+              <Latex text="$\vec{a}$" />
+            </div>
+          </foreignObject>
+          
+          <line x1="110" y1="120" x2="154.9" y2="48.1" className="stroke-[#ca8a04]" strokeWidth="2" />
+          <polygon points="160.0,40.0 159.0,52.0 149.7,46.2" className="fill-[#ca8a04] stroke-none" />
+          <foreignObject x="135" y="75" width="30" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
+              <Latex text="$\vec{b}$" />
+            </div>
+          </foreignObject>
+          
+          <line x1="20" y1="120" x2="151.7" y2="44.8" className="stroke-slate-900 dark:stroke-slate-100" strokeWidth="2" />
+          <polygon points="160.0,40.0 153.4,50.0 148.0,40.6" className="fill-slate-900 dark:fill-slate-100 stroke-none" />
+          <foreignObject x="60" y="55" width="50" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100">
+              <Latex text="$\vec{a} + \vec{b}$" />
+            </div>
+          </foreignObject>
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+export function Chap4_Fig8() {
+  return (
+    <div className="flex justify-center my-6">
+      <div className="relative w-full max-w-[288px] aspect-[288/160]">
+        <svg viewBox="0 0 280 150" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1.5">
+          <line x1="70" y1="90" x2="123.8" y2="27.3" className="stroke-[#ca8a04]" strokeWidth="2" />
+          <polygon points="130.0,20.0 127.2,31.7 118.9,24.6" className="fill-[#ca8a04] stroke-none" />
+          <foreignObject x="80" y="30" width="30" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
+              <Latex text="$\vec{b}$" />
+            </div>
+          </foreignObject>
+          
+          <line x1="70" y1="90" x2="180.5" y2="71.6" className="stroke-[#ca8a04]" strokeWidth="2" />
+          <polygon points="190.0,70.0 180.3,77.1 178.6,66.4" className="fill-[#ca8a04] stroke-none" />
+          <foreignObject x="115" y="80" width="30" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
+              <Latex text="$\vec{a}$" />
+            </div>
+          </foreignObject>
+          
+          <line x1="190" y1="70" x2="137.4" y2="26.1" className="stroke-[#ca8a04]" strokeWidth="2" />
+          <polygon points="130.0,20.0 141.7,22.7 134.7,31.0" className="fill-[#ca8a04] stroke-none" />
+          <foreignObject x="160" y="20" width="50" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
+              <Latex text="$\vec{b} - \vec{a}$" />
+            </div>
+          </foreignObject>
+          
+          <line x1="190" y1="70" x2="136.2" y2="132.7" className="stroke-slate-900 dark:stroke-slate-100" strokeWidth="2" />
+          <polygon points="130.0,140.0 132.8,128.3 141.1,135.4" className="fill-slate-900 dark:fill-slate-100 stroke-none" />
+          <foreignObject x="165" y="100" width="30" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100">
+              <Latex text="$-\vec{b}$" />
+            </div>
+          </foreignObject>
+          
+          <line x1="70" y1="90" x2="122.6" y2="133.9" className="stroke-slate-900 dark:stroke-slate-100" strokeWidth="2" />
+          <polygon points="130.0,140.0 118.3,137.3 125.3,129.0" className="fill-slate-900 dark:fill-slate-100 stroke-none" />
+          <foreignObject x="65" y="120" width="50" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100">
+              <Latex text="$\vec{a} - \vec{b}$" />
+            </div>
+          </foreignObject>
+          
+          <circle cx="70" cy="90" r="2.5" className="fill-slate-800 dark:fill-slate-200 stroke-none" />
+          <circle cx="130" cy="20" r="2.5" className="fill-slate-800 dark:fill-slate-200 stroke-none" />
+          <circle cx="190" cy="70" r="2.5" className="fill-slate-800 dark:fill-slate-200 stroke-none" />
+          <circle cx="130" cy="140" r="2.5" className="fill-slate-800 dark:fill-slate-200 stroke-none" />
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+export function Chap4_Fig9() {
+  return (
+    <div className="flex justify-center my-6">
+      <div className="relative w-full max-w-[320px] aspect-[320/128]">
+        <svg viewBox="0 0 350 150" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1.5">
+          {/* Vector a */}
+          <line x1="120" y1="50" x2="160.8" y2="37.8" className="stroke-[#ca8a04]" strokeWidth="2" />
+          <polygon points="170.0,35.0 161.3,43.3 158.2,32.9" className="fill-[#ca8a04] stroke-none" />
+          <foreignObject x="135" y="10" width="30" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
+              <Latex text="$\vec{a}$" />
+            </div>
+          </foreignObject>
+          <circle cx="120" cy="50" r="2.5" className="fill-slate-800 dark:fill-slate-200 stroke-none" />
+          <circle cx="170" cy="35" r="2.5" className="fill-slate-800 dark:fill-slate-200 stroke-none" />
+
+          {/* Vector 2a */}
+          <line x1="120" y1="80" x2="210.8" y2="52.8" className="stroke-slate-900 dark:stroke-slate-100" strokeWidth="2" />
+          <polygon points="220.0,50.0 211.3,58.3 208.2,47.9" className="fill-slate-900 dark:fill-slate-100 stroke-none" />
+          <foreignObject x="160" y="35" width="30" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100">
+              <Latex text="$2\vec{a}$" />
+            </div>
+          </foreignObject>
+          <circle cx="120" cy="80" r="2.5" className="fill-slate-800 dark:fill-slate-200 stroke-none" />
+          <circle cx="220" cy="50" r="2.5" className="fill-slate-800 dark:fill-slate-200 stroke-none" />
+
+          {/* Vector -a */}
+          <line x1="170" y1="110" x2="129.2" y2="122.2" className="stroke-[#ca8a04]" strokeWidth="2" />
+          <polygon points="120.0,125.0 128.7,116.7 131.8,127.1" className="fill-[#ca8a04] stroke-none" />
+          <foreignObject x="135" y="125" width="30" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
+              <Latex text="$-\vec{a}$" />
+            </div>
+          </foreignObject>
+          <circle cx="170" cy="110" r="2.5" className="fill-slate-800 dark:fill-slate-200 stroke-none" />
+          <circle cx="120" cy="125" r="2.5" className="fill-slate-800 dark:fill-slate-200 stroke-none" />
+        </svg>
+      </div>
+    </div>
+  );
+}
+export function Chap4_Fig10() {
+  return (
+    <div className="flex justify-center my-6">
+      <div className="relative w-full max-w-[320px] aspect-[320/144]">
+        <svg viewBox="0 0 320 140" overflow="visible" className="w-full h-full stroke-slate-800 dark:stroke-slate-200 fill-none" strokeWidth="1.5">
+          <line x1="80" y1="50" x2="110.0" y2="90.0" className="stroke-[#ca8a04] opacity-60" strokeWidth="1.5" strokeDasharray="5,5" />
+          <line x1="200" y1="20" x2="230.0" y2="60.0" className="stroke-[#ca8a04] opacity-60" strokeWidth="1.5" strokeDasharray="5,5" />
+          
+          <line x1="80" y1="50" x2="190.7" y2="22.3" className="stroke-[#ca8a04]" strokeWidth="2" />
+          <polygon points="200.0,20.0 190.9,27.9 188.3,17.3" className="fill-[#ca8a04] stroke-none" />
+          <foreignObject x="120" y="10" width="30" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
+              <Latex text="$\vec{a}$" />
+            </div>
+          </foreignObject>
+          
+          <line x1="110" y1="90" x2="220.7" y2="62.3" className="stroke-[#ca8a04]" strokeWidth="2" />
+          <polygon points="230.0,60.0 220.9,67.9 218.3,57.3" className="fill-[#ca8a04] stroke-none" />
+          <foreignObject x="165" y="85" width="30" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
+              <Latex text="$\vec{b}$" />
+            </div>
+          </foreignObject>
+          
+          <foreignObject x="130" y="115" width="50" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-slate-800 dark:text-slate-200">
+              <Latex text="$\vec{a} = \vec{b}$" />
+            </div>
+          </foreignObject>
+          
+          <circle cx="80" cy="50" r="2.5" className="fill-[#ca8a04] stroke-none" />
+          <circle cx="200" cy="20" r="2.5" className="fill-[#ca8a04] stroke-none" />
+          <circle cx="110" cy="90" r="2.5" className="fill-[#ca8a04] stroke-none" />
+          <circle cx="230" cy="60" r="2.5" className="fill-[#ca8a04] stroke-none" />
+        </svg>
+      </div>
+    </div>
+  );
+}
+export function Chap4_Fig11() {
+  return (
+    <div className="flex flex-col items-center my-6">
+      <div className="relative w-full max-w-[320px] aspect-[300/150]">
+        <svg viewBox="0 0 300 150" overflow="visible" className="w-full h-full fill-none" strokeWidth="1.5">
+          <line x1="50" y1="100" x2="250" y2="50" className="stroke-[#ca8a04] opacity-50" strokeWidth="1" strokeDasharray="5,5" />
+          <line x1="130" y1="50" x2="170" y2="100" className="stroke-[#ca8a04] opacity-50" strokeWidth="1" strokeDasharray="5,5" />
+          
+          <line x1="50" y1="100" x2="121.9" y2="55.1" className="stroke-[#ca8a04]" strokeWidth="2" />
+          <polygon points="130.0,50.0 123.8,60.3 118.0,51.0" className="fill-[#ca8a04] stroke-none" />
+          <foreignObject x="60" y="50" width="30" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
+              <Latex text="$\vec{a}$" />
+            </div>
+          </foreignObject>
+          
+          <line x1="130" y1="50" x2="240.4" y2="50.0" className="stroke-[#ca8a04]" strokeWidth="2" />
+          <polygon points="250.0,50.0 239.3,55.4 239.3,44.6" className="fill-[#ca8a04] stroke-none" />
+          <foreignObject x="175" y="25" width="30" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
+              <Latex text="$\vec{c}$" />
+            </div>
+          </foreignObject>
+          
+          <line x1="50" y1="100" x2="160.4" y2="100.0" className="stroke-[#ca8a04]" strokeWidth="2" />
+          <polygon points="170.0,100.0 159.3,105.4 159.3,94.6" className="fill-[#ca8a04] stroke-none" />
+          <foreignObject x="95" y="110" width="30" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
+              <Latex text="$\vec{d}$" />
+            </div>
+          </foreignObject>
+          
+          <line x1="170" y1="100" x2="241.9" y2="55.1" className="stroke-slate-900 dark:stroke-slate-100" strokeWidth="2" />
+          <polygon points="250.0,50.0 243.8,60.3 238.0,51.0" className="fill-slate-900 dark:fill-slate-100 stroke-none" />
+          <foreignObject x="210" y="80" width="30" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100">
+              <Latex text="$\vec{b}$" />
+            </div>
+          </foreignObject>
+          
+          <circle cx="50" cy="100" r="2.5" className="fill-[#ca8a04] stroke-none" />
+          <circle cx="130" cy="50" r="2.5" className="fill-[#ca8a04] stroke-none" />
+          <circle cx="250" cy="50" r="2.5" className="fill-[#ca8a04] stroke-none" />
+          <circle cx="170" cy="100" r="2.5" className="fill-[#ca8a04] stroke-none" />
+          
+          <text x="40" y="110" className="fill-[#ca8a04] font-serif italic text-sm stroke-none">A</text>
+          <text x="120" y="40" className="fill-[#ca8a04] font-serif italic text-sm stroke-none">B</text>
+          <text x="260" y="40" className="fill-[#ca8a04] font-serif italic text-sm stroke-none">C</text>
+          <text x="180" y="110" className="fill-[#ca8a04] font-serif italic text-sm stroke-none">D</text>
+        </svg>
+      </div>
+      
+      <div className="flex justify-center items-center gap-4 mt-2 font-serif italic text-sm text-slate-800 dark:text-slate-200">
+        <div className="flex items-center gap-1">
+          <span className="relative inline-flex flex-col items-center leading-none mt-1">
+            <span className="text-[10px] absolute -top-2.5">→</span>
+            <span>AB</span>
+          </span>
+          <span className="mx-1">||</span>
+          <span className="relative inline-flex flex-col items-center leading-none mt-1">
+            <span className="text-[10px] absolute -top-2.5">→</span>
+            <span>DC</span>
+          </span>
+          <span className="ml-1">,</span>
+        </div>
+        <div className="flex items-center gap-1">
+          <span className="relative inline-flex flex-col items-center leading-none mt-1">
+            <span className="text-[10px] absolute -top-2.5">→</span>
+            <span>AD</span>
+          </span>
+          <span className="mx-1">||</span>
+          <span className="relative inline-flex flex-col items-center leading-none mt-1">
+            <span className="text-[10px] absolute -top-2.5">→</span>
+            <span>BC</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function Chap4_Fig12() {
+  return (
+    <div className="flex flex-col items-center my-6">
+      <div className="relative w-full max-w-[340px] aspect-[320/150]">
+        <svg viewBox="0 0 320 150" overflow="visible" className="w-full h-full fill-none" strokeWidth="1.5">
+          <line x1="50" y1="100" x2="250" y2="50" className="stroke-[#ca8a04] opacity-50" strokeWidth="1" strokeDasharray="5,5" />
+          <line x1="130" y1="50" x2="170" y2="100" className="stroke-[#ca8a04] opacity-50" strokeWidth="1" strokeDasharray="5,5" />
+          
+          <line x1="50" y1="100" x2="121.9" y2="55.1" className="stroke-[#ca8a04]" strokeWidth="2" />
+          <polygon points="130.0,50.0 123.8,60.3 118.0,51.0" className="fill-[#ca8a04] stroke-none" />
+          <foreignObject x="60" y="45" width="30" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
+              <Latex text="$\overrightarrow{AB}$" />
+            </div>
+          </foreignObject>
+          
+          <line x1="130" y1="50" x2="240.4" y2="50.0" className="stroke-[#ca8a04]" strokeWidth="2" />
+          <polygon points="250.0,50.0 239.3,55.4 239.3,44.6" className="fill-[#ca8a04] stroke-none" />
+          <foreignObject x="175" y="15" width="30" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
+              <Latex text="$\overrightarrow{BC}$" />
+            </div>
+          </foreignObject>
+          
+          <line x1="50" y1="100" x2="160.4" y2="100.0" className="stroke-[#ca8a04]" strokeWidth="2" />
+          <polygon points="170.0,100.0 159.3,105.4 159.3,94.6" className="fill-[#ca8a04] stroke-none" />
+          <foreignObject x="95" y="100" width="30" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
+              <Latex text="$\overrightarrow{AD}$" />
+            </div>
+          </foreignObject>
+          
+          <line x1="170" y1="100" x2="241.9" y2="55.1" className="stroke-slate-900 dark:stroke-slate-100" strokeWidth="2" />
+          <polygon points="250.0,50.0 243.8,60.3 238.0,51.0" className="fill-slate-900 dark:fill-slate-100 stroke-none" />
+          <foreignObject x="225" y="65" width="30" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100">
+              <Latex text="$\overrightarrow{DC}$" />
+            </div>
+          </foreignObject>
+          
+          <circle cx="50" cy="100" r="2.5" className="fill-[#ca8a04] stroke-none" />
+          <circle cx="130" cy="50" r="2.5" className="fill-[#ca8a04] stroke-none" />
+          <circle cx="250" cy="50" r="2.5" className="fill-[#ca8a04] stroke-none" />
+          <circle cx="170" cy="100" r="2.5" className="fill-[#ca8a04] stroke-none" />
+          
+          <text x="18" y="118" className="fill-[#ca8a04] text-[10px] stroke-none">
+            <tspan className="font-serif italic text-[11px]">A</tspan>
+            <tspan>(-1, 1, 1)</tspan>
+          </text>
+          <text x="100" y="40" className="fill-[#ca8a04] text-[10px] stroke-none">
+            <tspan className="font-serif italic text-[11px]">B</tspan>
+            <tspan>(2, 0, -2)</tspan>
+          </text>
+          <text x="260" y="40" className="fill-[#ca8a04] text-[10px] stroke-none">
+            <tspan className="font-serif italic text-[11px]">C</tspan>
+            <tspan>(x, y, z)</tspan>
+          </text>
+          <text x="168" y="118" className="fill-[#ca8a04] text-[10px] stroke-none">
+            <tspan className="font-serif italic text-[11px]">D</tspan>
+            <tspan>(3, 1, 4)</tspan>
+          </text>
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+export function Chap4_Fig13() {
+  return (
+    <div className="flex flex-col items-center my-6">
+      <div className="relative w-full max-w-[320px] aspect-[320/120]">
+        <svg viewBox="0 0 320 120" overflow="visible" className="w-full h-full fill-none" strokeWidth="1.5">
+          <line x1="60" y1="80" x2="258.0" y2="40.4" className="stroke-[#ca8a04]" strokeWidth="2" />
+          <polygon points="260.0,40.0 252.5,46.6 250.5,36.8" className="fill-[#ca8a04] stroke-none" />
+          <foreignObject x="150" y="65" width="40" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
+              <Latex text="$\vec{a}$" />
+            </div>
+          </foreignObject>
+          <line x1="60" y1="80" x2="98.0" y2="72.4" className="stroke-slate-900 dark:stroke-slate-100" strokeWidth="2" />
+          <polygon points="100.0,72.0 92.5,78.6 90.5,68.8" className="fill-slate-900 dark:fill-slate-100 stroke-none" />
+          <foreignObject x="65" y="45" width="40" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100">
+              <Latex text="$\hat{\mathbf{a}}$" />
+            </div>
+          </foreignObject>
+          <circle cx="60" cy="80" r="2.5" className="fill-slate-800 dark:fill-slate-200 stroke-none" />
+        </svg>
+      </div>
+    </div>
+  );
+}
+export function Chap4_Fig14() {
+  return (
+    <div className="flex flex-col items-center my-6">
+      <div className="relative w-full max-w-[320px] aspect-[320/150]">
+        <svg viewBox="0 0 320 150" overflow="visible" className="w-full h-full fill-none" strokeWidth="1.5">
+          <line x1="60" y1="50" x2="98.0" y2="42.4" className="stroke-slate-900 dark:stroke-slate-100" strokeWidth="2" />
+          <polygon points="100.0,42.0 92.5,48.6 90.5,38.8" className="fill-slate-900 dark:fill-slate-100 stroke-none" />
+          <foreignObject x="70" y="15" width="40" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100">
+              <Latex text="$\hat{\mathbf{a}}$" />
+            </div>
+          </foreignObject>
+          <line x1="60" y1="90" x2="258.0" y2="50.4" className="stroke-[#ca8a04]" strokeWidth="2" />
+          <polygon points="260.0,50.0 252.5,56.6 250.5,46.8" className="fill-[#ca8a04] stroke-none" />
+          <foreignObject x="110" y="40" width="100" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
+              <Latex text="$\vec{b} = 5\hat{\mathbf{a}}$" />
+            </div>
+          </foreignObject>
+          <line x1="260" y1="120" x2="62.0" y2="159.6" className="stroke-[#d97706]" strokeWidth="2" />
+          <polygon points="60.0,160.0 67.5,163.4 69.5,153.6" className="fill-[#d97706] stroke-none" />
+          <foreignObject x="110" y="150" width="100" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-[#d97706]">
+              <Latex text="$\vec{b} = -5\hat{\mathbf{a}}$" />
+            </div>
+          </foreignObject>
+          <circle cx="60" cy="50" r="2.5" className="fill-slate-800 dark:fill-slate-200 stroke-none" />
+          <circle cx="60" cy="90" r="2.5" className="fill-slate-800 dark:fill-slate-200 stroke-none" />
+          <circle cx="260" cy="120" r="2.5" className="fill-slate-800 dark:fill-slate-200 stroke-none" />
+        </svg>
+      </div>
+    </div>
+  );
+}
+export function Chap4_Fig15() {
+  return (
+    <div className="flex flex-col items-center my-6">
+      <div className="relative w-full max-w-[320px] aspect-[320/120]">
+        <svg viewBox="0 0 320 120" overflow="visible" className="w-full h-full fill-none" strokeWidth="1.5">
+          <line x1="40" y1="90" x2="280" y2="30" className="stroke-slate-300 dark:stroke-slate-700" strokeWidth="1" strokeDasharray="4,4" />
+          <line x1="60.0" y1="85.0" x2="258.1" y2="35.5" className="stroke-slate-900 dark:stroke-slate-100" strokeWidth="2" />
+          <polygon points="260.0,35.0 252.8,42.0 250.4,32.2" className="fill-slate-900 dark:fill-slate-100 stroke-none" />
+          <foreignObject x="180" y="15" width="60" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100">
+              <Latex text="$\overrightarrow{AC}$" />
+            </div>
+          </foreignObject>
+          <line x1="60.0" y1="85.0" x2="138.1" y2="65.5" className="stroke-[#ca8a04]" strokeWidth="2" />
+          <polygon points="140.0,65.0 132.8,72.0 130.4,62.2" className="fill-[#ca8a04] stroke-none" />
+          <foreignObject x="80" y="75" width="60" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
+              <Latex text="$\overrightarrow{AB}$" />
+            </div>
+          </foreignObject>
+          <circle cx="60" cy="85" r="3" className="fill-slate-800 dark:fill-slate-200 stroke-none" />
+          <circle cx="140" cy="65" r="3" className="fill-slate-800 dark:fill-slate-200 stroke-none" />
+          <circle cx="260" cy="35" r="3" className="fill-slate-800 dark:fill-slate-200 stroke-none" />
+          
+          <text x="50" y="105" className="fill-slate-800 dark:fill-slate-200 text-[12px] font-serif italic stroke-none">A</text>
+          <text x="135" y="85" className="fill-slate-800 dark:fill-slate-200 text-[12px] font-serif italic stroke-none">B</text>
+          <text x="265" y="55" className="fill-slate-800 dark:fill-slate-200 text-[12px] font-serif italic stroke-none">C</text>
+        </svg>
+      </div>
+    </div>
+  );
+}
 export function Ex5_4_Q6_i_Diag() {
   return (
     <div className="my-6 w-full overflow-x-auto pb-4">
@@ -5924,15 +6388,13 @@ export function Ex5_4_Q6_iii_Diag() {
 export function Ex5_4_Q6_iv_Diag_1() {
   return (
     <div className="my-6 w-full overflow-x-auto pb-4">
-      <div className="w-max mx-auto flex gap-2">
-        <div className="flex flex-col items-center border border-slate-300 dark:border-slate-600 rounded overflow-hidden">
-          <div className="px-4 py-2 border-b border-slate-300 dark:border-slate-600 font-bold bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200">Vowels</div>
-          <div className="px-4 py-2 text-indigo-600 dark:text-indigo-400 font-mono">2!</div>
-        </div>
-        <div className="flex items-center justify-center font-bold text-slate-400 px-2">×</div>
-        <div className="flex flex-col items-center border border-slate-300 dark:border-slate-600 rounded overflow-hidden">
-          <div className="px-4 py-2 border-b border-slate-300 dark:border-slate-600 font-bold bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200">Others</div>
-          <div className="px-4 py-2 text-indigo-600 dark:text-indigo-400 font-mono">6!</div>
+      <div className="w-max mx-auto flex gap-4 items-center">
+        <div className="flex gap-2">
+          {['C', 'C', 'C', 'V'].map((l, i) => (
+            <div key={i} className={`w-10 h-10 flex items-center justify-center border ${l === 'V' ? 'border-indigo-300 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400' : 'border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300'} rounded font-bold`}>
+              {l}
+            </div>
+          ))}
         </div>
       </div>
     </div>
@@ -5940,18 +6402,25 @@ export function Ex5_4_Q6_iv_Diag_1() {
 }
 
 export function Ex5_4_Q6_iv_Diag_2() {
+  const layouts = [
+    ['V', 'C', 'C', 'C'],
+    ['C', 'V', 'C', 'C'],
+    ['C', 'C', 'V', 'C'],
+    ['C', 'C', 'C', 'V'],
+  ];
+
   return (
     <div className="my-6 w-full overflow-x-auto pb-4">
-      <div className="w-max mx-auto flex items-center gap-4">
-        <div className="flex gap-1 border border-slate-300 dark:border-slate-600 rounded p-2 bg-slate-50 dark:bg-slate-800/50">
-          <div className="w-8 h-8 flex items-center justify-center border border-indigo-300 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 font-bold rounded">I</div>
-          <div className="w-8 h-8 flex items-center justify-center border border-indigo-300 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 font-bold rounded">A</div>
-        </div>
-        <div className="font-bold text-slate-400">or</div>
-        <div className="flex gap-1 border border-slate-300 dark:border-slate-600 rounded p-2 bg-slate-50 dark:bg-slate-800/50">
-          <div className="w-8 h-8 flex items-center justify-center border border-indigo-300 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 font-bold rounded">A</div>
-          <div className="w-8 h-8 flex items-center justify-center border border-indigo-300 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 font-bold rounded">I</div>
-        </div>
+      <div className="w-max mx-auto flex flex-col gap-3">
+        {layouts.map((layout, idx) => (
+          <div key={idx} className="flex gap-2">
+            {layout.map((l, i) => (
+              <div key={i} className={`w-10 h-10 flex items-center justify-center border ${l === 'V' ? 'border-indigo-300 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400' : 'border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300'} rounded font-bold`}>
+                {l}
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -5962,18 +6431,17 @@ export function Ex5_4_Q7_i_Diag() {
     <div className="my-6 w-full overflow-x-auto pb-4">
       <div className="w-max mx-auto flex items-center gap-3">
         <div className="flex flex-col items-center border border-slate-300 dark:border-slate-600 rounded overflow-hidden">
-          <div className="px-4 py-2 border-b border-slate-300 dark:border-slate-600 font-bold bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200">First</div>
-          <div className="px-4 py-2 text-indigo-600 dark:text-indigo-400 font-mono">1</div>
+          <div className="px-4 py-2 border-b border-slate-300 dark:border-slate-600 font-bold bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200">Brother 1</div>
         </div>
-        <div className="flex items-center justify-center font-bold text-slate-400">×</div>
         <div className="flex flex-col items-center border border-slate-300 dark:border-slate-600 rounded overflow-hidden">
-          <div className="px-4 py-2 border-b border-slate-300 dark:border-slate-600 font-bold bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200">Middle 4</div>
-          <div className="px-4 py-2 text-indigo-600 dark:text-indigo-400 font-mono">4!</div>
+          <div className="px-4 py-2 border-b border-slate-300 dark:border-slate-600 font-bold bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200">Brother 2</div>
         </div>
-        <div className="flex items-center justify-center font-bold text-slate-400">×</div>
         <div className="flex flex-col items-center border border-slate-300 dark:border-slate-600 rounded overflow-hidden">
-          <div className="px-4 py-2 border-b border-slate-300 dark:border-slate-600 font-bold bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200">Last</div>
-          <div className="px-4 py-2 text-indigo-600 dark:text-indigo-400 font-mono">1</div>
+          <div className="px-4 py-2 border-b border-slate-300 dark:border-slate-600 font-bold bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200">Brother 3</div>
+        </div>
+        <div className="flex flex-col items-center border-2 border-indigo-400 rounded overflow-hidden bg-indigo-50/50 dark:bg-indigo-900/20">
+          <div className="px-4 py-2 border-b border-indigo-200 dark:border-indigo-800 font-bold text-indigo-800 dark:text-indigo-200">Sisters Block</div>
+          <div className="px-4 py-2 text-indigo-600 dark:text-indigo-400 font-mono text-sm">S1, S2, S3</div>
         </div>
       </div>
     </div>
@@ -5981,19 +6449,23 @@ export function Ex5_4_Q7_i_Diag() {
 }
 
 export function Ex5_4_Q7_ii_Diag() {
+  const layouts = [
+    ['B', 'S', 'B', 'S', 'B', 'S'],
+    ['S', 'B', 'S', 'B', 'S', 'B'],
+  ];
+
   return (
     <div className="my-6 w-full overflow-x-auto pb-4">
-      <div className="w-max mx-auto flex flex-col items-center gap-2">
-        <div className="flex gap-2">
-          {['T', 'O', 'M', 'O', 'R', 'R', 'O', 'W'].map((l, i) => (
-            <div key={i} className="w-10 h-10 flex items-center justify-center border border-slate-300 dark:border-slate-600 rounded bg-white dark:bg-slate-900 font-bold text-slate-700 dark:text-slate-300">
-              {l}
-            </div>
-          ))}
-        </div>
-        <div className="text-sm text-slate-500 font-mono mt-2">
-          Total 8 letters
-        </div>
+      <div className="w-max mx-auto flex flex-col gap-3">
+        {layouts.map((layout, idx) => (
+          <div key={idx} className="flex gap-2">
+            {layout.map((l, i) => (
+              <div key={i} className={`w-10 h-10 flex items-center justify-center border ${l === 'B' ? 'border-blue-300 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400' : 'border-pink-300 bg-pink-50 dark:bg-pink-900/30 text-pink-700 dark:text-pink-400'} rounded font-bold`}>
+                {l}
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -6002,12 +6474,18 @@ export function Ex5_4_Q7_ii_Diag() {
 export function Ex5_4_Q8_i_Diag() {
   return (
     <div className="my-6 w-full overflow-x-auto pb-4">
-      <div className="w-max mx-auto flex items-center gap-2">
-        {[5, 4, 3, 2, 1].map(n => (
-          <div key={n} className="w-10 h-10 flex items-center justify-center border border-indigo-200 dark:border-indigo-800 rounded bg-indigo-50 dark:bg-indigo-900/20 text-indigo-700 dark:text-indigo-400 font-mono font-bold">
-            {n}
-          </div>
-        ))}
+      <div className="w-max mx-auto flex items-center gap-3">
+        <div className="flex gap-2">
+          {['C', 'C', 'C', 'C'].map((l, i) => (
+            <div key={i} className="w-12 h-12 flex items-center justify-center border border-slate-300 dark:border-slate-600 rounded bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 font-bold">
+              {l}
+            </div>
+          ))}
+        </div>
+        <div className="flex flex-col items-center border-2 border-indigo-400 rounded overflow-hidden bg-indigo-50/50 dark:bg-indigo-900/20">
+          <div className="px-4 py-1 border-b border-indigo-200 dark:border-indigo-800 font-bold text-indigo-800 dark:text-indigo-200 text-sm">Vowel Block</div>
+          <div className="px-4 py-1 text-indigo-600 dark:text-indigo-400 font-mono text-xs">E, A, O</div>
+        </div>
       </div>
     </div>
   );
@@ -6016,22 +6494,12 @@ export function Ex5_4_Q8_i_Diag() {
 export function Ex5_4_Q8_iii_Diag() {
   return (
     <div className="my-6 w-full overflow-x-auto pb-4">
-      <div className="w-max mx-auto flex items-center gap-2">
-        <div className="w-10 h-10 flex items-center justify-center border border-rose-300 dark:border-rose-700 rounded bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-400 font-bold">
-          A
-        </div>
-        <div className="w-10 h-10 flex items-center justify-center border border-rose-300 dark:border-rose-700 rounded bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-400 font-bold">
-          R
-        </div>
-        <div className="w-10 h-10 flex items-center justify-center border border-slate-300 dark:border-slate-600 rounded bg-slate-50 dark:bg-slate-800 text-slate-500 font-mono">
-          3
-        </div>
-        <div className="w-10 h-10 flex items-center justify-center border border-slate-300 dark:border-slate-600 rounded bg-slate-50 dark:bg-slate-800 text-slate-500 font-mono">
-          2
-        </div>
-        <div className="w-10 h-10 flex items-center justify-center border border-slate-300 dark:border-slate-600 rounded bg-slate-50 dark:bg-slate-800 text-slate-500 font-mono">
-          1
-        </div>
+      <div className="w-max mx-auto flex gap-2">
+        {['C', 'V', 'C', 'V', 'C', 'V', 'C'].map((l, i) => (
+          <div key={i} className={`w-10 h-10 flex items-center justify-center border ${l === 'V' ? 'border-indigo-300 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400' : 'border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300'} rounded font-bold`}>
+            {l}
+          </div>
+        ))}
       </div>
     </div>
   );

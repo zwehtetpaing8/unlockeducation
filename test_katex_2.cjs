@@ -1,4 +1,9 @@
-const { chapters } = require('./src/data/chapters.ts');
-const str = chapters[2].content;
-const idx = str.indexOf('rac{x - x_1}');
-console.log(str.charCodeAt(idx - 1), str.charCodeAt(idx));
+const katex = require('katex');
+
+const eq = "\\\\overrightarrow{OP} = \\\\vec{p} = \\\\begin{pmatrix} a \\\\\\\\ b \\\\\\\\ c \\\\end{pmatrix}";
+try {
+    katex.renderToString(eq, { throwOnError: true });
+    console.log("Success:", eq);
+} catch (e) {
+    console.error("Error on:", eq, e.message);
+}

@@ -776,7 +776,8 @@ Thus, to find the $n$-th power of a complex number in trigonometric form, we rai
 > **De Moivre's Theorem:**
 > $$z^n = r^n (\\cos n\\theta + i \\sin n\\theta), \\quad n \\in \\mathbb{N}$$
 
-**Example 9.** Given $z = 1 + \\sqrt{3}i$, find **(a)** $z^{10}$, **(b)** $z^{-10}$.
+**Example 9.** Given $z = 1 + \\sqrt{3}i$, find **(a)** $z^{10}$
+**(b)** $z^{-10}$.
 **Solution.**
 The trigonometric form of $z = 1 + \\sqrt{3}i$ is:
 $$z = 2\\left(\\cos \\frac{\\pi}{3} + i \\sin \\frac{\\pi}{3}\\right)$$
@@ -787,7 +788,6 @@ z^{10} &= 2^{10}\\left(\\cos \\frac{10\\pi}{3} + i \\sin \\frac{10\\pi}{3}\\righ
 &= 1024\\left(-\\frac{1}{2} - \\frac{\\sqrt{3}}{2}i\\right) \\\\
 &= -512 - 512\\sqrt{3}i
 \\end{aligned}$$
-
 **(b)** For $n = -10$:
 $$\\begin{aligned}
 z^{-10} &= 2^{-10}\\left(\\cos\\left(-\\frac{10\\pi}{3}\\right) + i \\sin\\left(-\\frac{10\\pi}{3}\\right)\\right) \\\\
@@ -2285,50 +2285,50 @@ $$PQ = \\sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2 + (z_2 - z_1)^2}$$
 
 ###### **Example 1**
 Find the equation of the line through the point $(-3, 5, 7)$ and perpendicular to
-(a) $xy$-plane (b) $yz$-plane (c) $zx$-plane.
+(a) $xy$-plane
+(b) $yz$-plane
+(c) $zx$-plane.
 Find the point of intersection of each line and plane.
 
 **Solution**
 (a) The equation of the line through the point $(-3, 5, 7)$ and perpendicular to the $xy$-plane is
 $$x = -3, \\, y = 5 \\quad \\text{or} \\quad (-3, 5, z).$$
 The point of intersection of the line and the $xy$-plane is $(-3, 5, 0)$.
-
 (b) The equation of the line through the point $(-3, 5, 7)$ and perpendicular to the $yz$-plane is
 $$y = 5, \\, z = 7 \\quad \\text{or} \\quad (x, 5, 7).$$
 The point of intersection of the line and the $yz$-plane is $(0, 5, 7)$.
-
 (c) The equation of the line through the point $(-3, 5, 7)$ and perpendicular to the $zx$-plane is
 $$x = -3, \\, z = 7 \\quad \\text{or} \\quad (-3, y, 7).$$
 The point of intersection of the line and the $zx$-plane is $(-3, 0, 7)$.
 
 ###### **Exercise 3.1 Q1**
 1. Find the equation of the plane containing the point $(1, -2, 3)$ and parallel to
-(a) $xy$-plane (b) $yz$-plane (c) $zx$-plane.
+(a) $xy$-plane
+(b) $yz$-plane
+(c) $zx$-plane.
 
 **Solution**
 (a) The equation of the plane containing the point $(1, -2, 3)$ and parallel to the $xy$-plane is
 $$z = 3.$$
-
 (b) The equation of the plane containing the point $(1, -2, 3)$ and parallel to the $yz$-plane is
 $$x = 1.$$
-
 (c) The equation of the plane containing the point $(1, -2, 3)$ and parallel to the $zx$-plane is
 $$y = -2.$$
 
 ###### **Exercise 3.1 Q2**
 2. Find the equation of the line through the point $(2, 3, -4)$ and perpendicular to
-(a) $xy$-plane (b) $yz$-plane (c) $zx$-plane.
+(a) $xy$-plane
+(b) $yz$-plane
+(c) $zx$-plane.
 Find the point of intersection of the line and plane.
 
 **Solution**
 (a) The equation of the line through the point $(2, 3, -4)$ and perpendicular to the $xy$-plane is
 $$x = 2, \\, y = 3 \\quad \\text{or} \\quad (2, 3, z).$$
 The point of intersection of the line and the $xy$-plane is $(2, 3, 0)$.
-
 (b) The equation of the line through the point $(2, 3, -4)$ and perpendicular to the $yz$-plane is
 $$y = 3, \\, z = -4 \\quad \\text{or} \\quad (x, 3, -4).$$
 The point of intersection of the line and the $yz$-plane is $(0, 3, -4)$.
-
 (c) The equation of the line through the point $(2, 3, -4)$ and perpendicular to the $zx$-plane is
 $$x = 2, \\, z = -4 \\quad \\text{or} \\quad (2, y, -4).$$
 The point of intersection of the line and the $zx$-plane is $(2, 0, -4)$.
@@ -2389,7 +2389,9 @@ $$|PQ| = \\sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2 + (z_2 - z_1)^2} = \\sqrt{l^2 + m^
 
 ###### **Example 2**
 Given $P(1, 2, 3)$ and $Q(3, 6, 5)$, find the coordinates of the point $R(x, y, z)$ on the line $PQ$ with respect to the point $P$ for the following values of $k$.
-(a) $k = \\frac{1}{2}$ (b) $k = 2$ (c) $k = -2$
+(a) $k = \\frac{1}{2}$
+(b) $k = 2$
+(c) $k = -2$
 
 **Solution**
 $$\\langle PQ \\rangle = \\langle 3 - 1, \\, 6 - 2, \\, 5 - 3 \\rangle = \\langle 2, 4, 2 \\rangle.$$
@@ -2404,7 +2406,9 @@ $$R(x, y, z) = (1 + 2 \\cdot (-2), \\, 2 + 4 \\cdot (-2), \\, 3 + 2 \\cdot (-2))
 
 ###### **Exercise 3.2 Q1**
 1. Given $P(3, 1, 5)$ and $Q(-3, 7, -2)$, find the coordinates of the point $R(x, y, z)$ on the line $PQ$ with respect to the point $P$ for the following values of $k$.
-(a) $k = \\frac{1}{2}$ (b) $k = 3$ (c) $k = -2$
+(a) $k = \\frac{1}{2}$
+(b) $k = 3$
+(c) $k = -2$
 
 **Solution**
 $$\\langle PQ \\rangle = \\langle -3 - 3, \\, 7 - 1, \\, -2 - 5 \\rangle = \\langle -6, 6, -7 \\rangle.$$
@@ -2419,7 +2423,10 @@ $$R(x, y, z) = (3 - 6 \\cdot (-2), \\, 1 + 6 \\cdot (-2), \\, 5 - 7 \\cdot (-2))
 
 ###### **Example 3**
 Given $P(-1, 2, 3)$ and $Q(3, 5, -2)$, determine whether or not the following points are on the line $PQ$. If the point is on the line $PQ$, find the corresponding parameter with respect to the point $P$.
-(a) $\\left(1, \\frac{7}{2}, \\frac{1}{2}\\right)$ (b) $(7, 8, -7)$ (c) $(-5, -1, 8)$ (d) $(7, 8, -2)$
+(a) $\\left(1, \\frac{7}{2}, \\frac{1}{2}\\right)$
+(b) $(7, 8, -7)$
+(c) $(-5, -1, 8)$
+(d) $(7, 8, -2)$
 
 **Solution**
 $$\\langle PQ \\rangle = \\langle 3 - (-1), 5 - 2, -2 - 3 \\rangle = \\langle 4, 3, -5 \\rangle.$$
@@ -2444,7 +2451,10 @@ Since the values of $k$ are not equal, the point $(7, 8, -2)$ is not on the line
 
 ###### **Example 4**
 Given $P(2, 1, 3)$ and $Q(6, -5, 3)$, determine whether or not the following points are on the line $PQ$. If the point is on the line $PQ$, find the corresponding parameter with respect to the point $P$.
-(a) $(4, -2, 3)$ (b) $(-2, 7, 3)$ (c) $(10, -11, 3)$ (d) $(1, 1, 3)$
+(a) $(4, -2, 3)$
+(b) $(-2, 7, 3)$
+(c) $(10, -11, 3)$
+(d) $(1, 1, 3)$
 
 **Solution**
 $$\\langle PQ \\rangle = \\langle 6 - 2, -5 - 1, 3 - 3 \\rangle = \\langle 4, -6, 0 \\rangle.$$
@@ -2469,7 +2479,10 @@ Since the values of $k$ are not equal, the point $(1, 1, 3)$ is not on the line 
 
 ###### **Exercise 3.2 Q2**
 2. Given $P(-2, 1, 3)$ and $Q(4, 4, -3)$, determine whether or not the following points are on the line $PQ$. If the point is on the line $PQ$, find the corresponding parameter with respect to the point $P$.
-(a) $(6, 3, -6)$ (b) $(6, 5, -5)$ (c) $(-4, 0, 5)$ (d) $(7, 8, -2)$
+(a) $(6, 3, -6)$
+(b) $(6, 5, -5)$
+(c) $(-4, 0, 5)$
+(d) $(7, 8, -2)$
 
 **Solution**
 $$\\langle PQ \\rangle = \\langle 4 - (-2), 4 - 1, -3 - 3 \\rangle = \\langle 6, 3, -6 \\rangle.$$
@@ -2494,7 +2507,10 @@ Since the values of $k$ are not equal, the point $(7, 8, -2)$ is not on the line
 
 ###### **Exercise 3.2 Q3**
 3. Given $P(3, 2, -1)$ and $Q(4, 2, 5)$, determine whether or not the following points are on the line $PQ$. If the point is on the line $PQ$, find the corresponding parameter with respect to the point $P$.
-(a) $(5, 2, 11)$ (b) $(2, 2, -7)$ (c) $\\left(\\frac{7}{2}, 2, 2\\right)$ (d) $(6, 2, 10)$
+(a) $(5, 2, 11)$
+(b) $(2, 2, -7)$
+(c) $\\left(\\frac{7}{2}, 2, 2\\right)$
+(d) $(6, 2, 10)$
 
 **Solution**
 $$\\langle PQ \\rangle = \\langle 4 - 3, 2 - 2, 5 - (-1) \\rangle = \\langle 1, 0, 6 \\rangle.$$
@@ -2600,7 +2616,8 @@ Find $\\cos \\angle PAQ$ for:
     $$\\langle AP \\rangle = \\langle 1 - (-2), \\, 2 - 1, \\, -1 - 5 \\rangle = \\langle 3, 1, -6 \\rangle$$
     $$\\langle AQ \\rangle = \\langle 2 - (-2), \\, -1 - 1, \\, 0 - 5 \\rangle = \\langle 4, -2, -5 \\rangle$$
     $$\\cos \\angle PAQ = \\frac{(3)(4) + (1)(-2) + (-6)(-5)}{\\sqrt{3^2+1^2+(-6)^2}\\sqrt{4^2+(-2)^2+(-5)^2}} = \\frac{12 - 2 + 30}{\\sqrt{46}\\sqrt{45}} = \\frac{40}{3\\sqrt{230}} \\approx \\mathbf{0.8792}$$
-*   **(b)** Directed values:
+*
+**(b)** Directed values:
     $$\\langle AP \\rangle = \\langle 0 - 2, \\, 2 - (-1), \\, -3 - 5 \\rangle = \\langle -2, 3, -8 \\rangle$$
     $$\\langle AQ \\rangle = \\langle -2 - 2, \\, 3 - (-1), \\, -1 - 5 \\rangle = \\langle -4, 4, -6 \\rangle$$
     $$\\cos \\angle PAQ = \\frac{(-2)(-4) + (3)(4) + (-8)(-6)}{\\sqrt{(-2)^2+3^2+(-8)^2}\\sqrt{(-4)^2+4^2+(-6)^2}} = \\frac{8 + 12 + 48}{\\sqrt{77}\\sqrt{68}} = \\frac{68}{\\sqrt{5236}} = \\frac{34}{\\sqrt{1309}} \\approx \\mathbf{0.9397}$$
@@ -2615,7 +2632,6 @@ Find $\\cos \\angle PAQ$ for:
 (a) $\\langle PQ \\rangle = \\langle 3, 3, 3 \\rangle$ and $\\langle RS \\rangle = \\langle 6, 6, 6 \\rangle$
 $$\\langle PQ \\rangle = \\frac{1}{2} \\langle RS \\rangle$$
 Therefore, the lines $PQ$ and $RS$ are **parallel**.
-
 (b) $\\langle PQ \\rangle = \\langle -1, -2, 4 \\rangle$ and $\\langle RS \\rangle = \\langle -4, 0, -4 \\rangle$. Since these are not scalar multiples, the lines are not parallel.
 Coordinates of the points on the lines are
 $$PQ: (x, y, z) = (3 - s, \\, -1 - 2s, \\, -3 + 4s)$$
@@ -2626,7 +2642,6 @@ $$3 - s = 3 - 4t \\implies t = \\frac{1}{8}$$
 $$-3 + 4s = 5 - 4t \\implies -1 \\neq \\frac{9}{2}$$
 This is impossible. Therefore, the lines $PQ$ and $RS$ do not intersect.
 Hence, they are **skew lines**.
-
 (c) $\\langle PQ \\rangle = \\langle -6, 8, -4 \\rangle$ and $\\langle RS \\rangle = \\langle 4, 2, -2 \\rangle$. Since these are not scalar multiples, the lines are not parallel.
 Coordinates of the points on the lines are
 $$PQ: (x, y, z) = (4 - 6s, \\, -2 + 8s, \\, 5 - 4s)$$
@@ -2645,7 +2660,6 @@ $$l_1l_2 + m_1m_2 + n_1n_2 = (-6)(4) + (8)(2) + (-4)(-2)$$
 $$= -24 + 16 + 8$$
 $$= 0$$
 Since the lines intersect and $l_1l_2 + m_1m_2 + n_1n_2 = 0$, the lines $PQ$ and $RS$ are **perpendicular**.
-
 (d) $\\langle PQ \\rangle = \\langle 2, 4, -6 \\rangle$ and $\\langle RS \\rangle = \\langle -4, -10, -8 \\rangle$.
 Since these are not scalar multiples, the lines are not parallel.
 Coordinates of the points on the lines are
@@ -2725,7 +2739,6 @@ $$d = (-35)(2) + (-35)(-5) + (-28)(4) = -7$$
 Therefore, the equation of the plane is
 $$-35x - 35y - 28z = -7$$
 $$5x + 5y + 4z = 1$$
-
 (b) $\\langle AB \\rangle = \\langle -3, -4, 7 \\rangle$ and $\\langle AC \\rangle = \\langle -5, -2, 6 \\rangle$.
 Hence,
 $$a = (-4)(6) - (-2)(7) = -10$$
@@ -2929,10 +2942,8 @@ $$(x + 1)^2 + \\left(y - \\frac{3}{2}\\right)^2 + (z - 3)^2 = \\frac{57}{4}$$
 
 (a) The equation of the sphere with center $C(1, -2, 4)$ and radius $3$ is
 $$(x - 1)^2 + (y + 2)^2 + (z - 4)^2 = 9$$
-
 (b) The equation of the sphere with center $C(2, 6, -3)$ and radius $2$ is
 $$(x - 2)^2 + (y - 6)^2 + (z + 3)^2 = 4$$
-
 (c) The equation of the sphere with center $C(2, 3, 5)$ and radius $5$ is
 $$(x - 2)^2 + (y - 3)^2 + (z - 5)^2 = 25$$
 

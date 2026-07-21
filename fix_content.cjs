@@ -1,13 +1,14 @@
 const fs = require('fs');
 let content = fs.readFileSync('src/data/chapter4_content.ts', 'utf8');
 
-content = content.replace(/opposite direction\.\r?\nIf/, 'opposite direction.\n\n[DIAGRAM:Chap4_Fig6]\n\nIf');
-content = content.replace(/then\r?\n\$\$ \\vec{a} \+ \\vec{b} = \\begin\{pmatrix\} a_1 \+ b_1 \\\\\\\\ a_2 \+ b_2 \\\\\\\\ a_3 \+ b_3 \\end\{pmatrix\}\. \$\$\r?\n\r?\n#### Subtraction of Two Vectors/, 'then\n$$ \\vec{a} + \\vec{b} = \\begin{pmatrix} a_1 + b_1 \\\\ a_2 + b_2 \\\\ a_3 + b_3 \\end{pmatrix}. $$\n\n[DIAGRAM:Chap4_Fig7]\n\n#### Subtraction of Two Vectors');
-content = content.replace(/\$\$ \\vec{a} - \\vec{b} = \\vec{a} \+ \(-\\vec{b}\)\. \$\$\r?\nIf/, '$$ \\vec{a} - \\vec{b} = \\vec{a} + (-\\vec{b}). $$\n\n[DIAGRAM:Chap4_Fig8]\n\nIf');
-content = content.replace(/then\r?\n\$\$ k\\vec{a} = \\begin\{pmatrix\} ka_1 \\\\\\\\ ka_2 \\\\\\\\ ka_3 \\end\{pmatrix\}\. \$\$\r?\n\r?\n### Example 3/, 'then\n$$ k\\vec{a} = \\begin{pmatrix} ka_1 \\\\ ka_2 \\\\ ka_3 \\end{pmatrix}. $$\n\n[DIAGRAM:Chap4_Fig9]\n\n### Example 3');
-content = content.replace(/then\r?\n\$\$ \\vec{a} = \\vec{b} \\iff a_1 = b_1, a_2 = b_2, a_3 = b_3\. \$\$\r?\n\r?\n#### Parallel Vectors/, 'then\n$$ \\vec{a} = \\vec{b} \\iff a_1 = b_1, a_2 = b_2, a_3 = b_3. $$\n\n[DIAGRAM:Chap4_Fig10]\n\n#### Parallel Vectors');
-content = content.replace(/for some non-zero scalar \$k\$\.\r?\n\r?\nIf \$k > 0\$, the vectors have the same direction\. If \$k < 0\$, the vectors have opposite directions\.\r?\n\r?\n### Example 4/, 'for some non-zero scalar $k$.\n\nIf $k > 0$, the vectors have the same direction. If $k < 0$, the vectors have opposite directions.\n\n[DIAGRAM:Chap4_Fig11]\n\n### Example 4');
-content = content.replace(/\$\$ \\hat\{\\mathbf\{a\}\} = \\frac\{1\}\{\\sqrt\{a_1\^2 \+ a_2\^2 \+ a_3\^2\}\} \\begin\{pmatrix\} a_1 \\\\\\\\ a_2 \\\\\\\\ a_3 \\end\{pmatrix\}\. \$\$\r?\n\r?\n\*\*Example 6\*\*/, '$$ \\hat{\\mathbf{a}} = \\frac{1}{\\sqrt{a_1^2 + a_2^2 + a_3^2}} \\begin{pmatrix} a_1 \\\\ a_2 \\\\ a_3 \\end{pmatrix}. $$\n\n[DIAGRAM:Chap4_Fig13]\n\n**Example 6**');
-content = content.replace(/Since \$\\vec\{b\}\$ is parallel to \$\\vec\{a\}\$, \$\\vec\{b\}\$ may have the same direction as \$\\vec\{a\}\$ or the opposite direction to \$\\vec\{a\}\$\.\r?\n\r?\nIf \$\\vec\{b\}\$ has the same direction as \$\\vec\{a\}\$, then/, 'Since $\\vec{b}$ is parallel to $\\vec{a}$, $\\vec{b}$ may have the same direction as $\\vec{a}$ or the opposite direction to $\\vec{a}$.\n\n[DIAGRAM:Chap4_Fig14]\n\nIf $\\vec{b}$ has the same direction as $\\vec{a}$, then');
+content = content.replace(
+  "$\\angle QPR$ is the angle between $\\overrightarrow{PQ}$ and $\\overrightarrow{PR}$.",
+  "[DIAGRAM:Chap4_Ex9]\n\n$\\angle QPR$ is the angle between $\\overrightarrow{PQ}$ and $\\overrightarrow{PR}$."
+);
+
+content = content.replace(
+  "(a) Express $\\overrightarrow{AC}$ and $\\overrightarrow{BD}$ in terms of $\\vec{a}$ and $\\vec{b}$.",
+  "[DIAGRAM:Chap4_Ex4_2_Q6]\n\n(a) Express $\\overrightarrow{AC}$ and $\\overrightarrow{BD}$ in terms of $\\vec{a}$ and $\\vec{b}$."
+);
 
 fs.writeFileSync('src/data/chapter4_content.ts', content);

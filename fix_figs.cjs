@@ -1,80 +1,73 @@
 const fs = require('fs');
-let latex = fs.readFileSync('src/components/Latex.tsx', 'utf8');
 
-// Replace Chap4_Fig3 unit vectors
-latex = latex.replace(
-  /<text x="25" y="105" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold">î<\/text>/g,
-  '<text x="28" y="120" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">i</text>'
-);
-latex = latex.replace(
-  /<text x="75" y="115" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold">ĵ<\/text>/g,
-  '<text x="70" y="112" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">j</text>'
-);
-latex = latex.replace(
-  /<text x="42" y="75" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-xs font-mono font-bold">k̂<\/text>/g,
-  '<text x="42" y="80" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">k</text>'
-);
-latex = latex.replace(
-  /<text x="0" y="130" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-\[10px\] font-mono">\(1, 0, 0\)<\/text>/g,
-  '<text x="5" y="135" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">(1, 0, 0)</text>'
-);
+let text = fs.readFileSync('src/components/Latex.tsx', 'utf8');
 
-// Chap4_Fig4 changes
-const fig4_old = `          <text x="12" y="98" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold">î</text>
-          <text x="45" y="83" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold">ĵ</text>
-          <text x="22" y="75" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold">k̂</text>
+const fig13_old = `export function Chap4_Fig13() {  return (    <div className="flex flex-col items-center my-6">      <div className="relative w-full max-w-[320px] aspect-[320/120]">        <svg viewBox="0 0 320 120" overflow="visible" className="w-full h-full fill-none" strokeWidth="1.5">          <line x1="60" y1="80" x2="258.0" y2="40.4" className="stroke-[#ca8a04]" strokeWidth="2" />          <polygon points="260.0,40.0 252.5,46.6 250.5,36.8" className="fill-[#ca8a04] stroke-none" />          <foreignObject x="140" y="30" width="60" height="30" overflow="visible">            <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">              <Latex text="$\\vec{a}$" />            </div>          </foreignObject>          <line x1="60" y1="80" x2="98.0" y2="72.4" className="stroke-slate-900 dark:stroke-slate-100" strokeWidth="2" />          <polygon points="100.0,72.0 92.5,78.6 90.5,68.8" className="fill-slate-900 dark:fill-slate-100 stroke-none" />          <foreignObject x="70" y="40" width="60" height="30" overflow="visible">            <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100">              <Latex text="$\\hat{\\mathbf{a}}$" />            </div>          </foreignObject>          <circle cx="60" cy="80" r="2.5" className="fill-slate-800 dark:fill-slate-200 stroke-none" />        </svg>      </div>    </div>  );}`;
 
-          <text x="45" y="55" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">OA</text>
-          <circle cx="70" cy="40" r="2" className="fill-slate-800 dark:fill-slate-200" />
-          <text x="75" y="35" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono"><tspan className="italic font-serif">A</tspan>(2, 3, 4)</text>
-          
-          <text x="5" y="108" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">2</text>
-          <text x="95" y="87" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">3</text>
-          <text x="35" y="33" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">4</text>`;
+const fig13_new = `export function Chap4_Fig13() {
+  return (
+    <div className="flex flex-col items-center my-6">
+      <div className="relative w-full max-w-[320px] aspect-[320/120]">
+        <svg viewBox="0 0 320 120" overflow="visible" className="w-full h-full fill-none" strokeWidth="1.5">
+          <line x1="60" y1="80" x2="258.0" y2="40.4" className="stroke-[#ca8a04]" strokeWidth="2" />
+          <polygon points="260.0,40.0 252.5,46.6 250.5,36.8" className="fill-[#ca8a04] stroke-none" />
+          <foreignObject x="150" y="65" width="40" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
+              <Latex text="$\\vec{a}$" />
+            </div>
+          </foreignObject>
+          <line x1="60" y1="80" x2="98.0" y2="72.4" className="stroke-slate-900 dark:stroke-slate-100" strokeWidth="2" />
+          <polygon points="100.0,72.0 92.5,78.6 90.5,68.8" className="fill-slate-900 dark:fill-slate-100 stroke-none" />
+          <foreignObject x="65" y="45" width="40" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100">
+              <Latex text="$\\hat{\\mathbf{a}}$" />
+            </div>
+          </foreignObject>
+          <circle cx="60" cy="80" r="2.5" className="fill-slate-800 dark:fill-slate-200 stroke-none" />
+        </svg>
+      </div>
+    </div>
+  );
+}`;
 
-const fig4_new = `          <text x="12" y="98" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">i</text>
-          <text x="45" y="83" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">j</text>
-          <text x="22" y="75" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">k</text>
+const fig14_old = `export function Chap4_Fig14() {  return (    <div className="flex flex-col items-center my-6">      <div className="relative w-full max-w-[320px] aspect-[320/150]">        <svg viewBox="0 0 320 150" overflow="visible" className="w-full h-full fill-none" strokeWidth="1.5">          <line x1="60" y1="50" x2="98.0" y2="42.4" className="stroke-slate-900 dark:stroke-slate-100" strokeWidth="2" />          <polygon points="100.0,42.0 92.5,48.6 90.5,38.8" className="fill-slate-900 dark:fill-slate-100 stroke-none" />          <foreignObject x="70" y="10" width="60" height="30" overflow="visible">            <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100">              <Latex text="$\\hat{\\mathbf{a}}$" />            </div>          </foreignObject>          <line x1="60" y1="90" x2="258.0" y2="50.4" className="stroke-[#ca8a04]" strokeWidth="2" />          <polygon points="260.0,50.0 252.5,56.6 250.5,46.8" className="fill-[#ca8a04] stroke-none" />          <foreignObject x="140" y="40" width="60" height="30" overflow="visible">            <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">              <Latex text="$\\vec{b} = 5\\hat{\\mathbf{a}}$" />            </div>          </foreignObject>          <line x1="260" y1="120" x2="62.0" y2="159.6" className="stroke-[#d97706]" strokeWidth="2" />          <polygon points="60.0,160.0 67.5,153.4 69.5,163.2" className="fill-[#d97706] stroke-none" />          <foreignObject x="140" y="110" width="60" height="30" overflow="visible">            <div className="flex items-center justify-center w-full h-full text-[#d97706]">              <Latex text="$\\vec{b} = -5\\hat{\\mathbf{a}}$" />            </div>          </foreignObject>          <circle cx="60" cy="50" r="2.5" className="fill-slate-800 dark:fill-slate-200 stroke-none" />          <circle cx="60" cy="90" r="2.5" className="fill-slate-800 dark:fill-slate-200 stroke-none" />          <circle cx="260" cy="120" r="2.5" className="fill-slate-800 dark:fill-slate-200 stroke-none" />        </svg>      </div>    </div>  );}`;
 
-          <g className="fill-slate-800 dark:fill-slate-200 text-[10px] font-mono">
-            <text x="46" y="53" textAnchor="end">OA</text>
-            <line x1="33" y1="44" x2="45" y2="44" stroke="currentColor" strokeWidth="0.8" />
-            <path d="M 42 42 L 45 44 L 42 46" stroke="currentColor" fill="none" strokeWidth="0.8" />
-          </g>
-          <circle cx="70" cy="40" r="2" className="fill-slate-800 dark:fill-slate-200" />
-          <text x="75" y="35" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono"><tspan className="italic font-serif">A</tspan>(2, 3, 4)</text>
-          
-          <circle cx="10" cy="100" r="1.5" className="fill-slate-800 dark:fill-slate-200" />
-          <circle cx="90" cy="90" r="1.5" className="fill-slate-800 dark:fill-slate-200" />
-          <circle cx="30" cy="30" r="1.5" className="fill-slate-800 dark:fill-slate-200" />
-          
-          <text x="5" y="105" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">2</text>
-          <text x="95" y="90" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">3</text>
-          <text x="25" y="33" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono">4</text>`;
+const fig14_new = `export function Chap4_Fig14() {
+  return (
+    <div className="flex flex-col items-center my-6">
+      <div className="relative w-full max-w-[320px] aspect-[320/150]">
+        <svg viewBox="0 0 320 150" overflow="visible" className="w-full h-full fill-none" strokeWidth="1.5">
+          <line x1="60" y1="50" x2="98.0" y2="42.4" className="stroke-slate-900 dark:stroke-slate-100" strokeWidth="2" />
+          <polygon points="100.0,42.0 92.5,48.6 90.5,38.8" className="fill-slate-900 dark:fill-slate-100 stroke-none" />
+          <foreignObject x="70" y="15" width="40" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100">
+              <Latex text="$\\hat{\\mathbf{a}}$" />
+            </div>
+          </foreignObject>
+          <line x1="60" y1="90" x2="258.0" y2="50.4" className="stroke-[#ca8a04]" strokeWidth="2" />
+          <polygon points="260.0,50.0 252.5,56.6 250.5,46.8" className="fill-[#ca8a04] stroke-none" />
+          <foreignObject x="110" y="40" width="100" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
+              <Latex text="$\\vec{b} = 5\\hat{\\mathbf{a}}$" />
+            </div>
+          </foreignObject>
+          <line x1="260" y1="120" x2="62.0" y2="159.6" className="stroke-[#d97706]" strokeWidth="2" />
+          <polygon points="60.0,160.0 67.5,163.4 69.5,153.6" className="fill-[#d97706] stroke-none" />
+          <foreignObject x="110" y="150" width="100" height="30" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-[#d97706]">
+              <Latex text="$\\vec{b} = -5\\hat{\\mathbf{a}}$" />
+            </div>
+          </foreignObject>
+          <circle cx="60" cy="50" r="2.5" className="fill-slate-800 dark:fill-slate-200 stroke-none" />
+          <circle cx="60" cy="90" r="2.5" className="fill-slate-800 dark:fill-slate-200 stroke-none" />
+          <circle cx="260" cy="120" r="2.5" className="fill-slate-800 dark:fill-slate-200 stroke-none" />
+        </svg>
+      </div>
+    </div>
+  );
+}`;
 
-latex = latex.replace(fig4_old, fig4_new);
+text = text.replace(fig13_old, fig13_new);
+text = text.replace(fig14_old, fig14_new);
 
-// Chap4_Fig5 changes
-const fig5_old = `          <text x="12" y="98" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold">î</text>
-          <text x="45" y="83" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold">ĵ</text>
-          <text x="22" y="75" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold">k̂</text>
-
-          <text x="45" y="55" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold">p</text>
-          <circle cx="70" cy="40" r="2" className="fill-slate-800 dark:fill-slate-200" />
-          <text x="75" y="35" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono"><tspan className="italic font-serif">P</tspan>(a, b, c)</text>`;
-
-const fig5_new = `          <text x="12" y="98" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">i</text>
-          <text x="45" y="83" textAnchor="middle" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">j</text>
-          <text x="22" y="75" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono font-bold italic">k</text>
-
-          <g className="fill-slate-800 dark:fill-slate-200 text-[10px] font-mono">
-            <text x="46" y="53" textAnchor="end">OP</text>
-            <line x1="33" y1="44" x2="45" y2="44" stroke="currentColor" strokeWidth="0.8" />
-            <path d="M 42 42 L 45 44 L 42 46" stroke="currentColor" fill="none" strokeWidth="0.8" />
-          </g>
-          <circle cx="70" cy="40" r="2" className="fill-slate-800 dark:fill-slate-200" />
-          <text x="75" y="35" className="fill-slate-800 dark:fill-slate-200 stroke-none text-[10px] font-mono"><tspan className="italic font-serif">P</tspan>(a, b, c)</text>`;
-
-latex = latex.replace(fig5_old, fig5_new);
-
-fs.writeFileSync('src/components/Latex.tsx', latex);
+fs.writeFileSync('src/components/Latex.tsx', text);

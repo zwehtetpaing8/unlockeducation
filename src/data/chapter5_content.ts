@@ -256,12 +256,12 @@ $$\begin{aligned}
 
 5. A registration code consists of two of the $12$ different capital letters $A, B, C, \dots, L$, followed by one of the ten digits $0, 1, 2, \dots, 9$, for example ID5. How many codes are possible to generate:
    (a) if the repetition of the letters is allowed?
-   (b) if the repetition of the letters is not allowed?
-   (c) if two letters in the codes must be the same?
-   (d) if two letters are different, but must be both vowels or both consonants?
+(b) if the repetition of the letters is not allowed?
+(c) if two letters in the codes must be the same?
+(d) if two letters are different, but must be both vowels or both consonants?
 
 6. (a) Express $\frac{1}{5 \cdot 4 \cdot 3}$ in factorial form.
-   (b) Evaluate $2 \cdot 9! + 82 \cdot 8!$.
+(b) Evaluate $2 \cdot 9! + 82 \cdot 8!$.
 
 7. Prove that:
    $$\frac{1}{5!} + \frac{1}{6!} + \frac{1}{7!} = \frac{50}{7!}$$
@@ -312,9 +312,9 @@ $$\begin{aligned}
 5. **Solution:**
    **Question:** A registration code consists of two of the $12$ different capital letters $A, B, C, \dots, L$, followed by one of the ten digits $0, 1, 2, \dots, 9$, for example ID5. How many codes are possible to generate:
    (a) if the repetition of the letters is allowed?
-   (b) if the repetition of the letters is not allowed?
-   (c) if two letters in the codes must be the same?
-   (d) if two letters are different, but must be both vowels or both consonants?
+(b) if the repetition of the letters is not allowed?
+(c) if two letters in the codes must be the same?
+(d) if two letters are different, but must be both vowels or both consonants?
 
    စုစုပေါင်း အက္ခရာ $12$ လုံး ($A$ မှ $L$) နှင့် ဂဏန်း $10$ လုံး ($0$ မှ $9$) ရှိသည်။
    * **(a) Repetition of letters is allowed (အက္ခရာထပ်ခွင့်ရှိလျှင်):**
@@ -334,7 +334,7 @@ $$\begin{aligned}
 6. **Solution:**
    **Question:**
    (a) Express $\frac{1}{5 \cdot 4 \cdot 3}$ in factorial form.
-   (b) Evaluate $2 \cdot 9! + 82 \cdot 8!$.
+(b) Evaluate $2 \cdot 9! + 82 \cdot 8!$.
 
    * **(a) Express $\frac{1}{5 \cdot 4 \cdot 3}$ in factorial form:**
   $$\frac{1}{5 \cdot 4 \cdot 3} = \frac{1}{5 \cdot 4 \cdot 3} \times \frac{2!}{2!} = \frac{2!}{5!}$$
@@ -619,7 +619,7 @@ $$\text{Total ways} = 120 + 120 = 240$$
 
 1. Solve the equations for $n$:
    (a) $ {}^nP_2 = 42$
-   (b) $ {}^nP_3 = 9 \cdot {}^nP_2$
+(b) $ {}^nP_3 = 9 \cdot {}^nP_2$
 
 2. A newspaper has 14 reporters available to cover 3 different stories. In how many ways can the reporters be assigned to cover the stories, if no reporter can be assigned to cover more than one story?
 
@@ -636,7 +636,7 @@ $$\text{Total ways} = 120 + 120 = 240$$
 1. **Solution:**
    **Question:** Solve the equations for $n$:
    (a) $ {}^nP_2 = 42$
-   (b) $ {}^nP_3 = 9 \cdot {}^nP_2$
+(b) $ {}^nP_3 = 9 \cdot {}^nP_2$
 
    **(a) Solve $ {}^nP_2 = 42$ ($n \ge 2$):**
    $$\begin{aligned}
@@ -1166,7 +1166,8 @@ Therefore, the number of codes not ending in 25 is 114.
 ---
 
 ##### Example 21
-How many permutations are there of the letters of the word PROGRAM, if they do not end in: (a) 2R's (b) MAP?
+How many permutations are there of the letters of the word PROGRAM, if they do not end in: (a) 2R's
+(b) MAP?
 
 **Solution**
 PROGRAM တွင် စုစုပေါင်းစာလုံး 7 လုံးရှိပြီး R နှစ်လုံး တူညီနေသည်။
@@ -1250,10 +1251,12 @@ $$ {}^5C_0 + {}^5C_1 + {}^5C_2 + \dots + {}^5C_5 = 2^5 = 32. $$
 
 ##### Example 22
 If $A$ is a set containing 9 distinct elements.
-How many subsets of $A$ contain: (a) at most 2 elements? (b) at least 3 elements?
+How many subsets of $A$ contain: (a) at most 2 elements?
+(b) at least 3 elements?
 
 **Solution**
-အစု $A$ တွင် မတူညီသော အစုဝင် 9 ခုရှိသည်။ မေးခွန်းအအရ (a) အများဆုံး အစုဝင် 2 ခုပါလျှင်၊ (b) အနည်းဆုံး အစုဝင် 3 ခုပါလျှင် $A$ ၏ အပိုင်းအစုအရေအတွက်ကို ရှာရမည်။
+အစု $A$ တွင် မတူညီသော အစုဝင် 9 ခုရှိသည်။ မေးခွန်းအအရ (a) အများဆုံး အစုဝင် 2 ခုပါလျှင်၊
+(b) အနည်းဆုံး အစုဝင် 3 ခုပါလျှင် $A$ ၏ အပိုင်းအစုအရေအတွက်ကို ရှာရမည်။
 
 **(a) At most 2 elements.**
 အများဆုံး 2 ခုပါသော subsets ဆိုသည်မှာ အစုဝင် 0 ခု၊ 1 ခု၊ သို့မဟုတ် 2 ခုပါသော subsets များဖြစ်သည်။
@@ -1281,7 +1284,8 @@ $$
 $$
 Therefore, the number of subsets of $A$ containing at least 3 elements is 466.
 
-**Note** "At most 2" ဆိုသည်မှာ အများဆုံး 2 ခုပါရမည်။ 2 ထက် ပို၍မရပါ။ တစ်ခုမှမပါလည်း ရသည်။ ထို့ကြောင့် 0, 1, 2 ခုပါသော subsets များကို ရေတွက်ရမည်။ "At least 3" ဆိုသည်မှာ အနည်းဆုံး 3 ခုပါရမည်။ 3 ထက်ပို၍ရသည်။ သို့သော် အစု $A$ တွင် စုစုပေါင်း အစုဝင် 9 ခုသာရှိသောကြောင့် 9 ခုထက် ပို၍မရပါ။ ထို့ကြောင့် 3, 4, ..., 9 ခုပါသော subsets များကို ရေတွက်ရမည်။ ထို့ကြောင့် အပိုင်း (b) တွင် complement method ကို သုံး၍ ပိုတိုအောင်တွက်နိုင်သည်။
+**Note** "At most 2" ဆိုသည်မှာ အများဆုံး 2 ခုပါရမည်။ 2 ထက် ပို၍မရပါ။ တစ်ခုမှမပါလည်း ရသည်။ ထို့ကြောင့် 0, 1, 2 ခုပါသော subsets များကို ရေတွက်ရမည်။ "At least 3" ဆိုသည်မှာ အနည်းဆုံး 3 ခုပါရမည်။ 3 ထက်ပို၍ရသည်။ သို့သော် အစု $A$ တွင် စုစုပေါင်း အစုဝင် 9 ခုသာရှိသောကြောင့် 9 ခုထက် ပို၍မရပါ။ ထို့ကြောင့် 3, 4, ..., 9 ခုပါသော subsets များကို ရေတွက်ရမည်။ ထို့ကြောင့် အပိုင်း
+(b) တွင် complement method ကို သုံး၍ ပိုတိုအောင်တွက်နိုင်သည်။
 
 
 
@@ -1360,7 +1364,9 @@ $$
 
 Therefore, the books can be arranged in 1728 ways when books of the same subjects are together.
 
-**Key difference.** (a) နှင့် (b) ၏ အဓိက ကွာခြားချက်မှာ (a) တွင် Chemistry ကို ဘယ်ဘက်၊ Mathematics ကို အလယ်၊ Physics ကို ညာဘက်ဟု နေရာသတ်မှတ်ပြီးသားဖြစ်သည်။ ထို့ကြောင့် subject အုပ်စုသုံးခုကို ထပ်စီရန် မလိုပါ။ (b) တွင်မူ subject တူသောစာအုပ်များ အတူတကွရှိရမည်ဟုသာ သတ်မှတ်ထားသောကြောင့် Chemistry, Mathematics, Physics ဖြစ်သော block သုံးခုကို $3!$ နည်းဖြင့် စီရသည်။
+**Key difference.** (a) နှင့်
+(b) ၏ အဓိက ကွာခြားချက်မှာ (a) တွင် Chemistry ကို ဘယ်ဘက်၊ Mathematics ကို အလယ်၊ Physics ကို ညာဘက်ဟု နေရာသတ်မှတ်ပြီးသားဖြစ်သည်။ ထို့ကြောင့် subject အုပ်စုသုံးခုကို ထပ်စီရန် မလိုပါ။
+(b) တွင်မူ subject တူသောစာအုပ်များ အတူတကွရှိရမည်ဟုသာ သတ်မှတ်ထားသောကြောင့် Chemistry, Mathematics, Physics ဖြစ်သော block သုံးခုကို $3!$ နည်းဖြင့် စီရသည်။
 
 ---
 
@@ -1427,31 +1433,31 @@ Therefore, the required number of permutations is 540.
 
 1. Find the number of permutations of the letters of each of the following words.
    (i) INFINITY
-   (ii) PINEAPPLE
-   (iii) ACCEPTABLE
+(ii) PINEAPPLE
+(iii) ACCEPTABLE
 2. Passwords for a mobile payment system are to consist of 6 digits from a set of digits $0, 1, 2, \dots, 9$ and assume that there is no other restriction. How many such passwords have repeated digits?
 3. A building has 10 windows in front. What is the number of signals that can be given, by having one or more of the windows open?
 4. At a burger shop, 3 different types of buns, 7 types of cheeses and 5 types of vegetables are available. Assume that a burger may contain no cheese or no vegetable. In how many ways can different types of burgers be ordered if a person must have a bun, and may have at most 2 types of cheeses and any number of types of vegetables?
 5. How many different 4-digit codes can be formed using the digits $0, 1, 2, 3$ if
    (i) there is no restriction?
-   (ii) repetition is not allowed?
-   (iii) repetition is not allowed, and 0 is either the first or the last digit?
+(ii) repetition is not allowed?
+(iii) repetition is not allowed, and 0 is either the first or the last digit?
 6. Using the letters of the word EQUATION without repetitions, how many 4-letter codes can be formed:
    (i) starting with $T$ and ending with $N$?
-   (ii) starting and ending with a consonant?
-   (iii) with vowels only?
-   (iv) if it contains 3 consonants?
+(ii) starting and ending with a consonant?
+(iii) with vowels only?
+(iv) if it contains 3 consonants?
 7. Three brothers and three sisters are lining up to be photographed. How many arrangements are there
    (i) with 3 sisters standing together?
-   (ii) if brothers and sisters are in alternating positions?
+(ii) if brothers and sisters are in alternating positions?
 8. How many permutations of the letters $H, E, X, A, G, O, N$ are there if
    (i) the 3 vowels are placed together?
-   (ii) the 3 vowels are not placed together?
-   (iii) consonants and vowels do not appear alternately?
+(ii) the 3 vowels are not placed together?
+(iii) consonants and vowels do not appear alternately?
 9. Find the number of permutations of all the letters of the word PENGUIN in such a way that there are exactly 3 letters between 2 $N$'s.
 10. Find the number of permutations of all the letters of the word STRESSLESS in such a way that there are exactly 5 letters between:
   (i) 2 $E$'s.
-  (ii) 2 $S$'s.
+(ii) 2 $S$'s.
 
 #### Solutions
 
@@ -1605,9 +1611,9 @@ Therefore, 2784 different types of burgers can be ordered.
 မှတ်ချက်။ at most 2 types ဆိုသည်မှာ အများဆုံး 2 မျိုးပဲ ဖြစ်ရမည်ဟု ဆိုလိုသည်။ 2 မျိုးထက်ပို၍ မရပါ။ ထို့ပြင် cheese မပါလည်းရသောကြောင့် cheese ရွေးရာတွင် တစ်မျိုးမှမပါတာ၊ တစ်မျိုးပါတာ၊ နှစ်မျိုးပါတာ ဆိုပြီး အခြေအနေ 3 ခုရှိသည်။ ထို့ကြောင့် cheese အတွက် $ {}^7C_0 + {}^7C_1 + {}^7C_2 $ ဟု ရေတွက်ရသည်။ အလားတူ vegetables ကိုလည်း 0 မျိုး ရွေးနိုင်သောကြောင့် $2^5$ ထဲတွင် ဘာမှမရွေးသော အခြေအနေကိုပါ ထည့်တွက်ထားသည်။
 
 **5. How many different 4-digit codes can be formed using the digits $0, 1, 2, 3$ if**
-**(a) there is no restriction?**
-**(b) repetition is not allowed?**
-**(c) repetition is not allowed, and 0 is either the first or the last digit?**
+**(a)** there is no restriction?
+**(b)** repetition is not allowed?
+**(c)** repetition is not allowed, and 0 is either the first or the last digit?
 
 မေးခွန်းတွင် 4-digit codes များကို $0,1,2,3$ ဟူသော digits များမှ ဖွဲ့ရမည်။ code ဖြစ်သောကြောင့် ပထမနေရာတွင် 0 လာလည်း ရသည်။ ထို့ကြောင့် နေရာတစ်ခုနေရာစီတွင် မည်သည့် digit များ ရွေးနိုင်သလဲဆိုတာကို အခြေအနေအလိုက် ရေတွက်မည်။
 
@@ -1724,8 +1730,8 @@ $$
 မှတ်ချက်။ $ {}^5C_1 \cdot 4! $ ဟုတွက်လည်း အတူတူပင်ဖြစ်သည်။ ဤနည်းတွင် vowel တစ်လုံးရွေးပြီးနောက် Q,T,N နှင့် ထို vowel စုစုပေါင်း စာလုံး 4 လုံးကို တစ်ခါတည်း 4! နည်းဖြင့် စီခြင်းဖြစ်သည်။ ထို့ကြောင့် $ {}^3P_3 $ ကို ထပ်မြှောက်ရန် မလိုပါ။
 
 **7. Three brothers and three sisters are lining up to be photographed. How many arrangements are there**
-**(a) with 3 sisters standing together?**
-**(b) if brothers and sisters are in alternating positions?**
+**(a)** with 3 sisters standing together?
+**(b)** if brothers and sisters are in alternating positions?
 
 ညီအစ်ကို 3 ယောက်နှင့် ညီအစ်မ 3 ယောက် စုစုပေါင်း 6 ယောက်ကို ဓာတ်ပုံရိုက်ရန် တန်းစီမည်။ တန်းစီခြင်းဖြစ်သောကြောင့် အစီအစဉ်အရေးကြီးပြီး လူတစ်ယောက်ကို နေရာတစ်နေရာစီတွင်သာ ထားနိုင်သည်။
 
@@ -1758,9 +1764,9 @@ $$
 $$
 
 **8. How many permutations of the letters $H, E, X, A, G, O, N$ are there if**
-**(a) the 3 vowels are placed together?**
-**(b) the 3 vowels are not placed together?**
-**(c) consonants and vowels do not appear alternately?**
+**(a)** the 3 vowels are placed together?
+**(b)** the 3 vowels are not placed together?
+**(c)** consonants and vowels do not appear alternately?
 
 HEXAGON တွင် စုစုပေါင်းစာလုံး 7 လုံးရှိပြီး စာလုံးအားလုံး မတူကြပါ။ vowels များမှာ E,A,O ဖြစ်သောကြောင့် 3 လုံးရှိပြီး consonants များမှာ H,X,G,N ဖြစ်သောကြောင့် 4 လုံးရှိသည်။
 
@@ -1851,8 +1857,8 @@ $$
 $$
 
 **10. Find the number of permutations of all the letters of the word STRESSLESS in such a way that there are exactly 5 letters between:**
-**(a) 2 $E$'s.**
-**(b) 2 $S$'s.**
+**(a)** 2 $E$'s.
+**(b)** 2 $S$'s.
 
 STRESSLESS တွင် စုစုပေါင်းစာလုံး 10 လုံးရှိသည်။ S ငါးလုံး၊ E နှစ်လုံး၊ T, R, L တစ်လုံးစီ ပါသည်။
 
