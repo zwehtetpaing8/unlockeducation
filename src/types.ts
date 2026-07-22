@@ -23,3 +23,19 @@ export interface Chapter {
   quiz: Question[];
   visualizerType?: 'complex-plane' | 'induction-steps' | 'solid-geometry' | 'vector-calc' | 'perm-comb' | 'conic-explorer' | 'trig-wave' | 'log-exp' | 'derivative-tangent' | 'integration-area';
 }
+
+export interface VisitorLog {
+  id: string;
+  ip: string;
+  userAgent: string;
+  path: string;
+  timestamp: number;
+}
+
+export interface AnalyticsSummary {
+  totalVisits: number;
+  uniqueIpsCount: number;
+  todayVisits: number;
+  recentLogs: VisitorLog[];
+  topIps: { ip: string; count: number }[];
+}

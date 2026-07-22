@@ -3,18 +3,20 @@ import { chapters } from './data/chapters';
 import ChapterDetails from './components/ChapterDetails';
 import FormulaSheet from './components/FormulaSheet';
 import HomeView from './components/HomeView';
+import AnalyticsDashboard from './components/AnalyticsDashboard';
 import { motion, AnimatePresence } from 'motion/react';
-import { BookOpen, Calculator, Search, Menu, X, GraduationCap, ChevronRight, Hash, Home, Facebook, Send, Bug, Youtube, Mail, Copy, Check, ExternalLink } from 'lucide-react';
+import { BookOpen, Calculator, Search, Menu, X, GraduationCap, ChevronRight, Hash, Home, Facebook, Send, Bug, Youtube, Mail, Copy, Check, ExternalLink, ShieldCheck } from 'lucide-react';
 import ThemeToggle from './components/ThemeToggle';
 
 export default function App() {
-  const [activeView, setActiveView] = useState<'home' | 'syllabus' | 'formulas'>(() => {
+  const [activeView, setActiveView] = useState<'home' | 'syllabus' | 'formulas' | 'analytics'>(() => {
     const params = new URLSearchParams(window.location.search);
     const view = params.get('view');
-    if (view === 'home' || view === 'syllabus' || view === 'formulas') return view;
+    if (view === 'home' || view === 'syllabus' || view === 'formulas' || view === 'analytics') return view;
+    if (params.has('secret') || params.has('key') || params.has('admin')) return 'analytics';
 
     const saved = localStorage.getItem('unlock_edu_activeView');
-    return (saved as 'home' | 'syllabus' | 'formulas') || 'home';
+    return (saved as 'home' | 'syllabus' | 'formulas' | 'analytics') || 'home';
   });
   const [selectedChapterId, setSelectedChapterId] = useState<number>(() => {
     const params = new URLSearchParams(window.location.search);
@@ -90,8 +92,8 @@ export default function App() {
     const handlePopState = () => {
       const params = new URLSearchParams(window.location.search);
       const view = params.get('view');
-      if (view === 'home' || view === 'syllabus' || view === 'formulas') {
-        setActiveView(view as 'home' | 'syllabus' | 'formulas');
+      if (view === 'home' || view === 'syllabus' || view === 'formulas' || view === 'analytics') {
+        setActiveView(view as 'home' | 'syllabus' | 'formulas' | 'analytics');
       } else {
         setActiveView('home');
       }
@@ -105,6 +107,17 @@ export default function App() {
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
+
+  // Automatic visitor pageview recording
+  useEffect(() => {
+    if (activeView !== 'analytics') {
+      fetch('/api/track', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path: window.location.pathname + window.location.search }),
+      }).catch(() => {});
+    }
+  }, [activeView, selectedChapterId]);
 
   // Scroll main container to top when view or chapter changes
   useEffect(() => {
@@ -351,6 +364,19 @@ export default function App() {
                   onToggleComplete={handleToggleComplete}
                   isReadingMode={isReadingMode}
                   onToggleReadingMode={() => setIsReadingMode(!isReadingMode)}
+                />
+              </motion.div>
+            ) : activeView === 'analytics' ? (
+              <motion.div
+                key="analytics-dashboard-view"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.22 }}
+              >
+                <AnalyticsDashboard 
+                  initialKey={new URLSearchParams(window.location.search).get('key') || new URLSearchParams(window.location.search).get('secret') || ''}
+                  onNavigateHome={() => setActiveView('home')} 
                 />
               </motion.div>
             ) : (
