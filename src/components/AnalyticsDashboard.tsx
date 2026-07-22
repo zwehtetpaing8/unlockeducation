@@ -63,7 +63,7 @@ export default function AnalyticsDashboard({ initialKey = '', onNavigateHome }: 
   };
 
   // Fetch Analytics from server
-  const fetchAnalytics = async (keyToUse: string) => {
+  const fetchAnalytics = async (keyToUse: string, isRetry = false) => {
     if (!keyToUse) return;
     setLoading(true);
     setError(null);
@@ -71,22 +71,27 @@ export default function AnalyticsDashboard({ initialKey = '', onNavigateHome }: 
       const res = await fetch('/api/analytics', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ key: keyToUse }),
+        body: JSON.stringify({ key: keyToUse.trim() }),
       });
 
       if (res.ok) {
         const result: AnalyticsSummary = await res.json();
         setData(result);
         setIsAuthenticated(true);
-        localStorage.setItem('unlock_edu_admin_key', keyToUse);
+        localStorage.setItem('unlock_edu_admin_key', keyToUse.trim());
       } else {
         const errJson = await res.json();
-        setError(errJson.error || 'Access denied. Invalid Secret Link key or PIN.');
+        setError(errJson.error || 'Password မမှန်ပါ။');
         setIsAuthenticated(false);
       }
     } catch (err) {
       console.error('Analytics fetch error:', err);
-      setError('Server connection failed. Make sure the server is running.');
+      if (!isRetry) {
+        // Retry once after 1.5s in case dev server was booting
+        setTimeout(() => fetchAnalytics(keyToUse, true), 1500);
+      } else {
+        setError('Server နှင့် ချိတ်ဆက်၍မရသေးပါ။ ခဏစောင့်ပြီး ပြန်လည်ကြိုးစားပေးပါ။ (Click Unlock Dashboard again)');
+      }
     } finally {
       setLoading(false);
     }
@@ -129,10 +134,10 @@ export default function AnalyticsDashboard({ initialKey = '', onNavigateHome }: 
     }
   };
 
-  const secretLink = `${window.location.origin}?view=analytics&key=${encodeURIComponent(secretKey || '@uledu?300525')}`;
+  const shortAdminLink = `${window.location.origin}?admin`;
 
   const copySecretLink = () => {
-    navigator.clipboard.writeText(secretLink);
+    navigator.clipboard.writeText(shortAdminLink);
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   };
@@ -273,13 +278,13 @@ export default function AnalyticsDashboard({ initialKey = '', onNavigateHome }: 
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <KeyRound className="w-4 h-4 text-indigo-400" />
-            <h3 className="text-sm font-bold tracking-tight">Your Secret Owner Access Link</h3>
+            <h3 className="text-sm font-bold tracking-tight">Short Owner Access Link</h3>
           </div>
           <p className="text-xs text-slate-300">
-            Bookmark this unique link to quickly open this Visitor Dashboard without re-entering PINs.
+            Link ဖြင့် တိုက်ရိုက်ဝင်ရောက်ရန် သို့မဟုတ် သိမ်းဆည်းထားရန် Short Link:
           </p>
           <div className="text-[11px] font-mono text-indigo-300 bg-black/40 px-3 py-1.5 rounded-lg overflow-x-auto max-w-xl truncate border border-indigo-500/20">
-            {secretLink}
+            {shortAdminLink}
           </div>
         </div>
 
@@ -288,7 +293,7 @@ export default function AnalyticsDashboard({ initialKey = '', onNavigateHome }: 
           className="px-4 py-2.5 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl text-xs font-bold transition flex items-center gap-2 shrink-0 cursor-pointer shadow-md shadow-indigo-500/30"
         >
           {copied ? <Check className="w-4 h-4 text-emerald-300" /> : <Copy className="w-4 h-4" />}
-          <span>{copied ? 'Link Copied!' : 'Copy Secret Link'}</span>
+          <span>{copied ? 'Link Copied!' : 'Copy Short Link'}</span>
         </button>
       </div>
 

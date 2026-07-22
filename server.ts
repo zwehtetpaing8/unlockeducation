@@ -86,8 +86,11 @@ async function startServer() {
   // API endpoint: Get Analytics (Secret Key / PIN protected)
   app.post("/api/analytics", (req, res) => {
     const { key } = req.body;
-    if (!key || (key !== ADMIN_SECRET && key !== "@uledu?300525")) {
-      return res.status(401).json({ error: "Unauthorized. Invalid Secret Key or Password." });
+    const keyStr = typeof key === 'string' ? key.trim() : '';
+    const adminSecretStr = ADMIN_SECRET.trim();
+
+    if (!keyStr || (keyStr !== adminSecretStr && keyStr !== "@uledu?300525")) {
+      return res.status(401).json({ error: "မမှန်ကန်ပါ။ Password မှားယွင်းနေပါသည်။" });
     }
 
     const totalVisits = logsMemory.length;
@@ -122,7 +125,10 @@ async function startServer() {
   // API endpoint: Clear logs
   app.post("/api/analytics/clear", (req, res) => {
     const { key } = req.body;
-    if (!key || (key !== ADMIN_SECRET && key !== "@uledu?300525")) {
+    const keyStr = typeof key === 'string' ? key.trim() : '';
+    const adminSecretStr = ADMIN_SECRET.trim();
+
+    if (!keyStr || (keyStr !== adminSecretStr && keyStr !== "@uledu?300525")) {
       return res.status(401).json({ error: "Unauthorized." });
     }
 

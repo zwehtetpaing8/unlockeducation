@@ -13,7 +13,7 @@ export default function App() {
     const params = new URLSearchParams(window.location.search);
     const view = params.get('view');
     if (view === 'home' || view === 'syllabus' || view === 'formulas' || view === 'analytics') return view;
-    if (params.has('secret') || params.has('key') || params.has('admin')) return 'analytics';
+    if (params.has('secret') || params.has('key') || params.has('admin') || params.has('dashboard') || params.has('owner')) return 'analytics';
 
     const saved = localStorage.getItem('unlock_edu_activeView');
     return (saved as 'home' | 'syllabus' | 'formulas' | 'analytics') || 'home';
@@ -94,6 +94,8 @@ export default function App() {
       const view = params.get('view');
       if (view === 'home' || view === 'syllabus' || view === 'formulas' || view === 'analytics') {
         setActiveView(view as 'home' | 'syllabus' | 'formulas' | 'analytics');
+      } else if (params.has('secret') || params.has('key') || params.has('admin') || params.has('dashboard') || params.has('owner')) {
+        setActiveView('analytics');
       } else {
         setActiveView('home');
       }
