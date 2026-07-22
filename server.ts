@@ -49,7 +49,7 @@ async function startServer() {
   app.use(express.json());
 
   // API endpoint: Track Visitor
-  app.post("/api/track", (req, res) => {
+  app.post("/api/visit", (req, res) => {
     try {
       const rawIp =
         (req.headers["x-forwarded-for"] as string)?.split(",")[0].trim() ||
@@ -83,8 +83,8 @@ async function startServer() {
     }
   });
 
-  // API endpoint: Get Analytics (Secret Key / PIN protected)
-  app.post("/api/analytics", (req, res) => {
+  // API endpoint: Get Owner Data (Secret Key / PIN protected)
+  app.post("/api/owner-data", (req, res) => {
     const { key } = req.body;
     const keyStr = typeof key === 'string' ? key.trim() : '';
     const adminSecretStr = ADMIN_SECRET.trim();
@@ -123,7 +123,7 @@ async function startServer() {
   });
 
   // API endpoint: Clear logs
-  app.post("/api/analytics/clear", (req, res) => {
+  app.post("/api/owner-data/clear", (req, res) => {
     const { key } = req.body;
     const keyStr = typeof key === 'string' ? key.trim() : '';
     const adminSecretStr = ADMIN_SECRET.trim();

@@ -68,7 +68,7 @@ export default function AnalyticsDashboard({ initialKey = '', onNavigateHome }: 
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/analytics', {
+      const res = await fetch('/api/owner-data', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ key: keyToUse.trim() }),
@@ -90,7 +90,7 @@ export default function AnalyticsDashboard({ initialKey = '', onNavigateHome }: 
         // Retry once after 1.5s in case dev server was booting
         setTimeout(() => fetchAnalytics(keyToUse, true), 1500);
       } else {
-        setError('Server နှင့် ချိတ်ဆက်၍မရသေးပါ။ ခဏစောင့်ပြီး ပြန်လည်ကြိုးစားပေးပါ။ (Click Unlock Dashboard again)');
+        setError('Error: ' + (err.message || err) + ' | Server နှင့် ချိတ်ဆက်၍မရသေးပါ။ ခဏစောင့်ပြီး ပြန်လည်ကြိုးစားပေးပါ။ (Click Unlock Dashboard again)');
       }
     } finally {
       setLoading(false);
@@ -121,7 +121,7 @@ export default function AnalyticsDashboard({ initialKey = '', onNavigateHome }: 
   const handleClearLogs = async () => {
     if (!window.confirm('Are you sure you want to clear all visitor logs? This action cannot be undone.')) return;
     try {
-      const res = await fetch('/api/analytics/clear', {
+      const res = await fetch('/api/owner-data/clear', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ key: secretKey }),

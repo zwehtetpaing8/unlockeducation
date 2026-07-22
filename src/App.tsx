@@ -113,7 +113,7 @@ export default function App() {
   // Automatic visitor pageview recording
   useEffect(() => {
     if (activeView !== 'analytics') {
-      fetch('/api/track', {
+      fetch('/api/visit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ path: window.location.pathname + window.location.search }),
