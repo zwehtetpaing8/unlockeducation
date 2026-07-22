@@ -80,8 +80,14 @@ export default function AnalyticsDashboard({ initialKey = '', onNavigateHome }: 
         setIsAuthenticated(true);
         localStorage.setItem('unlock_edu_admin_key', keyToUse.trim());
       } else {
-        const errJson = await res.json();
-        setError(errJson.error || 'Password မမှန်ပါ။');
+        const text = await res.text();
+        try {
+          const errJson = JSON.parse(text);
+          setError(errJson.error || 'Password မမှန်ပါ။');
+        } catch {
+          // If it's not JSON, it's likely a 404 or 502 from the proxy (stale page)
+          setError('Network Error. ကျေးဇူးပြု၍ Browser ကို Refresh (Reload) လုပ်ပြီး ပြန်လည်ဝင်ရောက်ပါ။');
+        }
         setIsAuthenticated(false);
       }
     } catch (err) {

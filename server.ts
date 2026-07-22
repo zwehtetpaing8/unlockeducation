@@ -122,6 +122,12 @@ async function startServer() {
     });
   });
 
+  // Legacy route for stale clients
+  app.post("/api/analytics", (req, res) => {
+    req.url = '/api/owner-data';
+    app.handle(req, res);
+  });
+
   // API endpoint: Clear logs
   app.post("/api/owner-data/clear", (req, res) => {
     const { key } = req.body;
@@ -135,6 +141,12 @@ async function startServer() {
     logsMemory = [];
     saveLogs([]);
     res.json({ success: true, message: "Logs cleared successfully." });
+  });
+
+  // Legacy route for stale clients
+  app.post("/api/analytics/clear", (req, res) => {
+    req.url = '/api/owner-data/clear';
+    app.handle(req, res);
   });
 
   // API route for generating quiz
