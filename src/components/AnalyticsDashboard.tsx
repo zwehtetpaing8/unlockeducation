@@ -140,10 +140,11 @@ export default function AnalyticsDashboard({ initialKey = '', onNavigateHome }: 
     }
   };
 
+  const secretLink = `${window.location.origin}?key=${encodeURIComponent(secretKey || '@uledu?300525')}`;
   const shortAdminLink = `${window.location.origin}?admin`;
 
-  const copySecretLink = () => {
-    navigator.clipboard.writeText(shortAdminLink);
+  const copySecretLink = (linkToCopy: string) => {
+    navigator.clipboard.writeText(linkToCopy);
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   };
@@ -191,6 +192,20 @@ export default function AnalyticsDashboard({ initialKey = '', onNavigateHome }: 
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
               >
                 {showKey ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
+            </div>
+
+            <div className="flex items-center justify-between text-[11px] text-slate-500">
+              <span>Default Password:</span>
+              <button
+                type="button"
+                onClick={() => {
+                  setInputKey('@uledu?300525');
+                  setSecretKey('@uledu?300525');
+                }}
+                className="font-mono font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 px-2 py-0.5 rounded border border-indigo-200/50 dark:border-indigo-800/40 hover:underline cursor-pointer"
+              >
+                @uledu?300525 (Auto-Fill & Login)
               </button>
             </div>
 
@@ -280,27 +295,36 @@ export default function AnalyticsDashboard({ initialKey = '', onNavigateHome }: 
       </div>
 
       {/* Secret Link Info Banner */}
-      <div className="bg-gradient-to-r from-indigo-900 via-slate-900 to-slate-900 text-white p-5 rounded-3xl border border-indigo-900/50 shadow-md flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-gradient-to-r from-indigo-900 via-slate-900 to-slate-900 text-white p-5 rounded-3xl border border-indigo-900/50 shadow-md flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <KeyRound className="w-4 h-4 text-indigo-400" />
-            <h3 className="text-sm font-bold tracking-tight">Short Owner Access Link</h3>
+            <h3 className="text-sm font-bold tracking-tight">Owner Access Links</h3>
           </div>
           <p className="text-xs text-slate-300">
-            Link ဖြင့် တိုက်ရိုက်ဝင်ရောက်ရန် သို့မဟုတ် သိမ်းဆည်းထားရန် Short Link:
+            အခြား Browser သို့မဟုတ် Phone မှ Password ရိုက်စရာမလိုဘဲ တိုက်ရိုက်ဝင်ရန် Direct Auto-Login Link ကို အသုံးပြုပါ:
           </p>
           <div className="text-[11px] font-mono text-indigo-300 bg-black/40 px-3 py-1.5 rounded-lg overflow-x-auto max-w-xl truncate border border-indigo-500/20">
-            {shortAdminLink}
+            {secretLink}
           </div>
         </div>
 
-        <button
-          onClick={copySecretLink}
-          className="px-4 py-2.5 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl text-xs font-bold transition flex items-center gap-2 shrink-0 cursor-pointer shadow-md shadow-indigo-500/30"
-        >
-          {copied ? <Check className="w-4 h-4 text-emerald-300" /> : <Copy className="w-4 h-4" />}
-          <span>{copied ? 'Link Copied!' : 'Copy Short Link'}</span>
-        </button>
+        <div className="flex flex-wrap items-center gap-2 shrink-0">
+          <button
+            onClick={() => copySecretLink(secretLink)}
+            className="px-4 py-2.5 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer shadow-md shadow-indigo-500/30"
+          >
+            {copied ? <Check className="w-4 h-4 text-emerald-300" /> : <Copy className="w-4 h-4" />}
+            <span>Copy Auto-Login Link</span>
+          </button>
+          <button
+            onClick={() => copySecretLink(shortAdminLink)}
+            className="px-3 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer border border-slate-700"
+          >
+            <Copy className="w-3.5 h-3.5" />
+            <span>Copy Short Link</span>
+          </button>
+        </div>
       </div>
 
       {/* Overview Stat Cards */}
