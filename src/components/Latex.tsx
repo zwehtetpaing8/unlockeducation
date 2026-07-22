@@ -2981,6 +2981,21 @@ export default function Latex({ text, block = false }: LatexProps) {
         case 'Chap4_Fig11':
           renderedElements.push(<Chap4_Fig11 key={`diag-${i}`} />);
           break;
+        case 'Chap4_CrossProductDirection':
+          renderedElements.push(<Chap4_CrossProductDirection key={`diag-${i}`} />);
+          break;
+        case 'Chap4_AreaParallelogramDiag':
+          renderedElements.push(<Chap4_AreaParallelogramDiag key={`diag-${i}`} />);
+          break;
+        case 'Chap4_AreaTriangleDiag':
+          renderedElements.push(<Chap4_AreaTriangleDiag key={`diag-${i}`} />);
+          break;
+        case 'Chap4_UnitVectorCyclicDiag':
+          renderedElements.push(<Chap4_UnitVectorCyclicDiag key={`diag-${i}`} />);
+          break;
+        case 'Chap4_Ex4_3_Q5':
+          renderedElements.push(<Chap4_Ex4_3_Q5 key={`diag-${i}`} />);
+          break;
         case 'Chap4_Fig12':
           renderedElements.push(<Chap4_Fig12 key={`diag-${i}`} />);
           break;
@@ -6316,6 +6331,380 @@ export function Chap4_Fig15() {
           <text x="50" y="105" className="fill-slate-800 dark:fill-slate-200 text-[12px] font-serif italic stroke-none">A</text>
           <text x="135" y="85" className="fill-slate-800 dark:fill-slate-200 text-[12px] font-serif italic stroke-none">B</text>
           <text x="265" y="55" className="fill-slate-800 dark:fill-slate-200 text-[12px] font-serif italic stroke-none">C</text>
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+export function Chap4_CrossProductDirection() {
+  return (
+    <div className="flex flex-col items-center my-6">
+      <div className="relative w-full max-w-[360px] aspect-[360/200]">
+        <svg viewBox="0 0 360 200" overflow="visible" className="w-full h-full fill-none" strokeWidth="1.5">
+          {/* Parallelogram Plane */}
+          <polygon
+            points="120,160 260,160 310,100 170,100"
+            className="fill-amber-500/10 stroke-amber-500/60 dark:fill-amber-400/10 dark:stroke-amber-400/60"
+            strokeWidth="1.5"
+          />
+
+          {/* Plane Label */}
+          <text
+            x="240"
+            y="125"
+            textAnchor="middle"
+            className="fill-slate-800 dark:fill-slate-200 text-[12px] font-sans stroke-none"
+          >
+            plane containing
+          </text>
+          <foreignObject x="210" y="128" width="60" height="25" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-slate-800 dark:text-slate-200 text-xs">
+              <Latex text="$\vec{a}$ and $\vec{b}$" />
+            </div>
+          </foreignObject>
+
+          {/* Right angle indicator at origin */}
+          <path
+            d="M 120 148 L 132 148 L 132 160"
+            className="stroke-slate-600 dark:stroke-slate-400"
+            strokeWidth="1"
+            fill="none"
+          />
+
+          {/* Vector a (along bottom) */}
+          <line x1="120" y1="160" x2="256" y2="160" className="stroke-amber-600 dark:stroke-amber-400" strokeWidth="2" />
+          <polygon points="260,160 252,156 252,164" className="fill-amber-600 dark:fill-amber-400 stroke-none" />
+          <foreignObject x="180" y="162" width="40" height="25" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-amber-600 dark:text-amber-400 text-xs">
+              <Latex text="$\vec{a}$" />
+            </div>
+          </foreignObject>
+
+          {/* Vector b (slanted left edge) */}
+          <line x1="120" y1="160" x2="167" y2="103" className="stroke-amber-600 dark:stroke-amber-400" strokeWidth="2" />
+          <polygon points="170,100 162,102 166,108" className="fill-amber-600 dark:fill-amber-400 stroke-none" />
+          <foreignObject x="115" y="115" width="30" height="25" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-amber-600 dark:text-amber-400 text-xs">
+              <Latex text="$\vec{b}$" />
+            </div>
+          </foreignObject>
+
+          {/* Vector a x b (vertical arrow) */}
+          <line x1="120" y1="160" x2="120" y2="35" className="stroke-slate-900 dark:stroke-slate-100" strokeWidth="2" />
+          <polygon points="120,30 116,38 124,38" className="fill-slate-900 dark:fill-slate-100 stroke-none" />
+
+          {/* Label at top of a x b */}
+          <foreignObject x="95" y="5" width="50" height="25" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100 font-bold text-xs">
+              <Latex text="$\vec{a} \times \vec{b}$" />
+            </div>
+          </foreignObject>
+
+          {/* Text pointing to a x b */}
+          <foreignObject x="130" y="40" width="160" height="40" overflow="visible">
+            <div className="text-left text-slate-800 dark:text-slate-200 text-xs leading-tight">
+              <Latex text="$\vec{a} \times \vec{b}$ is perpendicular to the whole plane" />
+            </div>
+          </foreignObject>
+
+          {/* Origin O label */}
+          <text x="105" y="172" className="fill-amber-700 dark:fill-amber-300 text-[12px] font-serif italic stroke-none">
+            O
+          </text>
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+export function Chap4_AreaParallelogramDiag() {
+  return (
+    <div className="flex flex-col items-center my-6">
+      <div className="relative w-full max-w-[360px] aspect-[360/180]">
+        <svg viewBox="0 0 360 180" overflow="visible" className="w-full h-full fill-none" strokeWidth="1.5">
+          {/* Parallelogram */}
+          <polygon
+            points="100,140 260,140 290,60 130,60"
+            className="fill-amber-500/10 stroke-amber-500/60 dark:fill-amber-400/10 dark:stroke-amber-400/60"
+            strokeWidth="1.5"
+          />
+
+          {/* Text inside parallelogram */}
+          <text
+            x="200"
+            y="105"
+            textAnchor="middle"
+            className="fill-slate-800 dark:fill-slate-200 text-[13px] font-sans stroke-none"
+          >
+            parallelogram
+          </text>
+
+          {/* Height dashed line */}
+          <line
+            x1="130"
+            y1="60"
+            x2="130"
+            y2="140"
+            className="stroke-slate-700 dark:stroke-slate-300"
+            strokeWidth="1.5"
+            strokeDasharray="4,4"
+          />
+          {/* Height right angle box */}
+          <path
+            d="M 130 130 L 140 130 L 140 140"
+            className="stroke-slate-700 dark:stroke-slate-300"
+            strokeWidth="1"
+            fill="none"
+          />
+          {/* Label h */}
+          <text x="136" y="105" className="fill-slate-800 dark:fill-slate-200 text-[13px] font-serif italic stroke-none">
+            h
+          </text>
+
+          {/* Angle theta arc at O */}
+          <path
+            d="M 125 140 A 25 25 0 0 0 109 116"
+            className="stroke-amber-600 dark:stroke-amber-400"
+            strokeWidth="1.2"
+            fill="none"
+          />
+          <foreignObject x="115" y="122" width="20" height="20" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-amber-600 dark:text-amber-400 text-xs">
+              <Latex text="$\theta$" />
+            </div>
+          </foreignObject>
+
+          {/* Vector a along bottom */}
+          <line x1="100" y1="140" x2="256" y2="140" className="stroke-amber-600 dark:stroke-amber-400" strokeWidth="2" />
+          <polygon points="260,140 252,136 252,144" className="fill-amber-600 dark:fill-amber-400 stroke-none" />
+          <foreignObject x="170" y="142" width="30" height="25" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-amber-600 dark:text-amber-400 text-xs">
+              <Latex text="$\vec{a}$" />
+            </div>
+          </foreignObject>
+
+          {/* Vector b along left side */}
+          <line x1="100" y1="140" x2="128" y2="65" className="stroke-amber-600 dark:stroke-amber-400" strokeWidth="2" />
+          <polygon points="130,60 123,62 126,68" className="fill-amber-600 dark:fill-amber-400 stroke-none" />
+          <foreignObject x="90" y="85" width="30" height="25" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-amber-600 dark:text-amber-400 text-xs">
+              <Latex text="$\vec{b}$" />
+            </div>
+          </foreignObject>
+
+          {/* Origin and Vertex labels O, A, B */}
+          <text x="88" y="152" className="fill-amber-700 dark:fill-amber-300 text-[13px] font-serif italic stroke-none">
+            O
+          </text>
+          <text x="268" y="152" className="fill-amber-700 dark:fill-amber-300 text-[13px] font-serif italic stroke-none">
+            A
+          </text>
+          <text x="122" y="50" className="fill-amber-700 dark:fill-amber-300 text-[13px] font-serif italic stroke-none">
+            B
+          </text>
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+export function Chap4_AreaTriangleDiag() {
+  return (
+    <div className="flex flex-col items-center my-6">
+      <div className="relative w-full max-w-[360px] aspect-[360/180]">
+        <svg viewBox="0 0 360 180" overflow="visible" className="w-full h-full fill-none" strokeWidth="1.5">
+          {/* Outer Parallelogram */}
+          <polygon
+            points="100,140 260,140 290,60 130,60"
+            className="fill-amber-500/5 stroke-amber-500/60 dark:fill-amber-400/5 dark:stroke-amber-400/60"
+            strokeWidth="1.5"
+          />
+
+          {/* Shaded lower triangle */}
+          <polygon
+            points="100,140 260,140 130,60"
+            className="fill-amber-500/20 dark:fill-amber-400/20 stroke-none"
+          />
+
+          {/* Dashed diagonal line B to A */}
+          <line
+            x1="130"
+            y1="60"
+            x2="260"
+            y2="140"
+            className="stroke-slate-700 dark:stroke-slate-300"
+            strokeWidth="1.5"
+            strokeDasharray="4,4"
+          />
+
+          {/* Text inside shaded triangle */}
+          <text
+            x="160"
+            y="115"
+            textAnchor="middle"
+            className="fill-amber-900 dark:fill-amber-200 text-[13px] font-sans font-medium stroke-none"
+          >
+            triangle
+          </text>
+
+          {/* Vector a along bottom */}
+          <line x1="100" y1="140" x2="256" y2="140" className="stroke-amber-600 dark:stroke-amber-400" strokeWidth="2" />
+          <polygon points="260,140 252,136 252,144" className="fill-amber-600 dark:fill-amber-400 stroke-none" />
+          <foreignObject x="170" y="142" width="30" height="25" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-amber-600 dark:text-amber-400 text-xs">
+              <Latex text="$\vec{a}$" />
+            </div>
+          </foreignObject>
+
+          {/* Vector b along left side */}
+          <line x1="100" y1="140" x2="128" y2="65" className="stroke-amber-600 dark:stroke-amber-400" strokeWidth="2" />
+          <polygon points="130,60 123,62 126,68" className="fill-amber-600 dark:fill-amber-400 stroke-none" />
+          <foreignObject x="90" y="85" width="30" height="25" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-amber-600 dark:text-amber-400 text-xs">
+              <Latex text="$\vec{b}$" />
+            </div>
+          </foreignObject>
+
+          {/* Vertex Labels O, A, B */}
+          <text x="88" y="152" className="fill-amber-700 dark:fill-amber-300 text-[13px] font-serif italic stroke-none">
+            O
+          </text>
+          <text x="268" y="152" className="fill-amber-700 dark:fill-amber-300 text-[13px] font-serif italic stroke-none">
+            A
+          </text>
+          <text x="122" y="50" className="fill-amber-700 dark:fill-amber-300 text-[13px] font-serif italic stroke-none">
+            B
+          </text>
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+export function Chap4_UnitVectorCyclicDiag() {
+  return (
+    <div className="flex flex-col items-center my-6">
+      <div className="relative w-full max-w-[280px] aspect-[280/200]">
+        <svg viewBox="0 0 280 200" overflow="visible" className="w-full h-full fill-none" strokeWidth="1.5">
+          {/* Curved Arrow 1: i -> j (top to bottom-left) */}
+          <path
+            d="M 118 44 A 65 65 0 0 0 76 116"
+            className="stroke-amber-500 dark:stroke-amber-400"
+            strokeWidth="2"
+            fill="none"
+          />
+          <path
+            d="M 0 0 L -12 6 L -9 0 L -12 -6 z"
+            className="fill-amber-500 dark:fill-amber-400"
+            stroke="none"
+            transform="translate(76, 116) rotate(80)"
+          />
+
+          {/* Curved Arrow 2: j -> k (bottom-left to bottom-right) */}
+          <path
+            d="M 98 155 A 65 65 0 0 0 182 155"
+            className="stroke-amber-500 dark:stroke-amber-400"
+            strokeWidth="2"
+            fill="none"
+          />
+          <path
+            d="M 0 0 L -12 6 L -9 0 L -12 -6 z"
+            className="fill-amber-500 dark:fill-amber-400"
+            stroke="none"
+            transform="translate(182, 155) rotate(-40)"
+          />
+
+          {/* Curved Arrow 3: k -> i (bottom-right to top) */}
+          <path
+            d="M 204 116 A 65 65 0 0 0 162 44"
+            className="stroke-amber-500 dark:stroke-amber-400"
+            strokeWidth="2"
+            fill="none"
+          />
+          <path
+            d="M 0 0 L -12 6 L -9 0 L -12 -6 z"
+            className="fill-amber-500 dark:fill-amber-400"
+            stroke="none"
+            transform="translate(162, 44) rotate(200)"
+          />
+
+          {/* Center text: positive cyclic order */}
+          <text
+            x="140"
+            y="105"
+            textAnchor="middle"
+            className="fill-slate-800 dark:fill-slate-200 text-xs font-sans font-medium stroke-none"
+          >
+            positive cyclic order
+          </text>
+
+          {/* Node i at Top (140, 40) */}
+          <g transform="translate(140, 40)">
+            <circle r="16" className="fill-amber-50 dark:fill-amber-950/40 stroke-amber-300 dark:stroke-amber-700" strokeWidth="1.5" />
+            <foreignObject x="-15" y="-14" width="30" height="28" overflow="visible">
+              <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100 font-bold text-xs">
+                <Latex text="$\hat{\mathbf{i}}$" />
+              </div>
+            </foreignObject>
+          </g>
+
+          {/* Node j at Bottom-Left (84, 138) */}
+          <g transform="translate(84, 138)">
+            <circle r="16" className="fill-amber-50 dark:fill-amber-950/40 stroke-amber-300 dark:stroke-amber-700" strokeWidth="1.5" />
+            <foreignObject x="-15" y="-14" width="30" height="28" overflow="visible">
+              <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100 font-bold text-xs">
+                <Latex text="$\hat{\mathbf{j}}$" />
+              </div>
+            </foreignObject>
+          </g>
+
+          {/* Node k at Bottom-Right (196, 138) */}
+          <g transform="translate(196, 138)">
+            <circle r="16" className="fill-amber-50 dark:fill-amber-950/40 stroke-amber-300 dark:stroke-amber-700" strokeWidth="1.5" />
+            <foreignObject x="-15" y="-14" width="30" height="28" overflow="visible">
+              <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100 font-bold text-xs">
+                <Latex text="$\hat{\mathbf{k}}$" />
+              </div>
+            </foreignObject>
+          </g>
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+export function Chap4_Ex4_3_Q5() {
+  return (
+    <div className="flex flex-col items-center my-6">
+      <div className="relative w-full max-w-[380px] aspect-[380/160]">
+        <svg viewBox="0 0 380 160" overflow="visible" className="w-full h-full fill-none" strokeWidth="1.5">
+          {/* Parallelogram ABCD */}
+          <polygon
+            points="110,120 230,110 290,40 170,50"
+            className="fill-amber-500/10 stroke-amber-500 dark:fill-amber-400/10 dark:stroke-amber-400"
+            strokeWidth="1.8"
+          />
+          
+          {/* Vertex Dots */}
+          <circle cx="110" cy="120" r="3.5" className="fill-amber-600 dark:fill-amber-300 stroke-none" />
+          <circle cx="230" cy="110" r="3.5" className="fill-amber-600 dark:fill-amber-300 stroke-none" />
+          <circle cx="290" cy="40" r="3.5" className="fill-amber-600 dark:fill-amber-300 stroke-none" />
+          <circle cx="170" cy="50" r="3.5" className="fill-amber-600 dark:fill-amber-300 stroke-none" />
+
+          {/* Vertex Labels */}
+          <text x="100" y="138" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 text-xs font-serif italic stroke-none">
+            A(3, 1, 2)
+          </text>
+          <text x="240" y="128" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 text-xs font-serif italic stroke-none">
+            B(-1, 1, 5)
+          </text>
+          <text x="300" y="38" textAnchor="start" className="fill-slate-800 dark:fill-slate-200 text-xs font-serif italic stroke-none">
+            C(7, 2, 3)
+          </text>
+          <text x="160" y="42" textAnchor="end" className="fill-slate-800 dark:fill-slate-200 text-xs font-serif italic stroke-none">
+            D(x, y, z)
+          </text>
         </svg>
       </div>
     </div>

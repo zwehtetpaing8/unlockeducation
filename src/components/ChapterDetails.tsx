@@ -540,7 +540,7 @@ export default function ChapterDetails({
                                     onClick={(e) => handleSubheaderClick(e, idx, header.id)}
                                     className="text-left text-[11px] text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 py-1 px-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
                                   >
-                                    {header.text.replace(/\$/g, "")}
+                                    <Latex text={header.text} />
                                   </button>
                                 ))}
                               </div>
@@ -592,7 +592,7 @@ export default function ChapterDetails({
                                 Section {idx + 1}
                               </span>
                               <span className="text-[10px] font-semibold line-clamp-2 leading-tight mt-1">
-                                {sec.title.replace(/\$/g, "")}
+                                <Latex text={sec.title} />
                               </span>
                             </button>
                           );
@@ -610,9 +610,9 @@ export default function ChapterDetails({
                       >
                         <div className="flex items-center gap-2 min-w-0">
                           <List className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0" />
-                          <span className="text-left font-semibold truncate">
-                            Section {activeSectionIndex + 1}:{" "}
-                            {activeSection.title.replace(/\$/g, "")}
+                          <span className="text-left font-semibold truncate flex items-center gap-1">
+                            <span>Section {activeSectionIndex + 1}:</span>{" "}
+                            <Latex text={activeSection.title} />
                           </span>
                         </div>
                         <ChevronDown
@@ -656,7 +656,7 @@ export default function ChapterDetails({
                                         {idx + 1}
                                       </span>
                                       <span className="truncate">
-                                        {sec.title.replace(/\$/g, "")}
+                                        <Latex text={sec.title} />
                                       </span>
                                     </div>
                                     {isActive && (
@@ -674,7 +674,7 @@ export default function ChapterDetails({
                                           }}
                                           className="text-left text-[11px] text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 py-1.5 px-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
                                         >
-                                          {header.text.replace(/\$/g, "")}
+                                          <Latex text={header.text} />
                                         </button>
                                       ))}
                                     </div>

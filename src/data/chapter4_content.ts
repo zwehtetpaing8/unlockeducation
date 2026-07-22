@@ -3,7 +3,7 @@ In this chapter, we study vectors and vector algebra. A vector is a quantity tha
 
 ---
 
-### 4.1 Vectors in Three Dimensions
+## 4.1 Vectors in Three Dimensions
 In the plane, each point is associated with an ordered pair of real numbers. In space, each point is associated with an ordered triple of real numbers.
 
 Through a fixed point, called the origin $O$, draw three mutually perpendicular lines: the $x$-axis, the $y$-axis, and the $z$-axis. A point $P$ in space is determined by an ordered triple $(x, y, z)$ of real numbers, as shown in the diagram. These numbers $x, y$, and $z$ are called the coordinates of $P$.
@@ -269,7 +269,7 @@ Therefore, $\\overrightarrow{AB}$ and $\\overrightarrow{AC}$ are parallel. Also,
 
 ---
 
-### Exercise 4.1
+## Exercise 4.1
 **1. Question**
 Let
 $$ \\vec{a} = \\begin{pmatrix} 5 \\\\ -2 \\\\ -4 \\end{pmatrix}, \\quad \\vec{b} = \\begin{pmatrix} 3 \\\\ -6 \\\\ 1 \\end{pmatrix}, \\quad \\text{and} \\quad \\vec{c} = \\begin{pmatrix} 0 \\\\ 7 \\\\ -1 \\end{pmatrix}. $$
@@ -514,7 +514,7 @@ So,
 $$ -20 - 3k = 0. $$
 $$ k = -\\frac{20}{3}. $$
 
-### Exercise 4.2
+## Exercise 4.2
 
 **1. Question**
 For
@@ -688,5 +688,426 @@ $$ \\overrightarrow{BD} = \\overrightarrow{BA} + \\overrightarrow{AD} = -\\vec{a
 $$ (\\vec{a} + \\vec{b}) \\cdot (\\vec{b} - \\vec{a}) = |\\vec{b}|^2 - |\\vec{a}|^2 = 0. $$
 That is,
 $$ \\overrightarrow{AC} \\cdot \\overrightarrow{BD} = 0. $$
+
+## 4.3 Area of a Parallelogram and Vector Product
+
+### Cross Product
+
+Let
+$$ \\vec{a} = \\begin{pmatrix} x_1 \\\\ y_1 \\\\ z_1 \\end{pmatrix}, \\quad \\vec{b} = \\begin{pmatrix} x_2 \\\\ y_2 \\\\ z_2 \\end{pmatrix}. $$
+
+Their cross product is
+$$ \\vec{a} \\times \\vec{b} = \\begin{pmatrix} x_1 \\\\ y_1 \\\\ z_1 \\end{pmatrix} \\times \\begin{pmatrix} x_2 \\\\ y_2 \\\\ z_2 \\end{pmatrix} = \\begin{pmatrix} y_1 z_2 - z_1 y_2 \\\\ z_1 x_2 - x_1 z_2 \\\\ x_1 y_2 - y_1 x_2 \\end{pmatrix}. $$
+
+### Down Product – Up Product Method
+
+To find a particular component, leave out that component and use the other two components:
+- For the $x$-component, leave out $x$ and use $y, z$.
+- For the $y$-component, leave out $y$ and use $z, x$.
+- For the $z$-component, leave out $z$ and use $x, y$.
+
+Write the components cyclically, repeating the first two columns:
+$$ \\begin{array}{ccccc} x_1 & y_1 & z_1 & x_1 & y_1 \\\\ x_2 & y_2 & z_2 & x_2 & y_2 \\end{array} $$
+
+For each component, multiply downward and subtract the upward product.
+
+$$ \\text{First component} = \\underbrace{y_1 z_2}_{\\text{down product}} - \\underbrace{z_1 y_2}_{\\text{up product}}, $$
+
+$$ \\text{Second component} = \\underbrace{z_1 x_2}_{\\text{down product}} - \\underbrace{x_1 z_2}_{\\text{up product}}, $$
+
+$$ \\text{Third component} = \\underbrace{x_1 y_2}_{\\text{down product}} - \\underbrace{y_1 x_2}_{\\text{up product}}. $$
+
+Hence,
+$$ \\boxed{\\vec{a} \\times \\vec{b} = \\begin{pmatrix} y_1 z_2 - z_1 y_2 \\\\ z_1 x_2 - x_1 z_2 \\\\ x_1 y_2 - y_1 x_2 \\end{pmatrix}} $$
+
+### The Direction of $\\vec{a} \\times \\vec{b}$
+
+The vectors $\\vec{a}$ and $\\vec{b}$ determine a plane. The new vector $\\vec{a} \\times \\vec{b}$ is perpendicular to both $\\vec{a}$ and $\\vec{b}$. Therefore, it is perpendicular to the plane containing them.
+
+[DIAGRAM:Chap4_CrossProductDirection]
+
+### Proof Using Dot Products
+
+Let
+$$ \\vec{c} = \\vec{a} \\times \\vec{b} = \\begin{pmatrix} y_1 z_2 - z_1 y_2 \\\\ z_1 x_2 - x_1 z_2 \\\\ x_1 y_2 - y_1 x_2 \\end{pmatrix}. $$
+
+First, calculate the dot product with $\\vec{a}$:
+$$ \\begin{aligned}
+\\vec{c} \\cdot \\vec{a} &= x_1 (y_1 z_2 - z_1 y_2) + y_1 (z_1 x_2 - x_1 z_2) + z_1 (x_1 y_2 - y_1 x_2) \\\\
+&= x_1 y_1 z_2 - x_1 z_1 y_2 + y_1 z_1 x_2 - x_1 y_1 z_2 + x_1 z_1 y_2 - y_1 z_1 x_2 \\\\
+&= 0.
+\\end{aligned} $$
+
+Hence,
+$$ \\boxed{(\\vec{a} \\times \\vec{b}) \\cdot \\vec{a} = 0}, $$
+
+so $\\vec{a} \\times \\vec{b}$ is perpendicular to $\\vec{a}$.
+
+Next, calculate the dot product with $\\vec{b}$:
+$$ \\begin{aligned}
+\\vec{c} \\cdot \\vec{b} &= x_2 (y_1 z_2 - z_1 y_2) + y_2 (z_1 x_2 - x_1 z_2) + z_2 (x_1 y_2 - y_1 x_2) \\\\
+&= x_2 y_1 z_2 - x_2 z_1 y_2 + y_2 z_1 x_2 - x_1 y_2 z_2 + x_1 y_2 z_2 - y_1 x_2 z_2 \\\\
+&= 0.
+\\end{aligned} $$
+
+Hence,
+$$ \\boxed{(\\vec{a} \\times \\vec{b}) \\cdot \\vec{b} = 0}, $$
+
+so $\\vec{a} \\times \\vec{b}$ is perpendicular to $\\vec{b}$.
+
+Since $\\vec{a}$ and $\\vec{b}$ are two non-parallel vectors in the same plane, a vector perpendicular to both of them is perpendicular to that plane. Therefore, $\\vec{a} \\times \\vec{b}$ is a normal vector to the plane containing $\\vec{a}$ and $\\vec{b}$.
+
+### Area of a Parallelogram
+
+Let $\\vec{a}$ and $\\vec{b}$ be two adjacent sides of a parallelogram, and let $\\theta$ be the angle between them.
+
+[DIAGRAM:Chap4_AreaParallelogramDiag]
+
+#### Deriving the Area Formula
+
+Take $|\\vec{a}|$ as the base. The perpendicular height is the component of $\\vec{b}$ perpendicular to $\\vec{a}$, so
+$$ h = |\\vec{b}| \\sin \\theta. $$
+
+Therefore,
+$$ \\begin{aligned}
+\\text{Area of parallelogram} &= \\text{base} \\times \\text{height} \\\\
+&= |\\vec{a}| h \\\\
+&= |\\vec{a}| |\\vec{b}| \\sin \\theta.
+\\end{aligned} $$
+
+Since the magnitude of the cross product is
+$$ |\\vec{a} \\times \\vec{b}| = |\\vec{a}| |\\vec{b}| \\sin \\theta, $$
+
+we obtain
+$$ \\boxed{\\text{Area of parallelogram} = |\\vec{a} \\times \\vec{b}|}. $$
+
+### Area of a Triangle
+
+The diagonal of a parallelogram divides it into two triangles of equal area.
+
+[DIAGRAM:Chap4_AreaTriangleDiag]
+
+$$ \\boxed{\\text{Area of triangle} = \\frac{1}{2} (\\text{Area of parallelogram}) = \\frac{1}{2} |\\vec{a} \\times \\vec{b}|}. $$
+
+---
+
+#### Example 12
+Find the area of the parallelogram determined by the vectors
+$$ \\vec{a} = \\begin{pmatrix} 1 \\\\ 2 \\\\ 3 \\end{pmatrix}, \\quad \\vec{b} = \\begin{pmatrix} 1 \\\\ 4 \\\\ -1 \\end{pmatrix}. $$
+
+**Solution.**
+The area of the parallelogram is $|\\vec{a} \\times \\vec{b}|$. Using the Down Product – Up Product method,
+
+$$ \\begin{aligned} \\vec{a} \\times \\vec{b} &= \\begin{pmatrix} 1 \\\\ 2 \\\\ 3 \\end{pmatrix} \\times \\begin{pmatrix} 1 \\\\ 4 \\\\ -1 \\end{pmatrix} \\\\ &= \\begin{pmatrix} 2(-1) - 3(4) \\\\ 3(1) - 1(-1) \\\\ 1(4) - 2(1) \\end{pmatrix} \\\\ &= \\begin{pmatrix} -14 \\\\ 4 \\\\ 2 \\end{pmatrix}. \\end{aligned} $$
+
+Therefore,
+$$ \\begin{aligned} |\\vec{a} \\times \\vec{b}| &= \\sqrt{(-14)^2 + 4^2 + 2^2} \\\\ &= \\sqrt{196 + 16 + 4} \\\\ &= \\sqrt{216} \\\\ &= 6\\sqrt{6}. \\end{aligned} $$
+
+Hence,
+Area of the parallelogram $= 6\\sqrt{6}$ square units.
+
+---
+
+#### Example 13
+Find the area of triangle $ABC$ with vertices
+$$ A(1, -1, 3), \\quad B(0, 4, 1), \\quad C(2, 7, 2). $$
+
+**Solution.**
+Two sides of the triangle starting from $A$ are
+$$ \\overrightarrow{AB} = \\overrightarrow{OB} - \\overrightarrow{OA} = \\begin{pmatrix} 0 \\\\ 4 \\\\ 1 \\end{pmatrix} - \\begin{pmatrix} 1 \\\\ -1 \\\\ 3 \\end{pmatrix} = \\begin{pmatrix} -1 \\\\ 5 \\\\ -2 \\end{pmatrix}, $$
+$$ \\overrightarrow{AC} = \\overrightarrow{OC} - \\overrightarrow{OA} = \\begin{pmatrix} 2 \\\\ 7 \\\\ 2 \\end{pmatrix} - \\begin{pmatrix} 1 \\\\ -1 \\\\ 3 \\end{pmatrix} = \\begin{pmatrix} 1 \\\\ 8 \\\\ -1 \\end{pmatrix}. $$
+
+Using the Down Product – Up Product method,
+$$ \\begin{aligned} \\overrightarrow{AB} \\times \\overrightarrow{AC} &= \\begin{pmatrix} -1 \\\\ 5 \\\\ -2 \\end{pmatrix} \\times \\begin{pmatrix} 1 \\\\ 8 \\\\ -1 \\end{pmatrix} \\\\ &= \\begin{pmatrix} 5(-1) - (-2)(8) \\\\ (-2)(1) - (-1)(-1) \\\\ (-1)(8) - 5(1) \\end{pmatrix} \\\\ &= \\begin{pmatrix} 11 \\\\ -3 \\\\ -13 \\end{pmatrix}. \\end{aligned} $$
+
+Therefore,
+$$ \\begin{aligned} |\\overrightarrow{AB} \\times \\overrightarrow{AC}| &= \\sqrt{11^2 + (-3)^2 + (-13)^2} \\\\ &= \\sqrt{121 + 9 + 169} \\\\ &= \\sqrt{299}. \\end{aligned} $$
+
+Hence,
+Area of triangle $ABC = \\frac{\\sqrt{299}}{2}$ square units.
+
+---
+
+### Algebraic Properties of the Vector Product
+
+Let $\\vec{a}, \\vec{b}$ and $\\vec{c}$ be vectors in three-dimensional space, and let $k$ be a scalar.
+
+1. Anti-commutative property
+$$ \\boxed{\\vec{a} \\times \\vec{b} = -(\\vec{b} \\times \\vec{a})}. $$
+Interchanging the order of the vectors reverses the direction of the vector product.
+
+2. Distributive property
+$$ \\boxed{\\vec{a} \\times (\\vec{b} + \\vec{c}) = \\vec{a} \\times \\vec{b} + \\vec{a} \\times \\vec{c}}, $$
+and
+$$ \\boxed{(\\vec{a} + \\vec{b}) \\times \\vec{c} = \\vec{a} \\times \\vec{c} + \\vec{b} \\times \\vec{c}}. $$
+The same property applies to subtraction.
+
+3. Scalar multiplication property
+$$ \\boxed{(k\\vec{a}) \\times \\vec{b} = k(\\vec{a} \\times \\vec{b}) = \\vec{a} \\times (k\\vec{b})}. $$
+
+4. Vector product with the zero vector
+$$ \\boxed{\\vec{a} \\times \\vec{0} = \\vec{0} \\times \\vec{a} = \\vec{0}}. $$
+
+5. The vector product is not associative
+$$ \\boxed{(\\vec{a} \\times \\vec{b}) \\times \\vec{c} \\neq \\vec{a} \\times (\\vec{b} \\times \\vec{c})} $$
+in general.
+
+---
+
+### Vector Products of Unit Vectors
+
+The vectors
+$$ \\hat{\\mathbf{i}} = \\begin{pmatrix} 1 \\\\ 0 \\\\ 0 \\end{pmatrix}, \\quad \\hat{\\mathbf{j}} = \\begin{pmatrix} 0 \\\\ 1 \\\\ 0 \\end{pmatrix}, \\quad \\hat{\\mathbf{k}} = \\begin{pmatrix} 0 \\\\ 0 \\\\ 1 \\end{pmatrix} $$
+are unit vectors along the positive $x, y$ and $z$-axes respectively. They are mutually perpendicular and each has magnitude $1$.
+
+When two different unit vectors are multiplied, the result is the remaining unit vector. Its sign is determined by the order of multiplication.
+
+[DIAGRAM:Chap4_UnitVectorCyclicDiag]
+
+The positive cyclic products are
+$$ \\boxed{\\hat{\\mathbf{i}} \\times \\hat{\\mathbf{j}} = \\hat{\\mathbf{k}}, \\quad \\hat{\\mathbf{j}} \\times \\hat{\\mathbf{k}} = \\hat{\\mathbf{i}}, \\quad \\hat{\\mathbf{k}} \\times \\hat{\\mathbf{i}} = \\hat{\\mathbf{j}}}. $$
+
+For example, rotating from $\\hat{\\mathbf{i}}$ towards $\\hat{\\mathbf{j}}$ and applying the right-hand rule gives the direction $\\hat{\\mathbf{k}}$. Thus, $\\hat{\\mathbf{i}} \\times \\hat{\\mathbf{j}} = \\hat{\\mathbf{k}}$.
+
+Reversing the order changes the sign:
+$$ \\hat{\\mathbf{j}} \\times \\hat{\\mathbf{i}} = -\\hat{\\mathbf{k}}, \\quad \\hat{\\mathbf{k}} \\times \\hat{\\mathbf{j}} = -\\hat{\\mathbf{i}}, \\quad \\hat{\\mathbf{i}} \\times \\hat{\\mathbf{k}} = -\\hat{\\mathbf{j}}. $$
+
+For example,
+$$ \\hat{\\mathbf{j}} \\times \\hat{\\mathbf{i}} = -(\\hat{\\mathbf{i}} \\times \\hat{\\mathbf{j}}) = -\\hat{\\mathbf{k}}. $$
+
+Also,
+$$ \\hat{\\mathbf{i}} \\times \\hat{\\mathbf{i}} = \\hat{\\mathbf{j}} \\times \\hat{\\mathbf{j}} = \\hat{\\mathbf{k}} \\times \\hat{\\mathbf{k}} = \\vec{0}. $$
+
+This is because the angle between a vector and itself is $0^\\circ$, and hence $\\sin 0^\\circ = 0$.
+
+
+---
+
+### Geometric Properties of the Vector Product
+
+Let $\\theta$ be the angle between two non-zero vectors $\\vec{a}$ and $\\vec{b}$, where $0^\\circ \\le \\theta \\le 180^\\circ$.
+
+1. **Magnitude**
+$$ \\boxed{|\\vec{a} \\times \\vec{b}| = |\\vec{a}| |\\vec{b}| \\sin \\theta}. $$
+Thus, the magnitude depends on the lengths of the two vectors and the angle between them.
+
+2. **Perpendicular direction**
+The vector $\\vec{a} \\times \\vec{b}$ is perpendicular to both $\\vec{a}$ and $\\vec{b}$. Therefore, it is normal to the plane containing the two vectors.
+$$ (\\vec{a} \\times \\vec{b}) \\cdot \\vec{a} = 0, \\quad (\\vec{a} \\times \\vec{b}) \\cdot \\vec{b} = 0. $$
+
+3. **Right-hand rule**
+Curl the fingers of the right hand from $\\vec{a}$ towards $\\vec{b}$ through the smaller angle. The thumb points in the direction of $\\vec{a} \\times \\vec{b}$.
+
+4. **Parallel vectors**
+If $\\vec{a}$ and $\\vec{b}$ are parallel, then $\\theta = 0^\\circ$ or $180^\\circ$. Since $\\sin 0^\\circ = \\sin 180^\\circ = 0$,
+$$ \\boxed{\\vec{a} \\times \\vec{b} = \\vec{0}}. $$
+
+5. **Perpendicular vectors**
+If $\\vec{a} \\perp \\vec{b}$, then $\\theta = 90^\\circ$ and $\\sin 90^\\circ = 1$. Hence,
+$$ \\boxed{|\\vec{a} \\times \\vec{b}| = |\\vec{a}| |\\vec{b}|}. $$
+For fixed magnitudes, the vector product has its greatest magnitude when the two vectors are perpendicular.
+
+6. **Area interpretation**
+$$ \\boxed{\\text{Area of parallelogram} = |\\vec{a} \\times \\vec{b}|}, $$
+and
+$$ \\boxed{\\text{Area of triangle} = \\frac{1}{2} |\\vec{a} \\times \\vec{b}|}. $$
+
+---
+
+#### Example 14
+
+(a) Calculate $\\vec{a} \\times \\vec{b}$ when
+$$ \\vec{a} = 3\\hat{\\mathbf{i}} + 2\\hat{\\mathbf{j}} + 5\\hat{\\mathbf{k}} \\quad \\text{and} \\quad \\vec{b} = \\hat{\\mathbf{i}} - 4\\hat{\\mathbf{j}} + 2\\hat{\\mathbf{k}}. $$
+
+(b) Find a unit vector $\\hat{n}$ that is perpendicular to both $\\vec{a}$ and $\\vec{b}$.
+
+**Solution.**
+In component form,
+$$ \\vec{a} = \\begin{pmatrix} 3 \\\\ 2 \\\\ 5 \\end{pmatrix}, \\quad \\vec{b} = \\begin{pmatrix} 1 \\\\ -4 \\\\ 2 \\end{pmatrix}. $$
+
+(a) Using the Down Product – Up Product method,
+$$ \\begin{aligned}
+\\vec{a} \\times \\vec{b} &= \\begin{pmatrix} 3 \\\\ 2 \\\\ 5 \\end{pmatrix} \\times \\begin{pmatrix} 1 \\\\ -4 \\\\ 2 \\end{pmatrix} \\\\
+&= \\begin{pmatrix} 2(2) - 5(-4) \\\\ 5(1) - 3(2) \\\\ 3(-4) - 2(1) \\end{pmatrix} \\\\
+&= \\begin{pmatrix} 24 \\\\ -1 \\\\ -14 \\end{pmatrix}.
+\\end{aligned} $$
+
+Therefore,
+$$ \\vec{a} \\times \\vec{b} = 24\\hat{\\mathbf{i}} - \\hat{\\mathbf{j}} - 14\\hat{\\mathbf{k}}. $$
+
+(b) Let $\\vec{n}$ be a vector perpendicular to both $\\vec{a}$ and $\\vec{b}$. Then
+$$ \\vec{n} = \\vec{a} \\times \\vec{b} = \\begin{pmatrix} 24 \\\\ -1 \\\\ -14 \\end{pmatrix}. $$
+
+The unit vector of $\\vec{n}$ is
+$$ \\begin{aligned}
+\\hat{n} &= \\frac{\\vec{n}}{|\\vec{n}|} \\\\
+&= \\frac{1}{\\sqrt{24^2 + (-1)^2 + (-14)^2}} \\begin{pmatrix} 24 \\\\ -1 \\\\ -14 \\end{pmatrix} \\\\
+&= \\frac{1}{\\sqrt{773}} \\begin{pmatrix} 24 \\\\ -1 \\\\ -14 \\end{pmatrix}.
+\\end{aligned} $$
+
+Therefore,
+$$ \\hat{n} = \\frac{1}{\\sqrt{773}} \\begin{pmatrix} 24 \\\\ -1 \\\\ -14 \\end{pmatrix}. $$
+
+> **Note.** For two non-parallel vectors $\\vec{a}$ and $\\vec{b}$, a vector perpendicular to both may be taken as
+> $$ \\boxed{\\vec{n} = \\vec{a} \\times \\vec{b}}. $$
+
+
+---
+
+#### Example 15
+Given that $|\\vec{a}| = 4$, $|\\vec{b}| = 5$, and that $\\vec{a}$ and $\\vec{b}$ are perpendicular, evaluate
+$$ |(2\\vec{a} - \\vec{b}) \\times (\\vec{a} + 3\\vec{b})|. $$
+
+**Solution.**
+Using the distributive property,
+$$ \\begin{aligned} (2\\vec{a} - \\vec{b}) \\times (\\vec{a} + 3\\vec{b}) &= 2(\\vec{a} \\times \\vec{a}) + 6(\\vec{a} \\times \\vec{b}) - (\\vec{b} \\times \\vec{a}) - 3(\\vec{b} \\times \\vec{b}) \\\\ &= 6(\\vec{a} \\times \\vec{b}) - (\\vec{b} \\times \\vec{a}). \\end{aligned} $$
+
+Since
+$$ \\vec{b} \\times \\vec{a} = -(\\vec{a} \\times \\vec{b}), $$
+
+we get
+$$ \\begin{aligned} (2\\vec{a} - \\vec{b}) \\times (\\vec{a} + 3\\vec{b}) &= 6(\\vec{a} \\times \\vec{b}) + (\\vec{a} \\times \\vec{b}) \\\\ &= 7(\\vec{a} \\times \\vec{b}). \\end{aligned} $$
+
+Therefore,
+$$ \\begin{aligned} |(2\\vec{a} - \\vec{b}) \\times (\\vec{a} + 3\\vec{b})| &= 7|\\vec{a} \\times \\vec{b}| \\\\ &= 7|\\vec{a}| |\\vec{b}| \\sin 90^\\circ \\\\ &= 7(4)(5)(1) \\\\ &= 140. \\end{aligned} $$
+
+Hence,
+$$ |(2\\vec{a} - \\vec{b}) \\times (\\vec{a} + 3\\vec{b})| = 140. $$
+
+---
+
+## Exercise 4.3
+
+**1.** Find a vector perpendicular to the following pair of vectors:
+
+(a)
+$$ \\begin{pmatrix} 3 \\\\ 1 \\\\ 1 \\end{pmatrix} \\quad \\text{and} \\quad \\begin{pmatrix} 1 \\\\ 2 \\\\ 3 \\end{pmatrix}. $$
+
+(b)
+$$ \\begin{pmatrix} 3 \\\\ -1 \\\\ 4 \\end{pmatrix} \\quad \\text{and} \\quad \\begin{pmatrix} -1 \\\\ 1 \\\\ 5 \\end{pmatrix}. $$
+
+**Solution.**
+A vector perpendicular to both vectors is their vector product.
+
+(a) Let
+$$ \\vec{a} = \\begin{pmatrix} 3 \\\\ 1 \\\\ 1 \\end{pmatrix}, \\quad \\vec{b} = \\begin{pmatrix} 1 \\\\ 2 \\\\ 3 \\end{pmatrix}. $$
+
+Then
+$$ \\vec{a} \\times \\vec{b} = \\begin{pmatrix} 1(3) - 1(2) \\\\ 1(1) - 3(3) \\\\ 3(2) - 1(1) \\end{pmatrix} = \\begin{pmatrix} 1 \\\\ -8 \\\\ 5 \\end{pmatrix}. $$
+
+(b) Let
+$$ \\vec{a} = \\begin{pmatrix} 3 \\\\ -1 \\\\ 4 \\end{pmatrix}, \\quad \\vec{b} = \\begin{pmatrix} -1 \\\\ 1 \\\\ 5 \\end{pmatrix}. $$
+
+Then
+$$ \\vec{a} \\times \\vec{b} = \\begin{pmatrix} (-1)(5) - 4(1) \\\\ 4(-1) - 3(5) \\\\ 3(1) - (-1)(-1) \\end{pmatrix} = \\begin{pmatrix} -9 \\\\ -19 \\\\ 2 \\end{pmatrix}. $$
+
+**2.** Consider
+$$ \\vec{a} = \\begin{pmatrix} 2 \\\\ -1 \\\\ 3 \\end{pmatrix} \\quad \\text{and} \\quad \\vec{b} = \\begin{pmatrix} 1 \\\\ 0 \\\\ -1 \\end{pmatrix}. $$
+
+(a) Find $\\vec{a} \\times \\vec{b}$.
+
+(b) Find $\\sin \\theta$ using
+$$ |\\vec{a} \\times \\vec{b}| = |\\vec{a}| |\\vec{b}| \\sin \\theta. $$
+
+**Solution.**
+(a)
+$$ \\vec{a} \\times \\vec{b} = \\begin{pmatrix} (-1)(-1) - 3(0) \\\\ 3(1) - 2(-1) \\\\ 2(0) - (-1)(1) \\end{pmatrix} = \\begin{pmatrix} 1 \\\\ 5 \\\\ 1 \\end{pmatrix}. $$
+
+(b)
+$$ |\\vec{a} \\times \\vec{b}| = \\sqrt{1^2 + 5^2 + 1^2} = \\sqrt{27} = 3\\sqrt{3}. $$
+
+Also,
+$$ |\\vec{a}| = \\sqrt{2^2 + (-1)^2 + 3^2} = \\sqrt{14}, \\quad |\\vec{b}| = \\sqrt{1^2 + 0^2 + (-1)^2} = \\sqrt{2}. $$
+
+Hence,
+$$ \\sin \\theta = \\frac{|\\vec{a} \\times \\vec{b}|}{|\\vec{a}| |\\vec{b}|} = \\frac{3\\sqrt{3}}{\\sqrt{14}\\sqrt{2}} = \\frac{3\\sqrt{3}}{2\\sqrt{7}} \\times \\frac{\\sqrt{7}}{\\sqrt{7}} = \\frac{3\\sqrt{21}}{14}. $$
+
+**3.** Prove that for any two vectors $\\vec{a}$ and $\\vec{b}$,
+$$ |\\vec{a} \\times \\vec{b}|^2 + (\\vec{a} \\cdot \\vec{b})^2 = |\\vec{a}|^2 |\\vec{b}|^2. $$
+
+**Solution.**
+Let $\\theta$ be the angle between $\\vec{a}$ and $\\vec{b}$. Then
+$$ |\\vec{a} \\times \\vec{b}| = |\\vec{a}| |\\vec{b}| \\sin \\theta $$
+
+and
+$$ \\vec{a} \\cdot \\vec{b} = |\\vec{a}| |\\vec{b}| \\cos \\theta. $$
+
+Therefore,
+$$ \\begin{aligned} |\\vec{a} \\times \\vec{b}|^2 + (\\vec{a} \\cdot \\vec{b})^2 &= |\\vec{a}|^2 |\\vec{b}|^2 \\sin^2 \\theta + |\\vec{a}|^2 |\\vec{b}|^2 \\cos^2 \\theta \\\\ &= |\\vec{a}|^2 |\\vec{b}|^2 (\\sin^2 \\theta + \\cos^2 \\theta) \\\\ &= |\\vec{a}|^2 |\\vec{b}|^2. \\end{aligned} $$
+
+Hence proved.
+
+Another method. Starting with
+$$ \\sin^2 \\theta + \\cos^2 \\theta = 1, $$
+
+and using
+$$ \\sin \\theta = \\frac{|\\vec{a} \\times \\vec{b}|}{|\\vec{a}| |\\vec{b}|}, \\quad \\cos \\theta = \\frac{\\vec{a} \\cdot \\vec{b}}{|\\vec{a}| |\\vec{b}|}, $$
+
+we get
+$$ \\frac{|\\vec{a} \\times \\vec{b}|^2}{|\\vec{a}|^2 |\\vec{b}|^2} + \\frac{(\\vec{a} \\cdot \\vec{b})^2}{|\\vec{a}|^2 |\\vec{b}|^2} = 1. $$
+
+Multiplying throughout by $|\\vec{a}|^2 |\\vec{b}|^2$ gives
+$$ |\\vec{a} \\times \\vec{b}|^2 + (\\vec{a} \\cdot \\vec{b})^2 = |\\vec{a}|^2 |\\vec{b}|^2. $$
+
+**4.** Given points $A, B$ and $C$ with coordinates $(3, -5, 1)$, $(7, 7, 2)$ and $(-1, 1, 3)$.
+
+(a) Calculate
+$$ \\vec{p} = \\overrightarrow{AB} \\times \\overrightarrow{AC} \\quad \\text{and} \\quad \\vec{q} = \\overrightarrow{BA} \\times \\overrightarrow{BC}. $$
+
+(b) What can you say about vectors $\\vec{p}$ and $\\vec{q}$?
+
+**Solution.**
+$$ \\overrightarrow{OA} = \\begin{pmatrix} 3 \\\\ -5 \\\\ 1 \\end{pmatrix}, \\quad \\overrightarrow{OB} = \\begin{pmatrix} 7 \\\\ 7 \\\\ 2 \\end{pmatrix}, \\quad \\overrightarrow{OC} = \\begin{pmatrix} -1 \\\\ 1 \\\\ 3 \\end{pmatrix}. $$
+
+Therefore,
+$$ \\overrightarrow{AB} = \\overrightarrow{OB} - \\overrightarrow{OA} = \\begin{pmatrix} 7 \\\\ 7 \\\\ 2 \\end{pmatrix} - \\begin{pmatrix} 3 \\\\ -5 \\\\ 1 \\end{pmatrix} = \\begin{pmatrix} 4 \\\\ 12 \\\\ 1 \\end{pmatrix}, $$
+
+$$ \\overrightarrow{AC} = \\overrightarrow{OC} - \\overrightarrow{OA} = \\begin{pmatrix} -1 \\\\ 1 \\\\ 3 \\end{pmatrix} - \\begin{pmatrix} 3 \\\\ -5 \\\\ 1 \\end{pmatrix} = \\begin{pmatrix} -4 \\\\ 6 \\\\ 2 \\end{pmatrix}. $$
+
+Also,
+$$ \\overrightarrow{BA} = \\overrightarrow{OA} - \\overrightarrow{OB} = \\begin{pmatrix} -4 \\\\ -12 \\\\ -1 \\end{pmatrix}, \\quad \\overrightarrow{BC} = \\overrightarrow{OC} - \\overrightarrow{OB} = \\begin{pmatrix} -1 \\\\ 1 \\\\ 3 \\end{pmatrix} - \\begin{pmatrix} 7 \\\\ 7 \\\\ 2 \\end{pmatrix} = \\begin{pmatrix} -8 \\\\ -6 \\\\ 1 \\end{pmatrix}. $$
+
+(a)
+$$ \\vec{p} = \\begin{pmatrix} 4 \\\\ 12 \\\\ 1 \\end{pmatrix} \\times \\begin{pmatrix} -4 \\\\ 6 \\\\ 2 \\end{pmatrix} = \\begin{pmatrix} 18 \\\\ -12 \\\\ 72 \\end{pmatrix}, $$
+
+$$ \\vec{q} = \\begin{pmatrix} -4 \\\\ -12 \\\\ -1 \\end{pmatrix} \\times \\begin{pmatrix} -8 \\\\ -6 \\\\ 1 \\end{pmatrix} = \\begin{pmatrix} -18 \\ 12 \\ -72 \\end{pmatrix}. $$
+
+(b) Since
+$$ \\vec{q} = -\\vec{p}, $$
+
+the vectors $\\vec{p}$ and $\\vec{q}$ have equal magnitudes but opposite directions.
+
+**5.** The points $A(3, 1, 2)$, $B(-1, 1, 5)$ and $C(7, 2, 3)$ are vertices of a parallelogram $ABCD$.
+
+(a) Find the coordinates of $D$.
+
+(b) Calculate the area of the parallelogram.
+
+[DIAGRAM:Chap4_Ex4_3_Q5]
+
+**Solution.**
+(a) For parallelogram $ABCD$,
+$$ \\overrightarrow{AD} = \\overrightarrow{BC}, $$
+$$ \\overrightarrow{OD} - \\overrightarrow{OA} = \\overrightarrow{OC} - \\overrightarrow{OB}. $$
+
+Therefore,
+$$ \\begin{aligned} \\overrightarrow{OD} &= \\overrightarrow{OA} + \\overrightarrow{OC} - \\overrightarrow{OB} \\\\ &= \\begin{pmatrix} 3 \\\\ 1 \\\\ 2 \\end{pmatrix} + \\begin{pmatrix} 7 \\\\ 2 \\\\ 3 \\end{pmatrix} - \\begin{pmatrix} -1 \\\\ 1 \\\\ 5 \\end{pmatrix} \\\\ &= \\begin{pmatrix} 11 \\\\ 2 \\\\ 0 \\end{pmatrix}. \\end{aligned} $$
+
+Therefore, the coordinates of $D$ are $(11, 2, 0)$.
+
+(b) Adjacent sides from $A$ are
+$$ \\overrightarrow{AB} = \\begin{pmatrix} -1 \\\\ 1 \\\\ 5 \\end{pmatrix} - \\begin{pmatrix} 3 \\\\ 1 \\\\ 2 \\end{pmatrix} = \\begin{pmatrix} -4 \\\\ 0 \\\\ 3 \\end{pmatrix} $$
+
+and
+$$ \\overrightarrow{AD} = \\begin{pmatrix} 8 \\\\ 1 \\\\ -2 \\end{pmatrix}. $$
+
+Thus,
+$$ \\overrightarrow{AB} \\times \\overrightarrow{AD} = \\begin{pmatrix} -4 \\\\ 0 \\\\ 3 \\end{pmatrix} \\times \\begin{pmatrix} 8 \\\\ 1 \\\\ -2 \\end{pmatrix} = \\begin{pmatrix} -3 \\\\ 16 \\\\ -4 \\end{pmatrix}. $$
+
+Therefore,
+$$ \\begin{aligned} \\text{Area of parallelogram} &= |\\overrightarrow{AB} \\times \\overrightarrow{AD}| \\\\ &= \\sqrt{(-3)^2 + 16^2 + (-4)^2} \\\\ &= \\sqrt{281}. \\end{aligned} $$
+
+Hence,
+$$ \\text{Area of parallelogram} = \\sqrt{281} \\text{ square units.} $$
 
 `;
