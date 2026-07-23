@@ -3171,21 +3171,93 @@ $$x^2 + (y - 2)^2 + (z - 7)^2 = 134$$`,
     formulas: [
       {
         id: "c4-f1",
-        name: "Vector Magnitude",
-        latex: "|\\mathbf{a}| = \\sqrt{a_x^2 + a_y^2 + a_z^2}",
-        description: "The length of vector $\\mathbf{a}$."
+        name: "Position Vector in 3D Space",
+        latex: "\\overrightarrow{OA} = x\\hat{\\mathbf{i}} + y\\hat{\\mathbf{j}} + z\\hat{\\mathbf{k}} = \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix}",
+        description: "Position vector of point $A(x, y, z)$ relative to origin $O$ using standard unit vectors."
       },
       {
         id: "c4-f2",
-        name: "Dot Product",
-        latex: "\\mathbf{a} \\cdot \\mathbf{b} = a_x b_x + a_y b_y + a_z b_z = |\\mathbf{a}||\\mathbf{b}|\\cos\\theta",
-        description: "The scalar product, used to find angles and check for perpendicular vectors."
+        name: "Vector Between Two Points (Displacement Vector)",
+        latex: "\\overrightarrow{AB} = \\overrightarrow{OB} - \\overrightarrow{OA} = \\begin{pmatrix} x_2 - x_1 \\\\ y_2 - y_1 \\\\ z_2 - z_1 \\end{pmatrix}",
+        description: "Vector from initial point $A(x_1, y_1, z_1)$ to terminal point $B(x_2, y_2, z_2)$."
       },
       {
         id: "c4-f3",
-        name: "Cross Product Determinant",
-        latex: "\\mathbf{a} \\times \\mathbf{b} = \\det \\begin{pmatrix} \\mathbf{i} & \\mathbf{j} & \\mathbf{k} \\\\ a_x & a_y & a_z \\\\ b_x & b_y & b_z \\end{pmatrix}",
-        description: "The vector product, perpendicular to both input vectors."
+        name: "Vector Magnitude",
+        latex: "|\\vec{a}| = \\sqrt{a_1^2 + a_2^2 + a_3^2}",
+        description: "The scalar magnitude (length) of vector $\\vec{a} = a_1\\hat{\\mathbf{i}} + a_2\\hat{\\mathbf{j}} + a_3\\hat{\\mathbf{k}}$."
+      },
+      {
+        id: "c4-f4",
+        name: "Unit Vector in Direction of a Vector",
+        latex: "\\hat{a} = \\frac{\\vec{a}}{|\\vec{a}|} = \\frac{1}{|\\vec{a}|}\\begin{pmatrix} a_1 \\\\ a_2 \\\\ a_3 \\end{pmatrix}",
+        description: "A vector of length 1 pointing in the same direction as non-zero vector $\\vec{a}$."
+      },
+      {
+        id: "c4-f5",
+        name: "Parallel Vectors Condition",
+        latex: "\\vec{a} \\parallel \\vec{b} \\iff \\vec{a} = k\\vec{b} \\quad (k \\neq 0)",
+        description: "Two non-zero vectors are parallel if one vector is a non-zero scalar multiple of the other."
+      },
+      {
+        id: "c4-f6",
+        name: "Collinear Points Condition",
+        latex: "\\overrightarrow{AB} = k\\overrightarrow{AC} \\quad (k \\neq 0)",
+        description: "Points $A, B, C$ are collinear (lie on the same straight line) if $\\overrightarrow{AB}$ and $\\overrightarrow{AC}$ are parallel."
+      },
+      {
+        id: "c4-f7",
+        name: "Scalar Product (Dot Product)",
+        latex: "\\vec{a} \\cdot \\vec{b} = a_1 b_1 + a_2 b_2 + a_3 b_3 = |\\vec{a}||\\vec{b}|\\cos\\theta",
+        description: "The scalar product of vectors $\\vec{a}$ and $\\vec{b}$, where $\\theta$ is the angle between them."
+      },
+      {
+        id: "c4-f8",
+        name: "Angle Between Two Vectors",
+        latex: "\\cos\\theta = \\frac{\\vec{a} \\cdot \\vec{b}}{|\\vec{a}||\\vec{b}|} \\implies \\theta = \\cos^{-1}\\left(\\frac{\\vec{a} \\cdot \\vec{b}}{|\\vec{a}||\\vec{b}|}\\right)",
+        description: "Formula for the angle $\\theta$ ($0^\\circ \\le \\theta \\le 180^\\circ$) between two non-zero vectors."
+      },
+      {
+        id: "c4-f9",
+        name: "Perpendicular Vectors Condition",
+        latex: "\\vec{a} \\perp \\vec{b} \\iff \\vec{a} \\cdot \\vec{b} = 0",
+        description: "Two non-zero vectors are orthogonal (perpendicular) if and only if their dot product is zero."
+      },
+      {
+        id: "c4-f10",
+        name: "Vector Product (Cross Product)",
+        latex: "\\vec{a} \\times \\vec{b} = \\begin{pmatrix} a_2 b_3 - a_3 b_2 \\\\ a_3 b_1 - a_1 b_3 \\\\ a_1 b_2 - a_2 b_1 \\end{pmatrix} = \\det \\begin{pmatrix} \\hat{\\mathbf{i}} & \\hat{\\mathbf{j}} & \\hat{\\mathbf{k}} \\\\ a_1 & a_2 & a_3 \\\\ b_1 & b_2 & b_3 \\end{pmatrix}",
+        description: "The vector product, yielding a new vector perpendicular to both $\\vec{a}$ and $\\vec{b}$."
+      },
+      {
+        id: "c4-f11",
+        name: "Magnitude of Cross Product",
+        latex: "|\\vec{a} \\times \\vec{b}| = |\\vec{a}||\\vec{b}|\\sin\\theta",
+        description: "Magnitude of vector product, where $\\theta$ ($0^\\circ \\le \\theta \\le 180^\\circ$) is the angle between $\\vec{a}$ and $\\vec{b}$."
+      },
+      {
+        id: "c4-f12",
+        name: "Unit Normal Vector to a Plane",
+        latex: "\\hat{n} = \\pm \\frac{\\vec{a} \\times \\vec{b}}{|\\vec{a} \\times \\vec{b}|}",
+        description: "Unit vector perpendicular to the plane containing non-parallel vectors $\\vec{a}$ and $\\vec{b}$."
+      },
+      {
+        id: "c4-f13",
+        name: "Area of a Parallelogram",
+        latex: "\\text{Area} = |\\vec{a} \\times \\vec{b}|",
+        description: "The area of a parallelogram determined by adjacent side vectors $\\vec{a}$ and $\\vec{b}$."
+      },
+      {
+        id: "c4-f14",
+        name: "Area of a Triangle",
+        latex: "\\text{Area} = \\frac{1}{2} |\\vec{a} \\times \\vec{b}| = \\frac{1}{2} |\\overrightarrow{AB} \\times \\overrightarrow{AC}|",
+        description: "The area of a triangle given adjacent side vectors $\\vec{a}, \\vec{b}$ or vertices $A, B, C$."
+      },
+      {
+        id: "c4-f15",
+        name: "Properties of Cross Product & Unit Vectors",
+        latex: "\\vec{a} \\times \\vec{b} = -(\\vec{b} \\times \\vec{a}), \\quad \\hat{\\mathbf{i}} \\times \\hat{\\mathbf{j}} = \\hat{\\mathbf{k}}, \\quad \\hat{\\mathbf{j}} \\times \\hat{\\mathbf{k}} = \\hat{\\mathbf{i}}, \\quad \\hat{\\mathbf{k}} \\times \\hat{\\mathbf{i}} = \\hat{\\mathbf{j}}",
+        description: "Anti-commutative law and standard unit vector products ($\\hat{\\mathbf{i}} \\times \\hat{\\mathbf{i}} = \\vec{0}$, $\\hat{\\mathbf{i}} \\cdot \\hat{\\mathbf{i}} = 1$)."
       }
     ],
     quiz: [

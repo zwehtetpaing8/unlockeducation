@@ -82,22 +82,40 @@
 
 
 
-/* Fix KaTeX display mode overflow clipping on mobile */
+/* Fix KaTeX display mode overflow clipping and line wrapping on mobile */
+.katex,
+.katex *,
+.katex-display,
+.katex-block,
+.katex-inline {
+  white-space: nowrap !important;
+}
+
 .katex-block, .katex-display {
   overflow-x: auto;
   overflow-y: hidden;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
   max-width: 100%;
+  -webkit-overflow-scrolling: touch;
 }
+
 .katex-display > .katex {
   display: inline-block;
   text-align: center;
   min-width: 100%;
+  white-space: nowrap !important;
 }
+
 .katex-inline {
-  padding-top: 0.3em;
+  padding-top: 0.2em;
   padding-bottom: 0.2em;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Override katex margins to reduce gaps */

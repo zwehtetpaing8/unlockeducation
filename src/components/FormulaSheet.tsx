@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { chapters } from '../data/chapters';
 import Latex from './Latex';
-import { Search, Filter, Copy, Check, Hash } from 'lucide-react';
+import { Search, Copy, Check, Hash } from 'lucide-react';
 import DraggableScroll from "./DraggableScroll";
 
 export default function FormulaSheet() {
@@ -38,39 +38,47 @@ export default function FormulaSheet() {
     <div className="space-y-6">
       {/* Search and Filters panel */}
       <div className="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-100 dark:border-slate-800/80 shadow-sm space-y-4">
-        <div className="flex flex-col md:flex-row gap-3">
-          {/* Search Input bar */}
-          <div className="relative flex-1">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-            <input
-              type="text"
-              placeholder="Search formulas, symbols, definitions..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all"
-            />
-          </div>
-
-          {/* Chapter Filter Select dropdown */}
-          <div className="relative md:w-64">
-            <Filter className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
-            <select
-              value={selectedChapterId}
-              onChange={(e) => {
-                const val = e.target.value;
-                setSelectedChapterId(val === 'all' ? 'all' : parseInt(val));
-              }}
-              className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 appearance-none cursor-pointer"
-            >
-              <option value="all">Filter by Chapter: All</option>
-              {chapters.map((ch) => (
-                <option key={ch.id} value={ch.id}>
-                  Ch {ch.id}. {ch.title}
-                </option>
-              ))}
-            </select>
-          </div>
+        {/* Search Input bar */}
+        <div className="relative">
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <input
+            type="text"
+            placeholder="Search formulas, symbols, definitions..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all"
+          />
         </div>
+
+        {/* Chapter Filter Pills */}
+        <DraggableScroll className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-2 pb-1">
+          <button
+            onClick={() => setSelectedChapterId('all')}
+            className={`snap-start shrink-0 text-left px-3.5 py-2 rounded-xl border transition-all cursor-pointer whitespace-nowrap text-[11px] font-semibold ${
+              selectedChapterId === 'all'
+                ? "bg-indigo-600 border-indigo-600 text-white shadow-sm shadow-indigo-600/20"
+                : "bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700"
+            }`}
+          >
+            All Chapters
+          </button>
+          {chapters.map((ch) => {
+            const isActive = selectedChapterId === ch.id;
+            return (
+              <button
+                key={ch.id}
+                onClick={() => setSelectedChapterId(ch.id)}
+                className={`snap-start shrink-0 text-left px-3.5 py-2 rounded-xl border transition-all cursor-pointer whitespace-nowrap text-[11px] font-semibold ${
+                  isActive
+                    ? "bg-indigo-600 border-indigo-600 text-white shadow-sm shadow-indigo-600/20"
+                    : "bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700"
+                }`}
+              >
+                Ch {ch.id}. {ch.title}
+              </button>
+            );
+          })}
+        </DraggableScroll>
 
         {/* Quick Suggest tags */}
         <div className="flex flex-wrap items-center gap-1.5 text-[10px] text-slate-500 font-medium">
@@ -138,9 +146,9 @@ export default function FormulaSheet() {
               </div>
 
               {/* Centered LaTeX expression equation card */}
-              <DraggableScroll className="p-4 bg-slate-50 dark:bg-slate-950/60 border border-slate-100 dark:border-slate-800 rounded-xl min-h-[56px] w-full">
+              <div className="px-3 py-2 bg-slate-50 dark:bg-slate-950/60 border border-slate-100 dark:border-slate-800 rounded-xl min-h-[56px] w-full flex items-center justify-center overflow-hidden">
                 <Latex block={true} text={formula.latex} />
-              </DraggableScroll>
+              </div>
             </div>
           ))
         ) : (

@@ -576,7 +576,7 @@ export default function ChapterDetails({
                                 handleSectionClick(idx);
                                 setIsMobileOutlineOpen(false);
                               }}
-                              className={`snap-start shrink-0 text-left p-3 rounded-2xl border transition-all cursor-pointer min-w-[130px] max-w-[180px] flex flex-col justify-between h-20 ${
+                              className={`snap-start shrink-0 text-left p-3 rounded-2xl border transition-all cursor-pointer min-w-[150px] max-w-[220px] flex flex-col justify-between min-h-[82px] h-auto ${
                                 isActive
                                   ? "bg-gradient-to-br from-indigo-600 to-indigo-700 border-indigo-600 text-white shadow-sm shadow-indigo-600/10"
                                   : "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700"
@@ -591,7 +591,7 @@ export default function ChapterDetails({
                               >
                                 Section {idx + 1}
                               </span>
-                              <span className="text-[10px] font-semibold line-clamp-2 leading-tight mt-1">
+                              <span className="text-[10px] font-semibold line-clamp-3 leading-tight mt-1.5 break-words">
                                 <Latex text={sec.title} />
                               </span>
                             </button>
@@ -608,15 +608,15 @@ export default function ChapterDetails({
                         }
                         className="w-full flex items-center justify-between p-3.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/80 rounded-xl text-xs font-semibold text-slate-800 dark:text-slate-200 shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500/30 hover:border-slate-300 dark:hover:border-slate-700 cursor-pointer"
                       >
-                        <div className="flex items-center gap-2 min-w-0">
-                          <List className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0" />
-                          <span className="text-left font-semibold truncate flex items-center gap-1">
-                            <span>Section {activeSectionIndex + 1}:</span>{" "}
+                        <div className="flex items-start gap-2 min-w-0 flex-1 pr-2">
+                          <List className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0 mt-0.5" />
+                          <div className="text-left font-semibold leading-snug break-words flex-1">
+                            <span className="text-indigo-600 dark:text-indigo-400 font-mono text-[11px] mr-1">Section {activeSectionIndex + 1}:</span>{" "}
                             <Latex text={activeSection.title} />
-                          </span>
+                          </div>
                         </div>
                         <ChevronDown
-                          className={`w-4 h-4 text-slate-400 shrink-0 transition-transform duration-200 ${isMobileOutlineOpen ? "rotate-180" : ""}`}
+                          className={`w-4 h-4 text-slate-400 shrink-0 transition-transform duration-200 mt-0.5 ${isMobileOutlineOpen ? "rotate-180" : ""}`}
                         />
                       </button>
 
@@ -627,7 +627,7 @@ export default function ChapterDetails({
                             className="fixed inset-0 z-20 bg-transparent"
                             onClick={() => setIsMobileOutlineOpen(false)}
                           />
-                          <div className="absolute left-0 right-0 mt-2 p-2 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/80 rounded-2xl shadow-xl z-30 max-h-[280px] overflow-y-auto space-y-1 divide-y divide-slate-50 dark:divide-slate-800/40">
+                          <div className="absolute left-0 right-0 mt-2 p-2 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/80 rounded-2xl shadow-xl z-30 max-h-[320px] overflow-y-auto space-y-1 divide-y divide-slate-50 dark:divide-slate-800/40">
                             
                             {sections.map((sec, idx) => {
                               const isActive = idx === activeSectionIndex;
@@ -645,9 +645,9 @@ export default function ChapterDetails({
                                         : "hover:bg-slate-50 dark:hover:bg-slate-800/50 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
                                     }`}
                                   >
-                                    <div className="flex items-center gap-2.5 flex-1 min-w-0 pr-2">
+                                    <div className="flex items-start gap-2.5 flex-1 min-w-0 pr-2">
                                       <span
-                                        className={`text-[9px] font-bold font-mono px-1.5 py-0.5 rounded ${
+                                        className={`text-[9px] font-bold font-mono px-1.5 py-0.5 rounded shrink-0 mt-0.5 ${
                                           isActive
                                             ? "bg-indigo-600 text-white"
                                             : "bg-slate-100 dark:bg-slate-800 text-slate-500"
@@ -655,12 +655,12 @@ export default function ChapterDetails({
                                       >
                                         {idx + 1}
                                       </span>
-                                      <span className="truncate">
+                                      <span className="break-words leading-snug flex-1">
                                         <Latex text={sec.title} />
                                       </span>
                                     </div>
                                     {isActive && (
-                                      <Check className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400 shrink-0" />
+                                      <Check className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400 shrink-0 mt-0.5" />
                                     )}
                                   </button>
                                   {(isActive || viewMode === "full") && innerHeaders.length > 0 && (
@@ -835,9 +835,9 @@ export default function ChapterDetails({
                         <Latex text={f.description} />
                       </div>
                     </div>
-                    <DraggableScroll className="p-3 bg-slate-50 dark:bg-slate-950/60 border border-slate-100 dark:border-slate-800 rounded-xl min-h-[50px] w-full">
-                      <Latex text={`$${f.latex}$`} />
-                    </DraggableScroll>
+                    <div className="px-3 py-2 bg-slate-50 dark:bg-slate-950/60 border border-slate-100 dark:border-slate-800 rounded-xl min-h-[50px] w-full flex items-center justify-center overflow-hidden">
+                      <Latex block={true} text={f.latex} />
+                    </div>
                   </div>
                 ))}
               </div>

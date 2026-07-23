@@ -2029,7 +2029,7 @@ function renderMathText(text: string): React.ReactNode {
         parts.push(
           <span
             key={`math-${matchIndex}`}
-            className="katex-inline font-serif text-slate-800 dark:text-slate-200 max-w-full overflow-visible"
+            className="katex-inline font-serif text-slate-800 dark:text-slate-200 max-w-full overflow-x-auto scrollbar-none inline-block align-middle"
             dangerouslySetInnerHTML={{ __html: html }}
           />
         );
@@ -2258,8 +2258,9 @@ export function Chap3_4_Q3_Sol() {
 export function Chap4_AngleBetweenVectors() {
   return (
     <div className="flex flex-col items-center justify-center p-6 bg-slate-50/50 dark:bg-slate-900/20 border border-slate-100 dark:border-slate-800/80 rounded-2xl shadow-sm my-6">
-      <svg width="320" height="260" viewBox="-20 -20 300 240" className="drop-shadow-sm overflow-visible">
-        {/* Axes */}
+      <div className="relative w-full max-w-[340px] aspect-[340/260]">
+        <svg viewBox="-20 -20 340 260" className="w-full h-full drop-shadow-sm overflow-visible">
+          {/* Axes */}
         <line x1="20" y1="200" x2="258" y2="200" stroke="#ca8a04" strokeWidth="1.5" />
         <polygon points="260,200 252,196 252,204" fill="#ca8a04" />
         
@@ -2315,6 +2316,7 @@ export function Chap4_AngleBetweenVectors() {
           <path d="M 23 -12 L 29 -12 L 27 -14 M 29 -12 L 27 -10" stroke="#ca8a04" strokeWidth="1" fill="none" />
         </g>
       </svg>
+      </div>
     </div>
   );
 }
