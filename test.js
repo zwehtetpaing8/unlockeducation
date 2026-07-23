@@ -1,4 +1,5 @@
-const s1 = "$\overrightarrow{AC}$";
-const s2 = "$\\overrightarrow{AC}$";
-console.log("s1:", s1);
-console.log("s2:", s2);
+const solution = `$$\\begin{aligned}
+6 - 17i &= (3 - bi)(4 - 3i) \\\\
+6 - 17i &= 12 - 9i - 4bi + 3b i^2
+\\end{aligned}$$`;
+console.log(solution);

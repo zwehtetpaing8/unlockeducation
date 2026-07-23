@@ -1985,12 +1985,13 @@ function renderTextWithStyles(text: string, keyPrefix: string): React.ReactNode 
 }
 
 function renderMathText(text: string): React.ReactNode {
+  text = text.replace(/__LATEX_NEWLINE__/g, '\n');
   if (text.includes("overrightarrow")) console.log("RENDERMATH TEXT:", JSON.stringify(text));
   const parts: React.ReactNode[] = [];
   let currentIndex = 0;
 
   // Match $$...$$ (block) or $...$ (inline)
-  const regex = /(\$\$(.*?)\$\$)|(\$(.*?)\$)/g;
+  const regex = /(\$\$([\s\S]*?)\$\$)|(\$(.*?)\$)/g;
   let match;
 
   while ((match = regex.exec(text)) !== null) {
@@ -2758,7 +2759,11 @@ export default function Latex({ text, block = false }: LatexProps) {
   }
 
   // 2. Format custom content line-by-line to preserve structure and style headings/cards
-  const lines = text.split('\n');
+  // Protect newlines inside $...$ blocks
+  const protectedText = text.replace(/\$\$([\s\S]*?)\$\$/g, (match) => {
+    return match.replace(/\n/g, '__LATEX_NEWLINE__');
+  });
+  const lines = protectedText.split('\n');
   const renderedElements: React.ReactNode[] = [];
   
   let inList = false;
