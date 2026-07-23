@@ -4,19 +4,20 @@ import ChapterDetails from './components/ChapterDetails';
 import FormulaSheet from './components/FormulaSheet';
 import HomeView from './components/HomeView';
 import AnalyticsDashboard from './components/AnalyticsDashboard';
+import PastQuestions from './components/PastQuestions';
 import { motion, AnimatePresence } from 'motion/react';
-import { BookOpen, Calculator, Search, Menu, X, GraduationCap, ChevronRight, Hash, Home, Facebook, Send, Bug, Youtube, Mail, Copy, Check, ExternalLink, ShieldCheck } from 'lucide-react';
+import { BookOpen, Calculator, Search, Menu, X, GraduationCap, ChevronRight, Hash, Home, Facebook, Send, Bug, Youtube, Mail, Copy, Check, ExternalLink, ShieldCheck, FileText } from 'lucide-react';
 import ThemeToggle from './components/ThemeToggle';
 
 export default function App() {
-  const [activeView, setActiveView] = useState<'home' | 'syllabus' | 'formulas' | 'analytics'>(() => {
+  const [activeView, setActiveView] = useState<'home' | 'syllabus' | 'formulas' | 'past-questions' | 'analytics'>(() => {
     const params = new URLSearchParams(window.location.search);
     const view = params.get('view');
-    if (view === 'home' || view === 'syllabus' || view === 'formulas' || view === 'analytics') return view;
+    if (view === 'home' || view === 'syllabus' || view === 'formulas' || view === 'past-questions' || view === 'analytics') return view;
     if (params.has('secret') || params.has('key') || params.has('admin') || params.has('dashboard') || params.has('owner')) return 'analytics';
 
     const saved = localStorage.getItem('unlock_edu_activeView');
-    return (saved as 'home' | 'syllabus' | 'formulas' | 'analytics') || 'home';
+    return (saved as 'home' | 'syllabus' | 'formulas' | 'past-questions' | 'analytics') || 'home';
   });
   const [selectedChapterId, setSelectedChapterId] = useState<number>(() => {
     const params = new URLSearchParams(window.location.search);
@@ -92,8 +93,8 @@ export default function App() {
     const handlePopState = () => {
       const params = new URLSearchParams(window.location.search);
       const view = params.get('view');
-      if (view === 'home' || view === 'syllabus' || view === 'formulas' || view === 'analytics') {
-        setActiveView(view as 'home' | 'syllabus' | 'formulas' | 'analytics');
+      if (view === 'home' || view === 'syllabus' || view === 'formulas' || view === 'past-questions' || view === 'analytics') {
+        setActiveView(view as 'home' | 'syllabus' | 'formulas' | 'past-questions' | 'analytics');
       } else if (params.has('secret') || params.has('key') || params.has('admin') || params.has('dashboard') || params.has('owner')) {
         setActiveView('analytics');
       } else {
@@ -140,7 +141,7 @@ export default function App() {
   const selectedChapter = chapters.find((ch) => ch.id === selectedChapterId) || chapters[0];
 
   return (
-    <div className="min-h-screen bg-slate-50/60 dark:bg-slate-950 print:bg-white print:text-black font-sans text-slate-800 dark:text-slate-200 antialiased flex flex-col">
+    <div className="min-h-screen bg-slate-50/60 dark:bg-slate-950 print:bg-white print:text-black font-sans text-slate-800 dark:text-slate-200 antialiased flex flex-col pb-20 md:pb-0">
       {/* Top Main Navigation Header */}
       {!isReadingMode && (
       <header className="print:hidden sticky top-0 z-40 bg-white/85 dark:bg-slate-950/85 backdrop-blur-md border-b border-slate-200/50 dark:border-slate-800/40 px-4 md:px-8 py-3.5 flex items-center justify-between">
@@ -198,6 +199,17 @@ export default function App() {
               <Calculator className="w-3.5 h-3.5" />
               Formulas
             </button>
+            <button
+              onClick={() => setActiveView('past-questions')}
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+                activeView === 'past-questions'
+                  ? 'bg-white dark:bg-slate-800 shadow-sm text-indigo-600 dark:text-indigo-400 font-bold'
+                  : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
+              }`}
+            >
+              <FileText className="w-3.5 h-3.5" />
+              Past Questions
+            </button>
           </div>
 
           <ThemeToggle />
@@ -206,35 +218,14 @@ export default function App() {
         {/* Mobile menu triggers & Theme Toggle */}
         <div className="flex items-center gap-1.5 md:hidden">
           <ThemeToggle />
-          <button
-            onClick={() => setActiveView('home')}
-            className={`p-2 rounded-lg cursor-pointer transition-colors ${
-              activeView === 'home'
-                ? 'bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 font-bold'
-                : 'bg-slate-100 dark:bg-slate-900 text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
-            }`}
-            title="Home dashboard"
-          >
-            <Home className="w-4 h-4" />
-          </button>
-          <button
-            onClick={() => setActiveView('syllabus')}
-            className={`p-2 rounded-lg cursor-pointer transition-colors ${
-              activeView === 'syllabus'
-                ? 'bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 font-bold'
-                : 'bg-slate-100 dark:bg-slate-900 text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
-            }`}
-            title="Syllabus chapters"
-          >
-            <BookOpen className="w-4 h-4" />
-          </button>
           {activeView === 'syllabus' && (
             <button
               onClick={() => setMobileMenuOpen(true)}
-              className="p-2 bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-300 rounded-lg cursor-pointer"
+              className="p-2 bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-300 rounded-lg cursor-pointer flex items-center gap-1.5 font-semibold text-[11px] transition-colors"
               title="Open Chapter Menu"
             >
               <Menu className="w-4 h-4" />
+              <span>Chapters</span>
             </button>
           )}
         </div>
@@ -318,7 +309,7 @@ export default function App() {
                     </button>
                   );
                 })
-              ) : (
+                ) : (
                 <div className="text-center py-8 text-slate-400">
                   <Hash className="w-5 h-5 mx-auto mb-1 text-slate-300" />
                   <p className="text-[11px] font-medium">No chapters matched</p>
@@ -381,7 +372,7 @@ export default function App() {
                   onNavigateHome={() => setActiveView('home')} 
                 />
               </motion.div>
-            ) : (
+            ) : activeView === 'formulas' ? (
               <motion.div
                 key="formula-sheet-view"
                 initial={{ opacity: 0, y: 8 }}
@@ -399,7 +390,25 @@ export default function App() {
                 </div>
                 <FormulaSheet />
               </motion.div>
-            )}
+            ) : activeView === 'past-questions' ? (
+              <motion.div
+                key="past-questions-view"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.22 }}
+              >
+                <div className="mb-6 space-y-1">
+                  <h2 className="font-display font-bold text-xl md:text-2xl text-slate-900 dark:text-white tracking-tight">
+                    Past Questions
+                  </h2>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                    Review past examination questions and step-by-step solutions.
+                  </p>
+                </div>
+                <PastQuestions />
+              </motion.div>
+            ) : null}
           </AnimatePresence>
         </main>
       </div>
@@ -666,7 +675,7 @@ export default function App() {
                                 <Check className="w-3 h-3 text-emerald-500" />
                                 <span className="text-emerald-500 font-bold">Copied!</span>
                               </>
-                            ) : (
+                              ) : (
                               <>
                                 <Copy className="w-3 h-3" />
                                 <span>Copy Email</span>
@@ -694,9 +703,9 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      {/* Mobile Floating Action Button for Formulas */}
+      {/* Mobile Floating Action Button for Formulas - Removed in favor of bottom nav */}
       <AnimatePresence>
-        {activeView !== 'formulas' && (
+        {false && (
           <motion.button
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -711,6 +720,64 @@ export default function App() {
           </motion.button>
         )}
       </AnimatePresence>
+
+      {/* Mobile Bottom Navigation Bar - Minimalist Sliding Pill */}
+      <div className="print:hidden md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-[360px]" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
+        <nav className="relative bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl border border-slate-200/50 dark:border-slate-800/50 shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] rounded-2xl p-2 flex items-center justify-between mx-auto">
+          
+          <button
+            onClick={() => setActiveView('home')}
+            className={`relative z-10 flex flex-col items-center justify-center w-1/4 h-12 rounded-xl transition-colors cursor-pointer ${
+              activeView === 'home' ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+            }`}
+          >
+            {activeView === 'home' && (
+              <motion.div layoutId="navPill" className="absolute inset-0 bg-indigo-50 dark:bg-indigo-500/20 rounded-xl -z-10" transition={{ type: "spring", stiffness: 350, damping: 30 }} />
+            )}
+            <Home className="w-4 h-4 mb-1" />
+            <span className="text-[9px] font-bold tracking-wide">Home</span>
+          </button>
+          
+          <button
+            onClick={() => setActiveView('syllabus')}
+            className={`relative z-10 flex flex-col items-center justify-center w-1/4 h-12 rounded-xl transition-colors cursor-pointer ${
+              activeView === 'syllabus' ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+            }`}
+          >
+            {activeView === 'syllabus' && (
+              <motion.div layoutId="navPill" className="absolute inset-0 bg-indigo-50 dark:bg-indigo-500/20 rounded-xl -z-10" transition={{ type: "spring", stiffness: 350, damping: 30 }} />
+            )}
+            <BookOpen className="w-4 h-4 mb-1" />
+            <span className="text-[9px] font-bold tracking-wide">Learn</span>
+          </button>
+          
+          <button
+            onClick={() => setActiveView('formulas')}
+            className={`relative z-10 flex flex-col items-center justify-center w-1/4 h-12 rounded-xl transition-colors cursor-pointer ${
+              activeView === 'formulas' ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+            }`}
+          >
+            {activeView === 'formulas' && (
+              <motion.div layoutId="navPill" className="absolute inset-0 bg-indigo-50 dark:bg-indigo-500/20 rounded-xl -z-10" transition={{ type: "spring", stiffness: 350, damping: 30 }} />
+            )}
+            <Calculator className="w-4 h-4 mb-1" />
+            <span className="text-[9px] font-bold tracking-wide">Formulas</span>
+          </button>
+          
+          <button
+            onClick={() => setActiveView('past-questions')}
+            className={`relative z-10 flex flex-col items-center justify-center w-1/4 h-12 rounded-xl transition-colors cursor-pointer ${
+              activeView === 'past-questions' ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+            }`}
+          >
+            {activeView === 'past-questions' && (
+              <motion.div layoutId="navPill" className="absolute inset-0 bg-indigo-50 dark:bg-indigo-500/20 rounded-xl -z-10" transition={{ type: "spring", stiffness: 350, damping: 30 }} />
+            )}
+            <FileText className="w-4 h-4 mb-1" />
+            <span className="text-[9px] font-bold tracking-wide">Papers</span>
+          </button>
+        </nav>
+      </div>
     </div>
   );
 }
