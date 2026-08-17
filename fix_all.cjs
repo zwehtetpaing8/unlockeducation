@@ -1,63 +1,53 @@
 const fs = require('fs');
-let content = fs.readFileSync('src/data/chapter4_content.ts', 'utf8');
+const file = 'src/data/chapter4_content.ts';
+let lines = fs.readFileSync(file, 'utf8').split('\n');
 
-const target11 = `$$ \\\\overrightarrow{AB} \\\\cdot \\\\overrightarrow{BC} = \\\\begin{pmatrix} 3 - 2k \\\\\\\\ 2 + k \\\\\\\\ -2 - k \\\\end{pmatrix} \\\\cdot \\\\begin{pmatrix} -2 \\\\\\\\ -1 \\\\\\\\ 6 \\\\end{pmatrix} $$
-$$ = (3 - 2k)(-2) + (2 + k)(-1) + (-2 - k)(6) $$
-$$ = -20 - 3k. $$`;
+for (let i = 0; i < lines.length; i++) {
+  let line = lines[i];
 
-const replacement11 = `$$
-\\\\begin{aligned}
-\\\\overrightarrow{AB} \\\\cdot \\\\overrightarrow{BC} &= \\\\begin{pmatrix} 3 - 2k \\\\\\\\ 2 + k \\\\\\\\ -2 - k \\\\end{pmatrix} \\\\cdot \\\\begin{pmatrix} -2 \\\\\\\\ -1 \\\\\\\\ 6 \\\\end{pmatrix} \\\\\\\\
-&= (3 - 2k)(-2) + (2 + k)(-1) + (-2 - k)(6) \\\\\\\\
-&= -20 - 3k.
-\\\\end{aligned}
-$$`;
-content = content.replace(target11, replacement11);
+  // Fix lines ending with a single $ (possibly with whitespace) to $$
+  // Only if they start with $$ somewhere and end with exactly one $.
+  // To be safe, any line ending with ". $" or ". $" + space
+  line = line.replace(/\.\s*\$\s*$/, '. $$');
+  line = line.replace(/,\s*\$\s*$/, ', $$');
+  line = line.replace(/\^\w+\s*\$\s*$/, '^\w+ $$');
+  
+  if (line.match(/\$\$.*\.\s*\$$/)) {
+     line = line.replace(/\.\s*\$$/, '. $$');
+  }
 
-const targetEx42_1c = `$$ \\\\vec{q} \\\\cdot (\\\\vec{p} + \\\\vec{r}) = \\\\begin{pmatrix} -1 \\\\\\\\ 5 \\\\end{pmatrix} \\\\cdot \\\\left( \\\\begin{pmatrix} 3 \\\\\\\\ 2 \\\\end{pmatrix} + \\\\begin{pmatrix} -2 \\\\\\\\ 4 \\\\end{pmatrix} \\\\right) $$
-$$ = \\\\begin{pmatrix} -1 \\\\\\\\ 5 \\\\end{pmatrix} \\\\cdot \\\\begin{pmatrix} 1 \\\\\\\\ 6 \\\\end{pmatrix} $$
-$$ = (-1)(1) + (5)(6) = 29. $$`;
-const repEx42_1c = `$$
-\\\\begin{aligned}
-\\\\vec{q} \\\\cdot (\\\\vec{p} + \\\\vec{r}) &= \\\\begin{pmatrix} -1 \\\\\\\\ 5 \\\\end{pmatrix} \\\\cdot \\\\left( \\\\begin{pmatrix} 3 \\\\\\\\ 2 \\\\end{pmatrix} + \\\\begin{pmatrix} -2 \\\\\\\\ 4 \\\\end{pmatrix} \\\\right) \\\\\\\\
-&= \\\\begin{pmatrix} -1 \\\\\\\\ 5 \\\\end{pmatrix} \\\\cdot \\\\begin{pmatrix} 1 \\\\\\\\ 6 \\\\end{pmatrix} \\\\\\\\
-&= (-1)(1) + (5)(6) = 29.
-\\\\end{aligned}
-$$`;
-content = content.replace(targetEx42_1c, repEx42_1c);
+  // Properties list fixes
+  if (line.includes('Commutative property:') && line.endsWith('. $')) line = line.replace('. $', '. $$');
+  if (line.includes('Distributive property:') && line.endsWith('. $')) line = line.replace('. $', '. $$');
+  if (line.includes('Scalar multiplication:') && line.endsWith('. $')) line = line.replace('. $', '. $$');
+  if (line.includes('Multiplication by a negative scalar:') && line.endsWith('. $')) line = line.replace('. $', '. $$');
+  if (line.includes('Product of a vector with itself:') && line.endsWith('. $')) line = line.replace('. $', '. $$');
+  if (line.includes('Zero vector property:') && line.endsWith('. $')) line = line.replace('. $', '. $$');
 
-const targetEx42_2e = `$$ \\\\vec{a} \\\\cdot (\\\\vec{b} + \\\\vec{c}) = \\\\begin{pmatrix} 2 \\\\\\\\ 1 \\\\\\\\ 3 \\\\end{pmatrix} \\\\cdot \\\\left( \\\\begin{pmatrix} -1 \\\\\\\\ 1 \\\\\\\\ 1 \\\\end{pmatrix} + \\\\begin{pmatrix} 0 \\\\\\\\ -1 \\\\\\\\ 1 \\\\end{pmatrix} \\\\right) $$
-$$ = \\\\begin{pmatrix} 2 \\\\\\\\ 1 \\\\\\\\ 3 \\\\end{pmatrix} \\\\cdot \\\\begin{pmatrix} -1 \\\\\\\\ 0 \\\\\\\\ 2 \\\\end{pmatrix} $$
-$$ = -2 + 0 + 6 = 4. $$`;
-const repEx42_2e = `$$
-\\\\begin{aligned}
-\\\\vec{a} \\\\cdot (\\\\vec{b} + \\\\vec{c}) &= \\\\begin{pmatrix} 2 \\\\\\\\ 1 \\\\\\\\ 3 \\\\end{pmatrix} \\\\cdot \\\\left( \\\\begin{pmatrix} -1 \\\\\\\\ 1 \\\\\\\\ 1 \\\\end{pmatrix} + \\\\begin{pmatrix} 0 \\\\\\\\ -1 \\\\\\\\ 1 \\\\end{pmatrix} \\\\right) \\\\\\\\
-&= \\\\begin{pmatrix} 2 \\\\\\\\ 1 \\\\\\\\ 3 \\\\end{pmatrix} \\\\cdot \\\\begin{pmatrix} -1 \\\\\\\\ 0 \\\\\\\\ 2 \\\\end{pmatrix} \\\\\\\\
-&= -2 + 0 + 6 = 4.
-\\\\end{aligned}
-$$`;
-content = content.replace(targetEx42_2e, repEx42_2e);
+  if (line.includes('Perpendicular vectors:') && line.endsWith('^\\circ. $')) line = line.replace('^\\circ. $', '^\\circ. $$');
+  if (line.includes('Parallel in the same direction:') && line.endsWith('^\\circ. $')) line = line.replace('^\\circ. $', '^\\circ. $$');
+  if (line.includes('Parallel in the opposite direction:') && line.endsWith('^\\circ. $')) line = line.replace('^\\circ. $', '^\\circ. $$');
+  
+  if (line.match(/^\$\s*\\begin{aligned}/)) {
+      line = line.replace(/^\$\s*/, '$$$$ ');
+  }
 
-const targetEx42_2f = `$$ \\\\vec{a} \\\\cdot \\\\vec{b} + \\\\vec{a} \\\\cdot \\\\vec{c} = 2 + \\\\left( \\\\begin{pmatrix} 2 \\\\\\\\ 1 \\\\\\\\ 3 \\\\end{pmatrix} \\\\cdot \\\\begin{pmatrix} 0 \\\\\\\\ -1 \\\\\\\\ 1 \\\\end{pmatrix} \\\\right) = 2 + (0 - 1 + 3) = 4. $$`;
-const repEx42_2f = `$$
-\\\\begin{aligned}
-\\\\vec{a} \\\\cdot \\\\vec{b} + \\\\vec{a} \\\\cdot \\\\vec{c} &= 2 + \\\\left( \\\\begin{pmatrix} 2 \\\\\\\\ 1 \\\\\\\\ 3 \\\\end{pmatrix} \\\\cdot \\\\begin{pmatrix} 0 \\\\\\\\ -1 \\\\\\\\ 1 \\\\end{pmatrix} \\\\right) \\\\\\\\
-&= 2 + (0 - 1 + 3) = 4.
-\\\\end{aligned}
-$$`;
-content = content.replace(targetEx42_2f, repEx42_2f);
+  // Broken boxed equation
+  if (line.includes('\\boxed{(\\vec{a} \\times \\vec{b}) \\times \\vec{c} \\')) {
+      line = '$$ \\boxed{(\\vec{a} \\times \\vec{b}) \\times \\vec{c} \\neq \\vec{a} \\times (\\vec{b} \\times \\vec{c})}. $$';
+  }
 
-const targetEx42_6b = `$$ (\\\\vec{a} + \\\\vec{b}) \\\\cdot (\\\\vec{b} - \\\\vec{a}) = \\\\vec{a} \\\\cdot \\\\vec{b} - \\\\vec{a} \\\\cdot \\\\vec{a} + \\\\vec{b} \\\\cdot \\\\vec{b} - \\\\vec{b} \\\\cdot \\\\vec{a} $$
-$$ = |\\\\vec{b}|^2 - |\\\\vec{a}|^2. $$`;
-const repEx42_6b = `$$
-\\\\begin{aligned}
-(\\\\vec{a} + \\\\vec{b}) \\\\cdot (\\\\vec{b} - \\\\vec{a}) &= \\\\vec{a} \\\\cdot \\\\vec{b} - \\\\vec{a} \\\\cdot \\\\vec{a} + \\\\vec{b} \\\\cdot \\\\vec{b} - \\\\vec{b} \\\\cdot \\\\vec{a} \\\\\\\\
-&= |\\\\vec{b}|^2 - |\\\\vec{a}|^2.
-\\\\end{aligned}
-$$`;
-content = content.replace(targetEx42_6b, repEx42_6b);
+  if (line.includes('2(3) + 4(-3) = -6 \\') || line.includes('eq 2. $$') || line.includes('eq 2. $')) {
+     if (line.includes('2(3) + 4(-3) = -6 \\')) line = '$$ 2(3) + 4(-3) = -6 \\neq 2. $$';
+     else line = '';
+  }
 
-const targetEx42_6c = `$$ (\\\\vec{a} + \\\\vec{b}) \\\\cdot (\\\\vec{b} - \\\\vec{a}) = |\\\\vec{b}|^2 - |\\\\vec{a}|^2 = 0. $$`;
-const repEx42_6c = `$$ (\\\\vec{a} + \\\\vec{b}) \\\\cdot (\\\\vec{b} - \\\\vec{a}) = |\\\\vec{b}|^2 - |\\\\vec{a}|^2 = 0. $$`; // this one is probably fine on one line.
+  if (line.includes('&= -48 \\') || line.includes('eq 0. \\end{aligned} $$') || line.includes('\\neq 0. \\end{aligned} $')) {
+     if (line.includes('&= -48 \\')) line = '&= -48 \\neq 0. \\end{aligned} $$';
+     else line = '';
+  }
 
-fs.writeFileSync('src/data/chapter4_content.ts', content);
+  lines[i] = line;
+}
+
+fs.writeFileSync(file, lines.join('\n'));

@@ -31,6 +31,170 @@ interface LatexProps {
 // Beautiful inline vector diagrams matching Chapter 1 book visuals
 // -----------------------------------------------------------------
 
+
+
+function Chapter2Header() {
+  return (
+    <div className="my-6 p-5 bg-gradient-to-br from-emerald-50/80 to-teal-50/80 dark:from-emerald-950/40 dark:to-slate-900/60 rounded-2xl border border-emerald-100 dark:border-emerald-900/50 shadow-sm text-center overflow-x-auto">
+      <h4 className="text-base font-bold text-emerald-900 dark:text-emerald-200 mb-2">Chapter 2: Mathematical Induction</h4>
+      <p className="text-xs text-slate-600 dark:text-slate-400 mb-4">The Principle of Mathematical Induction (Domino Chain Effect)</p>
+      <svg className="mx-auto" width="450" height="150" viewBox="0 0 450 150">
+        <g transform="translate(30, 20)">
+          <rect x="0" y="20" width="70" height="90" rx="8" fill="#10b981" />
+          <text x="35" y="60" fontSize="16" fill="#ffffff" fontWeight="bold" textAnchor="middle">P(1)</text>
+          <text x="35" y="80" fontSize="10" fill="#ecfdf5" textAnchor="middle">Base Step</text>
+          <text x="35" y="125" fontSize="11" fill="#047857" fontWeight="bold" textAnchor="middle">n = 1 True</text>
+        </g>
+        <path d="M 115 65 L 145 65" stroke="#10b981" strokeWidth="3" />
+        <text x="130" y="55" fontSize="18" fill="#10b981" textAnchor="middle">➔</text>
+        <g transform="translate(160, 20)">
+          <rect x="0" y="20" width="80" height="90" rx="8" fill="#059669" />
+          <text x="40" y="60" fontSize="16" fill="#ffffff" fontWeight="bold" textAnchor="middle">P(k)</text>
+          <text x="40" y="80" fontSize="10" fill="#ecfdf5" textAnchor="middle">Inductive Hyp.</text>
+          <text x="40" y="125" fontSize="11" fill="#047857" fontWeight="bold" textAnchor="middle">Assume True</text>
+        </g>
+        <path d="M 255 65 L 285 65" stroke="#059669" strokeWidth="3" />
+        <text x="270" y="55" fontSize="18" fill="#059669" textAnchor="middle">➔</text>
+        <g transform="translate(300, 20)">
+          <rect x="0" y="20" width="110" height="90" rx="8" fill="#047857" />
+          <text x="55" y="55" fontSize="16" fill="#ffffff" fontWeight="bold" textAnchor="middle">P(k + 1)</text>
+          <text x="55" y="75" fontSize="10" fill="#ecfdf5" textAnchor="middle">Inductive Step</text>
+          <text x="55" y="93" fontSize="10" fill="#a7f3d0" fontWeight="bold" textAnchor="middle">P(k) ➔ P(k+1)</text>
+          <text x="55" y="125" fontSize="11" fill="#065f46" fontWeight="bold" textAnchor="middle">True for all n ∈ ℕ</text>
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function Chapter3Header() {
+  return (
+    <div className="my-6 p-5 bg-gradient-to-br from-amber-50/80 to-orange-50/80 dark:from-amber-950/40 dark:to-slate-900/60 rounded-2xl border border-amber-100 dark:border-amber-900/50 shadow-sm text-center overflow-x-auto">
+      <h4 className="text-base font-bold text-amber-900 dark:text-amber-200 mb-2">Chapter 3: Analytical Solid Geometry</h4>
+      <p className="text-xs text-slate-600 dark:text-slate-400 mb-4">3D Rectangular Coordinate System & Point P(x, y, z)</p>
+      <svg className="mx-auto" width="440" height="210" viewBox="0 0 440 210">
+        <g transform="translate(200, 120)">
+          <line x1="0" y1="0" x2="0" y2="-100" stroke="#d97706" strokeWidth="2.5" />
+          <text x="10" y="-95" fontSize="13" fill="#b45309" fontStyle="italic" fontWeight="bold">Z axis</text>
+          <line x1="0" y1="0" x2="160" y2="0" stroke="#d97706" strokeWidth="2.5" />
+          <text x="165" y="5" fontSize="13" fill="#b45309" fontStyle="italic" fontWeight="bold">Y axis</text>
+          <line x1="0" y1="0" x2="-120" y2="70" stroke="#d97706" strokeWidth="2.5" />
+          <text x="-140" y="80" fontSize="13" fill="#b45309" fontStyle="italic" fontWeight="bold">X axis</text>
+          <circle cx="0" cy="0" r="4" fill="#b45309" />
+          <text x="8" y="18" fontSize="12" fill="#78350f" fontWeight="bold">O(0,0,0)</text>
+          <line x1="-70" y1="41" x2="50" y2="41" stroke="#cbd5e1" strokeWidth="1.5" strokeDasharray="3 3" />
+          <line x1="120" y1="0" x2="50" y2="41" stroke="#cbd5e1" strokeWidth="1.5" strokeDasharray="3 3" />
+          <line x1="50" y1="41" x2="50" y2="-40" stroke="#ea580c" strokeWidth="2" strokeDasharray="3 3" />
+          <line x1="0" y1="-81" x2="50" y2="-40" stroke="#cbd5e1" strokeWidth="1.5" strokeDasharray="3 3" />
+          <line x1="120" y1="-81" x2="50" y2="-40" stroke="#cbd5e1" strokeWidth="1.5" strokeDasharray="3 3" />
+          <line x1="0" y1="0" x2="50" y2="-40" stroke="#ea580c" strokeWidth="2.5" />
+          <circle cx="50" cy="-40" r="6" fill="#ea580c" />
+          <text x="60" y="-45" fontSize="14" fill="#c2410c" fontWeight="bold">P(x, y, z)</text>
+          <text x="60" y="-28" fontSize="11" fill="#78350f" fontWeight="bold">OP = √(x² + y² + z²)</text>
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function Chapter4Header() {
+  return (
+    <div className="my-6 p-5 bg-gradient-to-br from-purple-50/80 to-pink-50/80 dark:from-purple-950/40 dark:to-slate-900/60 rounded-2xl border border-purple-100 dark:border-purple-900/50 shadow-sm text-center overflow-x-auto">
+      <h4 className="text-base font-bold text-purple-900 dark:text-purple-200 mb-2">Chapter 4: Vector Algebra</h4>
+      <p className="text-xs text-slate-600 dark:text-slate-400 mb-4">Vector Addition & Position Vectors in 3D Space</p>
+      <svg className="mx-auto" width="440" height="190" viewBox="0 0 440 190">
+        <g transform="translate(30, 20)">
+          <text x="90" y="15" fontSize="13" fill="#7e22ce" fontWeight="bold" textAnchor="middle">Triangle Law of Vector Addition</text>
+          <line x1="10" y1="130" x2="110" y2="130" stroke="#a855f7" strokeWidth="3" />
+          <path d="M 110 130 L 100 124 L 100 136 Z" fill="#a855f7" />
+          <text x="60" y="150" fontSize="13" fill="#7e22ce" fontWeight="bold">a = AB</text>
+          <line x1="110" y1="130" x2="170" y2="40" stroke="#ec4899" strokeWidth="3" />
+          <path d="M 170 40 L 158 48 L 166 58 Z" fill="#ec4899" />
+          <text x="150" y="95" fontSize="13" fill="#be185d" fontWeight="bold">b = BC</text>
+          <line x1="10" y1="130" x2="170" y2="40" stroke="#6b21a8" strokeWidth="3.5" strokeDasharray="5 3" />
+          <path d="M 170 40 L 155 46 L 163 56 Z" fill="#6b21a8" />
+          <text x="65" y="70" fontSize="13" fill="#581c87" fontWeight="bold">a + b = AC</text>
+        </g>
+        <g transform="translate(260, 35)">
+          <rect x="0" y="0" width="165" height="125" rx="10" fill="#ffffff" stroke="#e9d5ff" strokeWidth="2" className="dark:fill-slate-800 dark:stroke-purple-800" />
+          <text x="82" y="30" fontSize="13" fill="#7e22ce" fontWeight="bold" textAnchor="middle">Vector Notation</text>
+          <text x="82" y="58" fontSize="13" fill="#3b0764" fontWeight="bold" textAnchor="middle" className="dark:fill-purple-200">v = a i + b j + c k</text>
+          <text x="82" y="85" fontSize="12" fill="#6b21a8" textAnchor="middle">|v| = √(a² + b² + c²)</text>
+          <text x="82" y="108" fontSize="11" fill="#be185d" fontStyle="italic" textAnchor="middle">Dot & Cross Products</text>
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function Chapter5Header() {
+  return (
+    <div className="my-6 p-5 bg-gradient-to-br from-blue-50/80 to-indigo-50/80 dark:from-blue-950/40 dark:to-slate-900/60 rounded-2xl border border-blue-100 dark:border-blue-900/50 shadow-sm text-center overflow-x-auto">
+      <h4 className="text-base font-bold text-blue-900 dark:text-blue-200 mb-2">Chapter 5: Permutations and Combinations</h4>
+      <p className="text-xs text-slate-600 dark:text-slate-400 mb-4">Permutation (Order Matters) vs Combination (Order Doesn't Matter)</p>
+      <svg className="mx-auto" width="460" height="160" viewBox="0 0 460 160">
+        <g transform="translate(20, 20)">
+          <rect x="0" y="0" width="200" height="120" rx="12" fill="#eff6ff" stroke="#3b82f6" strokeWidth="2" className="dark:fill-slate-800 dark:stroke-blue-500" />
+          <text x="100" y="28" fontSize="14" fill="#1d4ed8" fontWeight="bold" textAnchor="middle">Permutations nPr</text>
+          <text x="100" y="48" fontSize="11" fill="#2563eb" fontWeight="500" textAnchor="middle">Arrangement (Order Matters)</text>
+          <path d="M 20 60 H 180" stroke="#bfdbfe" strokeWidth="1" />
+          <text x="100" y="78" fontSize="13" fill="#1e40af" fontWeight="bold" textAnchor="middle">nPr = n! / (n - r)!</text>
+          <text x="100" y="100" fontSize="11" fill="#475569" textAnchor="middle" className="dark:fill-slate-300">e.g. Code (1, 2) ≠ (2, 1)</text>
+        </g>
+        <circle cx="230" cy="80" r="16" fill="#3b82f6" />
+        <text x="230" y="85" fontSize="12" fill="#ffffff" fontWeight="bold" textAnchor="middle">VS</text>
+        <g transform="translate(240, 20)">
+          <rect x="0" y="0" width="200" height="120" rx="12" fill="#f0fdf4" stroke="#22c55e" strokeWidth="2" className="dark:fill-slate-800 dark:stroke-green-500" />
+          <text x="100" y="28" fontSize="14" fill="#15803d" fontWeight="bold" textAnchor="middle">Combinations nCr</text>
+          <text x="100" y="48" fontSize="11" fill="#16a34a" fontWeight="500" textAnchor="middle">Selection (Order Doesn't Matter)</text>
+          <path d="M 20 60 H 180" stroke="#bbf7d0" strokeWidth="1" />
+          <text x="100" y="78" fontSize="13" fill="#166534" fontWeight="bold" textAnchor="middle">nCr = n! / [r! (n - r)!]</text>
+          <text x="100" y="100" fontSize="11" fill="#475569" textAnchor="middle" className="dark:fill-slate-300">e.g. Team {"{A, B}"} = {"{B, A}"}</text>
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function Chapter1Header() {
+  return (
+    <div className="my-6 p-5 bg-gradient-to-br from-indigo-50/80 to-blue-50/80 dark:from-indigo-950/40 dark:to-slate-900/60 rounded-2xl border border-indigo-100 dark:border-indigo-900/50 shadow-sm text-center overflow-x-auto">
+      <h4 className="text-base font-bold text-indigo-900 dark:text-indigo-200 mb-2">Chapter 1: Complex Numbers</h4>
+      <p className="text-xs text-slate-600 dark:text-slate-400 mb-4">Argand Plane Representation of Complex Number z = a + bi</p>
+      <svg className="mx-auto" width="460" height="220" viewBox="0 0 460 220">
+        <defs>
+          <pattern id="grid1" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e2e8f0" strokeWidth="0.5" className="dark:stroke-slate-800" />
+          </pattern>
+        </defs>
+        <rect width="460" height="220" fill="url(#grid1)" rx="8" />
+        
+        <line x1="40" y1="170" x2="420" y2="170" stroke="#64748b" strokeWidth="2" />
+        <line x1="100" y1="20" x2="100" y2="200" stroke="#64748b" strokeWidth="2" />
+        
+        <text x="415" y="163" fontSize="12" fill="#64748b" fontStyle="italic" fontWeight="bold">Real Axis (Re)</text>
+        <text x="108" y="32" fontSize="12" fill="#64748b" fontStyle="italic" fontWeight="bold">Imaginary Axis (Im)</text>
+        <text x="90" y="185" fontSize="12" fill="#64748b" fontWeight="bold">O (0,0)</text>
+        
+        <line x1="100" y1="170" x2="310" y2="60" stroke="#4f46e5" strokeWidth="2.5" />
+        <line x1="310" y1="170" x2="310" y2="60" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4 4" />
+        <line x1="100" y1="60" x2="310" y2="60" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4 4" />
+        
+        <path d="M 140 170 A 40 40 0 0 0 131 154" fill="none" stroke="#ec4899" strokeWidth="2" />
+        <text x="145" y="160" fontSize="12" fill="#ec4899" fontWeight="bold">θ (Arg z)</text>
+        
+        <text x="180" y="105" fontSize="13" fill="#4f46e5" fontWeight="bold">r = |z| = √(a² + b²)</text>
+        
+        <circle cx="310" cy="60" r="6" fill="#ec4899" />
+        <text x="320" y="55" fontSize="14" fill="#4338ca" fontWeight="bold">P(a, b) ≡ z = a + bi</text>
+        
+        <text x="200" y="188" fontSize="12" fill="#1e293b" fontWeight="bold" className="dark:fill-slate-200">a (Real part)</text>
+        <text x="318" y="120" fontSize="12" fill="#1e293b" fontWeight="bold" className="dark:fill-slate-200">b (Imaginary part)</text>
+      </svg>
+    </div>
+  );
+}
+
 function MathematicianTimeline() {
   const timeline = [
     { year: "1545", name: "Cardano", desc: "Negative square roots appeared while solving cubic equations." },
@@ -1958,32 +2122,43 @@ function renderTextWithStyles(text: string, keyPrefix: string): React.ReactNode 
     <>
       {boldParts.map((boldPart, bIdx) => {
         const isBold = bIdx % 2 !== 0;
+
         const italicParts = boldPart.split('*');
         const renderedItalic = italicParts.map((italicPart, iIdx) => {
           const isItalic = iIdx % 2 !== 0;
+          
+          const lines = italicPart.split('\n');
+          const linesWithBr = lines.map((line, lIdx) => (
+            <React.Fragment key={[keyPrefix, 'b' + bIdx, 'i' + iIdx, 'l' + lIdx].join('-')}>
+              {line}
+              {lIdx < lines.length - 1 && <br />}
+            </React.Fragment>
+          ));
+
           if (isItalic) {
             return (
-              <em key={`${keyPrefix}-b${bIdx}-i${iIdx}`} className="italic font-serif">
-                {italicPart}
+              <em key={[keyPrefix, 'b' + bIdx, 'i' + iIdx].join('-')} className="italic font-serif">
+                {linesWithBr}
               </em>
             );
           }
-          return <span key={`${keyPrefix}-b${bIdx}-i${iIdx}`}>{italicPart}</span>;
+          return <span key={[keyPrefix, 'b' + bIdx, 'i' + iIdx].join('-')}>{linesWithBr}</span>;
         });
 
         if (isBold) {
           return (
-            <strong key={`${keyPrefix}-bold-${bIdx}`} className="font-bold text-slate-900 dark:text-white">
+            <strong key={[keyPrefix, 'bold', bIdx].join('-')} className="font-bold text-slate-900 dark:text-white">
               {renderedItalic}
             </strong>
           );
         }
-        return <span key={`${keyPrefix}-norm-${bIdx}`}>{renderedItalic}</span>;
+        return <span key={[keyPrefix, 'norm', bIdx].join('-')}>{renderedItalic}</span>;
       })}
     </>
   );
 }
 
+// -----------------------------------------------------------------
 function renderMathText(text: string): React.ReactNode {
   text = text.replace(/__LATEX_NEWLINE__/g, '\n');
   if (text.includes("overrightarrow")) console.log("RENDERMATH TEXT:", JSON.stringify(text));
@@ -2003,8 +2178,8 @@ function renderMathText(text: string): React.ReactNode {
     // Add normal text preceding math match
     if (currentIndex < matchIndex) {
       parts.push(
-        <span key={`text-${currentIndex}`}>
-          {renderTextWithStyles(text.slice(currentIndex, matchIndex), `text-${currentIndex}`)}
+        <span key={['text', currentIndex].join('-')}>
+          {renderTextWithStyles(text.slice(currentIndex, matchIndex), "text-" + currentIndex)}
         </span>
       );
     }
@@ -2021,7 +2196,7 @@ function renderMathText(text: string): React.ReactNode {
       if (isBlock) {
         parts.push(
           <DraggableScroll
-            key={`math-${matchIndex}`}
+            key={['math', matchIndex].join('-')}
             className="katex-block w-full font-serif text-slate-800 dark:text-slate-200"
             dangerouslySetInnerHTML={{ __html: html }}
           />
@@ -2029,7 +2204,7 @@ function renderMathText(text: string): React.ReactNode {
       } else {
         parts.push(
           <span
-            key={`math-${matchIndex}`}
+            key={['math', matchIndex].join('-')}
             className="katex-inline font-serif text-slate-800 dark:text-slate-200 max-w-full overflow-x-auto scrollbar-none inline-block align-middle"
             dangerouslySetInnerHTML={{ __html: html }}
           />
@@ -2038,8 +2213,8 @@ function renderMathText(text: string): React.ReactNode {
     } catch (e) {
       console.error(e);
       parts.push(
-        <code key={`math-error-${matchIndex}`} className="px-1 text-red-500 font-mono bg-red-50 rounded text-xs">
-          {isBlock ? `$$${formula}$$` : `$${formula}$`}
+        <code key={"math-error-" + matchIndex} className="px-1 text-red-500 font-mono bg-red-50 rounded text-xs">
+          {isBlock ? "$" + formula + "$" : "$" + formula + "$"}
         </code>
       );
     }
@@ -2050,8 +2225,8 @@ function renderMathText(text: string): React.ReactNode {
   // Add remaining normal text
   if (currentIndex < text.length) {
     parts.push(
-      <span key={`text-${currentIndex}`}>
-        {renderTextWithStyles(text.slice(currentIndex), `text-${currentIndex}`)}
+      <span key={['text', currentIndex].join('-')}>
+        {renderTextWithStyles(text.slice(currentIndex), "text-" + currentIndex)}
       </span>
     );
   }
@@ -2653,7 +2828,7 @@ export function Chap4_Fig4() {
           {/* Text vector OA */}
           <foreignObject x="110" y="145" width="40" height="30" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-slate-800 dark:text-slate-200">
-              <Latex text="$\overrightarrow{OA}$" />
+              <Latex text={String.raw`$\overrightarrow{OA}$`} />
             </div>
           </foreignObject>
 
@@ -2727,7 +2902,7 @@ export function Chap4_Fig5() {
           {/* Text vector OP */}
           <foreignObject x="110" y="145" width="40" height="30" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-slate-800 dark:text-slate-200">
-              <Latex text="$\overrightarrow{OP}$" />
+              <Latex text={String.raw`$\overrightarrow{OP}$`} />
             </div>
           </foreignObject>
 
@@ -2772,7 +2947,7 @@ export default function Latex({ text, block = false }: LatexProps) {
   const flushList = (key: number) => {
     if (listItems.length > 0) {
       renderedElements.push(
-        <ul key={`list-${key}`} className="space-y-1.5 my-3 pl-1">
+        <ul key={"list-" + key} className="space-y-1.5 my-3 pl-1">
           {listItems}
         </ul>
       );
@@ -2823,13 +2998,13 @@ export default function Latex({ text, block = false }: LatexProps) {
         }
 
         renderedElements.push(
-          <div key={`table-wrapper-${i}`} className="my-5 overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30 shadow-sm">
+          <div key={"table-wrapper-" + i} className="my-5 overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30 shadow-sm">
             <table className="w-full text-left border-collapse font-sans text-xs md:text-sm">
               {headers.length > 0 && (
                 <thead>
                   <tr className="bg-slate-50 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800">
                     {headers.map((h, hIdx) => (
-                      <th key={`th-${hIdx}`} className="p-3 font-semibold text-slate-800 dark:text-slate-200">
+                      <th key={"th-" + hIdx} className="p-3 font-semibold text-slate-800 dark:text-slate-200">
                         {renderMathText(h)}
                       </th>
                     ))}
@@ -2839,11 +3014,11 @@ export default function Latex({ text, block = false }: LatexProps) {
               <tbody>
                 {rows.map((row, rIdx) => (
                   <tr 
-                    key={`tr-${rIdx}`} 
+                    key={"tr-" + rIdx} 
                     className="border-b border-slate-100 dark:border-slate-800 last:border-0 hover:bg-slate-50/50 dark:hover:bg-slate-900/30 transition-colors"
                   >
                     {row.map((cell, cIdx) => (
-                      <td key={`td-${cIdx}`} className="p-3 text-slate-600 dark:text-slate-400">
+                      <td key={"td-" + cIdx} className="p-3 text-slate-600 dark:text-slate-400">
                         {renderMathText(cell)}
                       </td>
                     ))}
@@ -2885,7 +3060,7 @@ export default function Latex({ text, block = false }: LatexProps) {
       i = j - 1; // skip forward to the end of the blockquote
 
       renderedElements.push(
-        <blockquote key={`quote-${i}`} className="border-l-4 border-indigo-500 bg-indigo-50/40 dark:bg-indigo-950/10 p-4 rounded-r-xl my-4 text-slate-700 dark:text-slate-300">
+        <blockquote key={"quote-" + i} className="border-l-4 border-indigo-500 bg-indigo-50/40 dark:bg-indigo-950/10 p-4 rounded-r-xl my-4 text-slate-700 dark:text-slate-300">
           <Latex text={quoteLines.join('\n')} />
         </blockquote>
       );
@@ -2916,7 +3091,7 @@ export default function Latex({ text, block = false }: LatexProps) {
         });
         renderedElements.push(
           <DraggableScroll
-            key={`math-block-${i}`}
+            key={"math-block-" + i}
             className="katex-block w-full font-serif text-slate-800 dark:text-slate-200"
             dangerouslySetInnerHTML={{ __html: html }}
           />
@@ -2924,7 +3099,7 @@ export default function Latex({ text, block = false }: LatexProps) {
       } catch (e) {
         console.error(e);
         renderedElements.push(
-          <pre key={`math-block-error-${i}`} className="p-2 bg-red-50 dark:bg-red-950/20 text-red-700 dark:text-red-400 font-mono text-xs rounded my-3">
+          <pre key={"math-block-error-" + i} className="p-2 bg-red-50 dark:bg-red-950/20 text-red-700 dark:text-red-400 font-mono text-xs rounded my-3">
             {mathBlock}
           </pre>
         );
@@ -2935,7 +3110,7 @@ export default function Latex({ text, block = false }: LatexProps) {
     // Horizontal divider
     if (line === '---' || line === '***') {
       flushList(i);
-      renderedElements.push(<hr key={`hr-${i}`} className="my-6 border-slate-100 dark:border-slate-800/80" />);
+      renderedElements.push(<hr key={"hr-" + i} className="my-6 border-slate-100 dark:border-slate-800/80" />);
       continue;
     }
 
@@ -2945,367 +3120,414 @@ export default function Latex({ text, block = false }: LatexProps) {
       const diagName = line.replace('[DIAGRAM:', '').replace(']', '').trim();
       
       switch (diagName) {
+
+        case "Chapter1Header":
+          renderedElements.push(<Chapter1Header key={"diag-" + i} />);
+          break;
+
+        case "Chapter2Header":
+          renderedElements.push(<Chapter2Header key={"diag-" + i} />);
+          break;
+        case "Chapter3Header":
+          renderedElements.push(<Chapter3Header key={"diag-" + i} />);
+          break;
+        case "Chapter4Header":
+          renderedElements.push(<Chapter4Header key={"diag-" + i} />);
+          break;
+        case "Chapter5Header":
+          renderedElements.push(<Chapter5Header key={"diag-" + i} />);
+          break;
+
+
         case 'Chap3_4_PlaneABC':
-          renderedElements.push(<Chap3_4_PlaneABC key={`diag-${i}`} />);
+          renderedElements.push(<Chap3_4_PlaneABC key={"diag-" + i} />);
           break;
         case 'Chap3_4_Ex9':
-          renderedElements.push(<Chap3_4_Ex9 key={`diag-${i}`} />);
+          renderedElements.push(<Chap3_4_Ex9 key={"diag-" + i} />);
           break;
         case 'Chap3_4_Q2':
-          renderedElements.push(<Chap3_4_Q2 key={`diag-${i}`} />);
+          renderedElements.push(<Chap3_4_Q2 key={"diag-" + i} />);
           break;
         case 'Chap3_4_Ex10_Sol1':
-          renderedElements.push(<Chap3_4_Ex10_Sol1 key={`diag-${i}`} />);
+          renderedElements.push(<Chap3_4_Ex10_Sol1 key={"diag-" + i} />);
           break;
           break;
         case 'Chap3_4_Q3_Sol':
-          renderedElements.push(<Chap3_4_Q3_Sol key={`diag-${i}`} />);
+          renderedElements.push(<Chap3_4_Q3_Sol key={"diag-" + i} />);
           break;
         case 'MathematicianTimeline':
-          renderedElements.push(<MathematicianTimeline key={`diag-${i}`} />);
+          renderedElements.push(<MathematicianTimeline key={"diag-" + i} />);
           break;
         case 'ArgandPolar':
-          renderedElements.push(<ArgandPolar key={`diag-${i}`} />);
+          renderedElements.push(<ArgandPolar key={"diag-" + i} />);
           break;
         case 'Chap4_Fig4':
-          renderedElements.push(<Chap4_Fig4 key={`diag-${i}`} />);
+          renderedElements.push(<Chap4_Fig4 key={"diag-" + i} />);
           break;
                 case 'Chap4_Fig6':
-          renderedElements.push(<Chap4_Fig6 key={`diag-${i}`} />);
+          renderedElements.push(<Chap4_Fig6 key={"diag-" + i} />);
           break;
         case 'Chap4_Fig7':
-          renderedElements.push(<Chap4_Fig7 key={`diag-${i}`} />);
+          renderedElements.push(<Chap4_Fig7 key={"diag-" + i} />);
           break;
         case 'Chap4_Fig8':
-          renderedElements.push(<Chap4_Fig8 key={`diag-${i}`} />);
+          renderedElements.push(<Chap4_Fig8 key={"diag-" + i} />);
           break;
         case 'Chap4_Fig9':
-          renderedElements.push(<Chap4_Fig9 key={`diag-${i}`} />);
+          renderedElements.push(<Chap4_Fig9 key={"diag-" + i} />);
           break;
         case 'Chap4_Fig10':
-          renderedElements.push(<Chap4_Fig10 key={`diag-${i}`} />);
+          renderedElements.push(<Chap4_Fig10 key={"diag-" + i} />);
           break;
         case 'Chap4_Fig11':
-          renderedElements.push(<Chap4_Fig11 key={`diag-${i}`} />);
+          renderedElements.push(<Chap4_Fig11 key={"diag-" + i} />);
           break;
         case 'Chap4_CrossProductDirection':
-          renderedElements.push(<Chap4_CrossProductDirection key={`diag-${i}`} />);
+          renderedElements.push(<Chap4_CrossProductDirection key={"diag-" + i} />);
           break;
         case 'Chap4_AreaParallelogramDiag':
-          renderedElements.push(<Chap4_AreaParallelogramDiag key={`diag-${i}`} />);
+          renderedElements.push(<Chap4_AreaParallelogramDiag key={"diag-" + i} />);
           break;
         case 'Chap4_AreaTriangleDiag':
-          renderedElements.push(<Chap4_AreaTriangleDiag key={`diag-${i}`} />);
+          renderedElements.push(<Chap4_AreaTriangleDiag key={"diag-" + i} />);
           break;
         case 'Chap4_UnitVectorCyclicDiag':
-          renderedElements.push(<Chap4_UnitVectorCyclicDiag key={`diag-${i}`} />);
+          renderedElements.push(<Chap4_UnitVectorCyclicDiag key={"diag-" + i} />);
+          break;
+        case 'Chap4_4_4_LineEq_Diag1':
+          renderedElements.push(<Chap4_4_4_LineEq_Diag1 key={"diag-" + i} />);
+          break;
+        case 'Chap4_4_4_Ex18_Diag':
+          renderedElements.push(<Chap4_4_4_Ex18_Diag key={"diag-" + i} />);
+          break;
+        case 'Chap4_4_4_Ex21_Diag':
+          renderedElements.push(<Chap4_4_4_Ex21_Diag key={"diag-" + i} />);
+          break;
+        case 'Chap4_4_4_Ex4_4_3b_Diag':
+          renderedElements.push(<Chap4_4_4_Ex4_4_3b_Diag key={"diag-" + i} />);
+          break;
+        case 'Chap4_4_4_Ex4_4_3c_Diag':
+          renderedElements.push(<Chap4_4_4_Ex4_4_3c_Diag key={"diag-" + i} />);
+          break;
+
+        case 'Chap4_4_4_PlaneEq_Diag1':
+          renderedElements.push(<Chap4_4_4_PlaneEq_Diag1 key={"diag-" + i} />);
+          break;
+        case 'Chap4_4_4_PlaneEq_Diag2':
+          renderedElements.push(<Chap4_4_4_PlaneEq_Diag2 key={"diag-" + i} />);
+          break;
+        case 'Chap4_4_4_PlaneEq_Diag3':
+          renderedElements.push(<Chap4_4_4_PlaneEq_Diag3 key={"diag-" + i} />);
+          break;
+        case 'Chap4_4_4_PlaneEq_Diag4':
+          renderedElements.push(<Chap4_4_4_PlaneEq_Diag4 key={"diag-" + i} />);
           break;
         case 'Chap4_Ex4_3_Q5':
-          renderedElements.push(<Chap4_Ex4_3_Q5 key={`diag-${i}`} />);
+          renderedElements.push(<Chap4_Ex4_3_Q5 key={"diag-" + i} />);
           break;
         case 'Chap4_Fig12':
-          renderedElements.push(<Chap4_Fig12 key={`diag-${i}`} />);
+          renderedElements.push(<Chap4_Fig12 key={"diag-" + i} />);
           break;
         case 'Chap4_Fig13':
-          renderedElements.push(<Chap4_Fig13 key={`diag-${i}`} />);
+          renderedElements.push(<Chap4_Fig13 key={"diag-" + i} />);
           break;
         case 'Chap4_Fig14':
-          renderedElements.push(<Chap4_Fig14 key={`diag-${i}`} />);
+          renderedElements.push(<Chap4_Fig14 key={"diag-" + i} />);
           break;
         case 'Chap4_Fig15':
-          renderedElements.push(<Chap4_Fig15 key={`diag-${i}`} />);
+          renderedElements.push(<Chap4_Fig15 key={"diag-" + i} />);
           break;
 case 'Chap4_Fig5':
-          renderedElements.push(<Chap4_Fig5 key={`diag-${i}`} />);
+          renderedElements.push(<Chap4_Fig5 key={"diag-" + i} />);
           break;
         
         
         case 'Chap4_Ex9':
-          renderedElements.push(<Chap4_Ex9 key={`diag-${i}`} />);
+          renderedElements.push(<Chap4_Ex9 key={"diag-" + i} />);
           break;
         case 'Chap4_Ex4_2_Q6':
-          renderedElements.push(<Chap4_Ex4_2_Q6 key={`diag-${i}`} />);
+          renderedElements.push(<Chap4_Ex4_2_Q6 key={"diag-" + i} />);
           break;
         case 'Chap4_AngleBetweenVectors':
-          renderedElements.push(<Chap4_AngleBetweenVectors key={`diag-${i}`} />);
+          renderedElements.push(<Chap4_AngleBetweenVectors key={"diag-" + i} />);
           break;
         case 'Chap4_Fig1':
-          renderedElements.push(<Chap4_Fig1 key={`diag-${i}`} />);
+          renderedElements.push(<Chap4_Fig1 key={"diag-" + i} />);
           break;
         case 'Chap4_Fig2':
-          renderedElements.push(<Chap4_Fig2 key={`diag-${i}`} />);
+          renderedElements.push(<Chap4_Fig2 key={"diag-" + i} />);
           break;
         case 'Chap4_Fig3':
-          renderedElements.push(<Chap4_Fig3 key={`diag-${i}`} />);
+          renderedElements.push(<Chap4_Fig3 key={"diag-" + i} />);
           break;
         case 'ArgandExample5a':
-          renderedElements.push(<ArgandExample5a key={`diag-${i}`} />);
+          renderedElements.push(<ArgandExample5a key={"diag-" + i} />);
           break;
         case 'ArgandExample5b':
-          renderedElements.push(<ArgandExample5b key={`diag-${i}`} />);
+          renderedElements.push(<ArgandExample5b key={"diag-" + i} />);
           break;
         case 'ArgandExample5c':
-          renderedElements.push(<ArgandExample5c key={`diag-${i}`} />);
+          renderedElements.push(<ArgandExample5c key={"diag-" + i} />);
           break;
         case 'ArgandExample5d':
-          renderedElements.push(<ArgandExample5d key={`diag-${i}`} />);
+          renderedElements.push(<ArgandExample5d key={"diag-" + i} />);
           break;
         case 'ArgandEx1_4_1a':
-          renderedElements.push(<ArgandEx1_4_1a key={`diag-${i}`} />);
+          renderedElements.push(<ArgandEx1_4_1a key={"diag-" + i} />);
           break;
         case 'ArgandEx1_4_1b':
-          renderedElements.push(<ArgandEx1_4_1b key={`diag-${i}`} />);
+          renderedElements.push(<ArgandEx1_4_1b key={"diag-" + i} />);
           break;
         case 'ArgandEx1_4_1c':
-          renderedElements.push(<ArgandEx1_4_1c key={`diag-${i}`} />);
+          renderedElements.push(<ArgandEx1_4_1c key={"diag-" + i} />);
           break;
         case 'ArgandEx1_4_1d':
-          renderedElements.push(<ArgandEx1_4_1d key={`diag-${i}`} />);
+          renderedElements.push(<ArgandEx1_4_1d key={"diag-" + i} />);
           break;
         case 'ArgandEx1_4_1e':
-          renderedElements.push(<ArgandEx1_4_1e key={`diag-${i}`} />);
+          renderedElements.push(<ArgandEx1_4_1e key={"diag-" + i} />);
           break;
         case 'ArgandEx1_4_1f':
-          renderedElements.push(<ArgandEx1_4_1f key={`diag-${i}`} />);
+          renderedElements.push(<ArgandEx1_4_1f key={"diag-" + i} />);
           break;
         case 'ArgandEx1_5_1a':
-          renderedElements.push(<ArgandEx1_5_1a key={`diag-${i}`} />);
+          renderedElements.push(<ArgandEx1_5_1a key={"diag-" + i} />);
           break;
         case 'ArgandEx1_5_1b':
-          renderedElements.push(<ArgandEx1_5_1b key={`diag-${i}`} />);
+          renderedElements.push(<ArgandEx1_5_1b key={"diag-" + i} />);
           break;
         case 'ArgandEx1_5_1c':
-          renderedElements.push(<ArgandEx1_5_1c key={`diag-${i}`} />);
+          renderedElements.push(<ArgandEx1_5_1c key={"diag-" + i} />);
           break;
         case 'ArgandEx1_5_1d':
-          renderedElements.push(<ArgandEx1_5_1d key={`diag-${i}`} />);
+          renderedElements.push(<ArgandEx1_5_1d key={"diag-" + i} />);
           break;
         case 'ArgandEx1_5_1e':
-          renderedElements.push(<ArgandEx1_5_1e key={`diag-${i}`} />);
+          renderedElements.push(<ArgandEx1_5_1e key={"diag-" + i} />);
           break;
         case 'ArgandEx1_5_1f':
-          renderedElements.push(<ArgandEx1_5_1f key={`diag-${i}`} />);
+          renderedElements.push(<ArgandEx1_5_1f key={"diag-" + i} />);
           break;
         case 'RootsUnity6':
-          renderedElements.push(<RootsUnity6 key={`diag-${i}`} />);
+          renderedElements.push(<RootsUnity6 key={"diag-" + i} />);
           break;
         case 'RootsUnity4':
-          renderedElements.push(<RootsUnity4 key={`diag-${i}`} />);
+          renderedElements.push(<RootsUnity4 key={"diag-" + i} />);
           break;
         case 'RootsEx1_5_3a':
-          renderedElements.push(<RootsEx1_5_3a key={`diag-${i}`} />);
+          renderedElements.push(<RootsEx1_5_3a key={"diag-" + i} />);
           break;
         case 'RootsEx1_5_3b':
-          renderedElements.push(<RootsEx1_5_3b key={`diag-${i}`} />);
+          renderedElements.push(<RootsEx1_5_3b key={"diag-" + i} />);
           break;
         case 'RootsEx1_5_3c':
-          renderedElements.push(<RootsEx1_5_3c key={`diag-${i}`} />);
+          renderedElements.push(<RootsEx1_5_3c key={"diag-" + i} />);
           break;
         case 'RootsEx1_5_3d':
-          renderedElements.push(<RootsEx1_5_3d key={`diag-${i}`} />);
+          renderedElements.push(<RootsEx1_5_3d key={"diag-" + i} />);
           break;
         case 'RootsExample10':
-          renderedElements.push(<RootsExample10 key={`diag-${i}`} />);
+          renderedElements.push(<RootsExample10 key={"diag-" + i} />);
           break;
         case 'Solid3DPointDiagram':
-          renderedElements.push(<Solid3DPointDiagram key={`diag-${i}`} />);
+          renderedElements.push(<Solid3DPointDiagram key={"diag-" + i} />);
           break;
         case 'SkewLinesDiagram':
-          renderedElements.push(<SkewLinesDiagram key={`diag-${i}`} />);
+          renderedElements.push(<SkewLinesDiagram key={"diag-" + i} />);
           break;
         case 'SpherePlaneTangentDiagram':
-          renderedElements.push(<SpherePlaneTangentDiagram key={`diag-${i}`} />);
+          renderedElements.push(<SpherePlaneTangentDiagram key={"diag-" + i} />);
           break;
         case 'SphereStandardDiagram':
-          renderedElements.push(<SphereStandardDiagram key={`diag-${i}`} />);
+          renderedElements.push(<SphereStandardDiagram key={"diag-" + i} />);
           break;
         case 'SphereEx3_5_Q4_Diag':
-          renderedElements.push(<SphereEx3_5_Q4_Diag key={`diag-${i}`} />);
+          renderedElements.push(<SphereEx3_5_Q4_Diag key={"diag-" + i} />);
           break;
         case 'SphereDiameterDiagram':
-          renderedElements.push(<SphereDiameterDiagram key={`diag-${i}`} />);
+          renderedElements.push(<SphereDiameterDiagram key={"diag-" + i} />);
           break;
         case 'SphereTouchingPlaneDiagram':
-          renderedElements.push(<SphereTouchingPlaneDiagram key={`diag-${i}`} />);
+          renderedElements.push(<SphereTouchingPlaneDiagram key={"diag-" + i} />);
           break;
         case 'SpherePointPositionsDiagram':
-          renderedElements.push(<SpherePointPositionsDiagram key={`diag-${i}`} />);
+          renderedElements.push(<SpherePointPositionsDiagram key={"diag-" + i} />);
           break;
         case 'DrinksSnacksTree':
-          renderedElements.push(<DrinksSnacksTree key={`diag-${i}`} />);
+          renderedElements.push(<DrinksSnacksTree key={"diag-" + i} />);
           break;
         case 'BloodLabelDiagram':
-          renderedElements.push(<BloodLabelDiagram key={`diag-${i}`} />);
+          renderedElements.push(<BloodLabelDiagram key={"diag-" + i} />);
           break;
         case 'PictureNailsDiagram':
-          renderedElements.push(<PictureNailsDiagram key={`diag-${i}`} />);
+          renderedElements.push(<PictureNailsDiagram key={"diag-" + i} />);
           break;
         case 'Example4Diagram':
-          renderedElements.push(<Example4Diagram key={`diag-${i}`} />);
+          renderedElements.push(<Example4Diagram key={"diag-" + i} />);
           break;
         case 'Example5Diagram':
-          renderedElements.push(<Example5Diagram key={`diag-${i}`} />);
+          renderedElements.push(<Example5Diagram key={"diag-" + i} />);
           break;
         case 'Example10Diagram':
-          renderedElements.push(<Example10Diagram key={`diag-${i}`} />);
+          renderedElements.push(<Example10Diagram key={"diag-" + i} />);
           break;
         case 'Example11Diagram':
-          renderedElements.push(<Example11Diagram key={`diag-${i}`} />);
+          renderedElements.push(<Example11Diagram key={"diag-" + i} />);
           break;
         case 'Example12Diagram':
-          renderedElements.push(<Example12Diagram key={`diag-${i}`} />);
+          renderedElements.push(<Example12Diagram key={"diag-" + i} />);
           break;
         case 'Example13Diagram':
-          renderedElements.push(<Example13Diagram key={`diag-${i}`} />);
+          renderedElements.push(<Example13Diagram key={"diag-" + i} />);
           break;
         case 'Example14Diagram':
-          renderedElements.push(<Example14Diagram key={`diag-${i}`} />);
+          renderedElements.push(<Example14Diagram key={"diag-" + i} />);
           break;
         case 'Example15Diagram':
-          renderedElements.push(<Example15Diagram key={`diag-${i}`} />);
+          renderedElements.push(<Example15Diagram key={"diag-" + i} />);
           break;
         case 'Exercise51Question1':
-          renderedElements.push(<Ex51Q1Diagram key={`diag-${i}`} />);
+          renderedElements.push(<Ex51Q1Diagram key={"diag-" + i} />);
           break;
         case 'Exercise51Question2':
-          renderedElements.push(<Ex51Q2Diagram key={`diag-${i}`} />);
+          renderedElements.push(<Ex51Q2Diagram key={"diag-" + i} />);
           break;
         case 'Exercise51Question3':
-          renderedElements.push(<Ex51Q3Diagram key={`diag-${i}`} />);
+          renderedElements.push(<Ex51Q3Diagram key={"diag-" + i} />);
           break;
         case 'Exercise51Question5':
-          renderedElements.push(<Ex51Q5Diagram key={`diag-${i}`} />);
+          renderedElements.push(<Ex51Q5Diagram key={"diag-" + i} />);
           break;
         case 'Exercise52Question2':
-          renderedElements.push(<Ex52Q2Diagram key={`diag-${i}`} />);
+          renderedElements.push(<Ex52Q2Diagram key={"diag-" + i} />);
           break;
         case 'Exercise52Question3':
-          renderedElements.push(<Ex52Q3Diagram key={`diag-${i}`} />);
+          renderedElements.push(<Ex52Q3Diagram key={"diag-" + i} />);
           break;
         case 'Exercise52Question4':
-          renderedElements.push(<Ex52Q4Diagram key={`diag-${i}`} />);
+          renderedElements.push(<Ex52Q4Diagram key={"diag-" + i} />);
           break;
         case 'Exercise52Question5':
-          renderedElements.push(<Ex52Q5Diagram key={`diag-${i}`} />);
+          renderedElements.push(<Ex52Q5Diagram key={"diag-" + i} />);
           break;
         case 'PermCombComparison':
-          renderedElements.push(<PermCombComparison key={`diag-${i}`} />);
+          renderedElements.push(<PermCombComparison key={"diag-" + i} />);
           break;
         case 'AtoBtoCRoads':
-          renderedElements.push(<AtoBtoCRoads key={`diag-${i}`} />);
+          renderedElements.push(<AtoBtoCRoads key={"diag-" + i} />);
           break;
         case 'AndOrFlowchart':
-          renderedElements.push(<AndOrFlowchart key={`diag-${i}`} />);
+          renderedElements.push(<AndOrFlowchart key={"diag-" + i} />);
           break;
         case 'CombinationsIntroDiagram':
-          renderedElements.push(<CombinationsIntroDiagram key={`diag-${i}`} />);
+          renderedElements.push(<CombinationsIntroDiagram key={"diag-" + i} />);
           break;
         case 'CombinationsFormulaView':
-          renderedElements.push(<CombinationsFormulaView key={`diag-${i}`} />);
+          renderedElements.push(<CombinationsFormulaView key={"diag-" + i} />);
           break;
         case 'Exercise53Question2Diagram':
-          renderedElements.push(<Exercise53Question2Diagram key={`diag-${i}`} />);
+          renderedElements.push(<Exercise53Question2Diagram key={"diag-" + i} />);
           break;
         case 'Exercise53Question3Diagram':
-          renderedElements.push(<Exercise53Question3Diagram key={`diag-${i}`} />);
+          renderedElements.push(<Exercise53Question3Diagram key={"diag-" + i} />);
           break;
         case 'Exercise53Question4Diagram':
-          renderedElements.push(<Exercise53Question4Diagram key={`diag-${i}`} />);
+          renderedElements.push(<Exercise53Question4Diagram key={"diag-" + i} />);
           break;
         case 'Exercise53Question5Diagram':
-          renderedElements.push(<Exercise53Question5Diagram key={`diag-${i}`} />);
+          renderedElements.push(<Exercise53Question5Diagram key={"diag-" + i} />);
           break;
         case 'ExclusionPrincipleExample1Case1Diagram':
-          renderedElements.push(<ExclusionPrincipleExample1Case1Diagram key={`diag-${i}`} />);
+          renderedElements.push(<ExclusionPrincipleExample1Case1Diagram key={"diag-" + i} />);
           break;
         case 'ExclusionPrincipleExample1Case2Diagram':
-          renderedElements.push(<ExclusionPrincipleExample1Case2Diagram key={`diag-${i}`} />);
+          renderedElements.push(<ExclusionPrincipleExample1Case2Diagram key={"diag-" + i} />);
           break;
         case 'ExclusionPrincipleExample1ExcludedDiagram':
-          renderedElements.push(<ExclusionPrincipleExample1ExcludedDiagram key={`diag-${i}`} />);
+          renderedElements.push(<ExclusionPrincipleExample1ExcludedDiagram key={"diag-" + i} />);
           break;
         case 'ProgramExampleDiagramA':
-          renderedElements.push(<ProgramExampleDiagramA key={`diag-${i}`} />);
+          renderedElements.push(<ProgramExampleDiagramA key={"diag-" + i} />);
           break;
         case 'ProgramExampleDiagramB':
-          renderedElements.push(<ProgramExampleDiagramB key={`diag-${i}`} />);
+          renderedElements.push(<ProgramExampleDiagramB key={"diag-" + i} />);
           break;
         case 'SubsetCountingTable':
-          renderedElements.push(<SubsetCountingTable key={`diag-${i}`} />);
+          renderedElements.push(<SubsetCountingTable key={"diag-" + i} />);
           break;
         case 'Exercise53Question6Diagram':
-          renderedElements.push(<Exercise53Question6Diagram key={`diag-${i}`} />);
+          renderedElements.push(<Exercise53Question6Diagram key={"diag-" + i} />);
           break;
         
         case 'Example23Case1Diagram':
-          renderedElements.push(<Example23Case1Diagram key={`diag-${i}`} />);
+          renderedElements.push(<Example23Case1Diagram key={"diag-" + i} />);
           break;
         case 'Example23Case2Diagram':
-          renderedElements.push(<Example23Case2Diagram key={`diag-${i}`} />);
+          renderedElements.push(<Example23Case2Diagram key={"diag-" + i} />);
           break;
         case 'Example24DiagramA':
-          renderedElements.push(<Example24DiagramA key={`diag-${i}`} />);
+          renderedElements.push(<Example24DiagramA key={"diag-" + i} />);
           break;
         case 'Example24DiagramB':
-          renderedElements.push(<Example24DiagramB key={`diag-${i}`} />);
+          renderedElements.push(<Example24DiagramB key={"diag-" + i} />);
           break;
         case 'Example25Diagram':
-          renderedElements.push(<Example25Diagram key={`diag-${i}`} />);
+          renderedElements.push(<Example25Diagram key={"diag-" + i} />);
           break;
         case 'Example26Diagram':
-          renderedElements.push(<Example26Diagram key={`diag-${i}`} />);
+          renderedElements.push(<Example26Diagram key={"diag-" + i} />);
           break;
         case 'Ex5_4_Q6_i_Diag':
-          renderedElements.push(<Ex5_4_Q6_i_Diag key={`diag-${i}`} />);
+          renderedElements.push(<Ex5_4_Q6_i_Diag key={"diag-" + i} />);
           break;
         case 'Ex5_4_Q6_ii_Diag':
-          renderedElements.push(<Ex5_4_Q6_ii_Diag key={`diag-${i}`} />);
+          renderedElements.push(<Ex5_4_Q6_ii_Diag key={"diag-" + i} />);
           break;
         case 'Ex5_4_Q6_iii_Diag':
-          renderedElements.push(<Ex5_4_Q6_iii_Diag key={`diag-${i}`} />);
+          renderedElements.push(<Ex5_4_Q6_iii_Diag key={"diag-" + i} />);
           break;
         case 'Ex5_4_Q6_iv_Diag_1':
-          renderedElements.push(<Ex5_4_Q6_iv_Diag_1 key={`diag-${i}`} />);
+          renderedElements.push(<Ex5_4_Q6_iv_Diag_1 key={"diag-" + i} />);
           break;
         case 'Ex5_4_Q6_iv_Diag_2':
-          renderedElements.push(<Ex5_4_Q6_iv_Diag_2 key={`diag-${i}`} />);
+          renderedElements.push(<Ex5_4_Q6_iv_Diag_2 key={"diag-" + i} />);
           break;
         case 'Ex5_4_Q7_i_Diag':
-          renderedElements.push(<Ex5_4_Q7_i_Diag key={`diag-${i}`} />);
+          renderedElements.push(<Ex5_4_Q7_i_Diag key={"diag-" + i} />);
           break;
         case 'Ex5_4_Q7_ii_Diag':
-          renderedElements.push(<Ex5_4_Q7_ii_Diag key={`diag-${i}`} />);
+          renderedElements.push(<Ex5_4_Q7_ii_Diag key={"diag-" + i} />);
           break;
         case 'Ex5_4_Q8_i_Diag':
-          renderedElements.push(<Ex5_4_Q8_i_Diag key={`diag-${i}`} />);
+          renderedElements.push(<Ex5_4_Q8_i_Diag key={"diag-" + i} />);
           break;
         case 'Ex5_4_Q8_iii_Diag':
-          renderedElements.push(<Ex5_4_Q8_iii_Diag key={`diag-${i}`} />);
+          renderedElements.push(<Ex5_4_Q8_iii_Diag key={"diag-" + i} />);
           break;
         case 'Ex5_4_Q9_Diag':
-          renderedElements.push(<Ex5_4_Q9_Diag key={`diag-${i}`} />);
+          renderedElements.push(<Ex5_4_Q9_Diag key={"diag-" + i} />);
           break;
         case 'Ex5_4_Q10_i_Diag':
-          renderedElements.push(<Ex5_4_Q10_i_Diag key={`diag-${i}`} />);
+          renderedElements.push(<Ex5_4_Q10_i_Diag key={"diag-" + i} />);
           break;
         case 'Ex5_4_Q10_ii_Diag1':
-          renderedElements.push(<Ex5_4_Q10_ii_Diag1 key={`diag-${i}`} />);
+          renderedElements.push(<Ex5_4_Q10_ii_Diag1 key={"diag-" + i} />);
           break;
         case 'Ex5_4_Q10_ii_Diag2':
-          renderedElements.push(<Ex5_4_Q10_ii_Diag2 key={`diag-${i}`} />);
+          renderedElements.push(<Ex5_4_Q10_ii_Diag2 key={"diag-" + i} />);
           break;
         case 'Ex5_4_Q10_ii_Diag3':
-          renderedElements.push(<Ex5_4_Q10_ii_Diag3 key={`diag-${i}`} />);
+          renderedElements.push(<Ex5_4_Q10_ii_Diag3 key={"diag-" + i} />);
           break;
         case 'Ex5_4_Q10_ii_Diag4':
-          renderedElements.push(<Ex5_4_Q10_ii_Diag4 key={`diag-${i}`} />);
+          renderedElements.push(<Ex5_4_Q10_ii_Diag4 key={"diag-" + i} />);
           break;
         case 'Ex5_4_Q10_ii_Diag5':
-          renderedElements.push(<Ex5_4_Q10_ii_Diag5 key={`diag-${i}`} />);
+          renderedElements.push(<Ex5_4_Q10_ii_Diag5 key={"diag-" + i} />);
           break;
         default:
           renderedElements.push(
-            <div key={`diag-err-${i}`} className="p-3 bg-amber-50 text-amber-700 rounded text-xs">
+            <div key={"diag-err-" + i} className="p-3 bg-amber-50 text-amber-700 rounded text-xs">
               Placeholder for diagram: {diagName}
             </div>
           );
@@ -3317,7 +3539,7 @@ case 'Chap4_Fig5':
     if (line.startsWith('###### ')) {
       flushList(i);
       renderedElements.push(
-        <h6 key={`h6-${i}`} id={slugify(line.slice(7))} className="font-display font-bold text-slate-900 dark:text-slate-100 mt-4 mb-2 text-xs md:text-sm flex items-center gap-1.5 border-b border-dashed border-slate-100 dark:border-slate-800 pb-1 w-full">
+        <h6 key={"h6-" + i} id={slugify(line.slice(7))} className="font-display font-bold text-slate-900 dark:text-slate-100 mt-4 mb-2 text-xs md:text-sm flex items-center gap-1.5 border-b border-dashed border-slate-100 dark:border-slate-800 pb-1 w-full">
           <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0" />
           <span>{renderMathText(line.slice(7))}</span>
         </h6>
@@ -3328,7 +3550,7 @@ case 'Chap4_Fig5':
     if (line.startsWith('##### ')) {
       flushList(i);
       renderedElements.push(
-        <h5 key={`h5-${i}`} id={slugify(line.slice(6))} className="font-display font-semibold text-indigo-600 dark:text-indigo-400 mt-5 mb-2.5 text-xs uppercase tracking-wider flex items-center gap-1.5">
+        <h5 key={"h5-" + i} id={slugify(line.slice(6))} className="font-display font-semibold text-indigo-600 dark:text-indigo-400 mt-5 mb-2.5 text-xs uppercase tracking-wider flex items-center gap-1.5">
           <Sparkles className="w-3.5 h-3.5 text-indigo-500 shrink-0" />
           <span>{renderMathText(line.slice(6))}</span>
         </h5>
@@ -3339,7 +3561,7 @@ case 'Chap4_Fig5':
     if (line.startsWith('#### ')) {
       flushList(i);
       renderedElements.push(
-        <h4 key={`h4-${i}`} id={slugify(line.slice(5))} className="font-display font-semibold text-slate-800 dark:text-slate-200 mt-4 mb-2 text-xs md:text-sm flex items-center gap-1.5">
+        <h4 key={"h4-" + i} id={slugify(line.slice(5))} className="font-display font-semibold text-slate-800 dark:text-slate-200 mt-4 mb-2 text-xs md:text-sm flex items-center gap-1.5">
           <ChevronRight className="w-3.5 h-3.5 text-indigo-500 shrink-0" />
           <span>{renderMathText(line.slice(5))}</span>
         </h4>
@@ -3350,7 +3572,7 @@ case 'Chap4_Fig5':
     if (line.startsWith('### ')) {
       flushList(i);
       renderedElements.push(
-        <h3 key={`h3-${i}`} id={slugify(line.slice(4))} className="font-display font-bold text-slate-900 dark:text-slate-100 mt-6 mb-3 text-sm md:text-base border-b border-slate-100 dark:border-slate-800/60 pb-1.5 flex items-center gap-2">
+        <h3 key={"h3-" + i} id={slugify(line.slice(4))} className="font-display font-bold text-slate-900 dark:text-slate-100 mt-6 mb-3 text-sm md:text-base border-b border-slate-100 dark:border-slate-800/60 pb-1.5 flex items-center gap-2">
           <GraduationCap className="w-4 h-4 text-indigo-500" />
           <span>{renderMathText(line.slice(4))}</span>
         </h3>
@@ -3361,7 +3583,7 @@ case 'Chap4_Fig5':
     if (line.startsWith('## ')) {
       flushList(i);
       renderedElements.push(
-        <h2 key={`h2-${i}`} id={slugify(line.slice(3))} className="font-display font-bold text-slate-950 dark:text-white mt-8 mb-4 text-base md:text-lg border-b border-slate-200 dark:border-slate-800 pb-2 flex items-center gap-2">
+        <h2 key={"h2-" + i} id={slugify(line.slice(3))} className="font-display font-bold text-slate-950 dark:text-white mt-8 mb-4 text-base md:text-lg border-b border-slate-200 dark:border-slate-800 pb-2 flex items-center gap-2">
           <Layers className="w-5 h-5 text-indigo-600" />
           <span>{renderMathText(line.slice(3))}</span>
         </h2>
@@ -3372,7 +3594,7 @@ case 'Chap4_Fig5':
     if (line.startsWith('# ')) {
       flushList(i);
       renderedElements.push(
-        <h1 key={`h1-${i}`} id={slugify(line.slice(2))} className="font-display font-extrabold text-slate-950 dark:text-white mt-10 mb-6 text-lg md:text-xl border-b-2 border-indigo-100 dark:border-indigo-900 pb-3 flex items-center gap-2">
+        <h1 key={"h1-" + i} id={slugify(line.slice(2))} className="font-display font-extrabold text-slate-950 dark:text-white mt-10 mb-6 text-lg md:text-xl border-b-2 border-indigo-100 dark:border-indigo-900 pb-3 flex items-center gap-2">
           <BookOpen className="w-6 h-6 text-indigo-600" />
           <span>{renderMathText(line.slice(2))}</span>
         </h1>
@@ -3384,7 +3606,7 @@ case 'Chap4_Fig5':
     if (line.startsWith('- ') || line.startsWith('* ')) {
       inList = true;
       listItems.push(
-        <li key={`li-${i}-${listItems.length}`} className="flex items-start gap-2.5 text-slate-700 dark:text-slate-300">
+        <li key={"li-" + i + "-${listItems.length}"} className="flex items-start gap-2.5 text-slate-700 dark:text-slate-300">
           <span className="text-indigo-500 dark:text-indigo-400 mt-1.5 shrink-0 text-sm leading-none">•</span>
           <div className="flex-1 leading-relaxed text-xs md:text-sm overflow-x-auto scrollbar-none py-1">
             {renderMathText(line.substring(2))}
@@ -3403,7 +3625,7 @@ case 'Chap4_Fig5':
         const num = match[1];
         const content = match[2];
         renderedElements.push(
-          <div key={`ol-${i}`} className="flex items-start gap-3 my-2.5 text-slate-700 dark:text-slate-300">
+          <div key={"ol-" + i} className="flex items-start gap-3 my-2.5 text-slate-700 dark:text-slate-300">
             <span className="flex items-center justify-center w-5 h-5 rounded-md bg-indigo-50 dark:bg-indigo-950/40 text-[10px] font-bold text-indigo-600 dark:text-indigo-400 shrink-0 border border-indigo-100/40 dark:border-indigo-900/10 mt-0.5">
               {num}
             </span>
@@ -3417,20 +3639,31 @@ case 'Chap4_Fig5':
     }
 
     // Colored Presentation Cards depending on mathematical category keyword
-    const cardRegex = /^\*\*(Definition|Concept check|Concept Check|Motivation|General [rR]ule|Checking|Check|Note|Solution|Method \d+)\.?\*\*(.*)/i;
+    const cardRegex = /^\*\*(Definition|Concept check|Concept Check|Motivation|General [rR]ule|Checking|Check|Note|Solution|Method \d+|Direction Vector of a Straight Line|Vector Equation in Component Form)\.?\*\*(.*)/i;
     if (cardRegex.test(line)) {
       flushList(i);
       const match = line.match(cardRegex);
       if (match) {
         const category = match[1];
-        const remainder = match[2];
-
+        let remainder = match[2].trim();
+        
+        let j = i + 1;
+        while (j < lines.length) {
+          const nextLine = lines[j].trim();
+          if (nextLine === '' || nextLine.startsWith('**') || nextLine.startsWith('#') || nextLine.startsWith('[DIAGRAM:')) {
+            break;
+          }
+          if (remainder !== '') remainder += '\n';
+          remainder += lines[j]; // Keep original indentation if any
+          j++;
+        }
+        i = j - 1;
         let bgStyle = "bg-slate-50/70 dark:bg-slate-900/30 border-slate-200/50 dark:border-slate-800/60";
         let textAccent = "text-slate-700 dark:text-slate-300";
         let icon = <Info className="w-4 h-4 text-slate-500" />;
         let titleColor = "text-slate-900 dark:text-white";
 
-        if (category.toLowerCase().includes("definition")) {
+        if (category.toLowerCase().includes("definition") || category.toLowerCase().includes("direction vector")) {
           bgStyle = "bg-amber-50/40 dark:bg-amber-950/10 border-amber-200/50 dark:border-amber-900/20 border-l-4 border-l-amber-500";
           textAccent = "text-slate-700 dark:text-slate-300";
           icon = <BookOpen className="w-4 h-4 text-amber-500" />;
@@ -3445,7 +3678,7 @@ case 'Chap4_Fig5':
           textAccent = "text-slate-700 dark:text-slate-300";
           icon = <Star className="w-4 h-4 text-violet-500" />;
           titleColor = "text-violet-800 dark:text-violet-400 font-bold";
-        } else if (category.toLowerCase().includes("check")) {
+        } else if (category.toLowerCase().includes("check") || category.toLowerCase().includes("vector equation in component form")) {
           bgStyle = "bg-emerald-50/40 dark:bg-emerald-950/10 border-emerald-200/50 dark:border-emerald-900/20 border-l-4 border-l-emerald-500";
           textAccent = "text-slate-700 dark:text-slate-300";
           icon = <CheckCircle2 className="w-4 h-4 text-emerald-500" />;
@@ -3458,7 +3691,7 @@ case 'Chap4_Fig5':
         }
 
         renderedElements.push(
-          <div key={`card-${i}`} className={`p-4 rounded-xl border my-4 shadow-sm ${bgStyle}`}>
+          <div key={"card-" + i} className={"p-4 rounded-xl border my-4 shadow-sm " + bgStyle}>
             <div className="flex items-center gap-2 mb-2">
               {icon}
               <span className={`text-xs uppercase tracking-wider font-display font-bold ${titleColor}`}>
@@ -3477,7 +3710,7 @@ case 'Chap4_Fig5':
     // Default: regular text lines parsed with KaTeX
     flushList(i);
     renderedElements.push(
-      <div key={`p-${i}`} className="text-slate-700 dark:text-slate-300 leading-relaxed text-xs md:text-sm my-0.5 overflow-x-auto scrollbar-none py-0.5">
+      <div key={"p-" + i} className="text-slate-700 dark:text-slate-300 leading-relaxed text-xs md:text-sm my-0.5 overflow-x-auto scrollbar-none py-0.5">
         {renderMathText(line)}
       </div>
     );
@@ -4037,7 +4270,7 @@ function Ex52Q5Diagram() {
               const isFlexibleStudent = activeCase === 'case1' && s === 6;
               return (
                 <div
-                  key={`front-${s}`}
+                  key={"front-" + s}
                   className={`aspect-square rounded-lg flex flex-col items-center justify-center border-2 transition-all ${
                     isFlexibleStudent
                       ? 'bg-amber-500/10 border-amber-500 text-amber-500 ring-2 ring-amber-500/20'
@@ -4072,7 +4305,7 @@ function Ex52Q5Diagram() {
               const isFlexibleStudent = activeCase === 'case2' && s === 5;
               return (
                 <div
-                  key={`back-${s}`}
+                  key={"back-" + s}
                   className={`aspect-square rounded-lg flex flex-col items-center justify-center border-2 transition-all ${
                     isFlexibleStudent
                       ? 'bg-amber-500/10 border-amber-500 text-amber-500 ring-2 ring-amber-500/20'
@@ -4309,7 +4542,7 @@ function Example12Diagram() {
             
             <div className="flex justify-center items-center gap-2 mb-4">
               {[1, 2, 3, 4, 5].map((s) => (
-                <div key={`seatA-${s}`} className="w-10 h-10 rounded-lg border-2 border-indigo-200 dark:border-indigo-950 bg-indigo-500/5 flex flex-col items-center justify-center">
+                <div key={"seatA-" + s} className="w-10 h-10 rounded-lg border-2 border-indigo-200 dark:border-indigo-950 bg-indigo-500/5 flex flex-col items-center justify-center">
                   <span className="text-[7px] text-indigo-400 uppercase font-black tracking-widest">Seat {s}</span>
                   <span className="text-[10px] font-black text-indigo-600 dark:text-indigo-400">{s <= 4 ? `P${s}` : 'Empty'}</span>
                 </div>
@@ -4337,7 +4570,7 @@ function Example12Diagram() {
             
             <div className="flex justify-center items-center gap-2 mb-4">
               {[1, 2, 3, 4].map((s) => (
-                <div key={`seatB-${s}`} className="w-10 h-10 rounded-lg border-2 border-emerald-200 dark:border-emerald-950 bg-emerald-500/5 flex flex-col items-center justify-center">
+                <div key={"seatB-" + s} className="w-10 h-10 rounded-lg border-2 border-emerald-200 dark:border-emerald-950 bg-emerald-500/5 flex flex-col items-center justify-center">
                   <span className="text-[7px] text-emerald-400 uppercase font-black tracking-widest">Seat {s}</span>
                   <span className="text-[10px] font-black text-emerald-600 dark:text-emerald-400 font-bold">P{s}</span>
                 </div>
@@ -4444,7 +4677,7 @@ function Example13Diagram() {
                 </span>
                 <div className="flex items-end gap-0.5 sm:gap-1">
                   {[1, 2, 3, 4, 5].map((b) => (
-                    <div key={`bookL-${b}`} className="w-5 sm:w-7 h-12 sm:h-16 bg-sky-500 dark:bg-sky-600 border border-sky-600 dark:border-sky-700 rounded-md flex flex-col items-center justify-center text-white font-black shadow-sm">
+                    <div key={"bookL-" + b} className="w-5 sm:w-7 h-12 sm:h-16 bg-sky-500 dark:bg-sky-600 border border-sky-600 dark:border-sky-700 rounded-md flex flex-col items-center justify-center text-white font-black shadow-sm">
                       <span className="text-[5px] sm:text-[6px] uppercase font-bold text-sky-100">Book</span>
                       <span className="text-[8px] sm:text-[10px]">{b}</span>
                     </div>
@@ -4479,7 +4712,7 @@ function Example13Diagram() {
                 </span>
                 <div className="flex items-end gap-0.5 sm:gap-1">
                   {[1, 2, 3, 4, 5].map((b) => (
-                    <div key={`bookR-${b}`} className="w-5 sm:w-7 h-12 sm:h-16 bg-sky-500 dark:bg-sky-600 border border-sky-600 dark:border-sky-700 rounded-md flex flex-col items-center justify-center text-white font-black shadow-sm">
+                    <div key={"bookR-" + b} className="w-5 sm:w-7 h-12 sm:h-16 bg-sky-500 dark:bg-sky-600 border border-sky-600 dark:border-sky-700 rounded-md flex flex-col items-center justify-center text-white font-black shadow-sm">
                       <span className="text-[5px] sm:text-[6px] uppercase font-bold text-sky-100">Book</span>
                       <span className="text-[8px] sm:text-[10px]">{b}</span>
                     </div>
@@ -5399,7 +5632,7 @@ function Exercise53Question3Diagram() {
             Answer all <span className="font-bold text-indigo-500">5</span> questions
           </div>
           <div className="mt-2 text-xs font-bold text-slate-700 dark:text-slate-300">
-            <Latex text="$ {}^{5}C_{5} $" />
+            <Latex text={String.raw`$ {}^{5}C_{5} $`} />
           </div>
         </div>
 
@@ -5418,7 +5651,7 @@ function Exercise53Question3Diagram() {
             Choose <span className="font-bold text-indigo-500">4</span> from 5
           </div>
           <div className="mt-2 text-xs font-bold text-slate-700 dark:text-slate-300">
-            <Latex text="$ {}^{5}C_{4} $" />
+            <Latex text={String.raw`$ {}^{5}C_{4} $`} />
           </div>
         </div>
 
@@ -5437,7 +5670,7 @@ function Exercise53Question3Diagram() {
             Choose <span className="font-bold text-indigo-500">3</span> from 4
           </div>
           <div className="mt-2 text-xs font-bold text-slate-700 dark:text-slate-300">
-            <Latex text="$ {}^{4}C_{3} $" />
+            <Latex text={String.raw`$ {}^{4}C_{3} $`} />
           </div>
         </div>
       </div>
@@ -5464,7 +5697,7 @@ function Exercise53Question4Diagram() {
           <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" className="text-slate-200 dark:text-slate-700" strokeWidth="1" strokeDasharray="2,2"/>
           {points.map((pt, i) => {
             if (i === 0) return null;
-            return <line key={`line-0-${i}`} x1={points[0].x} y1={points[0].y} x2={pt.x} y2={pt.y} stroke="currentColor" className="text-indigo-300 dark:text-indigo-500/30" strokeWidth="1"/>
+            return <line key={"line-0-" + i} x1={points[0].x} y1={points[0].y} x2={pt.x} y2={pt.y} stroke="currentColor" className="text-indigo-300 dark:text-indigo-500/30" strokeWidth="1"/>
           })}
           <line x1={points[1].x} y1={points[1].y} x2={points[2].x} y2={points[2].y} stroke="currentColor" className="text-amber-300 dark:text-amber-500/50" strokeWidth="1"/>
           <line x1={points[1].x} y1={points[1].y} x2={points[3].x} y2={points[3].y} stroke="currentColor" className="text-amber-300 dark:text-amber-500/50" strokeWidth="1"/>
@@ -5487,7 +5720,7 @@ function Exercise53Question4Diagram() {
           9 Teams total
         </p>
         <div className="text-[11px] text-slate-500 dark:text-slate-400 flex items-center justify-center gap-1">
-          Each game requires choosing <span className="font-bold text-indigo-500">2</span> teams: <span className="font-semibold text-indigo-600 dark:text-indigo-400"><Latex text="$ {}^{9}C_{2} $" /></span>
+          Each game requires choosing <span className="font-bold text-indigo-500">2</span> teams: <span className="font-semibold text-indigo-600 dark:text-indigo-400"><Latex text={String.raw`$ {}^{9}C_{2} $`} /></span>
         </div>
       </div>
     </div>
@@ -5528,7 +5761,7 @@ function Exercise53Question5Diagram() {
           </div>
           <div className="text-center">
             <p className="text-xs font-bold text-slate-700 dark:text-slate-300">Determining a Line</p>
-            <div className="text-[10px] text-slate-500 mt-1">Choose 2 points from 8: <span className="font-bold text-indigo-500"><Latex text="$ {}^{8}C_{2} $" /></span></div>
+            <div className="text-[10px] text-slate-500 mt-1">Choose 2 points from 8: <span className="font-bold text-indigo-500"><Latex text={String.raw`$ {}^{8}C_{2} $`} /></span></div>
           </div>
         </div>
 
@@ -5553,7 +5786,7 @@ function Exercise53Question5Diagram() {
           </div>
           <div className="text-center">
             <p className="text-xs font-bold text-slate-700 dark:text-slate-300">Determining a Triangle</p>
-            <div className="text-[10px] text-slate-500 mt-1">Choose 3 points from 8: <span className="font-bold text-amber-500"><Latex text="$ {}^{8}C_{3} $" /></span></div>
+            <div className="text-[10px] text-slate-500 mt-1">Choose 3 points from 8: <span className="font-bold text-amber-500"><Latex text={String.raw`$ {}^{8}C_{3} $`} /></span></div>
           </div>
         </div>
 
@@ -5621,7 +5854,7 @@ function Exercise53Question6Diagram() {
           Remaining 7 fruits to choose from. Need 3 more to make 4 fruits total.
         </p>        
         <div className="text-xs font-bold text-indigo-600 dark:text-indigo-400 mt-1">
-          <Latex text="$ {}^{7}C_{3} $" /> ways
+          <Latex text={String.raw`$ {}^{7}C_{3} $`} /> ways
         </div>
       </div>
     </div>
@@ -5917,7 +6150,7 @@ export function Chap4_Fig6() {
           <polygon points="130.0,40.0 122.1,49.0 118.0,38.9" className="fill-[#ca8a04] stroke-none" />
           <foreignObject x="65" y="25" width="30" height="30" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
-              <Latex text="$\vec{a}$" />
+              <Latex text={String.raw`$\vec{a}$`} />
             </div>
           </foreignObject>
           
@@ -5925,7 +6158,7 @@ export function Chap4_Fig6() {
           <polygon points="70.0,100.0 77.9,91.0 82.0,101.1" className="fill-slate-900 dark:fill-slate-100 stroke-none" />
           <foreignObject x="110" y="85" width="30" height="30" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100">
-              <Latex text="$-\vec{a}$" />
+              <Latex text={String.raw`$-\vec{a}$`} />
             </div>
           </foreignObject>
         </svg>
@@ -5943,7 +6176,7 @@ export function Chap4_Fig7() {
           <polygon points="110.0,120.0 99.3,125.4 99.3,114.6" className="fill-[#ca8a04] stroke-none" />
           <foreignObject x="50" y="125" width="30" height="30" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
-              <Latex text="$\vec{a}$" />
+              <Latex text={String.raw`$\vec{a}$`} />
             </div>
           </foreignObject>
           
@@ -5951,7 +6184,7 @@ export function Chap4_Fig7() {
           <polygon points="160.0,40.0 159.0,52.0 149.7,46.2" className="fill-[#ca8a04] stroke-none" />
           <foreignObject x="135" y="75" width="30" height="30" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
-              <Latex text="$\vec{b}$" />
+              <Latex text={String.raw`$\vec{b}$`} />
             </div>
           </foreignObject>
           
@@ -5959,7 +6192,7 @@ export function Chap4_Fig7() {
           <polygon points="160.0,40.0 153.4,50.0 148.0,40.6" className="fill-slate-900 dark:fill-slate-100 stroke-none" />
           <foreignObject x="60" y="55" width="50" height="30" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100">
-              <Latex text="$\vec{a} + \vec{b}$" />
+              <Latex text={String.raw`$\vec{a} + \vec{b}$`} />
             </div>
           </foreignObject>
         </svg>
@@ -5977,7 +6210,7 @@ export function Chap4_Fig8() {
           <polygon points="130.0,20.0 127.2,31.7 118.9,24.6" className="fill-[#ca8a04] stroke-none" />
           <foreignObject x="80" y="30" width="30" height="30" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
-              <Latex text="$\vec{b}$" />
+              <Latex text={String.raw`$\vec{b}$`} />
             </div>
           </foreignObject>
           
@@ -5985,7 +6218,7 @@ export function Chap4_Fig8() {
           <polygon points="190.0,70.0 180.3,77.1 178.6,66.4" className="fill-[#ca8a04] stroke-none" />
           <foreignObject x="115" y="80" width="30" height="30" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
-              <Latex text="$\vec{a}$" />
+              <Latex text={String.raw`$\vec{a}$`} />
             </div>
           </foreignObject>
           
@@ -5993,7 +6226,7 @@ export function Chap4_Fig8() {
           <polygon points="130.0,20.0 141.7,22.7 134.7,31.0" className="fill-[#ca8a04] stroke-none" />
           <foreignObject x="160" y="20" width="50" height="30" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
-              <Latex text="$\vec{b} - \vec{a}$" />
+              <Latex text={String.raw`$\vec{b} - \vec{a}$`} />
             </div>
           </foreignObject>
           
@@ -6001,7 +6234,7 @@ export function Chap4_Fig8() {
           <polygon points="130.0,140.0 132.8,128.3 141.1,135.4" className="fill-slate-900 dark:fill-slate-100 stroke-none" />
           <foreignObject x="165" y="100" width="30" height="30" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100">
-              <Latex text="$-\vec{b}$" />
+              <Latex text={String.raw`$-\vec{b}$`} />
             </div>
           </foreignObject>
           
@@ -6009,7 +6242,7 @@ export function Chap4_Fig8() {
           <polygon points="130.0,140.0 118.3,137.3 125.3,129.0" className="fill-slate-900 dark:fill-slate-100 stroke-none" />
           <foreignObject x="65" y="120" width="50" height="30" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100">
-              <Latex text="$\vec{a} - \vec{b}$" />
+              <Latex text={String.raw`$\vec{a} - \vec{b}$`} />
             </div>
           </foreignObject>
           
@@ -6033,7 +6266,7 @@ export function Chap4_Fig9() {
           <polygon points="170.0,35.0 161.3,43.3 158.2,32.9" className="fill-[#ca8a04] stroke-none" />
           <foreignObject x="135" y="10" width="30" height="30" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
-              <Latex text="$\vec{a}$" />
+              <Latex text={String.raw`$\vec{a}$`} />
             </div>
           </foreignObject>
           <circle cx="120" cy="50" r="2.5" className="fill-slate-800 dark:fill-slate-200 stroke-none" />
@@ -6044,7 +6277,7 @@ export function Chap4_Fig9() {
           <polygon points="220.0,50.0 211.3,58.3 208.2,47.9" className="fill-slate-900 dark:fill-slate-100 stroke-none" />
           <foreignObject x="160" y="35" width="30" height="30" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100">
-              <Latex text="$2\vec{a}$" />
+              <Latex text={String.raw`$2\vec{a}$`} />
             </div>
           </foreignObject>
           <circle cx="120" cy="80" r="2.5" className="fill-slate-800 dark:fill-slate-200 stroke-none" />
@@ -6055,7 +6288,7 @@ export function Chap4_Fig9() {
           <polygon points="120.0,125.0 128.7,116.7 131.8,127.1" className="fill-[#ca8a04] stroke-none" />
           <foreignObject x="135" y="125" width="30" height="30" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
-              <Latex text="$-\vec{a}$" />
+              <Latex text={String.raw`$-\vec{a}$`} />
             </div>
           </foreignObject>
           <circle cx="170" cy="110" r="2.5" className="fill-slate-800 dark:fill-slate-200 stroke-none" />
@@ -6077,7 +6310,7 @@ export function Chap4_Fig10() {
           <polygon points="200.0,20.0 190.9,27.9 188.3,17.3" className="fill-[#ca8a04] stroke-none" />
           <foreignObject x="120" y="10" width="30" height="30" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
-              <Latex text="$\vec{a}$" />
+              <Latex text={String.raw`$\vec{a}$`} />
             </div>
           </foreignObject>
           
@@ -6085,13 +6318,13 @@ export function Chap4_Fig10() {
           <polygon points="230.0,60.0 220.9,67.9 218.3,57.3" className="fill-[#ca8a04] stroke-none" />
           <foreignObject x="165" y="85" width="30" height="30" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
-              <Latex text="$\vec{b}$" />
+              <Latex text={String.raw`$\vec{b}$`} />
             </div>
           </foreignObject>
           
           <foreignObject x="130" y="115" width="50" height="30" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-slate-800 dark:text-slate-200">
-              <Latex text="$\vec{a} = \vec{b}$" />
+              <Latex text={String.raw`$\vec{a} = \vec{b}$`} />
             </div>
           </foreignObject>
           
@@ -6116,7 +6349,7 @@ export function Chap4_Fig11() {
           <polygon points="130.0,50.0 123.8,60.3 118.0,51.0" className="fill-[#ca8a04] stroke-none" />
           <foreignObject x="60" y="50" width="30" height="30" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
-              <Latex text="$\vec{a}$" />
+              <Latex text={String.raw`$\vec{a}$`} />
             </div>
           </foreignObject>
           
@@ -6124,7 +6357,7 @@ export function Chap4_Fig11() {
           <polygon points="250.0,50.0 239.3,55.4 239.3,44.6" className="fill-[#ca8a04] stroke-none" />
           <foreignObject x="175" y="25" width="30" height="30" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
-              <Latex text="$\vec{c}$" />
+              <Latex text={String.raw`$\vec{c}$`} />
             </div>
           </foreignObject>
           
@@ -6132,7 +6365,7 @@ export function Chap4_Fig11() {
           <polygon points="170.0,100.0 159.3,105.4 159.3,94.6" className="fill-[#ca8a04] stroke-none" />
           <foreignObject x="95" y="110" width="30" height="30" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
-              <Latex text="$\vec{d}$" />
+              <Latex text={String.raw`$\vec{d}$`} />
             </div>
           </foreignObject>
           
@@ -6140,7 +6373,7 @@ export function Chap4_Fig11() {
           <polygon points="250.0,50.0 243.8,60.3 238.0,51.0" className="fill-slate-900 dark:fill-slate-100 stroke-none" />
           <foreignObject x="210" y="80" width="30" height="30" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100">
-              <Latex text="$\vec{b}$" />
+              <Latex text={String.raw`$\vec{b}$`} />
             </div>
           </foreignObject>
           
@@ -6197,7 +6430,7 @@ export function Chap4_Fig12() {
           <polygon points="130.0,50.0 123.8,60.3 118.0,51.0" className="fill-[#ca8a04] stroke-none" />
           <foreignObject x="60" y="45" width="30" height="30" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
-              <Latex text="$\overrightarrow{AB}$" />
+              <Latex text={String.raw`$\overrightarrow{AB}$`} />
             </div>
           </foreignObject>
           
@@ -6205,7 +6438,7 @@ export function Chap4_Fig12() {
           <polygon points="250.0,50.0 239.3,55.4 239.3,44.6" className="fill-[#ca8a04] stroke-none" />
           <foreignObject x="175" y="15" width="30" height="30" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
-              <Latex text="$\overrightarrow{BC}$" />
+              <Latex text={String.raw`$\overrightarrow{BC}$`} />
             </div>
           </foreignObject>
           
@@ -6213,7 +6446,7 @@ export function Chap4_Fig12() {
           <polygon points="170.0,100.0 159.3,105.4 159.3,94.6" className="fill-[#ca8a04] stroke-none" />
           <foreignObject x="95" y="100" width="30" height="30" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
-              <Latex text="$\overrightarrow{AD}$" />
+              <Latex text={String.raw`$\overrightarrow{AD}$`} />
             </div>
           </foreignObject>
           
@@ -6221,7 +6454,7 @@ export function Chap4_Fig12() {
           <polygon points="250.0,50.0 243.8,60.3 238.0,51.0" className="fill-slate-900 dark:fill-slate-100 stroke-none" />
           <foreignObject x="225" y="65" width="30" height="30" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100">
-              <Latex text="$\overrightarrow{DC}$" />
+              <Latex text={String.raw`$\overrightarrow{DC}$`} />
             </div>
           </foreignObject>
           
@@ -6261,14 +6494,14 @@ export function Chap4_Fig13() {
           <polygon points="260.0,40.0 252.5,46.6 250.5,36.8" className="fill-[#ca8a04] stroke-none" />
           <foreignObject x="150" y="65" width="40" height="30" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
-              <Latex text="$\vec{a}$" />
+              <Latex text={String.raw`$\vec{a}$`} />
             </div>
           </foreignObject>
           <line x1="60" y1="80" x2="98.0" y2="72.4" className="stroke-slate-900 dark:stroke-slate-100" strokeWidth="2" />
           <polygon points="100.0,72.0 92.5,78.6 90.5,68.8" className="fill-slate-900 dark:fill-slate-100 stroke-none" />
           <foreignObject x="65" y="45" width="40" height="30" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100">
-              <Latex text="$\hat{\mathbf{a}}$" />
+              <Latex text={String.raw`$\hat{\mathbf{a}}$`} />
             </div>
           </foreignObject>
           <circle cx="60" cy="80" r="2.5" className="fill-slate-800 dark:fill-slate-200 stroke-none" />
@@ -6286,21 +6519,21 @@ export function Chap4_Fig14() {
           <polygon points="100.0,42.0 92.5,48.6 90.5,38.8" className="fill-slate-900 dark:fill-slate-100 stroke-none" />
           <foreignObject x="70" y="15" width="40" height="30" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100">
-              <Latex text="$\hat{\mathbf{a}}$" />
+              <Latex text={String.raw`$\hat{\mathbf{a}}$`} />
             </div>
           </foreignObject>
           <line x1="60" y1="90" x2="258.0" y2="50.4" className="stroke-[#ca8a04]" strokeWidth="2" />
           <polygon points="260.0,50.0 252.5,56.6 250.5,46.8" className="fill-[#ca8a04] stroke-none" />
           <foreignObject x="110" y="40" width="100" height="30" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
-              <Latex text="$\vec{b} = 5\hat{\mathbf{a}}$" />
+              <Latex text={String.raw`$\vec{b} = 5\hat{\mathbf{a}}$`} />
             </div>
           </foreignObject>
           <line x1="260" y1="120" x2="62.0" y2="159.6" className="stroke-[#d97706]" strokeWidth="2" />
           <polygon points="60.0,160.0 67.5,163.4 69.5,153.6" className="fill-[#d97706] stroke-none" />
           <foreignObject x="110" y="150" width="100" height="30" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-[#d97706]">
-              <Latex text="$\vec{b} = -5\hat{\mathbf{a}}$" />
+              <Latex text={String.raw`$\vec{b} = -5\hat{\mathbf{a}}$`} />
             </div>
           </foreignObject>
           <circle cx="60" cy="50" r="2.5" className="fill-slate-800 dark:fill-slate-200 stroke-none" />
@@ -6321,14 +6554,14 @@ export function Chap4_Fig15() {
           <polygon points="260.0,35.0 252.8,42.0 250.4,32.2" className="fill-slate-900 dark:fill-slate-100 stroke-none" />
           <foreignObject x="180" y="15" width="60" height="30" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100">
-              <Latex text="$\overrightarrow{AC}$" />
+              <Latex text={String.raw`$\overrightarrow{AC}$`} />
             </div>
           </foreignObject>
           <line x1="60.0" y1="85.0" x2="138.1" y2="65.5" className="stroke-[#ca8a04]" strokeWidth="2" />
           <polygon points="140.0,65.0 132.8,72.0 130.4,62.2" className="fill-[#ca8a04] stroke-none" />
           <foreignObject x="80" y="75" width="60" height="30" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-[#ca8a04]">
-              <Latex text="$\overrightarrow{AB}$" />
+              <Latex text={String.raw`$\overrightarrow{AB}$`} />
             </div>
           </foreignObject>
           <circle cx="60" cy="85" r="3" className="fill-slate-800 dark:fill-slate-200 stroke-none" />
@@ -6367,7 +6600,7 @@ export function Chap4_CrossProductDirection() {
           </text>
           <foreignObject x="210" y="128" width="60" height="25" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-slate-800 dark:text-slate-200 text-xs">
-              <Latex text="$\vec{a}$ and $\vec{b}$" />
+              <Latex text={String.raw`$\vec{a}$ and $\vec{b}$`} />
             </div>
           </foreignObject>
 
@@ -6384,7 +6617,7 @@ export function Chap4_CrossProductDirection() {
           <polygon points="260,160 252,156 252,164" className="fill-amber-600 dark:fill-amber-400 stroke-none" />
           <foreignObject x="180" y="162" width="40" height="25" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-amber-600 dark:text-amber-400 text-xs">
-              <Latex text="$\vec{a}$" />
+              <Latex text={String.raw`$\vec{a}$`} />
             </div>
           </foreignObject>
 
@@ -6393,7 +6626,7 @@ export function Chap4_CrossProductDirection() {
           <polygon points="170,100 162,102 166,108" className="fill-amber-600 dark:fill-amber-400 stroke-none" />
           <foreignObject x="115" y="115" width="30" height="25" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-amber-600 dark:text-amber-400 text-xs">
-              <Latex text="$\vec{b}$" />
+              <Latex text={String.raw`$\vec{b}$`} />
             </div>
           </foreignObject>
 
@@ -6404,14 +6637,14 @@ export function Chap4_CrossProductDirection() {
           {/* Label at top of a x b */}
           <foreignObject x="95" y="5" width="50" height="25" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100 font-bold text-xs">
-              <Latex text="$\vec{a} \times \vec{b}$" />
+              <Latex text={String.raw`$\vec{a} \times \vec{b}$`} />
             </div>
           </foreignObject>
 
           {/* Text pointing to a x b */}
           <foreignObject x="130" y="40" width="160" height="40" overflow="visible">
             <div className="text-left text-slate-800 dark:text-slate-200 text-xs leading-tight">
-              <Latex text="$\vec{a} \times \vec{b}$ is perpendicular to the whole plane" />
+              <Latex text={String.raw`$\vec{a} \times \vec{b}$ is perpendicular to the whole plane`} />
             </div>
           </foreignObject>
 
@@ -6478,7 +6711,7 @@ export function Chap4_AreaParallelogramDiag() {
           />
           <foreignObject x="115" y="122" width="20" height="20" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-amber-600 dark:text-amber-400 text-xs">
-              <Latex text="$\theta$" />
+              <Latex text={String.raw`$\theta$`} />
             </div>
           </foreignObject>
 
@@ -6487,7 +6720,7 @@ export function Chap4_AreaParallelogramDiag() {
           <polygon points="260,140 252,136 252,144" className="fill-amber-600 dark:fill-amber-400 stroke-none" />
           <foreignObject x="170" y="142" width="30" height="25" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-amber-600 dark:text-amber-400 text-xs">
-              <Latex text="$\vec{a}$" />
+              <Latex text={String.raw`$\vec{a}$`} />
             </div>
           </foreignObject>
 
@@ -6496,7 +6729,7 @@ export function Chap4_AreaParallelogramDiag() {
           <polygon points="130,60 123,62 126,68" className="fill-amber-600 dark:fill-amber-400 stroke-none" />
           <foreignObject x="90" y="85" width="30" height="25" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-amber-600 dark:text-amber-400 text-xs">
-              <Latex text="$\vec{b}$" />
+              <Latex text={String.raw`$\vec{b}$`} />
             </div>
           </foreignObject>
 
@@ -6560,7 +6793,7 @@ export function Chap4_AreaTriangleDiag() {
           <polygon points="260,140 252,136 252,144" className="fill-amber-600 dark:fill-amber-400 stroke-none" />
           <foreignObject x="170" y="142" width="30" height="25" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-amber-600 dark:text-amber-400 text-xs">
-              <Latex text="$\vec{a}$" />
+              <Latex text={String.raw`$\vec{a}$`} />
             </div>
           </foreignObject>
 
@@ -6569,7 +6802,7 @@ export function Chap4_AreaTriangleDiag() {
           <polygon points="130,60 123,62 126,68" className="fill-amber-600 dark:fill-amber-400 stroke-none" />
           <foreignObject x="90" y="85" width="30" height="25" overflow="visible">
             <div className="flex items-center justify-center w-full h-full text-amber-600 dark:text-amber-400 text-xs">
-              <Latex text="$\vec{b}$" />
+              <Latex text={String.raw`$\vec{b}$`} />
             </div>
           </foreignObject>
 
@@ -6651,7 +6884,7 @@ export function Chap4_UnitVectorCyclicDiag() {
             <circle r="16" className="fill-amber-50 dark:fill-amber-950/40 stroke-amber-300 dark:stroke-amber-700" strokeWidth="1.5" />
             <foreignObject x="-15" y="-14" width="30" height="28" overflow="visible">
               <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100 font-bold text-xs">
-                <Latex text="$\hat{\mathbf{i}}$" />
+                <Latex text={String.raw`$\hat{\mathbf{i}}$`} />
               </div>
             </foreignObject>
           </g>
@@ -6661,7 +6894,7 @@ export function Chap4_UnitVectorCyclicDiag() {
             <circle r="16" className="fill-amber-50 dark:fill-amber-950/40 stroke-amber-300 dark:stroke-amber-700" strokeWidth="1.5" />
             <foreignObject x="-15" y="-14" width="30" height="28" overflow="visible">
               <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100 font-bold text-xs">
-                <Latex text="$\hat{\mathbf{j}}$" />
+                <Latex text={String.raw`$\hat{\mathbf{j}}$`} />
               </div>
             </foreignObject>
           </g>
@@ -6671,7 +6904,7 @@ export function Chap4_UnitVectorCyclicDiag() {
             <circle r="16" className="fill-amber-50 dark:fill-amber-950/40 stroke-amber-300 dark:stroke-amber-700" strokeWidth="1.5" />
             <foreignObject x="-15" y="-14" width="30" height="28" overflow="visible">
               <div className="flex items-center justify-center w-full h-full text-slate-900 dark:text-slate-100 font-bold text-xs">
-                <Latex text="$\hat{\mathbf{k}}$" />
+                <Latex text={String.raw`$\hat{\mathbf{k}}$`} />
               </div>
             </foreignObject>
           </g>
@@ -7050,3 +7283,549 @@ export function Ex5_4_Q10_ii_Diag5() {
   );
 }
 
+
+export function Chap4_4_4_LineEq_Diag1() {
+  return (
+    <div className="flex flex-col items-center my-8">
+      <div className="relative w-full max-w-[600px] aspect-[600/350] bg-white dark:bg-slate-900 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm p-4">
+        <svg viewBox="0 0 600 350" overflow="visible" className="w-full h-full fill-none" strokeWidth="1.5">
+          {/* Line l */}
+          <line x1="80" y1="280" x2="520" y2="60" stroke="#d97706" strokeWidth="2" />
+          <text x="530" y="55" fill="#d97706" fontSize="20" className="font-serif italic stroke-none">l</text>
+
+          {/* Vector OA = a */}
+          <line x1="150" y1="300" x2="238" y2="202" stroke="currentColor" strokeWidth="2" className="text-slate-800 dark:text-slate-100" />
+          <polygon points="240.0,200.0 236.4,212.9 227.5,204.9" className="fill-slate-800 dark:fill-slate-100 stroke-none" />
+          <foreignObject x="135" y="230" width="80" height="40" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-lg font-semibold text-slate-800 dark:text-slate-100">
+              <Latex text={String.raw`$\vec{a}$`} />
+            </div>
+          </foreignObject>
+
+          {/* Vector OR = r */}
+          <line x1="150" y1="300" x2="416" y2="114" stroke="currentColor" strokeWidth="2" strokeDasharray="5 4" className="text-slate-800 dark:text-slate-100" />
+          <polygon points="420.0,110.0 413.6,121.8 406.7,112.0" className="fill-slate-800 dark:fill-slate-100 stroke-none" />
+          <foreignObject x="265" y="200" width="80" height="40" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-lg font-semibold text-slate-800 dark:text-slate-100">
+              <Latex text={String.raw`$\vec{r}$`} />
+            </div>
+          </foreignObject>
+
+          {/* Vector AR = t b */}
+          <line x1="240" y1="200" x2="416" y2="112" stroke="#2563eb" strokeWidth="3" className="stroke-blue-600 dark:stroke-blue-400" />
+          <polygon points="420.0,110.0 412.0,120.7 406.6,110.0" className="fill-blue-600 dark:fill-blue-400 stroke-none" />
+          <foreignObject x="280" y="85" width="120" height="40" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-lg font-bold text-blue-600 dark:text-blue-400">
+              <Latex text={String.raw`$\overrightarrow{AR} = t\vec{b}$`} />
+            </div>
+          </foreignObject>
+
+          {/* Vector b (parallel direction vector) */}
+          <line x1="380" y1="60" x2="456" y2="22" stroke="#d97706" strokeWidth="2.5" className="stroke-amber-600 dark:stroke-amber-400" />
+          <polygon points="460.0,20.0 452.0,30.7 446.6,20.0" className="fill-amber-600 dark:fill-amber-400 stroke-none" />
+          <foreignObject x="430" y="25" width="40" height="40" overflow="visible">
+            <div className="flex items-center justify-center w-full h-full text-lg text-amber-600 dark:text-amber-400 font-bold">
+              <Latex text={String.raw`$\vec{b}$`} />
+            </div>
+          </foreignObject>
+
+          {/* Points (Top Layer) */}
+          <circle cx="150" cy="300" r="4.5" className="fill-slate-900 dark:fill-slate-100 stroke-white dark:stroke-slate-900" strokeWidth="1.5" />
+          <text x="135" y="325" className="fill-slate-900 dark:fill-slate-100 fontSize-[20px] font-serif italic stroke-none font-semibold">O</text>
+
+          <circle cx="240" cy="200" r="4.5" className="fill-slate-900 dark:fill-slate-100 stroke-white dark:stroke-slate-900" strokeWidth="1.5" />
+          <text x="215" y="195" className="fill-slate-900 dark:fill-slate-100 fontSize-[20px] font-serif italic stroke-none font-semibold">A</text>
+
+          <circle cx="420" cy="110" r="4.5" className="fill-slate-900 dark:fill-slate-100 stroke-white dark:stroke-slate-900" strokeWidth="1.5" />
+          <text x="430" y="130" className="fill-slate-900 dark:fill-slate-100 fontSize-[20px] font-serif italic stroke-none font-semibold">R</text>
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+
+
+export function Chap4_4_4_Ex18_Diag() {
+  return (
+    <div className="flex flex-col items-center my-8">
+      <div className="relative w-full max-w-[480px] aspect-[480/320] bg-white dark:bg-slate-900 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm p-4">
+        <svg viewBox="0 0 480 320" overflow="visible" className="w-full h-full fill-none" strokeWidth="1.5">
+          <defs>
+            <marker id="arrow-amber-ex18" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" className="fill-amber-600 dark:fill-amber-400 stroke-none" />
+            </marker>
+            <marker id="arrow-slate-ex18" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" className="fill-slate-800 dark:fill-slate-100 stroke-none" />
+            </marker>
+          </defs>
+
+          {/* Plane representation */}
+          <polygon points="130,160 300,160 360,80 190,80" className="fill-amber-500/5 stroke-amber-500/40 dark:fill-amber-500/10 dark:stroke-amber-400/30" strokeWidth="1.5" />
+          <text x="320" y="75" className="fill-amber-700 dark:fill-amber-300 stroke-none text-xs uppercase tracking-wider font-semibold">plane</text>
+
+          {/* Vector MP (d2) */}
+          <line x1="130" y1="160" x2="188" y2="84" stroke="#d97706" strokeWidth="2.5" className="stroke-amber-600 dark:stroke-amber-400" />
+          <polygon points="188.0,84.0 183.9,96.0 177.5,91.1" className="fill-amber-600 dark:fill-amber-400 stroke-none" />
+          
+          {/* Vector MN (d1) */}
+          <line x1="130" y1="160" x2="295" y2="160" stroke="#d97706" strokeWidth="2.5" className="stroke-amber-600 dark:stroke-amber-400" />
+          <polygon points="295.0,160.0 283.0,164.0 283.0,156.0" className="fill-amber-600 dark:fill-amber-400 stroke-none" />
+
+          {/* Vector OM (a) */}
+          <line x1="80" y1="240" x2="127" y2="165" stroke="currentColor" strokeWidth="2.5" className="text-slate-800 dark:text-slate-100" />
+          <polygon points="127.0,165.0 124.0,177.3 117.2,173.0" className="fill-slate-800 dark:fill-slate-100 stroke-none" />
+
+          {/* Points */}
+          <circle cx="80" cy="240" r="3" className="fill-slate-800 dark:fill-slate-100" />
+          <circle cx="130" cy="160" r="3" className="fill-slate-800 dark:fill-slate-100" />
+          <circle cx="190" cy="80" r="3" className="fill-slate-800 dark:fill-slate-100" />
+          <circle cx="300" cy="160" r="3" className="fill-slate-800 dark:fill-slate-100" />
+
+          {/* Labels */}
+          <foreignObject x="50" y="240" width="30" height="30" overflow="visible">
+             <div className="flex items-center justify-center w-full h-full text-sm font-semibold text-slate-800 dark:text-slate-100"><Latex text="$O$" /></div>
+          </foreignObject>
+          <foreignObject x="25" y="145" width="100" height="30" overflow="visible">
+             <div className="flex items-center justify-center w-full h-full text-xs font-semibold text-slate-800 dark:text-slate-100 whitespace-nowrap"><Latex text="$M(2,2,-2)$" /></div>
+          </foreignObject>
+          <foreignObject x="170" y="45" width="80" height="30" overflow="visible">
+             <div className="flex items-center justify-center w-full h-full text-xs font-semibold text-slate-800 dark:text-slate-100 whitespace-nowrap"><Latex text="$P(4,0,2)$" /></div>
+          </foreignObject>
+          <foreignObject x="305" y="150" width="80" height="30" overflow="visible">
+             <div className="flex items-center justify-center w-full h-full text-xs font-semibold text-slate-800 dark:text-slate-100 whitespace-nowrap"><Latex text="$N(1,-1,3)$" /></div>
+          </foreignObject>
+
+          <foreignObject x="110" y="195" width="80" height="30" overflow="visible">
+             <div className="flex items-center justify-center w-full h-full text-sm font-semibold text-slate-800 dark:text-slate-100"><Latex text={String.raw`$\vec{a} = \overrightarrow{OM}$`} /></div>
+          </foreignObject>
+          
+          <foreignObject x="195" y="165" width="90" height="30" overflow="visible">
+             <div className="flex items-center justify-center w-full h-full text-sm font-semibold text-amber-600 dark:text-amber-400"><Latex text={String.raw`$\vec{d}_1 = \overrightarrow{MN}$`} /></div>
+          </foreignObject>
+          
+          <foreignObject x="65" y="100" width="90" height="30" overflow="visible">
+             <div className="flex items-center justify-center w-full h-full text-sm font-semibold text-amber-600 dark:text-amber-400"><Latex text={String.raw`$\vec{d}_2 = \overrightarrow{MP}$`} /></div>
+          </foreignObject>
+        </svg>
+      </div>
+    </div>
+  );
+}
+export function Chap4_4_4_PlaneEq_Diag1() {
+  return (
+    <div className="flex flex-col items-center my-8">
+      <div className="relative w-full max-w-[500px] aspect-[500/320] bg-white dark:bg-slate-900 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm p-4">
+        <svg viewBox="0 0 500 320" overflow="visible" className="w-full h-full fill-none" strokeWidth="1.5">
+          {/* Grid */}
+          <g stroke="currentColor" strokeWidth="1" className="text-amber-200/60 dark:text-amber-900/30">
+            {[110, 160, 210, 260, 310, 360, 410].map(x => (
+              <line key={"v"+x} x1={x} y1="40" x2={x} y2="250" />
+            ))}
+            {[50, 100, 150, 200, 250].map(y => (
+              <line key={"h"+y} x1={60} y1={y} x2={430} y2={y} />
+            ))}
+          </g>
+          
+          {/* Axes */}
+          <line x1="60" y1="250" x2="446" y2="250" stroke="currentColor" strokeWidth="2" className="text-slate-800 dark:text-slate-100" />
+          <polygon points="450.0,250.0 438.0,256.0 438.0,244.0" className="fill-slate-800 dark:fill-slate-100 stroke-none" />
+          <text x="460" y="255" className="fill-slate-800 dark:fill-slate-100 stroke-none font-serif italic text-base">x</text>
+
+          <line x1="60" y1="265" x2="60" y2="34" stroke="currentColor" strokeWidth="2" className="text-slate-800 dark:text-slate-100" />
+          <polygon points="60.0,30.0 66.0,42.0 54.0,42.0" className="fill-slate-800 dark:fill-slate-100 stroke-none" />
+          <text x="52" y="22" className="fill-slate-800 dark:fill-slate-100 stroke-none font-serif italic text-base">y</text>
+          
+          {/* Basis Vector i */}
+          <line x1="60" y1="250" x2="106" y2="250" stroke="#d97706" strokeWidth="3.5" className="stroke-amber-600 dark:stroke-amber-400" />
+          <polygon points="110.0,250.0 98.0,256.0 98.0,244.0" className="fill-amber-600 dark:fill-amber-400 stroke-none" />
+          <foreignObject x="75" y="255" width="30" height="30" overflow="visible">
+             <div className="flex items-center justify-center w-full h-full text-sm font-bold text-amber-600 dark:text-amber-400"><Latex text={String.raw`$\hat{i}$`} /></div>
+          </foreignObject>
+          
+          {/* Basis Vector j */}
+          <line x1="60" y1="250" x2="60" y2="204" stroke="#d97706" strokeWidth="3.5" className="stroke-amber-600 dark:stroke-amber-400" />
+          <polygon points="60.0,200.0 66.0,212.0 54.0,212.0" className="fill-amber-600 dark:fill-amber-400 stroke-none" />
+          <foreignObject x="30" y="210" width="30" height="30" overflow="visible">
+             <div className="flex items-center justify-center w-full h-full text-sm font-bold text-amber-600 dark:text-amber-400"><Latex text={String.raw`$\hat{j}$`} /></div>
+          </foreignObject>
+
+          {/* Guide dashed lines for 3i + 2j */}
+          <line x1="210" y1="250" x2="210" y2="150" stroke="#2563eb" strokeWidth="1.5" strokeDasharray="4 3" className="opacity-60 dark:opacity-80" />
+          <line x1="60" y1="150" x2="210" y2="150" stroke="#2563eb" strokeWidth="1.5" strokeDasharray="4 3" className="opacity-60 dark:opacity-80" />
+
+          {/* Linear Combination Vector 3i + 2j */}
+          <line x1="60" y1="250" x2="206" y2="153" stroke="#2563eb" strokeWidth="3" className="stroke-blue-600 dark:stroke-blue-400" />
+          <polygon points="210.0,150.0 203.3,161.6 196.7,151.7" className="fill-blue-600 dark:fill-blue-400 stroke-none" />
+          <foreignObject x="160" y="115" width="100" height="30" overflow="visible">
+             <div className="flex items-center justify-center w-full h-full text-sm font-bold text-blue-600 dark:text-blue-400 whitespace-nowrap"><Latex text={String.raw`$3\hat{i} + 2\hat{j}$`} /></div>
+          </foreignObject>
+
+          {/* Axis tick labels */}
+          <text x="110" y="270" textAnchor="middle" className="fill-slate-500 dark:fill-slate-400 stroke-none text-xs">1</text>
+          <text x="160" y="270" textAnchor="middle" className="fill-slate-500 dark:fill-slate-400 stroke-none text-xs">2</text>
+          <text x="210" y="270" textAnchor="middle" className="fill-slate-500 dark:fill-slate-400 stroke-none text-xs font-semibold">3</text>
+          <text x="44" y="204" textAnchor="end" className="fill-slate-500 dark:fill-slate-400 stroke-none text-xs">1</text>
+          <text x="44" y="154" textAnchor="end" className="fill-slate-500 dark:fill-slate-400 stroke-none text-xs font-semibold">2</text>
+
+          {/* Points (Top Layer) */}
+          <circle cx="60" cy="250" r="4" className="fill-slate-800 dark:fill-slate-100 stroke-white dark:stroke-slate-900" strokeWidth="1.5" />
+          <text x="44" y="270" className="fill-slate-800 dark:fill-slate-100 stroke-none font-serif italic text-sm font-semibold">O</text>
+
+          <circle cx="210" cy="150" r="4.5" className="fill-blue-600 dark:fill-blue-400 stroke-white dark:stroke-slate-900" strokeWidth="1.5" />
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+export function Chap4_4_4_PlaneEq_Diag2() {
+  return (
+    <div className="flex flex-col items-center my-8">
+      <div className="relative w-full max-w-[500px] aspect-[500/320] bg-white dark:bg-slate-900 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm p-4">
+        <svg viewBox="0 0 500 320" overflow="visible" className="w-full h-full fill-none" strokeWidth="1.5">
+          {/* Skewed Grid */}
+          <g stroke="currentColor" strokeWidth="1" className="text-amber-200/60 dark:text-amber-900/30">
+            {[0, 1, 2, 3, 4].map(i => {
+              const startX = 70 + i * 28;
+              const startY = 250 - i * 40;
+              const endX = startX + 5 * 55;
+              const endY = startY;
+              return <line key={"h"+i} x1={startX} y1={startY} x2={endX} y2={endY} />;
+            })}
+            {[0, 1, 2, 3, 4, 5].map(i => {
+              const startX = 70 + i * 55;
+              const startY = 250;
+              const endX = startX + 4 * 28;
+              const endY = 250 - 4 * 40;
+              return <line key={"v"+i} x1={startX} y1={startY} x2={endX} y2={endY} />;
+            })}
+          </g>
+
+          {/* Axes */}
+          <line x1="70" y1="265" x2="70" y2="44" stroke="currentColor" strokeWidth="1.8" className="text-slate-800 dark:text-slate-100" />
+          <polygon points="70.0,40.0 76.0,52.0 64.0,52.0" className="fill-slate-800 dark:fill-slate-100 stroke-none" />
+
+          <line x1="50" y1="250" x2="436" y2="250" stroke="currentColor" strokeWidth="1.8" className="text-slate-800 dark:text-slate-100" />
+          <polygon points="440.0,250.0 428.0,256.0 428.0,244.0" className="fill-slate-800 dark:fill-slate-100 stroke-none" />
+          
+          {/* Basis Vector d1 */}
+          <line x1="70" y1="250" x2="121" y2="250" stroke="#d97706" strokeWidth="3.5" className="stroke-amber-600 dark:stroke-amber-400" />
+          <polygon points="125.0,250.0 113.0,256.0 113.0,244.0" className="fill-amber-600 dark:fill-amber-400 stroke-none" />
+          <foreignObject x="90" y="255" width="30" height="30" overflow="visible">
+             <div className="flex items-center justify-center w-full h-full text-sm font-bold text-amber-600 dark:text-amber-400"><Latex text={String.raw`$\vec{d}_1$`} /></div>
+          </foreignObject>
+
+          {/* Basis Vector d2 */}
+          <line x1="70" y1="250" x2="96" y2="213" stroke="#d97706" strokeWidth="3.5" className="stroke-amber-600 dark:stroke-amber-400" />
+          <polygon points="98.0,210.0 96.0,223.3 86.2,216.4" className="fill-amber-600 dark:fill-amber-400 stroke-none" />
+          <foreignObject x="45" y="210" width="30" height="30" overflow="visible">
+             <div className="flex items-center justify-center w-full h-full text-sm font-bold text-amber-600 dark:text-amber-400"><Latex text={String.raw`$\vec{d}_2$`} /></div>
+          </foreignObject>
+
+          {/* Guide parallelogram for 2d1 + 2d2 */}
+          <line x1="180" y1="250" x2={180 + 2*28} y2={250 - 2*40} stroke="#2563eb" strokeWidth="1.5" strokeDasharray="4 3" className="opacity-60 dark:opacity-80" />
+          <line x1={70 + 2*28} y1={250 - 2*40} x2={70 + 2*28 + 2*55} y2={250 - 2*40} stroke="#2563eb" strokeWidth="1.5" strokeDasharray="4 3" className="opacity-60 dark:opacity-80" />
+
+          {/* Resultant Vector: 2d1 + 2d2 */}
+          <line x1="70" y1="250" x2={232} y2={172} stroke="#2563eb" strokeWidth="3" className="stroke-blue-600 dark:stroke-blue-400" />
+          <polygon points="236.0,170.0 227.8,180.6 222.6,169.8" className="fill-blue-600 dark:fill-blue-400 stroke-none" />
+          <foreignObject x="180" y="132" width="120" height="30" overflow="visible">
+             <div className="flex items-center justify-center w-full h-full text-sm font-bold text-blue-600 dark:text-blue-400 whitespace-nowrap"><Latex text={String.raw`$2\vec{d}_1 + 2\vec{d}_2$`} /></div>
+          </foreignObject>
+
+          {/* Points (Top Layer) */}
+          <circle cx="70" cy="250" r="4" className="fill-slate-800 dark:fill-slate-100 stroke-white dark:stroke-slate-900" strokeWidth="1.5" />
+          <text x="52" y="268" className="fill-slate-800 dark:fill-slate-100 stroke-none font-serif italic text-sm font-semibold">O</text>
+
+          <circle cx={70 + 2*55 + 2*28} cy={250 - 2*40} r="4.5" className="fill-blue-600 dark:fill-blue-400 stroke-white dark:stroke-slate-900" strokeWidth="1.5" />
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+export function Chap4_4_4_PlaneEq_Diag3() {
+  return (
+    <div className="flex flex-col items-center my-8">
+      <div className="relative w-full max-w-[520px] aspect-[520/360] bg-white dark:bg-slate-900 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm p-4">
+        <svg viewBox="0 0 520 360" overflow="visible" className="w-full h-full fill-none" strokeWidth="1.5">
+          {/* Plane representation */}
+          <polygon points="180,220 480,220 400,90 100,90" className="fill-amber-500/5 stroke-amber-500/40 dark:fill-amber-500/10 dark:stroke-amber-400/30" strokeWidth="1.5" />
+          <text x="320" y="80" className="fill-amber-700 dark:fill-amber-300 stroke-none text-xs uppercase tracking-wider font-semibold">plane</text>
+
+          {/* Parallelogram ACRB on the plane */}
+          <polygon points="200,190 320,190 400,110 280,110" className="fill-amber-400/10 dark:fill-amber-400/5" stroke="#d97706" strokeWidth="1" strokeDasharray="4 3" />
+
+          {/* Position vector OA = a */}
+          <line x1="120" y1="310" x2="196" y2="196" stroke="currentColor" strokeWidth="2.2" className="text-slate-800 dark:text-slate-100" />
+          <polygon points="200.0,190.0 198.3,203.3 188.4,196.7" className="fill-slate-800 dark:fill-slate-100 stroke-none" />
+          <foreignObject x="80" y="235" width="90" height="30" overflow="visible">
+             <div className="flex items-center justify-center w-full h-full text-sm font-semibold text-slate-800 dark:text-slate-100"><Latex text={String.raw`$\vec{a} = \overrightarrow{OA}$`} /></div>
+          </foreignObject>
+
+          {/* Vector AB = t1 d1 */}
+          <line x1="200" y1="190" x2="316" y2="190" stroke="#d97706" strokeWidth="3" className="stroke-amber-600 dark:stroke-amber-400" />
+          <polygon points="320.0,190.0 308.0,196.0 308.0,184.0" className="fill-amber-600 dark:fill-amber-400 stroke-none" />
+          <foreignObject x="195" y="190" width="60" height="30" overflow="visible">
+             <div className="flex items-center justify-center w-full h-full text-sm font-bold text-amber-600 dark:text-amber-400"><Latex text={String.raw`$t_1\vec{d}_1$`} /></div>
+          </foreignObject>
+
+          {/* Vector AC = t2 d2 */}
+          <line x1="200" y1="190" x2="277" y2="113" stroke="#d97706" strokeWidth="3" className="stroke-amber-600 dark:stroke-amber-400" />
+          <polygon points="280.0,110.0 275.8,122.7 267.3,114.2" className="fill-amber-600 dark:fill-amber-400 stroke-none" />
+          <foreignObject x="190" y="122" width="60" height="30" overflow="visible">
+             <div className="flex items-center justify-center w-full h-full text-sm font-bold text-amber-600 dark:text-amber-400"><Latex text={String.raw`$t_2\vec{d}_2$`} /></div>
+          </foreignObject>
+
+          {/* Vector AR = AB + AC */}
+          <line x1="200" y1="190" x2="395" y2="112" stroke="#2563eb" strokeWidth="3" className="stroke-blue-600 dark:stroke-blue-400" />
+          <polygon points="400.0,110.0 391.1,120.0 386.6,108.9" className="fill-blue-600 dark:fill-blue-400 stroke-none" />
+          <foreignObject x="285" y="112" width="60" height="30" overflow="visible">
+             <div className="flex items-center justify-center w-full h-full text-sm font-bold text-blue-600 dark:text-blue-400 whitespace-nowrap"><Latex text={String.raw`$\overrightarrow{AR}$`} /></div>
+          </foreignObject>
+
+          {/* Position vector OR = r */}
+          <line x1="120" y1="310" x2="396" y2="113" stroke="currentColor" strokeWidth="2.2" strokeDasharray="5 4" className="text-slate-800 dark:text-slate-100" />
+          <polygon points="400.0,110.0 393.7,121.9 386.7,112.1" className="fill-slate-800 dark:fill-slate-100 stroke-none" />
+          <foreignObject x="235" y="245" width="90" height="30" overflow="visible">
+             <div className="flex items-center justify-center w-full h-full text-sm font-semibold text-slate-800 dark:text-slate-100"><Latex text={String.raw`$\vec{r} = \overrightarrow{OR}$`} /></div>
+          </foreignObject>
+
+          {/* Points (Top Layer) */}
+          <circle cx="120" cy="310" r="4.5" className="fill-slate-800 dark:fill-slate-100 stroke-white dark:stroke-slate-900" strokeWidth="1.5" />
+          <text x="96" y="328" className="fill-slate-800 dark:fill-slate-100 stroke-none font-serif italic text-base font-semibold">O</text>
+
+          <circle cx="200" cy="190" r="4.5" className="fill-slate-800 dark:fill-slate-100 stroke-white dark:stroke-slate-900" strokeWidth="1.5" />
+          <text x="178" y="195" className="fill-slate-800 dark:fill-slate-100 stroke-none font-serif italic text-base font-semibold">A</text>
+
+          <circle cx="320" cy="190" r="4.5" className="fill-slate-800 dark:fill-slate-100 stroke-white dark:stroke-slate-900" strokeWidth="1.5" />
+          <text x="332" y="195" className="fill-slate-800 dark:fill-slate-100 stroke-none font-serif italic text-base font-semibold">B</text>
+
+          <circle cx="280" cy="110" r="4.5" className="fill-slate-800 dark:fill-slate-100 stroke-white dark:stroke-slate-900" strokeWidth="1.5" />
+          <text x="262" y="104" className="fill-slate-800 dark:fill-slate-100 stroke-none font-serif italic text-base font-semibold">C</text>
+
+          <circle cx="400" cy="110" r="4.5" className="fill-slate-800 dark:fill-slate-100 stroke-white dark:stroke-slate-900" strokeWidth="1.5" />
+          <text x="412" y="112" className="fill-slate-800 dark:fill-slate-100 stroke-none font-serif italic text-base font-semibold">R</text>
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+export function Chap4_4_4_PlaneEq_Diag4() {
+  return (
+    <div className="flex flex-col items-center my-8">
+      <div className="relative w-full max-w-[520px] aspect-[520/360] bg-white dark:bg-slate-900 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm p-4">
+        <svg viewBox="0 0 520 360" overflow="visible" className="w-full h-full fill-none" strokeWidth="1.5">
+          {/* Plane surface */}
+          <polygon points="170,220 480,220 410,130 100,130" className="fill-amber-500/5 stroke-amber-500/40 dark:fill-amber-500/10 dark:stroke-amber-400/30" strokeWidth="1.5" />
+          <text x="320" y="120" className="fill-amber-700 dark:fill-amber-300 stroke-none text-xs uppercase tracking-wider font-semibold">plane</text>
+
+          {/* Position vector OA = a */}
+          <line x1="120" y1="310" x2="206" y2="195" stroke="currentColor" strokeWidth="2.2" className="text-slate-800 dark:text-slate-100" />
+          <polygon points="210.0,190.0 207.6,203.2 198.0,196.0" className="fill-slate-800 dark:fill-slate-100 stroke-none" />
+          <foreignObject x="135" y="235" width="40" height="30" overflow="visible">
+             <div className="flex items-center justify-center w-full h-full text-sm font-semibold text-slate-800 dark:text-slate-100"><Latex text={String.raw`$\vec{a}$`} /></div>
+          </foreignObject>
+
+          {/* Normal Vector n (perpendicular to plane at A) */}
+          <line x1="210" y1="190" x2="210" y2="76" stroke="#e11d48" strokeWidth="3.5" className="stroke-rose-600 dark:stroke-rose-400" />
+          <polygon points="210.0,70.0 216.0,82.0 204.0,82.0" className="fill-rose-600 dark:fill-rose-400 stroke-none" />
+          <foreignObject x="215" y="90" width="30" height="30" overflow="visible">
+             <div className="flex items-center justify-center w-full h-full text-base font-bold text-rose-600 dark:text-rose-400"><Latex text={String.raw`$\vec{n}$`} /></div>
+          </foreignObject>
+
+          {/* Right-angle perpendicular marker at A */}
+          <polyline points="210,172 225,170 225,188" fill="none" stroke="#e11d48" strokeWidth="1.5" className="stroke-rose-500 dark:stroke-rose-400" />
+
+          {/* Vector AR = r - a lying in the plane */}
+          <line x1="210" y1="190" x2="384" y2="171" stroke="#d97706" strokeWidth="3" className="stroke-amber-600 dark:stroke-amber-400" />
+          <polygon points="390.0,170.0 378.7,177.3 377.4,165.4" className="fill-amber-600 dark:fill-amber-400 stroke-none" />
+          <foreignObject x="285" y="145" width="60" height="30" overflow="visible">
+             <div className="flex items-center justify-center w-full h-full text-sm font-bold text-amber-600 dark:text-amber-400 whitespace-nowrap"><Latex text={String.raw`$\overrightarrow{AR}$`} /></div>
+          </foreignObject>
+
+          {/* Position vector OR = r */}
+          <line x1="120" y1="310" x2="386" y2="173" stroke="currentColor" strokeWidth="2.2" strokeDasharray="5 4" className="text-slate-800 dark:text-slate-100" />
+          <polygon points="390.0,170.0 382.1,180.9 376.6,170.2" className="fill-slate-800 dark:fill-slate-100 stroke-none" />
+          <foreignObject x="270" y="235" width="40" height="30" overflow="visible">
+             <div className="flex items-center justify-center w-full h-full text-sm font-semibold text-slate-800 dark:text-slate-100"><Latex text={String.raw`$\vec{r}$`} /></div>
+          </foreignObject>
+
+          {/* Points (Top Layer) */}
+          <circle cx="120" cy="310" r="4.5" className="fill-slate-800 dark:fill-slate-100 stroke-white dark:stroke-slate-900" strokeWidth="1.5" />
+          <text x="96" y="328" className="fill-slate-800 dark:fill-slate-100 stroke-none font-serif italic text-base font-semibold">O</text>
+
+          <circle cx="210" cy="190" r="4.5" className="fill-slate-800 dark:fill-slate-100 stroke-white dark:stroke-slate-900" strokeWidth="1.5" />
+          <text x="185" y="195" className="fill-slate-800 dark:fill-slate-100 stroke-none font-serif italic text-base font-semibold">A</text>
+
+          <circle cx="390" cy="170" r="4.5" className="fill-slate-800 dark:fill-slate-100 stroke-white dark:stroke-slate-900" strokeWidth="1.5" />
+          <foreignObject x="402" y="160" width="80" height="30" overflow="visible">
+             <div className="flex items-center justify-start w-full h-full text-sm font-semibold text-slate-800 dark:text-slate-100"><Latex text={String.raw`$R(x, y, z)$`} /></div>
+          </foreignObject>
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+export function Chap4_4_4_Ex21_Diag() {
+  return (
+    <div className="flex flex-col items-center my-8">
+      <div className="relative w-full max-w-[480px] aspect-[480/320] bg-white dark:bg-slate-900 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm p-4">
+        <svg viewBox="0 0 480 320" overflow="visible" className="w-full h-full fill-none" strokeWidth="1.5">
+          {/* Plane representation */}
+          <polygon points="120,200 420,180 380,80 80,100" className="fill-blue-500/5 stroke-blue-500/40 dark:fill-blue-500/10 dark:stroke-blue-400/30" strokeWidth="1.5" />
+          <text x="320" y="75" className="fill-blue-700 dark:fill-blue-300 stroke-none text-xs uppercase tracking-wider font-semibold">plane</text>
+
+          {/* Line l */}
+          <line x1="200" y1="180" x2="400" y2="130" strokeWidth="1.5" strokeDasharray="4 4" className="stroke-slate-400 dark:stroke-slate-500" />
+          {/* Arrows for infinite line */}
+          <polygon points="200.0,180.0 210.7,173.2 212.6,181.0" className="fill-slate-400 dark:fill-slate-500 stroke-none" />
+          <polygon points="400.0,130.0 389.3,136.8 387.4,129.0" className="fill-slate-400 dark:fill-slate-500 stroke-none" />
+          <text x="395" y="150" className="fill-slate-400 dark:fill-slate-500 stroke-none text-sm italic font-serif">l</text>
+
+          {/* Vector d1 on line l */}
+          <line x1="260" y1="165" x2="330" y2="147.5" strokeWidth="2.5" className="stroke-indigo-600 dark:stroke-indigo-400" />
+          <polygon points="330.0,147.5 319.3,154.3 317.4,146.5" className="fill-indigo-600 dark:fill-indigo-400 stroke-none" />
+          
+          {/* Vector d2 = AB */}
+          <line x1="150" y1="110" x2="255" y2="162" strokeWidth="2.5" className="stroke-teal-600 dark:stroke-teal-400" />
+          <polygon points="255.0,162.0 242.5,160.3 246.0,153.1" className="fill-teal-600 dark:fill-teal-400 stroke-none" />
+
+          {/* Vector a = OA */}
+          <line x1="130" y1="280" x2="148" y2="117" stroke="currentColor" strokeWidth="2.5" strokeDasharray="5 4" className="text-slate-800 dark:text-slate-100" />
+          <polygon points="148.0,117.0 150.7,129.4 142.7,128.5" className="fill-slate-800 dark:fill-slate-100 stroke-none" />
+
+          {/* Points */}
+          <circle cx="130" cy="280" r="3.5" className="fill-slate-800 dark:fill-slate-100" />
+          <circle cx="150" cy="110" r="3.5" className="fill-slate-800 dark:fill-slate-100" />
+          <circle cx="260" cy="165" r="3.5" className="fill-slate-800 dark:fill-slate-100" />
+
+          {/* Labels */}
+          <foreignObject x="110" y="285" width="30" height="30" overflow="visible">
+             <div className="flex items-center justify-center w-full h-full text-sm font-semibold text-slate-800 dark:text-slate-100"><Latex text="$O$" /></div>
+          </foreignObject>
+          <foreignObject x="40" y="70" width="120" height="30" overflow="visible">
+             <div className="flex items-center justify-center w-full h-full text-sm font-semibold text-slate-800 dark:text-slate-100 whitespace-nowrap"><Latex text="$A(3, -1, 2)$" /></div>
+          </foreignObject>
+          <foreignObject x="250" y="165" width="90" height="30" overflow="visible">
+             <div className="flex items-center justify-center w-full h-full text-sm font-semibold text-slate-800 dark:text-slate-100 whitespace-nowrap"><Latex text="$B(-2, 1, 2)$" /></div>
+          </foreignObject>
+
+          <foreignObject x="45" y="245" width="100" height="30" overflow="visible">
+             <div className="flex items-center justify-center w-full h-full text-sm font-semibold text-slate-800 dark:text-slate-100"><Latex text={"$\\vec{a} = \\overrightarrow{OA}$"} /></div>
+          </foreignObject>
+          
+          <foreignObject x="180" y="95" width="90" height="30" overflow="visible">
+             <div className="flex items-center justify-center w-full h-full text-sm font-semibold text-teal-600 dark:text-teal-400"><Latex text={"$\\vec{d}_2 = \\overrightarrow{AB}$"} /></div>
+          </foreignObject>
+          
+          <foreignObject x="280" y="120" width="40" height="30" overflow="visible">
+             <div className="flex items-center justify-center w-full h-full text-sm font-semibold text-indigo-600 dark:text-indigo-400"><Latex text={"$\\vec{d}_1$"} /></div>
+          </foreignObject>
+        </svg>
+      </div>
+    </div>
+  );
+}
+export function Chap4_4_4_Ex4_4_3b_Diag() {
+  return (
+    <div className="flex flex-col items-center my-8">
+      <div className="relative w-full max-w-[480px] aspect-[480/320] bg-white dark:bg-slate-900 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm p-4">
+        <svg viewBox="0 0 480 320" overflow="visible" className="w-full h-full fill-none" strokeWidth="1.5">
+          {/* Plane */}
+          <polygon points="120,220 420,220 360,140 60,140" className="fill-amber-500/5 stroke-amber-500/40 dark:fill-amber-500/10 dark:stroke-amber-400/30" strokeWidth="1.5" />
+          <text x="320" y="135" className="fill-amber-700 dark:fill-amber-300 stroke-none text-xs uppercase tracking-wider font-semibold">plane</text>
+          
+          {/* Line below plane */}
+          <line x1="240" y1="220" x2="240" y2="280" stroke="#d97706" strokeWidth="1.5" strokeDasharray="4 4" className="stroke-amber-600 dark:stroke-amber-400" />
+          
+          {/* Line above plane (normal vector) */}
+          <line x1="240" y1="220" x2="240" y2="90" stroke="#d97706" strokeWidth="2.5" className="stroke-amber-600 dark:stroke-amber-400" />
+          <polygon points="240.0,90.0 236.0,102.0 244.0,102.0" className="fill-amber-600 dark:fill-amber-400 stroke-none" />
+          
+          {/* Right angle marker */}
+          <polyline points="240,205 255,205 255,220" stroke="#d97706" strokeWidth="1.5" className="stroke-amber-600/60 dark:stroke-amber-400/60 fill-none" />
+          
+          {/* Points */}
+          <circle cx="240" cy="220" r="3.5" className="fill-slate-800 dark:fill-slate-100" />
+          <circle cx="240" cy="90" r="3.5" className="fill-amber-600 dark:fill-amber-400" />
+          
+          {/* Labels */}
+          <foreignObject x="150" y="225" width="80" height="30" overflow="visible">
+             <div className="flex items-center justify-end w-full h-full text-sm font-semibold text-slate-800 dark:text-slate-100"><Latex text="$A(2,3,1)$" /></div>
+          </foreignObject>
+          <foreignObject x="250" y="75" width="80" height="30" overflow="visible">
+             <div className="flex items-center justify-start w-full h-full text-sm font-semibold text-amber-600 dark:text-amber-400"><Latex text="$B(5,7,2)$" /></div>
+          </foreignObject>
+          <foreignObject x="150" y="140" width="80" height="30" overflow="visible">
+             <div className="flex items-center justify-end w-full h-full text-sm font-semibold text-amber-600 dark:text-amber-400"><Latex text={"$\\overrightarrow{AB} = \\vec{n}$"} /></div>
+          </foreignObject>
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+export function Chap4_4_4_Ex4_4_3c_Diag() {
+  return (
+    <div className="flex flex-col items-center my-8">
+      <div className="relative w-full max-w-[480px] aspect-[480/320] bg-white dark:bg-slate-900 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm p-4">
+        <svg viewBox="0 0 480 320" overflow="visible" className="w-full h-full fill-none" strokeWidth="1.5">
+          {/* Plane representation */}
+          <polygon points="120,200 420,180 380,80 80,100" className="fill-blue-500/5 stroke-blue-500/40 dark:fill-blue-500/10 dark:stroke-blue-400/30" strokeWidth="1.5" />
+          <text x="320" y="75" className="fill-blue-700 dark:fill-blue-300 stroke-none text-xs uppercase tracking-wider font-semibold">plane</text>
+
+          {/* Line l */}
+          <line x1="200" y1="180" x2="400" y2="130" strokeWidth="1.5" strokeDasharray="4 4" className="stroke-slate-400 dark:stroke-slate-500" />
+          {/* Arrows for infinite line */}
+          <polygon points="200.0,180.0 210.7,173.2 212.6,181.0" className="fill-slate-400 dark:fill-slate-500 stroke-none" />
+          <polygon points="400.0,130.0 389.3,136.8 387.4,129.0" className="fill-slate-400 dark:fill-slate-500 stroke-none" />
+          <text x="395" y="150" className="fill-slate-400 dark:fill-slate-500 stroke-none text-sm italic font-serif">l</text>
+
+          {/* Vector d1 on line l */}
+          <line x1="260" y1="165" x2="330" y2="147.5" strokeWidth="2.5" className="stroke-indigo-600 dark:stroke-indigo-400" />
+          <polygon points="330.0,147.5 319.3,154.3 317.4,146.5" className="fill-indigo-600 dark:fill-indigo-400 stroke-none" />
+          
+          {/* Vector d2 = AB */}
+          <line x1="150" y1="110" x2="255" y2="162" strokeWidth="2.5" className="stroke-teal-600 dark:stroke-teal-400" />
+          <polygon points="255.0,162.0 242.5,160.3 246.0,153.1" className="fill-teal-600 dark:fill-teal-400 stroke-none" />
+
+          {/* Vector a = OA */}
+          <line x1="130" y1="280" x2="148" y2="117" stroke="currentColor" strokeWidth="2.5" strokeDasharray="5 4" className="text-slate-800 dark:text-slate-100" />
+          <polygon points="148.0,117.0 150.7,129.4 142.7,128.5" className="fill-slate-800 dark:fill-slate-100 stroke-none" />
+
+          {/* Points */}
+          <circle cx="130" cy="280" r="3" className="fill-slate-800 dark:fill-slate-100" />
+          <circle cx="150" cy="110" r="3" className="fill-slate-800 dark:fill-slate-100" />
+          <circle cx="260" cy="165" r="3" className="fill-slate-800 dark:fill-slate-100" />
+
+          {/* Labels */}
+          <foreignObject x="110" y="285" width="30" height="30" overflow="visible">
+             <div className="flex items-center justify-center w-full h-full text-sm font-semibold text-slate-800 dark:text-slate-100"><Latex text="$O$" /></div>
+          </foreignObject>
+          <foreignObject x="40" y="70" width="120" height="30" overflow="visible">
+             <div className="flex items-center justify-center w-full h-full text-sm font-semibold text-slate-800 dark:text-slate-100 whitespace-nowrap"><Latex text="$A(3, 2, 1)$" /></div>
+          </foreignObject>
+          <foreignObject x="250" y="165" width="30" height="30" overflow="visible">
+             <div className="flex items-center justify-center w-full h-full text-sm font-semibold text-slate-800 dark:text-slate-100 whitespace-nowrap"><Latex text="$B(1, 2, 3)$" /></div>
+          </foreignObject>
+
+          <foreignObject x="45" y="245" width="100" height="30" overflow="visible">
+             <div className="flex items-center justify-center w-full h-full text-sm font-semibold text-slate-800 dark:text-slate-100"><Latex text={"$\\vec{a} = \\overrightarrow{OA}$"} /></div>
+          </foreignObject>
+          
+          <foreignObject x="180" y="95" width="90" height="30" overflow="visible">
+             <div className="flex items-center justify-center w-full h-full text-sm font-semibold text-teal-600 dark:text-teal-400"><Latex text={"$\\vec{d}_2 = \\overrightarrow{AB}$"} /></div>
+          </foreignObject>
+          
+          <foreignObject x="280" y="120" width="40" height="30" overflow="visible">
+             <div className="flex items-center justify-center w-full h-full text-sm font-semibold text-indigo-600 dark:text-indigo-400"><Latex text={"$\\vec{d}_1$"} /></div>
+          </foreignObject>
+        </svg>
+      </div>
+    </div>
+  );
+}

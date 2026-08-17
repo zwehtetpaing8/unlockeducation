@@ -1,19 +1,20 @@
 const fs = require('fs');
-let content = fs.readFileSync('src/data/chapters.ts', 'utf8');
-const lines = content.split('\n');
+const file = 'src/data/chapter4_content.ts';
+let lines = fs.readFileSync(file, 'utf8').split('\n');
 
-if (lines[111].includes('$\\begin{aligned}')) {
-  lines[111] = lines[111].replace('$\\begin{aligned}', '$$\\begin{aligned}');
-}
-if (lines[115].includes('\\end{aligned}$')) {
-  lines[115] = lines[115].replace('\\end{aligned}$', '\\end{aligned}$$');
-}
+lines[854] = '$$ \\boxed{(\\vec{a} \\times \\vec{b}) \\times \\vec{c} \\neq \\vec{a} \\times (\\vec{b} \\times \\vec{c})}. $$';
 
-if (lines[209].includes('$\\begin{aligned}')) {
-  lines[209] = lines[209].replace('$\\begin{aligned}', '$$\\begin{aligned}');
-}
-if (lines[214].includes('\\end{aligned}$')) {
-  lines[214] = lines[214].replace('\\end{aligned}$', '\\end{aligned}$$');
-}
+lines[1163] = '$$ \\begin{aligned} x &= a_1 + tb_1, \\\\ y &= a_2 + tb_2, \\quad t \\in \\mathbb{R}. \\\\ z &= a_3 + tb_3, \\end{aligned} $$';
 
-fs.writeFileSync('src/data/chapters.ts', lines.join('\n'));
+lines[1188] = '$$ \\begin{aligned} x &= 1 + 3t, \\\\ y &= 4 + 2t, \\\\ z &= -1 + 5t. \\end{aligned} $$';
+
+lines[1207] = '$$ 2 = 2 \\neq \\frac{4}{3}, $$';
+
+lines[1394] = '$$ \\begin{aligned} \\overrightarrow{AB} \\cdot (\\overrightarrow{AC} \\times \\overrightarrow{AD}) &= \\begin{pmatrix} -1 \\\\ 2 \\\\ -3 \\end{pmatrix} \\cdot \\begin{pmatrix} 6 \\\\ 18 \\\\ 26 \\end{pmatrix} \\\\ &= (-1)(6) + (2)(18) + (-3)(26) \\\\ &= -6 + 36 - 78 \\\\ &= -48 \\neq 0. \\end{aligned} $$';
+
+// Clear out the next line if it is 'eq \vec{a} ... '
+if (lines[855] && lines[855].includes('eq \\vec{a}')) lines[855] = '';
+if (lines[1208] && lines[1208].includes('eq \\frac{4}{3}')) lines[1208] = '';
+if (lines[1395] && lines[1395].includes('eq 0.')) lines[1395] = '';
+
+fs.writeFileSync(file, lines.join('\n'));

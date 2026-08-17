@@ -1,16 +1,8 @@
 const katex = require('katex');
-
-const equations = [
-    "\\\\vec{q} \\\\cdot \\\\vec{p}",
-    "\\\\vec{a} \\\\cdot \\\\vec{b} + \\\\vec{a} \\\\cdot \\\\vec{c}",
-    "\\\\hat{\\\\mathbf{i}} \\\\cdot \\\\hat{\\\\mathbf{i}}"
-];
-
-for (const eq of equations) {
-    try {
-        katex.renderToString(eq, { throwOnError: true });
-        console.log("Success:", eq);
-    } catch (e) {
-        console.error("Error on:", eq, e.message);
-    }
+const formula = ` \\begin{aligned} x &= a_1 + tb_1, \\\\ y &= a_2 + tb_2, \\quad t \\in \\mathbb{R}. \\\\ z &= a_3 + tb_3, \\end{aligned} `;
+try {
+  katex.renderToString(formula, { displayMode: true, throwOnError: true });
+  console.log("Success");
+} catch(e) {
+  console.log("Error:", e.message);
 }

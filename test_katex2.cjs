@@ -1,6 +1,8 @@
 const katex = require('katex');
-
-const formula1 = `\\begin{pmatrix} \\begin{aligned} 3 &- 2k \\\\\\\\ 2 &+ k \\\\\\\\ -2 &- k \\end{aligned} \\end{pmatrix}`;
-
-const html = katex.renderToString(formula1, { displayMode: true, throwOnError: false });
-console.log(html);
+const formula = ` \\begin{aligned} x &= a_1 + tb_1, \\\\ y &= a_2 + tb_2, \\quad t \\in \\mathbb{R}. \\\\ z &= a_3 + tb_3, \\end{aligned} `;
+try {
+  katex.renderToString(formula, { displayMode: false, throwOnError: true });
+  console.log("Success");
+} catch(e) {
+  console.log("Error:", e.message);
+}

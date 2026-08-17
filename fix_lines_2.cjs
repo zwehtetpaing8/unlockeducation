@@ -1,13 +1,12 @@
 const fs = require('fs');
-let content = fs.readFileSync('src/data/chapters.ts', 'utf8');
-const lines = content.split('\n');
+const file = 'src/data/chapter4_content.ts';
+let lines = fs.readFileSync(file, 'utf8').split('\n');
 
-for (let i = 0; i < lines.length; i++) {
-  if (lines[i].includes('$\\begin{aligned}')) {
-    lines[i] = lines[i].replace('$\\begin{aligned}', '$$\\begin{aligned}');
-  }
-  if (lines[i].includes('\\end{aligned}$')) {
-    lines[i] = lines[i].replace('\\end{aligned}$', '\\end{aligned}$$');
-  }
+for(let i=0; i<lines.length; i++) {
+  if (lines[i].includes('eq \\vec{a} \\times (\\vec{b} \\times \\vec{c})} $$')) lines[i] = '';
+  if (lines[i].includes('eq \\frac{4}{3}, $$')) lines[i] = '';
+  if (lines[i].trim() === '$$ \\begin{alignedat}{2}') lines[i] = '$$ \\begin{aligned}';
+  if (lines[i].trim() === '\\end{alignedat} $$') lines[i] = '\\end{aligned} $$';
 }
-fs.writeFileSync('src/data/chapters.ts', lines.join('\n'));
+
+fs.writeFileSync(file, lines.join('\n'));

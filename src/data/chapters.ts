@@ -8,7 +8,8 @@ export const chapters: Chapter[] = [
     title: "Complex Numbers",
     tagline: "Extending the real number system to solve equations with negative roots.",
     description: "In this chapter, you will learn about the imaginary unit $i = \\sqrt{-1}$, Cartesian and coordinate forms, division rules, trigonometric (polar) representation, De Moivre's formula, and finding complex roots.",
-    content: `### Introduction: Why do we need complex numbers?
+    content: `[DIAGRAM:Chapter1Header]
+
 In real numbers, an equation like $x^2 = 4$ has answers $x = 2$ and $x = -2$. But the equation:
 $$x^2 = -4$$
 has no real answer, because the square of any real number is never negative. To solve this kind of problem, mathematicians introduced a new number called the **imaginary unit**, written as $i$, where:
@@ -1395,7 +1396,9 @@ z &= \\sqrt[6]{1}\\left(\\cos\\frac{0 + 2k\\pi}{6} + i \\sin\\frac{0 + 2k\\pi}{6
     title: "Mathematical Induction",
     tagline: "Proving statements for all natural numbers using a sequential domino effect.",
     description: "In this chapter, we explore the Principle of Mathematical Induction, a deductive proof technique used to prove mathematical statements, equations, and inequalities for all positive integers $n \\in \\mathbb{N}$.",
-    content: `### 1. Introduction to Mathematical Induction
+    content: `[DIAGRAM:Chapter2Header]
+
+### 1. Mathematical Induction
 **Mathematical Induction** is a powerful deductive mathematical proof technique. It is analogous to a falling line of dominoes: if you push the first one, and every domino knocks down the next one, then all dominoes will eventually fall.
 
 #### The Principle
@@ -2247,7 +2250,9 @@ Let $P(n)$ denote the statement: \"$U_n = 3^n - 2$\".
     title: "Analytical Solid Geometry",
     tagline: "Exploring coordinates, lines, planes, and spheres in three-dimensional space.",
     description: "This chapter covers 3D Cartesian coordinates, direction cosines and ratios, distances, symmetric equations of straight lines, relationships between skew and parallel lines, cartesian plane equations, and solid sphere tangent geometries.",
-    content: `**Analytical Solid Geometry** studies geometric figures in three-dimensional space ($3\\text{D}$) using algebra and coordinate systems. It forms the backbone of spatial physics, computer graphics, and advanced structural engineering.
+    content: `[DIAGRAM:Chapter3Header]
+
+**Analytical Solid Geometry** studies geometric figures in three-dimensional space ($3\\text{D}$) using algebra and coordinate systems. It forms the backbone of spatial physics, computer graphics, and advanced structural engineering.
 
 ---
 

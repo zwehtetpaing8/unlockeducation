@@ -72,7 +72,7 @@ function extractInnerHeaders(content: string): InnerHeader[] {
 function parseMarkdownSections(markdown: string): ContentSection[] {
   const lines = markdown.split("\n");
   const sections: ContentSection[] = [];
-  let currentTitle = "Introduction";
+  let currentTitle = "Welcome";
   let currentLines: string[] = [];
 
   for (let i = 0; i < lines.length; i++) {

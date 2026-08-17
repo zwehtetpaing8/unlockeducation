@@ -1,4 +1,6 @@
-export const chapter4Content = `### Introduction
+export const chapter4Content = `[DIAGRAM:Chapter4Header]
+
+
 In this chapter, we study vectors and vector algebra. A vector is a quantity that has both magnitude and direction; for example, displacement, velocity, acceleration, and force are naturally described by vectors. Vector algebra is the set of rules and methods used to represent vectors, combine them, compare them, and use them in calculations. We will learn how to write vectors in component form, add and subtract vectors, multiply vectors by scalars, and interpret these operations geometrically. These ideas are useful in mathematics, physics, engineering, navigation, computer graphics, and many real-life situations where both size and direction matter. We will also use position vectors to describe points in three-dimensional space and use vector methods to solve problems involving distance, direction, parallel lines, collinear points, and parallelograms. Later, the scalar product and vector product will help us find angles, projections, areas, and directions in two-dimensional and three-dimensional geometry.
 
 ---
@@ -88,7 +90,7 @@ For any vector $\\vec{a}$, the negative vector $-\\vec{a}$ has the same magnitud
 [DIAGRAM:Chap4_Fig6]
 
 If
-$$ \\vec{a} = \\begin{pmatrix} a_1 \\\\ a_2 \\\\ a_3 \\end{pmatrix}, $$
+$$ \\vec{a} = \\begin{pmatrix} a_1 \\\\ a_2 \\\\ a_3 \\end{pmatrix}. $$
 then
 $$ -\\vec{a} = \\begin{pmatrix} -a_1 \\\\ -a_2 \\\\ -a_3 \\end{pmatrix}. $$
 
@@ -100,7 +102,7 @@ The zero vector has no definite direction.
 
 #### Addition of Two Vectors
 If
-$$ \\vec{a} = \\begin{pmatrix} a_1 \\\\ a_2 \\\\ a_3 \\end{pmatrix} \\quad \\text{and} \\quad \\vec{b} = \\begin{pmatrix} b_1 \\\\ b_2 \\\\ b_3 \\end{pmatrix}, $$
+$$ \\vec{a} = \\begin{pmatrix} a_1 \\\\ a_2 \\\\ a_3 \\end{pmatrix} \\quad \\text{and} \\quad \\vec{b} = \\begin{pmatrix} b_1 \\\\ b_2 \\\\ b_3 \\end{pmatrix}. $$
 then
 $$ \\vec{a} + \\vec{b} = \\begin{pmatrix} a_1 + b_1 \\\\ a_2 + b_2 \\\\ a_3 + b_3 \\end{pmatrix}. $$
 
@@ -113,13 +115,13 @@ $$ \\vec{a} - \\vec{b} = \\vec{a} + (-\\vec{b}). $$
 [DIAGRAM:Chap4_Fig8]
 
 If
-$$ \\vec{a} = \\begin{pmatrix} a_1 \\\\ a_2 \\\\ a_3 \\end{pmatrix} \\quad \\text{and} \\quad \\vec{b} = \\begin{pmatrix} b_1 \\\\ b_2 \\\\ b_3 \\end{pmatrix}, $$
+$$ \\vec{a} = \\begin{pmatrix} a_1 \\\\ a_2 \\\\ a_3 \\end{pmatrix} \\quad \\text{and} \\quad \\vec{b} = \\begin{pmatrix} b_1 \\\\ b_2 \\\\ b_3 \\end{pmatrix}. $$
 then
 $$ \\vec{a} - \\vec{b} = \\begin{pmatrix} a_1 - b_1 \\\\ a_2 - b_2 \\\\ a_3 - b_3 \\end{pmatrix}. $$
 
 #### Scalar Multiplication of a Vector
 If $k$ is a scalar and
-$$ \\vec{a} = \\begin{pmatrix} a_1 \\\\ a_2 \\\\ a_3 \\end{pmatrix}, $$
+$$ \\vec{a} = \\begin{pmatrix} a_1 \\\\ a_2 \\\\ a_3 \\end{pmatrix}. $$
 then
 $$ k\\vec{a} = \\begin{pmatrix} ka_1 \\\\ ka_2 \\\\ ka_3 \\end{pmatrix}. $$
 
@@ -134,10 +136,12 @@ If $\\vec{p} = \\begin{pmatrix} 1 \\\\ -1 \\\\ 4 \\end{pmatrix}$ and $\\vec{q} =
 **Solution**
 (a)
 $$ \\vec{p} + \\vec{q} = \\begin{pmatrix} 1 \\\\ -1 \\\\ 4 \\end{pmatrix} + \\begin{pmatrix} -2 \\\\ 0 \\\\ 2 \\end{pmatrix} = \\begin{pmatrix} -1 \\\\ -1 \\\\ 6 \\end{pmatrix}. $$
-(b) $$ \\frac{1}{2}\\vec{q} = \\frac{1}{2}\\begin{pmatrix} -2 \\\\ 0 \\\\ 2 \\end{pmatrix} = \\begin{pmatrix} -1 \\\\ 0 \\\\ 1 \\end{pmatrix}. $$
+(b)
+$$ \\frac{1}{2}\\vec{q} = \\frac{1}{2}\\begin{pmatrix} -2 \\\\ 0 \\\\ 2 \\end{pmatrix} = \\begin{pmatrix} -1 \\\\ 0 \\\\ 1 \\end{pmatrix}. $$
 Therefore,
 $$ \\vec{p} - \\frac{1}{2}\\vec{q} = \\begin{pmatrix} 1 \\\\ -1 \\\\ 4 \\end{pmatrix} - \\begin{pmatrix} -1 \\\\ 0 \\\\ 1 \\end{pmatrix} = \\begin{pmatrix} 2 \\\\ -1 \\\\ 3 \\end{pmatrix}. $$
-(c) $$ \\frac{3}{2}\\vec{q} = \\frac{3}{2}\\begin{pmatrix} -2 \\\\ 0 \\\\ 2 \\end{pmatrix} = \\begin{pmatrix} -3 \\\\ 0 \\\\ 3 \\end{pmatrix}. $$
+(c)
+$$ \\frac{3}{2}\\vec{q} = \\frac{3}{2}\\begin{pmatrix} -2 \\\\ 0 \\\\ 2 \\end{pmatrix} = \\begin{pmatrix} -3 \\\\ 0 \\\\ 3 \\end{pmatrix}. $$
 Therefore,
 $$ \\frac{3}{2}\\vec{q} - \\vec{p} = \\begin{pmatrix} -3 \\\\ 0 \\\\ 3 \\end{pmatrix} - \\begin{pmatrix} 1 \\\\ -1 \\\\ 4 \\end{pmatrix} = \\begin{pmatrix} -4 \\\\ 1 \\\\ -1 \\end{pmatrix}. $$
 
@@ -146,9 +150,9 @@ $$ \\frac{3}{2}\\vec{q} - \\vec{p} = \\begin{pmatrix} -3 \\\\ 0 \\\\ 3 \\end{pma
 ### Equal Vectors
 Two vectors are equal if they have the same magnitude and the same direction.
 If
-$$ \\vec{a} = \\begin{pmatrix} a_1 \\\\ a_2 \\\\ a_3 \\end{pmatrix} \\quad \\text{and} \\quad \\vec{b} = \\begin{pmatrix} b_1 \\\\ b_2 \\\\ b_3 \\end{pmatrix}, $$
+$$ \\vec{a} = \\begin{pmatrix} a_1 \\\\ a_2 \\\\ a_3 \\end{pmatrix} \\quad \\text{and} \\quad \\vec{b} = \\begin{pmatrix} b_1 \\\\ b_2 \\\\ b_3 \\end{pmatrix}. $$
 then
-$$ \\vec{a} = \\vec{b} \\iff a_1 = b_1, \\, a_2 = b_2, \\, a_3 = b_3. $$
+$$ \\vec{a} = \\vec{b} \\iff a_1 = b_1, \\quad a_2 = b_2, \\quad a_3 = b_3. $$
 
 [DIAGRAM:Chap4_Fig10]
 
@@ -286,7 +290,7 @@ Find the following vectors.
 **Solution**
 Given
 $$ \\vec{a} = \\begin{pmatrix} 5 \\\\ -2 \\\\ -4 \\end{pmatrix}, \\quad \\vec{b} = \\begin{pmatrix} 3 \\\\ -6 \\\\ 1 \\end{pmatrix}, \\quad \\vec{c} = \\begin{pmatrix} 0 \\\\ 7 \\\\ -1 \\end{pmatrix}. $$
-$$ \\begin{alignedat}{2}
+$$ \\begin{aligned}
 \\text{(a)} && 3\\vec{a} &= 3\\begin{pmatrix} 5 \\\\ -2 \\\\ -4 \\end{pmatrix} = \\begin{pmatrix} 15 \\\\ -6 \\\\ -12 \\end{pmatrix}. \\\\
 \\text{(b)} && 4\\vec{b} &= 4\\begin{pmatrix} 3 \\\\ -6 \\\\ 1 \\end{pmatrix} = \\begin{pmatrix} 12 \\\\ -24 \\\\ 4 \\end{pmatrix}. \\\\
 \\text{(c)} && \\vec{a} - \\vec{b} &= \\begin{pmatrix} 5 \\\\ -2 \\\\ -4 \\end{pmatrix} - \\begin{pmatrix} 3 \\\\ -6 \\\\ 1 \\end{pmatrix} = \\begin{pmatrix} 2 \\\\ 4 \\\\ -5 \\end{pmatrix}. \\\\
@@ -295,7 +299,7 @@ $$ \\begin{alignedat}{2}
 \\text{(f)} && \\vec{a} - 2\\vec{b} &= \\begin{pmatrix} 5 \\\\ -2 \\\\ -4 \\end{pmatrix} - 2\\begin{pmatrix} 3 \\\\ -6 \\\\ 1 \\end{pmatrix} = \\begin{pmatrix} -1 \\\\ 10 \\\\ -6 \\end{pmatrix}. \\\\
 \\text{(g)} && \\vec{a} + \\vec{b} - 2\\vec{c} &= \\begin{pmatrix} 5 \\\\ -2 \\\\ -4 \\end{pmatrix} + \\begin{pmatrix} 3 \\\\ -6 \\\\ 1 \\end{pmatrix} - 2\\begin{pmatrix} 0 \\\\ 7 \\\\ -1 \\end{pmatrix} = \\begin{pmatrix} 8 \\\\ -22 \\\\ -1 \\end{pmatrix}. \\\\
 \\text{(h)} && 3\\vec{a} - \\vec{b} + \\vec{c} &= 3\\begin{pmatrix} 5 \\\\ -2 \\\\ -4 \\end{pmatrix} - \\begin{pmatrix} 3 \\\\ -6 \\\\ 1 \\end{pmatrix} + \\begin{pmatrix} 0 \\\\ 7 \\\\ -1 \\end{pmatrix} = \\begin{pmatrix} 12 \\\\ 7 \\\\ -14 \\end{pmatrix}.
-\\end{alignedat} $$
+\\end{aligned} $$
 
 **2. Question**
 Given vectors
@@ -326,7 +330,7 @@ The required value is $k = \\frac{1}{3}$.
 
 **3. Question**
 Points $A, B, C$, and $D$ have position vectors
-$$ \\vec{a} = \\begin{pmatrix} 3 \\\\ -1 \\\\ 1 \\end{pmatrix}, \\quad \\vec{b} = \\begin{pmatrix} 5 \\\\ 0 \\\\ 3 \\end{pmatrix}, \\quad \\vec{c} = \\begin{pmatrix} 7 \\\\ 8 \\\\ -3 \\end{pmatrix}, \\quad \\text{and} \\quad \\vec{d} = \\begin{pmatrix} 4 \\\\ 3 \\\\ -2 \\end{pmatrix}, $$
+$$ \\vec{a} = \\begin{pmatrix} 3 \\\\ -1 \\\\ 1 \\end{pmatrix}, \\quad \\vec{b} = \\begin{pmatrix} 5 \\\\ 0 \\\\ 3 \\end{pmatrix}, \\quad \\vec{c} = \\begin{pmatrix} 7 \\\\ 8 \\\\ -3 \\end{pmatrix}, \\quad \\text{and} \\quad \\vec{d} = \\begin{pmatrix} 4 \\\\ 3 \\\\ -2 \\end{pmatrix}. $$
 respectively. Point $E$ is the midpoint of $BC$.
 (a) Find the position vector of $E$.
 (b) Show that $ABED$ is a parallelogram.
@@ -336,8 +340,8 @@ Given
 $$ \\overrightarrow{OA} = \\begin{pmatrix} 3 \\\\ -1 \\\\ 1 \\end{pmatrix}, \\quad \\overrightarrow{OB} = \\begin{pmatrix} 5 \\\\ 0 \\\\ 3 \\end{pmatrix}, \\quad \\overrightarrow{OC} = \\begin{pmatrix} 7 \\\\ 8 \\\\ -3 \\end{pmatrix}, \\quad \\overrightarrow{OD} = \\begin{pmatrix} 4 \\\\ 3 \\\\ -2 \\end{pmatrix}. $$
 (a) Point $E$ is the midpoint of $BC$.
 $$ \\begin{aligned} \\overrightarrow{OE} &= \\frac{1}{2}(\\overrightarrow{OB} + \\overrightarrow{OC}) \\\\ &= \\frac{1}{2}\\left[ \\begin{pmatrix} 5 \\\\ 0 \\\\ 3 \\end{pmatrix} + \\begin{pmatrix} 7 \\\\ 8 \\\\ -3 \\end{pmatrix} \\right] \\\\ &= \\frac{1}{2}\\begin{pmatrix} 12 \\\\ 8 \\\\ 0 \\end{pmatrix} \\\\ &= \\begin{pmatrix} 6 \\\\ 4 \\\\ 0 \\end{pmatrix}. \\end{aligned} $$
-The position vector of $E$ is $\\overrightarrow{OE} = \\begin{pmatrix} 6 \\\\ 4 \\\\ 0 \\end{pmatrix}.$
-(b) 
+The position vector of $E$ is $\\overrightarrow{OE} = \\begin{pmatrix} 6 \\\\ 4 \\\\ 0 \\end{pmatrix}. $
+(b)
 $$ \\overrightarrow{AB} = \\overrightarrow{OB} - \\overrightarrow{OA} = \\begin{pmatrix} 5 \\\\ 0 \\\\ 3 \\end{pmatrix} - \\begin{pmatrix} 3 \\\\ -1 \\\\ 1 \\end{pmatrix} = \\begin{pmatrix} 2 \\\\ 1 \\\\ 2 \\end{pmatrix}. $$
 $$ \\overrightarrow{DE} = \\overrightarrow{OE} - \\overrightarrow{OD} = \\begin{pmatrix} 6 \\\\ 4 \\\\ 0 \\end{pmatrix} - \\begin{pmatrix} 4 \\\\ 3 \\\\ -2 \\end{pmatrix} = \\begin{pmatrix} 2 \\\\ 1 \\\\ 2 \\end{pmatrix}. $$
 Since $\\overrightarrow{AB} = \\overrightarrow{DE}$ and also:
@@ -347,7 +351,7 @@ $\\overrightarrow{AD} = \\overrightarrow{BE}$. Therefore, $ABED$ is a parallelog
 
 **4. Question**
 Points $A, B$, and $C$ have position vectors
-$$ \\vec{a} = \\begin{pmatrix} 2 \\\\ -1 \\\\ 4 \\end{pmatrix}, \\quad \\vec{b} = \\begin{pmatrix} 5 \\\\ 1 \\\\ 2 \\end{pmatrix}, \\quad \\text{and} \\quad \\vec{c} = \\begin{pmatrix} 3 \\\\ 1 \\\\ 4 \\end{pmatrix}, $$
+$$ \\vec{a} = \\begin{pmatrix} 2 \\\\ -1 \\\\ 4 \\end{pmatrix}, \\quad \\vec{b} = \\begin{pmatrix} 5 \\\\ 1 \\\\ 2 \\end{pmatrix}, \\quad \\text{and} \\quad \\vec{c} = \\begin{pmatrix} 3 \\\\ 1 \\\\ 4 \\end{pmatrix}. $$
 respectively. Find the position vector of point $D$ such that $ABCD$ is a parallelogram.
 
 **Solution**
@@ -359,7 +363,7 @@ $$ \\overrightarrow{AB} = \\overrightarrow{OB} - \\overrightarrow{OA} \\quad \\t
 Since $\\overrightarrow{AB} = \\overrightarrow{DC}$,
 $$ \\overrightarrow{OB} - \\overrightarrow{OA} = \\overrightarrow{OC} - \\overrightarrow{OD}. $$
 $$ \\begin{aligned} \\overrightarrow{OD} &= \\overrightarrow{OC} - \\overrightarrow{OB} + \\overrightarrow{OA} \\\\ &= \\begin{pmatrix} 3 \\\\ 1 \\\\ 4 \\end{pmatrix} - \\begin{pmatrix} 5 \\\\ 1 \\\\ 2 \\end{pmatrix} + \\begin{pmatrix} 2 \\\\ -1 \\\\ 4 \\end{pmatrix} \\\\ &= \\begin{pmatrix} -2 \\\\ 0 \\\\ 2 \\end{pmatrix} + \\begin{pmatrix} 2 \\\\ -1 \\\\ 4 \\end{pmatrix} \\\\ &= \\begin{pmatrix} 0 \\\\ -1 \\\\ 6 \\end{pmatrix}. \\end{aligned} $$
-The position vector of $D$ is $\\overrightarrow{OD} = \\begin{pmatrix} 0 \\\\ -1 \\\\ 6 \\end{pmatrix}.$
+The position vector of $D$ is $\\overrightarrow{OD} = \\begin{pmatrix} 0 \\\\ -1 \\\\ 6 \\end{pmatrix}. $
 
 **5. Question**
 $K(1, -1, 0)$, $L(4, -3, 7)$, and $M(a, 2, b)$ are collinear. Find $a$ and $b$.
@@ -382,7 +386,7 @@ $$ b = 7\\left(-\\frac{3}{2}\\right) = -\\frac{21}{2}. $$
 ## 4.2 Angle between Two Vectors and Scalar Product
 
 First we consider the angle between two vectors $\\vec{a}$ and $\\vec{b}$ in two dimensions. Let
-$$ \\overrightarrow{OA} = \\vec{a} = \\begin{pmatrix} x_1 \\\\ y_1 \\end{pmatrix}, \\quad \\overrightarrow{OB} = \\vec{b} = \\begin{pmatrix} x_2 \\\\ y_2 \\end{pmatrix}, $$
+$$ \\overrightarrow{OA} = \\vec{a} = \\begin{pmatrix} x_1 \\\\ y_1 \\end{pmatrix}, \\quad \\overrightarrow{OB} = \\vec{b} = \\begin{pmatrix} x_2 \\\\ y_2 \\end{pmatrix}. $$
 and let $\\theta$ be the angle between them.
 
 **Diagram**
@@ -393,11 +397,11 @@ $$ OA = |\\vec{a}|, \\quad OB = |\\vec{b}|, \\quad AB = |\\vec{b} - \\vec{a}|. $
 By the cosine rule,
 $$ |AB|^2 = |OA|^2 + |OB|^2 - 2|OA||OB|\\cos\\theta. $$
 Therefore,
-$$ |\\vec{b} - \\vec{a}|^2 = |\\vec{a}|^2 + |\\vec{b}|^2 - 2|\\vec{a}||\\vec{b}|\\cos\\theta. \\quad (1) $$
+$$ |\\vec{b} - \\vec{a}|^2 = |\\vec{a}|^2 + |\\vec{b}|^2 - 2|\\vec{a}||\\vec{b}|\\cos\\theta. \\tag{1} $$
 Now,
 $$ \\vec{b} - \\vec{a} = \\begin{pmatrix} x_2 \\\\ y_2 \\end{pmatrix} - \\begin{pmatrix} x_1 \\\\ y_1 \\end{pmatrix} = \\begin{pmatrix} x_2 - x_1 \\\\ y_2 - y_1 \\end{pmatrix}. $$
 Hence
-$$ \\begin{aligned} |\\vec{b} - \\vec{a}|^2 &= (x_2 - x_1)^2 + (y_2 - y_1)^2 \\\\ &= x_1^2 + y_1^2 + x_2^2 + y_2^2 - 2(x_1x_2 + y_1y_2) \\\\ &= |\\vec{a}|^2 + |\\vec{b}|^2 - 2(x_1x_2 + y_1y_2). \\quad (2) \\end{aligned} $$
+$$ \\begin{aligned} |\\vec{b} - \\vec{a}|^2 &= (x_2 - x_1)^2 + (y_2 - y_1)^2 \\\\ &= x_1^2 + y_1^2 + x_2^2 + y_2^2 - 2(x_1x_2 + y_1y_2) \\\\ &= |\\vec{a}|^2 + |\\vec{b}|^2 - 2(x_1x_2 + y_1y_2). \\tag{2} \\end{aligned} $$
 Comparing (1) and (2), the left sides are the same. Hence the right sides are equal:
 $$ |\\vec{a}|^2 + |\\vec{b}|^2 - 2|\\vec{a}||\\vec{b}|\\cos\\theta = |\\vec{a}|^2 + |\\vec{b}|^2 - 2(x_1x_2 + y_1y_2). $$
 Subtracting $|\\vec{a}|^2 + |\\vec{b}|^2$ from both sides,
@@ -518,7 +522,7 @@ $$ k = -\\frac{20}{3}. $$
 
 **1. Question**
 For
-$$ \\vec{p} = \\begin{pmatrix} 3 \\\\ 2 \\end{pmatrix}, \\quad \\vec{q} = \\begin{pmatrix} -1 \\\\ 5 \\end{pmatrix}, \\quad \\vec{r} = \\begin{pmatrix} -2 \\\\ 4 \\end{pmatrix}, $$
+$$ \\vec{p} = \\begin{pmatrix} 3 \\\\ 2 \\end{pmatrix}, \\quad \\vec{q} = \\begin{pmatrix} -1 \\\\ 5 \\end{pmatrix}, \\quad \\vec{r} = \\begin{pmatrix} -2 \\\\ 4 \\end{pmatrix}. $$
 find:
 (a) $\\vec{q} \\cdot \\vec{p}$
 (b) $\\vec{q} \\cdot \\vec{r}$
@@ -547,11 +551,11 @@ $$ \\hat{\\mathbf{i}} \\cdot \\hat{\\mathbf{i}} = \\begin{pmatrix} 1 \\\\ 0 \\en
 
 **2. Question**
 For
-$$ \\vec{a} = \\begin{pmatrix} 2 \\\\ 1 \\\\ 3 \\end{pmatrix}, \\quad \\vec{b} = \\begin{pmatrix} -1 \\\\ 1 \\\\ 1 \\end{pmatrix}, \\quad \\vec{c} = \\begin{pmatrix} 0 \\\\ -1 \\\\ 1 \\end{pmatrix}, $$
+$$ \\vec{a} = \\begin{pmatrix} 2 \\\\ 1 \\\\ 3 \\end{pmatrix}, \\quad \\vec{b} = \\begin{pmatrix} -1 \\\\ 1 \\\\ 1 \\end{pmatrix}, \\quad \\vec{c} = \\begin{pmatrix} 0 \\\\ -1 \\\\ 1 \\end{pmatrix}. $$
 find:
 (a) $\\vec{a} \\cdot \\vec{b}$
 (b) $\\vec{b} \\cdot \\vec{a}$
-(c) $|\\vec{a}|^2$
+(c) $|\\vec{a}|^w+ $
 (d) $\\vec{a} \\cdot \\vec{a}$
 (e) $\\vec{a} \\cdot (\\vec{b} + \\vec{c})$
 (f) $\\vec{a} \\cdot \\vec{b} + \\vec{a} \\cdot \\vec{c}$
@@ -618,7 +622,7 @@ $$ 3 = -2k, \\quad k = -\\frac{3}{2}, $$
 so
 $$ t = -\\frac{3}{2}. $$
 Therefore,
-$$ \\text{(i)} \\ t = 6, \\quad \\text{(ii)} \\ t = -\\frac{3}{2}. $$
+$$ \\text{(i)} \\\\ t = 6, \\quad \\text{(ii)} \\\\ t = -\\frac{3}{2}. $$
 (b) Given
 $$ \\vec{r} = \\begin{pmatrix} t \\\\ t+2 \\end{pmatrix}, \\quad \\vec{s} = \\begin{pmatrix} t \\\\ -4 \\end{pmatrix}. $$
 For perpendicular vectors,
@@ -635,7 +639,7 @@ So,
 $$ -t(t+6) = 0. $$
 $$ t = 0 \\quad \\text{or} \\quad t = -6. $$
 Therefore,
-$$ \\text{(i)} \\ t = 2 \\pm 2\\sqrt{3}, \\quad \\text{(ii)} \\ t = 0 \\ \\text{or} \\ t = -6. $$
+$$ \\text{(i)} \\\\ t = 2 \\pm 2\\sqrt{3}, \\quad \\text{(ii)} \\\\ t = 0 \\\\ \\text{or} \\\\ t = -6. $$
 (c) Given
 $$ \\vec{a} = \\begin{pmatrix} 0 \\\\ t+2 \\end{pmatrix}, \\quad \\vec{b} = \\begin{pmatrix} 2-3t \\\\ t \\end{pmatrix}. $$
 For perpendicular vectors,
@@ -652,7 +656,7 @@ So,
 $$ (t+2)(2-3t) = 0. $$
 $$ t = -2 \\quad \\text{or} \\quad t = \\frac{2}{3}. $$
 Therefore,
-$$ \\text{(i)} \\ t = 0 \\ \\text{or} \\ t = -2, \\quad \\text{(ii)} \\ t = -2 \\ \\text{or} \\ t = \\frac{2}{3}. $$
+$$ \\text{(i)} \\\\ t = 0 \\\\ \\text{or} \\\\ t = -2, \\quad \\text{(ii)} \\\\ t = -2 \\\\ \\text{or} \\\\ t = \\frac{2}{3}. $$
 
 **5. Question**
 Find $t$ if
@@ -718,7 +722,7 @@ $$ \\text{Second component} = \\underbrace{z_1 x_2}_{\\text{down product}} - \\u
 $$ \\text{Third component} = \\underbrace{x_1 y_2}_{\\text{down product}} - \\underbrace{y_1 x_2}_{\\text{up product}}. $$
 
 Hence,
-$$ \\boxed{\\vec{a} \\times \\vec{b} = \\begin{pmatrix} y_1 z_2 - z_1 y_2 \\\\ z_1 x_2 - x_1 z_2 \\\\ x_1 y_2 - y_1 x_2 \\end{pmatrix}} $$
+$$ \\boxed{\\vec{a} \\times \\vec{b} = \\begin{pmatrix} y_1 z_2 - z_1 y_2 \\\\ z_1 x_2 - x_1 z_2 \\\\ x_1 y_2 - y_1 x_2 \\end{pmatrix}}. $$
 
 ### The Direction of $\\vec{a} \\times \\vec{b}$
 
@@ -814,7 +818,7 @@ $$ A(1, -1, 3), \\quad B(0, 4, 1), \\quad C(2, 7, 2). $$
 
 **Solution.**
 Two sides of the triangle starting from $A$ are
-$$ \\overrightarrow{AB} = \\overrightarrow{OB} - \\overrightarrow{OA} = \\begin{pmatrix} 0 \\\\ 4 \\\\ 1 \\end{pmatrix} - \\begin{pmatrix} 1 \\\\ -1 \\\\ 3 \\end{pmatrix} = \\begin{pmatrix} -1 \\\\ 5 \\\\ -2 \\end{pmatrix}, $$
+$$ \\overrightarrow{AB} = \\overrightarrow{OB} - \\overrightarrow{OA} = \\begin{pmatrix} 0 \\\\ 4 \\\\ 1 \\end{pmatrix} - \\begin{pmatrix} 1 \\\\ -1 \\\\ 3 \\end{pmatrix} = \\begin{pmatrix} -1 \\\\ 5 \\\\ -2 \\end{pmatrix}. $$
 $$ \\overrightarrow{AC} = \\overrightarrow{OC} - \\overrightarrow{OA} = \\begin{pmatrix} 2 \\\\ 7 \\\\ 2 \\end{pmatrix} - \\begin{pmatrix} 1 \\\\ -1 \\\\ 3 \\end{pmatrix} = \\begin{pmatrix} 1 \\\\ 8 \\\\ -1 \\end{pmatrix}. $$
 
 Using the Down Product – Up Product method,
@@ -849,7 +853,7 @@ $$ \\boxed{(k\\vec{a}) \\times \\vec{b} = k(\\vec{a} \\times \\vec{b}) = \\vec{a
 $$ \\boxed{\\vec{a} \\times \\vec{0} = \\vec{0} \\times \\vec{a} = \\vec{0}}. $$
 
 5. The vector product is not associative
-$$ \\boxed{(\\vec{a} \\times \\vec{b}) \\times \\vec{c} \\neq \\vec{a} \\times (\\vec{b} \\times \\vec{c})} $$
+$$ \boxed{(\vec{a} \times \vec{b}) \times \vec{c} \neq \vec{a} \times (\vec{b} \times \vec{c})}. $$
 in general.
 
 ---
@@ -1060,7 +1064,7 @@ $$ \\vec{p} = \\overrightarrow{AB} \\times \\overrightarrow{AC} \\quad \\text{an
 $$ \\overrightarrow{OA} = \\begin{pmatrix} 3 \\\\ -5 \\\\ 1 \\end{pmatrix}, \\quad \\overrightarrow{OB} = \\begin{pmatrix} 7 \\\\ 7 \\\\ 2 \\end{pmatrix}, \\quad \\overrightarrow{OC} = \\begin{pmatrix} -1 \\\\ 1 \\\\ 3 \\end{pmatrix}. $$
 
 Therefore,
-$$ \\overrightarrow{AB} = \\overrightarrow{OB} - \\overrightarrow{OA} = \\begin{pmatrix} 7 \\\\ 7 \\\\ 2 \\end{pmatrix} - \\begin{pmatrix} 3 \\\\ -5 \\\\ 1 \\end{pmatrix} = \\begin{pmatrix} 4 \\\\ 12 \\\\ 1 \\end{pmatrix}, $$
+$$ \\overrightarrow{AB} = \\overrightarrow{OB} - \\overrightarrow{OA} = \\begin{pmatrix} 7 \\\\ 7 \\\\ 2 \\end{pmatrix} - \\begin{pmatrix} 3 \\\\ -5 \\\\ 1 \\end{pmatrix} = \\begin{pmatrix} 4 \\\\ 12 \\\\ 1 \\end{pmatrix}. $$
 
 $$ \\overrightarrow{AC} = \\overrightarrow{OC} - \\overrightarrow{OA} = \\begin{pmatrix} -1 \\\\ 1 \\\\ 3 \\end{pmatrix} - \\begin{pmatrix} 3 \\\\ -5 \\\\ 1 \\end{pmatrix} = \\begin{pmatrix} -4 \\\\ 6 \\\\ 2 \\end{pmatrix}. $$
 
@@ -1068,9 +1072,9 @@ Also,
 $$ \\overrightarrow{BA} = \\overrightarrow{OA} - \\overrightarrow{OB} = \\begin{pmatrix} -4 \\\\ -12 \\\\ -1 \\end{pmatrix}, \\quad \\overrightarrow{BC} = \\overrightarrow{OC} - \\overrightarrow{OB} = \\begin{pmatrix} -1 \\\\ 1 \\\\ 3 \\end{pmatrix} - \\begin{pmatrix} 7 \\\\ 7 \\\\ 2 \\end{pmatrix} = \\begin{pmatrix} -8 \\\\ -6 \\\\ 1 \\end{pmatrix}. $$
 
 (a)
-$$ \\vec{p} = \\begin{pmatrix} 4 \\\\ 12 \\\\ 1 \\end{pmatrix} \\times \\begin{pmatrix} -4 \\\\ 6 \\\\ 2 \\end{pmatrix} = \\begin{pmatrix} 18 \\\\ -12 \\\\ 72 \\end{pmatrix}, $$
+$$ \\vec{p} = \\begin{pmatrix} 4 \\\\ 12 \\\\ 1 \\end{pmatrix} \\times \\begin{pmatrix} -4 \\\\ 6 \\\\ 2 \\end{pmatrix} = \\begin{pmatrix} 18 \\\\ -12 \\\\ 72 \\end{pmatrix}. $$
 
-$$ \\vec{q} = \\begin{pmatrix} -4 \\\\ -12 \\\\ -1 \\end{pmatrix} \\times \\begin{pmatrix} -8 \\\\ -6 \\\\ 1 \\end{pmatrix} = \\begin{pmatrix} -18 \\ 12 \\ -72 \\end{pmatrix}. $$
+$$ \\vec{q} = \\begin{pmatrix} -4 \\\\ -12 \\\\ -1 \\end{pmatrix} \\times \\begin{pmatrix} -8 \\\\ -6 \\\\ 1 \\end{pmatrix} = \\begin{pmatrix} -18 \\\\ 12 \\\\ -72 \\end{pmatrix}. $$
 
 (b) Since
 $$ \\vec{q} = -\\vec{p}, $$
@@ -1109,5 +1113,577 @@ $$ \\begin{aligned} \\text{Area of parallelogram} &= |\\overrightarrow{AB} \\tim
 
 Hence,
 $$ \\text{Area of parallelogram} = \\sqrt{281} \\text{ square units.} $$
+## 4.4 Lines and Planes in Space
+
+Lines in Three-Dimensional Space
+
+**Direction Vector of a Straight Line**
+A **direction vector** of a straight line is a vector parallel to the line.
+မျဉ်းဖြောင့်တစ်ကြောင်း၏ **direction vector** ဆိုသည်မှာ ထိုမျဉ်းဖြောင့်နှင့် အပြိုင်ဖြစ်သော vector တစ်ခုဖြစ်သည်။
+
+In three-dimensional geometry, we can determine the equation of a line using its direction and any **fixed point** on the line.
+သုံးဖက်မြင် ဂျီဩမေတြီတွင် မျဉ်းဖြောင့်တစ်ကြောင်း၏ ညီမျှခြင်းကို သတ်မှတ်ရန် ထိုမျဉ်း၏ direction ကိုဖော်ပြသော **direction vector** နှင့် မျဉ်းပေါ်ရှိ **fixed point** တစ်ခုကို အသုံးပြုနိုင်သည်။
+
+[DIAGRAM:Chap4_4_4_LineEq_Diag1]
+
+Suppose a line passes through a fixed point $A$, where
+$$ \\overrightarrow{OA} = \\vec{a}, $$
+and suppose that the line is parallel to a vector $\\vec{b}$. Let $R$ be any point on the line, where
+$$ \\overrightarrow{OR} = \\vec{r}. $$
+Then
+$$ \\overrightarrow{OR} = \\overrightarrow{OA} + \\overrightarrow{AR}. $$
+Since $\\overrightarrow{AR} \\parallel \\vec{b}$, there is a scalar $t$ such that
+$$ \\overrightarrow{AR} = t\\vec{b}. $$
+Therefore,
+$$ \\vec{r} = \\vec{a} + t\\vec{b}, \\quad t \\in \\mathbb{R}, $$
+is the vector equation of the line.
+
+မျဉ်းဖြောင့်တစ်ကြောင်းသည် ပုံသေအမှတ် $A$ ကို ဖြတ်သွားပြီး $\\overrightarrow{OA} = \\vec{a}$ ဖြစ်သည်ဟု ယူဆပါ။ ထိုမျဉ်းသည် vector $\\vec{b}$ နှင့် အပြိုင်ဖြစ်သည်။ မျဉ်းပေါ်ရှိ မည်သည့်အမှတ် $R$ အတွက်မဆို $\\overrightarrow{OR} = \\vec{r}$ ဟုထားလျှင် $\\overrightarrow{OR} = \\overrightarrow{OA} + \\overrightarrow{AR}$ ဖြစ်သည်။ $\\overrightarrow{AR}$ သည် $\\vec{b}$ နှင့် အပြိုင်ဖြစ်သောကြောင့် $\\overrightarrow{AR} = t\\vec{b}$ ဟု ရေးနိုင်သည်။ ထို့ကြောင့် $\\vec{r} = \\vec{a} + t\\vec{b}$ ကို ရရှိသည်။ ဤနေရာတွင် $t$ သည် မည်သည့် real number မဆို ဖြစ်နိုင်သည်။
+
+**Note**
+To determine the **vector equation** of a line, we need:
+(1) a **fixed point** $A$ on the line, with position vector $\\overrightarrow{OA} = \\vec{a}$;
+(2) a **non-zero direction vector** $\\vec{b}$ parallel to the line.
+Then the vector equation of the line is
+$$ \\vec{r} = \\vec{a} + t\\vec{b}, \\quad t \\in \\mathbb{R}. $$
+
+မျဉ်းဖြောင့်တစ်ကြောင်း၏ **vector equation** ကို ရှာရန် အောက်ပါအချက်နှစ်ချက် လိုအပ်သည်။
+(1) မျဉ်းပေါ်ရှိ **fixed point** တစ်ခုနှင့် ၎င်း၏ position vector $\\overrightarrow{OA} = \\vec{a}$
+(2) မျဉ်းနှင့် အပြိုင်ဖြစ်သော **non-zero direction vector** $\\vec{b}$
+
+**Vector Equation in Component Form**
+In three dimensions, let
+$$ \\overrightarrow{OR} = \\vec{r} = \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix}, \\quad \\vec{a} = \\begin{pmatrix} a_1 \\\\ a_2 \\\\ a_3 \\end{pmatrix}, \\quad \\vec{b} = \\begin{pmatrix} b_1 \\\\ b_2 \\\\ b_3 \\end{pmatrix}. $$
+Then
+$$ \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} = \\begin{pmatrix} a_1 \\\\ a_2 \\\\ a_3 \\end{pmatrix} + t \\begin{pmatrix} b_1 \\\\ b_2 \\\\ b_3 \\end{pmatrix}, \\quad t \\in \\mathbb{R}, $$
+is the **vector equation** of the line, where $R(x, y, z)$ is any point on the line, $A(a_1, a_2, a_3)$ is a known fixed point on the line, and
+$$ \\vec{b} = \\begin{pmatrix} b_1 \\\\ b_2 \\\\ b_3 \\end{pmatrix} \\quad \\text{is a direction vector of the line.} $$
+Since
+$$ \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} = \\begin{pmatrix} a_1 + tb_1 \\\\ a_2 + tb_2 \\\\ a_3 + tb_3 \\end{pmatrix}. $$
+we can write the **parametric equations** of the line as
+$$ \begin{aligned} x &= a_1 + tb_1, \\ y &= a_2 + tb_2, \quad t \in \mathbb{R}. \\ z &= a_3 + tb_3, \end{aligned} $$
+
+- Each point on the line corresponds to exactly one value of $t$.
+  မျဉ်းပေါ်ရှိ အမှတ်တစ်ခုစီအတွက် သက်ဆိုင်သော parameter $t$ တန်ဖိုးတစ်ခုတည်းသာ ရှိသည်။
+- Conversely, each real value of $t$ determines exactly one point on the line.
+  တစ်နည်းအားဖြင့် parameter $t$ ၏ real value တစ်ခုစီသည် မျဉ်းပေါ်ရှိ အမှတ်တစ်ခုကို အတိအကျ သတ်မှတ်ပေးသည်။
+
+If $b_1, b_2$ and $b_3$ are non-zero, then
+$$ t = \\frac{x - a_1}{b_1} = \\frac{y - a_2}{b_2} = \\frac{z - a_3}{b_3} $$
+Thus, by equating the expressions for $t$, we obtain the **Cartesian equation** of the line:
+$$ \\frac{x - a_1}{b_1} = \\frac{y - a_2}{b_2} = \\frac{z - a_3}{b_3} $$
+
+###### Example 16
+Find the Cartesian equation of the line with vector equation
+$$ \\vec{r} = \\begin{pmatrix} 1 \\\\ 4 \\\\ -1 \\end{pmatrix} + t \\begin{pmatrix} 3 \\\\ 2 \\\\ 5 \\end{pmatrix}, \\quad t \\in \\mathbb{R}. $$
+**Solution**
+The vector equation of a line is
+$$ \\vec{r} = \\vec{a} + t\\vec{b}, \\quad t \\in \\mathbb{R}. $$
+The given vector equation is
+$$ \\vec{r} = \\begin{pmatrix} 1 \\\\ 4 \\\\ -1 \\end{pmatrix} + t \\begin{pmatrix} 3 \\\\ 2 \\\\ 5 \\end{pmatrix}, \\quad t \\in \\mathbb{R}. $$
+Comparing the two equations, we have
+$$ \\vec{a} = \\begin{pmatrix} 1 \\\\ 4 \\\\ -1 \\end{pmatrix}, \\quad \\vec{b} = \\begin{pmatrix} 3 \\\\ 2 \\\\ 5 \\end{pmatrix}. $$
+Therefore,
+$$ \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} = \\begin{pmatrix} 1 \\\\ 4 \\\\ -1 \\end{pmatrix} + t \\begin{pmatrix} 3 \\\\ 2 \\\\ 5 \\end{pmatrix} = \\begin{pmatrix} 1 + 3t \\\\ 4 + 2t \\\\ -1 + 5t \\end{pmatrix}. $$
+The parametric equations of the line are
+$$ \begin{aligned} x &= 1 + 3t, \\ y &= 4 + 2t, \\ z &= -1 + 5t. \end{aligned} $$
+Therefore,
+$$ t = \\frac{x - 1}{3} = \\frac{y - 4}{2} = \\frac{z + 1}{5}. $$
+Hence, the Cartesian equation of the line is
+$$ \\frac{x - 1}{3} = \\frac{y - 4}{2} = \\frac{z + 1}{5}. $$
+
+###### Example 17
+Does the point $(3, -2, 2)$ lie on the line with equation
+$$ \\frac{x + 1}{2} = \\frac{4 - y}{3} = \\frac{2z}{3}? $$
+**Solution**
+The Cartesian equation of the line is
+$$ \\frac{x + 1}{2} = \\frac{4 - y}{3} = \\frac{2z}{3}. $$
+If the point $(3, -2, 2)$ is on the line, then the three expressions must have the same value.
+Substituting $x = 3, y = -2$ and $z = 2$, we get
+$$ \\frac{x + 1}{2} = \\frac{3 + 1}{2} = 2, $$
+$$ \\frac{4 - y}{3} = \\frac{4 - (-2)}{3} = 2, $$
+but
+$$ \\frac{2z}{3} = \\frac{2(2)}{3} = \\frac{4}{3}. $$
+Since
+
+the three expressions do not have the same value. Therefore, the point $(3, -2, 2)$ does not lie on the line.
+
+
+### Planes in Three Dimensions
+
+To determine the **vector equation** of the plane, we require an extension of the ideas of the equation of the line. Think of a very simple example, the $xy$-plane. The **position vector** of any point in the $xy$-plane is a sum of **scalar multiples** of $\\hat{i}$ and $\\hat{j}$, so $\\hat{i}$ and $\\hat{j}$ can be considered **direction vectors** of the $xy$-plane.
+
+$xy$ plane ပေါ်ရှိ မည်သည့်အမှတ်၏ **position vector** ကိုမဆို $\\hat{i}$ နှင့် $\\hat{j}$ တို့၏ **scalar multiples** များပေါင်း၍ ရေးနိုင်သည်။ ထို့ကြောင့် $\\hat{i}$ နှင့် $\\hat{j}$ တို့ကို $xy$ plane ၏ **direction vectors** နှစ်ခုအဖြစ် သတ်မှတ်နိုင်သည်။ မျဉ်းတစ်ကြောင်းကို သတ်မှတ်ရန် **direction vector** တစ်ခုသာ လိုအပ်သော်လည်း plane တစ်ခုကို သတ်မှတ်ရန် အချင်းချင်းအပြိုင်မဖြစ်သော **direction vectors** နှစ်ခု လိုအပ်သည်။
+
+[DIAGRAM:Chap4_4_4_PlaneEq_Diag1]
+
+More generally, for any plane through the origin, if we fix two nonparallel vectors in that plane, the position vector of any point in the plane is a sum of scalar multiples of those two vectors.
+
+[DIAGRAM:Chap4_4_4_PlaneEq_Diag2]
+
+ယေဘုယျအားဖြင့် မူလမှတ် $O$ ကို ဖြတ်သွားသော plane တစ်ခုအတွင်း အချင်းချင်း parallel မဖြစ်သော vectors နှစ်ခုကို သတ်မှတ်ထားလျှင် ထို plane ပေါ်ရှိ မည်သည့်အမှတ်၏ position vector ကိုမဆို ထို vectors နှစ်ခု၏ scalar multiples များပေါင်းလဒ်ဖြင့် ရေးနိုင်သည်။
+
+Consider a plane passing through a fixed point $A$, with
+$$ \\overrightarrow{OA} = \\vec{a}. $$
+
+Let $\\vec{d}_1$ and $\\vec{d}_2$ be two nonparallel vectors in the plane. For any point $R$ on the plane, there are scalars $t_1$ and $t_2$ such that points $B$ and $C$ can be chosen with
+$$ \\overrightarrow{AB} = t_1\\vec{d}_1, \\quad \\overrightarrow{AC} = t_2\\vec{d}_2. $$
+
+[DIAGRAM:Chap4_4_4_PlaneEq_Diag3]
+
+Since $ACRB$ is a parallelogram,
+$$ \\overrightarrow{AR} = \\overrightarrow{AB} + \\overrightarrow{AC} = t_1\\vec{d}_1 + t_2\\vec{d}_2. $$
+
+Also,
+$$ \\overrightarrow{OR} = \\overrightarrow{OA} + \\overrightarrow{AR}. $$
+
+If the plane passes through $A$ and has two nonparallel direction vectors $\\vec{d}_1$ and $\\vec{d}_2$, then the position vector $\\vec{r}$ of any point $R$ on the plane is given by
+> $$ \\vec{r} = \\vec{a} + t_1\\vec{d}_1 + t_2\\vec{d}_2, \\quad t_1, t_2 \\in \\mathbb{R} $$
+
+$A$ မှ $\\vec{d}_1$ ၏ direction အတိုင်း $t_1$ ဆ ရွေ့လျှင် $B$ သို့ ရောက်ပြီး၊ $\\vec{d}_2$ ၏ direction အတိုင်း $t_2$ ဆ ရွေ့လျှင် $C$ သို့ ရောက်သည်။ ထို့ကြောင့်
+$$ \\overrightarrow{AB} = t_1\\vec{d}_1, \\quad \\overrightarrow{AC} = t_2\\vec{d}_2. $$
+
+$ACRB$ သည် parallelogram ဖြစ်သောကြောင့် ၎င်း၏ ထောင့်ဖြတ် vector သည် ဘေးနှစ်ဖက်ရှိ vectors များ၏ ပေါင်းလဒ်ဖြစ်သည်။ ထို့ကြောင့်
+$$ \\overrightarrow{AR} = \\overrightarrow{AB} + \\overrightarrow{AC} = t_1\\vec{d}_1 + t_2\\vec{d}_2. $$
+
+မူလမှတ် $O$ မှ $R$ သို့ ရောက်ရန် ပထမ $O$ မှ $A$ သို့ ရွေ့ပြီးနောက် $A$ မှ $R$ သို့ ရွေ့နိုင်သည်။ ထို့ကြောင့်
+$$ \\vec{r} = \\overrightarrow{OR} = \\overrightarrow{OA} + \\overrightarrow{AR} = \\vec{a} + t_1\\vec{d}_1 + t_2\\vec{d}_2. $$
+
+$t_1$ နှင့် $t_2$ တို့ကို မတူညီသော real values များ ပေးခြင်းဖြင့် plane ပေါ်ရှိ အမှတ်အသီးသီးကို ရရှိနိုင်သည်။
+
+Any vector that is perpendicular to a plane is called a **normal vector**, or simply a normal to the plane. We can find the normal to a plane by finding the **cross product** of two nonparallel vectors of the plane. A normal is perpendicular to every line on the plane.
+
+Plane တစ်ခုနှင့် ထောင့်မှန်ကျသော vector ကို ထို plane ၏ **normal vector** သို့မဟုတ် **normal** ဟုခေါ်သည်။ Plane ပေါ်ရှိ အချင်းချင်း parallel မဖြစ်သော vectors နှစ်ခု၏ **cross product** သည် မူလ vectors နှစ်ခုလုံးနှင့် ထောင့်မှန်ကျသောကြောင့် ထို plane ၏ **normal vector** ဖြစ်သည်။ ထို့ကြောင့် **normal vector** သည် plane ပေါ်ရှိ မျဉ်းတိုင်း၏ direction နှင့် ထောင့်မှန်ကျသည်။
+
+To write the **normal vector** form of a plane equation, we use the **position vector** $\\vec{a}$ of one point and a **normal vector** $\\vec{n}$ perpendicular to the plane.
+
+**Plane equation ကို normal vector form ဖြင့် ရေးရန် plane ပေါ်ရှိ အမှတ်တစ်ခု၏ position vector $\\vec{a}$ နှင့် ထို plane ကို ထောင့်မှန်ကျသော normal vector $\\vec{n}$ ကို အသုံးပြုနိုင်သည်။**
+
+Thus we consider a plane passing through a point $A$ with position vector $\\vec{a}$ and $\\vec{n} = a\\hat{i} + b\\hat{j} + c\\hat{k}$ is perpendicular to the given plane. Let $\\vec{r}$ be the position vector of an arbitrary point $R(x, y, z)$ on the plane.
+
+Position vector $\\vec{a}$ ရှိသော အမှတ် $A$ ကို ဖြတ်သွားသည့် plane တစ်ခုကို စဉ်းစားကြစို့။ $\\vec{n} = a\\hat{i} + b\\hat{j} + c\\hat{k}$ သည် ထို plane ၏ normal vector ဖြစ်ပြီး၊ plane ပေါ်ရှိ မည်သည့်အမှတ်ကိုမဆို $R(x, y, z)$ ဟုယူကာ ၎င်း၏ position vector ကို $\\vec{r}$ ဟု သတ်မှတ်သည်။
+
+[DIAGRAM:Chap4_4_4_PlaneEq_Diag4]
+
+Since $\\overrightarrow{AR}$ is a vector in the plane, it is perpendicular to the normal vector $\\vec{n}$.
+
+$\\overrightarrow{AR}$ သည် plane ပေါ်တွင်ရှိသော vector ဖြစ်သဖြင့် normal vector $\\vec{n}$ နှင့် ထောင့်မှန်ကျသည်။ ထို့ကြောင့် ၎င်းတို့၏ dot product သည် သုညဖြစ်သည်။
+
+$$ \\begin{aligned} \\vec{n} \\cdot \\overrightarrow{AR} &= 0, \\\\ \\overrightarrow{AR} &= \\vec{r} - \\vec{a}, \\\\ (\\vec{r} - \\vec{a}) \\cdot \\vec{n} &= 0, \\\\ \\vec{r} \\cdot \\vec{n} - \\vec{a} \\cdot \\vec{n} &= 0 \\end{aligned} $$
+> $$ \\vec{r} \\cdot \\vec{n} = \\vec{a} \\cdot \\vec{n} $$
+
+ထို့ကြောင့် $A$ ကို ဖြတ်သွားပြီး $\\vec{n}$ ကို normal vector အဖြစ်ရှိသော plane ၏ normal vector form သည် $\\vec{r} \\cdot \\vec{n} = \\vec{a} \\cdot \\vec{n}$ ဖြစ်သည်။
+
+Since
+$$ \\vec{r} = \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} \\quad \\text{and} \\quad \\vec{n} = \\begin{pmatrix} a \\\\ b \\\\ c \\end{pmatrix}. $$
+we have
+$$ \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} \\cdot \\begin{pmatrix} a \\\\ b \\\\ c \\end{pmatrix} = \\vec{a} \\cdot \\vec{n}. $$
+
+$\\vec{r}$ နှင့် $\\vec{n}$ တို့၏ components များကို normal vector form ထဲသို့ အစားထိုးပြီး dot product ကို ဖြန့်တွက်လျှင် အောက်ပါအတိုင်း ရသည်။
+
+$$ ax + by + cz = d, \\quad d = \\vec{a} \\cdot \\vec{n}, $$
+where $d$ is a constant.
+
+> The **Cartesian equation** of a plane has the form $ax + by + cz = d$, where $\\begin{pmatrix} a \\\\ b \\\\ c \\end{pmatrix}$ is the **normal vector** of the plane.
+
+> **Note: Choosing the Form of a Plane Equation**
+> 1. Plane ပေါ်ရှိ အမှတ်တစ်ခု၏ position vector $\\vec{a}$ နှင့် အချင်းချင်း parallel မဖြစ်သော direction vectors $\\vec{d}_1, \\vec{d}_2$ တို့ကို ပေးထားလျှင်
+>    $$ \\vec{r} = \\vec{a} + t_1\\vec{d}_1 + t_2\\vec{d}_2 $$
+>    ကို သုံးနိုင်သည်။
+> 2. Plane ပေါ်ရှိ အမှတ်တစ်ခု၏ position vector $\\vec{a}$ နှင့် normal vector $\\vec{n}$ ကို ပေးထားလျှင်
+>    $$ \\vec{r} \\cdot \\vec{n} = \\vec{a} \\cdot \\vec{n} $$
+>    ကို သုံးနိုင်သည်။
+> 3. Normal vector ၏ components $a, b, c$ နှင့် plane ပေါ်ရှိ အမှတ် $(x_0, y_0, z_0)$ ကို ပေးထားလျှင်
+>    $$ ax + by + cz = d, \\quad d = ax_0 + by_0 + cz_0 $$
+>    ဖြစ်သော Cartesian form ကို သုံးနိုင်သည်။
+###### Example 18
+Find the vector equation of the plane containing the points $M(2, 2, -2)$, $N(1, -1, 3)$ and $P(4, 0, 2)$.
+
+[DIAGRAM:Chap4_4_4_Ex18_Diag]
+
+> **စဉ်းစားပုံ**
+> 1. $M$ ကို plane ပေါ်ရှိ fixed point အဖြစ် ရွေးပါ။ ထို့နောက် $\\vec{a} = \\overrightarrow{OM}$ ကို ရှာပါ။
+> 2. Direction vectors $\\vec{d}_1 = \\overrightarrow{MN}$ နှင့် $\\vec{d}_2 = \\overrightarrow{MP}$ ကို ရှာပါ။
+> 3. ထို့နောက် $\\vec{a}$, $\\vec{d}_1$ နှင့် $\\vec{d}_2$ တို့ကို
+> $$ \\vec{r} = \\vec{a} + t_1\\vec{d}_1 + t_2\\vec{d}_2 $$
+> တွင် အစားထိုးပြီး plane equation ကို ရှာပါ။
+
+**Solution**
+Let
+$$ \\vec{a} = \\overrightarrow{OM} = \\begin{pmatrix} 2 \\\\ 2 \\\\ -2 \\end{pmatrix}. $$
+
+$$ \\begin{aligned} \\vec{d}_1 &= \\overrightarrow{MN} \\\\ &= \\overrightarrow{ON} - \\overrightarrow{OM} \\\\ &= \\begin{pmatrix} 1 \\\\ -1 \\\\ 3 \\end{pmatrix} - \\begin{pmatrix} 2 \\\\ 2 \\\\ -2 \\end{pmatrix} \\\\ &= \\begin{pmatrix} -1 \\\\ -3 \\\\ 5 \\end{pmatrix}. \\end{aligned} $$
+
+$$ \\begin{aligned} \\vec{d}_2 &= \\overrightarrow{MP} \\\\ &= \\overrightarrow{OP} - \\overrightarrow{OM} \\\\ &= \\begin{pmatrix} 4 \\\\ 0 \\\\ 2 \\end{pmatrix} - \\begin{pmatrix} 2 \\\\ 2 \\\\ -2 \\end{pmatrix} \\\\ &= \\begin{pmatrix} 2 \\\\ -2 \\\\ 4 \\end{pmatrix}. \\end{aligned} $$
+
+Therefore, the vector equation of the plane is
+$$ \\vec{r} = \\vec{a} + t_1\\vec{d}_1 + t_2\\vec{d}_2, $$
+$$ \\vec{r} = \\begin{pmatrix} 2 \\\\ 2 \\\\ -2 \\end{pmatrix} + t_1 \\begin{pmatrix} -1 \\\\ -3 \\\\ 5 \\end{pmatrix} + t_2 \\begin{pmatrix} 2 \\\\ -2 \\\\ 4 \\end{pmatrix}, \\quad t_1, t_2 \\in \\mathbb{R}. $$
+
+###### Example 19
+Find the Cartesian equation of the plane containing the points $M(2, 2, -2)$, $N(1, -1, 3)$ and $P(4, 0, 2)$.
+
+> **စဉ်းစားပုံ**
+> 1. $M$ ကို plane ပေါ်ရှိ fixed point အဖြစ် ရွေးပြီး $\\vec{a} = \\overrightarrow{OM}$ ကို ရှာပါ။
+> 2. Direction vectors $\\vec{d}_1 = \\overrightarrow{MN}$ နှင့် $\\vec{d}_2 = \\overrightarrow{MP}$ ကို ရှာပါ။
+> 3. $\\vec{a}$, $\\vec{d}_1$ နှင့် $\\vec{d}_2$ တို့ကို vector equation တွင် အစားထိုးပြီး $x, y, z$ တို့၏ ညီမျှခြင်းများကို ရှာပါ။
+> 4. $t_1$ နှင့် $t_2$ တို့ကို eliminate လုပ်ပြီး Cartesian equation ကို ရှာပါ။
+
+**Solution**
+Let
+$$ \\vec{a} = \\overrightarrow{OM} = \\begin{pmatrix} 2 \\\\ 2 \\\\ -2 \\end{pmatrix}. $$
+
+$$ \\begin{aligned} \\vec{d}_1 &= \\overrightarrow{MN} \\\\ &= \\overrightarrow{ON} - \\overrightarrow{OM} \\\\ &= \\begin{pmatrix} 1 \\\\ -1 \\\\ 3 \\end{pmatrix} - \\begin{pmatrix} 2 \\\\ 2 \\\\ -2 \\end{pmatrix} \\\\ &= \\begin{pmatrix} -1 \\\\ -3 \\\\ 5 \\end{pmatrix}. \\end{aligned} $$
+
+$$ \\begin{aligned} \\vec{d}_2 &= \\overrightarrow{MP} \\\\ &= \\overrightarrow{OP} - \\overrightarrow{OM} \\\\ &= \\begin{pmatrix} 4 \\\\ 0 \\\\ 2 \\end{pmatrix} - \\begin{pmatrix} 2 \\\\ 2 \\\\ -2 \\end{pmatrix} \\\\ &= \\begin{pmatrix} 2 \\\\ -2 \\\\ 4 \\end{pmatrix}. \\end{aligned} $$
+
+Therefore, the vector equation of the plane is
+$$ \\vec{r} = \\vec{a} + t_1\\vec{d}_1 + t_2\\vec{d}_2, $$
+$$ \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} = \\begin{pmatrix} 2 \\\\ 2 \\\\ -2 \\end{pmatrix} + t_1 \\begin{pmatrix} -1 \\\\ -3 \\\\ 5 \\end{pmatrix} + t_2 \\begin{pmatrix} 2 \\\\ -2 \\\\ 4 \\end{pmatrix}, \\quad t_1, t_2 \\in \\mathbb{R}. $$
+
+Equating the corresponding components gives
+$$ x = 2 - t_1 + 2t_2, \\tag{1} $$
+$$ y = 2 - 3t_1 - 2t_2, \\tag{2} $$
+$$ z = -2 + 5t_1 + 4t_2. \\tag{3} $$
+
+Adding equations (1) and (2),
+$$ x + y = 4 - 4t_1. \\tag{4} $$
+
+Multiplying equation (2) by 2 and then adding equation (3),
+$$ 2y + z = 2 - t_1. \\tag{5} $$
+
+From equation (4),
+$$ t_1 = \\frac{4 - x - y}{4}. $$
+
+From equation (5),
+$$ t_1 = 2 - 2y - z. $$
+
+Therefore,
+$$ \\begin{aligned} \\frac{4 - x - y}{4} &= 2 - 2y - z, \\\\ 4 - x - y &= 8 - 8y - 4z, \\\\ -x + 7y + 4z &= 4. \\end{aligned} $$
+
+Hence, the Cartesian equation of the plane is
+$$ x - 7y - 4z = -4. $$
+
+###### Example 20
+Determine whether the points $A(3, -1, 4)$, $B(2, 1, 1)$, $C(4, 3, 1)$ and $D(-3, 1, 4)$ lie in the same plane.
+
+> **စဉ်းစားပုံ (Method 1: Scalar Triple Product Method)**
+> 1. $A$ ကို fixed point အဖြစ်ရွေးပြီး $\\overrightarrow{AB}$, $\\overrightarrow{AC}$ နှင့် $\\overrightarrow{AD}$ တို့ကို ရှာပါ။
+> 2. $\\overrightarrow{AC} \\times \\overrightarrow{AD}$ ကို ရှာပါ။ $\\overrightarrow{AC}$ နှင့် $\\overrightarrow{AD}$ တို့သည် အချင်းချင်း parallel မဖြစ်လျှင် $A, C, D$ တို့ကို ဖြတ်သွားသော plane တစ်ခုကို သတ်မှတ်နိုင်ပြီး $\\overrightarrow{AC} \\times \\overrightarrow{AD}$ သည် ထို plane ၏ normal vector ဖြစ်သည်။
+> 3. ကျန်သောအမှတ် $B$ သည်လည်း ထို plane ပေါ်တွင်ရှိလျှင် $\\overrightarrow{AB}$ သည် normal vector နှင့် ထောင့်မှန်ကျရမည်။ ထို့ကြောင့် scalar triple product
+> $$ \\overrightarrow{AB} \\cdot (\\overrightarrow{AC} \\times \\overrightarrow{AD}) $$
+> သည် 0 ဖြစ်ရမည်။ 0 နှင့်မညီလျှင် $\\overrightarrow{AB}$ သည် normal vector နှင့် ထောင့်မှန်မကျသောကြောင့် $B$ သည် ထို plane ပေါ်တွင် မရှိပါ။ ထို့ကြောင့် အမှတ်လေးခုသည် same plane ပေါ်တွင် မရှိပါ။
+> **Note:** $A, B, C, D$ တို့အနက် မည်သည့်အမှတ်ကိုမဆို fixed point အဖြစ် ရွေးနိုင်သည်။ Fixed point သို့မဟုတ် vector order ပြောင်းလျှင် scalar triple product ၏ အပေါင်း၊ အနုတ်လက္ခဏာ ပြောင်းနိုင်သော်လည်း 0 ဖြစ်ခြင်း သို့မဟုတ် 0 မဖြစ်ခြင်းသည် မပြောင်းလဲပါ။
+
+**Solution**
+**Method 1: Scalar Triple Product Method**
+
+The four points lie in the same plane if and only if
+$$ \\overrightarrow{AB} \\cdot (\\overrightarrow{AC} \\times \\overrightarrow{AD}) = 0. $$
+
+Now,
+$$ \\overrightarrow{AB} = \\begin{pmatrix} 2 \\\\ 1 \\\\ 1 \\end{pmatrix} - \\begin{pmatrix} 3 \\\\ -1 \\\\ 4 \\end{pmatrix} = \\begin{pmatrix} -1 \\\\ 2 \\\\ -3 \\end{pmatrix}. $$
+$$ \\overrightarrow{AC} = \\begin{pmatrix} 4 \\\\ 3 \\\\ 1 \\end{pmatrix} - \\begin{pmatrix} 3 \\\\ -1 \\\\ 4 \\end{pmatrix} = \\begin{pmatrix} 1 \\\\ 4 \\\\ -3 \\end{pmatrix}. $$
+$$ \\overrightarrow{AD} = \\begin{pmatrix} -3 \\\\ 1 \\\\ 4 \\end{pmatrix} - \\begin{pmatrix} 3 \\\\ -1 \\\\ 4 \\end{pmatrix} = \\begin{pmatrix} -6 \\\\ 2 \\\\ 0 \\end{pmatrix}. $$
+
+Since $\\overrightarrow{AC}$ and $\\overrightarrow{AD}$ are not parallel, they determine the plane containing $A, C$ and $D$.
+Therefore,
+$$ \\begin{aligned} \\overrightarrow{AC} \\times \\overrightarrow{AD} &= \\begin{pmatrix} 1 \\\\ 4 \\\\ -3 \\end{pmatrix} \\times \\begin{pmatrix} -6 \\\\ 2 \\\\ 0 \\end{pmatrix} \\\\ &= \\begin{pmatrix} 4(0) - (-3)(2) \\\\ (-3)(-6) - 1(0) \\\\ 1(2) - 4(-6) \\end{pmatrix} \\\\ &= \\begin{pmatrix} 6 \\\\ 18 \\\\ 26 \\end{pmatrix}. \\end{aligned} $$
+
+Hence,
+$$ \begin{aligned} \overrightarrow{AB} \cdot (\overrightarrow{AC} \times \overrightarrow{AD}) &= \begin{pmatrix} -1 \\ 2 \\ -3 \end{pmatrix} \cdot \begin{pmatrix} 6 \\ 18 \\ 26 \end{pmatrix} \\ &= (-1)(6) + (2)(18) + (-3)(26) \\ &= -6 + 36 - 78 \\ &= -48 \neq 0. \end{aligned} $$
+
+
+Hence, the points $A, B, C$ and $D$ do not lie in the same plane.
+
+> **စဉ်းစားပုံ (Method 2: Vector Equation Method)**
+> 1. $\\overrightarrow{AB}$ နှင့် $\\overrightarrow{AC}$ တို့သည် parallel မဖြစ်သောကြောင့် $A, B, C$ တို့က unique plane တစ်ခုကို သတ်မှတ်ပေးသည်။
+> 2. $A$ ကို fixed point အဖြစ်ရွေးပြီး $\\vec{a} = \\overrightarrow{OA}$, $\\vec{d}_1 = \\overrightarrow{AB}$ နှင့် $\\vec{d}_2 = \\overrightarrow{AC}$ ဟုထားကာ
+>    $$ \\vec{r} = \\vec{a} + t_1\\vec{d}_1 + t_2\\vec{d}_2 $$
+>    ကို ရေးပါ။
+> 3. $D$ သည် ထို plane ပေါ်တွင်ရှိလျှင် $\\vec{r} = \\overrightarrow{OD}$ ဖြစ်ရမည်။ ထို့ကြောင့် $\\overrightarrow{OD}$ ကို vector equation တွင် အစားထိုး၍ corresponding components များကို ညီမျှပါ။ ညီမျှခြင်းအားလုံးကို ပြေလည်စေသော $t_1, t_2$ တန်ဖိုးများရှိလျှင် $D$ သည် plane ပေါ်တွင်ရှိပြီး၊ မရှိလျှင် plane ပေါ်တွင် မရှိပါ။
+
+**Method 2: Vector Equation Method**
+
+Since $\\overrightarrow{AB}$ and $\\overrightarrow{AC}$ are not parallel, the points $A, B$ and $C$ determine a unique plane. Let
+$$ \\vec{a} = \\overrightarrow{OA} = \\begin{pmatrix} 3 \\\\ -1 \\\\ 4 \\end{pmatrix}, \\quad \\vec{d}_1 = \\overrightarrow{AB} = \\begin{pmatrix} -1 \\\\ 2 \\\\ -3 \\end{pmatrix}, \\quad \\vec{d}_2 = \\overrightarrow{AC} = \\begin{pmatrix} 1 \\\\ 4 \\\\ -3 \\end{pmatrix}. $$
+
+Therefore, the vector equation of the plane containing $A, B$ and $C$ is
+$$ \\vec{r} = \\vec{a} + t_1\\vec{d}_1 + t_2\\vec{d}_2, $$
+that is,
+$$ \\vec{r} = \\begin{pmatrix} 3 \\\\ -1 \\\\ 4 \\end{pmatrix} + t_1 \\begin{pmatrix} -1 \\\\ 2 \\\\ -3 \\end{pmatrix} + t_2 \\begin{pmatrix} 1 \\\\ 4 \\\\ -3 \\end{pmatrix}, \\quad t_1, t_2 \\in \\mathbb{R}. $$
+
+If $D$ lies on this plane, then
+$$ \\vec{r} = \\overrightarrow{OD} = \\begin{pmatrix} -3 \\\\ 1 \\\\ 4 \\end{pmatrix}. $$
+
+Therefore,
+$$ \\begin{pmatrix} -3 \\\\ 1 \\\\ 4 \\end{pmatrix} = \\begin{pmatrix} 3 \\\\ -1 \\\\ 4 \\end{pmatrix} + t_1 \\begin{pmatrix} -1 \\\\ 2 \\\\ -3 \\end{pmatrix} + t_2 \\begin{pmatrix} 1 \\\\ 4 \\\\ -3 \\end{pmatrix}. $$
+
+Equating the corresponding components gives
+$$ -3 = 3 - t_1 + t_2, $$
+$$ -t_1 + t_2 = -6, \\tag{1} $$
+$$ 1 = -1 + 2t_1 + 4t_2, $$
+$$ 2t_1 + 4t_2 = 2, \\tag{2} $$
+$$ 4 = 4 - 3t_1 - 3t_2, $$
+$$ t_1 + t_2 = 0. \\tag{3} $$
+
+Adding equations (1) and (3) gives
+$$ 2t_2 = -6, \\quad t_2 = -3. $$
+
+Hence,
+$$ t_1 = 3. $$
+
+Substituting $t_1 = 3$ and $t_2 = -3$ into equation (2),
+$$ 2(3) + 4(-3) = -6 \neq 2. $$
+
+
+Thus, equation (2) is not satisfied.
+Hence, there are no values of $t_1$ and $t_2$ that satisfy all three equations.
+Therefore, $D$ does not lie on the plane containing $A, B$ and $C$.
+Thus, the points $A, B, C$ and $D$ do not lie in the same plane.
+
+###### Example 21
+Find a vector equation of the plane containing the line
+$$ \\vec{r} = \\begin{pmatrix} -2 \\\\ 1 \\\\ 2 \\end{pmatrix} + t \\begin{pmatrix} -1 \\\\ 1 \\\\ 1 \\end{pmatrix}, \\quad t \\in \\mathbb{R}, $$
+and the point $A(3, -1, 2)$.
+
+[DIAGRAM:Chap4_4_4_Ex21_Diag]
+
+> **စဉ်းစားပုံ**
+> 1. $A$ ကို fixed point အဖြစ်ရွေးပြီး
+>    $$ \\vec{a} = \\overrightarrow{OA} = \\begin{pmatrix} 3 \\\\ -1 \\\\ 2 \\end{pmatrix} $$
+>    ဟုထားပါ။
+> 2. ပေးထားသော မျဉ်း၏ vector equation တွင် ပထမ vector သည် မျဉ်းပေါ်ရှိ အမှတ်တစ်ခု၏ position vector ဖြစ်သည်။ ထိုအမှတ်ကို $B$ ဟုထားလျှင်
+>    $$ \\overrightarrow{OB} = \\begin{pmatrix} -2 \\\\ 1 \\\\ 2 \\end{pmatrix} $$
+>    ဖြစ်သည်။ မျဉ်း၏ direction vector သည်
+>    $$ \\vec{d}_1 = \\begin{pmatrix} -1 \\\\ 1 \\\\ 1 \\end{pmatrix} $$
+>    ဖြစ်သည်။
+> 3. $A$ မှ $B$ သို့ direction vector
+>    $$ \\vec{d}_2 = \\overrightarrow{AB} = \\overrightarrow{OB} - \\overrightarrow{OA} $$
+>    ကို ရှာပါ။
+> 4. $\\vec{d}_1$ နှင့် $\\vec{d}_2$ တို့သည် parallel မဖြစ်သောကြောင့် မျဉ်းနှင့် $A$ ကို ဖြတ်သန်းသော unique plane တစ်ခုကို သတ်မှတ်နိုင်သည်။ ထို့နောက်
+>    $$ \\vec{r} = \\vec{a} + t_1\\vec{d}_1 + t_2\\vec{d}_2 $$
+>    တွင် အစားထိုးပါ။
+
+**Solution**
+Choose $A$ as the fixed point. Then
+$$ \\vec{a} = \\overrightarrow{OA} = \\begin{pmatrix} 3 \\\\ -1 \\\\ 2 \\end{pmatrix}. $$
+
+The vector
+$$ \\vec{d}_1 = \\begin{pmatrix} -1 \\\\ 1 \\\\ 1 \\end{pmatrix} $$
+is a direction vector lying in the plane.
+
+From the given line equation, the position vector of a point $B$ on the line is
+$$ \\overrightarrow{OB} = \\begin{pmatrix} -2 \\\\ 1 \\\\ 2 \\end{pmatrix}. $$
+
+Also,
+$$ \\begin{aligned} \\vec{d}_2 &= \\overrightarrow{AB} \\\\ &= \\overrightarrow{OB} - \\overrightarrow{OA} \\\\ &= \\begin{pmatrix} -2 \\\\ 1 \\\\ 2 \\end{pmatrix} - \\begin{pmatrix} 3 \\\\ -1 \\\\ 2 \\end{pmatrix} \\\\ &= \\begin{pmatrix} -5 \\\\ 2 \\\\ 0 \\end{pmatrix}. \\end{aligned} $$
+
+Since $\\vec{d}_1$ and $\\vec{d}_2$ are not parallel, the vector equation of the plane is
+$$ \\vec{r} = \\vec{a} + t_1\\vec{d}_1 + t_2\\vec{d}_2. $$
+
+Therefore,
+$$ \\vec{r} = \\begin{pmatrix} 3 \\\\ -1 \\\\ 2 \\end{pmatrix} + t_1 \\begin{pmatrix} -1 \\\\ 1 \\\\ 1 \\end{pmatrix} + t_2 \\begin{pmatrix} -5 \\\\ 2 \\\\ 0 \\end{pmatrix}, \\quad t_1, t_2 \\in \\mathbb{R}. $$
+
+###### Example 22
+The vector
+$$ \\vec{n} = \\begin{pmatrix} 2 \\\\ 4 \\\\ -2 \\end{pmatrix} $$
+is perpendicular to a plane containing the point $A(1, -5, 2)$.
+
+(a) Write an equation of the plane in the form $\\vec{r} \\cdot \\vec{n} = d$.
+
+(b) Find the Cartesian equation of the plane.
+
+> **စဉ်းစားပုံ**
+> 1. $\\vec{n}$ သည် plane နှင့် ထောင့်မှန်ကျသောကြောင့် $\\vec{n}$ ကို normal vector အဖြစ်ယူပါ။
+> 2. $A$ ၏ position vector ကို $\\vec{a} = \\overrightarrow{OA}$ ဟုထားပြီး
+>    $$ d = \\vec{a} \\cdot \\vec{n} $$
+>    ကို ရှာပါ။ ထို့နောက် $\\vec{r} \\cdot \\vec{n} = d$ တွင် အစားထိုးပါ။
+> 3. $\\vec{r} = \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix}$ ဟုထားပြီး dot product ကို ဖြန့်ရေးကာ Cartesian equation ကို ရှာပါ။
+
+**Solution**
+
+(a) Let
+$$ \\vec{a} = \\overrightarrow{OA} = \\begin{pmatrix} 1 \\\\ -5 \\\\ 2 \\end{pmatrix}. $$
+
+Using the normal vector form of the plane,
+$$ \\begin{aligned} \\vec{r} \\cdot \\vec{n} &= \\vec{a} \\cdot \\vec{n} \\\\ &= \\begin{pmatrix} 1 \\\\ -5 \\\\ 2 \\end{pmatrix} \\cdot \\begin{pmatrix} 2 \\\\ 4 \\\\ -2 \\end{pmatrix} \\\\ &= (1)(2) + (-5)(4) + (2)(-2) \\\\ &= 2 - 20 - 4 \\\\ &= -22. \\end{aligned} $$
+
+Hence, an equation of the plane is
+$$ \\vec{r} \\cdot \\vec{n} = -22. $$
+
+(b) Let
+$$ \\vec{r} = \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix}. $$
+
+Then
+$$ \\begin{aligned} \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} \\cdot \\begin{pmatrix} 2 \\\\ 4 \\\\ -2 \\end{pmatrix} &= -22, \\\\ 2x + 4y - 2z &= -22, \\\\ x + 2y - z &= -11. \\end{aligned} $$
+
+Therefore, the Cartesian equation of the plane is
+$$ x + 2y - z = -11. $$
+
+
+### Exercise 4.4
+
+**1. Question**
+Find the vector equation of the line:
+(a) parallel to $\\begin{pmatrix} 2 \\\\ 1 \\\\ 3 \\end{pmatrix}$ and through the point $(1, 3, -7)$;
+(b) through $(0, 1, 2)$ and with direction vector $\\hat{i} + \\hat{j} - 2\\hat{k}$;
+(c) parallel to the $x$-axis and through the point $(-2, 2, 2)$.
+
+> **စဉ်းစားပုံ**
+> 1. ပေးထားသောအမှတ်၏ position vector ကို $\\vec{a}$၊ မျဉ်း၏ direction vector ကို $\\vec{b}$ ဟုယူပြီး $\\vec{r} = \\vec{a} + t\\vec{b}$ တွင် အစားထိုးပါ။
+
+**Solution**
+The vector equation of a line through a point with position vector $\\vec{a}$ and parallel to a direction vector $\\vec{b}$ is
+$$ \\vec{r} = \\vec{a} + t\\vec{b}, \\quad t \\in \\mathbb{R}. $$
+
+(a) The line passes through $(1, 3, -7)$ and is parallel to $\\begin{pmatrix} 2 \\\\ 1 \\\\ 3 \\end{pmatrix}$. Therefore,
+$$ \\vec{r} = \\begin{pmatrix} 1 \\\\ 3 \\\\ -7 \\end{pmatrix} + t \\begin{pmatrix} 2 \\\\ 1 \\\\ 3 \\end{pmatrix}, \\quad t \\in \\mathbb{R}. $$
+
+(b) The direction vector is
+$$ \\hat{i} + \\hat{j} - 2\\hat{k} = \\begin{pmatrix} 1 \\\\ 1 \\\\ -2 \\end{pmatrix}. $$
+Since the line passes through $(0, 1, 2)$,
+$$ \\vec{r} = \\begin{pmatrix} 0 \\\\ 1 \\\\ 2 \\end{pmatrix} + t \\begin{pmatrix} 1 \\\\ 1 \\\\ -2 \\end{pmatrix}, \\quad t \\in \\mathbb{R}. $$
+
+(c) A direction vector parallel to the $x$-axis is
+$$ \\begin{pmatrix} 1 \\\\ 0 \\\\ 0 \\end{pmatrix}. $$
+Since the line passes through $(-2, 2, 2)$,
+$$ \\vec{r} = \\begin{pmatrix} -2 \\\\ 2 \\\\ 2 \\end{pmatrix} + t \\begin{pmatrix} 1 \\\\ 0 \\\\ 0 \\end{pmatrix}, \\quad t \\in \\mathbb{R}. $$
+
+**2. Question**
+(a) Find the Cartesian equation of the line with parametric equations
+$$ x = 3t + 1, \\quad y = 4 - 2t, \\quad z = 3t - 1. $$
+(b) Find the unit vector in the direction of the line.
+
+> **စဉ်းစားပုံ**
+> 1. ညီမျှခြင်းတစ်ခုစီမှ $t$ ကို ရှာ၍ Cartesian equation ကို ရေးပါ။ Direction vector ကို $\\vec{b}$ ဟုယူပြီး $\\frac{\\vec{b}}{|\\vec{b}|}$ ဖြင့် unit vector ကို ရှာပါ။
+
+**Solution**
+(a) The parametric equations of the line are
+$$ x = 3t + 1, \\quad y = 4 - 2t, \\quad z = 3t - 1. $$
+$$ t = \\frac{x - 1}{3}, \\quad t = \\frac{y - 4}{-2}, \\quad t = \\frac{z + 1}{3}. $$
+Therefore, the Cartesian equation of the line is
+$$ \\frac{x - 1}{3} = \\frac{y - 4}{-2} = \\frac{z + 1}{3}. $$
+
+(b) From the parametric equations, the vector equation of the line is
+$$ \\vec{r} = \\vec{a} + t\\vec{b}. $$
+$$ \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} = \\begin{pmatrix} 1 \\\\ 4 \\\\ -1 \\end{pmatrix} + t \\begin{pmatrix} 3 \\\\ -2 \\\\ 3 \\end{pmatrix}. $$
+The direction vector of the line is
+$$ \\vec{b} = \\begin{pmatrix} 3 \\\\ -2 \\\\ 3 \\end{pmatrix}. $$
+Its magnitude is
+$$ |\\vec{b}| = \\sqrt{3^2 + (-2)^2 + 3^2} = \\sqrt{22}. $$
+Hence, the unit vector in the direction of the line is
+$$ \\hat{b} = \\frac{\\vec{b}}{|\\vec{b}|} = \\frac{1}{\\sqrt{22}} \\begin{pmatrix} 3 \\\\ -2 \\\\ 3 \\end{pmatrix}. $$
+
+**3. Question**
+Find the equation of the plane:
+(a) with normal vector $\\begin{pmatrix} 2 \\\\ -1 \\\\ 3 \\end{pmatrix}$ and which passes through $(-1, 2, 4)$;
+(b) perpendicular to the line joining the points $A(2, 3, 1)$ and $B(5, 7, 2)$ and which passes through $A$;
+(c) containing $A(3, 2, 1)$ and the line
+$$ x = 1 + t, \\quad y = 2 - t, \\quad z = 3 + 2t. $$
+
+> **စဉ်းစားပုံ**
+> 1. (a) တွင် ပေးထားသောအမှတ်၏ position vector ကို $\\vec{a} = \\begin{pmatrix} -1 \\\\ 2 \\\\ 4 \\end{pmatrix}$ နှင့် normal vector ကို $\\vec{n} = \\begin{pmatrix} 2 \\\\ -1 \\\\ 3 \\end{pmatrix}$ ဟုယူပြီး $\\vec{r} \\cdot \\vec{n} = \\vec{a} \\cdot \\vec{n}$ တွင် အစားထိုးပါ။
+> 2. (b) တွင် $\\overrightarrow{AB} = \\overrightarrow{OB} - \\overrightarrow{OA}$ ဖြင့် မျဉ်း၏ direction vector ကို ရှာပါ။ မျက်နှာပြင်သည် မျဉ်းနှင့် ထောင့်မှန်ကျသောကြောင့် $\\overrightarrow{AB}$ ကို normal vector အဖြစ်ယူပြီး $\\vec{r} \\cdot \\vec{n} = \\vec{a} \\cdot \\vec{n}$ တွင် အစားထိုးပါ။
+> 3. (c) တွင် ပေးထားသော မျဉ်းကို vector equation အဖြစ်ရေး၍ $\\vec{d}_1 = \\begin{pmatrix} 1 \\\\ -1 \\\\ 2 \\end{pmatrix}$ ဟုထားပါ။ မျဉ်းပေါ်ရှိ $B(1, 2, 3)$ ကိုယူပြီး $\\vec{d}_2 = \\overrightarrow{AB} = \\overrightarrow{OB} - \\overrightarrow{OA}$ ကို ရှာပါ။ ထို့နောက် $\\vec{r} = \\vec{a} + t_1\\vec{d}_1 + t_2\\vec{d}_2$ တွင် အစားထိုး၍ ရရှိသော component equations သုံးကြောင်းမှ $t_1$ နှင့် $t_2$ ကို eliminate လုပ်ပြီး Cartesian equation ကို ရေးပါ။
+
+**Solution**
+(a) Let
+$$ \\vec{a} = \\begin{pmatrix} -1 \\\\ 2 \\\\ 4 \\end{pmatrix}, \\quad \\vec{n} = \\begin{pmatrix} 2 \\\\ -1 \\\\ 3 \\end{pmatrix}. $$
+The normal vector form of the plane is
+$$ \\vec{r} \\cdot \\vec{n} = \\vec{a} \\cdot \\vec{n}. $$
+$$ \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} \\cdot \\begin{pmatrix} 2 \\\\ -1 \\\\ 3 \\end{pmatrix} = \\begin{pmatrix} -1 \\\\ 2 \\\\ 4 \\end{pmatrix} \\cdot \\begin{pmatrix} 2 \\\\ -1 \\\\ 3 \\end{pmatrix} = 8. $$
+Therefore, the Cartesian equation of the plane is
+$$ 2x - y + 3z = 8. $$
+
+(b) For $A(2, 3, 1)$ and $B(5, 7, 2)$, let
+$$ \\overrightarrow{OA} = \\vec{a} = \\begin{pmatrix} 2 \\\\ 3 \\\\ 1 \\end{pmatrix}, \\quad \\overrightarrow{OB} = \\vec{b} = \\begin{pmatrix} 5 \\\\ 7 \\\\ 2 \\end{pmatrix}. $$
+Then the direction vector of the line $AB$ is
+$$ \\overrightarrow{AB} = \\overrightarrow{OB} - \\overrightarrow{OA} = \\begin{pmatrix} 5 \\\\ 7 \\\\ 2 \\end{pmatrix} - \\begin{pmatrix} 2 \\\\ 3 \\\\ 1 \\end{pmatrix} = \\begin{pmatrix} 3 \\\\ 4 \\\\ 1 \\end{pmatrix}. $$
+
+[DIAGRAM:Chap4_4_4_Ex4_4_3b_Diag]
+
+Since the plane is perpendicular to the line,
+$$ \\vec{n} = \\begin{pmatrix} 3 \\\\ 4 \\\\ 1 \\end{pmatrix}. $$
+The normal vector form of the plane is
+$$ \\vec{r} \\cdot \\vec{n} = \\vec{a} \\cdot \\vec{n}. $$
+$$ \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} \\cdot \\begin{pmatrix} 3 \\\\ 4 \\\\ 1 \\end{pmatrix} = \\begin{pmatrix} 2 \\\\ 3 \\\\ 1 \\end{pmatrix} \\cdot \\begin{pmatrix} 3 \\\\ 4 \\\\ 1 \\end{pmatrix} = 19. $$
+Therefore, the Cartesian equation of the plane is
+$$ 3x + 4y + z = 19. $$
+
+(c) The given parametric equations are
+$$ x = 1 + t, \\quad y = 2 - t, \\quad z = 3 + 2t. $$
+Therefore, the vector equation of the line is
+$$ \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} = \\begin{pmatrix} 1 \\\\ 2 \\\\ 3 \\end{pmatrix} + t \\begin{pmatrix} 1 \\\\ -1 \\\\ 2 \\end{pmatrix}. $$
+Since the plane contains the given line, the direction vector of the line lies in the plane. Taking $A(3, 2, 1)$ as the fixed point, let
+$$ \\vec{a} = \\overrightarrow{OA} = \\begin{pmatrix} 3 \\\\ 2 \\\\ 1 \\end{pmatrix}, \\quad \\vec{d}_1 = \\begin{pmatrix} 1 \\\\ -1 \\\\ 2 \\end{pmatrix}. $$
+Since $(1, 2, 3)$ is on the plane, let
+$$ \\overrightarrow{OB} = \\vec{b} = \\begin{pmatrix} 1 \\\\ 2 \\\\ 3 \\end{pmatrix}. $$
+Then
+$$ \\begin{aligned} \\vec{d}_2 &= \\overrightarrow{AB} \\\\ &= \\overrightarrow{OB} - \\overrightarrow{OA} \\\\ &= \\begin{pmatrix} 1 \\\\ 2 \\\\ 3 \\end{pmatrix} - \\begin{pmatrix} 3 \\\\ 2 \\\\ 1 \\end{pmatrix} \\\\ &= \\begin{pmatrix} -2 \\\\ 0 \\\\ 2 \\end{pmatrix}. \\end{aligned} $$
+
+[DIAGRAM:Chap4_4_4_Ex4_4_3c_Diag]
+
+The vector equation of the plane is
+$$ \\vec{r} = \\vec{a} + t_1\\vec{d}_1 + t_2\\vec{d}_2. $$
+Therefore,
+$$ \\vec{r} = \\begin{pmatrix} 3 \\\\ 2 \\\\ 1 \\end{pmatrix} + t_1 \\begin{pmatrix} 1 \\\\ -1 \\\\ 2 \\end{pmatrix} + t_2 \\begin{pmatrix} -2 \\\\ 0 \\\\ 2 \\end{pmatrix}. $$
+Equating the corresponding components gives
+$$ x = 3 + t_1 - 2t_2, \\quad (1) $$
+$$ y = 2 - t_1, \\quad (2) $$
+$$ z = 1 + 2t_1 + 2t_2. \\quad (3) $$
+Adding equations (1) and (3),
+$$ x + z = 4 + 3t_1. \\quad (4) $$
+Multiplying equation (2) by 3,
+$$ 3y = 6 - 3t_1. \\quad (5) $$
+Adding equations (4) and (5),
+$$ x + z + 3y = (4 + 3t_1) + (6 - 3t_1). $$
+Therefore, the Cartesian equation of the plane is
+$$ x + 3y + z = 10. $$
+
+**4. Question**
+Find the equation of the plane through $A(-1, 2, 1)$, $B(4, 1, 1)$ and $C(2, 0, 3)$:
+(a) in vector form;
+(b) in Cartesian form.
+
+> **စဉ်းစားပုံ**
+> 1. (a) တွင် $A$ ၏ position vector ကို $\\vec{a}$ ဟုယူပြီး $\\vec{d}_1 = \\overrightarrow{AB} = \\vec{b} - \\vec{a}$ နှင့် $\\vec{d}_2 = \\overrightarrow{AC} = \\vec{c} - \\vec{a}$ ကို ရှာပါ။ ထို့နောက် $\\vec{r} = \\vec{a} + t_1\\vec{d}_1 + t_2\\vec{d}_2$ တွင် အစားထိုးပါ။
+> 2. (b) တွင် $\\vec{n} = \\vec{d}_1 \\times \\vec{d}_2$ ဖြင့် normal vector ကို ရှာပါ။ ထို့နောက် $\\vec{r} \\cdot \\vec{n} = \\vec{a} \\cdot \\vec{n}$ တွင် အစားထိုး၍ Cartesian equation ကို ရေးပါ။
+
+**Solution**
+For $A(-1, 2, 1)$, $B(4, 1, 1)$ and $C(2, 0, 3)$, let
+$$ \\overrightarrow{OA} = \\vec{a} = \\begin{pmatrix} -1 \\\\ 2 \\\\ 1 \\end{pmatrix}, \\quad \\overrightarrow{OB} = \\vec{b} = \\begin{pmatrix} 4 \\\\ 1 \\\\ 1 \\end{pmatrix}, \\quad \\overrightarrow{OC} = \\vec{c} = \\begin{pmatrix} 2 \\\\ 0 \\\\ 3 \\end{pmatrix}. $$
+Then
+$$ \\vec{d}_1 = \\overrightarrow{AB} = \\vec{b} - \\vec{a} = \\begin{pmatrix} 5 \\\\ -1 \\\\ 0 \\end{pmatrix}. $$
+$$ \\vec{d}_2 = \\overrightarrow{AC} = \\vec{c} - \\vec{a} = \\begin{pmatrix} 3 \\\\ -2 \\\\ 2 \\end{pmatrix}. $$
+(a) The vector equation of the plane is
+$$ \\vec{r} = \\begin{pmatrix} -1 \\\\ 2 \\\\ 1 \\end{pmatrix} + t_1 \\begin{pmatrix} 5 \\\\ -1 \\\\ 0 \\end{pmatrix} + t_2 \\begin{pmatrix} 3 \\\\ -2 \\\\ 2 \\end{pmatrix}, \\quad t_1, t_2 \\in \\mathbb{R}. $$
+(b) A normal vector to the plane is
+$$ \\begin{aligned} \\vec{n} &= \\vec{d}_1 \\times \\vec{d}_2 \\\\ &= \\begin{pmatrix} 5 \\\\ -1 \\\\ 0 \\end{pmatrix} \\times \\begin{pmatrix} 3 \\\\ -2 \\\\ 2 \\end{pmatrix} \\\\ &= \\begin{pmatrix} -2 \\\\ -10 \\\\ -7 \\end{pmatrix}. \\end{aligned} $$
+The normal vector form of the plane is
+$$ \\vec{r} \\cdot \\vec{n} = \\vec{a} \\cdot \\vec{n}. $$
+$$ \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} \\cdot \\begin{pmatrix} -2 \\\\ -10 \\\\ -7 \\end{pmatrix} = \\begin{pmatrix} -1 \\\\ 2 \\\\ 1 \\end{pmatrix} \\cdot \\begin{pmatrix} -2 \\\\ -10 \\\\ -7 \\end{pmatrix} = -25. $$
+Therefore, the Cartesian equation of the plane is
+$$ -2x - 10y - 7z = -25. $$
+
+**5. Question**
+Find the Cartesian equation of the plane with vector equation
+$$ \\vec{r} = \\begin{pmatrix} 1 \\\\ 2 \\\\ 3 \\end{pmatrix} + t_1 \\begin{pmatrix} 1 \\\\ 1 \\\\ 2 \\end{pmatrix} + t_2 \\begin{pmatrix} 2 \\\\ -1 \\\\ 5 \\end{pmatrix}. $$
+
+> **စဉ်းစားပုံ**
+> 1. Non-parallel direction vectors နှစ်ခုကို $\\vec{d}_1$ နှင့် $\\vec{d}_2$ ဟုယူပြီး $\\vec{n} = \\vec{d}_1 \\times \\vec{d}_2$ ဖြင့် normal vector ကို ရှာပါ။ ထို့နောက် $\\vec{r} \\cdot \\vec{n} = \\vec{a} \\cdot \\vec{n}$ တွင် အစားထိုး၍ Cartesian equation ကို ရေးပါ။
+
+**Solution**
+The vector equation of the plane is
+$$ \\vec{r} = \\begin{pmatrix} 1 \\\\ 2 \\\\ 3 \\end{pmatrix} + t_1 \\begin{pmatrix} 1 \\\\ 1 \\\\ 2 \\end{pmatrix} + t_2 \\begin{pmatrix} 2 \\\\ -1 \\\\ 5 \\end{pmatrix}. $$
+Let
+$$ \\vec{a} = \\begin{pmatrix} 1 \\\\ 2 \\\\ 3 \\end{pmatrix}, \\quad \\vec{d}_1 = \\begin{pmatrix} 1 \\\\ 1 \\\\ 2 \\end{pmatrix}, \\quad \\vec{d}_2 = \\begin{pmatrix} 2 \\\\ -1 \\\\ 5 \\end{pmatrix}. $$
+A normal vector to the plane is
+$$ \\begin{aligned} \\vec{n} &= \\vec{d}_1 \\times \\vec{d}_2 \\\\ &= \\begin{pmatrix} 1 \\\\ 1 \\\\ 2 \\end{pmatrix} \\times \\begin{pmatrix} 2 \\\\ -1 \\\\ 5 \\end{pmatrix} \\\\ &= \\begin{pmatrix} 7 \\\\ -1 \\\\ -3 \\end{pmatrix}. \\end{aligned} $$
+The normal vector form of the plane is
+$$ \\vec{r} \\cdot \\vec{n} = \\vec{a} \\cdot \\vec{n}. $$
+$$ \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} \\cdot \\begin{pmatrix} 7 \\\\ -1 \\\\ -3 \\end{pmatrix} = \\begin{pmatrix} 1 \\\\ 2 \\\\ 3 \\end{pmatrix} \\cdot \\begin{pmatrix} 7 \\\\ -1 \\\\ -3 \\end{pmatrix} = -4. $$
+Therefore, the Cartesian equation of the plane is
+$$ 7x - y - 3z = -4. $$
 
 `;

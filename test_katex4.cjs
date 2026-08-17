@@ -1,6 +1,20 @@
 const katex = require('katex');
-const formula = "\\begin{aligned}   \\text{L.H.S.} &= 1 + 3 + 3^2 + \\dots + 3^{k-1} + 3^k \\\\   &= \\frac{3^k - 1}{2} + 3^k \\quad [\\text{by Inductive Hypothesis}] \\\\   &= \\frac{3^k - 1 + 2 \\cdot 3^k}{2} \\\\   &= \\frac{3^k(1 + 2) - 1}{2} \\\\   &= \\frac{3 \\cdot 3^k - 1}{2} \\\\   &= \\frac{3^{k+1} - 1}{2} \\\\   &= \\text{R.H.S.}   \\end{aligned}";
-try {
-katex.renderToString(formula, { displayMode: true, throwOnError: true });
-console.log("SUCCESS");
-} catch(e) { console.log(e.message); }
+// simulating runtime by eval-ing the file
+const fs = require('fs');
+const code = fs.readFileSync('src/data/chapter4_content.ts', 'utf8');
+const text = code.replace(/export const chapter4Content = `/, '').replace(/`;$/, '');
+const evaluated = eval('`' + text + '`');
+
+const regex = /(\$\$([\s\S]*?)\$\$)|(\$(.*?)\$)/g;
+let match;
+while ((match = regex.exec(evaluated)) !== null) {
+  const isBlock = match[1] !== undefined;
+  const formula = isBlock ? match[2] : match[4];
+  try {
+    katex.renderToString(formula, { displayMode: isBlock, throwOnError: true });
+  } catch(e) {
+    console.log("Runtime Error rendering:", formula.substring(0, 50));
+    console.log("Error message:", e.message);
+  }
+}
+console.log("Done checking runtime KaTeX.");

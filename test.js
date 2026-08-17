@@ -1,5 +1,2 @@
-const solution = `$$\\begin{aligned}
-6 - 17i &= (3 - bi)(4 - 3i) \\\\
-6 - 17i &= 12 - 9i - 4bi + 3b i^2
-\\end{aligned}$$`;
-console.log(solution);
+const fs = require('fs');
+console.log(fs.readFileSync('src/data/chapter4_content.ts', 'utf8').slice(-100));
