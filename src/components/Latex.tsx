@@ -72,31 +72,78 @@ function Chapter3Header() {
     <div className="my-6 p-5 bg-gradient-to-br from-amber-50/80 to-orange-50/80 dark:from-amber-950/40 dark:to-slate-900/60 rounded-2xl border border-amber-100 dark:border-amber-900/50 shadow-sm text-center overflow-x-auto">
       <h4 className="text-base font-bold text-amber-900 dark:text-amber-200 mb-2">Chapter 3: Analytical Solid Geometry</h4>
       <p className="text-xs text-slate-600 dark:text-slate-400 mb-4">3D Rectangular Coordinate System & Point P(x, y, z)</p>
-      <svg className="mx-auto" width="440" height="210" viewBox="0 0 440 210">
-        <g transform="translate(200, 120)">
-          <line x1="0" y1="0" x2="0" y2="-100" stroke="#d97706" strokeWidth="2.5" />
-          <text x="10" y="-95" fontSize="13" fill="#b45309" fontStyle="italic" fontWeight="bold">Z axis</text>
+      <svg className="mx-auto" width="440" height="250" viewBox="0 0 440 250">
+        <g transform="translate(200, 150)">
+          {/* Highlight Projection Box Base */}
+          <polygon points="0,0 -70,41 50,41 120,0" fill="rgba(217, 119, 6, 0.1)" className="dark:fill-amber-900/20" />
+
+          {/* 3D Box Edges (Dotted thin lines replacing solid lines for projection effect) */}
+          <g stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4 4" className="dark:stroke-slate-600">
+            {/* Base */}
+            <line x1="0" y1="0" x2="-70" y2="41" />
+            <line x1="-70" y1="41" x2="50" y2="41" />
+            <line x1="50" y1="41" x2="120" y2="0" />
+            <line x1="120" y1="0" x2="0" y2="0" />
+
+            {/* Top */}
+            <line x1="0" y1="-81" x2="-70" y2="-40" />
+            <line x1="-70" y1="-40" x2="50" y2="-40" />
+            <line x1="50" y1="-40" x2="120" y2="-81" />
+            <line x1="120" y1="-81" x2="0" y2="-81" />
+
+            {/* Verticals */}
+            <line x1="0" y1="0" x2="0" y2="-81" />
+            <line x1="-70" y1="41" x2="-70" y2="-40" />
+            <line x1="120" y1="0" x2="120" y2="-81" />
+            <line x1="50" y1="41" x2="50" y2="-40" />
+          </g>
+
+          {/* Axes */}
+          {/* Z axis */}
+          <line x1="0" y1="0" x2="0" y2="-130" stroke="#d97706" strokeWidth="2.5" />
+          <g transform="translate(0, -130) rotate(-90)">
+            <polygon points="0,-6 14,0 0,6" fill="#d97706" />
+          </g>
+          <text x="10" y="-125" fontSize="15" fill="#b45309" fontStyle="italic"  fontFamily="'Times New Roman', Times, serif">Z</text>
+          
+          {/* Y axis */}
           <line x1="0" y1="0" x2="160" y2="0" stroke="#d97706" strokeWidth="2.5" />
-          <text x="165" y="5" fontSize="13" fill="#b45309" fontStyle="italic" fontWeight="bold">Y axis</text>
-          <line x1="0" y1="0" x2="-120" y2="70" stroke="#d97706" strokeWidth="2.5" />
-          <text x="-140" y="80" fontSize="13" fill="#b45309" fontStyle="italic" fontWeight="bold">X axis</text>
-          <circle cx="0" cy="0" r="4" fill="#b45309" />
-          <text x="8" y="18" fontSize="12" fill="#78350f" fontWeight="bold">O(0,0,0)</text>
-          <line x1="-70" y1="41" x2="50" y2="41" stroke="#cbd5e1" strokeWidth="1.5" strokeDasharray="3 3" />
-          <line x1="120" y1="0" x2="50" y2="41" stroke="#cbd5e1" strokeWidth="1.5" strokeDasharray="3 3" />
-          <line x1="50" y1="41" x2="50" y2="-40" stroke="#ea580c" strokeWidth="2" strokeDasharray="3 3" />
-          <line x1="0" y1="-81" x2="50" y2="-40" stroke="#cbd5e1" strokeWidth="1.5" strokeDasharray="3 3" />
-          <line x1="120" y1="-81" x2="50" y2="-40" stroke="#cbd5e1" strokeWidth="1.5" strokeDasharray="3 3" />
-          <line x1="0" y1="0" x2="50" y2="-40" stroke="#ea580c" strokeWidth="2.5" />
+          <g transform="translate(160, 0)">
+            <polygon points="0,-6 14,0 0,6" fill="#d97706" />
+          </g>
+          <text x="165" y="20" fontSize="15" fill="#b45309" fontStyle="italic"  fontFamily="'Times New Roman', Times, serif">Y</text>
+          
+          {/* X axis */}
+          <line x1="0" y1="0" x2="-140" y2="82" stroke="#d97706" strokeWidth="2.5" />
+          <g transform="translate(-145, 85) rotate(149.6)">
+            <polygon points="0,-6 14,0 0,6" fill="#d97706" />
+          </g>
+          <text x="-120" y="100" fontSize="15" fill="#b45309" fontStyle="italic"  fontFamily="'Times New Roman', Times, serif">X</text>
+          
+          {/* Points on axes */}
+          <circle cx="-70" cy="41" r="4" fill="#ef4444" />
+          <text x="-50" y="30" fontSize="15" fill="#ef4444" fontStyle="italic"  fontFamily="'Times New Roman', Times, serif">x</text>
+          
+          <circle cx="120" cy="0" r="4" fill="#22c55e" />
+          <text x="125" y="-10" fontSize="15" fill="#22c55e" fontStyle="italic"  fontFamily="'Times New Roman', Times, serif">y</text>
+          
+          <circle cx="0" cy="-81" r="4" fill="#3b82f6" />
+          <text x="-15" y="-85" fontSize="15" fill="#3b82f6" fontStyle="italic"  fontFamily="'Times New Roman', Times, serif">z</text>
+
+
+          {/* Point P */}
           <circle cx="50" cy="-40" r="6" fill="#ea580c" />
-          <text x="60" y="-45" fontSize="14" fill="#c2410c" fontWeight="bold">P(x, y, z)</text>
-          <text x="60" y="-28" fontSize="11" fill="#78350f" fontWeight="bold">OP = √(x² + y² + z²)</text>
+          <text x="50" y="-45" fontSize="16" fill="#c2410c" fontStyle="italic" fontFamily="'Times New Roman', Times, serif">P(x, y, z)</text>
+
+          {/* Origin (Rendered last so it stays on top) */}
+          <circle cx="0" cy="0" r="4.5" fill="#b45309" />
+          <text x="-15" y="-5" fontSize="14" fill="#78350f"  fontFamily="'Times New Roman', Times, serif">O</text>
+          
         </g>
       </svg>
     </div>
   );
 }
-
 function Chapter4Header() {
   return (
     <div className="my-6 p-5 bg-gradient-to-br from-purple-50/80 to-pink-50/80 dark:from-purple-950/40 dark:to-slate-900/60 rounded-2xl border border-purple-100 dark:border-purple-900/50 shadow-sm text-center overflow-x-auto">
@@ -169,23 +216,40 @@ function Chapter1Header() {
         </defs>
         <rect width="460" height="220" fill="url(#grid1)" rx="8" />
         
-        <line x1="40" y1="170" x2="420" y2="170" stroke="#64748b" strokeWidth="2" />
-        <line x1="100" y1="20" x2="100" y2="200" stroke="#64748b" strokeWidth="2" />
+        {/* Axes Lines */}
+        <line x1="40" y1="170" x2="410" y2="170" stroke="#64748b" strokeWidth="2" />
+        <line x1="100" y1="200" x2="100" y2="30" stroke="#64748b" strokeWidth="2" />
         
-        <text x="415" y="163" fontSize="12" fill="#64748b" fontStyle="italic" fontWeight="bold">Real Axis (Re)</text>
-        <text x="108" y="32" fontSize="12" fill="#64748b" fontStyle="italic" fontWeight="bold">Imaginary Axis (Im)</text>
-        <text x="90" y="185" fontSize="12" fill="#64748b" fontWeight="bold">O (0,0)</text>
+        {/* Axis Arrows */}
+        <polygon points="410,165 420,170 410,175" fill="#64748b" />
+        <polygon points="95,30 100,20 105,30" fill="#64748b" />
         
-        <line x1="100" y1="170" x2="310" y2="60" stroke="#4f46e5" strokeWidth="2.5" />
+        {/* Labels */}
+        <text x="415" y="155" fontSize="12" fill="#64748b" fontStyle="italic" fontWeight="bold">Real Axis (Re)</text>
+        <text x="115" y="32" fontSize="12" fill="#64748b" fontStyle="italic" fontWeight="bold">Imaginary Axis (Im)</text>
+        <text x="85" y="185" fontSize="12" fill="#64748b" fontWeight="bold">O</text>
+        
+        {/* Projection Lines */}
         <line x1="310" y1="170" x2="310" y2="60" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4 4" />
         <line x1="100" y1="60" x2="310" y2="60" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4 4" />
         
-        <path d="M 140 170 A 40 40 0 0 0 131 154" fill="none" stroke="#ec4899" strokeWidth="2" />
+        {/* Complex Vector Line (Stops exactly at the arrow tip) */}
+        <line x1="100" y1="170" x2="306.5" y2="61.8" stroke="#4f46e5" strokeWidth="2.5" />
+        
+        {/* OP Arrowhead perfectly aligned (Tip is at 0,0 relative to translation) */}
+        <g transform="translate(306.5, 61.8) rotate(-27.65)">
+          <polygon points="-12,-5 0,0 -12,5" fill="#4f46e5" />
+        </g>
+        
+        {/* Angle Curve */}
+        <path d="M 140 170 A 40 40 0 0 0 135 152" fill="none" stroke="#ec4899" strokeWidth="2" />
         <text x="145" y="160" fontSize="12" fill="#ec4899" fontWeight="bold">θ (Arg z)</text>
         
-        <text x="180" y="105" fontSize="13" fill="#4f46e5" fontWeight="bold">r = |z| = √(a² + b²)</text>
+        {/* Modulus Text */}
+        <text x="175" y="105" fontSize="13" fill="#4f46e5" fontWeight="bold">r = |z|</text>
         
-        <circle cx="310" cy="60" r="6" fill="#ec4899" />
+        {/* Point P - Solid Dot perfectly touching the arrow */}
+        <circle cx="310" cy="60" r="4.5" fill="#ec4899" />
         <text x="320" y="55" fontSize="14" fill="#4338ca" fontWeight="bold">P(a, b) ≡ z = a + bi</text>
         
         <text x="200" y="188" fontSize="12" fill="#1e293b" fontWeight="bold" className="dark:fill-slate-200">a (Real part)</text>
@@ -1271,68 +1335,80 @@ function RootsExample10() {
 
 function Solid3DPointDiagram() {
   return (
-    <div className="my-6 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
-      <h5 className="text-xs font-bold text-indigo-500 mb-2">3D Point Coordinate Projections</h5>
-      <svg width="240" height="200" viewBox="0 0 240 200" className="overflow-visible">
-        {/* Origin O */}
-        <circle cx="100" cy="130" r="3" fill="#64748b" />
-        <text x="90" y="142" className="text-[10px] fill-slate-500 font-mono">O(0,0,0)</text>
+    <div className="my-6 flex flex-col items-center justify-center p-6 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+      <h5 className="text-sm font-bold text-indigo-600 dark:text-indigo-400 mb-4">3D Point Coordinate Projections</h5>
+      <svg className="mx-auto overflow-visible" width="400" height="280" viewBox="0 0 400 280">
+        <defs>
+          <pattern id="grid3dbox" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e2e8f0" strokeWidth="0.5" className="dark:stroke-slate-800" />
+          </pattern>
+        </defs>
+        <rect width="400" height="280" fill="url(#grid3dbox)" rx="8" className="dark:opacity-50" />
+        <g transform="translate(200, 150)">
+          {/* Highlight Projection Box Base */}
+          <polygon points="0,0 -70,41 50,41 120,0" fill="rgba(203, 213, 225, 0.4)" className="dark:fill-slate-700/50" />
 
-        {/* Axes */}
-        {/* X-axis: down-left */}
-        <line x1="100" y1="130" x2="40" y2="160" stroke="#ef4444" strokeWidth="1.5" />
-        <polygon points="40,160 48.9,160.0 45.4,152.8" fill="#ef4444" />
-        <text x="32" y="165" className="text-[10px] font-bold fill-red-500">X</text>
+          {/* Projection Box (Dotted lines) */}
+          <g stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4 4" className="dark:stroke-slate-500">
+            {/* Base */}
+            <line x1="0" y1="0" x2="-70" y2="41" /> {/* O to X_proj */}
+            <line x1="-70" y1="41" x2="50" y2="41" /> {/* X_proj to XY_proj */}
+            <line x1="50" y1="41" x2="120" y2="0" /> {/* XY_proj to Y_proj */}
+            <line x1="120" y1="0" x2="0" y2="0" /> {/* Y_proj to O */}
 
-        {/* Y-axis: down-right */}
-        <line x1="100" y1="130" x2="180" y2="160" stroke="#10b981" strokeWidth="1.5" />
-        <polygon points="180,160 173.9,153.4 171.1,160.9" fill="#10b981" />
-        <text x="185" y="165" className="text-[10px] font-bold fill-emerald-500">Y</text>
+            {/* Top */}
+            <line x1="0" y1="-81" x2="-70" y2="-40" /> {/* Z_proj to XZ_proj */}
+            <line x1="-70" y1="-40" x2="50" y2="-40" /> {/* XZ_proj to P */}
+            <line x1="50" y1="-40" x2="120" y2="-81" /> {/* P to YZ_proj */}
+            <line x1="120" y1="-81" x2="0" y2="-81" /> {/* YZ_proj to Z_proj */}
 
-        {/* Z-axis: vertical up */}
-        <line x1="100" y1="130" x2="100" y2="40" stroke="#3b82f6" strokeWidth="1.5" />
-        <polygon points="100,40 96.0,48.0 104.0,48.0" fill="#3b82f6" />
-        <text x="98" y="32" className="text-[10px] font-bold fill-blue-500">Z</text>
+            {/* Verticals */}
+            <line x1="0" y1="0" x2="0" y2="-81" /> {/* O to Z_proj */}
+            <line x1="-70" y1="41" x2="-70" y2="-40" /> {/* X_proj to XZ_proj */}
+            <line x1="120" y1="0" x2="120" y2="-81" /> {/* Y_proj to YZ_proj */}
+            <line x1="50" y1="41" x2="50" y2="-40" /> {/* XY_proj to P */}
+          </g>
 
-        {/* Projection Box for Point P(x, y, z) */}
-        <polygon points="100,130 70,145 122,165 152,150" fill="rgba(203, 213, 225, 0.2)" />
+          {/* Axes */}
+          {/* Z-axis */}
+          <line x1="0" y1="0" x2="0" y2="-120" stroke="#3b82f6" strokeWidth="2" />
+          <polygon points="0,-128 -5,-115 5,-115" fill="#3b82f6" />
+          <text x="10" y="-120" className="text-[15px] fill-blue-600 dark:fill-blue-400 font-serif italic font-bold" fontFamily="'Times New Roman', Times, serif">Z</text>
 
-        {/* Dotted lines */}
-        <g stroke="#94a3b8" strokeWidth="1" strokeDasharray="3 3" className="dark:stroke-slate-700">
-          <line x1="100" y1="130" x2="70" y2="145" /> {/* O to A */}
-          <line x1="70" y1="145" x2="122" y2="165" /> {/* A to B */}
-          <line x1="122" y1="165" x2="152" y2="150" /> {/* B to C */}
-          <line x1="152" y1="150" x2="100" y2="130" /> {/* C to O */}
+          {/* Y-axis */}
+          <line x1="0" y1="0" x2="170" y2="0" stroke="#10b981" strokeWidth="2" />
+          <polygon points="178,0 165,-5 165,5" fill="#10b981" />
+          <text x="175" y="20" className="text-[15px] fill-emerald-600 dark:fill-emerald-400 font-serif italic font-bold" fontFamily="'Times New Roman', Times, serif">Y</text>
 
-          <line x1="100" y1="70" x2="70" y2="85" /> {/* D to E */}
-          <line x1="70" y1="85" x2="122" y2="105" /> {/* E to F */}
-          <line x1="122" y1="105" x2="152" y2="90" /> {/* F to G */}
-          <line x1="152" y1="90" x2="100" y2="70" /> {/* G to D */}
+          {/* X-axis */}
+          {/* Math exact match: X_proj is at (-70, 41). So X-axis passes through here. We extend it. */}
+          <line x1="0" y1="0" x2="-140" y2="82" stroke="#ef4444" strokeWidth="2" />
+          <g transform="translate(-145, 85) rotate(149.6)">
+            <polygon points="0,-5 13,0 0,5" fill="#ef4444" />
+          </g>
+          <text x="-165" y="95" className="text-[15px] fill-red-600 dark:fill-red-400 font-serif italic font-bold" fontFamily="'Times New Roman', Times, serif">X</text>
 
-          {/* Verticals */}
-          <line x1="100" y1="130" x2="100" y2="70" /> {/* O to D */}
-          <line x1="70" y1="145" x2="70" y2="85" /> {/* A to E */}
-          <line x1="152" y1="150" x2="152" y2="90" /> {/* C to G */}
-          <line x1="122" y1="165" x2="122" y2="105" /> {/* B to F */}
+          {/* Origin O */}
+          <circle cx="0" cy="0" r="4" fill="#64748b" />
+          <text x="-15" y="20" className="text-[15px] fill-slate-600 dark:fill-slate-400 font-serif italic font-bold" fontFamily="'Times New Roman', Times, serif">O</text>
+
+
+          {/* Labeled Point P */}
+          <circle cx="50" cy="-40" r="5" fill="#8b5cf6" stroke="white" strokeWidth="1.5" className="dark:stroke-slate-900" />
+          <text x="60" y="-45" className="text-[16px] fill-indigo-700 dark:fill-indigo-300 font-serif italic font-bold" fontFamily="'Times New Roman', Times, serif">P(x, y, z)</text>
+
+
+          {/* Coordinate Labels along Projections */}
+          <text x="-35" y="15" className="text-[14px] fill-red-600 dark:fill-red-400 font-serif italic font-bold" fontFamily="'Times New Roman', Times, serif">x</text>
+          <text x="80" y="20" className="text-[14px] fill-emerald-600 dark:fill-emerald-400 font-serif italic font-bold" fontFamily="'Times New Roman', Times, serif">y</text>
+          <text x="58" y="-15" className="text-[14px] fill-blue-600 dark:fill-blue-400 font-serif italic font-bold" fontFamily="'Times New Roman', Times, serif">z</text>
+
         </g>
-
-        {/* Radial line from origin */}
-        <line x1="100" y1="130" x2="122" y2="105" stroke="#c084fc" strokeWidth="2" />
-
-        {/* Labeled Point P */}
-        <circle cx="122" cy="105" r="5" fill="#8b5cf6" stroke="white" strokeWidth="1.5" />
-        <text x="130" y="103" className="text-[10px] font-bold fill-indigo-950 dark:fill-indigo-200">P(x, y, z)</text>
-
-        {/* Distance label */}
-        <text x="105" y="115" className="text-[9px] fill-purple-600 font-mono font-bold" transform="rotate(-48 105 115)">OP</text>
-
-        
       </svg>
-      <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-2 italic font-sans text-center">Projection box in 3D space illustrating coordinates x, y, and z of Point P</span>
+      <span className="text-[12px] text-slate-500 dark:text-slate-400 mt-4 italic font-sans text-center">Projection box in 3D space illustrating coordinates x, y, and z of Point P</span>
     </div>
   );
 }
-
 function SkewLinesDiagram() {
   return (
     <div className="my-6 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">

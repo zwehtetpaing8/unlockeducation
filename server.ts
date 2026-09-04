@@ -4,6 +4,7 @@ import fs from "fs";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI, Type } from "@google/genai";
 import 'dotenv/config';
+import axios from 'axios';
 
 interface VisitorLog {
   id: string;
@@ -202,6 +203,172 @@ Please return exactly 5 multiple choice questions related to this math content. 
       res.status(500).json({ error: "Failed to generate quiz" });
     }
   });
+
+
+
+// ---------------------------------------------------------
+// TELEGRAM VIDEO STREAMING API
+// ---------------------------------------------------------
+const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+
+// Route to stream video from Telegram
+
+// Route to handle webhook for getting file_ids easily
+app.post('/api/telegram-webhook', express.json(), async (req, res) => {
+  if (!TELEGRAM_BOT_TOKEN) return res.sendStatus(200);
+
+  console.log("WEBHOOK RECEIVED:", JSON.stringify(req.body, null, 2));
+
+  const message = req.body?.message || req.body?.channel_post;
+  if (!message) return res.sendStatus(200);
+
+  const chatId = message.chat.id;
+
+  // Check if there is a video or document
+  const video = message.video || message.document || message.animation;
+  
+  // Match telegram post links like https://t.me/c/12345/67
+  const linkMatch = message.text && message.text.match(/t\.me\/(?:c\/)?(\d+)\/(\d+)/);
+  if (linkMatch) {
+    try {
+      await axios.post(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        chat_id: chatId,
+        text: `Oops! I cannot download videos directly from a link because of Telegram's privacy rules for bots.\n\nPlease **forward** the actual video message to me, or send the video file directly.`
+      });
+      return res.sendStatus(200);
+    } catch (e) {}
+  }
+
+  if (video) {
+    const fileId = video.file_id;
+    const fileName = video.file_name || 'Video File';
+    
+    try {
+      // Send the file_id back to the user
+      await axios.post(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        chat_id: chatId,
+        text: `✅ Video Received!\n\n📄 **Name:** ${fileName}\n🔑 **file_id:** \n\n\`${fileId}\`\n\n(Tap the file_id to copy it)`,
+        parse_mode: 'Markdown'
+      });
+    } catch (e) {
+      console.error("Error sending message to Telegram:", e.message);
+    }
+  } else if (message.text === '/start') {
+    try {
+      await axios.post(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        chat_id: chatId,
+        text: `👋 Hello! Send me a video and I will give you the file_id.`
+      });
+    } catch(e) {}
+  } else {
+     try {
+      await axios.post(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        chat_id: chatId,
+        text: `No video detected. Please send a Video file.`
+      });
+    } catch(e) {}
+  }
+
+  res.sendStatus(200);
+});
+
+// NEW: Direct link resolver
+app.get('/api/resolve-telegram-link/:fileId', async (req, res) => {
+  const fileId = req.params.fileId;
+  if (!TELEGRAM_BOT_TOKEN) return res.status(500).json({ error: 'No token' });
+  try {
+    const fileRes = await axios.get(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getFile?file_id=${fileId}`);
+    if (!fileRes.data.ok) return res.status(404).json({ error: 'Not found' });
+    const url = `https://api.telegram.org/file/bot${TELEGRAM_BOT_TOKEN}/${fileRes.data.result.file_path}`;
+    res.json({ url });
+  } catch (e) {
+    res.status(500).json({ error: 'Error resolving' });
+  }
+});
+
+app.get('/api/stream/telegram/:fileId', async (req, res) => {
+  const fileId = req.params.fileId;
+  if (!TELEGRAM_BOT_TOKEN) {
+    return res.status(500).json({ error: 'Telegram Bot Token is not configured' });
+  }
+
+  try {
+    // 1. Get file path from Telegram API
+    const fileResponse = await axios.get(
+      `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getFile?file_id=${fileId}`
+    );
+
+    if (!fileResponse.data.ok) {
+      return res.status(404).json({ error: 'File not found on Telegram' });
+    }
+
+    const filePath = fileResponse.data.result.file_path;
+    const fileUrl = `https://api.telegram.org/file/bot${TELEGRAM_BOT_TOKEN}/${filePath}`;
+
+    // 2. Stream the file to the client with Range support
+    const range = req.headers.range;
+    const response = await axios({
+      method: 'GET',
+      url: fileUrl,
+      responseType: 'stream',
+      headers: range ? { Range: range } : {},
+      validateStatus: (status) => status < 500, // Handle partial content manually if needed
+    });
+
+    // Forward headers from Telegram to support seeking (Range)
+    res.status(response.status);
+    if (response.headers['content-length']) res.setHeader('Content-Length', response.headers['content-length']);
+    
+    // Force video/mp4 content type for video files, because Telegram often sends application/octet-stream
+    if (filePath.endsWith('.mp4') || filePath.endsWith('.mkv')) {
+        res.setHeader('Content-Type', 'video/mp4');
+    } else if (response.headers['content-type']) {
+        res.setHeader('Content-Type', response.headers['content-type']);
+    }
+    if (response.headers['content-range']) res.setHeader('Content-Range', response.headers['content-range']);
+    if (response.headers['accept-ranges']) res.setHeader('Accept-Ranges', response.headers['accept-ranges']);
+
+    // Pipe the video stream directly to the client
+    response.data.pipe(res);
+
+  } catch (error) {
+    console.error('Error streaming from Telegram:', error.message);
+    res.status(500).json({ error: 'Failed to stream video' });
+  }
+});
+// ---------------------------------------------------------
+
+
+// Route to handle webhook for getting file_ids easily
+app.post('/api/telegram-webhook', express.json(), async (req, res) => {
+  if (!TELEGRAM_BOT_TOKEN) return res.sendStatus(200);
+
+  const message = req.body?.message || req.body?.channel_post;
+  if (!message) return res.sendStatus(200);
+
+  const chatId = message.chat.id;
+
+  // Check if there is a video or document
+  const video = message.video || message.document || message.animation;
+  
+  if (video) {
+    const fileId = video.file_id;
+    const fileName = video.file_name || 'Video File';
+    
+    try {
+      // Send the file_id back to the user
+      await axios.post(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        chat_id: chatId,
+        text: `✅ Video Received!\n\n📄 **Name:** ${fileName}\n🔑 **file_id:** \n\n\`${fileId}\`\n\n(Tap the file_id to copy it)`,
+        parse_mode: 'Markdown'
+      });
+    } catch (e) {
+      console.error("Error sending message to Telegram:", e.message);
+    }
+  }
+
+  res.sendStatus(200);
+});
 
   // Vite middleware for development
   if (process.env.NODE_ENV !== "production") {

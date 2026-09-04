@@ -5,6 +5,7 @@ import { chapter5Content } from './chapter5_content';
 export const chapters: Chapter[] = [
   {
     id: 1,
+    telegramVideoId: 'BAACAgUAAxkBAAMLaprveRht6UJkqJnEHVdmW0v0BPgAAqQiAAKRjNlUncICTtTbJ-09BA',
     title: "Complex Numbers",
     tagline: "Extending the real number system to solve equations with negative roots.",
     description: "In this chapter, you will learn about the imaginary unit $i = \\sqrt{-1}$, Cartesian and coordinate forms, division rules, trigonometric (polar) representation, De Moivre's formula, and finding complex roots.",

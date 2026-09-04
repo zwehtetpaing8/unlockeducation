@@ -5,6 +5,7 @@ import { Chapter } from "../types";
 import Latex from "./Latex";
 import Visualizer from "./Visualizers";
 import PracticeQuiz from "./PracticeQuiz";
+import TelegramVideoPlayer from "./TelegramVideoPlayer";
 import { motion, AnimatePresence } from "motion/react";
 import {
   BookOpen,
@@ -381,6 +382,11 @@ export default function ChapterDetails({
         </div>
       </div>
 
+      {/* Telegram Video Player Injection */}
+      {chapter.telegramVideoId && (
+        <TelegramVideoPlayer fileId={chapter.telegramVideoId} />
+      )}
+      
       {![1, 2, 3, 4, 5].includes(chapter.id) ? (
         <div className="flex flex-col items-center justify-center p-12 mt-8 bg-slate-50 dark:bg-slate-900/50 rounded-3xl border border-slate-200/50 dark:border-slate-800/40 text-center animate-pulse">
           <div className="w-16 h-16 bg-indigo-100 dark:bg-indigo-900/30 rounded-full flex items-center justify-center mb-6">
