@@ -22,7 +22,6 @@ export interface Chapter {
   formulas: Formula[];
   quiz: Question[];
   visualizerType?: 'complex-plane' | 'induction-steps' | 'solid-geometry' | 'vector-calc' | 'perm-comb' | 'conic-explorer' | 'trig-wave' | 'log-exp' | 'derivative-tangent' | 'integration-area';
-  telegramVideoId?: string; // Telegram file_id for direct streaming
 }
 
 export interface VisitorLog {
