@@ -12,6 +12,8 @@ import ThemeToggle from './components/ThemeToggle';
 
 export default function App() {
   const [activeView, setActiveView] = useState<'home' | 'syllabus' | 'formulas' | 'past-questions' | 'pdfs' | 'analytics'>(() => {
+    const pathname = window.location.pathname;
+    if (pathname === '/pdfs' || pathname.startsWith('/pdfs/')) return 'pdfs';
     const params = new URLSearchParams(window.location.search);
     const view = params.get('view');
     if (params.has('pdf') || view === 'pdfs') return 'pdfs';
@@ -62,40 +64,55 @@ export default function App() {
   // Sync state to URL and localStorage
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
+    const pathname = window.location.pathname;
+    let targetPath = pathname;
     let changed = false;
 
-    if (params.get('view') !== activeView) {
-      params.set('view', activeView);
-      changed = true;
-    }
-    
-    if (activeView === 'syllabus') {
-      if (params.get('chapter') !== selectedChapterId.toString()) {
-        params.set('chapter', selectedChapterId.toString());
-        changed = true;
+    if (activeView === 'pdfs') {
+      // Keep clean /pdfs/:id URL if already on one, otherwise keep ?view=pdfs
+      if (!pathname.startsWith('/pdfs')) {
+        if (params.get('view') !== 'pdfs') {
+          params.set('view', 'pdfs');
+          changed = true;
+        }
       }
-      if (params.has('pdf')) {
-        params.delete('pdf');
-        changed = true;
-      }
-    } else if (activeView === 'pdfs') {
       if (params.has('chapter')) {
         params.delete('chapter');
         changed = true;
       }
     } else {
-      if (params.has('chapter')) {
-        params.delete('chapter');
+      if (pathname.startsWith('/pdfs')) {
+        targetPath = '/';
         changed = true;
       }
-      if (params.has('pdf')) {
-        params.delete('pdf');
+      if (params.get('view') !== activeView) {
+        params.set('view', activeView);
         changed = true;
+      }
+      if (activeView === 'syllabus') {
+        if (params.get('chapter') !== selectedChapterId.toString()) {
+          params.set('chapter', selectedChapterId.toString());
+          changed = true;
+        }
+        if (params.has('pdf')) {
+          params.delete('pdf');
+          changed = true;
+        }
+      } else {
+        if (params.has('chapter')) {
+          params.delete('chapter');
+          changed = true;
+        }
+        if (params.has('pdf')) {
+          params.delete('pdf');
+          changed = true;
+        }
       }
     }
 
     if (changed) {
-      const newUrl = `${window.location.pathname}?${params.toString()}${window.location.hash}`;
+      const qs = params.toString();
+      const newUrl = `${targetPath}${qs ? `?${qs}` : ''}${window.location.hash}`;
       window.history.pushState({}, '', newUrl);
     }
 
@@ -106,9 +123,10 @@ export default function App() {
   // Handle browser back/forward buttons
   useEffect(() => {
     const handlePopState = () => {
+      const pathname = window.location.pathname;
       const params = new URLSearchParams(window.location.search);
       const view = params.get('view');
-      if (params.has('pdf') || view === 'pdfs') {
+      if (pathname === '/pdfs' || pathname.startsWith('/pdfs/') || params.has('pdf') || view === 'pdfs') {
         setActiveView('pdfs');
       } else if (view === 'home' || view === 'syllabus' || view === 'formulas' || view === 'past-questions' || view === 'analytics') {
         setActiveView(view as 'home' | 'syllabus' | 'formulas' | 'past-questions' | 'analytics');

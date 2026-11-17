@@ -2,46 +2,48 @@ import React, { useState, useEffect } from 'react';
 import { Download, Share2, Check, FileText, ArrowLeft, Eye } from 'lucide-react';
 import { pdfResources, pdfChapters, PdfCategory } from '../data/pdfResources';
 
+const getPdfIdFromLocation = () => {
+  const pathMatch = window.location.pathname.match(/^\/pdfs\/([^/]+)\/?$/);
+  const params = new URLSearchParams(window.location.search);
+  const candidate = pathMatch?.[1] || params.get('pdf');
+  if (candidate && pdfResources.some((p) => p.id === candidate && p.available)) {
+    return candidate;
+  }
+  return null;
+};
+
 export default function PdfLibrary() {
-  // Only open a specific PDF image reader if ?pdf=... is in the URL or user explicitly clicks a file to View
-  const [viewingPdfId, setViewingPdfId] = useState<string | null>(() => {
-    const params = new URLSearchParams(window.location.search);
-    const pdfParam = params.get('pdf');
-    if (pdfParam && pdfResources.some((p) => p.id === pdfParam && p.available)) {
-      return pdfParam;
-    }
-    return null;
-  });
+  // Only open a specific PDF image reader if /pdfs/:id or ?pdf=... is in the URL or user clicks a file to View
+  const [viewingPdfId, setViewingPdfId] = useState<string | null>(() => getPdfIdFromLocation());
 
   const [selectedChapterId, setSelectedChapterId] = useState<'all' | number>('all');
   const [selectedCategory, setSelectedCategory] = useState<'all' | PdfCategory>('all');
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
-  // Sync URL with viewingPdfId:
-  // - When in File List (viewingPdfId === null): URL is ?view=pdfs
-  // - When viewing a specific file: URL is ?view=pdfs&pdf=<id>
+  // Sync URL and document.title with viewingPdfId using clean /pdfs/<id> paths
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    params.set('view', 'pdfs');
     if (viewingPdfId) {
-      params.set('pdf', viewingPdfId);
+      const targetUrl = `/pdfs/${viewingPdfId}${window.location.hash}`;
+      if (window.location.pathname !== `/pdfs/${viewingPdfId}`) {
+        window.history.replaceState({}, '', targetUrl);
+      }
+      const current = pdfResources.find((p) => p.id === viewingPdfId);
+      if (current) {
+        document.title = `${current.fileName} – Unlock Education`;
+      }
     } else {
-      params.delete('pdf');
+      const targetUrl = `/pdfs${window.location.hash}`;
+      if (window.location.pathname !== '/pdfs' || window.location.search) {
+        window.history.replaceState({}, '', targetUrl);
+      }
+      document.title = 'PDF Files – Unlock Education';
     }
-    const newUrl = `${window.location.pathname}?${params.toString()}${window.location.hash}`;
-    window.history.replaceState({}, '', newUrl);
   }, [viewingPdfId]);
 
   // Listen to browser back/forward
   useEffect(() => {
     const handlePopState = () => {
-      const params = new URLSearchParams(window.location.search);
-      const pdfParam = params.get('pdf');
-      if (pdfParam && pdfResources.some((p) => p.id === pdfParam && p.available)) {
-        setViewingPdfId(pdfParam);
-      } else {
-        setViewingPdfId(null);
-      }
+      setViewingPdfId(getPdfIdFromLocation());
     };
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
@@ -57,7 +59,7 @@ export default function PdfLibrary() {
 
   const handleCopyShareLink = (e: React.MouseEvent, pdfId: string) => {
     e.stopPropagation();
-    const shareUrl = `${getPublicOrigin()}${window.location.pathname}?view=pdfs&pdf=${pdfId}`;
+    const shareUrl = `${getPublicOrigin()}/pdfs/${pdfId}`;
     navigator.clipboard.writeText(shareUrl);
     setCopiedId(pdfId);
     setTimeout(() => setCopiedId(null), 2500);

@@ -4,6 +4,7 @@ import fs from "fs";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI, Type } from "@google/genai";
 import 'dotenv/config';
+import { pdfResources } from "./src/data/pdfResources";
 
 interface VisitorLog {
   id: string;
@@ -204,60 +205,69 @@ Please return exactly 5 multiple choice questions related to this math content. 
   });
 
 
+  const escapeHtmlAttr = (str: string) =>
+    str
+      .replace(/&/g, "&amp;")
+      .replace(/"/g, "&quot;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+
   const getDynamicMeta = (req: express.Request) => {
     const proto = (req.headers["x-forwarded-proto"] as string)?.split(",")[0].trim() || req.protocol || "https";
     const host = (req.headers["x-forwarded-host"] as string)?.split(",")[0].trim() || req.get("host") || "";
     const baseUrl = host ? `${proto}://${host}` : "";
+    const pageUrl = `${baseUrl}${req.originalUrl}`;
 
-    const pdfId = req.query.pdf as string | undefined;
+    const pathPdfMatch = req.path.match(/^\/pdfs\/([^/]+)\/?$/);
+    const pdfId = (pathPdfMatch?.[1] || (req.query.pdf as string | undefined))?.trim();
     const view = req.query.view as string | undefined;
 
-    if (pdfId === "ch1-past-paper") {
-      return {
-        title: "G12 Ch1 Past Papers Section A to D (Questions only) – Unlock Education",
-        description: "Chapter 1: Complex Numbers — Grade 12 Mathematics Past Papers Section A to D (Questions Only, 7 Pages). Read online or download PDF.",
-        image: `${baseUrl}/papers/ch1/page-1.png`,
-      };
+    if (pdfId) {
+      const matchedPdf = pdfResources.find((p) => p.id === pdfId && p.available);
+      if (matchedPdf) {
+        return {
+          url: pageUrl,
+          title: `${matchedPdf.fileName} – Unlock Education`,
+          description: `${matchedPdf.description} (${matchedPdf.pageCount} Pages). Read online or download PDF.`,
+          image: `${baseUrl}${matchedPdf.pages[0] || "/logo.png"}`,
+        };
+      }
     }
-    if (pdfId === "ch1-sec-a-solutions") {
+
+    if (view === "pdfs" || req.path === "/pdfs") {
       return {
-        title: "G12 Ch1 Past Papers Section A (Solutions) – Unlock Education",
-        description: "Chapter 1: Complex Numbers — Grade 12 Mathematics Past Papers Section A (Worked Solutions, 7 Pages). Read online or download PDF.",
-        image: `${baseUrl}/papers/ch1/sec-a-sol/page-1.png`,
-      };
-    }
-    if (pdfId === "ch2-past-paper") {
-      return {
-        title: "G12 Ch2 Past Papers Section C and D (Questions only) – Unlock Education",
-        description: "Chapter 2: Mathematical Induction — Grade 12 Mathematics Past Papers Section C and D (Questions Only, 4 Pages). Read online or download PDF.",
-        image: `${baseUrl}/papers/ch2/page-1.png`,
-      };
-    }
-    if (view === "pdfs") {
-      return {
+        url: pageUrl,
         title: "Grade 12 Mathematics Past Paper & Solution PDFs – Unlock Education",
         description: "Read and download Grade 12 Mathematics Past Paper Questions & Worked Solutions PDFs by Sayar Zwe (Unlock Education).",
-        image: `${baseUrl}/papers/ch1/page-1.png`,
+        image: `${baseUrl}/logo.png`,
       };
     }
+
     return {
+      url: pageUrl,
       title: "Unlock Education – Grade 12 Mathematics Syllabus & Past Papers",
       description: "Master Grade 12 Mathematics with Unlock Education. Interactive chapters, formula sheets, practice quizzes, and downloadable Past Paper Questions & Solutions PDFs.",
-      image: `${baseUrl}/papers/ch1/page-1.png`,
+      image: `${baseUrl}/logo.png`,
     };
   };
 
   const applyMetaToHtml = (html: string, req: express.Request) => {
     const meta = getDynamicMeta(req);
+    const title = escapeHtmlAttr(meta.title);
+    const description = escapeHtmlAttr(meta.description);
+    const image = escapeHtmlAttr(meta.image);
+    const url = escapeHtmlAttr(meta.url);
+
     return html
-      .replace(/<title>.*?<\/title>/s, `<title>${meta.title}</title>`)
-      .replace(/<meta property="og:title" content=".*?" \/>/g, `<meta property="og:title" content="${meta.title}" />`)
-      .replace(/<meta name="twitter:title" content=".*?" \/>/g, `<meta name="twitter:title" content="${meta.title}" />`)
-      .replace(/<meta\s+name="description"\s+content=".*?"\s*\/>/s, `<meta name="description" content="${meta.description}" />`)
-      .replace(/<meta\s+property="og:description"\s+content=".*?"\s*\/>/s, `<meta property="og:description" content="${meta.description}" />`)
-      .replace(/<meta\s+name="twitter:description"\s+content=".*?"\s*\/>/s, `<meta name="twitter:description" content="${meta.description}" />`)
-      .replace(/<meta property="og:image" content=".*?" \/>/g, `<meta property="og:image" content="${meta.image}" />`)
-      .replace(/<meta name="twitter:image" content=".*?" \/>/g, `<meta name="twitter:image" content="${meta.image}" />`);
+      .replace(/<title>.*?<\/title>/s, `<title>${title}</title>`)
+      .replace(/<meta\s+property="og:url"\s+content=".*?"\s*\/>/g, `<meta property="og:url" content="${url}" />`)
+      .replace(/<meta\s+property="og:title"\s+content=".*?"\s*\/>/g, `<meta property="og:title" content="${title}" />`)
+      .replace(/<meta\s+name="twitter:title"\s+content=".*?"\s*\/>/g, `<meta name="twitter:title" content="${title}" />`)
+      .replace(/<meta\s+name="description"\s+content=".*?"\s*\/>/s, `<meta name="description" content="${description}" />`)
+      .replace(/<meta\s+property="og:description"\s+content=".*?"\s*\/>/s, `<meta property="og:description" content="${description}" />`)
+      .replace(/<meta\s+name="twitter:description"\s+content=".*?"\s*\/>/s, `<meta name="twitter:description" content="${description}" />`)
+      .replace(/<meta\s+property="og:image"\s+content=".*?"\s*\/>/g, `<meta property="og:image" content="${image}" />`)
+      .replace(/<meta\s+name="twitter:image"\s+content=".*?"\s*\/>/g, `<meta name="twitter:image" content="${image}" />`);
   };
 
   // Vite middleware for development
@@ -267,7 +277,8 @@ Please return exactly 5 multiple choice questions related to this math content. 
       appType: "spa",
     });
     app.use(async (req, res, next) => {
-      if (req.method === "GET" && (req.path === "/" || req.path === "/index.html")) {
+      const isPdfPageRoute = req.path === "/pdfs" || req.path.startsWith("/pdfs/");
+      if (req.method === "GET" && (req.path === "/" || req.path === "/index.html" || isPdfPageRoute)) {
         try {
           const indexPath = path.join(process.cwd(), "index.html");
           let template = fs.readFileSync(indexPath, "utf-8");
