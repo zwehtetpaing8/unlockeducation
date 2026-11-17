@@ -294,7 +294,7 @@ Please return exactly 5 multiple choice questions related to this math content. 
     app.use(vite.middlewares);
   } else {
     const distPath = path.join(process.cwd(), 'dist');
-    app.use(express.static(distPath, { index: false }));
+    app.use(express.static(distPath, { index: false, redirect: false }));
     app.get('*', (req, res) => {
       const indexPath = path.join(distPath, 'index.html');
       if (fs.existsSync(indexPath)) {
