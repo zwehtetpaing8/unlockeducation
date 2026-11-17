@@ -5,19 +5,21 @@ import FormulaSheet from './components/FormulaSheet';
 import HomeView from './components/HomeView';
 import AnalyticsDashboard from './components/AnalyticsDashboard';
 import PastQuestions from './components/PastQuestions';
+import PdfLibrary from './components/PdfLibrary';
 import { motion, AnimatePresence } from 'motion/react';
-import { BookOpen, Calculator, Search, Menu, X, GraduationCap, ChevronRight, Hash, Home, Facebook, Send, Bug, Youtube, Mail, Copy, Check, ExternalLink, ShieldCheck, FileText } from 'lucide-react';
+import { BookOpen, Calculator, Search, Menu, X, GraduationCap, ChevronRight, Hash, Home, Facebook, Send, Bug, Youtube, Mail, Copy, Check, ExternalLink, ShieldCheck, FileText, Download } from 'lucide-react';
 import ThemeToggle from './components/ThemeToggle';
 
 export default function App() {
-  const [activeView, setActiveView] = useState<'home' | 'syllabus' | 'formulas' | 'past-questions' | 'analytics'>(() => {
+  const [activeView, setActiveView] = useState<'home' | 'syllabus' | 'formulas' | 'past-questions' | 'pdfs' | 'analytics'>(() => {
     const params = new URLSearchParams(window.location.search);
     const view = params.get('view');
+    if (params.has('pdf') || view === 'pdfs') return 'pdfs';
     if (view === 'home' || view === 'syllabus' || view === 'formulas' || view === 'past-questions' || view === 'analytics') return view;
     if (params.has('secret') || params.has('key') || params.has('admin') || params.has('dashboard') || params.has('owner')) return 'analytics';
 
     const saved = localStorage.getItem('unlock_edu_activeView');
-    return (saved as 'home' | 'syllabus' | 'formulas' | 'past-questions' | 'analytics') || 'home';
+    return (saved as 'home' | 'syllabus' | 'formulas' | 'past-questions' | 'pdfs' | 'analytics') || 'home';
   });
   const [selectedChapterId, setSelectedChapterId] = useState<number>(() => {
     const params = new URLSearchParams(window.location.search);
@@ -72,9 +74,22 @@ export default function App() {
         params.set('chapter', selectedChapterId.toString());
         changed = true;
       }
+      if (params.has('pdf')) {
+        params.delete('pdf');
+        changed = true;
+      }
+    } else if (activeView === 'pdfs') {
+      if (params.has('chapter')) {
+        params.delete('chapter');
+        changed = true;
+      }
     } else {
       if (params.has('chapter')) {
         params.delete('chapter');
+        changed = true;
+      }
+      if (params.has('pdf')) {
+        params.delete('pdf');
         changed = true;
       }
     }
@@ -93,7 +108,9 @@ export default function App() {
     const handlePopState = () => {
       const params = new URLSearchParams(window.location.search);
       const view = params.get('view');
-      if (view === 'home' || view === 'syllabus' || view === 'formulas' || view === 'past-questions' || view === 'analytics') {
+      if (params.has('pdf') || view === 'pdfs') {
+        setActiveView('pdfs');
+      } else if (view === 'home' || view === 'syllabus' || view === 'formulas' || view === 'past-questions' || view === 'analytics') {
         setActiveView(view as 'home' | 'syllabus' | 'formulas' | 'past-questions' | 'analytics');
       } else if (params.has('secret') || params.has('key') || params.has('admin') || params.has('dashboard') || params.has('owner')) {
         setActiveView('analytics');
@@ -209,6 +226,17 @@ export default function App() {
             >
               <FileText className="w-3.5 h-3.5" />
               Past Questions
+            </button>
+            <button
+              onClick={() => setActiveView('pdfs')}
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+                activeView === 'pdfs'
+                  ? 'bg-white dark:bg-slate-800 shadow-sm text-indigo-600 dark:text-indigo-400 font-bold'
+                  : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
+              }`}
+            >
+              <Download className="w-3.5 h-3.5" />
+              PDF Files
             </button>
           </div>
 
@@ -407,6 +435,16 @@ export default function App() {
                   </p>
                 </div>
                 <PastQuestions />
+              </motion.div>
+            ) : activeView === 'pdfs' ? (
+              <motion.div
+                key="pdfs-library-view"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.22 }}
+              >
+                <PdfLibrary />
               </motion.div>
             ) : null}
           </AnimatePresence>
@@ -722,12 +760,12 @@ export default function App() {
       </AnimatePresence>
 
       {/* Mobile Bottom Navigation Bar - Minimalist Sliding Pill */}
-      <div className="print:hidden md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-[360px]" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
-        <nav className="relative bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl border border-slate-200/50 dark:border-slate-800/50 shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] rounded-2xl p-2 flex items-center justify-between mx-auto">
+      <div className="print:hidden md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-[380px]" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
+        <nav className="relative bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl border border-slate-200/70 dark:border-slate-800/70 shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] rounded-2xl p-1.5 flex items-center justify-between mx-auto">
           
           <button
             onClick={() => setActiveView('home')}
-            className={`relative z-10 flex flex-col items-center justify-center w-1/4 h-12 rounded-xl transition-colors cursor-pointer ${
+            className={`relative z-10 flex flex-col items-center justify-center w-1/5 h-12 rounded-xl transition-colors cursor-pointer ${
               activeView === 'home' ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
             }`}
           >
@@ -740,7 +778,7 @@ export default function App() {
           
           <button
             onClick={() => setActiveView('syllabus')}
-            className={`relative z-10 flex flex-col items-center justify-center w-1/4 h-12 rounded-xl transition-colors cursor-pointer ${
+            className={`relative z-10 flex flex-col items-center justify-center w-1/5 h-12 rounded-xl transition-colors cursor-pointer ${
               activeView === 'syllabus' ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
             }`}
           >
@@ -753,7 +791,7 @@ export default function App() {
           
           <button
             onClick={() => setActiveView('formulas')}
-            className={`relative z-10 flex flex-col items-center justify-center w-1/4 h-12 rounded-xl transition-colors cursor-pointer ${
+            className={`relative z-10 flex flex-col items-center justify-center w-1/5 h-12 rounded-xl transition-colors cursor-pointer ${
               activeView === 'formulas' ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
             }`}
           >
@@ -766,7 +804,7 @@ export default function App() {
           
           <button
             onClick={() => setActiveView('past-questions')}
-            className={`relative z-10 flex flex-col items-center justify-center w-1/4 h-12 rounded-xl transition-colors cursor-pointer ${
+            className={`relative z-10 flex flex-col items-center justify-center w-1/5 h-12 rounded-xl transition-colors cursor-pointer ${
               activeView === 'past-questions' ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
             }`}
           >
@@ -775,6 +813,19 @@ export default function App() {
             )}
             <FileText className="w-4 h-4 mb-1" />
             <span className="text-[9px] font-bold tracking-wide">Papers</span>
+          </button>
+
+          <button
+            onClick={() => setActiveView('pdfs')}
+            className={`relative z-10 flex flex-col items-center justify-center w-1/5 h-12 rounded-xl transition-colors cursor-pointer ${
+              activeView === 'pdfs' ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+            }`}
+          >
+            {activeView === 'pdfs' && (
+              <motion.div layoutId="navPill" className="absolute inset-0 bg-indigo-50 dark:bg-indigo-500/20 rounded-xl -z-10" transition={{ type: "spring", stiffness: 350, damping: 30 }} />
+            )}
+            <Download className="w-4 h-4 mb-1" />
+            <span className="text-[9px] font-bold tracking-wide">PDFs</span>
           </button>
         </nav>
       </div>

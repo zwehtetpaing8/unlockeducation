@@ -3,7 +3,7 @@ export interface PastQuestion {
   chapterId: number;
   chapterTitle: string;
   year: number;
-  section: 'A' | 'B';
+  section: 'A' | 'B' | 'C' | 'D';
   questionNumber: number;
   questionText: string;
   options?: string[];

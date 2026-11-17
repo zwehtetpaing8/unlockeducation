@@ -79,7 +79,7 @@ export default function PastQuestions() {
               Board Exam Past Questions
             </h2>
             <p className="text-slate-200/90 text-sm max-w-xl leading-relaxed">
-              Solve actual exam questions from <strong>2025</strong> and <strong>2026</strong>. Test your knowledge with instant option verification and full step-by-step mathematical solutions.
+              Solve actual exam questions from <strong>2024</strong>, <strong>2025</strong> and <strong>2026</strong>. Test your knowledge with instant option verification and full step-by-step mathematical solutions.
             </p>
           </div>
 
