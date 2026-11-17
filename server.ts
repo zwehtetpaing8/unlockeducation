@@ -204,18 +204,88 @@ Please return exactly 5 multiple choice questions related to this math content. 
   });
 
 
+  const getDynamicMeta = (req: express.Request) => {
+    const proto = (req.headers["x-forwarded-proto"] as string)?.split(",")[0].trim() || req.protocol || "https";
+    const host = (req.headers["x-forwarded-host"] as string)?.split(",")[0].trim() || req.get("host") || "";
+    const baseUrl = host ? `${proto}://${host}` : "";
+
+    const pdfId = req.query.pdf as string | undefined;
+    const view = req.query.view as string | undefined;
+
+    if (pdfId === "ch1-past-paper") {
+      return {
+        title: "G12_Ch1_Past_Papers_Section_A_to_D (Questions only) – Unlock Education",
+        description: "Chapter 1: Complex Numbers — Grade 12 Mathematics Past Papers Section A to D (Questions Only, 7 Pages). Read online or download PDF.",
+        image: `${baseUrl}/papers/ch1/page-1.png`,
+      };
+    }
+    if (pdfId === "ch1-sec-a-solutions") {
+      return {
+        title: "G12_Ch1_Past_Papers_Section_A (Solutions) – Unlock Education",
+        description: "Chapter 1: Complex Numbers — Grade 12 Mathematics Past Papers Section A (Worked Solutions, 7 Pages). Read online or download PDF.",
+        image: `${baseUrl}/papers/ch1/sec-a-sol/page-1.png`,
+      };
+    }
+    if (view === "pdfs") {
+      return {
+        title: "Grade 12 Mathematics Past Paper & Solution PDFs – Unlock Education",
+        description: "Read and download Grade 12 Mathematics Past Paper Questions & Worked Solutions PDFs by Sayar Zwe (Unlock Education).",
+        image: `${baseUrl}/papers/ch1/page-1.png`,
+      };
+    }
+    return {
+      title: "Unlock Education – Grade 12 Mathematics Syllabus & Past Papers",
+      description: "Master Grade 12 Mathematics with Unlock Education. Interactive chapters, formula sheets, practice quizzes, and downloadable Past Paper Questions & Solutions PDFs.",
+      image: `${baseUrl}/papers/ch1/page-1.png`,
+    };
+  };
+
+  const applyMetaToHtml = (html: string, req: express.Request) => {
+    const meta = getDynamicMeta(req);
+    return html
+      .replace(/<title>.*?<\/title>/s, `<title>${meta.title}</title>`)
+      .replace(/<meta property="og:title" content=".*?" \/>/g, `<meta property="og:title" content="${meta.title}" />`)
+      .replace(/<meta name="twitter:title" content=".*?" \/>/g, `<meta name="twitter:title" content="${meta.title}" />`)
+      .replace(/<meta\s+name="description"\s+content=".*?"\s*\/>/s, `<meta name="description" content="${meta.description}" />`)
+      .replace(/<meta\s+property="og:description"\s+content=".*?"\s*\/>/s, `<meta property="og:description" content="${meta.description}" />`)
+      .replace(/<meta\s+name="twitter:description"\s+content=".*?"\s*\/>/s, `<meta name="twitter:description" content="${meta.description}" />`)
+      .replace(/<meta property="og:image" content=".*?" \/>/g, `<meta property="og:image" content="${meta.image}" />`)
+      .replace(/<meta name="twitter:image" content=".*?" \/>/g, `<meta name="twitter:image" content="${meta.image}" />`);
+  };
+
   // Vite middleware for development
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: "spa",
     });
+    app.use(async (req, res, next) => {
+      if (req.method === "GET" && (req.path === "/" || req.path === "/index.html")) {
+        try {
+          const indexPath = path.join(process.cwd(), "index.html");
+          let template = fs.readFileSync(indexPath, "utf-8");
+          template = applyMetaToHtml(template, req);
+          const html = await vite.transformIndexHtml(req.originalUrl, template);
+          return res.status(200).set({ "Content-Type": "text/html" }).end(html);
+        } catch (e) {
+          return next(e);
+        }
+      }
+      next();
+    });
     app.use(vite.middlewares);
   } else {
     const distPath = path.join(process.cwd(), 'dist');
-    app.use(express.static(distPath));
+    app.use(express.static(distPath, { index: false }));
     app.get('*', (req, res) => {
-      res.sendFile(path.join(distPath, 'index.html'));
+      const indexPath = path.join(distPath, 'index.html');
+      if (fs.existsSync(indexPath)) {
+        const rawHtml = fs.readFileSync(indexPath, 'utf-8');
+        const html = applyMetaToHtml(rawHtml, req);
+        res.status(200).set({ "Content-Type": "text/html" }).end(html);
+      } else {
+        res.status(404).send('Not found');
+      }
     });
   }
 
