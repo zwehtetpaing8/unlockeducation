@@ -214,16 +214,23 @@ Please return exactly 5 multiple choice questions related to this math content. 
 
     if (pdfId === "ch1-past-paper") {
       return {
-        title: "G12_Ch1_Past_Papers_Section_A_to_D (Questions only) – Unlock Education",
+        title: "G12 Ch1 Past Papers Section A to D (Questions only) – Unlock Education",
         description: "Chapter 1: Complex Numbers — Grade 12 Mathematics Past Papers Section A to D (Questions Only, 7 Pages). Read online or download PDF.",
         image: `${baseUrl}/papers/ch1/page-1.png`,
       };
     }
     if (pdfId === "ch1-sec-a-solutions") {
       return {
-        title: "G12_Ch1_Past_Papers_Section_A (Solutions) – Unlock Education",
+        title: "G12 Ch1 Past Papers Section A (Solutions) – Unlock Education",
         description: "Chapter 1: Complex Numbers — Grade 12 Mathematics Past Papers Section A (Worked Solutions, 7 Pages). Read online or download PDF.",
         image: `${baseUrl}/papers/ch1/sec-a-sol/page-1.png`,
+      };
+    }
+    if (pdfId === "ch2-past-paper") {
+      return {
+        title: "G12 Ch2 Past Papers Section C and D (Questions only) – Unlock Education",
+        description: "Chapter 2: Mathematical Induction — Grade 12 Mathematics Past Papers Section C and D (Questions Only, 4 Pages). Read online or download PDF.",
+        image: `${baseUrl}/papers/ch2/page-1.png`,
       };
     }
     if (view === "pdfs") {
