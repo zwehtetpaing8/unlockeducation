@@ -1,11 +1,14 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-export type Theme = 'light' | 'dark' | 'system';
+export type Theme = 'light' | 'paper' | 'dark' | 'system';
+export type ColorPalette = 'ocean' | 'emerald' | 'royal' | 'indigo';
 
 interface ThemeContextType {
   theme: Theme;
   setTheme: (theme: Theme) => void;
   resolvedTheme: 'light' | 'dark';
+  palette: ColorPalette;
+  setPalette: (palette: ColorPalette) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -13,9 +16,16 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>(() => {
     if (typeof window !== 'undefined') {
-      return (localStorage.getItem('theme') as Theme) || 'system';
+      return (localStorage.getItem('theme') as Theme) || 'light';
     }
-    return 'system';
+    return 'light';
+  });
+
+  const [palette, setPaletteState] = useState<ColorPalette>(() => {
+    if (typeof window !== 'undefined') {
+      return (localStorage.getItem('unlock_edu_palette') as ColorPalette) || 'ocean';
+    }
+    return 'ocean';
   });
 
   const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('light');
@@ -24,6 +34,16 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem('theme', newTheme);
     setThemeState(newTheme);
   };
+
+  const setPalette = (newPalette: ColorPalette) => {
+    localStorage.setItem('unlock_edu_palette', newPalette);
+    setPaletteState(newPalette);
+  };
+
+  useEffect(() => {
+    const root = window.document.documentElement;
+    root.setAttribute('data-palette', palette);
+  }, [palette]);
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -34,17 +54,20 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       if (theme === 'system') {
         const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         activeTheme = systemPrefersDark ? 'dark' : 'light';
+      } else if (theme === 'dark') {
+        activeTheme = 'dark';
       } else {
-        activeTheme = theme;
+        activeTheme = 'light';
       }
 
       setResolvedTheme(activeTheme);
 
+      root.classList.remove('dark', 'theme-paper');
+
       if (activeTheme === 'dark') {
         root.classList.add('dark');
-        // Optional: set custom meta themes or color styles if needed
-      } else {
-        root.classList.remove('dark');
+      } else if (theme === 'paper') {
+        root.classList.add('theme-paper');
       }
     };
 
@@ -59,7 +82,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   }, [theme]);
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, resolvedTheme }}>
+    <ThemeContext.Provider value={{ theme, setTheme, resolvedTheme, palette, setPalette }}>
       {children}
     </ThemeContext.Provider>
   );

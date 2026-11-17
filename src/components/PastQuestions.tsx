@@ -67,31 +67,31 @@ export default function PastQuestions() {
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-indigo-900 via-indigo-800 to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-lg relative overflow-hidden">
-        <div className="absolute -right-10 -bottom-10 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="bg-gradient-to-br from-[var(--hero-from)] via-[var(--hero-via)] to-[var(--hero-to)] rounded-3xl p-6 sm:p-8 text-white shadow-lg border border-slate-800/80 relative overflow-hidden">
+        <div className="absolute -right-10 -bottom-10 w-64 h-64 bg-indigo-400/15 rounded-full blur-3xl pointer-events-none" />
         
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-mono font-medium border border-indigo-400/20">
-              <Award className="w-3.5 h-3.5" /> Official Exam Questions
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/15 text-amber-300 text-xs font-mono font-medium border border-amber-400/30">
+              <Award className="w-3.5 h-3.5 text-amber-400" /> Official Exam Questions
             </div>
-            <h2 className="text-2xl sm:text-3xl font-display font-bold tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-display font-bold tracking-tight text-white">
               Board Exam Past Questions
             </h2>
-            <p className="text-slate-300 text-sm max-w-xl leading-relaxed">
+            <p className="text-slate-200/90 text-sm max-w-xl leading-relaxed">
               Solve actual exam questions from <strong>2025</strong> and <strong>2026</strong>. Test your knowledge with instant option verification and full step-by-step mathematical solutions.
             </p>
           </div>
 
           {answeredCount > 0 && (
-            <div className="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/10 flex items-center gap-4 min-w-[200px]">
-              <div className="p-3 bg-indigo-500/30 rounded-xl text-indigo-200">
+            <div className="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/15 flex items-center gap-4 min-w-[200px]">
+              <div className="p-3 bg-amber-400/20 rounded-xl text-amber-300">
                 <CheckCircle2 className="w-6 h-6" />
               </div>
               <div>
-                <p className="text-xs text-indigo-200 font-medium">Practice Progress</p>
+                <p className="text-xs text-slate-200 font-medium">Practice Progress</p>
                 <p className="text-xl font-bold font-mono text-white">
-                  {correctCount} / {answeredCount} <span className="text-xs text-indigo-300 font-normal">Correct</span>
+                  {correctCount} / {answeredCount} <span className="text-xs text-amber-300 font-normal">Correct</span>
                 </p>
               </div>
             </div>

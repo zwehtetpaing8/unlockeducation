@@ -333,27 +333,27 @@ export default function ChapterDetails({
   return (
     <div className="space-y-6">
       {/* Chapter Overview Hero Header card */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 text-white p-6 md:p-8 rounded-3xl shadow-md border border-slate-800">
-        <div className="absolute top-0 right-0 transform translate-x-12 -translate-y-6 w-72 h-72 rounded-full bg-indigo-500/10 blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 transform -translate-x-12 translate-y-6 w-72 h-72 rounded-full bg-violet-500/10 blur-3xl pointer-events-none" />
+      <div className="relative overflow-hidden bg-gradient-to-br from-[var(--hero-from)] via-[var(--hero-via)] to-[var(--hero-to)] text-white p-6 md:p-8 rounded-3xl shadow-md border border-slate-800/80">
+        <div className="absolute top-0 right-0 transform translate-x-12 -translate-y-6 w-72 h-72 rounded-full bg-indigo-400/15 blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 transform -translate-x-12 translate-y-6 w-72 h-72 rounded-full bg-amber-400/10 blur-3xl pointer-events-none" />
 
         <div className="relative z-10 flex flex-col md:flex-row md:items-start justify-between gap-4">
           <div className="space-y-3">
-            <div className="flex items-center gap-2">
-              <span className="text-[10px] uppercase font-mono tracking-widest bg-indigo-500/20 text-indigo-300 px-3 py-1 rounded-full border border-indigo-500/30 font-bold">
+            <div className="flex items-center gap-2.5">
+              <span className="text-[10px] uppercase font-mono tracking-widest bg-amber-400/15 text-amber-300 px-3 py-1 rounded-full border border-amber-400/30 font-bold">
                 Chapter {chapter.id}
               </span>
-              <span className="text-[10px] text-slate-400 font-medium flex items-center gap-1">
-                <Calendar className="w-3.5 h-3.5" /> Unlock Education Math
+              <span className="text-[11px] text-slate-300 font-medium flex items-center gap-1.5">
+                <Calendar className="w-3.5 h-3.5 text-indigo-300" /> Unlock Education Math
                 Syllabus
               </span>
             </div>
 
-            <h2 className="font-display font-bold text-xl md:text-3xl text-slate-100 tracking-tight leading-tight">
+            <h2 className="font-display font-bold text-xl md:text-3xl text-white tracking-tight leading-tight">
               {chapter.title}
             </h2>
 
-            <div className="text-xs md:text-sm text-slate-300/95 max-w-2xl leading-relaxed italic">
+            <div className="text-xs md:text-sm text-slate-200/90 max-w-2xl leading-relaxed">
               <Latex text={chapter.tagline} />
             </div>
           </div>

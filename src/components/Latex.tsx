@@ -3734,40 +3734,40 @@ case 'Chap4_Fig5':
           j++;
         }
         i = j - 1;
-        let bgStyle = "bg-slate-50/70 dark:bg-slate-900/30 border-slate-200/50 dark:border-slate-800/60";
-        let textAccent = "text-slate-700 dark:text-slate-300";
+        let bgStyle = "bg-slate-50/90 dark:bg-slate-800/40 border-slate-200/80 dark:border-slate-700/70";
+        let textAccent = "text-slate-700 dark:text-slate-200";
         let icon = <Info className="w-4 h-4 text-slate-500" />;
         let titleColor = "text-slate-900 dark:text-white";
 
         if (category.toLowerCase().includes("definition") || category.toLowerCase().includes("direction vector")) {
-          bgStyle = "bg-amber-50/40 dark:bg-amber-950/10 border-amber-200/50 dark:border-amber-900/20 border-l-4 border-l-amber-500";
-          textAccent = "text-slate-700 dark:text-slate-300";
-          icon = <BookOpen className="w-4 h-4 text-amber-500" />;
-          titleColor = "text-amber-800 dark:text-amber-400 font-bold";
+          bgStyle = "bg-amber-50/70 dark:bg-amber-950/25 border-amber-200/80 dark:border-amber-800/50";
+          textAccent = "text-slate-800 dark:text-slate-200";
+          icon = <BookOpen className="w-4 h-4 text-amber-600 dark:text-amber-400" />;
+          titleColor = "text-amber-900 dark:text-amber-300 font-bold";
         } else if (category.toLowerCase().includes("concept check") || category.toLowerCase().includes("motivation")) {
-          bgStyle = "bg-indigo-50/40 dark:bg-indigo-950/10 border-indigo-200/50 dark:border-indigo-900/20 border-l-4 border-l-indigo-500";
-          textAccent = "text-slate-700 dark:text-slate-300";
-          icon = <Compass className="w-4 h-4 text-indigo-500" />;
-          titleColor = "text-indigo-800 dark:text-indigo-400 font-bold";
+          bgStyle = "bg-indigo-50/70 dark:bg-indigo-950/30 border-indigo-200/80 dark:border-indigo-800/50";
+          textAccent = "text-slate-800 dark:text-slate-200";
+          icon = <Compass className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />;
+          titleColor = "text-indigo-900 dark:text-indigo-300 font-bold";
         } else if (category.toLowerCase().includes("rule")) {
-          bgStyle = "bg-violet-50/40 dark:bg-violet-950/10 border-violet-200/50 dark:border-violet-900/20 border-l-4 border-l-violet-500";
-          textAccent = "text-slate-700 dark:text-slate-300";
-          icon = <Star className="w-4 h-4 text-violet-500" />;
-          titleColor = "text-violet-800 dark:text-violet-400 font-bold";
+          bgStyle = "bg-sky-50/70 dark:bg-sky-950/30 border-sky-200/80 dark:border-sky-800/50";
+          textAccent = "text-slate-800 dark:text-slate-200";
+          icon = <Star className="w-4 h-4 text-sky-600 dark:text-sky-400" />;
+          titleColor = "text-sky-900 dark:text-sky-300 font-bold";
         } else if (category.toLowerCase().includes("check") || category.toLowerCase().includes("vector equation in component form")) {
-          bgStyle = "bg-emerald-50/40 dark:bg-emerald-950/10 border-emerald-200/50 dark:border-emerald-900/20 border-l-4 border-l-emerald-500";
-          textAccent = "text-slate-700 dark:text-slate-300";
-          icon = <CheckCircle2 className="w-4 h-4 text-emerald-500" />;
-          titleColor = "text-emerald-800 dark:text-emerald-400 font-bold";
+          bgStyle = "bg-emerald-50/70 dark:bg-emerald-950/25 border-emerald-200/80 dark:border-emerald-800/50";
+          textAccent = "text-slate-800 dark:text-slate-200";
+          icon = <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />;
+          titleColor = "text-emerald-900 dark:text-emerald-300 font-bold";
         } else if (category.toLowerCase().includes("solution") || category.toLowerCase().includes("method")) {
-          bgStyle = "bg-slate-50 dark:bg-slate-900/60 border-slate-200 dark:border-slate-800/80 p-4 border-l-4 border-l-indigo-400";
-          textAccent = "text-slate-700 dark:text-slate-300";
-          icon = <Sparkles className="w-4 h-4 text-indigo-400" />;
-          titleColor = "text-indigo-600 dark:text-indigo-400 font-bold";
+          bgStyle = "bg-slate-50/95 dark:bg-slate-800/50 border-slate-200/90 dark:border-slate-700/80 p-4";
+          textAccent = "text-slate-800 dark:text-slate-200";
+          icon = <Sparkles className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />;
+          titleColor = "text-indigo-700 dark:text-indigo-300 font-bold";
         }
 
         renderedElements.push(
-          <div key={"card-" + i} className={"p-4 rounded-xl border my-4 shadow-sm " + bgStyle}>
+          <div key={"card-" + i} className={"p-4 rounded-xl border my-4 shadow-2xs " + bgStyle}>
             <div className="flex items-center gap-2 mb-2">
               {icon}
               <span className={`text-xs uppercase tracking-wider font-display font-bold ${titleColor}`}>

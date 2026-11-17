@@ -127,7 +127,7 @@ export default function HomeView({ onSelectChapter, onNavigateToFormulas }: Home
 
   const itemVariants = {
     hidden: { opacity: 0, y: 15 },
-    show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100 } }
+    show: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 100 } }
   };
 
   return (
@@ -137,26 +137,26 @@ export default function HomeView({ onSelectChapter, onNavigateToFormulas }: Home
       animate="show"
       className="space-y-10 pb-16"
     >
-      {/* 1. Hero Welcoming Banner with Elegant Design */}
+      {/* 1. Hero Welcoming Banner with Brand-Aligned Deep Navy, Sky & Gold Design */}
       <motion.div
         variants={itemVariants}
-        className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-600 via-indigo-700 to-violet-800 text-white p-6 md:p-10 shadow-xl shadow-indigo-500/10"
+        className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[var(--hero-from)] via-[var(--hero-via)] to-[var(--hero-to)] text-white p-6 md:p-10 shadow-xl shadow-slate-900/10 border border-slate-800/60"
       >
-        {/* Abstract decoration graphics */}
-        <div className="absolute right-0 top-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-white/5 blur-2xl pointer-events-none" />
-        <div className="absolute left-1/3 bottom-0 -mb-12 w-48 h-48 rounded-full bg-indigo-500/15 blur-xl pointer-events-none" />
+        {/* Subtle ambient light accents matching Unlock logo (Cyan & Warm Gold) */}
+        <div className="absolute right-0 top-0 -mr-16 -mt-16 w-72 h-72 rounded-full bg-indigo-400/15 blur-3xl pointer-events-none" />
+        <div className="absolute left-1/3 bottom-0 -mb-16 w-56 h-56 rounded-full bg-amber-400/10 blur-3xl pointer-events-none" />
 
         <div className="max-w-3xl relative z-10 space-y-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-xs font-semibold tracking-wide text-indigo-100 border border-white/10 uppercase">
-            <Sparkles className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-amber-400/10 backdrop-blur-md rounded-full text-xs font-semibold tracking-wide text-amber-300 border border-amber-400/25">
+            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
             Unlock Education Learning Portal
           </div>
           
           <div className="space-y-3">
-            <h1 className="text-3xl md:text-5xl font-display font-extrabold tracking-tight leading-none">
+            <h1 className="text-3xl md:text-5xl font-display font-extrabold tracking-tight leading-tight text-white">
               Explore the Beauty of Mathematics
             </h1>
-            <p className="text-sm md:text-base text-indigo-100/90 leading-relaxed font-sans max-w-2xl">
+            <p className="text-sm md:text-base text-slate-200/90 leading-relaxed font-sans max-w-2xl">
               An immersive academic study guide built specifically for Unlock Education students. Master 11 core chapters with beautifully typeset LaTeX formula sheets, interactive practice quizzes, and real-time visualization tools.
             </p>
           </div>
@@ -164,14 +164,14 @@ export default function HomeView({ onSelectChapter, onNavigateToFormulas }: Home
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
             <button
               onClick={() => onSelectChapter(1)}
-              className="flex items-center justify-center gap-2 bg-white hover:bg-slate-100 text-indigo-700 px-6 py-3 rounded-xl font-bold text-xs md:text-sm tracking-wide transition-all shadow-md hover:shadow-lg cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0"
+              className="flex items-center justify-center gap-2 bg-amber-400 hover:bg-amber-300 text-slate-950 px-6 py-3 rounded-xl font-bold text-xs md:text-sm tracking-wide transition-all shadow-md hover:shadow-lg cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0"
             >
               <BookOpen className="w-4 h-4" />
               Start Studying Syllabus
             </button>
             <button
               onClick={onNavigateToFormulas}
-              className="flex items-center justify-center gap-2 bg-indigo-600/50 hover:bg-indigo-600/70 border border-white/20 text-white px-6 py-3 rounded-xl font-bold text-xs md:text-sm tracking-wide transition-all cursor-pointer backdrop-blur-sm"
+              className="flex items-center justify-center gap-2 bg-white/10 hover:bg-white/15 border border-white/20 text-white px-6 py-3 rounded-xl font-bold text-xs md:text-sm tracking-wide transition-all cursor-pointer backdrop-blur-sm"
             >
               <Calculator className="w-4 h-4" />
               Formula Registry
@@ -498,21 +498,20 @@ export default function HomeView({ onSelectChapter, onNavigateToFormulas }: Home
           </p>
         </div>
         
-        <div className="bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/40 rounded-3xl p-6 flex justify-center shadow-sm">
-          <div className="w-full max-w-[500px] rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-700/50 overflow-hidden">
+        <div className="bg-white dark:bg-slate-900 border border-slate-200/70 dark:border-slate-800 rounded-3xl p-6 flex justify-center shadow-xs">
+          <div className="w-full max-w-[500px] rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700/60 overflow-hidden">
             {/* Facebook Card Header Cover */}
-            <div className="h-24 md:h-32 bg-gradient-to-r from-blue-600 to-indigo-600 relative">
-              <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+            <div className="h-24 md:h-28 bg-gradient-to-r from-[var(--hero-from)] via-[var(--hero-via)] to-[var(--hero-to)] relative overflow-hidden">
+              <div className="absolute right-0 top-0 w-40 h-40 rounded-full bg-indigo-400/20 blur-2xl pointer-events-none" />
+              <div className="absolute left-8 bottom-0 w-32 h-32 rounded-full bg-amber-400/15 blur-2xl pointer-events-none" />
             </div>
             
             {/* Facebook Card Content */}
             <div className="px-6 pb-6 pt-3 relative">
               {/* Profile Picture & Title */}
-              <div className="flex flex-col items-center -mt-12 md:-mt-16 mb-4">
-                <div className="w-20 h-20 md:w-24 md:h-24 bg-white dark:bg-slate-900 rounded-full p-1.5 shadow-md relative z-10">
-                  <div className="w-full h-full bg-blue-100 dark:bg-blue-900/40 rounded-full flex items-center justify-center text-blue-600 dark:text-blue-400">
-                    <GraduationCap className="w-8 h-8 md:w-10 md:h-10" />
-                  </div>
+              <div className="flex flex-col items-center -mt-12 md:-mt-14 mb-4">
+                <div className="w-20 h-20 md:w-22 md:h-22 bg-white dark:bg-slate-900 rounded-full p-1.5 shadow-md relative z-10 border border-slate-200 dark:border-slate-700">
+                  <img src="/logo.png" alt="Unlock Education" className="w-full h-full rounded-full object-contain" />
                 </div>
                 <h3 className="font-display font-bold text-lg md:text-xl text-slate-900 dark:text-white mt-3">
                   Unlock Education

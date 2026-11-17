@@ -141,22 +141,22 @@ export default function App() {
   const selectedChapter = chapters.find((ch) => ch.id === selectedChapterId) || chapters[0];
 
   return (
-    <div className="min-h-screen bg-slate-50/60 dark:bg-slate-950 print:bg-white print:text-black font-sans text-slate-800 dark:text-slate-200 antialiased flex flex-col pb-20 md:pb-0">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 print:bg-white print:text-black font-sans text-slate-800 dark:text-slate-200 antialiased flex flex-col pb-20 md:pb-0 transition-colors duration-200">
       {/* Top Main Navigation Header */}
       {!isReadingMode && (
-      <header className="print:hidden sticky top-0 z-40 bg-white/85 dark:bg-slate-950/85 backdrop-blur-md border-b border-slate-200/50 dark:border-slate-800/40 px-4 md:px-8 py-3.5 flex items-center justify-between">
+      <header className="print:hidden sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800 px-4 md:px-8 py-3 flex items-center justify-between shadow-2xs">
         <button 
           onClick={() => setActiveView('home')}
           className="flex items-center gap-3 text-left cursor-pointer group focus:outline-none transition-all"
         >
-          <div className="w-10 h-10 rounded-xl overflow-hidden shadow-md group-hover:scale-105 transition-transform duration-200 bg-transparent flex items-center justify-center">
+          <div className="w-10 h-10 rounded-xl overflow-hidden shadow-sm group-hover:scale-105 transition-transform duration-200 bg-transparent flex items-center justify-center">
             <img src="/logo.png" alt="Unlock Education Logo" className="w-full h-full object-contain" />
           </div>
           <div>
             <h1 className="font-display font-bold text-sm md:text-base tracking-tight text-slate-900 dark:text-white leading-tight group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
               Unlock Education
             </h1>
-            <p className="text-[10px] text-slate-400 font-medium tracking-wide uppercase">
+            <p className="text-[10px] text-slate-500 dark:text-slate-400 font-semibold tracking-wider uppercase">
               ACADEMIC STUDY PORTAL
             </p>
           </div>
