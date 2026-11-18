@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Download, Share2, Check, FileText, ArrowLeft, Eye } from 'lucide-react';
+import { Download, Share2, Check, FileText, ArrowLeft, Eye, Sparkles, Images } from 'lucide-react';
 import { pdfResources, pdfChapters, PdfCategory } from '../data/pdfResources';
+import AnimatedProofs from './AnimatedProofs';
 
 const getPdfIdFromLocation = () => {
   const pathMatch = window.location.pathname.match(/^\/pdfs\/([^/]+)\/?$/);
@@ -19,6 +20,7 @@ export default function PdfLibrary() {
   const [selectedChapterId, setSelectedChapterId] = useState<'all' | number>('all');
   const [selectedCategory, setSelectedCategory] = useState<'all' | PdfCategory>('all');
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [readerMode, setReaderMode] = useState<'animated' | 'pages'>('animated');
 
   // Sync URL and document.title with viewingPdfId using clean /pdfs/<id> paths
   useEffect(() => {
@@ -72,6 +74,8 @@ export default function PdfLibrary() {
   // Dedicated Single-File Reader View (opened via direct share link or clicking a file)
   if (viewingPdf) {
     const isCopied = copiedId === viewingPdf.id;
+    const showAnimated = viewingPdf.hasAnimatedSolutions && readerMode === 'animated';
+
     return (
       <div className="max-w-3xl mx-auto w-full space-y-4">
         {/* Minimalist Top Bar */}
@@ -91,7 +95,36 @@ export default function PdfLibrary() {
             </h2>
           </div>
 
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex flex-wrap items-center gap-2 shrink-0">
+            {viewingPdf.hasAnimatedSolutions && (
+              <div className="inline-flex items-center bg-slate-100 dark:bg-slate-800 p-0.5 rounded-lg">
+                <button
+                  type="button"
+                  onClick={() => setReaderMode('animated')}
+                  className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold transition-all cursor-pointer ${
+                    readerMode === 'animated'
+                      ? 'bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-2xs'
+                      : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
+                  }`}
+                >
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>Animated</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setReaderMode('pages')}
+                  className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold transition-all cursor-pointer ${
+                    readerMode === 'pages'
+                      ? 'bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-2xs'
+                      : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
+                  }`}
+                >
+                  <Images className="w-3.5 h-3.5" />
+                  <span>PDF Pages</span>
+                </button>
+              </div>
+            )}
+
             <button
               type="button"
               onClick={(e) => handleCopyShareLink(e, viewingPdf.id)}
@@ -121,28 +154,32 @@ export default function PdfLibrary() {
           </div>
         </div>
 
-        {/* Pages in Image View */}
-        <div className="space-y-4">
-          {viewingPdf.pages.map((pageUrl, idx) => (
-            <div
-              key={idx}
-              className="w-full bg-white rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-2xs overflow-hidden"
-            >
-              <div className="bg-slate-50 dark:bg-slate-800/80 px-4 py-2 text-xs font-mono font-medium text-slate-500 dark:text-slate-400 flex items-center justify-between gap-2 border-b border-slate-200/70 dark:border-slate-800">
-                <span className="truncate">{viewingPdf.fileName}</span>
-                <span className="shrink-0">
-                  Page {idx + 1} / {viewingPdf.pageCount}
-                </span>
+        {/* Animated Line-by-Line Solutions OR PDF Pages */}
+        {showAnimated ? (
+          <AnimatedProofs />
+        ) : (
+          <div className="space-y-4">
+            {viewingPdf.pages.map((pageUrl, idx) => (
+              <div
+                key={idx}
+                className="w-full bg-white rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-2xs overflow-hidden"
+              >
+                <div className="bg-slate-50 dark:bg-slate-800/80 px-4 py-2 text-xs font-mono font-medium text-slate-500 dark:text-slate-400 flex items-center justify-between gap-2 border-b border-slate-200/70 dark:border-slate-800">
+                  <span className="truncate">{viewingPdf.fileName}</span>
+                  <span className="shrink-0">
+                    Page {idx + 1} / {viewingPdf.pageCount}
+                  </span>
+                </div>
+                <img
+                  src={pageUrl}
+                  alt={`${viewingPdf.fileName} - Page ${idx + 1}`}
+                  loading={idx <= 1 ? 'eager' : 'lazy'}
+                  className="w-full h-auto block"
+                />
               </div>
-              <img
-                src={pageUrl}
-                alt={`${viewingPdf.fileName} - Page ${idx + 1}`}
-                loading={idx <= 1 ? 'eager' : 'lazy'}
-                className="w-full h-auto block"
-              />
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     );
   }
@@ -236,7 +273,11 @@ export default function PdfLibrary() {
             return (
               <div
                 key={file.id}
-                onClick={() => file.available && setViewingPdfId(file.id)}
+                onClick={() => {
+                  if (!file.available) return;
+                  setReaderMode(file.hasAnimatedSolutions ? 'animated' : 'pages');
+                  setViewingPdfId(file.id);
+                }}
                 className={`px-4 py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition-colors ${
                   file.available
                     ? 'hover:bg-slate-50/80 dark:hover:bg-slate-800/40 cursor-pointer'
@@ -275,11 +316,27 @@ export default function PdfLibrary() {
 
                 {/* Right: Minimalist Actions */}
                 {file.available && (
-                  <div className="flex items-center gap-1.5 shrink-0 self-end sm:self-center">
+                  <div className="flex items-center gap-1.5 shrink-0 self-end sm:self-center flex-wrap">
+                    {file.hasAnimatedSolutions && (
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setReaderMode('animated');
+                          setViewingPdfId(file.id);
+                        }}
+                        className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/50 dark:hover:bg-indigo-900/50 rounded-lg text-xs font-semibold transition-colors cursor-pointer"
+                      >
+                        <Sparkles className="w-3.5 h-3.5" />
+                        <span>Animated</span>
+                      </button>
+                    )}
+
                     <button
                       type="button"
                       onClick={(e) => {
                         e.stopPropagation();
+                        setReaderMode(file.hasAnimatedSolutions ? 'pages' : 'animated');
                         setViewingPdfId(file.id);
                       }}
                       className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg text-xs font-medium transition-colors cursor-pointer"

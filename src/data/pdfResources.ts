@@ -12,6 +12,7 @@ export interface PdfResource {
   pageCount: number;
   pages: string[];
   available: boolean;
+  hasAnimatedSolutions?: boolean;
 }
 
 export const pdfChapters = [
@@ -88,5 +89,28 @@ export const pdfResources: PdfResource[] = [
       '/papers/ch2/page-4.png',
     ],
     available: true,
+  },
+  {
+    id: 'ch2-2024-sec-c-solutions',
+    chapterId: 2,
+    chapterTitle: 'Mathematical Induction',
+    category: 'solutions',
+    fileName: 'G12 Ch2 Past Papers 2024 Section C (Solutions)',
+    description: 'Chapter 2: Mathematical Induction — 2024 Past Papers Section C (Questions 1–6 Worked Solutions)',
+    pdfUrl: '/papers/ch2/G12%20Ch2%20Past%20Papers%202024%20Section%20C%20(Solutions).pdf',
+    downloadName: 'G12 Ch2 Past Papers 2024 Section C (Solutions).pdf',
+    pageCount: 8,
+    pages: [
+      '/papers/ch2/sec-c-2024-sol/page-1.png',
+      '/papers/ch2/sec-c-2024-sol/page-2.png',
+      '/papers/ch2/sec-c-2024-sol/page-3.png',
+      '/papers/ch2/sec-c-2024-sol/page-4.png',
+      '/papers/ch2/sec-c-2024-sol/page-5.png',
+      '/papers/ch2/sec-c-2024-sol/page-6.png',
+      '/papers/ch2/sec-c-2024-sol/page-7.png',
+      '/papers/ch2/sec-c-2024-sol/page-8.png',
+    ],
+    available: true,
+    hasAnimatedSolutions: true,
   },
 ];
