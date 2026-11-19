@@ -77,80 +77,86 @@ export default function PdfLibrary() {
     const showAnimated = viewingPdf.hasAnimatedSolutions && readerMode === 'animated';
 
     return (
-      <div className="max-w-3xl mx-auto w-full space-y-4">
-        {/* Minimalist Top Bar */}
-        <div className="bg-white dark:bg-slate-900 px-4 py-3 rounded-2xl border border-slate-200/80 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-3 min-w-0">
+      <div className="max-w-3xl mx-auto w-full space-y-4 overflow-hidden">
+        {/* Minimalist Top Bar (Responsive, Zero Mobile Overflow) */}
+        <div className="bg-white dark:bg-slate-900 p-3 sm:px-4 sm:py-3 rounded-2xl border border-slate-200/80 dark:border-slate-800 flex flex-col gap-2.5">
+          {/* Row 1: Back button & file title */}
+          <div className="flex items-center gap-2.5 min-w-0 w-full">
             <button
               type="button"
               onClick={() => setViewingPdfId(null)}
-              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer shrink-0"
+              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/70 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer shrink-0"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>All Files</span>
             </button>
             <div className="h-4 w-px bg-slate-200 dark:bg-slate-800 shrink-0" />
-            <h2 className="text-xs sm:text-sm font-mono font-bold text-slate-900 dark:text-white truncate">
+            <h2 className="text-xs sm:text-sm font-mono font-bold text-slate-900 dark:text-white truncate min-w-0 flex-1">
               {viewingPdf.fileName}
             </h2>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2 shrink-0">
-            {viewingPdf.hasAnimatedSolutions && (
-              <div className="inline-flex items-center bg-slate-100 dark:bg-slate-800 p-0.5 rounded-lg">
+          {/* Row 2: Mode toggle & Share/Download actions — wraps cleanly on all mobile widths */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 w-full">
+            {viewingPdf.hasAnimatedSolutions ? (
+              <div className="grid grid-cols-2 sm:inline-flex items-center bg-slate-100 dark:bg-slate-800 p-0.5 rounded-xl w-full sm:w-auto">
                 <button
                   type="button"
                   onClick={() => setReaderMode('animated')}
-                  className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold transition-all cursor-pointer ${
+                  className={`inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                     readerMode === 'animated'
                       ? 'bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-2xs'
                       : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
                   }`}
                 >
-                  <Sparkles className="w-3.5 h-3.5" />
+                  <Sparkles className="w-3.5 h-3.5 shrink-0" />
                   <span>Animated</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => setReaderMode('pages')}
-                  className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold transition-all cursor-pointer ${
+                  className={`inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                     readerMode === 'pages'
                       ? 'bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-2xs'
                       : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
                   }`}
                 >
-                  <Images className="w-3.5 h-3.5" />
+                  <Images className="w-3.5 h-3.5 shrink-0" />
                   <span>PDF Pages</span>
                 </button>
               </div>
+            ) : (
+              <div className="hidden sm:block" />
             )}
 
-            <button
-              type="button"
-              onClick={(e) => handleCopyShareLink(e, viewingPdf.id)}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-xs font-semibold transition-colors cursor-pointer"
-            >
-              {isCopied ? (
-                <>
-                  <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                  <span className="text-emerald-600 dark:text-emerald-400">Copied</span>
-                </>
-              ) : (
-                <>
-                  <Share2 className="w-3.5 h-3.5" />
-                  <span>Share</span>
-                </>
-              )}
-            </button>
+            <div className="grid grid-cols-2 sm:inline-flex items-center gap-2 w-full sm:w-auto">
+              <button
+                type="button"
+                onClick={(e) => handleCopyShareLink(e, viewingPdf.id)}
+                className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl text-xs font-semibold transition-colors cursor-pointer"
+              >
+                {isCopied ? (
+                  <>
+                    <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                    <span className="text-emerald-600 dark:text-emerald-400">Copied</span>
+                  </>
+                ) : (
+                  <>
+                    <Share2 className="w-3.5 h-3.5 shrink-0" />
+                    <span>Share</span>
+                  </>
+                )}
+              </button>
 
-            <a
-              href={viewingPdf.pdfUrl}
-              download={viewingPdf.downloadName}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-semibold transition-colors"
-            >
-              <Download className="w-3.5 h-3.5" />
-              <span>Download</span>
-            </a>
+              <a
+                href={viewingPdf.pdfUrl}
+                download={viewingPdf.downloadName}
+                className="inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold transition-colors"
+              >
+                <Download className="w-3.5 h-3.5 shrink-0" />
+                <span>Download</span>
+              </a>
+            </div>
           </div>
         </div>
 
@@ -316,7 +322,7 @@ export default function PdfLibrary() {
 
                 {/* Right: Minimalist Actions */}
                 {file.available && (
-                  <div className="flex items-center gap-1.5 shrink-0 self-end sm:self-center flex-wrap">
+                  <div className="w-full sm:w-auto flex items-center justify-end gap-1.5 flex-wrap">
                     {file.hasAnimatedSolutions && (
                       <button
                         type="button"

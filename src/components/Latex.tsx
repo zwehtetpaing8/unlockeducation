@@ -1294,6 +1294,289 @@ function RootsEx1_5_3d() {
   );
 }
 
+function ArgandPrincipalQuadrants() {
+  const buildSpiralPath = (
+    cx: number,
+    cy: number,
+    rStart: number,
+    rEnd: number,
+    degStart: number,
+    degEnd: number,
+    steps = 72
+  ) => {
+    const pts: string[] = [];
+    for (let i = 0; i <= steps; i++) {
+      const t = i / steps;
+      const rad = ((degStart + (degEnd - degStart) * t) * Math.PI) / 180;
+      const r = rStart + (rEnd - rStart) * t;
+      const x = cx + r * Math.cos(rad);
+      const y = cy - r * Math.sin(rad);
+      pts.push(`${i === 0 ? 'M' : 'L'} ${x.toFixed(1)} ${y.toFixed(1)}`);
+    }
+    return pts.join(' ');
+  };
+
+  const quadrants = [
+    {
+      title: 'Quadrant I',
+      pointLabel: 'z = (1, 1)',
+      px: 122,
+      py: 48,
+      labelX: 128,
+      labelY: 44,
+      thetaDeg: 45,
+      principalIndex: 0,
+      items: [
+        { heading: '1. Anticlockwise', math: 'θ = Arg z = π/4', principal: true },
+        { heading: '2. Anticlockwise: extra turn', math: 'θ + 2π = 9π/4', principal: false },
+        { heading: '3. Clockwise', math: 'θ − 2π = −7π/4', principal: false },
+      ],
+    },
+    {
+      title: 'Quadrant II',
+      pointLabel: 'z = (-1, 1)',
+      px: 48,
+      py: 48,
+      labelX: 8,
+      labelY: 42,
+      thetaDeg: 135,
+      principalIndex: 0,
+      items: [
+        { heading: '1. Anticlockwise', math: 'θ = Arg z = 3π/4', principal: true },
+        { heading: '2. Anticlockwise: extra turn', math: 'θ + 2π = 11π/4', principal: false },
+        { heading: '3. Clockwise', math: 'θ − 2π = −5π/4', principal: false },
+      ],
+    },
+    {
+      title: 'Quadrant III',
+      pointLabel: 'z = (-1, -1)',
+      px: 48,
+      py: 122,
+      labelX: 4,
+      labelY: 138,
+      thetaDeg: 225,
+      principalIndex: 2,
+      items: [
+        { heading: '1. Anticlockwise', math: 'θ = 5π/4', principal: false },
+        { heading: '2. Anticlockwise: extra turn', math: 'θ + 2π = 13π/4', principal: false },
+        { heading: '3. Clockwise', math: 'θ − 2π = Arg z = −3π/4', principal: true },
+      ],
+    },
+    {
+      title: 'Quadrant IV',
+      pointLabel: 'z = (1, -1)',
+      px: 122,
+      py: 122,
+      labelX: 112,
+      labelY: 138,
+      thetaDeg: 315,
+      principalIndex: 2,
+      items: [
+        { heading: '1. Anticlockwise', math: 'θ = 7π/4', principal: false },
+        { heading: '2. Anticlockwise: extra turn', math: 'θ + 2π = 15π/4', principal: false },
+        { heading: '3. Clockwise', math: 'θ − 2π = Arg z = −π/4', principal: true },
+      ],
+    },
+  ];
+
+  return (
+    <div className="my-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+      {quadrants.map((q) => {
+        const cx = 85;
+        const cy = 85;
+        const ccwArc = buildSpiralPath(cx, cy, 20, 20, 0, q.thetaDeg, 48);
+        const extraTurn = buildSpiralPath(cx, cy, 31, 40, 0, q.thetaDeg + 360, 96);
+        const cwArc = buildSpiralPath(cx, cy, 48, 48, 0, q.thetaDeg - 360, 64);
+
+        return (
+          <div
+            key={q.title}
+            className="flex flex-col sm:flex-row items-center gap-4 p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-200/80 dark:border-slate-800/80"
+          >
+            <svg width="170" height="170" viewBox="0 0 170 170" className="shrink-0 overflow-visible">
+              <line x1="12" y1={cy} x2="158" y2={cy} stroke="#94a3b8" strokeWidth="1.2" />
+              <polygon points="158,85 151,81.5 151,88.5" fill="#94a3b8" />
+              <line x1={cx} y1="158" x2={cx} y2="12" stroke="#94a3b8" strokeWidth="1.2" />
+              <polygon points="85,12 81.5,19 88.5,19" fill="#94a3b8" />
+              <text x="160" y="88" className="text-[9px] font-mono fill-slate-500 dark:fill-slate-400">Re(z)</text>
+              <text x="85" y="8" textAnchor="middle" className="text-[9px] font-mono fill-slate-500 dark:fill-slate-400">Im(z)</text>
+              <text x="74" y="96" className="text-[9px] font-serif italic fill-slate-500">O</text>
+
+              {/* 1. Anticlockwise arc (indigo) */}
+              <path d={ccwArc} fill="none" stroke="#4f46e5" strokeWidth="1.6" />
+              <circle cx={cx + 20} cy={cy} r="2.2" fill="#4f46e5" />
+
+              {/* 2. Extra turn spiral (sky) */}
+              <path d={extraTurn} fill="none" stroke="#0284c7" strokeWidth="1.2" strokeDasharray="3 2" />
+              <circle cx={cx + 31} cy={cy} r="2.2" fill="#0284c7" />
+
+              {/* 3. Clockwise arc (rose) */}
+              <path d={cwArc} fill="none" stroke="#e11d48" strokeWidth="1.5" />
+              <circle cx={cx + 48} cy={cy} r="2.2" fill="#e11d48" />
+
+              {/* Ray to z */}
+              <line x1={cx} y1={cy} x2={q.px} y2={q.py} stroke="#0f172a" strokeWidth="1.8" className="dark:stroke-slate-100" />
+              <circle cx={q.px} cy={q.py} r="3.5" className="fill-indigo-600 dark:fill-indigo-400" />
+              <text x={q.labelX} y={q.labelY} className="text-[10px] font-bold fill-slate-800 dark:fill-slate-200 font-mono">
+                {q.pointLabel}
+              </text>
+            </svg>
+
+            <div className="flex-1 w-full space-y-2 text-xs">
+              <div className="font-bold text-slate-900 dark:text-slate-100">{q.title}</div>
+              {q.items.map((item, idx) => (
+                <div
+                  key={item.heading}
+                  className={
+                    item.principal
+                      ? 'p-2 rounded-lg border border-indigo-300 dark:border-indigo-700 bg-indigo-50/70 dark:bg-indigo-950/40'
+                      : 'px-2 py-1'
+                  }
+                >
+                  <div className="flex items-center gap-1.5 font-semibold text-slate-700 dark:text-slate-300">
+                    <span
+                      className={`w-2 h-2 rounded-full shrink-0 ${
+                        idx === 0 ? 'bg-indigo-600' : idx === 1 ? 'bg-sky-600' : 'bg-rose-600'
+                      }`}
+                    />
+                    <span>{item.heading}</span>
+                  </div>
+                  <div className="font-mono text-[11px] text-slate-800 dark:text-slate-200 mt-0.5 pl-3.5">
+                    {item.math}
+                  </div>
+                  {item.principal && (
+                    <div className="text-[10px] font-bold text-indigo-700 dark:text-indigo-300 mt-0.5 pl-3.5">
+                      Principal argument
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function Ex1_4_Q3_Spirals() {
+  const buildSpiralPath = (
+    cx: number,
+    cy: number,
+    rStart: number,
+    rEnd: number,
+    degStart: number,
+    degEnd: number,
+    steps = 120
+  ) => {
+    const pts: string[] = [];
+    for (let i = 0; i <= steps; i++) {
+      const t = i / steps;
+      const rad = ((degStart + (degEnd - degStart) * t) * Math.PI) / 180;
+      const r = rStart + (rEnd - rStart) * t;
+      const x = cx + r * Math.cos(rad);
+      const y = cy - r * Math.sin(rad);
+      pts.push(`${i === 0 ? 'M' : 'L'} ${x.toFixed(1)} ${y.toFixed(1)}`);
+    }
+    return pts.join(' ');
+  };
+
+  const panels = [
+    {
+      title: '−25π/6 = −4π (two full turns) − π/6',
+      spiralLabel: 'blue spiral: total rotation −25π/6',
+      arcLabel: 'red arc: remaining angle −π/6',
+      rayAngle: -30,
+      totalDeg: -750,
+    },
+    {
+      title: '+25π/6 = +4π (two full turns) + π/6',
+      spiralLabel: 'blue spiral: total rotation +25π/6',
+      arcLabel: 'red arc: remaining angle +π/6',
+      rayAngle: 30,
+      totalDeg: 750,
+    },
+  ];
+
+  return (
+    <div className="my-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+      {panels.map((p) => {
+        const cx = 80;
+        const cy = 80;
+        const spiral = buildSpiralPath(cx, cy, 16, 48, 0, p.totalDeg, 160);
+        const remArc = buildSpiralPath(cx, cy, 56, 56, 0, p.rayAngle, 24);
+        const rad = (p.rayAngle * Math.PI) / 180;
+        const rx = cx + 62 * Math.cos(rad);
+        const ry = cy - 62 * Math.sin(rad);
+
+        return (
+          <div
+            key={p.title}
+            className="flex flex-col sm:flex-row items-center gap-4 p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-200/80 dark:border-slate-800/80"
+          >
+            <svg width="160" height="160" viewBox="0 0 160 160" className="shrink-0 overflow-visible">
+              <line x1="12" y1={cy} x2="148" y2={cy} stroke="#94a3b8" strokeWidth="1.2" />
+              <line x1={cx} y1="148" x2={cx} y2="12" stroke="#94a3b8" strokeWidth="1.2" />
+              <text x="150" y="83" className="text-[9px] font-serif italic fill-slate-500">x</text>
+              <text x="80" y="9" textAnchor="middle" className="text-[9px] font-serif italic fill-slate-500">y</text>
+
+              <path d={spiral} fill="none" stroke="#2563eb" strokeWidth="1.3" />
+              <path d={remArc} fill="none" stroke="#e11d48" strokeWidth="2.2" />
+              <line x1={cx} y1={cy} x2={rx} y2={ry} stroke="#0f172a" strokeWidth="2" className="dark:stroke-slate-100" />
+              <circle cx={rx} cy={ry} r="3" className="fill-slate-900 dark:fill-slate-100" />
+            </svg>
+
+            <div className="space-y-1.5 text-xs">
+              <div className="font-mono font-bold text-slate-800 dark:text-slate-100">{p.title}</div>
+              <div className="flex items-center gap-2 text-slate-600 dark:text-slate-300">
+                <span className="w-3 h-0.5 bg-blue-600 shrink-0" />
+                <span>{p.spiralLabel}</span>
+              </div>
+              <div className="flex items-center gap-2 text-slate-600 dark:text-slate-300">
+                <span className="w-3 h-0.5 bg-rose-600 shrink-0" />
+                <span>{p.arcLabel}</span>
+              </div>
+              <div className="flex items-center gap-2 text-slate-600 dark:text-slate-300">
+                <span className="w-3 h-0.5 bg-slate-900 dark:bg-slate-100 shrink-0" />
+                <span>terminal ray: same final direction</span>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function ArgandExample10() {
+  return (
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+      <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for z = -2 - 2i</h5>
+      <svg width="220" height="220" viewBox="0 0 220 220">
+        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" />
+        <polygon points="10.0,110.0 18.0,114.0 18.0,106.0" fill="#94a3b8" />
+        <polygon points="210.0,110.0 202.0,106.0 202.0,114.0" fill="#94a3b8" />
+        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2" />
+        <polygon points="110.0,210.0 114.0,202.0 106.0,202.0" fill="#94a3b8" />
+        <polygon points="110.0,10.0 106.0,18.0 114.0,18.0" fill="#94a3b8" />
+
+        <line x1="110" y1="110" x2="65" y2="155" stroke="#6366f1" strokeWidth="2.2" />
+        <polygon points="65,155 73.5,152.2 67.8,146.5" fill="#6366f1" />
+        <circle cx="65" cy="155" r="4.5" className="fill-indigo-500 stroke-white" strokeWidth="1.5" />
+
+        <path d="M 130 110 A 20 20 0 0 1 96 124" fill="none" stroke="#f59e0b" strokeWidth="1.5" />
+        <polygon points="96,124 98.8,132.5 104.5,126.8" fill="#f59e0b" />
+        <text x="125" y="135" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
+
+        <text x="25" y="172" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (-2, -2)</text>
+        <text x="206" y="122" className="text-[10px] font-serif italic fill-slate-500">x</text>
+        <text x="116" y="16" className="text-[10px] font-serif italic fill-slate-500">y</text>
+        <text x="98" y="102" className="text-[10px] font-serif italic fill-slate-500">O</text>
+      </svg>
+    </div>
+  );
+}
+
 function RootsExample10() {
   return (
     <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
@@ -3236,6 +3519,15 @@ export default function Latex({ text, block = false }: LatexProps) {
           break;
         case 'ArgandPolar':
           renderedElements.push(<ArgandPolar key={"diag-" + i} />);
+          break;
+        case 'ArgandPrincipalQuadrants':
+          renderedElements.push(<ArgandPrincipalQuadrants key={"diag-" + i} />);
+          break;
+        case 'Ex1_4_Q3_Spirals':
+          renderedElements.push(<Ex1_4_Q3_Spirals key={"diag-" + i} />);
+          break;
+        case 'ArgandExample10':
+          renderedElements.push(<ArgandExample10 key={"diag-" + i} />);
           break;
         case 'Chap4_Fig4':
           renderedElements.push(<Chap4_Fig4 key={"diag-" + i} />);

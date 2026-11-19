@@ -8,6 +8,8 @@ import {
   RotateCcw,
   CheckCheck,
   Sparkles,
+  Eye,
+  EyeOff,
 } from 'lucide-react';
 import Latex from './Latex';
 import { ch2SectionC2024Solutions } from '../data/ch2SectionC2024Solutions';
@@ -25,23 +27,25 @@ const SPEED_OPTIONS: SpeedOption[] = [
 
 export default function AnimatedProofs() {
   const [selectedQuestionIdx, setSelectedQuestionIdx] = useState<number>(0);
-  const [visibleCount, setVisibleCount] = useState<number>(1);
-  const [isPlaying, setIsPlaying] = useState<boolean>(true);
+  // Start with 0 lines shown (Question only) and auto-play OFF
+  const [visibleCount, setVisibleCount] = useState<number>(0);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [speedMs, setSpeedMs] = useState<number>(1400);
 
   const activeLineRef = useRef<HTMLDivElement | null>(null);
   const question = ch2SectionC2024Solutions[selectedQuestionIdx];
   const totalLines = question.lines.length;
+  const isHidden = visibleCount === 0;
   const isComplete = visibleCount >= totalLines;
 
-  // Reset to line 1 and auto-play when switching questions
+  // Reset to question-only (0 lines) and auto-play OFF when switching questions
   const handleSelectQuestion = (idx: number) => {
     setSelectedQuestionIdx(idx);
-    setVisibleCount(1);
-    setIsPlaying(true);
+    setVisibleCount(0);
+    setIsPlaying(false);
   };
 
-  // Auto-advance lines when playing
+  // Auto-advance lines ONLY when user explicitly presses Play
   useEffect(() => {
     if (!isPlaying) return;
     if (visibleCount >= totalLines) {
@@ -58,7 +62,7 @@ export default function AnimatedProofs() {
 
   // Keep newest revealed line smoothly visible when stepping or playing
   useEffect(() => {
-    if (visibleCount > 1 && activeLineRef.current) {
+    if (visibleCount > 0 && activeLineRef.current) {
       activeLineRef.current.scrollIntoView({
         behavior: 'smooth',
         block: 'nearest',
@@ -67,7 +71,7 @@ export default function AnimatedProofs() {
   }, [visibleCount]);
 
   const handleTogglePlay = () => {
-    if (visibleCount >= totalLines) {
+    if (visibleCount === 0 || visibleCount >= totalLines) {
       setVisibleCount(1);
       setIsPlaying(true);
     } else {
@@ -82,12 +86,12 @@ export default function AnimatedProofs() {
 
   const handlePrev = () => {
     setIsPlaying(false);
-    setVisibleCount((prev) => Math.max(prev - 1, 1));
+    setVisibleCount((prev) => Math.max(prev - 1, 0));
   };
 
-  const handleReset = () => {
+  const handleHide = () => {
     setIsPlaying(false);
-    setVisibleCount(1);
+    setVisibleCount(0);
   };
 
   const handleShowAll = () => {
@@ -98,12 +102,12 @@ export default function AnimatedProofs() {
   const progressPct = Math.round((visibleCount / totalLines) * 100);
 
   return (
-    <div className="space-y-4 w-full max-w-3xl mx-auto">
+    <div className="space-y-4 w-full max-w-3xl mx-auto overflow-hidden">
       {/* Question Selector Bar */}
-      <div className="bg-white dark:bg-slate-900 p-3.5 rounded-2xl border border-slate-200/80 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3">
+      <div className="bg-white dark:bg-slate-900 p-3.5 rounded-2xl border border-slate-200/80 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
         <div className="flex items-center gap-2 text-xs font-semibold text-slate-600 dark:text-slate-300">
           <Sparkles className="w-4 h-4 text-indigo-500 shrink-0" />
-          <span>2024 Section (C) — Select Question:</span>
+          <span>2024 Section (C) — Select Question</span>
         </div>
         <div className="flex flex-wrap gap-1.5">
           {ch2SectionC2024Solutions.map((q, idx) => {
@@ -126,9 +130,9 @@ export default function AnimatedProofs() {
         </div>
       </div>
 
-      {/* Main Question + Animated Proof Card */}
+      {/* Main Question + On-Demand Animated Proof Card */}
       <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-sm overflow-hidden">
-        {/* Question Header (matches PDF Question box) */}
+        {/* Question Header (Always Visible First) */}
         <div className="p-4 sm:p-5 border-b border-slate-100 dark:border-slate-800 space-y-3">
           <div className="flex items-center justify-between gap-2">
             <span className="inline-flex items-center px-3 py-1 rounded-lg bg-[#1e3a5f] text-white text-xs font-bold tracking-wide">
@@ -139,171 +143,230 @@ export default function AnimatedProofs() {
             </span>
           </div>
 
-          <div className="bg-sky-50/80 dark:bg-slate-800/70 border border-sky-200/80 dark:border-slate-700 rounded-xl p-3.5 sm:p-4 text-sm sm:text-[15px] text-slate-900 dark:text-slate-100 leading-relaxed">
+          <div className="bg-sky-50/80 dark:bg-slate-800/70 border border-sky-200/80 dark:border-slate-700 rounded-xl p-3.5 sm:p-4 text-sm sm:text-[15px] text-slate-900 dark:text-slate-100 leading-relaxed overflow-x-auto">
             <Latex text={question.questionText} />
           </div>
         </div>
 
-        {/* Sticky/Top Animation Playback Controls */}
-        <div className="bg-slate-50/90 dark:bg-slate-950/60 px-4 py-3 border-b border-slate-200/70 dark:border-slate-800 space-y-2.5">
-          <div className="flex flex-wrap items-center justify-between gap-2.5">
-            <div className="flex items-center gap-1.5 flex-wrap">
-              <button
-                type="button"
-                onClick={handleTogglePlay}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold transition-colors cursor-pointer"
-              >
-                {isPlaying ? (
-                  <>
-                    <Pause className="w-3.5 h-3.5" />
-                    <span>Pause</span>
-                  </>
-                ) : (
-                  <>
-                    <Play className="w-3.5 h-3.5" />
-                    <span>{isComplete ? 'Replay' : 'Play'}</span>
-                  </>
-                )}
-              </button>
+        {/* Solution Section: Hidden by Default Until Student Clicks to Check */}
+        {isHidden ? (
+          <div className="p-5 sm:p-6 text-center space-y-4">
+            <div className="space-y-1">
+              <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">
+                အရင်ဆုံး ကိုယ်တိုင်စမ်းတွက်ကြည့်ပါ
+              </p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">
+                အဖြေတိုက်ကြည့်လိုသည့်အခါ အောက်ပါခလုတ်များကို နှိပ်၍ တစ်ကြောင်းချင်းစီ သို့မဟုတ် အပြည့်အစုံ ကြည့်ရှုနိုင်ပါသည်။
+              </p>
+            </div>
 
-              <button
-                type="button"
-                onClick={handlePrev}
-                disabled={visibleCount <= 1}
-                className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-xs font-semibold hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition-colors cursor-pointer"
-              >
-                <ChevronLeft className="w-3.5 h-3.5" />
-                <span>Prev</span>
-              </button>
-
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-2">
               <button
                 type="button"
                 onClick={handleNext}
-                disabled={isComplete}
-                className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-xs font-semibold hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition-colors cursor-pointer"
+                className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-colors cursor-pointer shadow-2xs"
               >
-                <span>Next</span>
-                <ChevronRight className="w-3.5 h-3.5" />
+                <Eye className="w-4 h-4 shrink-0" />
+                <span>Check Solution (Step by Step)</span>
               </button>
 
               <button
                 type="button"
-                onClick={handleReset}
-                title="Restart from line 1"
-                className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 rounded-lg text-xs font-semibold hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                onClick={handleTogglePlay}
+                className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl text-xs font-semibold transition-colors cursor-pointer"
               >
-                <RotateCcw className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Reset</span>
+                <Play className="w-3.5 h-3.5 shrink-0" />
+                <span>Play Animation</span>
               </button>
 
               <button
                 type="button"
                 onClick={handleShowAll}
-                disabled={isComplete}
-                className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 rounded-lg text-xs font-semibold hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition-colors cursor-pointer"
+                className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 rounded-xl text-xs font-semibold transition-colors cursor-pointer"
               >
-                <CheckCheck className="w-3.5 h-3.5" />
+                <CheckCheck className="w-3.5 h-3.5 shrink-0" />
                 <span>Show All</span>
               </button>
             </div>
-
-            {/* Speed & Step Counter */}
-            <div className="flex items-center gap-2.5">
-              <div className="inline-flex items-center bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-0.5">
-                {SPEED_OPTIONS.map((opt) => (
+          </div>
+        ) : (
+          <>
+            {/* Playback & Step Controls */}
+            <div className="bg-slate-50/90 dark:bg-slate-950/60 px-3.5 sm:px-4 py-3 border-b border-slate-200/70 dark:border-slate-800 space-y-2.5">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div className="flex items-center gap-1.5 flex-wrap">
                   <button
-                    key={opt.label}
                     type="button"
-                    onClick={() => setSpeedMs(opt.ms)}
-                    className={`px-2 py-0.5 rounded-md text-[11px] font-semibold transition-colors cursor-pointer ${
-                      speedMs === opt.ms
-                        ? 'bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300'
-                        : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
-                    }`}
+                    onClick={handleNext}
+                    disabled={isComplete}
+                    className="inline-flex items-center gap-1 px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold disabled:opacity-40 disabled:cursor-not-allowed transition-colors cursor-pointer"
                   >
-                    {opt.label}
+                    <span>Next Step</span>
+                    <ChevronRight className="w-3.5 h-3.5" />
                   </button>
-                ))}
+
+                  <button
+                    type="button"
+                    onClick={handlePrev}
+                    className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-xs font-semibold hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                  >
+                    <ChevronLeft className="w-3.5 h-3.5" />
+                    <span>Prev</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handleTogglePlay}
+                    className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-xs font-semibold hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                  >
+                    {isPlaying ? (
+                      <>
+                        <Pause className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
+                        <span>Pause</span>
+                      </>
+                    ) : (
+                      <>
+                        <Play className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
+                        <span>{isComplete ? 'Replay' : 'Auto Play'}</span>
+                      </>
+                    )}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handleShowAll}
+                    disabled={isComplete}
+                    className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 rounded-lg text-xs font-semibold hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition-colors cursor-pointer"
+                  >
+                    <CheckCheck className="w-3.5 h-3.5" />
+                    <span>All</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handleHide}
+                    title="Hide solution"
+                    className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 rounded-lg text-xs font-semibold hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                  >
+                    <EyeOff className="w-3.5 h-3.5" />
+                    <span>Hide</span>
+                  </button>
+                </div>
+
+                {/* Speed & Step Counter */}
+                <div className="flex items-center gap-2 flex-wrap">
+                  <div className="inline-flex items-center bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-0.5">
+                    {SPEED_OPTIONS.map((opt) => (
+                      <button
+                        key={opt.label}
+                        type="button"
+                        onClick={() => setSpeedMs(opt.ms)}
+                        className={`px-2 py-0.5 rounded-md text-[11px] font-semibold transition-colors cursor-pointer ${
+                          speedMs === opt.ms
+                            ? 'bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300'
+                            : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
+                        }`}
+                      >
+                        {opt.label}
+                      </button>
+                    ))}
+                  </div>
+
+                  <span className="text-xs font-mono font-bold text-slate-600 dark:text-slate-300 shrink-0">
+                    {visibleCount} / {totalLines}
+                  </span>
+                </div>
               </div>
 
-              <span className="text-xs font-mono font-bold text-slate-600 dark:text-slate-300 shrink-0">
-                Line {visibleCount} / {totalLines}
-              </span>
+              {/* Progress Bar */}
+              <div className="w-full h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                <motion.div
+                  className="h-full bg-indigo-600 dark:bg-indigo-500 rounded-full"
+                  initial={false}
+                  animate={{ width: `${progressPct}%` }}
+                  transition={{ duration: 0.3, ease: 'easeOut' }}
+                />
+              </div>
             </div>
-          </div>
 
-          {/* Progress Bar */}
-          <div className="w-full h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
-            <motion.div
-              className="h-full bg-indigo-600 dark:bg-indigo-500 rounded-full"
-              initial={false}
-              animate={{ width: `${progressPct}%` }}
-              transition={{ duration: 0.3, ease: 'easeOut' }}
-            />
-          </div>
-        </div>
-
-        {/* Solution Lines Area */}
-        <div className="p-4 sm:p-6 space-y-2">
-          <h3 className="text-sm font-bold text-[#1e3a5f] dark:text-sky-400 tracking-wide mb-2">
-            Solution
-          </h3>
-
-          <div className="space-y-1.5">
-            <AnimatePresence initial={false}>
-              {question.lines.slice(0, visibleCount).map((line, index) => {
-                const isLatest = index === visibleCount - 1;
-                return (
-                  <motion.div
-                    key={line.id}
-                    ref={isLatest ? activeLineRef : undefined}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.35, ease: 'easeOut' }}
-                    className={`rounded-xl px-3 py-1.5 transition-colors border-l-2 ${
-                      line.indent ? 'ml-3 sm:ml-6' : ''
-                    } ${
-                      isLatest
-                        ? 'border-indigo-500 bg-indigo-50/70 dark:bg-indigo-950/30'
-                        : 'border-transparent'
-                    }`}
+            {/* Solution Lines Area */}
+            <div className="p-4 sm:p-6 space-y-2">
+              <div className="flex items-center justify-between gap-2 mb-2">
+                <h3 className="text-sm font-bold text-[#1e3a5f] dark:text-sky-400 tracking-wide">
+                  Solution
+                </h3>
+                {isComplete && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsPlaying(false);
+                      setVisibleCount(1);
+                    }}
+                    className="inline-flex items-center gap-1 text-xs font-semibold text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 cursor-pointer"
                   >
-                    {line.kind === 'math' ? (
-                      <div className="overflow-x-auto py-0.5">
-                        <Latex text={line.content} block />
-                      </div>
-                    ) : line.kind === 'subheading' ? (
-                      <p className="text-sm font-bold text-slate-900 dark:text-white pt-1">
-                        {line.content}
-                      </p>
-                    ) : (
-                      <div className="text-sm sm:text-[15px] text-slate-800 dark:text-slate-200 leading-relaxed">
-                        <Latex text={line.content} />
-                      </div>
-                    )}
-                  </motion.div>
-                );
-              })}
-            </AnimatePresence>
-          </div>
+                    <RotateCcw className="w-3 h-3" />
+                    <span>Step from Line 1</span>
+                  </button>
+                )}
+              </div>
 
-          {!isComplete && (
-            <div className="pt-3 flex items-center justify-between text-xs text-slate-400 dark:text-slate-500 border-t border-dashed border-slate-200 dark:border-slate-800 mt-3">
-              <span>
-                {isPlaying
-                  ? 'Revealing next step automatically...'
-                  : 'Paused — click Play or Next to continue'}
-              </span>
-              <button
-                type="button"
-                onClick={handleNext}
-                className="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline cursor-pointer"
-              >
-                Reveal next line →
-              </button>
+              <div className="space-y-1.5">
+                <AnimatePresence initial={false}>
+                  {question.lines.slice(0, visibleCount).map((line, index) => {
+                    const isLatest = index === visibleCount - 1;
+                    return (
+                      <motion.div
+                        key={line.id}
+                        ref={isLatest ? activeLineRef : undefined}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.35, ease: 'easeOut' }}
+                        className={`rounded-xl px-3 py-1.5 transition-colors border-l-2 ${
+                          line.indent ? 'ml-2 sm:ml-6' : ''
+                        } ${
+                          isLatest
+                            ? 'border-indigo-500 bg-indigo-50/70 dark:bg-indigo-950/30'
+                            : 'border-transparent'
+                        }`}
+                      >
+                        {line.kind === 'math' ? (
+                          <div className="overflow-x-auto py-0.5">
+                            <Latex text={line.content} block />
+                          </div>
+                        ) : line.kind === 'subheading' ? (
+                          <p className="text-sm font-bold text-slate-900 dark:text-white pt-1">
+                            {line.content}
+                          </p>
+                        ) : (
+                          <div className="text-sm sm:text-[15px] text-slate-800 dark:text-slate-200 leading-relaxed">
+                            <Latex text={line.content} />
+                          </div>
+                        )}
+                      </motion.div>
+                    );
+                  })}
+                </AnimatePresence>
+              </div>
+
+              {!isComplete && (
+                <div className="pt-3 flex items-center justify-between gap-2 text-xs text-slate-400 dark:text-slate-500 border-t border-dashed border-slate-200 dark:border-slate-800 mt-3">
+                  <span>
+                    {isPlaying
+                      ? 'Playing step-by-step...'
+                      : 'Click Next Step to reveal the next line'}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={handleNext}
+                    className="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline cursor-pointer shrink-0"
+                  >
+                    Next line →
+                  </button>
+                </div>
+              )}
             </div>
-          )}
-        </div>
+          </>
+        )}
       </div>
     </div>
   );
