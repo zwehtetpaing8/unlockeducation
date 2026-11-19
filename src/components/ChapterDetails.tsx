@@ -25,6 +25,7 @@ import {
   X,
   Maximize,
   Minimize,
+  Menu,
 } from "lucide-react";
 
 interface ChapterDetailsProps {
@@ -35,6 +36,7 @@ interface ChapterDetailsProps {
   onToggleComplete?: (id: number, completed: boolean) => void;
   isReadingMode?: boolean;
   onToggleReadingMode?: () => void;
+  onOpenChapterMenu?: () => void;
 }
 
 interface ContentSection {
@@ -113,6 +115,7 @@ export default function ChapterDetails({
   onToggleComplete,
   isReadingMode,
   onToggleReadingMode,
+  onOpenChapterMenu,
 }: ChapterDetailsProps) {
   const [activeTab, setActiveTab] = useState<
     "study" | "formulas" | "visualizer" | "quiz"
@@ -176,24 +179,37 @@ export default function ChapterDetails({
           <div className="absolute top-0 right-0 transform translate-x-12 -translate-y-6 w-72 h-72 rounded-full bg-indigo-500/10 blur-3xl pointer-events-none" />
           <div className="absolute bottom-0 left-0 transform -translate-x-12 translate-y-6 w-72 h-72 rounded-full bg-violet-500/10 blur-3xl pointer-events-none" />
 
-          <div className="relative space-y-3 z-10">
-            <div className="flex items-center gap-2">
-              <span className="text-[10px] uppercase font-mono tracking-widest bg-indigo-500/20 text-indigo-300 px-3 py-1 rounded-full border border-indigo-500/30 font-bold">
-                Chapter {chapter.id}
-              </span>
-              <span className="text-[10px] text-slate-400 font-medium flex items-center gap-1">
-                <Calendar className="w-3.5 h-3.5" /> Unlock Education Math
-                Syllabus
-              </span>
-            </div>
+          <div className="relative z-10 flex flex-col md:flex-row md:items-start justify-between gap-4">
+            <div className="space-y-3">
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] uppercase font-mono tracking-widest bg-indigo-500/20 text-indigo-300 px-3 py-1 rounded-full border border-indigo-500/30 font-bold">
+                  Chapter {chapter.id}
+                </span>
+                <span className="text-[10px] text-slate-400 font-medium flex items-center gap-1">
+                  <Calendar className="w-3.5 h-3.5" /> Unlock Education Math
+                  Syllabus
+                </span>
+              </div>
 
-            <h2 className="font-display font-bold text-xl md:text-3xl text-slate-100 tracking-tight leading-tight">
-              {chapter.title}
-            </h2>
+              <h2 className="font-display font-bold text-xl md:text-3xl text-slate-100 tracking-tight leading-tight">
+                {chapter.title}
+              </h2>
 
-            <div className="text-xs md:text-sm text-slate-300/95 max-w-2xl leading-relaxed italic">
-              <Latex text={chapter.tagline} />
+              <div className="text-xs md:text-sm text-slate-300/95 max-w-2xl leading-relaxed italic">
+                <Latex text={chapter.tagline} />
+              </div>
             </div>
+            {onOpenChapterMenu && (
+              <div className="flex shrink-0">
+                <button
+                  onClick={onOpenChapterMenu}
+                  className="flex items-center gap-2 px-4 py-2 bg-slate-800/60 hover:bg-slate-700/70 border border-slate-700/60 rounded-xl text-xs font-semibold text-slate-100 transition-colors cursor-pointer"
+                >
+                  <Menu className="w-4 h-4" />
+                  <span>All Chapters</span>
+                </button>
+              </div>
+            )}
           </div>
         </div>
 
@@ -358,11 +374,20 @@ export default function ChapterDetails({
             </div>
           </div>
           
-          <div className="flex shrink-0">
+          <div className="flex flex-wrap items-center gap-2 shrink-0">
+            {onOpenChapterMenu && (
+              <button
+                onClick={onOpenChapterMenu}
+                className="flex items-center gap-2 px-3.5 py-2 bg-white/10 hover:bg-white/20 border border-white/15 rounded-xl text-xs font-semibold text-white transition-colors cursor-pointer"
+              >
+                <Menu className="w-4 h-4" />
+                <span>All Chapters</span>
+              </button>
+            )}
             {onToggleReadingMode && (
               <button
                 onClick={onToggleReadingMode}
-                className="flex items-center gap-2 px-4 py-2 bg-slate-800/50 hover:bg-slate-700/60 border border-slate-700/50 rounded-xl text-xs font-semibold text-slate-200 transition-colors"
+                className="flex items-center gap-2 px-3.5 py-2 bg-slate-800/50 hover:bg-slate-700/60 border border-slate-700/50 rounded-xl text-xs font-semibold text-slate-200 transition-colors cursor-pointer"
               >
                 {isReadingMode ? (
                   <>
@@ -496,13 +521,14 @@ export default function ChapterDetails({
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
                   {/* Desktop Side Table of Contents Outline */}
-                  <div className="print:hidden lg:col-span-4 hidden lg:flex flex-col gap-2 p-4 bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/40 rounded-2xl shadow-sm">
+                  {!isReadingMode && (
+                  <div className="print:hidden lg:col-span-3 hidden lg:flex flex-col gap-2 p-4 bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/40 rounded-2xl shadow-sm lg:sticky lg:top-4">
                     <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 px-1">
                       {viewMode === "full"
                         ? "Jump to Section"
                         : `Sections outline (${sections.length})`}
                     </h3>
-                    <div className="space-y-1 max-h-[420px] overflow-y-auto pr-1">
+                    <div className="space-y-1 max-h-[calc(100vh-200px)] overflow-y-auto pr-1">
                       
                       {sections.map((section, idx) => {
                         const isActive = idx === activeSectionIndex;
@@ -551,9 +577,10 @@ export default function ChapterDetails({
 
                     </div>
                   </div>
+                  )}
 
                   {/* Mobile Navigation Outlines (Horizontal Quick Tabs + Custom Dropdown) */}
-                  <div className="print:hidden lg:hidden w-full space-y-4">
+                  <div className={`print:hidden ${isReadingMode ? '' : 'lg:hidden'} w-full lg:col-span-12 space-y-4`}>
                     {/* 1. Horizontal swipeable quick section bar */}
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
@@ -690,7 +717,7 @@ export default function ChapterDetails({
                   </div>
 
                   {/* Main Content card */}
-                  <div className="lg:col-span-8 print:col-span-12 print:block space-y-4">
+                  <div className={`${isReadingMode ? 'lg:col-span-12' : 'lg:col-span-9'} min-w-0 print:col-span-12 print:block space-y-4`}>
                                         <div className={`space-y-6 ${viewMode === "full" ? "block" : "hidden print:block"}`}>
                         {sections.map((section, idx) => (
                           <div

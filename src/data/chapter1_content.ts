@@ -117,22 +117,10 @@ x^2 + 2x + 3 &= (-1 - \sqrt{2}\,i)^2 + 2(-1 - \sqrt{2}\,i) + 3 \\
 ### Exercise 1.1
 
 **1. Solve the following equations.**
-- **(a)** $x^2 - 6x + 10 = 0$
-- **(b)** $-2x^2 + 4x - 3 = 0$
-- **(c)** $5x^2 - 2x + 1 = 0$
-- **(d)** $3x^2 + 7x + 5 = 0$
 
-**2. Solve the following equations and check your answers.**
-- **(a)** $x^2 - 2x + 4 = 0$
-- **(b)** $x^2 - 4x + 5 = 0$
+**(a)** $x^2 - 6x + 10 = 0$
 
-**3. Find the value of $i^n$ for every positive integer $n$, where $i^2 = -1$, $i^3 = i^2 \cdot i$, $i^4 = i^2 \cdot i^2$, etc.**
-
-#### Solution (Exercise 1.1)
-
-**1. Solve the following equations.**
-
-- **(a)** $x^2 - 6x + 10 = 0$
+**Solution.**
 $$\begin{aligned}
 x^2 - 6x &= -10 \\
 x^2 - 6x + 3^2 &= -10 + 3^2 \\
@@ -141,7 +129,9 @@ x - 3 &= \pm i \\
 x &= 3 \pm i
 \end{aligned}$$
 
-- **(b)** $-2x^2 + 4x - 3 = 0$
+**(b)** $-2x^2 + 4x - 3 = 0$
+
+**Solution.**
 $$\begin{aligned}
 x^2 - 2x + \frac{3}{2} &= 0 \\
 x^2 - 2x &= -\frac{3}{2} \\
@@ -150,7 +140,9 @@ x^2 - 2x + 1^2 &= -\frac{3}{2} + 1^2 \\
 x &= 1 \pm \frac{\sqrt{2}}{2}i
 \end{aligned}$$
 
-- **(c)** $5x^2 - 2x + 1 = 0$
+**(c)** $5x^2 - 2x + 1 = 0$
+
+**Solution.**
 $$\begin{aligned}
 x^2 - \frac{2}{5}x &= -\frac{1}{5} \\
 x^2 - \frac{2}{5}x + \left(\frac{1}{5}\right)^2 &= -\frac{1}{5} + \left(\frac{1}{5}\right)^2 \\
@@ -159,7 +151,9 @@ x - \frac{1}{5} &= \pm\frac{2}{5}i \\
 x &= \frac{1}{5} \pm \frac{2}{5}i
 \end{aligned}$$
 
-- **(d)** $3x^2 + 7x + 5 = 0$
+**(d)** $3x^2 + 7x + 5 = 0$
+
+**Solution.**
 $$\begin{aligned}
 x^2 + \frac{7}{3}x &= -\frac{5}{3} \\
 x^2 + \frac{7}{3}x + \left(\frac{7}{6}\right)^2 &= -\frac{5}{3} + \left(\frac{7}{6}\right)^2 \\
@@ -170,7 +164,9 @@ x &= -\frac{7}{6} \pm \frac{\sqrt{11}}{6}i
 
 **2. Solve the following equations and check your answers.**
 
-- **(a)** $x^2 - 2x + 4 = 0$
+**(a)** $x^2 - 2x + 4 = 0$
+
+**Solution.**
 $$\begin{aligned}
 x^2 - 2x &= -4 \\
 x^2 - 2x + 1^2 &= -4 + 1^2 \\
@@ -194,7 +190,9 @@ x^2 - 2x + 4 &= (1 - \sqrt{3}\,i)^2 - 2(1 - \sqrt{3}\,i) + 4 \\
 &= 0.
 \end{aligned}$$
 
-- **(b)** $x^2 - 4x + 5 = 0$
+**(b)** $x^2 - 4x + 5 = 0$
+
+**Solution.**
 $$\begin{aligned}
 x^2 - 4x &= -5 \\
 x^2 - 4x + 2^2 &= -5 + 2^2 \\
@@ -220,6 +218,7 @@ x^2 - 4x + 5 &= (2 - i)^2 - 4(2 - i) + 5 \\
 
 **3. Find the value of $i^n$ for every positive integer $n$, where $i^2 = -1$, $i^3 = i^2 \cdot i$, $i^4 = i^2 \cdot i^2$, etc.**
 
+**Solution.**
 $$\begin{aligned}
 i^1 &= i & i^5 &= i^4 i = i & i^9 &= i^8 i = i \\
 i^2 &= -1 & i^6 &= i^4 i^2 = -1 & i^{10} &= i^8 i^2 = -1 \\
@@ -352,6 +351,8 @@ $$\boxed{x + yi = (x, y)}.$$
 **Example 3.** Compute
 $$(-2, 3)(1, -2) + (1, 1)(0, 1).$$
 
+**Solution.**
+
 **Method 1.** Coordinate form
 $$\begin{aligned}
 (-2, 3)(1, -2) + (1, 1)(0, 1) &= (-2 - (-6),\ 4 + 3) + (0 - 1,\ 1 + 0) \\
@@ -372,71 +373,75 @@ $$\begin{aligned}
 ### Exercise 1.2
 
 **1. Compute.**
-- **(a)** $(2, 0)(2, 5) + (3, -2)(0, 1)$
-- **(b)** $(2, -5)(-1, 0) + (1, 0)(5, 1)$
-- **(c)** $(-3, -2)(-2, -3) + (-2, -3)(-3, -2)$
-- **(d)** $(1, 0)(0, 1) + (0, 1)(1, 0)$
 
-**2. Compute.**
-- **(a)** $(3 + 2i)(3 - 2i) + (-5 + 7i)(-1 - i)$
-- **(b)** $(-1 + i)(1 - i) + (2 + 3i)$
-- **(c)** $(1 + i)(1 - i) + (-2 + i)(-2 + i)$
-- **(d)** $(3 + 2i) + (7 - i)(-3 + 3i)$
+**(a)** $(2, 0)(2, 5) + (3, -2)(0, 1)$
 
-#### Solution (Exercise 1.2)
-
-**1.**
-- **(a)**
+**Solution.**
 $$\begin{aligned}
 (2, 0)(2, 5) + (3, -2)(0, 1) &= (4 - 0,\ 10 + 0) + (0 - (-2),\ 3 + 0) \\
 &= (4, 10) + (2, 3) \\
 &= (6, 13).
 \end{aligned}$$
 
-- **(b)**
+**(b)** $(2, -5)(-1, 0) + (1, 0)(5, 1)$
+
+**Solution.**
 $$\begin{aligned}
 (2, -5)(-1, 0) + (1, 0)(5, 1) &= (-2 - 0,\ 0 + 5) + (5 - 0,\ 1 + 0) \\
 &= (-2, 5) + (5, 1) \\
 &= (3, 6).
 \end{aligned}$$
 
-- **(c)**
+**(c)** $(-3, -2)(-2, -3) + (-2, -3)(-3, -2)$
+
+**Solution.**
 $$\begin{aligned}
 (-3, -2)(-2, -3) + (-2, -3)(-3, -2) &= (6 - 6,\ 9 + 4) + (6 - 6,\ 4 + 9) \\
 &= (0, 13) + (0, 13) \\
 &= (0, 26).
 \end{aligned}$$
 
-- **(d)**
+**(d)** $(1, 0)(0, 1) + (0, 1)(1, 0)$
+
+**Solution.**
 $$\begin{aligned}
 (1, 0)(0, 1) + (0, 1)(1, 0) &= (0 - 0,\ 1 + 0) + (0 - 0,\ 0 + 1) \\
 &= (0, 1) + (0, 1) \\
 &= (0, 2).
 \end{aligned}$$
 
-**2.**
-- **(a)**
+**2. Compute.**
+
+**(a)** $(3 + 2i)(3 - 2i) + (-5 + 7i)(-1 - i)$
+
+**Solution.**
 $$\begin{aligned}
 (3 + 2i)(3 - 2i) + (-5 + 7i)(-1 - i) &= (9 - 6i + 6i - 4i^2) + (5 + 5i - 7i - 7i^2) \\
 &= 13 + (12 - 2i) \\
 &= 25 - 2i.
 \end{aligned}$$
 
-- **(b)**
+**(b)** $(-1 + i)(1 - i) + (2 + 3i)$
+
+**Solution.**
 $$\begin{aligned}
 (-1 + i)(1 - i) + (2 + 3i) &= -1 + i + i - i^2 + 2 + 3i \\
 &= 2i + 2 + 3i \\
 &= 2 + 5i.
 \end{aligned}$$
 
-- **(c)**
+**(c)** $(1 + i)(1 - i) + (-2 + i)(-2 + i)$
+
+**Solution.**
 $$\begin{aligned}
 (1 + i)(1 - i) + (-2 + i)(-2 + i) &= (1 - i + i - i^2) + (4 - 2i - 2i + i^2) \\
 &= 2 + (3 - 4i) \\
 &= 5 - 4i.
 \end{aligned}$$
 
-- **(d)**
+**(d)** $(3 + 2i) + (7 - i)(-3 + 3i)$
+
+**Solution.**
 $$\begin{aligned}
 (3 + 2i) + (7 - i)(-3 + 3i) &= 3 + 2i + (-21 + 21i + 3i - 3i^2) \\
 &= 3 + 2i + (-18 + 24i) \\
@@ -506,30 +511,11 @@ $$\boxed{\frac{z_1}{z_2} = z_1 z_2^{-1}, \qquad z_2 \neq 0}.$$
 ### Exercise 1.3
 
 **1. Let $z_1 = -2 + 3i$ and $z_2 = 5 + 2i$. Compute.**
-- **(a)** $z_1^2 - 2z_1 + 1$
-- **(b)** $3z_2^2 + 2z_2 - 1$
-- **(c)** $z_1\overline{z_2} + z_2\overline{z_1}$
-- **(d)** $\dfrac{1}{z_1}$
-- **(e)** $\dfrac{1}{z_2}$
-- **(f)** $\dfrac{1}{z_1z_2}$
-- **(g)** $\dfrac{z_1}{z_2}$
-- **(h)** $\dfrac{\overline{z_1}}{\overline{z_2}}$
-- **(i)** $\dfrac{z_2}{z_1}$
-- **(j)** $\overline{\left(\dfrac{z_2}{z_1}\right)}$
-- **(k)** $\dfrac{\overline{z_1}z_2}{z_1\overline{z_2}}$
-- **(l)** $\dfrac{z_2}{\overline{z_1}} + \dfrac{z_1}{\overline{z_2}}$
 
-**2. Let $z_1 = 3 - 2i$ and $z_2 = -1 + 4i$. Show that**
-- **(a)** $\overline{(z_1 + z_2)} = \overline{z_1} + \overline{z_2}$
-- **(b)** $\overline{z_1z_2} = \overline{z_1}\,\overline{z_2}$
-- **(c)** $\overline{\left(\dfrac{z_1}{z_2}\right)} = \dfrac{\overline{z_1}}{\overline{z_2}}$
+**(a)** $z_1^2 - 2z_1 + 1$
 
-#### Solution (Exercise 1.3)
-
-**1. Compute.**
+**Solution.**
 $z_1 = -2 + 3i$, $z_2 = 5 + 2i$, $\overline{z_1} = -2 - 3i$ and $\overline{z_2} = 5 - 2i$.
-
-- **(a)**
 $$\begin{aligned}
 z_1^2 - 2z_1 + 1 &= (-2 + 3i)^2 - 2(-2 + 3i) + 1 \\
 &= 4 - 12i + 9i^2 + 4 - 6i + 1 \\
@@ -538,7 +524,9 @@ z_1^2 - 2z_1 + 1 &= (-2 + 3i)^2 - 2(-2 + 3i) + 1 \\
 &= -18i.
 \end{aligned}$$
 
-- **(b)**
+**(b)** $3z_2^2 + 2z_2 - 1$
+
+**Solution.**
 $$\begin{aligned}
 3z_2^2 + 2z_2 - 1 &= 3(5 + 2i)^2 + 2(5 + 2i) - 1 \\
 &= 3(25 + 20i + 4i^2) + 10 + 4i - 1 \\
@@ -547,7 +535,9 @@ $$\begin{aligned}
 &= 72 + 64i.
 \end{aligned}$$
 
-- **(c)**
+**(c)** $z_1\overline{z_2} + z_2\overline{z_1}$
+
+**Solution.**
 $$\begin{aligned}
 z_1\overline{z_2} &= (-2 + 3i)(5 - 2i) \\
 &= -10 + 4i + 15i - 6i^2 \\
@@ -562,7 +552,9 @@ z_1\overline{z_2} + z_2\overline{z_1} &= (-4 + 19i) + (-4 - 19i) \\
 &= -8.
 \end{aligned}$$
 
-- **(d)**
+**(d)** $\dfrac{1}{z_1}$
+
+**Solution.**
 $$\begin{aligned}
 \frac{1}{z_1} &= \frac{1}{-2 + 3i} \\
 &= \frac{1}{-2 + 3i} \cdot \frac{-2 - 3i}{-2 - 3i} \\
@@ -571,7 +563,9 @@ $$\begin{aligned}
 &= -\frac{2}{13} - \frac{3}{13}i.
 \end{aligned}$$
 
-- **(e)**
+**(e)** $\dfrac{1}{z_2}$
+
+**Solution.**
 $$\begin{aligned}
 \frac{1}{z_2} &= \frac{1}{5 + 2i} \\
 &= \frac{1}{5 + 2i} \cdot \frac{5 - 2i}{5 - 2i} \\
@@ -580,7 +574,9 @@ $$\begin{aligned}
 &= \frac{5}{29} - \frac{2}{29}i.
 \end{aligned}$$
 
-- **(f)**
+**(f)** $\dfrac{1}{z_1z_2}$
+
+**Solution.**
 $$\begin{aligned}
 z_1z_2 &= (-2 + 3i)(5 + 2i) \\
 &= -10 - 4i + 15i + 6i^2 \\
@@ -592,7 +588,9 @@ z_1z_2 &= (-2 + 3i)(5 + 2i) \\
 &= -\frac{16}{377} - \frac{11}{377}i.
 \end{aligned}$$
 
-- **(g)**
+**(g)** $\dfrac{z_1}{z_2}$
+
+**Solution.**
 $$\begin{aligned}
 \frac{z_1}{z_2} &= \frac{-2 + 3i}{5 + 2i} \\
 &= \frac{-2 + 3i}{5 + 2i} \cdot \frac{5 - 2i}{5 - 2i} \\
@@ -602,14 +600,18 @@ $$\begin{aligned}
 &= -\frac{4}{29} + \frac{19}{29}i.
 \end{aligned}$$
 
-- **(h)**
+**(h)** $\dfrac{\overline{z_1}}{\overline{z_2}}$
+
+**Solution.**
 $$\begin{aligned}
 \frac{\overline{z_1}}{\overline{z_2}} &= \overline{\left(\frac{z_1}{z_2}\right)} \\
 &= \overline{\left(-\frac{4}{29} + \frac{19}{29}i\right)} \\
 &= -\frac{4}{29} - \frac{19}{29}i.
 \end{aligned}$$
 
-- **(i)**
+**(i)** $\dfrac{z_2}{z_1}$
+
+**Solution.**
 $$\begin{aligned}
 \frac{z_2}{z_1} &= \frac{5 + 2i}{-2 + 3i} \\
 &= \frac{5 + 2i}{-2 + 3i} \cdot \frac{-2 - 3i}{-2 - 3i} \\
@@ -619,13 +621,17 @@ $$\begin{aligned}
 &= -\frac{4}{13} - \frac{19}{13}i.
 \end{aligned}$$
 
-- **(j)**
+**(j)** $\overline{\left(\dfrac{z_2}{z_1}\right)}$
+
+**Solution.**
 $$\begin{aligned}
 \overline{\left(\frac{z_2}{z_1}\right)} &= \overline{\left(-\frac{4}{13} - \frac{19}{13}i\right)} \\
 &= -\frac{4}{13} + \frac{19}{13}i.
 \end{aligned}$$
 
-- **(k)**
+**(k)** $\dfrac{\overline{z_1}z_2}{z_1\overline{z_2}}$
+
+**Solution.**
 $$\begin{aligned}
 \frac{\overline{z_1}z_2}{z_1\overline{z_2}} &= \frac{-4 - 19i}{-4 + 19i} \\
 &= \frac{-4 - 19i}{-4 + 19i} \cdot \frac{-4 - 19i}{-4 - 19i} \\
@@ -635,7 +641,9 @@ $$\begin{aligned}
 &= -\frac{345}{377} + \frac{152}{377}i.
 \end{aligned}$$
 
-- **(l)**
+**(l)** $\dfrac{z_2}{\overline{z_1}} + \dfrac{z_1}{\overline{z_2}}$
+
+**Solution.**
 $$\begin{aligned}
 \frac{z_2}{\overline{z_1}} + \frac{z_1}{\overline{z_2}} &= \frac{5 + 2i}{-2 - 3i} + \frac{-2 + 3i}{5 - 2i} \\
 &= \frac{5 + 2i}{-2 - 3i} \cdot \frac{-2 + 3i}{-2 + 3i} + \frac{-2 + 3i}{5 - 2i} \cdot \frac{5 + 2i}{5 + 2i} \\
@@ -649,7 +657,9 @@ $$\begin{aligned}
 
 **2. Let $z_1 = 3 - 2i$ and $z_2 = -1 + 4i$. Show that**
 
-- **(a)** $\overline{(z_1 + z_2)} = \overline{z_1} + \overline{z_2}$
+**(a)** $\overline{(z_1 + z_2)} = \overline{z_1} + \overline{z_2}$
+
+**Solution.**
 $$\begin{aligned}
 z_1 + z_2 &= (3 - 2i) + (-1 + 4i) = 2 + 2i, \\
 \overline{(z_1 + z_2)} &= 2 - 2i, \\
@@ -657,7 +667,9 @@ z_1 + z_2 &= (3 - 2i) + (-1 + 4i) = 2 + 2i, \\
 \end{aligned}$$
 Therefore, $\overline{(z_1 + z_2)} = \overline{z_1} + \overline{z_2}$.
 
-- **(b)** $\overline{z_1z_2} = \overline{z_1}\,\overline{z_2}$
+**(b)** $\overline{z_1z_2} = \overline{z_1}\,\overline{z_2}$
+
+**Solution.**
 $$\begin{aligned}
 z_1z_2 &= (3 - 2i)(-1 + 4i) = 5 + 14i, \\
 \overline{z_1z_2} &= 5 - 14i, \\
@@ -665,7 +677,9 @@ z_1z_2 &= (3 - 2i)(-1 + 4i) = 5 + 14i, \\
 \end{aligned}$$
 Therefore, $\overline{z_1z_2} = \overline{z_1}\,\overline{z_2}$.
 
-- **(c)** $\overline{\left(\dfrac{z_1}{z_2}\right)} = \dfrac{\overline{z_1}}{\overline{z_2}}$
+**(c)** $\overline{\left(\dfrac{z_1}{z_2}\right)} = \dfrac{\overline{z_1}}{\overline{z_2}}$
+
+**Solution.**
 $$\begin{aligned}
 \frac{z_1}{z_2} &= \frac{3 - 2i}{-1 + 4i} = \frac{(3 - 2i)(-1 - 4i)}{(-1 + 4i)(-1 - 4i)} = \frac{-11 - 10i}{17} \\
 &= -\frac{11}{17} - \frac{10}{17}i, \\[4pt]
@@ -711,14 +725,10 @@ For a non-zero complex number $z = x + yi$:
 4. Write the trigonometric form: $z = r(\cos\theta + i\sin\theta)$.
 
 **Example 5.** Find the trigonometric form with $-\pi < \theta \le \pi$.
-- **(a)** $z = 1 + \sqrt{3}i$
-- **(b)** $z = -1 + i$
-- **(c)** $z = -\sqrt{3} - i$
-- **(d)** $z = -1$
+
+**(a)** $z = 1 + \sqrt{3}i$
 
 **Solution.**
-
-- **(a)**
 $$\begin{aligned}
 z &= 1 + \sqrt{3}i = (1, \sqrt{3}) \\
 r &= \sqrt{1^2 + (\sqrt{3})^2} = 2 \\
@@ -728,7 +738,9 @@ z &= 2\left(\cos\frac{\pi}{3} + i\sin\frac{\pi}{3}\right)
 \end{aligned}$$
 [DIAGRAM: ArgandExample5a]
 
-- **(b)**
+**(b)** $z = -1 + i$
+
+**Solution.**
 $$\begin{aligned}
 z &= -1 + i = (-1, 1) \\
 r &= \sqrt{(-1)^2 + 1^2} = \sqrt{2} \\
@@ -738,7 +750,9 @@ z &= \sqrt{2}\left(\cos\frac{3\pi}{4} + i\sin\frac{3\pi}{4}\right)
 \end{aligned}$$
 [DIAGRAM: ArgandExample5b]
 
-- **(c)**
+**(c)** $z = -\sqrt{3} - i$
+
+**Solution.**
 $$\begin{aligned}
 z &= -\sqrt{3} - i = (-\sqrt{3}, -1) \\
 r &= \sqrt{(-\sqrt{3})^2 + (-1)^2} = 2 \\
@@ -748,7 +762,9 @@ z &= 2\left(\cos\left(-\frac{5\pi}{6}\right) + i\sin\left(-\frac{5\pi}{6}\right)
 \end{aligned}$$
 [DIAGRAM: ArgandExample5c]
 
-- **(d)**
+**(d)** $z = -1$
+
+**Solution.**
 $$\begin{aligned}
 z &= -1 = (-1, 0) \\
 r &= \sqrt{(-1)^2} = 1 \\
@@ -830,7 +846,7 @@ zz^{-1} &= (-\sqrt{3} - i)\left(-\frac{\sqrt{3}}{4} + \frac{1}{4}i\right) \\
 &= 1.
 \end{aligned}$$
 
-> Check $zz^{-1} = 1$ ဖြစ်သောကြောင့် $z$ ၏ multiplicative inverse သည် $z^{-1}$ ဖြစ်သည်။
+**Check.** $zz^{-1} = 1$ ဖြစ်သောကြောင့် $z$ ၏ multiplicative inverse သည် $z^{-1}$ ဖြစ်သည်။
 
 #### Division in Trigonometric Form
 Let $z_1 = r_1(\cos\theta_1 + i\sin\theta_1)$ and $z_2 = r_2(\cos\theta_2 + i\sin\theta_2)$, where $z_2 \neq 0$. Then
@@ -887,19 +903,22 @@ $$\boxed{z^n = r^n(\cos n\theta + i\sin n\theta), \qquad n \in \mathbb{Z}}$$
 
 **Remember:** Raise the modulus to the $n^{\text{th}}$ power and multiply the argument by $n$.
 
-**Example 9.** Given that $z = 1 + \sqrt{3}i$, find **(a)** $z^{10}$ **(b)** $z^{-10}$.
+**Example 9.** Given that $z = 1 + \sqrt{3}i$, find:
+
+**(a)** $z^{10}$
 
 **Solution.**
 $$z = 1 + \sqrt{3}i = 2\left(\cos\frac{\pi}{3} + i\sin\frac{\pi}{3}\right).$$
-
-- **(a)**
 $$\begin{aligned}
 z^{10} &= 2^{10}\left(\cos\frac{10\pi}{3} + i\sin\frac{10\pi}{3}\right) \\
 &= 1024\left(-\frac{1}{2} - \frac{\sqrt{3}}{2}i\right) \\
 &= -512 - 512\sqrt{3}i.
 \end{aligned}$$
 
-- **(b)**
+**(b)** $z^{-10}$
+
+**Solution.**
+$$z = 1 + \sqrt{3}i = 2\left(\cos\frac{\pi}{3} + i\sin\frac{\pi}{3}\right).$$
 $$\begin{aligned}
 z^{-10} &= 2^{-10}\left(\cos\left(-\frac{10\pi}{3}\right) + i\sin\left(-\frac{10\pi}{3}\right)\right) \\
 &= \frac{1}{1024}\left(-\frac{1}{2} + \frac{\sqrt{3}}{2}i\right) \\
@@ -918,28 +937,10 @@ z^{-1} &= \frac{1}{r}\bigl(\cos(-\theta) + i\sin(-\theta)\bigr), & z^n &= r^n(\c
 ### Exercise 1.4
 
 **1. Find the trigonometric form with $-\pi < \theta \le \pi$.**
-- **(a)** $z = 1 - \sqrt{3}i$
-- **(b)** $z = -\sqrt{2} + \sqrt{2}i$
-- **(c)** $z = -2 - 2i$
-- **(d)** $z = \sqrt{3} - i$
-- **(e)** $z = i$
-- **(f)** $z = -3i$
 
-**2. Given that $z_1 = 2 - 2\sqrt{3}i$ and $z_2 = -1 - i$, find the following by using trigonometric forms. Check your answer by direct calculation.**
-- **(a)** $z_1z_2$
-- **(b)** $z_1^{-1}$
-- **(c)** $\dfrac{z_1}{z_2}$
-- **(d)** $\dfrac{z_2}{z_1}$
+**(a)** $z = 1 - \sqrt{3}i$
 
-**3. Given that $z = -2\sqrt{3} - 2i$, find**
-- **(a)** $z^5$
-- **(b)** $z^{-5}$
-
-#### Solution (Exercise 1.4)
-
-**1.**
-
-- **(a)**
+**Solution.**
 $$\begin{aligned}
 z &= 1 - \sqrt{3}i = (1, -\sqrt{3}) \\
 r &= \sqrt{1^2 + (-\sqrt{3})^2} = 2 \\
@@ -949,7 +950,9 @@ z &= 2\left(\cos\left(-\frac{\pi}{3}\right) + i\sin\left(-\frac{\pi}{3}\right)\r
 \end{aligned}$$
 [DIAGRAM: ArgandEx1_4_1a]
 
-- **(b)**
+**(b)** $z = -\sqrt{2} + \sqrt{2}i$
+
+**Solution.**
 $$\begin{aligned}
 z &= -\sqrt{2} + \sqrt{2}i = (-\sqrt{2}, \sqrt{2}) \\
 r &= \sqrt{(-\sqrt{2})^2 + (\sqrt{2})^2} = 2 \\
@@ -959,7 +962,9 @@ z &= 2\left(\cos\frac{3\pi}{4} + i\sin\frac{3\pi}{4}\right)
 \end{aligned}$$
 [DIAGRAM: ArgandEx1_4_1b]
 
-- **(c)**
+**(c)** $z = -2 - 2i$
+
+**Solution.**
 $$\begin{aligned}
 z &= -2 - 2i = (-2, -2) \\
 r &= \sqrt{(-2)^2 + (-2)^2} = 2\sqrt{2} \\
@@ -969,7 +974,9 @@ z &= 2\sqrt{2}\left(\cos\left(-\frac{3\pi}{4}\right) + i\sin\left(-\frac{3\pi}{4
 \end{aligned}$$
 [DIAGRAM: ArgandEx1_4_1c]
 
-- **(d)**
+**(d)** $z = \sqrt{3} - i$
+
+**Solution.**
 $$\begin{aligned}
 z &= \sqrt{3} - i = (\sqrt{3}, -1) \\
 r &= \sqrt{(\sqrt{3})^2 + (-1)^2} = 2 \\
@@ -979,7 +986,9 @@ z &= 2\left(\cos\left(-\frac{\pi}{6}\right) + i\sin\left(-\frac{\pi}{6}\right)\r
 \end{aligned}$$
 [DIAGRAM: ArgandEx1_4_1d]
 
-- **(e)**
+**(e)** $z = i$
+
+**Solution.**
 $$\begin{aligned}
 z &= i = (0, 1) \\
 r &= \sqrt{1^2} = 1 \\
@@ -989,7 +998,9 @@ z &= 1\left(\cos\frac{\pi}{2} + i\sin\frac{\pi}{2}\right)
 \end{aligned}$$
 [DIAGRAM: ArgandEx1_4_1e]
 
-- **(f)**
+**(f)** $z = -3i$
+
+**Solution.**
 $$\begin{aligned}
 z &= -3i = (0, -3) \\
 r &= \sqrt{(-3)^2} = 3 \\
@@ -999,9 +1010,11 @@ z &= 3\left(\cos\left(-\frac{\pi}{2}\right) + i\sin\left(-\frac{\pi}{2}\right)\r
 \end{aligned}$$
 [DIAGRAM: ArgandEx1_4_1f]
 
-**2. Given $z_1 = 2 - 2\sqrt{3}i$ and $z_2 = -1 - i$.**
+**2. Given that $z_1 = 2 - 2\sqrt{3}i$ and $z_2 = -1 - i$, find the following by using trigonometric forms. Check your answer by direct calculation.**
 
-- **(a)**
+**(a)** $z_1z_2$
+
+**Solution.**
 $$z_1 = 4\left(\cos\left(-\frac{\pi}{3}\right) + i\sin\left(-\frac{\pi}{3}\right)\right), \qquad z_2 = \sqrt{2}\left(\cos\left(-\frac{3\pi}{4}\right) + i\sin\left(-\frac{3\pi}{4}\right)\right).$$
 
 $$\begin{aligned}
@@ -1019,7 +1032,9 @@ z_1z_2 &= (2 - 2\sqrt{3}i)(-1 - i) \\
 &= -(2 + 2\sqrt{3}) + (2\sqrt{3} - 2)i.
 \end{aligned}$$
 
-- **(b)**
+**(b)** $z_1^{-1}$
+
+**Solution.**
 $$z_1 = 4\left(\cos\left(-\frac{\pi}{3}\right) + i\sin\left(-\frac{\pi}{3}\right)\right).$$
 
 $$\begin{aligned}
@@ -1035,7 +1050,9 @@ z_1^{-1} &= \frac{1}{2 - 2\sqrt{3}i} \cdot \frac{2 + 2\sqrt{3}i}{2 + 2\sqrt{3}i}
 &= \frac{2 + 2\sqrt{3}i}{16} = \frac{1}{8} + \frac{\sqrt{3}}{8}i.
 \end{aligned}$$
 
-- **(c)**
+**(c)** $\dfrac{z_1}{z_2}$
+
+**Solution.**
 $$z_1 = 4\left(\cos\left(-\frac{\pi}{3}\right) + i\sin\left(-\frac{\pi}{3}\right)\right), \qquad z_2 = \sqrt{2}\left(\cos\left(-\frac{3\pi}{4}\right) + i\sin\left(-\frac{3\pi}{4}\right)\right).$$
 
 $$\begin{aligned}
@@ -1053,7 +1070,9 @@ $$\begin{aligned}
 &= \sqrt{3} - 1 + (\sqrt{3} + 1)i.
 \end{aligned}$$
 
-- **(d)**
+**(d)** $\dfrac{z_2}{z_1}$
+
+**Solution.**
 $$z_1 = 4\left(\cos\left(-\frac{\pi}{3}\right) + i\sin\left(-\frac{\pi}{3}\right)\right), \qquad z_2 = \sqrt{2}\left(\cos\left(-\frac{3\pi}{4}\right) + i\sin\left(-\frac{3\pi}{4}\right)\right).$$
 
 $$\begin{aligned}
@@ -1071,10 +1090,12 @@ $$\begin{aligned}
 &= \frac{\sqrt{3} - 1}{8} - \frac{\sqrt{3} + 1}{8}i.
 \end{aligned}$$
 
-**3. Given $z = -2\sqrt{3} - 2i$. Then**
-$$z = 4\left(\cos\left(-\frac{5\pi}{6}\right) + i\sin\left(-\frac{5\pi}{6}\right)\right).$$
+**3. Given that $z = -2\sqrt{3} - 2i$, find**
 
-- **(a)**
+**(a)** $z^5$
+
+**Solution.**
+$$z = 4\left(\cos\left(-\frac{5\pi}{6}\right) + i\sin\left(-\frac{5\pi}{6}\right)\right).$$
 $$\begin{aligned}
 z^5 &= 4^5\left(\cos\left(5\left(-\frac{5\pi}{6}\right)\right) + i\sin\left(5\left(-\frac{5\pi}{6}\right)\right)\right) \\
 &= 4^5\left(\cos\left(-\frac{25\pi}{6}\right) + i\sin\left(-\frac{25\pi}{6}\right)\right) \\
@@ -1082,8 +1103,12 @@ z^5 &= 4^5\left(\cos\left(5\left(-\frac{5\pi}{6}\right)\right) + i\sin\left(5\le
 &= 1024\left(\frac{\sqrt{3}}{2} - \frac{1}{2}i\right) \\
 &= 512\sqrt{3} - 512i.
 \end{aligned}$$
+[DIAGRAM: Ex1_4_Q3_Spiral_a]
 
-- **(b)**
+**(b)** $z^{-5}$
+
+**Solution.**
+$$z = 4\left(\cos\left(-\frac{5\pi}{6}\right) + i\sin\left(-\frac{5\pi}{6}\right)\right).$$
 $$\begin{aligned}
 z^{-5} &= 4^{-5}\left(\cos\left(-5\left(-\frac{5\pi}{6}\right)\right) + i\sin\left(-5\left(-\frac{5\pi}{6}\right)\right)\right) \\
 &= 4^{-5}\left(\cos\frac{25\pi}{6} + i\sin\frac{25\pi}{6}\right) \\
@@ -1091,8 +1116,7 @@ z^{-5} &= 4^{-5}\left(\cos\left(-5\left(-\frac{5\pi}{6}\right)\right) + i\sin\le
 &= \frac{1}{1024}\left(\frac{\sqrt{3}}{2} + \frac{1}{2}i\right) \\
 &= \frac{\sqrt{3}}{2048} + \frac{1}{2048}i.
 \end{aligned}$$
-
-[DIAGRAM: Ex1_4_Q3_Spirals]
+[DIAGRAM: Ex1_4_Q3_Spiral_b]
 
 ---
 
@@ -1271,267 +1295,404 @@ $$\begin{aligned}
 ---
 
 ### Exercise 1.5
+
 **1. Find the square roots of the following complex numbers.**
-- **(a) $1 + \sqrt{3}i$**
-  **Solution.**
-  Let $z = 1 + \sqrt{3}i = (1, \sqrt{3})$.
-  $$r = \sqrt{1^2 + (\sqrt{3})^2} = 2$$
-  $$\cos\theta = \frac{1}{2} \quad \text{and} \quad \sin\theta = \frac{\sqrt{3}}{2} \implies \theta = \frac{\pi}{3}$$
-  $$z = 2\left(\cos\frac{\pi}{3} + i \sin\frac{\pi}{3}\right)$$
-  For square roots,
-  $$\omega_k = \sqrt{2}\left(\cos \frac{\frac{\pi}{3} + 2k\pi}{2} + i \sin \frac{\frac{\pi}{3} + 2k\pi}{2}\right), \quad k = 0, 1.$$
-  Therefore, the square roots of $z$ are
-  $$\omega_0 = \sqrt{2}\left(\cos\frac{\pi}{6} + i \sin\frac{\pi}{6}\right) = \frac{\sqrt{6}}{2} + \frac{\sqrt{2}}{2}i,$$
-  $$\omega_1 = \sqrt{2}\left(\cos\frac{7\pi}{6} + i \sin\frac{7\pi}{6}\right) = -\frac{\sqrt{6}}{2} - \frac{\sqrt{2}}{2}i.$$
+
+**(a)** $1 + \sqrt{3}i$
+
+**Solution.**
+Let $z = 1 + \sqrt{3}i = (1, \sqrt{3})$.
+$$\begin{aligned}
+r &= \sqrt{1^2 + (\sqrt{3})^2} = 2 \\
+\cos\theta &= \frac{1}{2}, \qquad \sin\theta = \frac{\sqrt{3}}{2} \\
+\theta &= \frac{\pi}{3} \\
+z &= 2\left(\cos\frac{\pi}{3} + i\sin\frac{\pi}{3}\right)
+\end{aligned}$$
 [DIAGRAM: ArgandEx1_5_1a]
+For square roots,
+$$\omega_k = \sqrt{2}\left(\cos\frac{\frac{\pi}{3} + 2k\pi}{2} + i\sin\frac{\frac{\pi}{3} + 2k\pi}{2}\right), \qquad k = 0, 1.$$
+Therefore, the square roots of $z$ are
+$$\begin{aligned}
+\omega_0 &= \sqrt{2}\left(\cos\frac{\pi}{6} + i\sin\frac{\pi}{6}\right) \\
+&= \sqrt{2}\left(\frac{\sqrt{3}}{2} + \frac{1}{2}i\right) \\
+&= \frac{\sqrt{6}}{2} + \frac{\sqrt{2}}{2}i, \\[6pt]
+\omega_1 &= \sqrt{2}\left(\cos\frac{7\pi}{6} + i\sin\frac{7\pi}{6}\right) \\
+&= \sqrt{2}\left(-\frac{\sqrt{3}}{2} - \frac{1}{2}i\right) \\
+&= -\frac{\sqrt{6}}{2} - \frac{\sqrt{2}}{2}i.
+\end{aligned}$$
 
-- **(b) $i$**
-  **Solution.**
-  Let $z = i = (0, 1)$.
-  $$r = \sqrt{0^2 + 1^2} = 1$$
-  $$\cos\theta = 0 \quad \text{and} \quad \sin\theta = 1 \implies \theta = \frac{\pi}{2}$$
-  $$z = \cos\frac{\pi}{2} + i \sin\frac{\pi}{2}$$
-  For square roots,
-  $$\omega_k = \cos \frac{\frac{\pi}{2} + 2k\pi}{2} + i \sin \frac{\frac{\pi}{2} + 2k\pi}{2}, \quad k = 0, 1.$$
-  Therefore, the square roots of $z$ are
-  $$\omega_0 = \cos\frac{\pi}{4} + i \sin\frac{\pi}{4} = \frac{\sqrt{2}}{2} + \frac{\sqrt{2}}{2}i,$$
-  $$\omega_1 = \cos\frac{5\pi}{4} + i \sin\frac{5\pi}{4} = -\frac{\sqrt{2}}{2} - \frac{\sqrt{2}}{2}i.$$
+**(b)** $i$
+
+**Solution.**
+Let $z = i = (0, 1)$.
+$$\begin{aligned}
+r &= \sqrt{0^2 + 1^2} = 1 \\
+\cos\theta &= 0, \qquad \sin\theta = 1 \\
+\theta &= \frac{\pi}{2} \\
+z &= 1\left(\cos\frac{\pi}{2} + i\sin\frac{\pi}{2}\right)
+\end{aligned}$$
 [DIAGRAM: ArgandEx1_5_1b]
+For square roots,
+$$\omega_k = 1\left(\cos\frac{\frac{\pi}{2} + 2k\pi}{2} + i\sin\frac{\frac{\pi}{2} + 2k\pi}{2}\right), \qquad k = 0, 1.$$
+Therefore, the square roots of $z$ are
+$$\begin{aligned}
+\omega_0 &= 1\left(\cos\frac{\pi}{4} + i\sin\frac{\pi}{4}\right) \\
+&= \frac{\sqrt{2}}{2} + \frac{\sqrt{2}}{2}i, \\[6pt]
+\omega_1 &= 1\left(\cos\frac{5\pi}{4} + i\sin\frac{5\pi}{4}\right) \\
+&= -\frac{\sqrt{2}}{2} - \frac{\sqrt{2}}{2}i.
+\end{aligned}$$
 
-- **(c) $-\sqrt{3} + i$**
-  **Solution.**
-  Let $z = -\sqrt{3} + i = (-\sqrt{3}, 1)$.
-  $$r = \sqrt{(-\sqrt{3})^2 + 1^2} = 2$$
-  $$\cos\theta = -\frac{\sqrt{3}}{2} \quad \text{and} \quad \sin\theta = \frac{1}{2} \implies \theta = \frac{5\pi}{6}$$
-  $$z = 2\left(\cos\frac{5\pi}{6} + i \sin\frac{5\pi}{6}\right)$$
-  For square roots,
-  $$\omega_k = \sqrt{2}\left(\cos \frac{\frac{5\pi}{6} + 2k\pi}{2} + i \sin \frac{\frac{5\pi}{6} + 2k\pi}{2}\right), \quad k = 0, 1.$$
-  Therefore, the square roots of $z$ are
-  $$\omega_0 = \sqrt{2}\left(\cos\frac{5\pi}{12} + i \sin\frac{5\pi}{12}\right),$$
-  $$\omega_1 = \sqrt{2}\left(\cos\frac{17\pi}{12} + i \sin\frac{17\pi}{12}\right).$$
+**(c)** $-\sqrt{3} + i$
+
+**Solution.**
+Let $z = -\sqrt{3} + i = (-\sqrt{3}, 1)$.
+$$\begin{aligned}
+r &= \sqrt{(-\sqrt{3})^2 + 1^2} = 2 \\
+\cos\theta &= -\frac{\sqrt{3}}{2}, \qquad \sin\theta = \frac{1}{2} \\
+\theta &= \frac{5\pi}{6} \\
+z &= 2\left(\cos\frac{5\pi}{6} + i\sin\frac{5\pi}{6}\right)
+\end{aligned}$$
 [DIAGRAM: ArgandEx1_5_1c]
+For square roots,
+$$\omega_k = \sqrt{2}\left(\cos\frac{\frac{5\pi}{6} + 2k\pi}{2} + i\sin\frac{\frac{5\pi}{6} + 2k\pi}{2}\right), \qquad k = 0, 1.$$
+Therefore, the square roots of $z$ are
+$$\begin{aligned}
+\omega_0 &= \sqrt{2}\left(\cos\frac{5\pi}{12} + i\sin\frac{5\pi}{12}\right) \\
+&= \sqrt{2}\left(\frac{\sqrt{6} - \sqrt{2}}{4} + \frac{\sqrt{6} + \sqrt{2}}{4}i\right) \\
+&= \frac{\sqrt{3} - 1}{2} + \frac{1 + \sqrt{3}}{2}i, \\[6pt]
+\omega_1 &= \sqrt{2}\left(\cos\frac{17\pi}{12} + i\sin\frac{17\pi}{12}\right) \\
+&= \sqrt{2}\left(-\frac{\sqrt{6} - \sqrt{2}}{4} - \frac{\sqrt{6} + \sqrt{2}}{4}i\right) \\
+&= -\frac{\sqrt{3} - 1}{2} - \frac{1 + \sqrt{3}}{2}i.
+\end{aligned}$$
 
-- **(d) $-1 - \sqrt{3}i$**
-  **Solution.**
-  Let $z = -1 - \sqrt{3}i = (-1, -\sqrt{3})$.
-  $$r = \sqrt{(-1)^2 + (-\sqrt{3})^2} = 2$$
-  $$\cos\theta = -\frac{1}{2} \quad \text{and} \quad \sin\theta = -\frac{\sqrt{3}}{2} \implies \theta = -\frac{2\pi}{3}$$
-  $$z = 2\left(\cos\left(-\frac{2\pi}{3}\right) + i \sin\left(-\frac{2\pi}{3}\right)\right)$$
-  For square roots,
-  $$\omega_k = \sqrt{2}\left(\cos \frac{-\frac{2\pi}{3} + 2k\pi}{2} + i \sin \frac{-\frac{2\pi}{3} + 2k\pi}{2}\right), \quad k = 0, 1.$$
-  Therefore, the square roots of $z$ are
-  $$\omega_0 = \sqrt{2}\left(\cos\left(-\frac{\pi}{3}\right) + i \sin\left(-\frac{\pi}{3}\right)\right) = \frac{\sqrt{2}}{2} - \frac{\sqrt{6}}{2}i,$$
-  $$\omega_1 = \sqrt{2}\left(\cos\frac{2\pi}{3} + i \sin\frac{2\pi}{3}\right) = -\frac{\sqrt{2}}{2} + \frac{\sqrt{6}}{2}i.$$
+**(d)** $-1 - \sqrt{3}i$
+
+**Solution.**
+Let $z = -1 - \sqrt{3}i = (-1, -\sqrt{3})$.
+$$\begin{aligned}
+r &= \sqrt{(-1)^2 + (-\sqrt{3})^2} = 2, \qquad \theta = -\frac{2\pi}{3} \\
+\cos\theta &= -\frac{1}{2}, \qquad \sin\theta = -\frac{\sqrt{3}}{2} \\
+z &= 2\left(\cos\left(-\frac{2\pi}{3}\right) + i\sin\left(-\frac{2\pi}{3}\right)\right)
+\end{aligned}$$
 [DIAGRAM: ArgandEx1_5_1d]
+For square roots,
+$$\omega_k = \sqrt{2}\left(\cos\frac{-\frac{2\pi}{3} + 2k\pi}{2} + i\sin\frac{-\frac{2\pi}{3} + 2k\pi}{2}\right), \qquad k = 0, 1.$$
+Therefore, the square roots of $z$ are
+$$\begin{aligned}
+\omega_0 &= \sqrt{2}\left(\cos\left(-\frac{\pi}{3}\right) + i\sin\left(-\frac{\pi}{3}\right)\right) \\
+&= \sqrt{2}\left(\frac{1}{2} - \frac{\sqrt{3}}{2}i\right) \\
+&= \frac{\sqrt{2}}{2} - \frac{\sqrt{6}}{2}i, \\[6pt]
+\omega_1 &= \sqrt{2}\left(\cos\frac{2\pi}{3} + i\sin\frac{2\pi}{3}\right) \\
+&= \sqrt{2}\left(-\frac{1}{2} + \frac{\sqrt{3}}{2}i\right) \\
+&= -\frac{\sqrt{2}}{2} + \frac{\sqrt{6}}{2}i.
+\end{aligned}$$
 
-- **(e) $-i$**
-  **Solution.**
-  Let $z = -i = (0, -1)$.
-  $$r = \sqrt{0^2 + (-1)^2} = 1$$
-  $$\cos\theta = 0 \quad \text{and} \quad \sin\theta = -1 \implies \theta = -\frac{\pi}{2}$$
-  $$z = \cos\left(-\frac{\pi}{2}\right) + i \sin\left(-\frac{\pi}{2}\right)$$
-  For square roots,
-  $$\omega_k = \cos \frac{-\frac{\pi}{2} + 2k\pi}{2} + i \sin \frac{-\frac{\pi}{2} + 2k\pi}{2}, \quad k = 0, 1.$$
-  Therefore, the square roots of $z$ are
-  $$\omega_0 = \cos\left(-\frac{\pi}{4}\right) + i \sin\left(-\frac{\pi}{4}\right) = \frac{\sqrt{2}}{2} - \frac{\sqrt{2}}{2}i,$$
-  $$\omega_1 = \cos\frac{3\pi}{4} + i \sin\frac{3\pi}{4} = -\frac{\sqrt{2}}{2} + \frac{\sqrt{2}}{2}i.$$
+**(e)** $-i$
+
+**Solution.**
+Let $z = -i = (0, -1)$.
+$$\begin{aligned}
+r &= \sqrt{0^2 + (-1)^2} = 1 \\
+\cos\theta &= 0, \qquad \sin\theta = -1 \\
+\theta &= -\frac{\pi}{2} \\
+z &= 1\left(\cos\left(-\frac{\pi}{2}\right) + i\sin\left(-\frac{\pi}{2}\right)\right)
+\end{aligned}$$
 [DIAGRAM: ArgandEx1_5_1e]
+For square roots,
+$$\omega_k = 1\left(\cos\frac{-\frac{\pi}{2} + 2k\pi}{2} + i\sin\frac{-\frac{\pi}{2} + 2k\pi}{2}\right), \qquad k = 0, 1.$$
+Therefore, the square roots of $z$ are
+$$\begin{aligned}
+\omega_0 &= 1\left(\cos\left(-\frac{\pi}{4}\right) + i\sin\left(-\frac{\pi}{4}\right)\right) \\
+&= \frac{\sqrt{2}}{2} - \frac{\sqrt{2}}{2}i, \\[6pt]
+\omega_1 &= 1\left(\cos\frac{3\pi}{4} + i\sin\frac{3\pi}{4}\right) \\
+&= -\frac{\sqrt{2}}{2} + \frac{\sqrt{2}}{2}i.
+\end{aligned}$$
 
-- **(f) $\sqrt{3} - i$**
-  **Solution.**
-  Let $z = \sqrt{3} - i = (\sqrt{3}, -1)$.
-  $$r = \sqrt{(\sqrt{3})^2 + (-1)^2} = 2$$
-  $$\cos\theta = \frac{\sqrt{3}}{2} \quad \text{and} \quad \sin\theta = -\frac{1}{2} \implies \theta = -\frac{\pi}{6}$$
-  $$z = 2\left(\cos\left(-\frac{\pi}{6}\right) + i \sin\left(-\frac{\pi}{6}\right)\right)$$
-  For square roots,
-  $$\omega_k = \sqrt{2}\left(\cos \frac{-\frac{\pi}{6} + 2k\pi}{2} + i \sin \frac{-\frac{\pi}{6} + 2k\pi}{2}\right), \quad k = 0, 1.$$
-  Therefore, the square roots of $z$ are
-  $$\omega_0 = \sqrt{2}\left(\cos\left(-\frac{\pi}{12}\right) + i \sin\left(-\frac{\pi}{12}\right)\right),$$
-  $$\omega_1 = \sqrt{2}\left(\cos\frac{11\pi}{12} + i \sin\frac{11\pi}{12}\right).$$
+**(f)** $\sqrt{3} - i$
+
+**Solution.**
+Let $z = \sqrt{3} - i = (\sqrt{3}, -1)$.
+$$\begin{aligned}
+r &= \sqrt{(\sqrt{3})^2 + (-1)^2} = 2 \\
+\cos\theta &= \frac{\sqrt{3}}{2}, \qquad \sin\theta = -\frac{1}{2} \\
+\theta &= -\frac{\pi}{6} \\
+z &= 2\left(\cos\left(-\frac{\pi}{6}\right) + i\sin\left(-\frac{\pi}{6}\right)\right)
+\end{aligned}$$
 [DIAGRAM: ArgandEx1_5_1f]
+For square roots,
+$$\omega_k = \sqrt{2}\left(\cos\frac{-\frac{\pi}{6} + 2k\pi}{2} + i\sin\frac{-\frac{\pi}{6} + 2k\pi}{2}\right), \qquad k = 0, 1.$$
+Therefore, the square roots of $z$ are
+$$\begin{aligned}
+\omega_0 &= \sqrt{2}\left(\cos\left(-\frac{\pi}{12}\right) + i\sin\left(-\frac{\pi}{12}\right)\right) \\
+&= \sqrt{2}\left(\frac{\sqrt{6} + \sqrt{2}}{4} - \frac{\sqrt{6} - \sqrt{2}}{4}i\right) \\
+&= \frac{1 + \sqrt{3}}{2} - \frac{\sqrt{3} - 1}{2}i, \\[6pt]
+\omega_1 &= \sqrt{2}\left(\cos\frac{11\pi}{12} + i\sin\frac{11\pi}{12}\right) \\
+&= \sqrt{2}\left(-\frac{\sqrt{6} + \sqrt{2}}{4} + \frac{\sqrt{6} - \sqrt{2}}{4}i\right) \\
+&= -\frac{1 + \sqrt{3}}{2} + \frac{\sqrt{3} - 1}{2}i.
+\end{aligned}$$
 
-**2. Find the cube roots of the following.**
-- **(a) $1 + i$**
-  **Solution.**
-  Let $z = 1 + i = (1, 1)$.
-  $$r = \sqrt{1^2 + 1^2} = \sqrt{2}, \quad \cos\theta = \frac{\sqrt{2}}{2}, \quad \sin\theta = \frac{\sqrt{2}}{2} \implies \theta = \frac{\pi}{4}$$
-  $$z = \sqrt{2}\left(\cos\frac{\pi}{4} + i \sin\frac{\pi}{4}\right)$$
-  For cube roots ($n=3$):
-  $$\omega_k = \sqrt[6]{2}\left(\cos\frac{\pi/4 + 2k\pi}{3} + i \sin\frac{\pi/4 + 2k\pi}{3}\right), \quad k = 0, 1, 2$$
-  Therefore, the cube roots of $z$ are:
-  - **For $k = 0$:** $\omega_0 = \sqrt[6]{2}\left(\cos\frac{\pi}{12} + i \sin\frac{\pi}{12}\right)$
-  - **For $k = 1$:** $\omega_1 = \sqrt[6]{2}\left(\cos\frac{3\pi}{4} + i \sin\frac{3\pi}{4}\right)$
-  - **For $k = 2$:** $\omega_2 = \sqrt[6]{2}\left(\cos\frac{17\pi}{12} + i \sin\frac{17\pi}{12}\right)$
+**2. Find the cube roots of the following complex numbers.**
 
-- **(b) $i$**
-  **Solution.**
-  Let $z = i = (0, 1)$.
-  $$r = \sqrt{0^2 + 1^2} = 1, \quad \cos\theta = 0, \quad \sin\theta = 1 \implies \theta = \frac{\pi}{2}$$
-  $$z = \cos\frac{\pi}{2} + i \sin\frac{\pi}{2}$$
-  For cube roots ($n=3$):
-  $$\omega_k = \cos\frac{\pi/2 + 2k\pi}{3} + i \sin\frac{\pi/2 + 2k\pi}{3}, \quad k = 0, 1, 2$$
-  Therefore, the cube roots of $z$ are:
-  - **For $k = 0$:** $\omega_0 = \cos\frac{\pi}{6} + i \sin\frac{\pi}{6} = \frac{\sqrt{3}}{2} + \frac{1}{2}i$
-  - **For $k = 1$:** $\omega_1 = \cos\frac{5\pi}{6} + i \sin\frac{5\pi}{6} = -\frac{\sqrt{3}}{2} + \frac{1}{2}i$
-  - **For $k = 2$:** $\omega_2 = \cos\frac{3\pi}{2} + i \sin\frac{3\pi}{2} = -i$
+**(a)** $1 + i$
 
-- **(c) $-1 + i$**
-  **Solution.**
-  Let $z = -1 + i = (-1, 1)$.
-  $$r = \sqrt{(-1)^2 + 1^2} = \sqrt{2}, \quad \cos\theta = -\frac{\sqrt{2}}{2}, \quad \sin\theta = \frac{\sqrt{2}}{2} \implies \theta = \frac{3\pi}{4}$$
-  $$z = \sqrt{2}\left(\cos\frac{3\pi}{4} + i \sin\frac{3\pi}{4}\right)$$
-  For cube roots ($n=3$):
-  $$\omega_k = \sqrt[6]{2}\left(\cos\frac{3\pi/4 + 2k\pi}{3} + i \sin\frac{3\pi/4 + 2k\pi}{3}\right), \quad k = 0, 1, 2$$
-  Therefore, the cube roots of $z$ are:
-  - **For $k = 0$:** $\omega_0 = \sqrt[6]{2}\left(\cos\frac{\pi}{4} + i \sin\frac{\pi}{4}\right)$
-  - **For $k = 1$:** $\omega_1 = \sqrt[6]{2}\left(\cos\frac{11\pi}{12} + i \sin\frac{11\pi}{12}\right)$
-  - **For $k = 2$:** $\omega_2 = \sqrt[6]{2}\left(\cos\frac{19\pi}{12} + i \sin\frac{19\pi}{12}\right)$
+**Solution.**
+Let $z = 1 + i = (1, 1)$.
+$$\begin{aligned}
+r &= \sqrt{1^2 + 1^2} = \sqrt{2} \\
+\cos\theta &= \frac{1}{\sqrt{2}} = \frac{\sqrt{2}}{2}, \qquad \sin\theta = \frac{1}{\sqrt{2}} = \frac{\sqrt{2}}{2} \\
+\theta &= \frac{\pi}{4} \\
+z &= \sqrt{2}\left(\cos\frac{\pi}{4} + i\sin\frac{\pi}{4}\right).
+\end{aligned}$$
+[DIAGRAM: ArgandEx1_5_2a]
+For cube roots,
+$$\omega_k = \sqrt[6]{2}\left(\cos\frac{\frac{\pi}{4} + 2k\pi}{3} + i\sin\frac{\frac{\pi}{4} + 2k\pi}{3}\right), \qquad k = 0, 1, 2.$$
+Therefore, the cube roots of $z$ are
+$$\begin{aligned}
+\omega_0 &= \sqrt[6]{2}\left(\cos\frac{\pi}{12} + i\sin\frac{\pi}{12}\right) \\
+&= \sqrt[6]{2}\left(\frac{\sqrt{6} + \sqrt{2}}{4} + \frac{\sqrt{6} - \sqrt{2}}{4}i\right) \\
+&= \frac{\sqrt[3]{4}(\sqrt{3} + 1)}{4} + \frac{\sqrt[3]{4}(\sqrt{3} - 1)}{4}i, \\[6pt]
+\omega_1 &= \sqrt[6]{2}\left(\cos\frac{3\pi}{4} + i\sin\frac{3\pi}{4}\right) \\
+&= \sqrt[6]{2}\left(-\frac{\sqrt{2}}{2} + \frac{\sqrt{2}}{2}i\right) \\
+&= -\frac{\sqrt[3]{4}}{2} + \frac{\sqrt[3]{4}}{2}i, \\[6pt]
+\omega_2 &= \sqrt[6]{2}\left(\cos\frac{17\pi}{12} + i\sin\frac{17\pi}{12}\right) \\
+&= \sqrt[6]{2}\left(-\frac{\sqrt{6} - \sqrt{2}}{4} - \frac{\sqrt{6} + \sqrt{2}}{4}i\right) \\
+&= -\frac{\sqrt[3]{4}(\sqrt{3} - 1)}{4} - \frac{\sqrt[3]{4}(\sqrt{3} + 1)}{4}i.
+\end{aligned}$$
 
-- **(d) $-1 - i$**
-  **Solution.**
-  Let $z = -1 - i = (-1, -1)$.
-  $$r = \sqrt{(-1)^2 + (-1)^2} = \sqrt{2}, \quad \cos\theta = -\frac{\sqrt{2}}{2}, \quad \sin\theta = -\frac{\sqrt{2}}{2} \implies \theta = -\frac{3\pi}{4}$$
-  $$z = \sqrt{2}\left(\cos\left(-\frac{3\pi}{4}\right) + i \sin\left(-\frac{3\pi}{4}\right)\right)$$
-  For cube roots ($n=3$):
-  $$\omega_k = \sqrt[6]{2}\left(\cos\frac{-3\pi/4 + 2k\pi}{3} + i \sin\frac{-3\pi/4 + 2k\pi}{3}\right), \quad k = 0, 1, 2$$
-  Therefore, the cube roots of $z$ are:
-  - **For $k = 0$:** $\omega_0 = \sqrt[6]{2}\left(\cos\left(-\frac{\pi}{4}\right) + i \sin\left(-\frac{\pi}{4}\right)\right)$
-  - **For $k = 1$:** $\omega_1 = \sqrt[6]{2}\left(\cos\frac{5\pi}{12} + i \sin\frac{5\pi}{12}\right)$
-  - **For $k = 2$:** $\omega_2 = \sqrt[6]{2}\left(\cos\frac{13\pi}{12} + i \sin\frac{13\pi}{12}\right)$
+**(b)** $i$
 
-- **(e) $-i$**
-  **Solution.**
-  Let $z = -i = (0, -1)$.
-  $$r = \sqrt{0^2 + (-1)^2} = 1, \quad \cos\theta = 0, \quad \sin\theta = -1 \implies \theta = -\frac{\pi}{2}$$
-  $$z = \cos\left(-\frac{\pi}{2}\right) + i \sin\left(-\frac{\pi}{2}\right)$$
-  For cube roots ($n=3$):
-  $$\omega_k = \cos\frac{-\pi/2 + 2k\pi}{3} + i \sin\frac{-\pi/2 + 2k\pi}{3}, \quad k = 0, 1, 2$$
-  Therefore, the cube roots of $z$ are:
-  - **For $k = 0$:** $\omega_0 = \cos\left(-\frac{\pi}{6}\right) + i \sin\left(-\frac{\pi}{6}\right)$
-  - **For $k = 1$:** $\omega_1 = \cos\frac{\pi}{2} + i \sin\frac{\pi}{2}$
-  - **For $k = 2$:** $\omega_2 = \cos\frac{7\pi}{6} + i \sin\frac{7\pi}{6}$
+**Solution.**
+Let $z = i = (0, 1)$.
+$$\begin{aligned}
+r &= \sqrt{0^2 + 1^2} = 1 \\
+\cos\theta &= 0, \qquad \sin\theta = 1 \\
+\theta &= \frac{\pi}{2} \\
+z &= 1\left(\cos\frac{\pi}{2} + i\sin\frac{\pi}{2}\right).
+\end{aligned}$$
+[DIAGRAM: ArgandEx1_5_1b]
+For cube roots,
+$$\omega_k = 1\left(\cos\frac{\frac{\pi}{2} + 2k\pi}{3} + i\sin\frac{\frac{\pi}{2} + 2k\pi}{3}\right), \qquad k = 0, 1, 2.$$
+Therefore, the cube roots of $z$ are
+$$\begin{aligned}
+\omega_0 &= 1\left(\cos\frac{\pi}{6} + i\sin\frac{\pi}{6}\right) = \frac{\sqrt{3}}{2} + \frac{1}{2}i, \\
+\omega_1 &= 1\left(\cos\frac{5\pi}{6} + i\sin\frac{5\pi}{6}\right) = -\frac{\sqrt{3}}{2} + \frac{1}{2}i, \\
+\omega_2 &= 1\left(\cos\frac{3\pi}{2} + i\sin\frac{3\pi}{2}\right) = -i.
+\end{aligned}$$
 
-- **(f) $1 - i$**
-  **Solution.**
-  Let $z = 1 - i = (1, -1)$.
-  $$r = \sqrt{1^2 + (-1)^2} = \sqrt{2}, \quad \cos\theta = \frac{\sqrt{2}}{2}, \quad \sin\theta = -\frac{\sqrt{2}}{2} \implies \theta = -\frac{\pi}{4}$$
-  $$z = \sqrt{2}\left(\cos\left(-\frac{\pi}{4}\right) + i \sin\left(-\frac{\pi}{4}\right)\right)$$
-  For cube roots ($n=3$):
-  $$\omega_k = \sqrt[6]{2}\left(\cos\frac{-\pi/4 + 2k\pi}{3} + i \sin\frac{-\pi/4 + 2k\pi}{3}\right), \quad k = 0, 1, 2$$
-  Therefore, the cube roots of $z$ are:
-  - **For $k = 0$:** $\omega_0 = \sqrt[6]{2}\left(\cos\left(-\frac{\pi}{12}\right) + i \sin\left(-\frac{\pi}{12}\right)\right)$
-  - **For $k = 1$:** $\omega_1 = \sqrt[6]{2}\left(\cos\frac{7\pi}{12} + i \sin\frac{7\pi}{12}\right)$
-  - **For $k = 2$:** $\omega_2 = \sqrt[6]{2}\left(\cos\frac{5\pi}{4} + i \sin\frac{5\pi}{4}\right)$
+**(c)** $-1 + i$
+
+**Solution.**
+Let $z = -1 + i = (-1, 1)$.
+$$\begin{aligned}
+r &= \sqrt{(-1)^2 + 1^2} = \sqrt{2} \\
+\cos\theta &= -\frac{1}{\sqrt{2}} = -\frac{\sqrt{2}}{2}, \qquad \sin\theta = \frac{1}{\sqrt{2}} = \frac{\sqrt{2}}{2} \\
+\theta &= \frac{3\pi}{4} \\
+z &= \sqrt{2}\left(\cos\frac{3\pi}{4} + i\sin\frac{3\pi}{4}\right).
+\end{aligned}$$
+[DIAGRAM: ArgandEx1_5_2c]
+For cube roots,
+$$\omega_k = \sqrt[6]{2}\left(\cos\frac{\frac{3\pi}{4} + 2k\pi}{3} + i\sin\frac{\frac{3\pi}{4} + 2k\pi}{3}\right), \qquad k = 0, 1, 2.$$
+Therefore, the cube roots of $z$ are
+$$\begin{aligned}
+\omega_0 &= \sqrt[6]{2}\left(\cos\frac{\pi}{4} + i\sin\frac{\pi}{4}\right) \\
+&= \sqrt[6]{2}\left(\frac{\sqrt{2}}{2} + \frac{\sqrt{2}}{2}i\right) \\
+&= \frac{\sqrt[3]{4}}{2} + \frac{\sqrt[3]{4}}{2}i, \\[6pt]
+\omega_1 &= \sqrt[6]{2}\left(\cos\frac{11\pi}{12} + i\sin\frac{11\pi}{12}\right) \\
+&= \sqrt[6]{2}\left(-\frac{\sqrt{6} + \sqrt{2}}{4} + \frac{\sqrt{6} - \sqrt{2}}{4}i\right) \\
+&= -\frac{\sqrt[3]{4}(\sqrt{3} + 1)}{4} + \frac{\sqrt[3]{4}(\sqrt{3} - 1)}{4}i, \\[6pt]
+\omega_2 &= \sqrt[6]{2}\left(\cos\frac{19\pi}{12} + i\sin\frac{19\pi}{12}\right) \\
+&= \sqrt[6]{2}\left(\frac{\sqrt{6} - \sqrt{2}}{4} - \frac{\sqrt{6} + \sqrt{2}}{4}i\right) \\
+&= \frac{\sqrt[3]{4}(\sqrt{3} - 1)}{4} - \frac{\sqrt[3]{4}(\sqrt{3} + 1)}{4}i.
+\end{aligned}$$
+
+**(d)** $-1 - i$
+
+**Solution.**
+Let $z = -1 - i = (-1, -1)$.
+$$\begin{aligned}
+r &= \sqrt{(-1)^2 + (-1)^2} = \sqrt{2} \\
+\cos\theta &= -\frac{1}{\sqrt{2}} = -\frac{\sqrt{2}}{2}, \qquad \sin\theta = -\frac{1}{\sqrt{2}} = -\frac{\sqrt{2}}{2} \\
+\theta &= -\frac{3\pi}{4} \\
+z &= \sqrt{2}\left(\cos\left(-\frac{3\pi}{4}\right) + i\sin\left(-\frac{3\pi}{4}\right)\right).
+\end{aligned}$$
+[DIAGRAM: ArgandEx1_5_2d]
+For cube roots,
+$$\omega_k = \sqrt[6]{2}\left(\cos\frac{-\frac{3\pi}{4} + 2k\pi}{3} + i\sin\frac{-\frac{3\pi}{4} + 2k\pi}{3}\right), \qquad k = 0, 1, 2.$$
+Therefore, the cube roots of $z$ are
+$$\begin{aligned}
+\omega_0 &= \sqrt[6]{2}\left(\cos\left(-\frac{\pi}{4}\right) + i\sin\left(-\frac{\pi}{4}\right)\right) \\
+&= \sqrt[6]{2}\left(\frac{\sqrt{2}}{2} - \frac{\sqrt{2}}{2}i\right) \\
+&= \frac{\sqrt[3]{4}}{2} - \frac{\sqrt[3]{4}}{2}i, \\[6pt]
+\omega_1 &= \sqrt[6]{2}\left(\cos\frac{5\pi}{12} + i\sin\frac{5\pi}{12}\right) \\
+&= \sqrt[6]{2}\left(\frac{\sqrt{6} - \sqrt{2}}{4} + \frac{\sqrt{6} + \sqrt{2}}{4}i\right) \\
+&= \frac{\sqrt[3]{4}(\sqrt{3} - 1)}{4} + \frac{\sqrt[3]{4}(\sqrt{3} + 1)}{4}i, \\[6pt]
+\omega_2 &= \sqrt[6]{2}\left(\cos\frac{13\pi}{12} + i\sin\frac{13\pi}{12}\right) \\
+&= \sqrt[6]{2}\left(-\frac{\sqrt{6} + \sqrt{2}}{4} - \frac{\sqrt{6} - \sqrt{2}}{4}i\right) \\
+&= -\frac{\sqrt[3]{4}(\sqrt{3} + 1)}{4} - \frac{\sqrt[3]{4}(\sqrt{3} - 1)}{4}i.
+\end{aligned}$$
+
+**(e)** $-i$
+
+**Solution.**
+Let $z = -i = (0, -1)$.
+$$\begin{aligned}
+r &= \sqrt{0^2 + (-1)^2} = 1 \\
+\cos\theta &= 0, \qquad \sin\theta = -1 \\
+\theta &= -\frac{\pi}{2} \\
+z &= 1\left(\cos\left(-\frac{\pi}{2}\right) + i\sin\left(-\frac{\pi}{2}\right)\right).
+\end{aligned}$$
+[DIAGRAM: ArgandEx1_5_1e]
+For cube roots,
+$$\omega_k = 1\left(\cos\frac{-\frac{\pi}{2} + 2k\pi}{3} + i\sin\frac{-\frac{\pi}{2} + 2k\pi}{3}\right), \qquad k = 0, 1, 2.$$
+Therefore, the cube roots of $z$ are
+$$\begin{aligned}
+\omega_0 &= 1\left(\cos\left(-\frac{\pi}{6}\right) + i\sin\left(-\frac{\pi}{6}\right)\right) = \frac{\sqrt{3}}{2} - \frac{1}{2}i, \\
+\omega_1 &= 1\left(\cos\frac{\pi}{2} + i\sin\frac{\pi}{2}\right) = i, \\
+\omega_2 &= 1\left(\cos\frac{7\pi}{6} + i\sin\frac{7\pi}{6}\right) = -\frac{\sqrt{3}}{2} - \frac{1}{2}i.
+\end{aligned}$$
+
+**(f)** $1 - i$
+
+**Solution.**
+Let $z = 1 - i = (1, -1)$.
+$$\begin{aligned}
+r &= \sqrt{1^2 + (-1)^2} = \sqrt{2} \\
+\cos\theta &= \frac{1}{\sqrt{2}} = \frac{\sqrt{2}}{2}, \qquad \sin\theta = -\frac{1}{\sqrt{2}} = -\frac{\sqrt{2}}{2} \\
+\theta &= -\frac{\pi}{4} \\
+z &= \sqrt{2}\left(\cos\left(-\frac{\pi}{4}\right) + i\sin\left(-\frac{\pi}{4}\right)\right).
+\end{aligned}$$
+[DIAGRAM: ArgandEx1_5_2f]
+For cube roots,
+$$\omega_k = \sqrt[6]{2}\left(\cos\frac{-\frac{\pi}{4} + 2k\pi}{3} + i\sin\frac{-\frac{\pi}{4} + 2k\pi}{3}\right), \qquad k = 0, 1, 2.$$
+Therefore, the cube roots of $z$ are
+$$\begin{aligned}
+\omega_0 &= \sqrt[6]{2}\left(\cos\left(-\frac{\pi}{12}\right) + i\sin\left(-\frac{\pi}{12}\right)\right) \\
+&= \sqrt[6]{2}\left(\frac{\sqrt{6} + \sqrt{2}}{4} - \frac{\sqrt{6} - \sqrt{2}}{4}i\right) \\
+&= \frac{\sqrt[3]{4}(\sqrt{3} + 1)}{4} - \frac{\sqrt[3]{4}(\sqrt{3} - 1)}{4}i, \\[6pt]
+\omega_1 &= \sqrt[6]{2}\left(\cos\frac{7\pi}{12} + i\sin\frac{7\pi}{12}\right) \\
+&= \sqrt[6]{2}\left(-\frac{\sqrt{6} - \sqrt{2}}{4} + \frac{\sqrt{6} + \sqrt{2}}{4}i\right) \\
+&= -\frac{\sqrt[3]{4}(\sqrt{3} - 1)}{4} + \frac{\sqrt[3]{4}(\sqrt{3} + 1)}{4}i, \\[6pt]
+\omega_2 &= \sqrt[6]{2}\left(\cos\frac{5\pi}{4} + i\sin\frac{5\pi}{4}\right) \\
+&= \sqrt[6]{2}\left(-\frac{\sqrt{2}}{2} - \frac{\sqrt{2}}{2}i\right) \\
+&= -\frac{\sqrt[3]{4}}{2} - \frac{\sqrt[3]{4}}{2}i.
+\end{aligned}$$
 
 **3. Solve the following equations.**
-- **(a) $z^4 = -i$**
-  **Solution.**
-  $$\begin{aligned}
-  -i &= (0, -1) \\
-  &= 1\left(\cos\left(-\frac{\pi}{2}\right) + i \sin\left(-\frac{\pi}{2}\right)\right) \\
-  &= 1\left(\cos\left(-\frac{\pi}{2} + 2k\pi\right) + i \sin\left(-\frac{\pi}{2} + 2k\pi\right)\right), \quad k \in \mathbb{Z}
-  \end{aligned}$$
-  $$z^4 = -i$$
-  $$z^4 = 1\left(\cos\left(-\frac{\pi}{2} + 2k\pi\right) + i \sin\left(-\frac{\pi}{2} + 2k\pi\right)\right)$$
-  $$z = \left[1\left(\cos\left(-\frac{\pi}{2} + 2k\pi\right) + i \sin\left(-\frac{\pi}{2} + 2k\pi\right)\right)\right]^{\frac{1}{4}}$$
-  $$z = \sqrt[4]{1}\left(\cos\frac{-\frac{\pi}{2} + 2k\pi}{4} + i \sin\frac{-\frac{\pi}{2} + 2k\pi}{4}\right), \quad k = 0, 1, 2, 3.$$
 
-  - **When $k=0$:**
-    $$\begin{aligned}
-    z &= \cos\left(-\frac{\pi}{8}\right) + i \sin\left(-\frac{\pi}{8}\right) \\
-    &= \cos\frac{\pi}{8} - i \sin\frac{\pi}{8} \\
-    &= \sqrt{\frac{1 + \cos\frac{\pi}{4}}{2}} - i \sqrt{\frac{1 - \cos\frac{\pi}{4}}{2}} \\
-    &= \sqrt{\frac{1 + \frac{\sqrt{2}}{2}}{2}} - i \sqrt{\frac{1 - \frac{\sqrt{2}}{2}}{2}} \\
-    &= \frac{\sqrt{2+\sqrt{2}}}{2} - \frac{\sqrt{2-\sqrt{2}}}{2}i
-    \end{aligned}$$
+**(a)** $z^4 = -i$
 
-  - **When $k=1$:**
-    $$\begin{aligned}
-    z &= \cos\frac{3\pi}{8} + i \sin\frac{3\pi}{8} \\
-    &= \sqrt{\frac{1 + \cos\frac{3\pi}{4}}{2}} + i \sqrt{\frac{1 - \cos\frac{3\pi}{4}}{2}} \\
-    &= \sqrt{\frac{1 - \frac{\sqrt{2}}{2}}{2}} + i \sqrt{\frac{1 + \frac{\sqrt{2}}{2}}{2}} \\
-    &= \frac{\sqrt{2-\sqrt{2}}}{2} + \frac{\sqrt{2+\sqrt{2}}}{2}i
-    \end{aligned}$$
+**Solution.**
+$$\begin{aligned}
+z^4 &= -i \\
+-i &= (0, -1) \\
+&= 1\left(\cos\left(-\frac{\pi}{2}\right) + i\sin\left(-\frac{\pi}{2}\right)\right) \\
+&= 1\left(\cos\left(-\frac{\pi}{2} + 2k\pi\right) + i\sin\left(-\frac{\pi}{2} + 2k\pi\right)\right) \\
+z^4 &= 1\left(\cos\left(-\frac{\pi}{2} + 2k\pi\right) + i\sin\left(-\frac{\pi}{2} + 2k\pi\right)\right) \\
+z &= \left[1\left(\cos\left(-\frac{\pi}{2} + 2k\pi\right) + i\sin\left(-\frac{\pi}{2} + 2k\pi\right)\right)\right]^{\frac{1}{4}} \\
+z &= \sqrt[4]{1}\left(\cos\frac{-\frac{\pi}{2} + 2k\pi}{4} + i\sin\frac{-\frac{\pi}{2} + 2k\pi}{4}\right), \qquad k = 0, 1, 2, 3.
+\end{aligned}$$
 
-  - **When $k=2$:**
-    $$\begin{aligned}
-    z &= \cos\frac{7\pi}{8} + i \sin\frac{7\pi}{8} \\
-    &= -\cos\frac{\pi}{8} + i \sin\frac{\pi}{8} \\
-    &= -\frac{\sqrt{2+\sqrt{2}}}{2} + \frac{\sqrt{2-\sqrt{2}}}{2}i
-    \end{aligned}$$
+$$\begin{aligned}
+\text{When } k = 0, \quad z &= \cos\left(-\frac{\pi}{8}\right) + i\sin\left(-\frac{\pi}{8}\right) \\
+&= \cos\left(\frac{\frac{\pi}{4}}{2}\right) - \sin\left(\frac{\frac{\pi}{4}}{2}\right)i \\
+&= \sqrt{\frac{1 + \cos\frac{\pi}{4}}{2}} - \sqrt{\frac{1 - \cos\frac{\pi}{4}}{2}}\,i \\
+&= \sqrt{\frac{1 + \frac{\sqrt{2}}{2}}{2}} - \sqrt{\frac{1 - \frac{\sqrt{2}}{2}}{2}}\,i \\
+&= \frac{\sqrt{2 + \sqrt{2}}}{2} - \frac{\sqrt{2 - \sqrt{2}}}{2}i, \\[8pt]
+\text{When } k = 1, \quad z &= \cos\frac{3\pi}{8} + i\sin\frac{3\pi}{8} \\
+&= \cos\left(\frac{\frac{3\pi}{4}}{2}\right) + \sin\left(\frac{\frac{3\pi}{4}}{2}\right)i \\
+&= \sqrt{\frac{1 + \cos\frac{3\pi}{4}}{2}} + \sqrt{\frac{1 - \cos\frac{3\pi}{4}}{2}}\,i \\
+&= \sqrt{\frac{1 - \frac{\sqrt{2}}{2}}{2}} + \sqrt{\frac{1 + \frac{\sqrt{2}}{2}}{2}}\,i \\
+&= \frac{\sqrt{2 - \sqrt{2}}}{2} + \frac{\sqrt{2 + \sqrt{2}}}{2}i, \\[8pt]
+\text{When } k = 2, \quad z &= \cos\frac{7\pi}{8} + i\sin\frac{7\pi}{8} \\
+&= \cos\left(\frac{\frac{7\pi}{4}}{2}\right) + \sin\left(\frac{\frac{7\pi}{4}}{2}\right)i \\
+&= -\sqrt{\frac{1 + \cos\frac{7\pi}{4}}{2}} + \sqrt{\frac{1 - \cos\frac{7\pi}{4}}{2}}\,i \\
+&= -\sqrt{\frac{1 + \frac{\sqrt{2}}{2}}{2}} + \sqrt{\frac{1 - \frac{\sqrt{2}}{2}}{2}}\,i \\
+&= -\frac{\sqrt{2 + \sqrt{2}}}{2} + \frac{\sqrt{2 - \sqrt{2}}}{2}i, \\[8pt]
+\text{When } k = 3, \quad z &= \cos\frac{11\pi}{8} + i\sin\frac{11\pi}{8} \\
+&= \cos\left(\frac{\frac{11\pi}{4}}{2}\right) + \sin\left(\frac{\frac{11\pi}{4}}{2}\right)i \\
+&= -\sqrt{\frac{1 + \cos\frac{11\pi}{4}}{2}} - \sqrt{\frac{1 - \cos\frac{11\pi}{4}}{2}}\,i \\
+&= -\sqrt{\frac{1 + \cos\frac{3\pi}{4}}{2}} - \sqrt{\frac{1 - \cos\frac{3\pi}{4}}{2}}\,i \\
+&= -\sqrt{\frac{1 - \frac{\sqrt{2}}{2}}{2}} - \sqrt{\frac{1 + \frac{\sqrt{2}}{2}}{2}}\,i \\
+&= -\frac{\sqrt{2 - \sqrt{2}}}{2} - \frac{\sqrt{2 + \sqrt{2}}}{2}i.
+\end{aligned}$$
 
-  - **When $k=3$:**
-    $$\begin{aligned}
-    z &= \cos\frac{11\pi}{8} + i \sin\frac{11\pi}{8} \\
-    &= -\cos\frac{3\pi}{8} - i \sin\frac{3\pi}{8} \\
-    &= -\frac{\sqrt{2-\sqrt{2}}}{2} - \frac{\sqrt{2+\sqrt{2}}}{2}i
-    \end{aligned}$$
-  [DIAGRAM: RootsEx1_5_3a]
+**(b)** $z^4 = -1$
 
-- **(b) $z^4 = -1$**
-  **Solution.**
-  $$\begin{aligned}
-  -1 &= (-1, 0) \\
-  &= 1(\cos\pi + i \sin\pi) \\
-  &= 1(\cos(\pi + 2k\pi) + i \sin(\pi + 2k\pi)), \quad k \in \mathbb{Z}
-  \end{aligned}$$
-  $$z^4 = -1$$
-  $$z^4 = 1(\cos(\pi + 2k\pi) + i \sin(\pi + 2k\pi))$$
-  $$z = [1(\cos(\pi + 2k\pi) + i \sin(\pi + 2k\pi))]^{\frac{1}{4}}$$
-  $$z = \sqrt[4]{1}\left(\cos\frac{\pi + 2k\pi}{4} + i \sin\frac{\pi + 2k\pi}{4}\right), \quad k = 0, 1, 2, 3.$$
+**Solution.**
+$$\begin{aligned}
+z^4 &= -1 \\
+-1 &= (-1, 0) \\
+&= 1(\cos\pi + i\sin\pi) \\
+&= 1\bigl(\cos(\pi + 2k\pi) + i\sin(\pi + 2k\pi)\bigr) \\
+z^4 &= 1\bigl(\cos(\pi + 2k\pi) + i\sin(\pi + 2k\pi)\bigr) \\
+z &= \bigl[1\bigl(\cos(\pi + 2k\pi) + i\sin(\pi + 2k\pi)\bigr)\bigr]^{\frac{1}{4}} \\
+z &= \sqrt[4]{1}\left(\cos\frac{\pi + 2k\pi}{4} + i\sin\frac{\pi + 2k\pi}{4}\right), \qquad k = 0, 1, 2, 3.
+\end{aligned}$$
 
-  - **When $k=0$:**
-    $$z = \cos\frac{\pi}{4} + i \sin\frac{\pi}{4} = \frac{\sqrt{2}}{2} + \frac{\sqrt{2}}{2}i$$
-  - **When $k=1$:**
-    $$z = \cos\frac{3\pi}{4} + i \sin\frac{3\pi}{4} = -\frac{\sqrt{2}}{2} + \frac{\sqrt{2}}{2}i$$
-  - **When $k=2$:**
-    $$z = \cos\frac{5\pi}{4} + i \sin\frac{5\pi}{4} = -\frac{\sqrt{2}}{2} - \frac{\sqrt{2}}{2}i$$
-  - **When $k=3$:**
-    $$z = \cos\frac{7\pi}{4} + i \sin\frac{7\pi}{4} = \frac{\sqrt{2}}{2} - \frac{\sqrt{2}}{2}i$$
-  [DIAGRAM: RootsEx1_5_3b]
+$$\begin{aligned}
+\text{When } k = 0, \quad z &= \cos\frac{\pi}{4} + i\sin\frac{\pi}{4} \\
+&= \frac{\sqrt{2}}{2} + \frac{\sqrt{2}}{2}i, \\[6pt]
+\text{When } k = 1, \quad z &= \cos\frac{3\pi}{4} + i\sin\frac{3\pi}{4} \\
+&= -\frac{\sqrt{2}}{2} + \frac{\sqrt{2}}{2}i, \\[6pt]
+\text{When } k = 2, \quad z &= \cos\frac{5\pi}{4} + i\sin\frac{5\pi}{4} \\
+&= -\frac{\sqrt{2}}{2} - \frac{\sqrt{2}}{2}i, \\[6pt]
+\text{When } k = 3, \quad z &= \cos\frac{7\pi}{4} + i\sin\frac{7\pi}{4} \\
+&= \frac{\sqrt{2}}{2} - \frac{\sqrt{2}}{2}i.
+\end{aligned}$$
 
-- **(c) $z^4 = -8 - 8\sqrt{3}i$**
-  **Solution.**
-  $$\begin{aligned}
-  -8 - 8\sqrt{3}i &= 16\left(\cos\left(-\frac{2\pi}{3}\right) + i \sin\left(-\frac{2\pi}{3}\right)\right) \\
-  &= 16\left(\cos\left(-\frac{2\pi}{3} + 2k\pi\right) + i \sin\left(-\frac{2\pi}{3} + 2k\pi\right)\right), \quad k \in \mathbb{Z}
-  \end{aligned}$$
-  $$z^4 = -8 - 8\sqrt{3}i$$
-  $$z = \left[16\left(\cos\left(-\frac{2\pi}{3} + 2k\pi\right) + i \sin\left(-\frac{2\pi}{3} + 2k\pi\right)\right)\right]^{\frac{1}{4}}$$
-  $$z = 2\left(\cos\frac{-\frac{2\pi}{3} + 2k\pi}{4} + i \sin\frac{-\frac{2\pi}{3} + 2k\pi}{4}\right), \quad k = 0, 1, 2, 3.$$
+**(c)** $z^4 = -8 - 8\sqrt{3}i$
 
-  - **When $k=0$:**
-    $$z = 2\left(\cos\left(-\frac{\pi}{6}\right) + i \sin\left(-\frac{\pi}{6}\right)\right) = \sqrt{3} - i$$
-  - **When $k=1$:**
-    $$z = 2\left(\cos\frac{\pi}{3} + i \sin\frac{\pi}{3}\right) = 1 + \sqrt{3}i$$
-  - **When $k=2$:**
-    $$z = 2\left(\cos\frac{5\pi}{6} + i \sin\frac{5\pi}{6}\right) = -\sqrt{3} + i$$
-  - **When $k=3$:**
-    $$z = 2\left(\cos\frac{4\pi}{3} + i \sin\frac{4\pi}{3}\right) = -1 - \sqrt{3}i$$
-  [DIAGRAM: RootsEx1_5_3c]
+**Solution.**
+$$\begin{aligned}
+z^4 &= -8 - 8\sqrt{3}i \\
+-8 - 8\sqrt{3}i &= (-8, -8\sqrt{3}) \\
+&= 16\left(\cos\left(-\frac{2\pi}{3}\right) + i\sin\left(-\frac{2\pi}{3}\right)\right) \\
+&= 16\left(\cos\left(-\frac{2\pi}{3} + 2k\pi\right) + i\sin\left(-\frac{2\pi}{3} + 2k\pi\right)\right) \\
+z^4 &= 16\left(\cos\left(-\frac{2\pi}{3} + 2k\pi\right) + i\sin\left(-\frac{2\pi}{3} + 2k\pi\right)\right) \\
+z &= \left[16\left(\cos\left(-\frac{2\pi}{3} + 2k\pi\right) + i\sin\left(-\frac{2\pi}{3} + 2k\pi\right)\right)\right]^{\frac{1}{4}} \\
+z &= \sqrt[4]{16}\left(\cos\frac{-\frac{2\pi}{3} + 2k\pi}{4} + i\sin\frac{-\frac{2\pi}{3} + 2k\pi}{4}\right), \qquad k = 0, 1, 2, 3.
+\end{aligned}$$
 
-- **(d) $z^6 = -1$**
-  **Solution.**
-  $$\begin{aligned}
-  -1 &= (-1, 0) \\
-  &= 1(\cos\pi + i \sin\pi) \\
-  &= 1(\cos(\pi + 2k\pi) + i \sin(\pi + 2k\pi)), \quad k \in \mathbb{Z}
-  \end{aligned}$$
-  $$z^6 = -1$$
-  $$z^6 = 1(\cos(\pi + 2k\pi) + i \sin(\pi + 2k\pi))$$
-  $$z = \sqrt[6]{1}\left(\cos\frac{\pi + 2k\pi}{6} + i \sin\frac{\pi + 2k\pi}{6}\right), \quad k = 0, 1, 2, 3, 4, 5.$$
+$$\begin{aligned}
+\text{When } k = 0, \quad z &= 2\left(\cos\left(-\frac{\pi}{6}\right) + i\sin\left(-\frac{\pi}{6}\right)\right) \\
+&= 2\left(\frac{\sqrt{3}}{2} - \frac{1}{2}i\right) \\
+&= \sqrt{3} - i, \\[6pt]
+\text{When } k = 1, \quad z &= 2\left(\cos\frac{\pi}{3} + i\sin\frac{\pi}{3}\right) \\
+&= 2\left(\frac{1}{2} + \frac{\sqrt{3}}{2}i\right) \\
+&= 1 + \sqrt{3}i, \\[6pt]
+\text{When } k = 2, \quad z &= 2\left(\cos\frac{5\pi}{6} + i\sin\frac{5\pi}{6}\right) \\
+&= 2\left(-\frac{\sqrt{3}}{2} + \frac{1}{2}i\right) \\
+&= -\sqrt{3} + i, \\[6pt]
+\text{When } k = 3, \quad z &= 2\left(\cos\frac{4\pi}{3} + i\sin\frac{4\pi}{3}\right) \\
+&= 2\left(-\frac{1}{2} - \frac{\sqrt{3}}{2}i\right) \\
+&= -1 - \sqrt{3}i.
+\end{aligned}$$
 
-  - **When $k=0$:**
-    $$z = \cos\frac{\pi}{6} + i \sin\frac{\pi}{6} = \frac{\sqrt{3}}{2} + \frac{1}{2}i$$
-  - **When $k=1$:**
-    $$z = \cos\frac{\pi}{2} + i \sin\frac{\pi}{2} = i$$
-  - **When $k=2$:**
-    $$z = \cos\frac{5\pi}{6} + i \sin\frac{5\pi}{6} = -\frac{\sqrt{3}}{2} + \frac{1}{2}i$$
-  - **When $k=3$:**
-    $$z = \cos\frac{7\pi}{6} + i \sin\frac{7\pi}{6} = -\frac{\sqrt{3}}{2} - \frac{1}{2}i$$
-  - **When $k=4$:**
-    $$z = \cos\frac{3\pi}{2} + i \sin\frac{3\pi}{2} = -i$$
-  - **When $k=5$:**
-    $$z = \cos\frac{11\pi}{6} + i \sin\frac{11\pi}{6} = \frac{\sqrt{3}}{2} - \frac{1}{2}i$$
-  [DIAGRAM: RootsEx1_5_3d]
+**(d)** $z^6 = -1$
+
+**Solution.**
+$$\begin{aligned}
+z^6 &= -1 \\
+-1 &= (-1, 0) \\
+&= 1(\cos\pi + i\sin\pi) \\
+&= 1\bigl(\cos(\pi + 2k\pi) + i\sin(\pi + 2k\pi)\bigr) \\
+z^6 &= 1\bigl(\cos(\pi + 2k\pi) + i\sin(\pi + 2k\pi)\bigr) \\
+z &= \bigl[1\bigl(\cos(\pi + 2k\pi) + i\sin(\pi + 2k\pi)\bigr)\bigr]^{\frac{1}{6}} \\
+z &= \sqrt[6]{1}\left(\cos\frac{\pi + 2k\pi}{6} + i\sin\frac{\pi + 2k\pi}{6}\right), \qquad k = 0, 1, 2, 3, 4, 5.
+\end{aligned}$$
+
+$$\begin{aligned}
+\text{When } k = 0, \quad z &= \cos\frac{\pi}{6} + i\sin\frac{\pi}{6} \\
+&= \frac{\sqrt{3}}{2} + \frac{1}{2}i, \\[6pt]
+\text{When } k = 1, \quad z &= \cos\frac{\pi}{2} + i\sin\frac{\pi}{2} \\
+&= i, \\[6pt]
+\text{When } k = 2, \quad z &= \cos\frac{5\pi}{6} + i\sin\frac{5\pi}{6} \\
+&= -\frac{\sqrt{3}}{2} + \frac{1}{2}i, \\[6pt]
+\text{When } k = 3, \quad z &= \cos\frac{7\pi}{6} + i\sin\frac{7\pi}{6} \\
+&= -\frac{\sqrt{3}}{2} - \frac{1}{2}i, \\[6pt]
+\text{When } k = 4, \quad z &= \cos\frac{3\pi}{2} + i\sin\frac{3\pi}{2} \\
+&= -i, \\[6pt]
+\text{When } k = 5, \quad z &= \cos\frac{11\pi}{6} + i\sin\frac{11\pi}{6} \\
+&= \frac{\sqrt{3}}{2} - \frac{1}{2}i.
+\end{aligned}$$
 `;

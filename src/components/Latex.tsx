@@ -1,5 +1,5 @@
 import DraggableScroll from "./DraggableScroll";
-import React from 'react';
+import React, { useState } from 'react';
 import katex from 'katex';
 import { 
   HelpCircle, 
@@ -9,6 +9,9 @@ import {
   BookOpen, 
   GraduationCap, 
   ChevronRight, 
+  ChevronDown,
+  Eye,
+  EyeOff,
   Activity, 
   Sparkles, 
   Compass, 
@@ -25,6 +28,7 @@ import {
 interface LatexProps {
   text: string;
   block?: boolean;
+  insideSolution?: boolean;
 }
 
 // -----------------------------------------------------------------
@@ -293,9 +297,9 @@ function MathematicianTimeline() {
 
 function ArgandPolar() {
   return (
-    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
-      <svg width="240" height="240" className="overflow-visible" viewBox="0 0 240 240">
-<defs>
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80 overflow-hidden">
+      <svg viewBox="0 0 280 250" className="w-full max-w-[270px] h-auto">
+        <defs>
           <marker id="arrow-p-ArgandPolar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse" overflow="visible">
             <path d="M 0 2 L 10 5 L 0 8 z" fill="#64748b" />
           </marker>
@@ -307,48 +311,46 @@ function ArgandPolar() {
           </marker>
         </defs>
         {/* Grid lines */}
-        <line x1="20" y1="120" x2="220" y2="120" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="2 2" className="dark:stroke-slate-700" />
-        <line x1="120" y1="20" x2="120" y2="220" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="2 2" className="dark:stroke-slate-700" />
+        <line x1="25" y1="128" x2="225" y2="128" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="2 2" className="dark:stroke-slate-700" />
+        <line x1="125" y1="28" x2="125" y2="228" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="2 2" className="dark:stroke-slate-700" />
         {/* Axes */}
-        <line x1="10" y1="120" x2="230" y2="120" stroke="#64748b" strokeWidth="1.5" className="dark:stroke-slate-400" />
-        <polygon points="10,120 18.0,124.0 18.0,116.0" fill="#64748b" />
-        <polygon points="230,120 222.0,116.0 222.0,124.0" fill="#64748b" />
-        <line x1="120" y1="230" x2="120" y2="10" stroke="#64748b" strokeWidth="1.5" className="dark:stroke-slate-400" />
-        <polygon points="120,230 124.0,222.0 116.0,222.0" fill="#64748b" />
-        <polygon points="120,10 116.0,18.0 124.0,18.0" fill="#64748b" />
+        <line x1="15" y1="128" x2="235" y2="128" stroke="#64748b" strokeWidth="1.5" className="dark:stroke-slate-400" />
+        <polygon points="15,128 23.0,132.0 23.0,124.0" fill="#64748b" />
+        <polygon points="235,128 227.0,124.0 227.0,132.0" fill="#64748b" />
+        <line x1="125" y1="238" x2="125" y2="20" stroke="#64748b" strokeWidth="1.5" className="dark:stroke-slate-400" />
+        <polygon points="125,238 129.0,230.0 121.0,230.0" fill="#64748b" />
+        <polygon points="125,20 121.0,28.0 129.0,28.0" fill="#64748b" />
         {/* Axis Labels */}
-        <text x="235" y="124" className="text-[10px] font-mono fill-slate-500 dark:fill-slate-400 font-bold">Re</text>
-        <text x="120" y="5" className="text-[10px] font-mono fill-slate-500 dark:fill-slate-400 font-bold" textAnchor="middle">Im</text>
-        
+        <text x="242" y="132" className="text-[10px] font-mono fill-slate-500 dark:fill-slate-400 font-bold">Re</text>
+        <text x="125" y="13" className="text-[10px] font-mono fill-slate-500 dark:fill-slate-400 font-bold" textAnchor="middle">Im</text>
+
         {/* Vector line to P(x,y) */}
-        <line x1="120" y1="120" x2="185" y2="55" stroke="#6366f1" strokeWidth="2.5" />
-        <polygon points="185,55 176.5,57.8 182.2,63.5" fill="#6366f1" />
+        <line x1="125" y1="128" x2="190" y2="63" stroke="#6366f1" strokeWidth="2.5" />
+        <polygon points="190,63 181.5,65.8 187.2,71.5" fill="#6366f1" />
         {/* Dashed drop-downs */}
-        <line x1="185" y1="55" x2="185" y2="120" stroke="#94a3b8" strokeWidth="1.2" strokeDasharray="3 3" />
-        <line x1="185" y1="55" x2="120" y2="55" stroke="#94a3b8" strokeWidth="1.2" strokeDasharray="3 3" />
+        <line x1="190" y1="63" x2="190" y2="128" stroke="#94a3b8" strokeWidth="1.2" strokeDasharray="3 3" />
+        <line x1="190" y1="63" x2="125" y2="63" stroke="#94a3b8" strokeWidth="1.2" strokeDasharray="3 3" />
 
         {/* Angle Arc */}
-        <path d="M 140 120 A 20 20 0 0 0 134 106" fill="none" stroke="#f59e0b" strokeWidth="2" />
-        <polygon points="134,106 136.8,114.5 142.5,108.8" fill="#f59e0b" />
-        <text x="144" y="112" className="text-xs font-serif italic fill-amber-500 font-bold">θ</text>
+        <path d="M 145 128 A 20 20 0 0 0 139 114" fill="none" stroke="#f59e0b" strokeWidth="2" />
+        <polygon points="139,114 141.8,122.5 147.5,116.8" fill="#f59e0b" />
+        <text x="149" y="120" className="text-xs font-serif italic fill-amber-500 font-bold">θ</text>
 
         {/* Origin Label */}
-        <text x="104" y="134" className="text-xs fill-slate-500 italic font-serif">O</text>
+        <text x="109" y="142" className="text-xs fill-slate-500 italic font-serif">O</text>
 
         {/* Labels for coordinates */}
-        <text x="185" y="132" className="text-[10px] fill-slate-500 font-mono" textAnchor="middle">x</text>
-        <text x="110" y="59" className="text-[10px] fill-slate-500 font-mono" textAnchor="middle">y</text>
+        <text x="190" y="140" className="text-[10px] fill-slate-500 font-mono" textAnchor="middle">x</text>
+        <text x="115" y="67" className="text-[10px] fill-slate-500 font-mono" textAnchor="middle">y</text>
 
         {/* Radial line label */}
-        <text x="146" y="82" className="text-xs fill-indigo-500 font-bold italic font-serif">r</text>
+        <text x="151" y="90" className="text-xs fill-indigo-500 font-bold italic font-serif">r</text>
 
         {/* Plot Point P(x, y) */}
-        <circle cx="185" cy="55" r="5" className="fill-indigo-500 stroke-white dark:stroke-slate-900" strokeWidth="1.5" />
-        <text x="193" y="52" className="text-[10px] font-bold fill-slate-800 dark:fill-slate-200 font-sans">z = (x, y)</text>
-        
-        
+        <circle cx="190" cy="63" r="5" className="fill-indigo-500 stroke-white dark:stroke-slate-900" strokeWidth="1.5" />
+        <text x="198" y="60" className="text-[10px] font-bold fill-slate-800 dark:fill-slate-200 font-sans">z = (x, y)</text>
       </svg>
-      <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-3 italic font-sans">Geometric representation of the Polar / Trigonometric form z = r(cos θ + i sin θ)</span>
+      <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-3 italic font-sans text-center">Geometric representation of the Polar / Trigonometric form z = r(cos θ + i sin θ)</span>
     </div>
   );
 }
@@ -1316,16 +1318,19 @@ function ArgandPrincipalQuadrants() {
     return pts.join(' ');
   };
 
+  const cx = 108;
+  const cy = 96;
+
   const quadrants = [
     {
       title: 'Quadrant I',
       pointLabel: 'z = (1, 1)',
-      px: 122,
-      py: 48,
-      labelX: 128,
-      labelY: 44,
+      px: cx + 38,
+      py: cy - 38,
+      labelX: cx + 44,
+      labelY: cy - 42,
+      labelAnchor: 'start' as const,
       thetaDeg: 45,
-      principalIndex: 0,
       items: [
         { heading: '1. Anticlockwise', math: 'θ = Arg z = π/4', principal: true },
         { heading: '2. Anticlockwise: extra turn', math: 'θ + 2π = 9π/4', principal: false },
@@ -1335,12 +1340,12 @@ function ArgandPrincipalQuadrants() {
     {
       title: 'Quadrant II',
       pointLabel: 'z = (-1, 1)',
-      px: 48,
-      py: 48,
-      labelX: 8,
-      labelY: 42,
+      px: cx - 38,
+      py: cy - 38,
+      labelX: cx - 44,
+      labelY: cy - 42,
+      labelAnchor: 'end' as const,
       thetaDeg: 135,
-      principalIndex: 0,
       items: [
         { heading: '1. Anticlockwise', math: 'θ = Arg z = 3π/4', principal: true },
         { heading: '2. Anticlockwise: extra turn', math: 'θ + 2π = 11π/4', principal: false },
@@ -1350,12 +1355,12 @@ function ArgandPrincipalQuadrants() {
     {
       title: 'Quadrant III',
       pointLabel: 'z = (-1, -1)',
-      px: 48,
-      py: 122,
-      labelX: 4,
-      labelY: 138,
+      px: cx - 38,
+      py: cy + 38,
+      labelX: cx - 44,
+      labelY: cy + 50,
+      labelAnchor: 'end' as const,
       thetaDeg: 225,
-      principalIndex: 2,
       items: [
         { heading: '1. Anticlockwise', math: 'θ = 5π/4', principal: false },
         { heading: '2. Anticlockwise: extra turn', math: 'θ + 2π = 13π/4', principal: false },
@@ -1365,12 +1370,12 @@ function ArgandPrincipalQuadrants() {
     {
       title: 'Quadrant IV',
       pointLabel: 'z = (1, -1)',
-      px: 122,
-      py: 122,
-      labelX: 112,
-      labelY: 138,
+      px: cx + 38,
+      py: cy + 38,
+      labelX: cx + 44,
+      labelY: cy + 50,
+      labelAnchor: 'start' as const,
       thetaDeg: 315,
-      principalIndex: 2,
       items: [
         { heading: '1. Anticlockwise', math: 'θ = 7π/4', principal: false },
         { heading: '2. Anticlockwise: extra turn', math: 'θ + 2π = 15π/4', principal: false },
@@ -1382,73 +1387,82 @@ function ArgandPrincipalQuadrants() {
   return (
     <div className="my-6 grid grid-cols-1 md:grid-cols-2 gap-4">
       {quadrants.map((q) => {
-        const cx = 85;
-        const cy = 85;
-        const ccwArc = buildSpiralPath(cx, cy, 20, 20, 0, q.thetaDeg, 48);
-        const extraTurn = buildSpiralPath(cx, cy, 31, 40, 0, q.thetaDeg + 360, 96);
-        const cwArc = buildSpiralPath(cx, cy, 48, 48, 0, q.thetaDeg - 360, 64);
+        const ccwArc = buildSpiralPath(cx, cy, 18, 18, 0, q.thetaDeg, 48);
+        const extraTurn = buildSpiralPath(cx, cy, 27, 35, 0, q.thetaDeg + 360, 96);
+        const cwArc = buildSpiralPath(cx, cy, 43, 43, 0, q.thetaDeg - 360, 64);
 
         return (
           <div
             key={q.title}
-            className="flex flex-col sm:flex-row items-center gap-4 p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-200/80 dark:border-slate-800/80"
+            className="flex flex-col items-center gap-3 p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 overflow-hidden min-w-0"
           >
-            <svg width="170" height="170" viewBox="0 0 170 170" className="shrink-0 overflow-visible">
-              <line x1="12" y1={cy} x2="158" y2={cy} stroke="#94a3b8" strokeWidth="1.2" />
-              <polygon points="158,85 151,81.5 151,88.5" fill="#94a3b8" />
-              <line x1={cx} y1="158" x2={cx} y2="12" stroke="#94a3b8" strokeWidth="1.2" />
-              <polygon points="85,12 81.5,19 88.5,19" fill="#94a3b8" />
-              <text x="160" y="88" className="text-[9px] font-mono fill-slate-500 dark:fill-slate-400">Re(z)</text>
-              <text x="85" y="8" textAnchor="middle" className="text-[9px] font-mono fill-slate-500 dark:fill-slate-400">Im(z)</text>
-              <text x="74" y="96" className="text-[9px] font-serif italic fill-slate-500">O</text>
+            <div className="w-full flex items-center justify-between border-b border-slate-200/70 dark:border-slate-800 pb-2">
+              <span className="text-xs font-bold text-slate-900 dark:text-slate-100">{q.title}</span>
+              <span className="text-[11px] font-mono font-semibold text-indigo-600 dark:text-indigo-400">{q.pointLabel}</span>
+            </div>
+
+            <svg viewBox="0 0 232 184" className="w-full max-w-[232px] h-auto shrink-0">
+              <line x1="22" y1={cy} x2="188" y2={cy} stroke="#94a3b8" strokeWidth="1.2" />
+              <polygon points={`188,${cy} 181,${cy - 3.5} 181,${cy + 3.5}`} fill="#94a3b8" />
+              <line x1={cx} y1="172" x2={cx} y2="20" stroke="#94a3b8" strokeWidth="1.2" />
+              <polygon points={`${cx},20 ${cx - 3.5},27 ${cx + 3.5},27`} fill="#94a3b8" />
+              <text x="193" y={cy + 3} className="text-[9.5px] font-mono fill-slate-500 dark:fill-slate-400">Re(z)</text>
+              <text x={cx} y="13" textAnchor="middle" className="text-[9.5px] font-mono fill-slate-500 dark:fill-slate-400">Im(z)</text>
+              <text x={cx - 11} y={cy + 11} className="text-[9px] font-serif italic fill-slate-500">O</text>
 
               {/* 1. Anticlockwise arc (indigo) */}
               <path d={ccwArc} fill="none" stroke="#4f46e5" strokeWidth="1.6" />
-              <circle cx={cx + 20} cy={cy} r="2.2" fill="#4f46e5" />
+              <circle cx={cx + 18} cy={cy} r="2.3" fill="#4f46e5" />
 
               {/* 2. Extra turn spiral (sky) */}
-              <path d={extraTurn} fill="none" stroke="#0284c7" strokeWidth="1.2" strokeDasharray="3 2" />
-              <circle cx={cx + 31} cy={cy} r="2.2" fill="#0284c7" />
+              <path d={extraTurn} fill="none" stroke="#0284c7" strokeWidth="1.25" strokeDasharray="3 2" />
+              <circle cx={cx + 27} cy={cy} r="2.3" fill="#0284c7" />
 
               {/* 3. Clockwise arc (rose) */}
               <path d={cwArc} fill="none" stroke="#e11d48" strokeWidth="1.5" />
-              <circle cx={cx + 48} cy={cy} r="2.2" fill="#e11d48" />
+              <circle cx={cx + 43} cy={cy} r="2.3" fill="#e11d48" />
 
               {/* Ray to z */}
               <line x1={cx} y1={cy} x2={q.px} y2={q.py} stroke="#0f172a" strokeWidth="1.8" className="dark:stroke-slate-100" />
               <circle cx={q.px} cy={q.py} r="3.5" className="fill-indigo-600 dark:fill-indigo-400" />
-              <text x={q.labelX} y={q.labelY} className="text-[10px] font-bold fill-slate-800 dark:fill-slate-200 font-mono">
+              <text
+                x={q.labelX}
+                y={q.labelY}
+                textAnchor={q.labelAnchor}
+                className="text-[10px] font-bold fill-slate-800 dark:fill-slate-200 font-mono"
+              >
                 {q.pointLabel}
               </text>
             </svg>
 
-            <div className="flex-1 w-full space-y-2 text-xs">
-              <div className="font-bold text-slate-900 dark:text-slate-100">{q.title}</div>
+            <div className="w-full min-w-0 space-y-1.5 text-xs">
               {q.items.map((item, idx) => (
                 <div
                   key={item.heading}
                   className={
                     item.principal
-                      ? 'p-2 rounded-lg border border-indigo-300 dark:border-indigo-700 bg-indigo-50/70 dark:bg-indigo-950/40'
-                      : 'px-2 py-1'
+                      ? 'p-2.5 rounded-xl border border-indigo-300 dark:border-indigo-700 bg-indigo-50/80 dark:bg-indigo-950/40'
+                      : 'px-2.5 py-1.5 rounded-lg bg-white/70 dark:bg-slate-900/60 border border-slate-200/50 dark:border-slate-800/60'
                   }
                 >
-                  <div className="flex items-center gap-1.5 font-semibold text-slate-700 dark:text-slate-300">
-                    <span
-                      className={`w-2 h-2 rounded-full shrink-0 ${
-                        idx === 0 ? 'bg-indigo-600' : idx === 1 ? 'bg-sky-600' : 'bg-rose-600'
-                      }`}
-                    />
-                    <span>{item.heading}</span>
+                  <div className="flex items-center justify-between gap-2 flex-wrap">
+                    <div className="flex items-center gap-1.5 font-semibold text-slate-700 dark:text-slate-300 min-w-0">
+                      <span
+                        className={`w-2 h-2 rounded-full shrink-0 ${
+                          idx === 0 ? 'bg-indigo-600' : idx === 1 ? 'bg-sky-600' : 'bg-rose-600'
+                        }`}
+                      />
+                      <span className="break-words">{item.heading}</span>
+                    </div>
+                    {item.principal && (
+                      <span className="text-[10px] font-bold text-indigo-700 dark:text-indigo-300 shrink-0">
+                        Principal argument
+                      </span>
+                    )}
                   </div>
-                  <div className="font-mono text-[11px] text-slate-800 dark:text-slate-200 mt-0.5 pl-3.5">
+                  <div className="font-mono text-[11px] text-slate-800 dark:text-slate-200 mt-1 pl-3.5 break-words">
                     {item.math}
                   </div>
-                  {item.principal && (
-                    <div className="text-[10px] font-bold text-indigo-700 dark:text-indigo-300 mt-0.5 pl-3.5">
-                      Principal argument
-                    </div>
-                  )}
                 </div>
               ))}
             </div>
@@ -1459,7 +1473,19 @@ function ArgandPrincipalQuadrants() {
   );
 }
 
-function Ex1_4_Q3_Spirals() {
+function Ex1_4_Q3_SingleSpiral({
+  title,
+  spiralLabel,
+  arcLabel,
+  rayAngle,
+  totalDeg,
+}: {
+  title: string;
+  spiralLabel: string;
+  arcLabel: string;
+  rayAngle: number;
+  totalDeg: number;
+}) {
   const buildSpiralPath = (
     cx: number,
     cy: number,
@@ -1467,7 +1493,7 @@ function Ex1_4_Q3_Spirals() {
     rEnd: number,
     degStart: number,
     degEnd: number,
-    steps = 120
+    steps = 160
   ) => {
     const pts: string[] = [];
     for (let i = 0; i <= steps; i++) {
@@ -1481,69 +1507,79 @@ function Ex1_4_Q3_Spirals() {
     return pts.join(' ');
   };
 
-  const panels = [
-    {
-      title: '−25π/6 = −4π (two full turns) − π/6',
-      spiralLabel: 'blue spiral: total rotation −25π/6',
-      arcLabel: 'red arc: remaining angle −π/6',
-      rayAngle: -30,
-      totalDeg: -750,
-    },
-    {
-      title: '+25π/6 = +4π (two full turns) + π/6',
-      spiralLabel: 'blue spiral: total rotation +25π/6',
-      arcLabel: 'red arc: remaining angle +π/6',
-      rayAngle: 30,
-      totalDeg: 750,
-    },
-  ];
+  const cx = 90;
+  const cy = 90;
+  const spiral = buildSpiralPath(cx, cy, 16, 48, 0, totalDeg, 160);
+  const remArc = buildSpiralPath(cx, cy, 56, 56, 0, rayAngle, 24);
+  const rad = (rayAngle * Math.PI) / 180;
+  const rx = cx + 62 * Math.cos(rad);
+  const ry = cy - 62 * Math.sin(rad);
 
   return (
+    <div className="my-5 flex flex-col items-center gap-3 p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 overflow-hidden max-w-md mx-auto">
+      <div className="w-full font-mono text-xs font-bold text-slate-800 dark:text-slate-100 text-center border-b border-slate-200/70 dark:border-slate-800 pb-2 break-words">
+        {title}
+      </div>
+
+      <svg viewBox="0 0 185 180" className="w-full max-w-[185px] h-auto shrink-0">
+        <line x1="18" y1={cy} x2="162" y2={cy} stroke="#94a3b8" strokeWidth="1.2" />
+        <line x1={cx} y1="162" x2={cx} y2="18" stroke="#94a3b8" strokeWidth="1.2" />
+        <text x="167" y={cy + 3} className="text-[10px] font-serif italic fill-slate-500">x</text>
+        <text x={cx} y="12" textAnchor="middle" className="text-[10px] font-serif italic fill-slate-500">y</text>
+
+        <path d={spiral} fill="none" stroke="#2563eb" strokeWidth="1.3" />
+        <path d={remArc} fill="none" stroke="#e11d48" strokeWidth="2.2" />
+        <line x1={cx} y1={cy} x2={rx} y2={ry} stroke="#0f172a" strokeWidth="2" className="dark:stroke-slate-100" />
+        <circle cx={rx} cy={ry} r="3" className="fill-slate-900 dark:fill-slate-100" />
+      </svg>
+
+      <div className="w-full space-y-1.5 text-xs min-w-0">
+        <div className="flex items-center gap-2 text-slate-600 dark:text-slate-300">
+          <span className="w-3 h-0.5 bg-blue-600 shrink-0" />
+          <span className="break-words">{spiralLabel}</span>
+        </div>
+        <div className="flex items-center gap-2 text-slate-600 dark:text-slate-300">
+          <span className="w-3 h-0.5 bg-rose-600 shrink-0" />
+          <span className="break-words">{arcLabel}</span>
+        </div>
+        <div className="flex items-center gap-2 text-slate-600 dark:text-slate-300">
+          <span className="w-3 h-0.5 bg-slate-900 dark:bg-slate-100 shrink-0" />
+          <span className="break-words">terminal ray: same final direction</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Ex1_4_Q3_Spiral_a() {
+  return (
+    <Ex1_4_Q3_SingleSpiral
+      title="−25π/6 = −4π (two full turns) − π/6"
+      spiralLabel="blue spiral: total rotation −25π/6"
+      arcLabel="red arc: remaining angle −π/6"
+      rayAngle={-30}
+      totalDeg={-750}
+    />
+  );
+}
+
+function Ex1_4_Q3_Spiral_b() {
+  return (
+    <Ex1_4_Q3_SingleSpiral
+      title="+25π/6 = +4π (two full turns) + π/6"
+      spiralLabel="blue spiral: total rotation +25π/6"
+      arcLabel="red arc: remaining angle +π/6"
+      rayAngle={30}
+      totalDeg={750}
+    />
+  );
+}
+
+function Ex1_4_Q3_Spirals() {
+  return (
     <div className="my-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-      {panels.map((p) => {
-        const cx = 80;
-        const cy = 80;
-        const spiral = buildSpiralPath(cx, cy, 16, 48, 0, p.totalDeg, 160);
-        const remArc = buildSpiralPath(cx, cy, 56, 56, 0, p.rayAngle, 24);
-        const rad = (p.rayAngle * Math.PI) / 180;
-        const rx = cx + 62 * Math.cos(rad);
-        const ry = cy - 62 * Math.sin(rad);
-
-        return (
-          <div
-            key={p.title}
-            className="flex flex-col sm:flex-row items-center gap-4 p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-200/80 dark:border-slate-800/80"
-          >
-            <svg width="160" height="160" viewBox="0 0 160 160" className="shrink-0 overflow-visible">
-              <line x1="12" y1={cy} x2="148" y2={cy} stroke="#94a3b8" strokeWidth="1.2" />
-              <line x1={cx} y1="148" x2={cx} y2="12" stroke="#94a3b8" strokeWidth="1.2" />
-              <text x="150" y="83" className="text-[9px] font-serif italic fill-slate-500">x</text>
-              <text x="80" y="9" textAnchor="middle" className="text-[9px] font-serif italic fill-slate-500">y</text>
-
-              <path d={spiral} fill="none" stroke="#2563eb" strokeWidth="1.3" />
-              <path d={remArc} fill="none" stroke="#e11d48" strokeWidth="2.2" />
-              <line x1={cx} y1={cy} x2={rx} y2={ry} stroke="#0f172a" strokeWidth="2" className="dark:stroke-slate-100" />
-              <circle cx={rx} cy={ry} r="3" className="fill-slate-900 dark:fill-slate-100" />
-            </svg>
-
-            <div className="space-y-1.5 text-xs">
-              <div className="font-mono font-bold text-slate-800 dark:text-slate-100">{p.title}</div>
-              <div className="flex items-center gap-2 text-slate-600 dark:text-slate-300">
-                <span className="w-3 h-0.5 bg-blue-600 shrink-0" />
-                <span>{p.spiralLabel}</span>
-              </div>
-              <div className="flex items-center gap-2 text-slate-600 dark:text-slate-300">
-                <span className="w-3 h-0.5 bg-rose-600 shrink-0" />
-                <span>{p.arcLabel}</span>
-              </div>
-              <div className="flex items-center gap-2 text-slate-600 dark:text-slate-300">
-                <span className="w-3 h-0.5 bg-slate-900 dark:bg-slate-100 shrink-0" />
-                <span>terminal ray: same final direction</span>
-              </div>
-            </div>
-          </div>
-        );
-      })}
+      <Ex1_4_Q3_Spiral_a />
+      <Ex1_4_Q3_Spiral_b />
     </div>
   );
 }
@@ -1572,6 +1608,114 @@ function ArgandExample10() {
         <text x="206" y="122" className="text-[10px] font-serif italic fill-slate-500">x</text>
         <text x="116" y="16" className="text-[10px] font-serif italic fill-slate-500">y</text>
         <text x="98" y="102" className="text-[10px] font-serif italic fill-slate-500">O</text>
+      </svg>
+    </div>
+  );
+}
+
+function ArgandEx1_5_2a() {
+  return (
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+      <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for (a) z = 1 + i</h5>
+      <svg width="220" height="220" viewBox="0 0 220 220">
+        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" />
+        <polygon points="10.0,110.0 18.0,114.0 18.0,106.0" fill="#94a3b8" />
+        <polygon points="210.0,110.0 202.0,106.0 202.0,114.0" fill="#94a3b8" />
+        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2" />
+        <polygon points="110.0,210.0 114.0,202.0 106.0,202.0" fill="#94a3b8" />
+        <polygon points="110.0,10.0 106.0,18.0 114.0,18.0" fill="#94a3b8" />
+
+        <line x1="110" y1="110" x2="160" y2="60" stroke="#6366f1" strokeWidth="2.2" />
+        <circle cx="160" cy="60" r="4.5" className="fill-indigo-500 stroke-white" strokeWidth="1.5" />
+
+        <path d="M 134 110 A 24 24 0 0 0 127 93" fill="none" stroke="#f59e0b" strokeWidth="1.5" />
+        <text x="138" y="99" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
+
+        <text x="164" y="54" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (1, 1)</text>
+        <text x="206" y="122" className="text-[10px] font-serif italic fill-slate-500">x</text>
+        <text x="116" y="16" className="text-[10px] font-serif italic fill-slate-500">y</text>
+        <text x="96" y="124" className="text-[10px] font-serif italic fill-slate-500">O</text>
+      </svg>
+    </div>
+  );
+}
+
+function ArgandEx1_5_2c() {
+  return (
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+      <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for (c) z = -1 + i</h5>
+      <svg width="220" height="220" viewBox="0 0 220 220">
+        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" />
+        <polygon points="10.0,110.0 18.0,114.0 18.0,106.0" fill="#94a3b8" />
+        <polygon points="210.0,110.0 202.0,106.0 202.0,114.0" fill="#94a3b8" />
+        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2" />
+        <polygon points="110.0,210.0 114.0,202.0 106.0,202.0" fill="#94a3b8" />
+        <polygon points="110.0,10.0 106.0,18.0 114.0,18.0" fill="#94a3b8" />
+
+        <line x1="110" y1="110" x2="60" y2="60" stroke="#6366f1" strokeWidth="2.2" />
+        <circle cx="60" cy="60" r="4.5" className="fill-indigo-500 stroke-white" strokeWidth="1.5" />
+
+        <path d="M 132 110 A 22 22 0 0 0 94 94" fill="none" stroke="#f59e0b" strokeWidth="1.5" />
+        <text x="124" y="88" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
+
+        <text x="14" y="54" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (-1, 1)</text>
+        <text x="206" y="122" className="text-[10px] font-serif italic fill-slate-500">x</text>
+        <text x="116" y="16" className="text-[10px] font-serif italic fill-slate-500">y</text>
+        <text x="116" y="124" className="text-[10px] font-serif italic fill-slate-500">O</text>
+      </svg>
+    </div>
+  );
+}
+
+function ArgandEx1_5_2d() {
+  return (
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+      <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for (d) z = -1 - i</h5>
+      <svg width="220" height="220" viewBox="0 0 220 220">
+        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" />
+        <polygon points="10.0,110.0 18.0,114.0 18.0,106.0" fill="#94a3b8" />
+        <polygon points="210.0,110.0 202.0,106.0 202.0,114.0" fill="#94a3b8" />
+        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2" />
+        <polygon points="110.0,210.0 114.0,202.0 106.0,202.0" fill="#94a3b8" />
+        <polygon points="110.0,10.0 106.0,18.0 114.0,18.0" fill="#94a3b8" />
+
+        <line x1="110" y1="110" x2="60" y2="160" stroke="#6366f1" strokeWidth="2.2" />
+        <circle cx="60" cy="160" r="4.5" className="fill-indigo-500 stroke-white" strokeWidth="1.5" />
+
+        <path d="M 132 110 A 22 22 0 0 1 94 126" fill="none" stroke="#f59e0b" strokeWidth="1.5" />
+        <text x="124" y="138" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
+
+        <text x="12" y="176" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (-1, -1)</text>
+        <text x="206" y="122" className="text-[10px] font-serif italic fill-slate-500">x</text>
+        <text x="116" y="16" className="text-[10px] font-serif italic fill-slate-500">y</text>
+        <text x="116" y="102" className="text-[10px] font-serif italic fill-slate-500">O</text>
+      </svg>
+    </div>
+  );
+}
+
+function ArgandEx1_5_2f() {
+  return (
+    <div className="my-6 flex flex-col items-center justify-center p-3.5 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+      <h5 className="text-xs font-bold text-indigo-500 mb-2">Argand Diagram for (f) z = 1 - i</h5>
+      <svg width="220" height="220" viewBox="0 0 220 220">
+        <line x1="10" y1="110" x2="210" y2="110" stroke="#94a3b8" strokeWidth="1.2" />
+        <polygon points="10.0,110.0 18.0,114.0 18.0,106.0" fill="#94a3b8" />
+        <polygon points="210.0,110.0 202.0,106.0 202.0,114.0" fill="#94a3b8" />
+        <line x1="110" y1="210" x2="110" y2="10" stroke="#94a3b8" strokeWidth="1.2" />
+        <polygon points="110.0,210.0 114.0,202.0 106.0,202.0" fill="#94a3b8" />
+        <polygon points="110.0,10.0 106.0,18.0 114.0,18.0" fill="#94a3b8" />
+
+        <line x1="110" y1="110" x2="160" y2="160" stroke="#6366f1" strokeWidth="2.2" />
+        <circle cx="160" cy="160" r="4.5" className="fill-indigo-500 stroke-white" strokeWidth="1.5" />
+
+        <path d="M 134 110 A 24 24 0 0 1 127 127" fill="none" stroke="#f59e0b" strokeWidth="1.5" />
+        <text x="138" y="130" className="text-xs font-semibold fill-amber-500 font-mono">θ</text>
+
+        <text x="160" y="176" className="text-[11px] font-bold fill-slate-800 dark:fill-slate-200">z = (1, -1)</text>
+        <text x="206" y="122" className="text-[10px] font-serif italic fill-slate-500">x</text>
+        <text x="116" y="16" className="text-[10px] font-serif italic fill-slate-500">y</text>
+        <text x="96" y="102" className="text-[10px] font-serif italic fill-slate-500">O</text>
       </svg>
     </div>
   );
@@ -3275,7 +3419,86 @@ function slugify(text: string) {
   return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
 }
 
-export default function Latex({ text, block = false }: LatexProps) {
+function CollapsibleSolution({
+  title,
+  id,
+  content,
+  isHeading = false,
+}: {
+  title: string;
+  id?: string;
+  content: string;
+  isHeading?: boolean;
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div
+      id={id}
+      className={`my-3 rounded-xl border transition-all overflow-hidden ${
+        isOpen
+          ? 'border-indigo-200 dark:border-indigo-800/70 bg-white dark:bg-slate-900/70 shadow-sm'
+          : 'border-slate-200/80 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-900/40 hover:border-indigo-300 dark:hover:border-indigo-700/70'
+      }`}
+    >
+      <button
+        type="button"
+        onClick={() => setIsOpen((prev) => !prev)}
+        className="print:hidden w-full flex items-center justify-between gap-3 px-3.5 py-2.5 text-left cursor-pointer group transition-colors hover:bg-indigo-50/50 dark:hover:bg-indigo-950/30"
+      >
+        <div className="flex items-center gap-2.5 min-w-0">
+          <span
+            className={`flex items-center justify-center w-6 h-6 rounded-lg shrink-0 transition-colors ${
+              isOpen
+                ? 'bg-indigo-600 text-white'
+                : 'bg-indigo-100 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 group-hover:bg-indigo-600 group-hover:text-white'
+            }`}
+          >
+            {isOpen ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+          </span>
+          <span
+            className={`font-display font-bold tracking-tight truncate ${
+              isHeading
+                ? 'text-xs md:text-sm text-slate-900 dark:text-white'
+                : 'text-xs uppercase tracking-wider text-indigo-700 dark:text-indigo-300'
+            }`}
+          >
+            {title}
+          </span>
+        </div>
+
+        <span
+          className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-bold shrink-0 transition-colors ${
+            isOpen
+              ? 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'
+              : 'bg-indigo-600 text-white shadow-2xs group-hover:bg-indigo-700'
+          }`}
+        >
+          <span>{isOpen ? 'Hide Solution' : 'Show Solution'}</span>
+          <ChevronDown
+            className={`w-3.5 h-3.5 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+          />
+        </span>
+      </button>
+
+      {/* Print-only title */}
+      <div className="hidden print:flex items-center gap-2 px-4 pt-3 font-display font-bold text-xs uppercase tracking-wider text-indigo-700">
+        {title}
+      </div>
+
+      {/* Collapsible Solution Body */}
+      <div
+        className={`${
+          isOpen ? 'block' : 'hidden print:block'
+        } border-t border-slate-100 dark:border-slate-800/80 px-4 py-3.5 md:px-5 md:py-4`}
+      >
+        <Latex text={content} insideSolution />
+      </div>
+    </div>
+  );
+}
+
+export default function Latex({ text, block = false, insideSolution = false }: LatexProps) {
   if (!text) return null;
 
   // 1. Render pure block formula if explicitly requested via props
@@ -3526,8 +3749,26 @@ export default function Latex({ text, block = false }: LatexProps) {
         case 'Ex1_4_Q3_Spirals':
           renderedElements.push(<Ex1_4_Q3_Spirals key={"diag-" + i} />);
           break;
+        case 'Ex1_4_Q3_Spiral_a':
+          renderedElements.push(<Ex1_4_Q3_Spiral_a key={"diag-" + i} />);
+          break;
+        case 'Ex1_4_Q3_Spiral_b':
+          renderedElements.push(<Ex1_4_Q3_Spiral_b key={"diag-" + i} />);
+          break;
         case 'ArgandExample10':
           renderedElements.push(<ArgandExample10 key={"diag-" + i} />);
+          break;
+        case 'ArgandEx1_5_2a':
+          renderedElements.push(<ArgandEx1_5_2a key={"diag-" + i} />);
+          break;
+        case 'ArgandEx1_5_2c':
+          renderedElements.push(<ArgandEx1_5_2c key={"diag-" + i} />);
+          break;
+        case 'ArgandEx1_5_2d':
+          renderedElements.push(<ArgandEx1_5_2d key={"diag-" + i} />);
+          break;
+        case 'ArgandEx1_5_2f':
+          renderedElements.push(<ArgandEx1_5_2f key={"diag-" + i} />);
           break;
         case 'Chap4_Fig4':
           renderedElements.push(<Chap4_Fig4 key={"diag-" + i} />);
@@ -3901,6 +4142,67 @@ case 'Chap4_Fig5':
           );
       }
       continue;
+    }
+
+    // Collapsible Solutions (hide solutions by default until clicked)
+    if (!insideSolution) {
+      const headingSolMatch = line.match(/^(#{4,6})\s+(Solutions?\b.*)$/i);
+      const boldSolMatch = !headingSolMatch
+        ? line.match(/^\*\*(Solutions?(?:\s*\(\d+\))?)(?:[\.:])?\*\*(.*)$/i)
+        : null;
+
+      if (headingSolMatch || boldSolMatch) {
+        flushList(i);
+        const isHeading = !!headingSolMatch;
+        const hLevel = headingSolMatch ? headingSolMatch[1].length : 0;
+        const solTitle = (headingSolMatch ? headingSolMatch[2] : boldSolMatch![1]).replace(/\*/g, '').trim();
+        const bodyLines: string[] = [];
+
+        if (boldSolMatch) {
+          const remainder = boldSolMatch[2].replace(/^[\s:]+/, '').trim();
+          if (remainder) {
+            bodyLines.push(remainder);
+          }
+        }
+
+        const boldSolStopRegex =
+          /^(?:#{1,6}\s+|---|\*\*\*|>\s*\*\*(?:Note|Important|Summary|Remember|Theorem|Definition)\b|\*\*(?:\d+\.\s+|Example|Exercise|Problem|Question|Concept [cC]heck|Definition|Theorem|Corollary|Lemma|Proposition|Property|Properties|General [rR]ule|Illustration|Summary|Remark|Important|Remember|Note\b(?!.*check)|Verification|Reciprocal|Division|Product|De Moivre|Statement|Solutions?)\b)/i;
+        const boldNumberedQStop = /^\*\*\d+\.\*\*\s+\S/;
+        const boldSubProblemStop = /^\*\*\([a-l]\)\*\*(?!\s+Directed\b)/i;
+
+        let j = i + 1;
+        while (j < lines.length) {
+          const nt = lines[j].trim();
+          if (nt === '---' || nt === '***') break;
+          if (isHeading) {
+            const nh = nt.match(/^(#{1,6})\s+/);
+            if (nh && nh[1].length <= hLevel) break;
+          } else {
+            if (boldSolStopRegex.test(nt) || boldNumberedQStop.test(nt) || boldSubProblemStop.test(nt)) break;
+          }
+          bodyLines.push(lines[j]);
+          j++;
+        }
+
+        const bodyText = bodyLines
+          .join('\n')
+          .replace(/__LATEX_NEWLINE__/g, '\n')
+          .trim();
+
+        if (bodyText.length > 0) {
+          renderedElements.push(
+            <CollapsibleSolution
+              key={`sol-${i}-${solTitle}-${bodyText.slice(0, 24)}`}
+              id={isHeading ? slugify(solTitle) : undefined}
+              title={solTitle}
+              content={bodyText}
+              isHeading={isHeading}
+            />
+          );
+          i = j - 1;
+          continue;
+        }
+      }
     }
 
     // Custom headers

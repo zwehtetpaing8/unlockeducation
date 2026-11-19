@@ -258,6 +258,17 @@ export default function App() {
             </button>
           </div>
 
+          {activeView === 'syllabus' && (
+            <button
+              onClick={() => setMobileMenuOpen(true)}
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/50 dark:hover:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 border border-indigo-200/70 dark:border-indigo-800/60 rounded-xl text-xs font-bold transition-colors cursor-pointer"
+              title="Open Chapter Menu"
+            >
+              <Menu className="w-3.5 h-3.5" />
+              <span>Chapters</span>
+            </button>
+          )}
+
           <ThemeToggle />
         </div>
 
@@ -279,94 +290,10 @@ export default function App() {
       )}
 
       {/* Main Grid Workspace */}
-      <div className={`flex-1 flex flex-col md:flex-row w-full mx-auto items-stretch ${isReadingMode ? 'max-w-4xl' : 'max-w-7xl'}`}>
+      <div className={`flex-1 flex flex-col w-full mx-auto items-stretch ${isReadingMode ? 'max-w-5xl' : activeView === 'syllabus' ? 'max-w-[1440px]' : 'max-w-7xl'}`}>
         
-        {/* Left Side Navigation bar (always visible on desktop when viewing syllabus) */}
-        {activeView === 'syllabus' && !isReadingMode && (
-          <aside className="print:hidden hidden md:flex flex-col w-72 shrink-0 border-r border-slate-200/50 dark:border-slate-800/40 p-5 bg-white dark:bg-slate-950/20 overflow-y-auto max-h-[calc(100vh-64px)] space-y-4">
-            <div className="space-y-1">
-              <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                Course syllabus
-              </h3>
-              <div className="flex items-center justify-between pt-1">
-                <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-                  {completedChapters.length} of 11 Completed
-                </p>
-                <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400">{Math.round((completedChapters.length / 11) * 100)}%</span>
-              </div>
-              <div className="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-1.5 mt-2">
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: `${(completedChapters.length / 11) * 100}%` }}
-                  transition={{ duration: 0.5, ease: "easeInOut" }}
-                  className="bg-indigo-600 dark:bg-indigo-500 h-1.5 rounded-full"
-                />
-              </div>
-            </div>
-
-            {/* Chapter Quick Finder search input */}
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
-              <input
-                type="text"
-                placeholder="Search chapters..."
-                value={sidebarSearch}
-                onChange={(e) => setSidebarSearch(e.target.value)}
-                className="w-full pl-9 pr-3 py-1.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-xs text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-1 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all"
-              />
-            </div>
-
-            {/* Chapters scrolling selection list */}
-            <nav className="flex-1 space-y-1.5 overflow-y-auto pr-1">
-              {filteredChapters.length > 0 ? (
-                filteredChapters.map((ch) => {
-                  const isSelected = selectedChapterId === ch.id;
-                  return (
-                    <button
-                      key={ch.id}
-                      onClick={() => {
-                        setSelectedChapterId(ch.id);
-                        setActiveView('syllabus');
-                      }}
-                      className={`w-full flex items-start gap-3 p-3 rounded-xl text-left transition-all group cursor-pointer ${
-                        isSelected && activeView === 'syllabus'
-                          ? 'bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900/40 text-indigo-700 dark:text-indigo-300 font-bold'
-                          : 'hover:bg-slate-100/60 dark:hover:bg-slate-900 border border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
-                      }`}
-                    >
-                      <span className={`text-[10px] font-bold font-mono px-2 py-0.5 rounded-md self-start ${
-                        isSelected && activeView === 'syllabus'
-                          ? 'bg-indigo-600 text-white shadow-sm'
-                          : 'bg-slate-100 dark:bg-slate-800 text-slate-500 group-hover:bg-slate-200 dark:group-hover:bg-slate-700'
-                      }`}>
-                        {ch.id}
-                      </span>
-                      <div className="flex-1 space-y-0.5">
-                        <div className="text-xs font-semibold leading-tight tracking-tight flex items-center justify-between">
-                          <span>{ch.title}</span>
-                          {completedChapters.includes(ch.id) && (
-                            <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                          )}
-                        </div>
-                        <div className="text-[10px] text-slate-400 dark:text-slate-500 line-clamp-1 group-hover:text-slate-500 dark:group-hover:text-slate-400">
-                          {ch.tagline.replace(/\$/g, '')}
-                        </div>
-                      </div>
-                    </button>
-                  );
-                })
-                ) : (
-                <div className="text-center py-8 text-slate-400">
-                  <Hash className="w-5 h-5 mx-auto mb-1 text-slate-300" />
-                  <p className="text-[11px] font-medium">No chapters matched</p>
-                </div>
-              )}
-            </nav>
-          </aside>
-        )}
-
-        {/* Right Main Content Panel */}
-        <main className="flex-1 p-4 md:p-8 overflow-y-auto max-h-[calc(100vh-64px)]">
+        {/* Main Content Panel */}
+        <main className={`flex-1 p-4 md:p-6 lg:p-8 overflow-y-auto ${isReadingMode ? 'max-h-screen' : 'max-h-[calc(100vh-64px)]'}`}>
           <AnimatePresence mode="wait">
             {activeView === 'home' ? (
               <motion.div
@@ -403,6 +330,7 @@ export default function App() {
                   onToggleComplete={handleToggleComplete}
                   isReadingMode={isReadingMode}
                   onToggleReadingMode={() => setIsReadingMode(!isReadingMode)}
+                  onOpenChapterMenu={() => setMobileMenuOpen(true)}
                 />
               </motion.div>
             ) : activeView === 'analytics' ? (
@@ -469,42 +397,43 @@ export default function App() {
         </main>
       </div>
 
-      {/* Mobile Chapter Selector Slide-over Drawer */}
+      {/* Chapter Selector Slide-over Drawer (Desktop & Mobile) */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <>
             {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
-              animate={{ opacity: 0.5 }}
+              animate={{ opacity: 0.45 }}
               exit={{ opacity: 0 }}
               onClick={() => setMobileMenuOpen(false)}
-              className="fixed inset-0 bg-black z-50 md:hidden"
+              className="fixed inset-0 bg-slate-950 backdrop-blur-[1px] z-50"
             />
             {/* Slide menu panel */}
             <motion.div
-              initial={{ x: '100%' }}
+              initial={{ x: '-100%' }}
               animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 220 }}
-              className="fixed right-0 top-0 bottom-0 w-80 bg-white dark:bg-slate-950 z-50 p-5 shadow-2xl flex flex-col space-y-4 md:hidden border-l border-slate-200 dark:border-slate-800"
+              exit={{ x: '-100%' }}
+              transition={{ type: 'spring', damping: 28, stiffness: 260 }}
+              className="fixed left-0 top-0 bottom-0 w-80 max-w-[85vw] bg-white dark:bg-slate-950 z-50 p-5 shadow-2xl flex flex-col space-y-4 border-r border-slate-200 dark:border-slate-800"
             >
               <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
                 <div>
                   <h3 className="font-display font-bold text-sm text-slate-900 dark:text-white">
-                    Syllabus Chapters
+                    Course Syllabus
                   </h3>
                   <p className="text-[10px] text-slate-400">11 Mathematics Chapters</p>
                 </div>
                 <button
                   onClick={() => setMobileMenuOpen(false)}
-                  className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-900 text-slate-500 dark:text-slate-400 rounded-lg transition"
+                  className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-900 text-slate-500 dark:text-slate-400 rounded-lg transition cursor-pointer"
+                  aria-label="Close chapter menu"
                 >
                   <X className="w-4 h-4" />
                 </button>
               </div>
               
-              <div className="space-y-2 pb-2">
+              <div className="space-y-2 pb-1">
                 <div className="flex items-center justify-between">
                   <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
                     {completedChapters.length} of 11 Completed
@@ -521,51 +450,66 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Mobile Quick Finder Search */}
+              {/* Quick Finder Search */}
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
                 <input
                   type="text"
-                  placeholder="Find math chapters..."
+                  placeholder="Search chapters..."
                   value={sidebarSearch}
                   onChange={(e) => setSidebarSearch(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-700 dark:text-slate-300 focus:outline-none"
+                  className="w-full pl-9 pr-3 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-1 focus:ring-indigo-500/30 focus:border-indigo-500"
                 />
               </div>
 
               {/* Scrolling List */}
-              <div className="flex-1 overflow-y-auto space-y-1.5 pr-1">
-                {filteredChapters.map((ch) => {
-                  const isSelected = selectedChapterId === ch.id;
-                  return (
-                    <button
-                      key={ch.id}
-                      onClick={() => {
-                        setSelectedChapterId(ch.id);
-                        setActiveView('syllabus');
-                        setMobileMenuOpen(false);
-                      }}
-                      className={`w-full flex items-center justify-between p-3 rounded-xl text-left border transition-all ${
-                        isSelected && activeView === 'syllabus'
-                          ? 'bg-indigo-50 dark:bg-indigo-950/30 border-indigo-200 text-indigo-700 dark:text-indigo-300 font-bold'
-                          : 'bg-white dark:bg-transparent border-slate-100 dark:border-slate-900 text-slate-600 dark:text-slate-400'
-                      }`}
-                    >
-                      <div className="flex items-center gap-3">
-                        <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded ${
+              <nav className="flex-1 overflow-y-auto space-y-1.5 pr-1">
+                {filteredChapters.length > 0 ? (
+                  filteredChapters.map((ch) => {
+                    const isSelected = selectedChapterId === ch.id;
+                    return (
+                      <button
+                        key={ch.id}
+                        onClick={() => {
+                          setSelectedChapterId(ch.id);
+                          setActiveView('syllabus');
+                          setMobileMenuOpen(false);
+                        }}
+                        className={`w-full flex items-start gap-3 p-3 rounded-xl text-left border transition-all cursor-pointer group ${
                           isSelected && activeView === 'syllabus'
-                            ? 'bg-indigo-600 text-white'
-                            : 'bg-slate-100 dark:bg-slate-800'
+                            ? 'bg-indigo-50 dark:bg-indigo-950/40 border-indigo-200 dark:border-indigo-900/50 text-indigo-700 dark:text-indigo-300 font-bold'
+                            : 'bg-white dark:bg-transparent hover:bg-slate-50 dark:hover:bg-slate-900 border-slate-100 dark:border-slate-900 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+                        }`}
+                      >
+                        <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-md self-start ${
+                          isSelected && activeView === 'syllabus'
+                            ? 'bg-indigo-600 text-white shadow-sm'
+                            : 'bg-slate-100 dark:bg-slate-800 text-slate-500 group-hover:bg-slate-200 dark:group-hover:bg-slate-700'
                         }`}>
                           {ch.id}
                         </span>
-                        <span className="text-xs font-semibold">{ch.title}</span>
-                      </div>
-                      <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-                    </button>
-                  );
-                })}
-              </div>
+                        <div className="flex-1 min-w-0 space-y-0.5">
+                          <div className="text-xs font-semibold leading-tight flex items-center justify-between gap-2">
+                            <span className="truncate">{ch.title}</span>
+                            {completedChapters.includes(ch.id) && (
+                              <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                            )}
+                          </div>
+                          <div className="text-[10px] text-slate-400 dark:text-slate-500 line-clamp-1">
+                            {ch.tagline.replace(/\$/g, '')}
+                          </div>
+                        </div>
+                        <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
+                      </button>
+                    );
+                  })
+                ) : (
+                  <div className="text-center py-8 text-slate-400">
+                    <Hash className="w-5 h-5 mx-auto mb-1 text-slate-300" />
+                    <p className="text-[11px] font-medium">No chapters matched</p>
+                  </div>
+                )}
+              </nav>
             </motion.div>
           </>
         )}
