@@ -5,6 +5,15 @@ import { createServer as createViteServer } from "vite";
 import { GoogleGenAI, Type } from "@google/genai";
 import 'dotenv/config';
 import { pdfResources } from "./src/data/pdfResources";
+import {
+  FALLBACK_YOUTUBE_LIBRARY,
+  YOUTUBE_CHANNEL_HANDLE,
+  YOUTUBE_CHANNEL_ID,
+  YOUTUBE_CHANNEL_URL,
+  type YoutubeLibraryData,
+  type YoutubePlaylist,
+  type YoutubeVideo,
+} from "./src/data/youtubeVideos";
 
 interface VisitorLog {
   id: string;
@@ -42,6 +51,199 @@ function saveLogs(logs: VisitorLog[]) {
 }
 
 let logsMemory: VisitorLog[] = loadLogs();
+
+// --- YouTube RSS Auto-Sync Helpers (@UnlockEdu25) ---
+const YOUTUBE_SEED_PLAYLISTS: Array<{ id: string; fallbackTitle: string; chapterId: number }> = [
+  { id: "PLSJTOXTAyfjg", fallbackTitle: "Grade 12 Mathematics Chapter 1", chapterId: 1 },
+  { id: "PLVopMG9bjvM6G9jgqXtSAfFsPBoe2cFPB", fallbackTitle: "Grade 12 Mathematics Chapter 3", chapterId: 3 },
+  { id: "PLJtCmidavJSY", fallbackTitle: "Grade 12 Mathematics Chapter 9", chapterId: 9 },
+];
+
+let youtubeCache: { data: YoutubeLibraryData; fetchedAt: number } | null = null;
+const YOUTUBE_CACHE_TTL_MS = 10 * 60 * 1000;
+
+function decodeXmlEntities(text: string): string {
+  return text
+    .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;|&apos;|&#x27;/g, "'")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&#(\d+);/g, (_, num) => String.fromCharCode(Number(num)))
+    .trim();
+}
+
+function extractChapterId(title: string): number | null {
+  const match = title.match(/(?:chapter|ch\.?)\s*0*(\d{1,2})\b/i);
+  if (!match) return null;
+  const num = parseInt(match[1], 10);
+  return num >= 1 && num <= 11 ? num : null;
+}
+
+function extractPartNumber(title: string): number | null {
+  const match = title.match(/(?:part|lesson|ep\.?|episode)\s*0*(\d{1,3})\b/i);
+  return match ? parseInt(match[1], 10) : null;
+}
+
+async function fetchWithTimeout(url: string, init: RequestInit = {}, timeoutMs = 6000): Promise<Response> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await fetch(url, { ...init, signal: controller.signal });
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+function parseYoutubeAtomXml(xml: string, playlistId?: string): { feedTitle: string; videos: YoutubeVideo[] } {
+  const beforeEntry = xml.split("<entry>")[0] || "";
+  const feedTitleMatch = beforeEntry.match(/<title>([\s\S]*?)<\/title>/i);
+  const feedTitle = feedTitleMatch ? decodeXmlEntities(feedTitleMatch[1]) : "";
+
+  const videos: YoutubeVideo[] = [];
+  const entryRegex = /<entry>([\s\S]*?)<\/entry>/gi;
+  let match: RegExpExecArray | null;
+
+  while ((match = entryRegex.exec(xml)) !== null) {
+    const entry = match[1];
+    const idMatch = entry.match(/<yt:videoId>([^<]+)<\/yt:videoId>/i);
+    const titleMatch = entry.match(/<title>([\s\S]*?)<\/title>/i);
+    const pubMatch = entry.match(/<published>([^<]+)<\/published>/i);
+
+    if (!idMatch) continue;
+    const id = idMatch[1].trim();
+    const title = titleMatch ? decodeXmlEntities(titleMatch[1]) : "Untitled Video";
+    const published = pubMatch ? pubMatch[1].trim() : "";
+
+    videos.push({
+      id,
+      title,
+      published,
+      thumbnail: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
+      playlistId,
+      chapterId: extractChapterId(title),
+    });
+  }
+
+  return { feedTitle, videos };
+}
+
+async function discoverGrade12PlaylistIds(): Promise<string[]> {
+  const discovered = new Set<string>(YOUTUBE_SEED_PLAYLISTS.map((p) => p.id));
+  try {
+    const res = await fetchWithTimeout(
+      `${YOUTUBE_CHANNEL_URL}/playlists`,
+      {
+        headers: {
+          "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124.0.0.0 Safari/537.36",
+          "Accept-Language": "en-US,en;q=0.9",
+          Cookie: "CONSENT=YES+cb",
+        },
+      },
+      4500
+    );
+    if (!res.ok) return Array.from(discovered);
+    const html = await res.text();
+    const idMatches = html.matchAll(/"(?:playlistId|contentId)"\s*:\s*"(PL[A-Za-z0-9_-]{10,40})"/g);
+    const candidates = new Set<string>();
+    for (const m of idMatches) {
+      if (m[1]) candidates.add(m[1]);
+    }
+    for (const id of candidates) {
+      if (discovered.size >= 15) break;
+      discovered.add(id);
+    }
+  } catch {
+    // Non-fatal: fall back to seed playlists
+  }
+  return Array.from(discovered);
+}
+
+async function loadLiveYoutubeLibrary(): Promise<YoutubeLibraryData> {
+  const candidateIds = await discoverGrade12PlaylistIds();
+  const seedMap = new Map(YOUTUBE_SEED_PLAYLISTS.map((s) => [s.id, s]));
+
+  const [channelResult, ...playlistResults] = await Promise.allSettled([
+    fetchWithTimeout(`https://www.youtube.com/feeds/videos.xml?channel_id=${YOUTUBE_CHANNEL_ID}`)
+      .then((r) => (r.ok ? r.text() : Promise.reject(new Error(`Channel RSS ${r.status}`)))),
+    ...candidateIds.map((pid) =>
+      fetchWithTimeout(`https://www.youtube.com/feeds/videos.xml?playlist_id=${pid}`)
+        .then((r) => (r.ok ? r.text() : Promise.reject(new Error(`Playlist ${pid} RSS ${r.status}`))))
+        .then((xml) => ({ pid, xml }))
+    ),
+  ]);
+
+  const playlists: YoutubePlaylist[] = [];
+  const seenPlaylistIds = new Set<string>();
+
+  for (const res of playlistResults) {
+    if (res.status !== "fulfilled") continue;
+    const { pid, xml } = res.value;
+    const parsed = parseYoutubeAtomXml(xml, pid);
+    if (parsed.videos.length === 0) continue;
+
+    const seed = seedMap.get(pid);
+    const title = parsed.feedTitle || seed?.fallbackTitle || "Grade 12 Mathematics";
+    const isGrade12 = Boolean(seed) || /grade\s*12|g\s*12/i.test(title);
+    if (!isGrade12) continue;
+
+    const chapterId = extractChapterId(title) ?? seed?.chapterId ?? null;
+    const sortedVideos = [...parsed.videos]
+      .map((v) => ({ ...v, chapterId: v.chapterId ?? chapterId }))
+      .sort((a, b) => {
+        const pa = extractPartNumber(a.title);
+        const pb = extractPartNumber(b.title);
+        if (pa !== null && pb !== null && pa !== pb) return pa - pb;
+        return new Date(a.published).getTime() - new Date(b.published).getTime();
+      });
+
+    seenPlaylistIds.add(pid);
+    playlists.push({
+      id: pid,
+      title,
+      shortLabel: chapterId ? `Chapter ${chapterId}` : title.replace(/^Grade 12\s*(?:Mathematics|Maths)?\s*/i, "").trim() || title,
+      chapterId,
+      playlistUrl: `https://www.youtube.com/playlist?list=${pid}`,
+      videos: sortedVideos,
+    });
+  }
+
+  // Ensure any seed playlist that temporarily failed RSS still uses verified fallback data
+  for (const fb of FALLBACK_YOUTUBE_LIBRARY.playlists) {
+    if (!seenPlaylistIds.has(fb.id)) {
+      playlists.push(fb);
+    }
+  }
+
+  playlists.sort((a, b) => {
+    if (a.chapterId !== null && b.chapterId !== null) return a.chapterId - b.chapterId;
+    if (a.chapterId !== null) return -1;
+    if (b.chapterId !== null) return 1;
+    return a.title.localeCompare(b.title);
+  });
+
+  let latestUploads: YoutubeVideo[] = FALLBACK_YOUTUBE_LIBRARY.latestUploads;
+  let isLive = playlists.some((p) => seenPlaylistIds.has(p.id));
+
+  if (channelResult.status === "fulfilled") {
+    const parsedChannel = parseYoutubeAtomXml(channelResult.value);
+    if (parsedChannel.videos.length > 0) {
+      latestUploads = parsedChannel.videos;
+      isLive = true;
+    }
+  }
+
+  return {
+    channelHandle: YOUTUBE_CHANNEL_HANDLE,
+    channelName: "Unlock Education",
+    channelId: YOUTUBE_CHANNEL_ID,
+    channelUrl: YOUTUBE_CHANNEL_URL,
+    updatedAt: new Date().toISOString(),
+    isLive,
+    playlists,
+    latestUploads,
+  };
+}
 
 async function startServer() {
   const app = express();
@@ -204,6 +406,22 @@ Please return exactly 5 multiple choice questions related to this math content. 
     }
   });
 
+  // API endpoint: Live YouTube RSS Videos & Playlists (@UnlockEdu25)
+  app.get("/api/youtube/videos", async (req, res) => {
+    try {
+      const forceRefresh = req.query.refresh === "1" || req.query.refresh === "true";
+      if (!forceRefresh && youtubeCache && Date.now() - youtubeCache.fetchedAt < YOUTUBE_CACHE_TTL_MS) {
+        return res.json(youtubeCache.data);
+      }
+      const data = await loadLiveYoutubeLibrary();
+      youtubeCache = { data, fetchedAt: Date.now() };
+      return res.json(data);
+    } catch (error) {
+      console.error("Failed to load YouTube RSS feed:", error);
+      return res.json(youtubeCache?.data || FALLBACK_YOUTUBE_LIBRARY);
+    }
+  });
+
 
   const escapeHtmlAttr = (str: string) =>
     str
@@ -239,6 +457,15 @@ Please return exactly 5 multiple choice questions related to this math content. 
         url: pageUrl,
         title: "Grade 12 Mathematics Past Paper & Solution PDFs – Unlock Education",
         description: "Read and download Grade 12 Mathematics Past Paper Questions & Worked Solutions PDFs by Sayar Zwe (Unlock Education).",
+        image: `${baseUrl}/logo.png`,
+      };
+    }
+
+    if (view === "videos") {
+      return {
+        url: pageUrl,
+        title: "Grade 12 Mathematics Video Lessons (@UnlockEdu25) – Unlock Education",
+        description: "Watch complete Grade 12 Mathematics chapter video playlists and lessons from Unlock Education (@UnlockEdu25).",
         image: `${baseUrl}/logo.png`,
       };
     }

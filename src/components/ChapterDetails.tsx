@@ -5,6 +5,8 @@ import { Chapter } from "../types";
 import Latex from "./Latex";
 import Visualizer from "./Visualizers";
 import PracticeQuiz from "./PracticeQuiz";
+import VideoLessons from "./VideoLessons";
+import { useYoutubeVideos, getChapterPlaylist } from "../data/youtubeVideos";
 import { motion, AnimatePresence } from "motion/react";
 import {
   BookOpen,
@@ -20,8 +22,7 @@ import {
   Hourglass,
   Sparkles,
   GraduationCap,
-
-
+  PlayCircle,
   X,
   Maximize,
   Minimize,
@@ -37,6 +38,7 @@ interface ChapterDetailsProps {
   isReadingMode?: boolean;
   onToggleReadingMode?: () => void;
   onOpenChapterMenu?: () => void;
+  onNavigateToVideos?: () => void;
 }
 
 interface ContentSection {
@@ -116,10 +118,14 @@ export default function ChapterDetails({
   isReadingMode,
   onToggleReadingMode,
   onOpenChapterMenu,
+  onNavigateToVideos,
 }: ChapterDetailsProps) {
   const [activeTab, setActiveTab] = useState<
-    "study" | "formulas" | "visualizer" | "quiz"
+    "study" | "formulas" | "visualizer" | "quiz" | "videos"
   >("study");
+  const { library: youtubeLibrary } = useYoutubeVideos();
+  const chapterPlaylist = getChapterPlaylist(youtubeLibrary, chapter.id);
+  const chapterVideoCount = chapterPlaylist?.videos.length || 0;
   const [activeSectionIndex, setActiveSectionIndex] = useState<number>(0);
   const [isMobileOutlineOpen, setIsMobileOutlineOpen] = useState(false);
   const [viewMode, setViewMode] = useState<"sections" | "full">("sections");
@@ -212,6 +218,23 @@ export default function ChapterDetails({
             )}
           </div>
         </div>
+
+        {/* If this upcoming chapter already has YouTube videos (e.g. Chapter 9), show them right away */}
+        {chapterVideoCount > 0 && (
+          <div className="space-y-3">
+            <div className="flex items-center justify-between gap-2">
+              <h3 className="font-display font-bold text-base md:text-lg text-slate-900 dark:text-white flex items-center gap-2">
+                <PlayCircle className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                Chapter {chapter.id} Video Lessons Available Now
+              </h3>
+            </div>
+            <VideoLessons
+              chapterId={chapter.id}
+              chapterTitle={chapter.title}
+              onOpenAllVideos={onNavigateToVideos}
+            />
+          </div>
+        )}
 
         {/* Beautiful Coming Soon Placeholder with elegant animation */}
         <motion.div
@@ -467,7 +490,7 @@ export default function ChapterDetails({
 
             <button
               onClick={() => setActiveTab("quiz")}
-              className={`flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+              className={`flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer whitespace-nowrap shrink-0 ${
                 activeTab === "quiz"
                   ? "bg-white dark:bg-slate-800 shadow-sm text-indigo-600 dark:text-indigo-400 font-bold"
                   : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-300"
@@ -475,6 +498,20 @@ export default function ChapterDetails({
             >
               <Award className="w-4 h-4" />
               <span>Quiz Exercises ({chapter.quiz.length})</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab("videos")}
+              className={`flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+                activeTab === "videos"
+                  ? "bg-white dark:bg-slate-800 shadow-sm text-indigo-600 dark:text-indigo-400 font-bold"
+                  : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-300"
+              }`}
+            >
+              <PlayCircle className="w-4 h-4" />
+              <span className="tabular-nums">
+                Videos{chapterVideoCount > 0 ? ` (${chapterVideoCount})` : ""}
+              </span>
             </button>
           </div>
 
@@ -905,6 +942,14 @@ export default function ChapterDetails({
                   chapterContent={chapter.content}
                 />
               )
+            )}
+
+            {activeTab === "videos" && (
+              <VideoLessons
+                chapterId={chapter.id}
+                chapterTitle={chapter.title}
+                onOpenAllVideos={onNavigateToVideos}
+              />
             )}
           </div>
         </>
