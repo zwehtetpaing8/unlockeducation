@@ -71,6 +71,126 @@ function Chapter2Header() {
   );
 }
 
+function DominoChainFigure() {
+  const uprightDominoes = [
+    { x: 112, warm: false },
+    { x: 162, warm: true },
+    { x: 212, warm: false },
+    { x: 262, warm: true },
+    { x: 312, warm: false },
+    { x: 362, warm: true },
+    { x: 412, warm: false },
+  ];
+  const arrowXs = [86, 137, 187, 237, 287, 337, 387];
+
+  return (
+    <figure className="my-6 flex flex-col items-center">
+      <div className="w-full max-w-xl rounded-xl border border-slate-200/80 dark:border-slate-700/70 bg-white dark:bg-slate-900/60 px-4 py-5 shadow-sm">
+        <svg
+          className="w-full h-auto max-w-[460px] mx-auto block"
+          viewBox="0 0 460 170"
+          role="img"
+          aria-label="Figure 2.1: A falling domino starts the chain"
+        >
+          {/* Top label */}
+          <text
+            x="238"
+            y="22"
+            textAnchor="middle"
+            fontSize="13.5"
+            fontWeight="700"
+            className="fill-slate-800 dark:fill-slate-100"
+          >
+            one domino pushes the next
+          </text>
+
+          {/* Curved push arrows */}
+          {arrowXs.map((ax, idx) => (
+            <g key={idx}>
+              <path
+                d={`M ${ax - 12} 46 Q ${ax} 35 ${ax + 13} 44`}
+                fill="none"
+                stroke="#9e7c38"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+              />
+              <path
+                d={`M ${ax + 8} 40 L ${ax + 14} 44.5 L ${ax + 8.5} 48`}
+                fill="none"
+                stroke="#9e7c38"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </g>
+          ))}
+
+          {/* Ground line */}
+          <line
+            x1="28"
+            y1="146"
+            x2="440"
+            y2="146"
+            stroke="#cbd5e1"
+            strokeWidth="2"
+            className="dark:stroke-slate-700"
+          />
+
+          {/* First falling domino (tilted right, warm tan/gold) */}
+          <g transform="translate(77.5, 146) rotate(22)">
+            <rect
+              x="-24"
+              y="-92"
+              width="24"
+              height="92"
+              rx="4"
+              fill="#f3e6c8"
+              stroke="#9e8245"
+              strokeWidth="2"
+            />
+            <line
+              x1="-12"
+              y1="-84"
+              x2="-12"
+              y2="-8"
+              stroke="#c9ae72"
+              strokeWidth="1.4"
+            />
+          </g>
+
+          {/* Remaining 7 upright dominoes alternating cool slate-blue & warm tan */}
+          {uprightDominoes.map((d, idx) => (
+            <g key={idx}>
+              <rect
+                x={d.x}
+                y={54}
+                width={24}
+                height={92}
+                rx={4}
+                fill={d.warm ? '#f3e6c8' : '#e2e8f0'}
+                stroke={d.warm ? '#9e8245' : '#475569'}
+                strokeWidth={2}
+              />
+              <line
+                x1={d.x + 12}
+                y1={62}
+                x2={d.x + 12}
+                y2={138}
+                stroke={d.warm ? '#c9ae72' : '#94a3b8'}
+                strokeWidth={1.4}
+              />
+            </g>
+          ))}
+        </svg>
+      </div>
+      <figcaption className="mt-2.5 text-center text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+        <span className="font-semibold text-slate-800 dark:text-slate-200">Figure 2.1</span>{' '}
+        A falling domino starts the chain.
+      </figcaption>
+    </figure>
+  );
+}
+
 function Chapter3Header() {
   return (
     <div className="my-6 p-5 bg-gradient-to-br from-amber-50/80 to-orange-50/80 dark:from-amber-950/40 dark:to-slate-900/60 rounded-2xl border border-amber-100 dark:border-amber-900/50 shadow-sm text-center overflow-x-auto">
@@ -3710,6 +3830,9 @@ export default function Latex({ text, block = false, insideSolution = false }: L
         case "Chapter2Header":
           renderedElements.push(<Chapter2Header key={"diag-" + i} />);
           break;
+        case "DominoChainFigure":
+          renderedElements.push(<DominoChainFigure key={"diag-" + i} />);
+          break;
         case "Chapter3Header":
           renderedElements.push(<Chapter3Header key={"diag-" + i} />);
           break;
@@ -4166,7 +4289,7 @@ case 'Chap4_Fig5':
         }
 
         const boldSolStopRegex =
-          /^(?:#{1,6}\s+|---|\*\*\*|>\s*\*\*(?:Note|Important|Summary|Remember|Theorem|Definition)\b|\*\*(?:\d+\.\s+|Example|Exercise|Problem|Question|Concept [cC]heck|Definition|Theorem|Corollary|Lemma|Proposition|Property|Properties|General [rR]ule|Illustration|Summary|Remark|Important|Remember|Note\b(?!.*check)|Verification|Reciprocal|Division|Product|De Moivre|Statement|Solutions?)\b)/i;
+          /^(?:#{1,6}\s+|---|\*\*\*|>\s*\*\*(?:Note|Important|Summary|Remember|Theorem|Definition)\b|\*\*(?:\d+\.\s+|Example|Exercise|Old Question|Problem|Question|Concept [cC]heck|Definition|Theorem|Corollary|Lemma|Proposition|Property|Properties|General [rR]ule|Illustration|Summary|Remark|Important|Remember|Note\b(?!.*check)|Verification|Reciprocal|Division|Product|De Moivre|Statement|Solutions?)\b)/i;
         const boldNumberedQStop = /^\*\*\d+\.\*\*\s+\S/;
         const boldSubProblemStop = /^\*\*\([a-l]\)\*\*(?!\s+Directed\b)/i;
 
