@@ -1,5 +1,5 @@
 import DraggableScroll from "./DraggableScroll";
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import katex from 'katex';
 import { 
   HelpCircle, 
@@ -12,6 +12,7 @@ import {
   ChevronDown,
   Eye,
   EyeOff,
+  Presentation,
   Activity, 
   Sparkles, 
   Compass, 
@@ -24,6 +25,7 @@ import {
   RefreshCw,
   ArrowRight
 } from 'lucide-react';
+import WhiteboardModal, { parseMarkdownToWhiteboardSteps } from './WhiteboardModal';
 
 interface LatexProps {
   text: string;
@@ -3539,18 +3541,127 @@ function slugify(text: string) {
   return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
 }
 
+function extractProblemContext(
+  lines: string[],
+  solIndex: number,
+  fallbackTitle: string
+): { wbTitle: string; problemMarkdown?: string } {
+  const restore = (s: string) => s.replace(/__LATEX_NEWLINE__/g, '\n');
+
+  // Stop searching backward when hitting a previous solution, divider, or section heading
+  const prevSolRegex = /^(?:#{4,6}\s+Solutions?\b|\*\*Solutions?(?:\s*\(\d+\))?(?:[\.:])?\*\*)/i;
+  const subProblemRegex = /^\*\*\(([a-l])\)\*\*/i;
+  const numberedProblemRegex = /^\*\*(\d+)\.?\*\*\s+\S|^\*\*(\d+)\.\s+/;
+  const namedProblemRegex = /^\*\*((?:Example|Old Question|Concept [cC]heck|Problem|Question|Illustration)(?:\s+\d+)?)\.?[\.:]?\*\*/i;
+  const headingProblemRegex = /^#{4,6}\s+((?:Example|Exercise|Old Question|Problem|Concept [cC]heck)[^#]*)$/i;
+
+  const immediateLines: string[] = [];
+  let k = solIndex - 1;
+  while (k >= 0 && immediateLines.length < 18) {
+    const trimmed = lines[k].trim();
+    if (trimmed === '---' || trimmed === '***' || prevSolRegex.test(trimmed)) break;
+    if (/^#{1,3}\s+/.test(trimmed)) break;
+    immediateLines.unshift(lines[k]);
+    if (
+      subProblemRegex.test(trimmed) ||
+      numberedProblemRegex.test(trimmed) ||
+      namedProblemRegex.test(trimmed) ||
+      headingProblemRegex.test(trimmed)
+    ) {
+      break;
+    }
+    k--;
+  }
+
+  const immediateText = restore(immediateLines.join('\n')).trim();
+  const firstImmediate = immediateLines.find((l) => l.trim().length > 0)?.trim() || '';
+
+  let wbTitle = fallbackTitle;
+  let parentPrompt = '';
+
+  const subMatch = firstImmediate.match(subProblemRegex);
+  if (subMatch) {
+    const subLetter = subMatch[1];
+    // Walk further back to locate the parent numbered instruction or Example header
+    for (let p = k - 1; p >= 0; p--) {
+      const pt = lines[p].trim();
+      if (pt === '---' || pt === '***' || /^#{1,3}\s+/.test(pt)) {
+        const secMatch = pt.match(/^###\s+(Exercise\s+[\d.]+|Old Questions)/i);
+        if (secMatch && wbTitle === fallbackTitle) {
+          wbTitle = `${secMatch[1]} (${subLetter})`;
+        }
+        break;
+      }
+      const parentNamed = pt.match(namedProblemRegex);
+      if (parentNamed) {
+        parentPrompt = restore(pt);
+        wbTitle = `${parentNamed[1]} (${subLetter})`;
+        break;
+      }
+      const parentNum = pt.match(/^\*\*(\d+)\.\*\*\s+(.+)/) || pt.match(/^\*\*(\d+)\.\s+(.+?)\*\*/);
+      if (parentNum) {
+        parentPrompt = restore(pt);
+        wbTitle = `Question ${parentNum[1]}(${subLetter})`;
+        break;
+      }
+    }
+    if (wbTitle === fallbackTitle) {
+      wbTitle = `Part (${subLetter})`;
+    }
+  } else {
+    const namedMatch = firstImmediate.match(namedProblemRegex);
+    const numMatch =
+      firstImmediate.match(/^\*\*(\d+)\.\*\*/) || firstImmediate.match(/^\*\*(\d+)\.\s+/);
+    const headMatch = firstImmediate.match(headingProblemRegex);
+
+    if (namedMatch) {
+      wbTitle = namedMatch[1].trim();
+    } else if (headMatch) {
+      wbTitle = headMatch[1].trim();
+    } else if (numMatch) {
+      wbTitle = `Question ${numMatch[1]}`;
+    }
+  }
+
+  const combined = parentPrompt
+    ? `${parentPrompt}\n\n${immediateText}`
+    : immediateText;
+
+  return {
+    wbTitle,
+    problemMarkdown: combined.length > 0 ? combined : undefined,
+  };
+}
+
 function CollapsibleSolution({
   title,
   id,
   content,
   isHeading = false,
+  problemTitle,
+  problemMarkdown,
 }: {
   title: string;
   id?: string;
   content: string;
   isHeading?: boolean;
+  problemTitle?: string;
+  problemMarkdown?: string;
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isWhiteboardOpen, setIsWhiteboardOpen] = useState(false);
+  const [wbSession, setWbSession] = useState(0);
+
+  const whiteboardSteps = useMemo(
+    () => (isWhiteboardOpen ? parseMarkdownToWhiteboardSteps(content) : []),
+    [isWhiteboardOpen, content]
+  );
+
+  const handleOpenWhiteboard = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setWbSession((prev) => prev + 1);
+    setIsWhiteboardOpen(true);
+  };
 
   return (
     <div
@@ -3561,12 +3672,12 @@ function CollapsibleSolution({
           : 'border-slate-200/80 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-900/40 hover:border-indigo-300 dark:hover:border-indigo-700/70'
       }`}
     >
-      <button
-        type="button"
-        onClick={() => setIsOpen((prev) => !prev)}
-        className="print:hidden w-full flex items-center justify-between gap-3 px-3.5 py-2.5 text-left cursor-pointer group transition-colors hover:bg-indigo-50/50 dark:hover:bg-indigo-950/30"
-      >
-        <div className="flex items-center gap-2.5 min-w-0">
+      <div className="print:hidden w-full flex flex-wrap items-center justify-between gap-2 px-3.5 py-2.5">
+        <button
+          type="button"
+          onClick={() => setIsOpen((prev) => !prev)}
+          className="flex items-center gap-2.5 min-w-0 flex-1 text-left cursor-pointer group"
+        >
           <span
             className={`flex items-center justify-center w-6 h-6 rounded-lg shrink-0 transition-colors ${
               isOpen
@@ -3585,21 +3696,35 @@ function CollapsibleSolution({
           >
             {title}
           </span>
-        </div>
+        </button>
 
-        <span
-          className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-bold shrink-0 transition-colors ${
-            isOpen
-              ? 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'
-              : 'bg-indigo-600 text-white shadow-2xs group-hover:bg-indigo-700'
-          }`}
-        >
-          <span>{isOpen ? 'Hide Solution' : 'Show Solution'}</span>
-          <ChevronDown
-            className={`w-3.5 h-3.5 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
-          />
-        </span>
-      </button>
+        <div className="flex items-center gap-1.5 shrink-0">
+          <button
+            type="button"
+            onClick={handleOpenWhiteboard}
+            title="Open step-by-step full-screen Whiteboard"
+            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-semibold bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:border-indigo-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer whitespace-nowrap shrink-0"
+          >
+            <Presentation className="w-3.5 h-3.5 shrink-0" />
+            <span>Whiteboard</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setIsOpen((prev) => !prev)}
+            className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-bold transition-colors cursor-pointer whitespace-nowrap shrink-0 ${
+              isOpen
+                ? 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
+                : 'bg-indigo-600 text-white shadow-2xs hover:bg-indigo-700'
+            }`}
+          >
+            <span>{isOpen ? 'Hide Solution' : 'Show Solution'}</span>
+            <ChevronDown
+              className={`w-3.5 h-3.5 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+            />
+          </button>
+        </div>
+      </div>
 
       {/* Print-only title */}
       <div className="hidden print:flex items-center gap-2 px-4 pt-3 font-display font-bold text-xs uppercase tracking-wider text-indigo-700">
@@ -3614,6 +3739,19 @@ function CollapsibleSolution({
       >
         <Latex text={content} insideSolution />
       </div>
+
+      {isWhiteboardOpen && (
+        <WhiteboardModal
+          isOpen={isWhiteboardOpen}
+          onClose={() => setIsWhiteboardOpen(false)}
+          title={problemTitle || title}
+          problemMarkdown={problemMarkdown}
+          steps={whiteboardSteps}
+          initialVisibleCount={1}
+          initialPlaying={false}
+          problemKey={`${problemTitle || title}-${wbSession}`}
+        />
+      )}
     </div>
   );
 }
@@ -4313,6 +4451,7 @@ case 'Chap4_Fig5':
           .trim();
 
         if (bodyText.length > 0) {
+          const { wbTitle, problemMarkdown } = extractProblemContext(lines, i, solTitle);
           renderedElements.push(
             <CollapsibleSolution
               key={`sol-${i}-${solTitle}-${bodyText.slice(0, 24)}`}
@@ -4320,6 +4459,8 @@ case 'Chap4_Fig5':
               title={solTitle}
               content={bodyText}
               isHeading={isHeading}
+              problemTitle={wbTitle}
+              problemMarkdown={problemMarkdown}
             />
           );
           i = j - 1;
