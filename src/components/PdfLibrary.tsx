@@ -77,7 +77,7 @@ export default function PdfLibrary() {
     const showAnimated = viewingPdf.hasAnimatedSolutions && readerMode === 'animated';
 
     return (
-      <div className="max-w-3xl mx-auto w-full space-y-4 overflow-hidden">
+      <div className="max-w-3xl mx-auto w-full space-y-4 overflow-x-clip">
         {/* Minimalist Top Bar (Responsive, Zero Mobile Overflow) */}
         <div className="bg-white dark:bg-slate-900 p-3 sm:px-4 sm:py-3 rounded-2xl border border-slate-200/80 dark:border-slate-800 flex flex-col gap-2.5">
           {/* Row 1: Back button & file title */}
