@@ -20,11 +20,16 @@ export default function App() {
     const params = new URLSearchParams(window.location.search);
     const view = params.get('view');
     if (params.has('pdf') || view === 'pdfs') return 'pdfs';
+    if (view === 'exams') return 'past-questions';
     if (view === 'home' || view === 'syllabus' || view === 'videos' || view === 'formulas' || view === 'past-questions' || view === 'analytics') return view;
     if (params.has('secret') || params.has('key') || params.has('admin') || params.has('dashboard') || params.has('owner')) return 'analytics';
 
     const saved = localStorage.getItem('unlock_edu_activeView');
     return (saved as ActiveView) || 'home';
+  });
+  const [lastExamsView, setLastExamsView] = useState<'past-questions' | 'pdfs'>(() => {
+    const saved = localStorage.getItem('unlock_edu_lastExamsView');
+    return saved === 'pdfs' ? 'pdfs' : 'past-questions';
   });
   const [videoNavTarget, setVideoNavTarget] = useState<{ playlistId?: string; videoId?: string }>({});
   const [selectedChapterId, setSelectedChapterId] = useState<number>(() => {
@@ -122,6 +127,10 @@ export default function App() {
 
     localStorage.setItem('unlock_edu_activeView', activeView);
     localStorage.setItem('unlock_edu_selectedChapterId', selectedChapterId.toString());
+    if (activeView === 'past-questions' || activeView === 'pdfs') {
+      setLastExamsView(activeView);
+      localStorage.setItem('unlock_edu_lastExamsView', activeView);
+    }
   }, [activeView, selectedChapterId]);
 
   // Handle browser back/forward buttons
@@ -132,6 +141,8 @@ export default function App() {
       const view = params.get('view');
       if (pathname === '/pdfs' || pathname.startsWith('/pdfs/') || params.has('pdf') || view === 'pdfs') {
         setActiveView('pdfs');
+      } else if (view === 'exams') {
+        setActiveView('past-questions');
       } else if (view === 'home' || view === 'syllabus' || view === 'videos' || view === 'formulas' || view === 'past-questions' || view === 'analytics') {
         setActiveView(view as ActiveView);
       } else if (params.has('secret') || params.has('key') || params.has('admin') || params.has('dashboard') || params.has('owner')) {
@@ -243,7 +254,7 @@ export default function App() {
             </button>
             <button
               onClick={() => setActiveView('formulas')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer whitespace-nowrap shrink-0 ${
                 activeView === 'formulas'
                   ? 'bg-white dark:bg-slate-800 shadow-sm text-indigo-600 dark:text-indigo-400 font-bold'
                   : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
@@ -253,26 +264,15 @@ export default function App() {
               Formulas
             </button>
             <button
-              onClick={() => setActiveView('past-questions')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer whitespace-nowrap shrink-0 ${
-                activeView === 'past-questions'
+              onClick={() => setActiveView(lastExamsView)}
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+                activeView === 'past-questions' || activeView === 'pdfs'
                   ? 'bg-white dark:bg-slate-800 shadow-sm text-indigo-600 dark:text-indigo-400 font-bold'
                   : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
               }`}
             >
               <FileText className="w-3.5 h-3.5" />
-              Past Questions
-            </button>
-            <button
-              onClick={() => setActiveView('pdfs')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer whitespace-nowrap shrink-0 ${
-                activeView === 'pdfs'
-                  ? 'bg-white dark:bg-slate-800 shadow-sm text-indigo-600 dark:text-indigo-400 font-bold'
-                  : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
-              }`}
-            >
-              <Download className="w-3.5 h-3.5" />
-              PDF Files
+              Exams
             </button>
           </div>
 
@@ -407,33 +407,54 @@ export default function App() {
                 </div>
                 <FormulaSheet />
               </motion.div>
-            ) : activeView === 'past-questions' ? (
+            ) : activeView === 'past-questions' || activeView === 'pdfs' ? (
               <motion.div
-                key="past-questions-view"
+                key="exams-hub-view"
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.22 }}
+                className="space-y-5"
               >
-                <div className="mb-6 space-y-1">
-                  <h2 className="font-display font-bold text-xl md:text-2xl text-slate-900 dark:text-white tracking-tight">
-                    Past Questions
-                  </h2>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-                    Review past examination questions and step-by-step solutions.
-                  </p>
+                {/* Unified Exams Hub Sub-Navigation */}
+                <div className="print:hidden flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-1 border-b border-slate-200/70 dark:border-slate-800/70">
+                  <div>
+                    <h2 className="font-display font-bold text-lg md:text-xl text-slate-900 dark:text-white tracking-tight">
+                      Exams & Past Papers
+                    </h2>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">
+                      Interactive past questions and downloadable PDF solution sets.
+                    </p>
+                  </div>
+                  <div className="grid grid-cols-2 sm:inline-flex items-center gap-1 p-1 bg-slate-100 dark:bg-slate-900 border border-slate-200/70 dark:border-slate-800 rounded-xl w-full sm:w-auto shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => setActiveView('past-questions')}
+                      className={`inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+                        activeView === 'past-questions'
+                          ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-2xs font-bold'
+                          : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
+                      }`}
+                    >
+                      <FileText className="w-3.5 h-3.5 shrink-0" />
+                      <span>Past Questions</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setActiveView('pdfs')}
+                      className={`inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+                        activeView === 'pdfs'
+                          ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-2xs font-bold'
+                          : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
+                      }`}
+                    >
+                      <Download className="w-3.5 h-3.5 shrink-0" />
+                      <span>PDF Files</span>
+                    </button>
+                  </div>
                 </div>
-                <PastQuestions />
-              </motion.div>
-            ) : activeView === 'pdfs' ? (
-              <motion.div
-                key="pdfs-library-view"
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.22 }}
-              >
-                <PdfLibrary />
+
+                {activeView === 'past-questions' ? <PastQuestions /> : <PdfLibrary />}
               </motion.div>
             ) : null}
           </AnimatePresence>
@@ -764,13 +785,13 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      {/* Mobile Bottom Navigation Bar - Minimalist Sliding Pill */}
-      <div className="print:hidden md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-[430px]" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
-        <nav className="relative bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl border border-slate-200/70 dark:border-slate-800/70 shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] rounded-2xl p-1 flex items-center justify-between mx-auto">
+      {/* Mobile Bottom Navigation Bar - Minimalist Sliding Pill (5 Clean Tabs) */}
+      <div className="print:hidden md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-[390px]" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
+        <nav className="relative bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl border border-slate-200/70 dark:border-slate-800/70 shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] rounded-2xl p-1.5 flex items-center justify-between mx-auto">
           
           <button
             onClick={() => setActiveView('home')}
-            className={`relative z-10 flex flex-col items-center justify-center w-1/6 h-12 rounded-xl transition-colors cursor-pointer ${
+            className={`relative z-10 flex flex-col items-center justify-center w-1/5 h-12 rounded-xl transition-colors cursor-pointer ${
               activeView === 'home' ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
             }`}
           >
@@ -783,7 +804,7 @@ export default function App() {
           
           <button
             onClick={() => setActiveView('syllabus')}
-            className={`relative z-10 flex flex-col items-center justify-center w-1/6 h-12 rounded-xl transition-colors cursor-pointer ${
+            className={`relative z-10 flex flex-col items-center justify-center w-1/5 h-12 rounded-xl transition-colors cursor-pointer ${
               activeView === 'syllabus' ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
             }`}
           >
@@ -799,7 +820,7 @@ export default function App() {
               setVideoNavTarget({});
               setActiveView('videos');
             }}
-            className={`relative z-10 flex flex-col items-center justify-center w-1/6 h-12 rounded-xl transition-colors cursor-pointer ${
+            className={`relative z-10 flex flex-col items-center justify-center w-1/5 h-12 rounded-xl transition-colors cursor-pointer ${
               activeView === 'videos' ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
             }`}
           >
@@ -812,7 +833,7 @@ export default function App() {
           
           <button
             onClick={() => setActiveView('formulas')}
-            className={`relative z-10 flex flex-col items-center justify-center w-1/6 h-12 rounded-xl transition-colors cursor-pointer ${
+            className={`relative z-10 flex flex-col items-center justify-center w-1/5 h-12 rounded-xl transition-colors cursor-pointer ${
               activeView === 'formulas' ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
             }`}
           >
@@ -824,29 +845,16 @@ export default function App() {
           </button>
           
           <button
-            onClick={() => setActiveView('past-questions')}
-            className={`relative z-10 flex flex-col items-center justify-center w-1/6 h-12 rounded-xl transition-colors cursor-pointer ${
-              activeView === 'past-questions' ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+            onClick={() => setActiveView(lastExamsView)}
+            className={`relative z-10 flex flex-col items-center justify-center w-1/5 h-12 rounded-xl transition-colors cursor-pointer ${
+              activeView === 'past-questions' || activeView === 'pdfs' ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
             }`}
           >
-            {activeView === 'past-questions' && (
+            {(activeView === 'past-questions' || activeView === 'pdfs') && (
               <motion.div layoutId="navPill" className="absolute inset-0 bg-indigo-50 dark:bg-indigo-500/20 rounded-xl -z-10" transition={{ type: "spring", stiffness: 350, damping: 30 }} />
             )}
             <FileText className="w-4 h-4 mb-1" />
-            <span className="text-[9px] font-bold tracking-wide">Papers</span>
-          </button>
-
-          <button
-            onClick={() => setActiveView('pdfs')}
-            className={`relative z-10 flex flex-col items-center justify-center w-1/6 h-12 rounded-xl transition-colors cursor-pointer ${
-              activeView === 'pdfs' ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
-            }`}
-          >
-            {activeView === 'pdfs' && (
-              <motion.div layoutId="navPill" className="absolute inset-0 bg-indigo-50 dark:bg-indigo-500/20 rounded-xl -z-10" transition={{ type: "spring", stiffness: 350, damping: 30 }} />
-            )}
-            <Download className="w-4 h-4 mb-1" />
-            <span className="text-[9px] font-bold tracking-wide">PDFs</span>
+            <span className="text-[9px] font-bold tracking-wide">Exams</span>
           </button>
         </nav>
       </div>

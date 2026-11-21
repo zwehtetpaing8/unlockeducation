@@ -12,7 +12,6 @@ export interface PdfResource {
   pageCount: number;
   pages: string[];
   available: boolean;
-  hasAnimatedSolutions?: boolean;
 }
 
 export const pdfChapters = [
@@ -111,6 +110,5 @@ export const pdfResources: PdfResource[] = [
       '/papers/ch2/sec-c-2024-sol/page-8.png',
     ],
     available: true,
-    hasAnimatedSolutions: true,
   },
 ];
