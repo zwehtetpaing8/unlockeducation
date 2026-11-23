@@ -21,6 +21,7 @@ import {
   getQuestionYears,
 } from '../data/pastQuestions';
 import { ch2SectionC2024Solutions } from '../data/ch2SectionC2024Solutions';
+import { ch2SectionC2025Solutions } from '../data/ch2SectionC2025Solutions';
 import WhiteboardModal, {
   parseMarkdownToWhiteboardSteps,
   WhiteboardStep,
@@ -31,6 +32,7 @@ type SectionKey = 'A' | 'B' | 'C' | 'D';
 type DisplayMode = 'questions-only' | 'practice';
 
 const SECTION_ORDER: SectionKey[] = ['A', 'B', 'C', 'D'];
+const ch2SectionCSolutions = [...ch2SectionC2024Solutions, ...ch2SectionC2025Solutions];
 
 interface ActiveWhiteboard {
   groupQuestions: PastQuestion[];
@@ -41,7 +43,7 @@ interface ActiveWhiteboard {
 
 function getAnimatedProof(q: PastQuestion) {
   if (q.chapterId === 2 && q.animatedProofNumber) {
-    return ch2SectionC2024Solutions.find((p) => p.number === q.animatedProofNumber) || null;
+    return ch2SectionCSolutions.find((p) => p.number === q.animatedProofNumber) || null;
   }
   return null;
 }

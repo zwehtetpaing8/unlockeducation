@@ -1216,6 +1216,7 @@ Its real part is negative ($-16 < 0$) and its imaginary part is positive ($11 > 
     questionNumber: 7,
     questionText:
       'Use the mathematical induction to prove that $1 + 5 + 9 + \\cdots + (4n - 3) = 2n^2 - n$ for all natural numbers $n$.',
+    animatedProofNumber: 7,
   },
   {
     id: 'pq-c2-c-8',
@@ -1226,6 +1227,7 @@ Its real part is negative ($-16 < 0$) and its imaginary part is positive ($11 > 
     questionNumber: 8,
     questionText:
       'Show that $\\dfrac{2}{3^1} + \\dfrac{2}{3^2} + \\cdots + \\dfrac{2}{3^n} = 1 - \\dfrac{1}{3^n}$ for all natural numbers $n$, by using principle of mathematical induction.',
+    animatedProofNumber: 8,
   },
   {
     id: 'pq-c2-c-9',
@@ -1236,6 +1238,7 @@ Its real part is negative ($-16 < 0$) and its imaginary part is positive ($11 > 
     questionNumber: 9,
     questionText:
       'Prove that $1 + 4 + 7 + \\cdots + (3n - 2) = \\dfrac{n(3n - 1)}{2}$ for all natural numbers $n$ by the use of the mathematical induction principle.',
+    animatedProofNumber: 9,
   },
   {
     id: 'pq-c2-c-10',
@@ -1246,6 +1249,7 @@ Its real part is negative ($-16 < 0$) and its imaginary part is positive ($11 > 
     questionNumber: 10,
     questionText:
       'Use the mathematical induction principle to prove that $1 + 2 + 3 + \\cdots + n = \\dfrac{n(n + 1)}{2}$, for all natural numbers $n$.',
+    animatedProofNumber: 10,
   },
   {
     id: 'pq-c2-c-11',
@@ -1256,6 +1260,7 @@ Its real part is negative ($-16 < 0$) and its imaginary part is positive ($11 > 
     questionNumber: 11,
     questionText:
       'Use the mathematical induction principle to prove that $6^n - 1$ is divisible by $5$ for all natural numbers $n$.',
+    animatedProofNumber: 11,
   },
   {
     id: 'pq-c2-c-12',
@@ -1267,6 +1272,7 @@ Its real part is negative ($-16 < 0$) and its imaginary part is positive ($11 > 
     questionNumber: 12,
     questionText:
       'Prove that $3^{2n} - 1$ is divisible by $8$ for all natural numbers $n \\ge 1$ by using principle of mathematical induction. *(2025)*\n\n**OR**\n\nUse mathematical induction principle to prove that $3^{2n} - 1$ is divisible by $8$, for all natural numbers $n$. *(2026)*',
+    animatedProofNumber: 12,
   },
   {
     id: 'pq-c2-c-13',
@@ -1277,6 +1283,7 @@ Its real part is negative ($-16 < 0$) and its imaginary part is positive ($11 > 
     questionNumber: 13,
     questionText:
       'Use the mathematical induction principle to prove that $5^n + 3$ is divisible by $4$ for all positive integers $n$.',
+    animatedProofNumber: 13,
   },
   {
     id: 'pq-c2-c-14',
@@ -1287,6 +1294,7 @@ Its real part is negative ($-16 < 0$) and its imaginary part is positive ($11 > 
     questionNumber: 14,
     questionText:
       'Use the principle of mathematical induction to prove that $2n + 1 < n^2$ for all natural numbers $n \\ge 3$.',
+    animatedProofNumber: 14,
   },
   {
     id: 'pq-c2-c-15',
@@ -1297,6 +1305,7 @@ Its real part is negative ($-16 < 0$) and its imaginary part is positive ($11 > 
     questionNumber: 15,
     questionText:
       'Use the mathematical induction principle to prove that $2n < 2^n - 1$ for all natural numbers $n \\ge 3$.',
+    animatedProofNumber: 15,
   },
   {
     id: 'pq-c2-c-16',
@@ -1307,6 +1316,7 @@ Its real part is negative ($-16 < 0$) and its imaginary part is positive ($11 > 
     questionNumber: 16,
     questionText:
       'Use the principle of mathematical induction to prove that $4n^2 > n + 11$ for all natural numbers $n \\ge 2$.',
+    animatedProofNumber: 16,
   },
   {
     id: 'pq-c2-c-17',
@@ -1317,6 +1327,7 @@ Its real part is negative ($-16 < 0$) and its imaginary part is positive ($11 > 
     questionNumber: 17,
     questionText:
       'Prove that $2n < 2^n$ for all natural numbers $n \\ge 3$ by using the mathematical induction.',
+    animatedProofNumber: 17,
   },
   {
     id: 'pq-c2-c-18',
@@ -1327,6 +1338,7 @@ Its real part is negative ($-16 < 0$) and its imaginary part is positive ($11 > 
     questionNumber: 18,
     questionText:
       'Use the mathematical induction principle to prove that $2^n > n$ for all natural numbers $n$.',
+    animatedProofNumber: 18,
   },
   {
     id: 'pq-c2-c-19',
