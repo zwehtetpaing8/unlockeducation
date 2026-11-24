@@ -22,6 +22,7 @@ import {
 } from '../data/pastQuestions';
 import { ch2SectionC2024Solutions } from '../data/ch2SectionC2024Solutions';
 import { ch2SectionC2025Solutions } from '../data/ch2SectionC2025Solutions';
+import { ch2SectionC2026Solutions } from '../data/ch2SectionC2026Solutions';
 import WhiteboardModal, {
   parseMarkdownToWhiteboardSteps,
   WhiteboardStep,
@@ -32,7 +33,11 @@ type SectionKey = 'A' | 'B' | 'C' | 'D';
 type DisplayMode = 'questions-only' | 'practice';
 
 const SECTION_ORDER: SectionKey[] = ['A', 'B', 'C', 'D'];
-const ch2SectionCSolutions = [...ch2SectionC2024Solutions, ...ch2SectionC2025Solutions];
+const ch2SectionCSolutions = [
+  ...ch2SectionC2024Solutions,
+  ...ch2SectionC2025Solutions,
+  ...ch2SectionC2026Solutions,
+];
 
 interface ActiveWhiteboard {
   groupQuestions: PastQuestion[];

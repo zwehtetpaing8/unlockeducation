@@ -1349,6 +1349,7 @@ Its real part is negative ($-16 < 0$) and its imaginary part is positive ($11 > 
     questionNumber: 19,
     questionText:
       'Prove that $5^n - 1$ is divisible by $4$ for all natural numbers $n$ by using mathematical induction.',
+    animatedProofNumber: 19,
   },
   {
     id: 'pq-c2-c-20',
@@ -1359,6 +1360,7 @@ Its real part is negative ($-16 < 0$) and its imaginary part is positive ($11 > 
     questionNumber: 20,
     questionText:
       'Use the mathematical induction principle to prove that $1 + 3 + 3^2 + \\cdots + 3^{n-1} = \\dfrac{3^n - 1}{2}$ for all natural numbers $n$.',
+    animatedProofNumber: 20,
   },
   {
     id: 'pq-c2-c-21',
@@ -1369,6 +1371,7 @@ Its real part is negative ($-16 < 0$) and its imaginary part is positive ($11 > 
     questionNumber: 21,
     questionText:
       'Prove that $\\dfrac{1}{1 \\cdot 5} + \\dfrac{1}{5 \\cdot 9} + \\dfrac{1}{9 \\cdot 13} + \\cdots + \\dfrac{1}{(4n - 3)(4n + 1)} = \\dfrac{n}{4n + 1}$ for $n \\ge 1$ by using the principle of mathematical induction.',
+    animatedProofNumber: 21,
   },
 
   // =========================================================================
