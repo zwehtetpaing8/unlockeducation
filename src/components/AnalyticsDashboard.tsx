@@ -21,6 +21,8 @@ import {
   LogOut,
 } from 'lucide-react';
 import { motion } from 'motion/react';
+import { signInWithPopup, signOut } from 'firebase/auth';
+import { auth, googleProvider } from '../firebase';
 
 interface AnalyticsDashboardProps {
   onNavigateHome?: () => void;
@@ -35,6 +37,7 @@ export default function AnalyticsDashboard({ onNavigateHome }: AnalyticsDashboar
   const [statusLoaded, setStatusLoaded] = useState<boolean>(false);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [googleLoading, setGoogleLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<AnalyticsSummary | null>(null);
   const [copied, setCopied] = useState<boolean>(false);
@@ -172,6 +175,39 @@ export default function AnalyticsDashboard({ onNavigateHome }: AnalyticsDashboar
     }
   };
 
+  const handleGoogleLogin = async () => {
+    setGoogleLoading(true);
+    setError(null);
+    try {
+      const cred = await signInWithPopup(auth, googleProvider);
+      const idToken = await cred.user.getIdToken(true);
+      const res = await fetch('/api/owner-auth/google', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idToken }),
+      });
+      const body = await res.json().catch(() => ({}));
+      if (res.ok && typeof body?.token === 'string') {
+        setRequiresClaim(false);
+        setSessionToken(body.token);
+      } else {
+        await signOut(auth).catch(() => {});
+        setError(body?.error || 'Google Account ဖြင့် ဝင်ရောက်၍မရပါ။');
+      }
+    } catch (err: any) {
+      const code = typeof err?.code === 'string' ? err.code : '';
+      if (code === 'auth/popup-closed-by-user' || code === 'auth/cancelled-popup-request') {
+        setError('Google Sign-In popup ကို ပိတ်လိုက်ပါသည်။ ထပ်မံကြိုးစားပါ။');
+      } else if (code === 'auth/popup-blocked') {
+        setError('Browser မှ popup ကို ပိတ်ထားပါသည်။ Popup ခွင့်ပြုပြီး ထပ်မံနှိပ်ပါ။');
+      } else {
+        setError('Google Sign-In မအောင်မြင်ပါ။ ထပ်မံကြိုးစားပေးပါ။');
+      }
+    } finally {
+      setGoogleLoading(false);
+    }
+  };
+
   const handleLogout = async () => {
     if (sessionToken) {
       fetch('/api/owner-auth/logout', {
@@ -182,6 +218,7 @@ export default function AnalyticsDashboard({ onNavigateHome }: AnalyticsDashboar
         },
       }).catch(() => {});
     }
+    signOut(auth).catch(() => {});
     setSessionToken('');
     setIsAuthenticated(false);
     setData(null);
@@ -246,9 +283,36 @@ export default function AnalyticsDashboard({ onNavigateHome }: AnalyticsDashboar
             </h2>
             <p className="text-xs text-slate-500 dark:text-slate-400">
               {requiresClaim
-                ? 'Create a strong password (min 8 characters) to claim admin access, or set ADMIN_SECRET in Settings → Secrets.'
-                : 'Enter your Owner Password to view live visitor statistics.'}
+                ? 'Sign in with your Owner Google Account, or create an owner password (min 8 characters).'
+                : 'Sign in with your Owner Google Account or enter your Owner Password.'}
             </p>
+          </div>
+
+          <button
+            type="button"
+            onClick={handleGoogleLogin}
+            disabled={googleLoading || loading}
+            className="w-full py-3 px-4 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700/80 disabled:opacity-60 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold transition-all shadow-xs cursor-pointer flex items-center justify-center gap-2.5"
+          >
+            {googleLoading ? (
+              <RefreshCw className="w-4 h-4 animate-spin text-indigo-500" />
+            ) : (
+              <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="#4285F4" d="M23.745 12.27c0-.79-.07-1.54-.19-2.27h-11.3v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z" />
+                <path fill="#34A853" d="M12.255 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96h-3.98v3.09C3.515 21.3 7.565 24 12.255 24z" />
+                <path fill="#FBBC05" d="M5.525 14.29c-.25-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.62h-3.98a11.86 11.86 0 000 10.76l3.98-3.09z" />
+                <path fill="#EA4335" d="M12.255 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C18.205 1.19 15.495 0 12.255 0c-4.69 0-8.74 2.7-10.71 6.62l3.98 3.09c.95-2.85 3.6-4.96 6.73-4.96z" />
+              </svg>
+            )}
+            <span>Sign in with Google (Owner Account)</span>
+          </button>
+
+          <div className="relative flex items-center py-0.5">
+            <div className="flex-grow border-t border-slate-200 dark:border-slate-800" />
+            <span className="shrink-0 mx-3 text-[10px] font-semibold uppercase tracking-wider text-slate-400">
+              or use password
+            </span>
+            <div className="flex-grow border-t border-slate-200 dark:border-slate-800" />
           </div>
 
           <form onSubmit={handleAuthSubmit} className="space-y-4">

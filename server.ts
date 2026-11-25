@@ -5,6 +5,7 @@ import crypto from "crypto";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI, Type } from "@google/genai";
 import 'dotenv/config';
+import firebaseAppletConfig from "./firebase-applet-config.json";
 import { pdfResources } from "./src/data/pdfResources";
 import {
   FALLBACK_YOUTUBE_LIBRARY,
@@ -160,6 +161,70 @@ function isValidOwnerRequest(req: express.Request): boolean {
     return false;
   }
   return true;
+}
+
+function getAllowedOwnerEmails(): Set<string> {
+  const allowed = new Set<string>(["unlockedntube@gmail.com"]);
+  const extra = (process.env.OWNER_EMAIL || "").split(",");
+  for (const item of extra) {
+    const clean = item.trim().toLowerCase();
+    if (clean) allowed.add(clean);
+  }
+  return allowed;
+}
+
+async function verifyOwnerFirebaseIdToken(
+  idToken: string
+): Promise<{ ok: true; email: string } | { ok: false; status: number; error: string }> {
+  const apiKey = typeof firebaseAppletConfig?.apiKey === "string" ? firebaseAppletConfig.apiKey.trim() : "";
+  if (!apiKey) {
+    return { ok: false, status: 503, error: "Google Sign-In verification is not configured." };
+  }
+  if (!idToken || idToken.length > 8192) {
+    return { ok: false, status: 400, error: "Invalid authentication token." };
+  }
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 6000);
+  try {
+    const res = await fetch(
+      `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${encodeURIComponent(apiKey)}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ idToken }),
+        signal: controller.signal,
+      }
+    );
+
+    if (!res.ok) {
+      return { ok: false, status: 401, error: "Google sign-in token is invalid or expired. Please try again." };
+    }
+
+    const payload = (await res.json().catch(() => ({}))) as {
+      users?: Array<{ email?: string; emailVerified?: boolean; disabled?: boolean }>;
+    };
+    const user = Array.isArray(payload?.users) ? payload.users[0] : null;
+    const email = typeof user?.email === "string" ? user.email.trim().toLowerCase() : "";
+
+    if (!user || !email || user.disabled || !user.emailVerified) {
+      return { ok: false, status: 401, error: "Verified Google account required." };
+    }
+
+    if (!getAllowedOwnerEmails().has(email)) {
+      return {
+        ok: false,
+        status: 403,
+        error: "ဤ Google Account သည် Website Owner အကောင့် မဟုတ်ပါ။ Owner Gmail ဖြင့်သာ ဝင်ရောက်ပါ။",
+      };
+    }
+
+    return { ok: true, email };
+  } catch {
+    return { ok: false, status: 503, error: "Unable to verify Google Sign-In right now. Please try again." };
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 // Helper to load logs
@@ -737,6 +802,26 @@ async function startServer() {
     clearFailedLogins(clientIp);
     const token = issueOwnerSession();
     return res.json({ token });
+  });
+
+  // API endpoint: Owner Google Sign-In -> verifies Firebase ID token & owner email, issues session token
+  app.post("/api/owner-auth/google", async (req, res) => {
+    res.set("Cache-Control", "no-store");
+    const clientIp = getClientIp(req);
+    if (isLoginRateLimited(clientIp)) {
+      return res.status(429).json({ error: "ကြိုးစားမှုများလွန်းနေပါသည်။ ၁၀ မိနစ်ခန့် စောင့်ပြီးမှ ပြန်လည်ဝင်ရောက်ပါ။" });
+    }
+    const idToken = typeof req.body?.idToken === "string" ? req.body.idToken.trim() : "";
+    const result = await verifyOwnerFirebaseIdToken(idToken);
+    if (result.ok === false) {
+      if (result.status === 401 || result.status === 403) {
+        recordFailedLogin(clientIp);
+      }
+      return res.status(result.status).json({ error: result.error });
+    }
+    clearFailedLogins(clientIp);
+    const token = issueOwnerSession();
+    return res.json({ token, email: result.email });
   });
 
   // API endpoint: Owner Logout -> revokes Bearer session token
