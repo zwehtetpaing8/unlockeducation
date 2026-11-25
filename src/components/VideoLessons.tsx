@@ -45,17 +45,17 @@ export default function VideoLessons({
   const isChapterScoped = typeof chapterId === 'number';
 
   const tabs = useMemo(() => {
-    const playlistTabs = library.playlists.map((pl) => ({
-      id: pl.id,
-      label: pl.shortLabel,
-      title: pl.title,
-      chapterId: pl.chapterId,
-      playlistUrl: pl.playlistUrl,
-      videos: pl.videos,
-    }));
+    const allTabs: Array<{
+      id: string;
+      label: string;
+      title: string;
+      chapterId: number | null;
+      playlistUrl: string;
+      videos: YoutubeVideo[];
+    }> = [];
 
     if (library.latestUploads.length > 0) {
-      playlistTabs.push({
+      allTabs.push({
         id: LATEST_TAB_ID,
         label: 'Latest Uploads',
         title: 'Latest Channel Uploads',
@@ -65,7 +65,18 @@ export default function VideoLessons({
       });
     }
 
-    return playlistTabs;
+    for (const pl of library.playlists) {
+      allTabs.push({
+        id: pl.id,
+        label: pl.shortLabel,
+        title: pl.title,
+        chapterId: pl.chapterId,
+        playlistUrl: pl.playlistUrl,
+        videos: pl.videos,
+      });
+    }
+
+    return allTabs;
   }, [library]);
 
   const chapterPlaylist: YoutubePlaylist | undefined = useMemo(() => {
@@ -75,11 +86,16 @@ export default function VideoLessons({
 
   const [activeTabId, setActiveTabId] = useState<string>(() => {
     if (initialPlaylistId) return initialPlaylistId;
-    return library.playlists[0]?.id || LATEST_TAB_ID;
+    return library.latestUploads.length > 0
+      ? LATEST_TAB_ID
+      : library.playlists[0]?.id || LATEST_TAB_ID;
   });
 
   const [selectedVideoId, setSelectedVideoId] = useState<string | null>(
     initialVideoId || null
+  );
+  const [hasUserPickedVideo, setHasUserPickedVideo] = useState<boolean>(
+    Boolean(initialVideoId)
   );
   const [searchQuery, setSearchQuery] = useState<string>('');
 
@@ -90,6 +106,7 @@ export default function VideoLessons({
     }
     if (initialVideoId) {
       setSelectedVideoId(initialVideoId);
+      setHasUserPickedVideo(true);
     }
   }, [initialPlaylistId, initialVideoId, tabs]);
 
@@ -119,16 +136,20 @@ export default function VideoLessons({
 
   const videos: YoutubeVideo[] = activeCollection?.videos || [];
 
-  // Ensure a valid video is selected whenever the active collection changes
+  // Ensure a valid video is selected whenever the active collection changes or live sync delivers a newer upload
   useEffect(() => {
     if (videos.length === 0) {
       setSelectedVideoId(null);
       return;
     }
-    if (!selectedVideoId || !videos.some((v) => v.id === selectedVideoId)) {
+    if (
+      !selectedVideoId ||
+      !videos.some((v) => v.id === selectedVideoId) ||
+      (!hasUserPickedVideo && activeCollection?.id === LATEST_TAB_ID && selectedVideoId !== videos[0].id)
+    ) {
       setSelectedVideoId(videos[0].id);
     }
-  }, [videos, selectedVideoId]);
+  }, [videos, selectedVideoId, hasUserPickedVideo, activeCollection?.id]);
 
   const filteredVideos = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
@@ -146,11 +167,17 @@ export default function VideoLessons({
   const canGoNext = activeIndex < videos.length - 1;
 
   const handlePrev = () => {
-    if (canGoPrev) setSelectedVideoId(videos[activeIndex - 1].id);
+    if (canGoPrev) {
+      setHasUserPickedVideo(true);
+      setSelectedVideoId(videos[activeIndex - 1].id);
+    }
   };
 
   const handleNext = () => {
-    if (canGoNext) setSelectedVideoId(videos[activeIndex + 1].id);
+    if (canGoNext) {
+      setHasUserPickedVideo(true);
+      setSelectedVideoId(videos[activeIndex + 1].id);
+    }
   };
 
   // Embedded Chapter Mode: clean empty state if this chapter has no YouTube playlist yet
@@ -243,7 +270,10 @@ export default function VideoLessons({
 
             <div className="flex items-center gap-2 shrink-0">
               <button
-                onClick={refresh}
+                onClick={() => {
+                  setHasUserPickedVideo(false);
+                  refresh();
+                }}
                 disabled={isRefreshing}
                 className="inline-flex items-center gap-1.5 px-3 py-2 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-semibold transition-colors cursor-pointer disabled:opacity-60 whitespace-nowrap shrink-0"
                 title="Sync latest videos from @UnlockEdu25"
@@ -276,6 +306,7 @@ export default function VideoLessons({
                   key={tab.id}
                   onClick={() => {
                     setActiveTabId(tab.id);
+                    setHasUserPickedVideo(false);
                     setSearchQuery('');
                   }}
                   className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer whitespace-nowrap shrink-0 border ${
@@ -443,9 +474,12 @@ export default function VideoLessons({
                 const lessonNum = videos.findIndex((v) => v.id === video.id) + 1;
                 const isActive = video.id === activeVideo.id;
                 return (
-                  <button
-                    key={video.id}
-                    onClick={() => setSelectedVideoId(video.id)}
+                    <button
+                      key={video.id}
+                      onClick={() => {
+                        setHasUserPickedVideo(true);
+                        setSelectedVideoId(video.id);
+                      }}
                     className={`w-full flex items-center gap-2.5 p-2 rounded-xl text-left transition-colors cursor-pointer border ${
                       isActive
                         ? 'bg-indigo-50/90 dark:bg-indigo-950/40 border-indigo-200 dark:border-indigo-800/70'

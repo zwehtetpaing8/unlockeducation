@@ -23,7 +23,7 @@ import {
   Youtube
 } from 'lucide-react';
 import { motion } from 'motion/react';
-import Latex from './Latex';
+import TrigGrapherTool from './TrigGrapherTool';
 import { useYoutubeVideos, formatYoutubeDate } from '../data/youtubeVideos';
 
 interface HomeViewProps {
@@ -56,67 +56,6 @@ export default function HomeView({ onSelectChapter, onNavigateToFormulas, onNavi
   });
 
 
-
-  // Solver widget state
-  const [a, setA] = useState<number>(1);
-  const [b, setB] = useState<number>(-2);
-  const [c, setC] = useState<number>(5);
-
-  // Calculate roots step-by-step
-  const calculateQuadraticSteps = () => {
-    if (a === 0) {
-      if (b === 0) {
-        return {
-          equation: `0 = ${c}`,
-          status: 'invalid',
-          steps: `If $a = 0$ and $b = 0$, the equation $0x^2 + 0x + ${c} = 0$ is invalid or has no variables.`
-        };
-      }
-      const root = -c / b;
-      return {
-        equation: `${b}x + ${c} = 0`,
-        status: 'linear',
-        steps: `This is a linear equation because $a = 0$.\n\n**Step 1:** Rearrange the equation:\n$$${b}x = -${c}$$\n\n**Step 2:** Divide both sides by $b = ${b}$:\n$$x = \\frac{-${c}}{${b}} = ${root.toFixed(3)}$$\n\nRoot: $x = ${root.toFixed(3)}$`
-      };
-    }
-
-    const D = b * b - 4 * a * c;
-    const absD = Math.abs(D);
-    const sqrtAbsD = Math.sqrt(absD);
-    const realPart = -b / (2 * a);
-
-    const bSign = b >= 0 ? `+ ${b}` : `- ${Math.abs(b)}`;
-    const cSign = c >= 0 ? `+ ${c}` : `- ${Math.abs(c)}`;
-    const eqStr = `${a === 1 ? '' : a === -1 ? '-' : a}x^2 ${b === 0 ? '' : bSign + 'x'} ${c === 0 ? '' : cSign} = 0`;
-
-    let steps = `**Step 1: Identify coefficients**\n- $a = ${a}$\n- $b = ${b}$\n- $c = ${c}$\n\n`;
-    steps += `**Step 2: Calculate the discriminant $D$**\n$$D = b^2 - 4ac = (${b})^2 - 4(${a})(${c})$$\n$$D = ${b * b} - ${4 * a * c} = ${D}$$\n\n`;
-
-    if (D > 0) {
-      const r1 = (-b + Math.sqrt(D)) / (2 * a);
-      const r2 = (-b - Math.sqrt(D)) / (2 * a);
-      steps += `Since $D > 0$, the equation has **two distinct real roots**.\n\n`;
-      steps += `**Step 3: Apply the quadratic formula**\n$$x = \\frac{-b \\pm \\sqrt{D}}{2a}$$\n$$x = \\frac{-(${b}) \\pm \\sqrt{${D}}}{2(${a})}$$\n$$x = \\frac{${-b} \\pm ${sqrtAbsD.toFixed(3)}}{${2 * a}}$$\n\n`;
-      steps += `Therefore, the solutions are:\n- $x_1 = \\frac{${-b} + ${sqrtAbsD.toFixed(3)}}{${2 * a}} = ${r1.toFixed(3)}$\n- $x_2 = \\frac{${-b} - ${sqrtAbsD.toFixed(3)}}{${2 * a}} = ${r2.toFixed(3)}$`;
-    } else if (D === 0) {
-      steps += `Since $D = 0$, the equation has **one repeated real root** (double root).\n\n`;
-      steps += `**Step 3: Apply the quadratic formula**\n$$x = \\frac{-b}{2a}$$\n$$x = \\frac{-(${b})}{2(${a})} = ${realPart.toFixed(3)}$$\n\n`;
-      steps += `Therefore, the root is:\n- $x = ${realPart.toFixed(3)}$`;
-    } else {
-      const imagPart = sqrtAbsD / (2 * a);
-      steps += `Since $D < 0$, the equation has **two complex conjugate roots**.\n\n`;
-      steps += `**Step 3: Introduce the imaginary unit $i = \\sqrt{-1}$**\n$$x = \\frac{-b \\pm \\sqrt{${D}}}{2a} = \\frac{-b \\pm \\sqrt{${absD}}i}{2a}$$\n$$x = \\frac{-(${b}) \\pm ${sqrtAbsD.toFixed(3)}i}{2(${a})}$$\n\n`;
-      steps += `Therefore, the complex solutions are:\n- $x_1 = ${realPart.toFixed(3)} + ${Math.abs(imagPart).toFixed(3)}i$\n- $x_2 = ${realPart.toFixed(3)} - ${Math.abs(imagPart).toFixed(3)}i$`;
-    }
-
-    return {
-      equation: eqStr,
-      status: D >= 0 ? 'real' : 'complex',
-      steps
-    };
-  };
-
-  const solverResult = calculateQuadraticSteps();
 
   // Container animation variants
   const containerVariants = {
@@ -360,78 +299,8 @@ export default function HomeView({ onSelectChapter, onNavigateToFormulas, onNavi
           </div>
         </div>
 
-        {/* Right column: Complex Quadratic Equation Solver */}
-        <div className="lg:col-span-7 bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/50 p-5 rounded-3xl shadow-md space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
-            <div className="flex items-center gap-2">
-              <div className="bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 p-2 rounded-lg">
-                <Calculator className="w-4 h-4" />
-              </div>
-              <div>
-                <h3 className="text-xs font-bold text-slate-950 dark:text-white">Interactive Learning Tool</h3>
-                <p className="text-[10px] text-slate-400 font-medium">Complex & Real Quadratic Roots Solver</p>
-              </div>
-            </div>
-            <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full ${
-              solverResult.status === 'complex' 
-                ? 'bg-purple-100 dark:bg-purple-950/30 text-purple-700 dark:text-purple-400'
-                : 'bg-emerald-100 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-400'
-            }`}>
-              {solverResult.status.toUpperCase()} ROOTS
-            </span>
-          </div>
-
-          <div className="space-y-3">
-            <div className="text-[11px] text-slate-500 leading-relaxed font-sans">
-              <Latex text="Enter real numbers for coefficients $a, b, c$ to solve the quadratic equation $ax^2 + bx + c = 0$. See how imaginary unit $i$ is introduced when the discriminant $D < 0$!" />
-            </div>
-
-            <div className="grid grid-cols-3 gap-3">
-              <div>
-                <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">
-                  <Latex text="Coeff $a$" />
-                </label>
-                <input
-                  type="number"
-                  value={a}
-                  onChange={(e) => setA(parseFloat(e.target.value) || 0)}
-                  className="w-full text-center py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-bold font-mono focus:ring-1 focus:ring-indigo-500/30 focus:border-indigo-500 focus:outline-none"
-                />
-              </div>
-              <div>
-                <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">
-                  <Latex text="Coeff $b$" />
-                </label>
-                <input
-                  type="number"
-                  value={b}
-                  onChange={(e) => setB(parseFloat(e.target.value) || 0)}
-                  className="w-full text-center py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-bold font-mono focus:ring-1 focus:ring-indigo-500/30 focus:border-indigo-500 focus:outline-none"
-                />
-              </div>
-              <div>
-                <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">
-                  <Latex text="Coeff $c$" />
-                </label>
-                <input
-                  type="number"
-                  value={c}
-                  onChange={(e) => setC(parseFloat(e.target.value) || 0)}
-                  className="w-full text-center py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-bold font-mono focus:ring-1 focus:ring-indigo-500/30 focus:border-indigo-500 focus:outline-none"
-                />
-              </div>
-            </div>
-
-            <div className="p-3 bg-slate-50 dark:bg-slate-950/40 rounded-2xl border border-slate-100 dark:border-slate-800/60 text-center font-serif text-sm md:text-base font-bold text-indigo-700 dark:text-indigo-400">
-              <Latex text={`$$${solverResult.equation}$$`} block={false} />
-            </div>
-
-            {/* Display solution steps */}
-            <div className="p-4 bg-indigo-50/20 dark:bg-indigo-950/10 border border-indigo-100/30 dark:border-indigo-900/10 rounded-2xl max-h-[220px] overflow-y-auto custom-scroll shadow-inner">
-              <Latex text={solverResult.steps} />
-            </div>
-          </div>
-        </div>
+        {/* Right column: Interactive Trigonometric Function Grapher */}
+        <TrigGrapherTool />
       </motion.div>
 
       {/* 4. Complete 11 Chapter Syllabus Grid Navigator */}

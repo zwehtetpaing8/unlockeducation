@@ -231,9 +231,17 @@ export const FALLBACK_YOUTUBE_LIBRARY: YoutubeLibraryData = {
       videos: [
         {
           id: '5Jni4kvDo54',
-          title: 'Grade 12 Mathematics Chapter 9 | Part 1',
-          published: '2026-11-20T04:01:02+00:00',
+          title: 'Grade 12 Mathematics Chapter 9 Part 1',
+          published: '2026-11-20T07:17:18+00:00',
           thumbnail: thumb('5Jni4kvDo54'),
+          playlistId: 'PLJtCmidavJSY',
+          chapterId: 9,
+        },
+        {
+          id: 'w7dJxzPQC4s',
+          title: 'Grade 12 Mathematics Chapter 9 Part 2',
+          published: '2026-11-23T00:45:43+00:00',
+          thumbnail: thumb('w7dJxzPQC4s'),
           playlistId: 'PLJtCmidavJSY',
           chapterId: 9,
         },
@@ -242,53 +250,53 @@ export const FALLBACK_YOUTUBE_LIBRARY: YoutubeLibraryData = {
   ],
   latestUploads: [
     {
+      id: 'w7dJxzPQC4s',
+      title: 'Grade 12 Mathematics Chapter 9 Part 2',
+      published: '2026-11-23T00:45:43+00:00',
+      thumbnail: thumb('w7dJxzPQC4s'),
+      chapterId: 9,
+    },
+    {
       id: '5Jni4kvDo54',
-      title: 'Grade 12 Mathematics Chapter 9 | Part 1',
-      published: '2026-11-20T04:01:02+00:00',
+      title: 'Grade 12 Mathematics Chapter 9 Part 1',
+      published: '2026-11-20T07:17:18+00:00',
       thumbnail: thumb('5Jni4kvDo54'),
       chapterId: 9,
     },
     {
+      id: 'nnVIU3DvHRg',
+      title: 'Unlock Education Online Learning Platform',
+      published: '2026-11-19T15:04:47+00:00',
+      thumbnail: thumb('nnVIU3DvHRg'),
+      chapterId: null,
+    },
+    {
       id: 'N6LxiNwh_cY',
-      title: 'Grade 12 Mathematics Chapter 1 | Part 12',
-      published: '2026-11-15T12:00:08+00:00',
+      title: 'Grade 12 Mathematics Chapter 1 Part 12',
+      published: '2026-11-15T15:17:21+00:00',
       thumbnail: thumb('N6LxiNwh_cY'),
+      chapterId: 1,
+    },
+    {
+      id: 'fz5lQmRiyJk',
+      title: 'Grade 12 Mathematics Chapter 1 Part 11',
+      published: '2026-10-13T15:28:28+00:00',
+      thumbnail: thumb('fz5lQmRiyJk'),
       chapterId: 1,
     },
     {
       id: 'QzOwpCIjSpw',
       title: 'Grade 12 Mathematics Chapter 1 Section A Questions and Solutions',
-      published: '2026-11-10T11:30:00+00:00',
+      published: '2026-10-13T06:00:48+00:00',
       thumbnail: thumb('QzOwpCIjSpw'),
       chapterId: 1,
     },
     {
-      id: 'LlBZf990EsQ',
-      title: 'Grade 12 Mathematics Chapter 1 Section 1.1',
-      published: '2026-11-05T11:30:00+00:00',
-      thumbnail: thumb('LlBZf990EsQ'),
-      chapterId: 1,
-    },
-    {
-      id: 'fz5lQmRiyJk',
-      title: 'Grade 12 Mathematics Chapter 1 | Part 11',
-      published: '2026-10-13T11:30:06+00:00',
-      thumbnail: thumb('fz5lQmRiyJk'),
-      chapterId: 1,
-    },
-    {
       id: 'PsamOiE7NHQ',
-      title: 'Grade 12 Mathematics Chapter 1 | Part 10',
-      published: '2026-10-04T09:00:25+00:00',
+      title: 'Grade 12 Mathematics Chapter 1 Part 10',
+      published: '2026-10-04T05:42:53+00:00',
       thumbnail: thumb('PsamOiE7NHQ'),
       chapterId: 1,
-    },
-    {
-      id: 'nnVIU3DvHRg',
-      title: 'Unlock Education Online Learning Platform',
-      published: '2026-11-18T10:00:00+00:00',
-      thumbnail: thumb('nnVIU3DvHRg'),
-      chapterId: null,
     },
   ],
 };
@@ -296,7 +304,90 @@ export const FALLBACK_YOUTUBE_LIBRARY: YoutubeLibraryData = {
 let cachedLibrary: YoutubeLibraryData | null = null;
 let cachedAt = 0;
 let inflightRequest: Promise<YoutubeLibraryData> | null = null;
-const CLIENT_CACHE_TTL_MS = 5 * 60 * 1000;
+const CLIENT_CACHE_TTL_MS = 2 * 60 * 1000;
+
+function extractChapterIdClient(title: string): number | null {
+  const match = title.match(/(?:chapter|ch\.?)\s*0*(\d{1,2})\b/i);
+  if (!match) return null;
+  const num = parseInt(match[1], 10);
+  return num >= 1 && num <= 11 ? num : null;
+}
+
+function extractPartNumberClient(title: string): number | null {
+  const match = title.match(/(?:part|lesson|ep\.?|episode)\s*0*(\d{1,3})\b/i);
+  return match ? parseInt(match[1], 10) : null;
+}
+
+function parseYoutubeIdFromRssItem(item: { guid?: string; link?: string }): string | null {
+  const guidMatch = item.guid?.match(/yt:video:([A-Za-z0-9_-]{11})/);
+  if (guidMatch) return guidMatch[1];
+  const linkMatch = item.link?.match(/[?&]v=([A-Za-z0-9_-]{11})|\/shorts\/([A-Za-z0-9_-]{11})/);
+  return linkMatch?.[1] || linkMatch?.[2] || null;
+}
+
+async function fetchViaPublicRssFallback(): Promise<YoutubeLibraryData | null> {
+  try {
+    const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${YOUTUBE_CHANNEL_ID}`;
+    const res = await fetch(
+      `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`,
+      { cache: 'no-store' }
+    );
+    if (!res.ok) return null;
+    const json = await res.json();
+    if (json?.status !== 'ok' || !Array.isArray(json.items) || json.items.length === 0) {
+      return null;
+    }
+
+    const liveLatest: YoutubeVideo[] = [];
+    for (const item of json.items) {
+      const id = parseYoutubeIdFromRssItem(item);
+      if (!id) continue;
+      const title = String(item.title || 'Untitled Video').trim();
+      const pubRaw = String(item.pubDate || '').trim();
+      const published = pubRaw && !pubRaw.includes('T') ? `${pubRaw.replace(' ', 'T')}Z` : pubRaw;
+      liveLatest.push({
+        id,
+        title,
+        published,
+        thumbnail: thumb(id),
+        chapterId: extractChapterIdClient(title),
+      });
+    }
+
+    if (liveLatest.length === 0) return null;
+
+    // Clone fallback playlists and merge any newly uploaded Grade 12 chapter videos into matching playlists
+    const playlists: YoutubePlaylist[] = FALLBACK_YOUTUBE_LIBRARY.playlists.map((pl) => ({
+      ...pl,
+      videos: [...pl.videos],
+    }));
+
+    for (const v of liveLatest) {
+      if (v.chapterId && /grade\s*12|g\s*12/i.test(v.title) && extractPartNumberClient(v.title) !== null) {
+        const target = playlists.find((pl) => pl.chapterId === v.chapterId);
+        if (target && !target.videos.some((pv) => pv.id === v.id)) {
+          target.videos.push({ ...v, playlistId: target.id });
+          target.videos.sort((a, b) => {
+            const pa = extractPartNumberClient(a.title);
+            const pb = extractPartNumberClient(b.title);
+            if (pa !== null && pb !== null && pa !== pb) return pa - pb;
+            return new Date(a.published || 0).getTime() - new Date(b.published || 0).getTime();
+          });
+        }
+      }
+    }
+
+    return {
+      ...FALLBACK_YOUTUBE_LIBRARY,
+      updatedAt: new Date().toISOString(),
+      isLive: true,
+      playlists,
+      latestUploads: liveLatest,
+    };
+  } catch {
+    return null;
+  }
+}
 
 async function fetchYoutubeLibrary(forceRefresh = false): Promise<YoutubeLibraryData> {
   if (!forceRefresh && cachedLibrary && Date.now() - cachedAt < CLIENT_CACHE_TTL_MS) {
@@ -307,18 +398,30 @@ async function fetchYoutubeLibrary(forceRefresh = false): Promise<YoutubeLibrary
     return inflightRequest;
   }
 
-  const req = fetch(`/api/youtube/videos${forceRefresh ? '?refresh=1' : ''}`)
+  const query = forceRefresh ? `?refresh=1&t=${Date.now()}` : '';
+  const req = fetch(`/api/youtube/videos${query}`, { cache: 'no-store' })
     .then(async (res) => {
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const contentType = res.headers.get('content-type') || '';
+      if (!res.ok || !contentType.includes('application/json')) {
+        throw new Error(`HTTP ${res.status}`);
+      }
       const data = (await res.json()) as YoutubeLibraryData;
       if (data && Array.isArray(data.playlists) && data.playlists.length > 0) {
         cachedLibrary = data;
         cachedAt = Date.now();
         return data;
       }
-      return FALLBACK_YOUTUBE_LIBRARY;
+      throw new Error('Empty payload');
     })
-    .catch(() => cachedLibrary || FALLBACK_YOUTUBE_LIBRARY)
+    .catch(async () => {
+      const rssFallback = await fetchViaPublicRssFallback();
+      if (rssFallback) {
+        cachedLibrary = rssFallback;
+        cachedAt = Date.now();
+        return rssFallback;
+      }
+      return cachedLibrary || FALLBACK_YOUTUBE_LIBRARY;
+    })
     .finally(() => {
       inflightRequest = null;
     });

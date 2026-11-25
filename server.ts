@@ -60,7 +60,12 @@ const YOUTUBE_SEED_PLAYLISTS: Array<{ id: string; fallbackTitle: string; chapter
 ];
 
 let youtubeCache: { data: YoutubeLibraryData; fetchedAt: number } | null = null;
-const YOUTUBE_CACHE_TTL_MS = 10 * 60 * 1000;
+const YOUTUBE_CACHE_TTL_MS = 2 * 60 * 1000;
+const YOUTUBE_FETCH_HEADERS = {
+  "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124.0.0.0 Safari/537.36",
+  "Accept-Language": "en-US,en;q=0.9",
+  Cookie: "CONSENT=YES+cb",
+};
 
 function decodeXmlEntities(text: string): string {
   return text
@@ -89,7 +94,14 @@ async function fetchWithTimeout(url: string, init: RequestInit = {}, timeoutMs =
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
   try {
-    return await fetch(url, { ...init, signal: controller.signal });
+    return await fetch(url, {
+      ...init,
+      headers: {
+        ...YOUTUBE_FETCH_HEADERS,
+        ...(init.headers || {}),
+      },
+      signal: controller.signal,
+    });
   } finally {
     clearTimeout(timer);
   }
@@ -128,20 +140,48 @@ function parseYoutubeAtomXml(xml: string, playlistId?: string): { feedTitle: str
   return { feedTitle, videos };
 }
 
+async function fetchLatestFromChannelVideosPage(): Promise<YoutubeVideo[]> {
+  try {
+    const res = await fetchWithTimeout(`${YOUTUBE_CHANNEL_URL}/videos`, {}, 5000);
+    if (!res.ok) return [];
+    const html = await res.text();
+    const match = html.match(/var ytInitialData = (\{[\s\S]*?\});<\/script>/);
+    if (!match) return [];
+    const data = JSON.parse(match[1]);
+    const tabs = data?.contents?.twoColumnBrowseResultsRenderer?.tabs || [];
+    const videosTab = tabs.find((t: any) => t?.tabRenderer?.selected);
+    const items = videosTab?.tabRenderer?.content?.richGridRenderer?.contents || [];
+    const found: YoutubeVideo[] = [];
+
+    for (const item of items.slice(0, 15)) {
+      const content = item?.richItemRenderer?.content;
+      const lvm = content?.lockupViewModel;
+      const vr = content?.videoRenderer;
+      const id: string | undefined = lvm?.contentId || vr?.videoId;
+      const title: string | undefined =
+        lvm?.metadata?.lockupMetadataViewModel?.title?.content ||
+        vr?.title?.runs?.map((r: any) => r.text).join("") ||
+        vr?.title?.simpleText;
+
+      if (!id || !title) continue;
+      found.push({
+        id,
+        title: title.trim(),
+        published: "",
+        thumbnail: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
+        chapterId: extractChapterId(title),
+      });
+    }
+    return found;
+  } catch {
+    return [];
+  }
+}
+
 async function discoverGrade12PlaylistIds(): Promise<string[]> {
   const discovered = new Set<string>(YOUTUBE_SEED_PLAYLISTS.map((p) => p.id));
   try {
-    const res = await fetchWithTimeout(
-      `${YOUTUBE_CHANNEL_URL}/playlists`,
-      {
-        headers: {
-          "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124.0.0.0 Safari/537.36",
-          "Accept-Language": "en-US,en;q=0.9",
-          Cookie: "CONSENT=YES+cb",
-        },
-      },
-      4500
-    );
+    const res = await fetchWithTimeout(`${YOUTUBE_CHANNEL_URL}/playlists`, {}, 4500);
     if (!res.ok) return Array.from(discovered);
     const html = await res.text();
     const idMatches = html.matchAll(/"(?:playlistId|contentId)"\s*:\s*"(PL[A-Za-z0-9_-]{10,40})"/g);
@@ -160,18 +200,24 @@ async function discoverGrade12PlaylistIds(): Promise<string[]> {
 }
 
 async function loadLiveYoutubeLibrary(): Promise<YoutubeLibraryData> {
-  const candidateIds = await discoverGrade12PlaylistIds();
+  const [candidateIds, channelRssResult, pageVideosResult] = await Promise.all([
+    discoverGrade12PlaylistIds(),
+    fetchWithTimeout(`https://www.youtube.com/feeds/videos.xml?channel_id=${YOUTUBE_CHANNEL_ID}`)
+      .then((r) => (r.ok ? r.text() : Promise.reject(new Error(`Channel RSS ${r.status}`))))
+      .then((value) => ({ status: "fulfilled" as const, value }))
+      .catch((reason) => ({ status: "rejected" as const, reason })),
+    fetchLatestFromChannelVideosPage(),
+  ]);
+
   const seedMap = new Map(YOUTUBE_SEED_PLAYLISTS.map((s) => [s.id, s]));
 
-  const [channelResult, ...playlistResults] = await Promise.allSettled([
-    fetchWithTimeout(`https://www.youtube.com/feeds/videos.xml?channel_id=${YOUTUBE_CHANNEL_ID}`)
-      .then((r) => (r.ok ? r.text() : Promise.reject(new Error(`Channel RSS ${r.status}`)))),
-    ...candidateIds.map((pid) =>
+  const playlistResults = await Promise.allSettled(
+    candidateIds.map((pid) =>
       fetchWithTimeout(`https://www.youtube.com/feeds/videos.xml?playlist_id=${pid}`)
         .then((r) => (r.ok ? r.text() : Promise.reject(new Error(`Playlist ${pid} RSS ${r.status}`))))
         .then((xml) => ({ pid, xml }))
-    ),
-  ]);
+    )
+  );
 
   const playlists: YoutubePlaylist[] = [];
   const seenPlaylistIds = new Set<string>();
@@ -211,7 +257,52 @@ async function loadLiveYoutubeLibrary(): Promise<YoutubeLibraryData> {
   // Ensure any seed playlist that temporarily failed RSS still uses verified fallback data
   for (const fb of FALLBACK_YOUTUBE_LIBRARY.playlists) {
     if (!seenPlaylistIds.has(fb.id)) {
-      playlists.push(fb);
+      playlists.push({ ...fb, videos: [...fb.videos] });
+    }
+  }
+
+  let latestUploads: YoutubeVideo[] = [...FALLBACK_YOUTUBE_LIBRARY.latestUploads];
+  let isLive = playlists.some((p) => seenPlaylistIds.has(p.id));
+
+  if (channelRssResult.status === "fulfilled") {
+    const parsedChannel = parseYoutubeAtomXml(channelRssResult.value);
+    if (parsedChannel.videos.length > 0) {
+      latestUploads = parsedChannel.videos;
+      isLive = true;
+    }
+  }
+
+  // Merge any brand-new videos from @UnlockEdu25/videos that haven't propagated to RSS yet
+  if (pageVideosResult.length > 0) {
+    isLive = true;
+    const existingIds = new Set(latestUploads.map((v) => v.id));
+    const brandNew: YoutubeVideo[] = [];
+    for (const v of pageVideosResult) {
+      // /videos is sorted newest-first; stop once we reach videos already present in RSS
+      if (existingIds.has(v.id)) {
+        break;
+      }
+      brandNew.push(v);
+      existingIds.add(v.id);
+    }
+    if (brandNew.length > 0) {
+      latestUploads = [...brandNew, ...latestUploads];
+    }
+  }
+
+  // Ensure any Grade 12 chapter video from latestUploads is also reflected in its chapter playlist
+  for (const v of latestUploads) {
+    if (v.chapterId && /grade\s*12|g\s*12/i.test(v.title) && extractPartNumber(v.title) !== null) {
+      const targetPl = playlists.find((pl) => pl.chapterId === v.chapterId);
+      if (targetPl && !targetPl.videos.some((pv) => pv.id === v.id)) {
+        targetPl.videos.push({ ...v, playlistId: targetPl.id });
+        targetPl.videos.sort((a, b) => {
+          const pa = extractPartNumber(a.title);
+          const pb = extractPartNumber(b.title);
+          if (pa !== null && pb !== null && pa !== pb) return pa - pb;
+          return new Date(a.published || 0).getTime() - new Date(b.published || 0).getTime();
+        });
+      }
     }
   }
 
@@ -221,17 +312,6 @@ async function loadLiveYoutubeLibrary(): Promise<YoutubeLibraryData> {
     if (b.chapterId !== null) return 1;
     return a.title.localeCompare(b.title);
   });
-
-  let latestUploads: YoutubeVideo[] = FALLBACK_YOUTUBE_LIBRARY.latestUploads;
-  let isLive = playlists.some((p) => seenPlaylistIds.has(p.id));
-
-  if (channelResult.status === "fulfilled") {
-    const parsedChannel = parseYoutubeAtomXml(channelResult.value);
-    if (parsedChannel.videos.length > 0) {
-      latestUploads = parsedChannel.videos;
-      isLive = true;
-    }
-  }
 
   return {
     channelHandle: YOUTUBE_CHANNEL_HANDLE,
@@ -408,6 +488,7 @@ Please return exactly 5 multiple choice questions related to this math content. 
 
   // API endpoint: Live YouTube RSS Videos & Playlists (@UnlockEdu25)
   app.get("/api/youtube/videos", async (req, res) => {
+    res.set("Cache-Control", "no-store, no-cache, must-revalidate");
     try {
       const forceRefresh = req.query.refresh === "1" || req.query.refresh === "true";
       if (!forceRefresh && youtubeCache && Date.now() - youtubeCache.fetchedAt < YOUTUBE_CACHE_TTL_MS) {
