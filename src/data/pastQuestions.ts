@@ -1386,6 +1386,7 @@ Its real part is negative ($-16 < 0$) and its imaginary part is positive ($11 > 
     questionNumber: 1,
     questionText:
       'Prove that $1 \\cdot 2 + 2 \\cdot 2^2 + 3 \\cdot 2^3 + \\cdots + n \\cdot 2^n = (n - 1)2^{n+1} + 2$ for all natural numbers $n$ by using the mathematical induction.',
+    animatedProofNumber: 1,
   },
   {
     id: 'pq-c2-d-2',
@@ -1396,6 +1397,7 @@ Its real part is negative ($-16 < 0$) and its imaginary part is positive ($11 > 
     questionNumber: 2,
     questionText:
       'Prove that $1^2 + 3^2 + 5^2 + \\cdots + (2n - 1)^2 = \\dfrac{n(2n - 1)(2n + 1)}{3}$ by using the mathematical induction principle for all natural numbers $n$.',
+    animatedProofNumber: 2,
   },
   {
     id: 'pq-c2-d-3',
@@ -1406,6 +1408,7 @@ Its real part is negative ($-16 < 0$) and its imaginary part is positive ($11 > 
     questionNumber: 3,
     questionText:
       'Prove that $1^2 + 2^2 + 3^2 + \\cdots + n^2 = \\dfrac{n(n + 1)(2n + 1)}{6}$ for all natural numbers $n$ by using the mathematical induction.',
+    animatedProofNumber: 3,
   },
   {
     id: 'pq-c2-d-4',
@@ -1416,6 +1419,7 @@ Its real part is negative ($-16 < 0$) and its imaginary part is positive ($11 > 
     questionNumber: 4,
     questionText:
       'Prove that $4^{2n} - 1$ is divisible by $15$ for all natural numbers $n$ by using the mathematical induction.',
+    animatedProofNumber: 4,
   },
   {
     id: 'pq-c2-d-5',
@@ -1426,6 +1430,7 @@ Its real part is negative ($-16 < 0$) and its imaginary part is positive ($11 > 
     questionNumber: 5,
     questionText:
       'Use the mathematical induction principle to prove that $n^3 + 2n$ is divisible by $3$ for all natural numbers $n$.',
+    animatedProofNumber: 5,
   },
   {
     id: 'pq-c2-d-6',
@@ -1436,6 +1441,7 @@ Its real part is negative ($-16 < 0$) and its imaginary part is positive ($11 > 
     questionNumber: 6,
     questionText:
       'Use the mathematical induction principle to prove that $2^n \\ge 1 + n$ for all natural numbers $n \\ge 1$.',
+    animatedProofNumber: 6,
   },
   {
     id: 'pq-c2-d-7',

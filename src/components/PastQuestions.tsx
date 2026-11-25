@@ -23,6 +23,7 @@ import {
 import { ch2SectionC2024Solutions } from '../data/ch2SectionC2024Solutions';
 import { ch2SectionC2025Solutions } from '../data/ch2SectionC2025Solutions';
 import { ch2SectionC2026Solutions } from '../data/ch2SectionC2026Solutions';
+import { ch2SectionD2024Solutions } from '../data/ch2SectionD2024Solutions';
 import WhiteboardModal, {
   parseMarkdownToWhiteboardSteps,
   WhiteboardStep,
@@ -38,6 +39,7 @@ const ch2SectionCSolutions = [
   ...ch2SectionC2025Solutions,
   ...ch2SectionC2026Solutions,
 ];
+const ch2SectionDSolutions = [...ch2SectionD2024Solutions];
 
 interface ActiveWhiteboard {
   groupQuestions: PastQuestion[];
@@ -48,7 +50,8 @@ interface ActiveWhiteboard {
 
 function getAnimatedProof(q: PastQuestion) {
   if (q.chapterId === 2 && q.animatedProofNumber) {
-    return ch2SectionCSolutions.find((p) => p.number === q.animatedProofNumber) || null;
+    const pool = q.section === 'D' ? ch2SectionDSolutions : ch2SectionCSolutions;
+    return pool.find((p) => p.number === q.animatedProofNumber) || null;
   }
   return null;
 }
