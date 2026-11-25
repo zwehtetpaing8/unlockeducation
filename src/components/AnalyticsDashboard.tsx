@@ -93,6 +93,7 @@ export default function AnalyticsDashboard({ onNavigateHome }: AnalyticsDashboar
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${tokenToUse}`,
+          'X-Owner-Token': tokenToUse,
         },
         body: JSON.stringify({}),
       });
@@ -175,7 +176,10 @@ export default function AnalyticsDashboard({ onNavigateHome }: AnalyticsDashboar
     if (sessionToken) {
       fetch('/api/owner-auth/logout', {
         method: 'POST',
-        headers: { Authorization: `Bearer ${sessionToken}` },
+        headers: {
+          Authorization: `Bearer ${sessionToken}`,
+          'X-Owner-Token': sessionToken,
+        },
       }).catch(() => {});
     }
     setSessionToken('');
@@ -192,6 +196,7 @@ export default function AnalyticsDashboard({ onNavigateHome }: AnalyticsDashboar
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${sessionToken}`,
+          'X-Owner-Token': sessionToken,
         },
         body: JSON.stringify({}),
       });

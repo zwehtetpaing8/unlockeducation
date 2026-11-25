@@ -16,13 +16,14 @@ type ActiveView = 'home' | 'syllabus' | 'videos' | 'formulas' | 'past-questions'
 export default function App() {
   const [activeView, setActiveView] = useState<ActiveView>(() => {
     const pathname = window.location.pathname;
+    if (pathname === '/admin' || pathname === '/admin/') return 'analytics';
     if (pathname === '/pdfs' || pathname.startsWith('/pdfs/')) return 'pdfs';
     const params = new URLSearchParams(window.location.search);
+    if (params.has('admin') || params.has('dashboard') || params.has('owner') || params.has('secret') || params.has('key')) return 'analytics';
     const view = params.get('view');
     if (params.has('pdf') || view === 'pdfs') return 'pdfs';
     if (view === 'exams') return 'past-questions';
     if (view === 'home' || view === 'syllabus' || view === 'videos' || view === 'formulas' || view === 'past-questions' || view === 'analytics') return view;
-    if (params.has('secret') || params.has('key') || params.has('admin') || params.has('dashboard') || params.has('owner')) return 'analytics';
 
     const saved = localStorage.getItem('unlock_edu_activeView');
     return (saved as ActiveView) || 'home';
@@ -148,14 +149,14 @@ export default function App() {
       const pathname = window.location.pathname;
       const params = new URLSearchParams(window.location.search);
       const view = params.get('view');
-      if (pathname === '/pdfs' || pathname.startsWith('/pdfs/') || params.has('pdf') || view === 'pdfs') {
+      if (pathname === '/admin' || pathname === '/admin/' || params.has('admin') || params.has('dashboard') || params.has('owner') || params.has('secret') || params.has('key')) {
+        setActiveView('analytics');
+      } else if (pathname === '/pdfs' || pathname.startsWith('/pdfs/') || params.has('pdf') || view === 'pdfs') {
         setActiveView('pdfs');
       } else if (view === 'exams') {
         setActiveView('past-questions');
       } else if (view === 'home' || view === 'syllabus' || view === 'videos' || view === 'formulas' || view === 'past-questions' || view === 'analytics') {
         setActiveView(view as ActiveView);
-      } else if (params.has('secret') || params.has('key') || params.has('admin') || params.has('dashboard') || params.has('owner')) {
-        setActiveView('analytics');
       } else {
         setActiveView('home');
       }

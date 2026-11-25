@@ -73,29 +73,59 @@ function checkRateLimit(bucket: string, ip: string, maxRequests: number, windowM
   return true;
 }
 
+function getRawConfiguredAdminSecret(): string {
+  return (process.env.OWNER_PASSWORD || process.env.ADMIN_SECRET || process.env.ADMIN_PASSWORD || "").trim();
+}
+
 function getConfiguredAdminSecret(): string {
-  return (process.env.ADMIN_SECRET || "").trim().replace(/^["']+|["']+$/g, "").trim();
+  return getRawConfiguredAdminSecret().replace(/^["']+|["']+$/g, "").trim();
 }
 
 function timingSafeEqualString(a: string, b: string): boolean {
-  const ha = crypto.createHash("sha256").update(a).digest();
-  const hb = crypto.createHash("sha256").update(b).digest();
+  const ha = crypto.createHash("sha256").update(a.normalize("NFC")).digest();
+  const hb = crypto.createHash("sha256").update(b.normalize("NFC")).digest();
   return crypto.timingSafeEqual(ha, hb);
 }
 
 function verifyOwnerPassword(candidate: string): boolean {
   if (!candidate || candidate.length > 256) return false;
-  const envSecret = getConfiguredAdminSecret();
-  if (envSecret) {
-    return timingSafeEqualString(candidate, envSecret);
+  const rawSecret = getRawConfiguredAdminSecret();
+  const cleanSecret = getConfiguredAdminSecret();
+  if (rawSecret || cleanSecret) {
+    const matchesRaw = rawSecret ? timingSafeEqualString(candidate, rawSecret) : false;
+    const matchesClean = cleanSecret ? timingSafeEqualString(candidate, cleanSecret) : false;
+    return matchesRaw || matchesClean;
   }
   if (claimedAdminCred) {
-    const derived = crypto.scryptSync(candidate, claimedAdminCred.salt, 64);
+    const derived = crypto.scryptSync(candidate.normalize("NFC"), claimedAdminCred.salt, 64);
     const stored = Buffer.from(claimedAdminCred.hash, "hex");
     if (derived.length !== stored.length) return false;
     return crypto.timingSafeEqual(derived, stored);
   }
   return false;
+}
+
+const LOGIN_MAX_FAILURES = 10;
+const LOGIN_WINDOW_MS = 10 * 60 * 1000;
+
+function isLoginRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const key = `owner-auth-fail:${ip}`;
+  const recent = (rateLimitStore.get(key) || []).filter((ts) => now - ts < LOGIN_WINDOW_MS);
+  rateLimitStore.set(key, recent);
+  return recent.length >= LOGIN_MAX_FAILURES;
+}
+
+function recordFailedLogin(ip: string): void {
+  const now = Date.now();
+  const key = `owner-auth-fail:${ip}`;
+  const recent = (rateLimitStore.get(key) || []).filter((ts) => now - ts < LOGIN_WINDOW_MS);
+  recent.push(now);
+  rateLimitStore.set(key, recent);
+}
+
+function clearFailedLogins(ip: string): void {
+  rateLimitStore.delete(`owner-auth-fail:${ip}`);
 }
 
 function issueOwnerSession(): string {
@@ -109,6 +139,11 @@ function issueOwnerSession(): string {
 }
 
 function extractBearerToken(req: express.Request): string | null {
+  const customHeader = req.headers["x-owner-token"];
+  if (typeof customHeader === "string") {
+    const token = customHeader.trim();
+    if (token.length >= 32) return token;
+  }
   const header = req.headers.authorization;
   if (typeof header !== "string" || !header.startsWith("Bearer ")) return null;
   const token = header.slice(7).trim();
@@ -660,7 +695,7 @@ async function startServer() {
   // API endpoint: Owner Auth Status
   app.get("/api/owner-auth/status", (_req, res) => {
     res.set("Cache-Control", "no-store");
-    const envConfigured = Boolean(getConfiguredAdminSecret());
+    const envConfigured = Boolean(getRawConfiguredAdminSecret());
     res.json({
       requiresClaim: !envConfigured && !claimedAdminCred,
     });
@@ -670,10 +705,10 @@ async function startServer() {
   app.post("/api/owner-auth/claim", (req, res) => {
     res.set("Cache-Control", "no-store");
     const clientIp = getClientIp(req);
-    if (!checkRateLimit("owner-auth", clientIp, 5, 15 * 60 * 1000)) {
+    if (!checkRateLimit("owner-auth-claim", clientIp, 5, 15 * 60 * 1000)) {
       return res.status(429).json({ error: "Too many attempts. Please wait 15 minutes." });
     }
-    if (getConfiguredAdminSecret() || claimedAdminCred) {
+    if (getRawConfiguredAdminSecret() || claimedAdminCred) {
       return res.status(409).json({ error: "Owner password is already configured." });
     }
     const password = typeof req.body?.password === "string" ? req.body.password.trim() : "";
@@ -691,13 +726,15 @@ async function startServer() {
   app.post("/api/owner-auth/login", (req, res) => {
     res.set("Cache-Control", "no-store");
     const clientIp = getClientIp(req);
-    if (!checkRateLimit("owner-auth", clientIp, 5, 15 * 60 * 1000)) {
-      return res.status(429).json({ error: "ကြိုးစားမှုများလွန်းနေပါသည်။ ၁၅ မိနစ်ခန့် စောင့်ပြီးမှ ပြန်လည်ဝင်ရောက်ပါ။" });
+    if (isLoginRateLimited(clientIp)) {
+      return res.status(429).json({ error: "ကြိုးစားမှုများလွန်းနေပါသည်။ ၁၀ မိနစ်ခန့် စောင့်ပြီးမှ ပြန်လည်ဝင်ရောက်ပါ။" });
     }
     const password = typeof req.body?.password === "string" ? req.body.password.trim() : "";
     if (!verifyOwnerPassword(password)) {
+      recordFailedLogin(clientIp);
       return res.status(401).json({ error: "မမှန်ကန်ပါ။ Password မှားယွင်းနေပါသည်။" });
     }
+    clearFailedLogins(clientIp);
     const token = issueOwnerSession();
     return res.json({ token });
   });
@@ -984,7 +1021,8 @@ Return exactly 5 multiple choice questions related to this math content. Ensure 
     });
     app.use(async (req, res, next) => {
       const isPdfPageRoute = req.path === "/pdfs" || req.path.startsWith("/pdfs/");
-      if (req.method === "GET" && (req.path === "/" || req.path === "/index.html" || isPdfPageRoute)) {
+      const isAdminRoute = req.path === "/admin" || req.path === "/admin/";
+      if (req.method === "GET" && (req.path === "/" || req.path === "/index.html" || isPdfPageRoute || isAdminRoute)) {
         try {
           const indexPath = path.join(process.cwd(), "index.html");
           let template = fs.readFileSync(indexPath, "utf-8");
