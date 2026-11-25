@@ -30,7 +30,9 @@ const EMPTY_FACEBOOK_FEED: FacebookFeedData = {
 };
 
 let cachedFacebookFeed: FacebookFeedData | null = null;
+let cachedFacebookAt = 0;
 let inFlightFacebookRequest: Promise<FacebookFeedData> | null = null;
+const FACEBOOK_CLIENT_CACHE_TTL_MS = 60 * 1000;
 
 async function fetchStaticFacebookSnapshot(): Promise<FacebookFeedData | null> {
   try {
@@ -47,25 +49,33 @@ async function fetchStaticFacebookSnapshot(): Promise<FacebookFeedData | null> {
 }
 
 async function fetchFacebookFeed(forceRefresh = false): Promise<FacebookFeedData> {
-  if (!forceRefresh && cachedFacebookFeed) {
+  if (
+    !forceRefresh &&
+    cachedFacebookFeed &&
+    Date.now() - cachedFacebookAt < FACEBOOK_CLIENT_CACHE_TTL_MS
+  ) {
     return cachedFacebookFeed;
   }
   if (!forceRefresh && inFlightFacebookRequest) {
     return inFlightFacebookRequest;
   }
 
-  const endpoint = forceRefresh ? '/api/facebook/posts?refresh=1' : '/api/facebook/posts';
+  const endpoint = forceRefresh
+    ? `/api/facebook/posts?refresh=1&t=${Date.now()}`
+    : '/api/facebook/posts';
   const req = fetch(endpoint, { cache: 'no-store' })
     .then(async (res) => {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = (await res.json()) as FacebookFeedData;
       if (data && Array.isArray(data.posts) && data.posts.length > 0) {
         cachedFacebookFeed = data;
+        cachedFacebookAt = Date.now();
         return data;
       }
       const snapshot = await fetchStaticFacebookSnapshot();
       if (snapshot) {
         cachedFacebookFeed = snapshot;
+        cachedFacebookAt = Date.now();
         return snapshot;
       }
       return data && Array.isArray(data.posts) ? data : EMPTY_FACEBOOK_FEED;
@@ -77,6 +87,7 @@ async function fetchFacebookFeed(forceRefresh = false): Promise<FacebookFeedData
       const snapshot = await fetchStaticFacebookSnapshot();
       if (snapshot) {
         cachedFacebookFeed = snapshot;
+        cachedFacebookAt = Date.now();
         return snapshot;
       }
       return EMPTY_FACEBOOK_FEED;

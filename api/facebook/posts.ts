@@ -36,8 +36,9 @@ async function fetchGraphPostsEndpoint(
   endpointPath: string,
   accessToken: string
 ): Promise<{ ok: boolean; errorCode?: number; data: any[] }> {
-  const fields = "id,message,story,created_time,permalink_url,full_picture";
-  const url = `https://graph.facebook.com/v22.0/${endpointPath}?fields=${encodeURIComponent(fields)}&limit=6`;
+  const fields =
+    "id,message,story,created_time,permalink_url,full_picture,attachments{media{image{src}},subattachments{media{image{src}}},title,description}";
+  const url = `https://graph.facebook.com/v22.0/${endpointPath}?fields=${encodeURIComponent(fields)}&limit=10`;
 
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 6000);
@@ -132,54 +133,77 @@ export default async function handler(req: any, res: any) {
   }
 
   try {
-    const candidateEndpoints: string[] = [];
-    if (pageId && /^[A-Za-z0-9._-]+$/.test(pageId)) {
-      candidateEndpoints.push(`${encodeURIComponent(pageId)}/posts`);
-    }
-    candidateEndpoints.push("me/posts");
-
+    let resolvedPageId = pageId && /^[A-Za-z0-9._-]+$/.test(pageId) ? pageId : "";
+    let effectiveToken = accessToken;
     let rawItems: any[] = [];
 
-    for (const endpoint of candidateEndpoints) {
-      const result = await fetchGraphPostsEndpoint(endpoint, accessToken);
-      if (result.ok && result.data.length > 0) {
-        rawItems = result.data;
-        break;
+    const primaryEdges: string[] = resolvedPageId
+      ? [`${encodeURIComponent(resolvedPageId)}/posts`, `${encodeURIComponent(resolvedPageId)}/published_posts`]
+      : ["me/posts", "me/published_posts"];
+
+    const primaryResults = await Promise.all(
+      primaryEdges.map((edge) => fetchGraphPostsEndpoint(edge, effectiveToken))
+    );
+
+    for (const r of primaryResults) {
+      if (r.ok && r.data.length > 0) {
+        rawItems.push(...r.data);
       }
-      if (!result.ok && result.errorCode === 190) {
-        break;
+    }
+
+    if (rawItems.length === 0 && resolvedPageId && !primaryResults.some((r) => r.errorCode === 190)) {
+      const meRes = await fetchGraphPostsEndpoint("me/posts", effectiveToken);
+      if (meRes.ok && meRes.data.length > 0) {
+        rawItems.push(...meRes.data);
       }
     }
 
     if (rawItems.length === 0) {
       const resolved = await resolvePageTokenFromUserToken(accessToken, pageId);
       if (resolved) {
-        const retry = await fetchGraphPostsEndpoint(
-          `${encodeURIComponent(resolved.pageId)}/posts`,
-          resolved.pageToken
-        );
-        if (retry.ok && retry.data.length > 0) {
-          rawItems = retry.data;
+        resolvedPageId = resolved.pageId;
+        effectiveToken = resolved.pageToken;
+        const retryResults = await Promise.all([
+          fetchGraphPostsEndpoint(`${encodeURIComponent(resolvedPageId)}/posts`, effectiveToken),
+          fetchGraphPostsEndpoint(`${encodeURIComponent(resolvedPageId)}/published_posts`, effectiveToken),
+        ]);
+        for (const r of retryResults) {
+          if (r.ok && r.data.length > 0) {
+            rawItems.push(...r.data);
+          }
         }
       }
     }
 
+    const seenIds = new Set<string>();
     const posts: FacebookPost[] = [];
     for (const item of rawItems) {
       const id = typeof item?.id === "string" ? item.id.trim() : "";
-      if (!id) continue;
+      if (!id || seenIds.has(id)) continue;
+
+      const firstAttachment = Array.isArray(item?.attachments?.data) ? item.attachments.data[0] : null;
+      const firstSubAttachment = Array.isArray(firstAttachment?.subattachments?.data)
+        ? firstAttachment.subattachments.data[0]
+        : null;
 
       const rawMessage =
         (typeof item?.message === "string" && item.message.trim()) ||
         (typeof item?.story === "string" && item.story.trim()) ||
+        (typeof firstAttachment?.title === "string" && firstAttachment.title.trim()) ||
+        (typeof firstAttachment?.description === "string" && firstAttachment.description.trim()) ||
         "";
 
-      const imageUrl = toSafeHttpsUrl(item?.full_picture);
+      const imageUrl =
+        toSafeHttpsUrl(item?.full_picture) ||
+        toSafeHttpsUrl(firstAttachment?.media?.image?.src) ||
+        toSafeHttpsUrl(firstSubAttachment?.media?.image?.src);
+
       if (!rawMessage && !imageUrl) continue;
 
       const permalinkUrl = toSafeHttpsUrl(item?.permalink_url) || FACEBOOK_PAGE_URL;
       const createdTime = typeof item?.created_time === "string" ? item.created_time : "";
 
+      seenIds.add(id);
       posts.push({
         id,
         message: rawMessage || "New update on Unlock Education",
@@ -189,12 +213,18 @@ export default async function handler(req: any, res: any) {
       });
     }
 
+    posts.sort((a, b) => {
+      const ta = a.createdTime ? new Date(a.createdTime).getTime() : 0;
+      const tb = b.createdTime ? new Date(b.createdTime).getTime() : 0;
+      return (Number.isNaN(tb) ? 0 : tb) - (Number.isNaN(ta) ? 0 : ta);
+    });
+
     const forceRefresh = req.query?.refresh === "1" || req.query?.refresh === "true";
     res.setHeader(
       "Cache-Control",
       forceRefresh || posts.length === 0
         ? "no-store"
-        : "public, s-maxage=300, stale-while-revalidate=600"
+        : "public, s-maxage=60, stale-while-revalidate=120"
     );
 
     const feed: FacebookFeedData = {

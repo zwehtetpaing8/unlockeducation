@@ -304,7 +304,7 @@ export const FALLBACK_YOUTUBE_LIBRARY: YoutubeLibraryData = {
 let cachedLibrary: YoutubeLibraryData | null = null;
 let cachedAt = 0;
 let inflightRequest: Promise<YoutubeLibraryData> | null = null;
-const CLIENT_CACHE_TTL_MS = 2 * 60 * 1000;
+const CLIENT_CACHE_TTL_MS = 60 * 1000;
 
 function extractChapterIdClient(title: string): number | null {
   const match = title.match(/(?:chapter|ch\.?)\s*0*(\d{1,2})\b/i);
@@ -406,10 +406,18 @@ async function fetchYoutubeLibrary(forceRefresh = false): Promise<YoutubeLibrary
         throw new Error(`HTTP ${res.status}`);
       }
       const data = (await res.json()) as YoutubeLibraryData;
-      if (data && Array.isArray(data.playlists) && data.playlists.length > 0) {
-        cachedLibrary = data;
+      if (
+        data &&
+        ((Array.isArray(data.playlists) && data.playlists.length > 0) ||
+          (Array.isArray(data.latestUploads) && data.latestUploads.length > 0))
+      ) {
+        const normalized: YoutubeLibraryData =
+          Array.isArray(data.playlists) && data.playlists.length > 0
+            ? data
+            : { ...data, playlists: FALLBACK_YOUTUBE_LIBRARY.playlists };
+        cachedLibrary = normalized;
         cachedAt = Date.now();
-        return data;
+        return normalized;
       }
       throw new Error('Empty payload');
     })

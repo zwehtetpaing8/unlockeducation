@@ -261,7 +261,7 @@ const YOUTUBE_SEED_PLAYLISTS: Array<{ id: string; fallbackTitle: string; chapter
 ];
 
 let youtubeCache: { data: YoutubeLibraryData; fetchedAt: number } | null = null;
-const YOUTUBE_CACHE_TTL_MS = 2 * 60 * 1000;
+const YOUTUBE_CACHE_TTL_MS = 60 * 1000;
 const YOUTUBE_FETCH_HEADERS = {
   "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124.0.0.0 Safari/537.36",
   "Accept-Language": "en-US,en;q=0.9",
@@ -341,6 +341,54 @@ function parseYoutubeAtomXml(xml: string, playlistId?: string): { feedTitle: str
   return { feedTitle, videos };
 }
 
+function parseRelativeYoutubeTime(raw: string): string | null {
+  if (!raw) return null;
+  const text = raw.replace(/\u00a0/g, " ").toLowerCase().trim();
+  if (/just now|moments? ago/.test(text)) {
+    return new Date().toISOString();
+  }
+  const match = text.match(/(\d+)\s*(seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|weeks?|wks?|w|months?|mos?|years?|yrs?|y)\b/);
+  if (!match) return null;
+  const value = parseInt(match[1], 10);
+  if (Number.isNaN(value) || value < 0) return null;
+  const unit = match[2];
+  let ms = 0;
+  if (unit === "s" || unit.startsWith("sec")) ms = value * 1000;
+  else if (unit === "m" || unit.startsWith("min")) ms = value * 60 * 1000;
+  else if (unit === "h" || unit.startsWith("hr") || unit.startsWith("hour")) ms = value * 60 * 60 * 1000;
+  else if (unit === "d" || unit.startsWith("day")) ms = value * 24 * 60 * 60 * 1000;
+  else if (unit === "w" || unit.startsWith("wk") || unit.startsWith("week")) ms = value * 7 * 24 * 60 * 60 * 1000;
+  else if (unit.startsWith("mo")) ms = value * 30 * 24 * 60 * 60 * 1000;
+  else if (unit === "y" || unit.startsWith("yr") || unit.startsWith("year")) ms = value * 365 * 24 * 60 * 60 * 1000;
+  if (ms <= 0) return null;
+  return new Date(Date.now() - ms).toISOString();
+}
+
+function extractRelativePublishedFromRenderer(lvm: any, vr: any): string {
+  const candidates: string[] = [];
+  if (typeof vr?.publishedTimeText?.simpleText === "string") {
+    candidates.push(vr.publishedTimeText.simpleText);
+  }
+  const rows = lvm?.metadata?.lockupMetadataViewModel?.metadata?.contentMetadataViewModel?.metadataRows;
+  if (Array.isArray(rows)) {
+    for (const row of rows) {
+      const parts = row?.metadataParts;
+      if (!Array.isArray(parts)) continue;
+      for (const part of parts) {
+        if (typeof part?.accessibilityLabel === "string") candidates.push(part.accessibilityLabel);
+        if (typeof part?.text?.content === "string") candidates.push(part.text.content);
+      }
+    }
+  }
+  for (const cand of candidates) {
+    if (/\bago\b|just now/i.test(cand)) {
+      const parsed = parseRelativeYoutubeTime(cand);
+      if (parsed) return parsed;
+    }
+  }
+  return "";
+}
+
 async function fetchLatestFromChannelVideosPage(): Promise<YoutubeVideo[]> {
   try {
     const res = await fetchWithTimeout(`${YOUTUBE_CHANNEL_URL}/videos`, {}, 5000);
@@ -365,10 +413,11 @@ async function fetchLatestFromChannelVideosPage(): Promise<YoutubeVideo[]> {
         vr?.title?.simpleText;
 
       if (!id || !title) continue;
+      const published = extractRelativePublishedFromRenderer(lvm, vr);
       found.push({
         id,
         title: title.trim(),
-        published: "",
+        published,
         thumbnail: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
         chapterId: extractChapterId(title),
       });
@@ -478,12 +527,17 @@ async function loadLiveYoutubeLibrary(): Promise<YoutubeLibraryData> {
     isLive = true;
     const existingIds = new Set(latestUploads.map((v) => v.id));
     const brandNew: YoutubeVideo[] = [];
-    for (const v of pageVideosResult) {
+    const nowMs = Date.now();
+    for (let i = 0; i < pageVideosResult.length; i++) {
+      const v = pageVideosResult[i];
       // /videos is sorted newest-first; stop once we reach videos already present in RSS
       if (existingIds.has(v.id)) {
         break;
       }
-      brandNew.push(v);
+      brandNew.push({
+        ...v,
+        published: v.published || new Date(nowMs - i * 1000).toISOString(),
+      });
       existingIds.add(v.id);
     }
     if (brandNew.length > 0) {
@@ -528,7 +582,7 @@ async function loadLiveYoutubeLibrary(): Promise<YoutubeLibraryData> {
 
 // --- Facebook Page Latest Posts Auto-Sync (Server-Side Meta Graph API) ---
 let facebookCache: { data: FacebookFeedData; fetchedAt: number } | null = null;
-const FACEBOOK_CACHE_TTL_MS = 5 * 60 * 1000;
+const FACEBOOK_CACHE_TTL_MS = 60 * 1000;
 const FACEBOOK_SNAPSHOT_PATHS = [
   path.join(process.cwd(), "public", "facebook-posts.json"),
   path.join(process.cwd(), "dist", "facebook-posts.json"),
@@ -578,8 +632,9 @@ async function fetchGraphPostsEndpoint(
   endpointPath: string,
   accessToken: string
 ): Promise<{ ok: boolean; status: number; errorCode?: number; errorMessage?: string; data: any[] }> {
-  const fields = "id,message,story,created_time,permalink_url,full_picture";
-  const url = `https://graph.facebook.com/v22.0/${endpointPath}?fields=${encodeURIComponent(fields)}&limit=6`;
+  const fields =
+    "id,message,story,created_time,permalink_url,full_picture,attachments{media{image{src}},subattachments{media{image{src}}},title,description}";
+  const url = `https://graph.facebook.com/v22.0/${endpointPath}?fields=${encodeURIComponent(fields)}&limit=10`;
 
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 6000);
@@ -671,22 +726,29 @@ async function loadLiveFacebookPosts(): Promise<FacebookFeedData> {
     };
   }
 
-  const candidateEndpoints: string[] = [];
-  if (pageId && /^[A-Za-z0-9._-]+$/.test(pageId)) {
-    candidateEndpoints.push(`${encodeURIComponent(pageId)}/posts`);
-  }
-  candidateEndpoints.push("me/posts");
-
+  let resolvedPageId = pageId && /^[A-Za-z0-9._-]+$/.test(pageId) ? pageId : "";
+  let effectiveToken = accessToken;
   let rawItems: any[] = [];
 
-  for (const endpoint of candidateEndpoints) {
-    const result = await fetchGraphPostsEndpoint(endpoint, accessToken);
-    if (result.ok && result.data.length > 0) {
-      rawItems = result.data;
-      break;
+  const primaryEdges: string[] = resolvedPageId
+    ? [`${encodeURIComponent(resolvedPageId)}/posts`, `${encodeURIComponent(resolvedPageId)}/published_posts`]
+    : ["me/posts", "me/published_posts"];
+
+  const primaryResults = await Promise.all(
+    primaryEdges.map((edge) => fetchGraphPostsEndpoint(edge, effectiveToken))
+  );
+
+  for (const res of primaryResults) {
+    if (res.ok && res.data.length > 0) {
+      rawItems.push(...res.data);
     }
-    if (!result.ok && result.errorCode === 190) {
-      break;
+  }
+
+  // Fallback to me/posts if explicit pageId failed without token expiration
+  if (rawItems.length === 0 && resolvedPageId && !primaryResults.some((r) => r.errorCode === 190)) {
+    const meRes = await fetchGraphPostsEndpoint("me/posts", effectiveToken);
+    if (meRes.ok && meRes.data.length > 0) {
+      rawItems.push(...meRes.data);
     }
   }
 
@@ -694,32 +756,49 @@ async function loadLiveFacebookPosts(): Promise<FacebookFeedData> {
   if (rawItems.length === 0) {
     const resolved = await resolvePageTokenFromUserToken(accessToken, pageId);
     if (resolved) {
-      const retry = await fetchGraphPostsEndpoint(
-        `${encodeURIComponent(resolved.pageId)}/posts`,
-        resolved.pageToken
-      );
-      if (retry.ok && retry.data.length > 0) {
-        rawItems = retry.data;
+      resolvedPageId = resolved.pageId;
+      effectiveToken = resolved.pageToken;
+      const retryResults = await Promise.all([
+        fetchGraphPostsEndpoint(`${encodeURIComponent(resolvedPageId)}/posts`, effectiveToken),
+        fetchGraphPostsEndpoint(`${encodeURIComponent(resolvedPageId)}/published_posts`, effectiveToken),
+      ]);
+      for (const r of retryResults) {
+        if (r.ok && r.data.length > 0) {
+          rawItems.push(...r.data);
+        }
       }
     }
   }
 
+  const seenIds = new Set<string>();
   const posts: FacebookPost[] = [];
   for (const item of rawItems) {
     const id = typeof item?.id === "string" ? item.id.trim() : "";
-    if (!id) continue;
+    if (!id || seenIds.has(id)) continue;
+
+    const firstAttachment = Array.isArray(item?.attachments?.data) ? item.attachments.data[0] : null;
+    const firstSubAttachment = Array.isArray(firstAttachment?.subattachments?.data)
+      ? firstAttachment.subattachments.data[0]
+      : null;
 
     const rawMessage =
       (typeof item?.message === "string" && item.message.trim()) ||
       (typeof item?.story === "string" && item.story.trim()) ||
+      (typeof firstAttachment?.title === "string" && firstAttachment.title.trim()) ||
+      (typeof firstAttachment?.description === "string" && firstAttachment.description.trim()) ||
       "";
 
-    const imageUrl = toSafeHttpsUrl(item?.full_picture);
+    const imageUrl =
+      toSafeHttpsUrl(item?.full_picture) ||
+      toSafeHttpsUrl(firstAttachment?.media?.image?.src) ||
+      toSafeHttpsUrl(firstSubAttachment?.media?.image?.src);
+
     if (!rawMessage && !imageUrl) continue;
 
     const permalinkUrl = toSafeHttpsUrl(item?.permalink_url) || FACEBOOK_PAGE_URL;
     const createdTime = typeof item?.created_time === "string" ? item.created_time : "";
 
+    seenIds.add(id);
     posts.push({
       id,
       message: rawMessage || "New update on Unlock Education",
@@ -728,6 +807,12 @@ async function loadLiveFacebookPosts(): Promise<FacebookFeedData> {
       imageUrl,
     });
   }
+
+  posts.sort((a, b) => {
+    const ta = a.createdTime ? new Date(a.createdTime).getTime() : 0;
+    const tb = b.createdTime ? new Date(b.createdTime).getTime() : 0;
+    return (Number.isNaN(tb) ? 0 : tb) - (Number.isNaN(ta) ? 0 : ta);
+  });
 
   return {
     configured: true,
