@@ -488,6 +488,10 @@ export default function HomeView({ onSelectChapter, onNavigateToFormulas, onNavi
                       src={post.imageUrl}
                       alt="Unlock Education Facebook update"
                       loading="lazy"
+                      onError={(e) => {
+                        const wrapper = e.currentTarget.parentElement;
+                        if (wrapper) wrapper.style.display = 'none';
+                      }}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>

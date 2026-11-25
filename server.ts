@@ -529,6 +529,40 @@ async function loadLiveYoutubeLibrary(): Promise<YoutubeLibraryData> {
 // --- Facebook Page Latest Posts Auto-Sync (Server-Side Meta Graph API) ---
 let facebookCache: { data: FacebookFeedData; fetchedAt: number } | null = null;
 const FACEBOOK_CACHE_TTL_MS = 5 * 60 * 1000;
+const FACEBOOK_SNAPSHOT_PATHS = [
+  path.join(process.cwd(), "public", "facebook-posts.json"),
+  path.join(process.cwd(), "dist", "facebook-posts.json"),
+];
+
+function loadFacebookSnapshot(): FacebookFeedData | null {
+  for (const filePath of FACEBOOK_SNAPSHOT_PATHS) {
+    try {
+      if (!fs.existsSync(filePath)) continue;
+      const parsed = JSON.parse(fs.readFileSync(filePath, "utf-8")) as FacebookFeedData;
+      if (parsed && Array.isArray(parsed.posts) && parsed.posts.length > 0) {
+        return parsed;
+      }
+    } catch {
+      // Ignore invalid snapshot
+    }
+  }
+  return null;
+}
+
+function saveFacebookSnapshot(feed: FacebookFeedData): void {
+  if (!feed || !Array.isArray(feed.posts) || feed.posts.length === 0) return;
+  const serialized = JSON.stringify(feed, null, 2);
+  for (const filePath of FACEBOOK_SNAPSHOT_PATHS) {
+    try {
+      const dir = path.dirname(filePath);
+      if (fs.existsSync(dir)) {
+        fs.writeFileSync(filePath, serialized, "utf-8");
+      }
+    } catch {
+      // Non-fatal on read-only deployed filesystems
+    }
+  }
+}
 
 function toSafeHttpsUrl(value: unknown): string | null {
   if (typeof value !== "string" || !value.trim()) return null;
@@ -707,7 +741,7 @@ async function loadLiveFacebookPosts(): Promise<FacebookFeedData> {
 
 async function startServer() {
   const app = express();
-  const PORT = 3000;
+  const PORT = process.env.NODE_ENV === "production" ? Number(process.env.PORT) || 3000 : 3000;
 
   app.disable("x-powered-by");
 
@@ -986,11 +1020,12 @@ Return exactly 5 multiple choice questions related to this math content. Ensure 
   // API endpoint: Live Facebook Page Posts (@UnlockEducation25)
   app.get("/api/facebook/posts", async (req, res) => {
     res.set("Cache-Control", "no-store, no-cache, must-revalidate");
-    const hasConfig = Boolean(
-      (process.env.FACEBOOK_PAGE_ID || "").trim() &&
-        (process.env.FACEBOOK_PAGE_ACCESS_TOKEN || "").trim()
-    );
+    const hasConfig = Boolean(cleanEnvSecret(process.env.FACEBOOK_PAGE_ACCESS_TOKEN));
     if (!hasConfig) {
+      const snapshot = loadFacebookSnapshot();
+      if (snapshot) {
+        return res.json(snapshot);
+      }
       return res.json({
         configured: false,
         pageName: "Unlock Education",
@@ -1007,18 +1042,24 @@ Return exactly 5 multiple choice questions related to this math content. Ensure 
         return res.json(facebookCache.data);
       }
       const data = await loadLiveFacebookPosts();
-      facebookCache = { data, fetchedAt: Date.now() };
-      return res.json(data);
+      if (data.posts.length > 0) {
+        facebookCache = { data, fetchedAt: Date.now() };
+        saveFacebookSnapshot(data);
+        return res.json(data);
+      }
+      const fallback = facebookCache?.data || loadFacebookSnapshot();
+      return res.json(fallback || data);
     } catch {
       return res.json(
-        facebookCache?.data || {
-          configured: true,
-          pageName: "Unlock Education",
-          pageHandle: FACEBOOK_PAGE_HANDLE,
-          pageUrl: FACEBOOK_PAGE_URL,
-          updatedAt: new Date().toISOString(),
-          posts: [],
-        }
+        facebookCache?.data ||
+          loadFacebookSnapshot() || {
+            configured: true,
+            pageName: "Unlock Education",
+            pageHandle: FACEBOOK_PAGE_HANDLE,
+            pageUrl: FACEBOOK_PAGE_URL,
+            updatedAt: new Date().toISOString(),
+            posts: [],
+          }
       );
     }
   });

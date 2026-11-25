@@ -32,6 +32,20 @@ const EMPTY_FACEBOOK_FEED: FacebookFeedData = {
 let cachedFacebookFeed: FacebookFeedData | null = null;
 let inFlightFacebookRequest: Promise<FacebookFeedData> | null = null;
 
+async function fetchStaticFacebookSnapshot(): Promise<FacebookFeedData | null> {
+  try {
+    const res = await fetch('/facebook-posts.json', { cache: 'no-store' });
+    if (!res.ok) return null;
+    const data = (await res.json()) as FacebookFeedData;
+    if (data && Array.isArray(data.posts) && data.posts.length > 0) {
+      return data;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
 async function fetchFacebookFeed(forceRefresh = false): Promise<FacebookFeedData> {
   if (!forceRefresh && cachedFacebookFeed) {
     return cachedFacebookFeed;
@@ -45,13 +59,28 @@ async function fetchFacebookFeed(forceRefresh = false): Promise<FacebookFeedData
     .then(async (res) => {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = (await res.json()) as FacebookFeedData;
-      if (data && Array.isArray(data.posts)) {
+      if (data && Array.isArray(data.posts) && data.posts.length > 0) {
         cachedFacebookFeed = data;
         return data;
       }
+      const snapshot = await fetchStaticFacebookSnapshot();
+      if (snapshot) {
+        cachedFacebookFeed = snapshot;
+        return snapshot;
+      }
+      return data && Array.isArray(data.posts) ? data : EMPTY_FACEBOOK_FEED;
+    })
+    .catch(async () => {
+      if (cachedFacebookFeed && cachedFacebookFeed.posts.length > 0) {
+        return cachedFacebookFeed;
+      }
+      const snapshot = await fetchStaticFacebookSnapshot();
+      if (snapshot) {
+        cachedFacebookFeed = snapshot;
+        return snapshot;
+      }
       return EMPTY_FACEBOOK_FEED;
     })
-    .catch(() => cachedFacebookFeed || EMPTY_FACEBOOK_FEED)
     .finally(() => {
       inFlightFacebookRequest = null;
     });

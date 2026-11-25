@@ -1,0 +1,20 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    },
+    {
+      "source": "/pdfs",
+      "destination": "/pdfs/index.html"
+    },
+    {
+      "source": "/pdfs/:id",
+      "destination": "/pdfs/:id/index.html"
+    },
+    {
+      "source": "/((?!api/|assets/|pdfs/|.*\\..*).*)",
+      "destination": "/index.html"
+    }
+  ]
+}
