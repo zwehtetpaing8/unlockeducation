@@ -16,16 +16,12 @@ import {
   Layers,
   ChevronRight,
   Brain,
-  Facebook,
-  Send,
   PlayCircle,
-  Clock,
-  Youtube
+  Clock
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import TrigGrapherTool from './TrigGrapherTool';
-import { useYoutubeVideos, formatYoutubeDate } from '../data/youtubeVideos';
-import { useFacebookPosts, formatFacebookDate } from '../data/facebookPosts';
+import CommunityWorkbench from './CommunityWorkbench';
 
 interface HomeViewProps {
   onSelectChapter: (id: number) => void;
@@ -34,8 +30,6 @@ interface HomeViewProps {
 }
 
 export default function HomeView({ onSelectChapter, onNavigateToFormulas, onNavigateToVideos }: HomeViewProps) {
-  const { library: youtubeLibrary } = useYoutubeVideos();
-  const { feed: facebookFeed } = useFacebookPosts();
   // Retrieve last accessed chapter
   const [lastAccessedChapterId] = useState<number | null>(() => {
     const saved = localStorage.getItem('unlock_edu_selectedChapterId');
@@ -366,202 +360,12 @@ export default function HomeView({ onSelectChapter, onNavigateToFormulas, onNavi
         </div>
       </motion.div>
 
-      {/* 4.5 Latest YouTube Video Lessons (@UnlockEdu25) */}
-      {youtubeLibrary.latestUploads.length > 0 && (
-        <motion.div variants={itemVariants} className="space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
-            <div className="space-y-1">
-              <h2 className="text-lg md:text-xl font-display font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
-                <Youtube className="w-5 h-5 text-[#FF0000]" />
-                Video Lessons ({youtubeLibrary.channelHandle})
-              </h2>
-              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-                Auto-synced Grade 12 Mathematics playlists & latest uploads from our YouTube channel.
-              </p>
-            </div>
-            <button
-              onClick={() => onNavigateToVideos()}
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors cursor-pointer self-start sm:self-auto whitespace-nowrap shrink-0"
-            >
-              View All Lessons
-              <ArrowRight className="w-3.5 h-3.5" />
-            </button>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {youtubeLibrary.latestUploads.slice(0, 3).map((video) => {
-              const matchedPlaylist = video.chapterId
-                ? youtubeLibrary.playlists.find((pl) => pl.chapterId === video.chapterId)
-                : undefined;
-              const targetPlaylistId =
-                matchedPlaylist && matchedPlaylist.videos.some((v) => v.id === video.id)
-                  ? matchedPlaylist.id
-                  : '__latest__';
-
-              return (
-                <button
-                  key={video.id}
-                  onClick={() => onNavigateToVideos(targetPlaylistId, video.id)}
-                  className="group bg-white dark:bg-slate-900 border border-slate-200/70 dark:border-slate-800 rounded-2xl overflow-hidden text-left hover:border-indigo-300 dark:hover:border-indigo-800 hover:shadow-md transition-all cursor-pointer flex flex-col"
-                >
-                  <div className="relative aspect-video w-full bg-slate-900 overflow-hidden">
-                    <img
-                      src={video.thumbnail}
-                      alt={video.title}
-                      loading="lazy"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    <div className="absolute inset-0 bg-slate-950/25 group-hover:bg-slate-950/10 transition-colors flex items-center justify-center">
-                      <div className="w-11 h-11 rounded-full bg-slate-950/80 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                        <PlayCircle className="w-6 h-6" />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-4 flex-1 flex flex-col justify-between gap-2">
-                    <h3 className="font-display font-bold text-xs md:text-sm text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2 leading-snug">
-                      {video.title}
-                    </h3>
-                    <div className="text-[11px] text-slate-500 dark:text-slate-400 tabular-nums">
-                      {video.chapterId ? `Chapter ${video.chapterId}` : youtubeLibrary.channelHandle}
-                      {video.published ? ` · ${formatYoutubeDate(video.published)}` : ''}
-                    </div>
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-        </motion.div>
-      )}
-
-      {/* 5. Community & Updates Section */}
-      <motion.div
-        variants={itemVariants}
-        className="space-y-4 pt-4"
-      >
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
-          <div className="space-y-1">
-            <h2 className="text-lg md:text-xl font-display font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
-              <Facebook className="w-5 h-5 text-[#1877F2]" />
-              Our Community Updates ({facebookFeed.pageHandle})
-            </h2>
-            <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-              Stay connected with Unlock Education for the latest announcements, updates, and learning tips.
-            </p>
-          </div>
-          {facebookFeed.posts.length > 0 && (
-            <div className="flex items-center gap-2 self-start sm:self-auto shrink-0">
-              <a
-                href="https://www.facebook.com/UnlockEducation25"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 bg-[#1877F2] hover:bg-[#166FE5] text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-colors whitespace-nowrap"
-              >
-                <Facebook className="w-3.5 h-3.5" />
-                Follow Page
-              </a>
-              <a
-                href="https://t.me/UnlockEducation25"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 px-3.5 py-2 rounded-xl text-xs font-bold transition-colors whitespace-nowrap"
-              >
-                <Send className="w-3.5 h-3.5" />
-                Telegram
-              </a>
-            </div>
-          )}
-        </div>
-
-        {facebookFeed.posts.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {facebookFeed.posts.slice(0, 3).map((post) => (
-              <a
-                key={post.id}
-                href={post.permalinkUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group bg-white dark:bg-slate-900 border border-slate-200/70 dark:border-slate-800 rounded-2xl overflow-hidden text-left hover:border-indigo-300 dark:hover:border-indigo-800 hover:shadow-md transition-all flex flex-col"
-              >
-                {post.imageUrl && (
-                  <div className="relative aspect-video w-full bg-slate-100 dark:bg-slate-950 overflow-hidden">
-                    <img
-                      src={post.imageUrl}
-                      alt="Unlock Education Facebook update"
-                      loading="lazy"
-                      onError={(e) => {
-                        const wrapper = e.currentTarget.parentElement;
-                        if (wrapper) wrapper.style.display = 'none';
-                      }}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                )}
-                <div className="p-4 flex-1 flex flex-col justify-between gap-3">
-                  <p className="text-xs md:text-sm text-slate-800 dark:text-slate-200 leading-relaxed whitespace-pre-line line-clamp-4">
-                    {post.message}
-                  </p>
-                  <div className="pt-2.5 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 tabular-nums">
-                    <span>{formatFacebookDate(post.createdTime) || facebookFeed.pageHandle}</span>
-                    <span className="inline-flex items-center gap-1 font-bold text-[#1877F2] dark:text-blue-400 group-hover:translate-x-0.5 transition-transform">
-                      View Post
-                      <ArrowRight className="w-3 h-3" />
-                    </span>
-                  </div>
-                </div>
-              </a>
-            ))}
-          </div>
-        ) : (
-          <div className="bg-white dark:bg-slate-900 border border-slate-200/70 dark:border-slate-800 rounded-3xl p-6 flex justify-center shadow-xs">
-            <div className="w-full max-w-[500px] rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700/60 overflow-hidden">
-              {/* Facebook Card Header Cover */}
-              <div className="h-24 md:h-28 bg-gradient-to-r from-[var(--hero-from)] via-[var(--hero-via)] to-[var(--hero-to)] relative overflow-hidden">
-                <div className="absolute right-0 top-0 w-40 h-40 rounded-full bg-indigo-400/20 blur-2xl pointer-events-none" />
-                <div className="absolute left-8 bottom-0 w-32 h-32 rounded-full bg-amber-400/15 blur-2xl pointer-events-none" />
-              </div>
-
-              {/* Facebook Card Content */}
-              <div className="px-6 pb-6 pt-3 relative">
-                {/* Profile Picture & Title */}
-                <div className="flex flex-col items-center -mt-12 md:-mt-14 mb-4">
-                  <div className="w-20 h-20 md:w-22 md:h-22 bg-white dark:bg-slate-900 rounded-full p-1.5 shadow-md relative z-10 border border-slate-200 dark:border-slate-700">
-                    <img src="/logo.png" alt="Unlock Education" className="w-full h-full rounded-full object-contain" />
-                  </div>
-                  <h3 className="font-display font-bold text-lg md:text-xl text-slate-900 dark:text-white mt-3">
-                    Unlock Education
-                  </h3>
-                  <p className="text-xs text-slate-500 dark:text-slate-400">@UnlockEducation25</p>
-                </div>
-
-                <p className="text-sm text-center text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
-                  Join our Facebook community for daily study materials, tips, and live Q&A sessions for Grade 12 students.
-                </p>
-
-                {/* Action Buttons */}
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <a
-                    href="https://www.facebook.com/UnlockEducation25"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 bg-[#1877F2] hover:bg-[#166FE5] text-white py-2.5 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-colors shadow-sm shadow-blue-500/20"
-                  >
-                    <Facebook className="w-4 h-4" />
-                    Follow Page
-                  </a>
-                  <a
-                    href="https://t.me/UnlockEducation25"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 py-2.5 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-colors"
-                  >
-                    <Send className="w-4 h-4" />
-                    Telegram
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
+      {/* 5. Unified YouTube & Facebook Community Workbench */}
+      <motion.div variants={itemVariants}>
+        <CommunityWorkbench
+          onSelectChapter={onSelectChapter}
+          onNavigateToVideos={onNavigateToVideos}
+        />
       </motion.div>
 
     </motion.div>
