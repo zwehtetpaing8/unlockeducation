@@ -1,37 +1,38 @@
-import React, { useState, useEffect } from 'react';
-import { AnalyticsSummary, VisitorLog } from '../types';
-import { 
-  ShieldCheck, 
-  Users, 
-  Globe, 
-  Activity, 
-  Copy, 
-  Check, 
-  RefreshCw, 
-  Trash2, 
-  KeyRound, 
-  Eye, 
-  EyeOff, 
-  Smartphone, 
-  Monitor, 
-  Clock, 
+import React, { useState, useEffect, useCallback } from 'react';
+import { AnalyticsSummary } from '../types';
+import {
+  ShieldCheck,
+  Users,
+  Globe,
+  Activity,
+  Copy,
+  Check,
+  RefreshCw,
+  Trash2,
+  KeyRound,
+  Eye,
+  EyeOff,
+  Smartphone,
+  Monitor,
+  Clock,
   Search,
-  ExternalLink,
   ShieldAlert,
-  ArrowLeft
+  ArrowLeft,
+  LogOut,
 } from 'lucide-react';
 import { motion } from 'motion/react';
 
 interface AnalyticsDashboardProps {
-  initialKey?: string;
   onNavigateHome?: () => void;
 }
 
-export default function AnalyticsDashboard({ initialKey = '', onNavigateHome }: AnalyticsDashboardProps) {
-  const [secretKey, setSecretKey] = useState<string>(() => {
-    return initialKey || localStorage.getItem('unlock_edu_admin_key') || '';
-  });
-  const [inputKey, setInputKey] = useState<string>('');
+export default function AnalyticsDashboard({ onNavigateHome }: AnalyticsDashboardProps) {
+  // Keep server-issued session token strictly in React memory (never localStorage or URL)
+  const [sessionToken, setSessionToken] = useState<string>('');
+  const [inputPassword, setInputPassword] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [requiresClaim, setRequiresClaim] = useState<boolean>(false);
+  const [statusLoaded, setStatusLoaded] = useState<boolean>(false);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -39,12 +40,32 @@ export default function AnalyticsDashboard({ initialKey = '', onNavigateHome }: 
   const [copied, setCopied] = useState<boolean>(false);
   const [autoRefresh, setAutoRefresh] = useState<boolean>(true);
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const [showKey, setShowKey] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [confirmClearOpen, setConfirmClearOpen] = useState<boolean>(false);
 
-  // Parse User Agent into friendly device name
+  // Clean up any legacy credential stored in localStorage from older versions
+  useEffect(() => {
+    try {
+      localStorage.removeItem('unlock_edu_admin_key');
+    } catch {
+      // Ignore storage errors
+    }
+    fetch('/api/owner-auth/status', { cache: 'no-store' })
+      .then((res) => (res.ok ? res.json() : { requiresClaim: false }))
+      .then((info) => {
+        setRequiresClaim(Boolean(info?.requiresClaim));
+      })
+      .catch(() => {
+        setRequiresClaim(false);
+      })
+      .finally(() => {
+        setStatusLoaded(true);
+      });
+  }, []);
+
   const parseUserAgent = (ua: string) => {
     if (!ua || ua === 'Unknown') return { device: 'Unknown', isMobile: false };
-    
+
     let os = 'Desktop';
     if (ua.includes('iPhone') || ua.includes('iPad')) os = 'iOS';
     else if (ua.includes('Android')) os = 'Android';
@@ -62,104 +83,150 @@ export default function AnalyticsDashboard({ initialKey = '', onNavigateHome }: 
     return { device: `${browser} on ${os}`, isMobile };
   };
 
-  // Fetch Analytics from server
-  const fetchAnalytics = async (keyToUse: string, isRetry = false) => {
-    if (!keyToUse) return;
+  const fetchAnalytics = useCallback(async (tokenToUse: string) => {
+    if (!tokenToUse) return;
     setLoading(true);
     setError(null);
     try {
       const res = await fetch('/api/owner-data', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ key: keyToUse.trim() }),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${tokenToUse}`,
+        },
+        body: JSON.stringify({}),
       });
 
       if (res.ok) {
         const result: AnalyticsSummary = await res.json();
         setData(result);
         setIsAuthenticated(true);
-        localStorage.setItem('unlock_edu_admin_key', keyToUse.trim());
-      } else {
-        const text = await res.text();
-        try {
-          const errJson = JSON.parse(text);
-          setError(errJson.error || 'Password မမှန်ပါ။');
-        } catch {
-          // If it's not JSON, it's likely a 404 or 502 from the proxy (stale page)
-          setError('Network Error. ကျေးဇူးပြု၍ Browser ကို Refresh (Reload) လုပ်ပြီး ပြန်လည်ဝင်ရောက်ပါ။');
-        }
+      } else if (res.status === 401) {
+        setSessionToken('');
         setIsAuthenticated(false);
-      }
-    } catch (err) {
-      console.error('Analytics fetch error:', err);
-      if (!isRetry) {
-        // Retry once after 1.5s in case dev server was booting
-        setTimeout(() => fetchAnalytics(keyToUse, true), 1500);
+        setError('Session expired. Please sign in again.');
       } else {
-        setError('Error: ' + (err.message || err) + ' | Server နှင့် ချိတ်ဆက်၍မရသေးပါ။ ခဏစောင့်ပြီး ပြန်လည်ကြိုးစားပေးပါ။ (Click Unlock Dashboard again)');
+        setError('Unable to load analytics right now.');
       }
+    } catch {
+      setError('Server နှင့် ချိတ်ဆက်၍မရသေးပါ။ ခဏစောင့်ပြီး ပြန်လည်ကြိုးစားပေးပါ။');
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (sessionToken) {
+      fetchAnalytics(sessionToken);
+    }
+  }, [sessionToken, fetchAnalytics]);
+
+  useEffect(() => {
+    if (!isAuthenticated || !autoRefresh || !sessionToken) return;
+    const interval = setInterval(() => {
+      fetchAnalytics(sessionToken);
+    }, 10000);
+    return () => clearInterval(interval);
+  }, [isAuthenticated, autoRefresh, sessionToken, fetchAnalytics]);
+
+  const handleAuthSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const pwd = inputPassword.trim();
+    if (!pwd) return;
+
+    if (requiresClaim) {
+      if (pwd.length < 8) {
+        setError('Owner password သည် အနည်းဆုံး 8 လုံး ရှိရပါမည်။');
+        return;
+      }
+      if (pwd !== confirmPassword.trim()) {
+        setError('Password နှစ်ခု မတူညီပါ။');
+        return;
+      }
+    }
+
+    setLoading(true);
+    setError(null);
+    try {
+      const endpoint = requiresClaim ? '/api/owner-auth/claim' : '/api/owner-auth/login';
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: pwd }),
+      });
+
+      const body = await res.json().catch(() => ({}));
+      if (res.ok && typeof body?.token === 'string') {
+        setInputPassword('');
+        setConfirmPassword('');
+        setRequiresClaim(false);
+        setSessionToken(body.token);
+      } else {
+        setError(body?.error || 'Password မမှန်ပါ။');
+      }
+    } catch {
+      setError('Server နှင့် ချိတ်ဆက်၍မရသေးပါ။');
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    if (secretKey) {
-      fetchAnalytics(secretKey);
+  const handleLogout = async () => {
+    if (sessionToken) {
+      fetch('/api/owner-auth/logout', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${sessionToken}` },
+      }).catch(() => {});
     }
-  }, [secretKey]);
-
-  // Auto-refresh interval
-  useEffect(() => {
-    if (!isAuthenticated || !autoRefresh || !secretKey) return;
-    const interval = setInterval(() => {
-      fetchAnalytics(secretKey);
-    }, 10000);
-    return () => clearInterval(interval);
-  }, [isAuthenticated, autoRefresh, secretKey]);
-
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!inputKey.trim()) return;
-    setSecretKey(inputKey.trim());
+    setSessionToken('');
+    setIsAuthenticated(false);
+    setData(null);
+    setConfirmClearOpen(false);
   };
 
   const handleClearLogs = async () => {
-    if (!window.confirm('Are you sure you want to clear all visitor logs? This action cannot be undone.')) return;
+    if (!sessionToken) return;
     try {
       const res = await fetch('/api/owner-data/clear', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ key: secretKey }),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${sessionToken}`,
+        },
+        body: JSON.stringify({}),
       });
       if (res.ok) {
-        fetchAnalytics(secretKey);
+        setConfirmClearOpen(false);
+        fetchAnalytics(sessionToken);
+      } else if (res.status === 401) {
+        setSessionToken('');
+        setIsAuthenticated(false);
       }
-    } catch (err) {
-      console.error('Failed to clear logs', err);
+    } catch {
+      setError('Failed to clear logs.');
     }
   };
 
-  const secretLink = `${window.location.origin}?key=${encodeURIComponent(secretKey || '@uledu?300525')}`;
-  const shortAdminLink = `${window.location.origin}?admin`;
+  const portalLink = `${window.location.origin}?admin`;
 
-  const copySecretLink = (linkToCopy: string) => {
-    navigator.clipboard.writeText(linkToCopy);
+  const copyPortalLink = () => {
+    navigator.clipboard.writeText(portalLink);
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   };
 
-  // Filter logs
-  const filteredLogs = data?.recentLogs.filter((log) => 
-    log.ip.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    log.path.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    log.userAgent.toLowerCase().includes(searchTerm.toLowerCase())
-  ) || [];
+  const filteredLogs =
+    data?.recentLogs.filter(
+      (log) =>
+        log.ip.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        log.path.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        log.userAgent.toLowerCase().includes(searchTerm.toLowerCase())
+    ) || [];
 
   if (!isAuthenticated) {
     return (
       <div className="min-h-[70vh] flex items-center justify-center p-4">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           className="w-full max-w-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 shadow-xl space-y-6 text-center"
@@ -170,44 +237,45 @@ export default function AnalyticsDashboard({ initialKey = '', onNavigateHome }: 
 
           <div className="space-y-1.5">
             <h2 className="text-xl font-bold font-display text-slate-900 dark:text-white">
-              Website Owner Portal
+              {requiresClaim ? 'Set Up Owner Password' : 'Website Owner Portal'}
             </h2>
             <p className="text-xs text-slate-500 dark:text-slate-400">
-              Enter Secret PIN or Link Key to view live visitor statistics & IP addresses.
+              {requiresClaim
+                ? 'Create a strong password (min 8 characters) to claim admin access, or set ADMIN_SECRET in Settings → Secrets.'
+                : 'Enter your Owner Password to view live visitor statistics.'}
             </p>
           </div>
 
-          <form onSubmit={handleLogin} className="space-y-4">
+          <form onSubmit={handleAuthSubmit} className="space-y-4">
             <div className="relative">
               <input
-                type={showKey ? "text" : "password"}
-                placeholder="Enter Secret Password or Key"
-                value={inputKey}
-                onChange={(e) => setInputKey(e.target.value)}
+                type={showPassword ? 'text' : 'password'}
+                placeholder={requiresClaim ? 'Create Owner Password (min 8 chars)' : 'Enter Owner Password'}
+                value={inputPassword}
+                onChange={(e) => setInputPassword(e.target.value)}
+                autoComplete={requiresClaim ? 'new-password' : 'current-password'}
                 className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-sm font-mono text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 pr-10"
               />
               <button
                 type="button"
-                onClick={() => setShowKey(!showKey)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer"
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
               >
-                {showKey ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
             </div>
 
-            <div className="flex items-center justify-between text-[11px] text-slate-500">
-              <span>Default Password:</span>
-              <button
-                type="button"
-                onClick={() => {
-                  setInputKey('@uledu?300525');
-                  setSecretKey('@uledu?300525');
-                }}
-                className="font-mono font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 px-2 py-0.5 rounded border border-indigo-200/50 dark:border-indigo-800/40 hover:underline cursor-pointer"
-              >
-                @uledu?300525 (Auto-Fill & Login)
-              </button>
-            </div>
+            {requiresClaim && (
+              <input
+                type={showPassword ? 'text' : 'password'}
+                placeholder="Confirm Owner Password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                autoComplete="new-password"
+                className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-sm font-mono text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/40"
+              />
+            )}
 
             {error && (
               <div className="p-3 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/30 rounded-xl text-xs text-red-600 dark:text-red-400 flex items-center gap-2 text-left">
@@ -218,22 +286,22 @@ export default function AnalyticsDashboard({ initialKey = '', onNavigateHome }: 
 
             <button
               type="submit"
-              disabled={loading}
-              className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-all shadow-md shadow-indigo-500/20 cursor-pointer flex items-center justify-center gap-2"
+              disabled={loading || !statusLoaded}
+              className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-60 text-white rounded-xl text-xs font-bold transition-all shadow-md shadow-indigo-500/20 cursor-pointer flex items-center justify-center gap-2"
             >
               {loading ? (
                 <RefreshCw className="w-4 h-4 animate-spin" />
               ) : (
                 <>
                   <ShieldCheck className="w-4 h-4" />
-                  Unlock Dashboard
+                  {requiresClaim ? 'Save Password & Unlock' : 'Unlock Dashboard'}
                 </>
               )}
             </button>
           </form>
 
           <div className="pt-2 border-t border-slate-100 dark:border-slate-800/60 text-[11px] text-slate-400 space-y-1">
-            <p>Protected by Website Owner Password</p>
+            <p>Protected by server-verified session authentication</p>
           </div>
         </motion.div>
       </div>
@@ -255,13 +323,7 @@ export default function AnalyticsDashboard({ initialKey = '', onNavigateHome }: 
             </button>
           )}
           <div>
-            <div className="flex items-center gap-2">
-              <span className="text-[10px] uppercase font-mono font-bold px-2.5 py-0.5 bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200/50 dark:border-emerald-800/40 rounded-full flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                Live Tracking Active
-              </span>
-            </div>
-            <h2 className="font-display font-bold text-xl md:text-2xl text-slate-900 dark:text-white tracking-tight mt-1">
+            <h2 className="font-display font-bold text-xl md:text-2xl text-slate-900 dark:text-white tracking-tight">
               Website Owner Visitor Dashboard
             </h2>
             <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
@@ -270,11 +332,11 @@ export default function AnalyticsDashboard({ initialKey = '', onNavigateHome }: 
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <button
             onClick={() => setAutoRefresh(!autoRefresh)}
             className={`px-3 py-2 rounded-xl text-xs font-semibold border transition-all cursor-pointer flex items-center gap-1.5 ${
-              autoRefresh 
+              autoRefresh
                 ? 'bg-indigo-50 dark:bg-indigo-950/50 border-indigo-200 dark:border-indigo-800 text-indigo-600 dark:text-indigo-400'
                 : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500'
             }`}
@@ -284,47 +346,47 @@ export default function AnalyticsDashboard({ initialKey = '', onNavigateHome }: 
           </button>
 
           <button
-            onClick={() => fetchAnalytics(secretKey)}
+            onClick={() => fetchAnalytics(sessionToken)}
             disabled={loading}
             className="p-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl transition cursor-pointer shadow-sm shadow-indigo-500/20"
             title="Refresh statistics"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
           </button>
+
+          <button
+            onClick={handleLogout}
+            className="px-3 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-red-50 dark:hover:bg-red-950/40 text-slate-600 dark:text-slate-300 hover:text-red-600 dark:hover:text-red-400 rounded-xl text-xs font-semibold transition cursor-pointer flex items-center gap-1.5"
+            title="Sign out"
+          >
+            <LogOut className="w-3.5 h-3.5" />
+            <span>Sign Out</span>
+          </button>
         </div>
       </div>
 
-      {/* Secret Link Info Banner */}
+      {/* Portal Link Info Banner (credential-free URL) */}
       <div className="bg-gradient-to-r from-indigo-900 via-slate-900 to-slate-900 text-white p-5 rounded-3xl border border-indigo-900/50 shadow-md flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <KeyRound className="w-4 h-4 text-indigo-400" />
-            <h3 className="text-sm font-bold tracking-tight">Owner Access Links</h3>
+            <h3 className="text-sm font-bold tracking-tight">Owner Portal Link</h3>
           </div>
           <p className="text-xs text-slate-300">
-            အခြား Browser သို့မဟုတ် Phone မှ Password ရိုက်စရာမလိုဘဲ တိုက်ရိုက်ဝင်ရန် Direct Auto-Login Link ကို အသုံးပြုပါ:
+            Bookmark this link to open the owner sign-in page (passwords are never placed in URLs):
           </p>
           <div className="text-[11px] font-mono text-indigo-300 bg-black/40 px-3 py-1.5 rounded-lg overflow-x-auto max-w-xl truncate border border-indigo-500/20">
-            {secretLink}
+            {portalLink}
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2 shrink-0">
-          <button
-            onClick={() => copySecretLink(secretLink)}
-            className="px-4 py-2.5 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer shadow-md shadow-indigo-500/30"
-          >
-            {copied ? <Check className="w-4 h-4 text-emerald-300" /> : <Copy className="w-4 h-4" />}
-            <span>Copy Auto-Login Link</span>
-          </button>
-          <button
-            onClick={() => copySecretLink(shortAdminLink)}
-            className="px-3 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer border border-slate-700"
-          >
-            <Copy className="w-3.5 h-3.5" />
-            <span>Copy Short Link</span>
-          </button>
-        </div>
+        <button
+          onClick={copyPortalLink}
+          className="px-4 py-2.5 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer shadow-md shadow-indigo-500/30 shrink-0 self-start lg:self-auto"
+        >
+          {copied ? <Check className="w-4 h-4 text-emerald-300" /> : <Copy className="w-4 h-4" />}
+          <span>{copied ? 'Copied' : 'Copy Portal Link'}</span>
+        </button>
       </div>
 
       {/* Overview Stat Cards */}
@@ -418,7 +480,11 @@ export default function AnalyticsDashboard({ initialKey = '', onNavigateHome }: 
                           {log.ip}
                         </td>
                         <td className="py-3 px-3 text-slate-500 dark:text-slate-400 whitespace-nowrap">
-                          {new Date(log.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
+                          {new Date(log.timestamp).toLocaleTimeString([], {
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            second: '2-digit',
+                          })}
                           <span className="text-[10px] text-slate-400 block">
                             {new Date(log.timestamp).toLocaleDateString()}
                           </span>
@@ -450,15 +516,33 @@ export default function AnalyticsDashboard({ initialKey = '', onNavigateHome }: 
             </table>
           </div>
 
-          <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-xs text-slate-400">
+          <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-wrap justify-between items-center gap-2 text-xs text-slate-400">
             <span>Showing last {filteredLogs.length} logs</span>
-            <button
-              onClick={handleClearLogs}
-              className="text-red-500 hover:text-red-600 font-semibold flex items-center gap-1 cursor-pointer transition"
-            >
-              <Trash2 className="w-3.5 h-3.5" />
-              <span>Clear Log History</span>
-            </button>
+            {confirmClearOpen ? (
+              <div className="flex items-center gap-2">
+                <span className="text-red-500 font-semibold">Clear all logs?</span>
+                <button
+                  onClick={handleClearLogs}
+                  className="px-2.5 py-1 bg-red-600 hover:bg-red-700 text-white rounded-lg font-semibold cursor-pointer transition"
+                >
+                  Confirm
+                </button>
+                <button
+                  onClick={() => setConfirmClearOpen(false)}
+                  className="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-lg font-semibold cursor-pointer transition"
+                >
+                  Cancel
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={() => setConfirmClearOpen(true)}
+                className="text-red-500 hover:text-red-600 font-semibold flex items-center gap-1 cursor-pointer transition"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+                <span>Clear Log History</span>
+              </button>
+            )}
           </div>
         </div>
 

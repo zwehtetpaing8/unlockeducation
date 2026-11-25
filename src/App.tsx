@@ -119,10 +119,19 @@ export default function App() {
       }
     }
 
+    if (params.has('key')) {
+      params.delete('key');
+      changed = true;
+    }
+    if (params.has('secret')) {
+      params.delete('secret');
+      changed = true;
+    }
+
     if (changed) {
       const qs = params.toString();
       const newUrl = `${targetPath}${qs ? `?${qs}` : ''}${window.location.hash}`;
-      window.history.pushState({}, '', newUrl);
+      window.history.replaceState({}, '', newUrl);
     }
 
     localStorage.setItem('unlock_edu_activeView', activeView);
@@ -384,9 +393,8 @@ export default function App() {
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.22 }}
               >
-                <AnalyticsDashboard 
-                  initialKey={new URLSearchParams(window.location.search).get('key') || new URLSearchParams(window.location.search).get('secret') || ''}
-                  onNavigateHome={() => setActiveView('home')} 
+                <AnalyticsDashboard
+                  onNavigateHome={() => setActiveView('home')}
                 />
               </motion.div>
             ) : activeView === 'formulas' ? (

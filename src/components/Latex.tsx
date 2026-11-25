@@ -2816,6 +2816,8 @@ function renderMathText(text: string): React.ReactNode {
       const html = katex.renderToString(formula, {
         displayMode: isBlock,
         throwOnError: false,
+        trust: false,
+        maxExpand: 1000,
       });
 
       if (isBlock) {
@@ -3765,6 +3767,8 @@ export default function Latex({ text, block = false, insideSolution = false }: L
       const html = katex.renderToString(text, {
         displayMode: true,
         throwOnError: false,
+        trust: false,
+        maxExpand: 1000,
       });
       return <DraggableScroll className="katex-block my-1" dangerouslySetInnerHTML={{ __html: html }} />;
     } catch (e) {
@@ -3928,6 +3932,8 @@ export default function Latex({ text, block = false, insideSolution = false }: L
         const html = katex.renderToString(formula, {
           displayMode: true,
           throwOnError: false,
+          trust: false,
+          maxExpand: 1000,
         });
         renderedElements.push(
           <DraggableScroll
