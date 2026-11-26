@@ -1061,17 +1061,17 @@ export default function Visualizer({ type }: VisualizerProps) {
   ]);
 
   return (
-    <div id="visualizer-container" className="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800/80 shadow-sm transition-all">
-      <div className="flex items-center justify-between mb-4 border-b border-slate-100 dark:border-slate-800 pb-3">
-        <div className="flex items-center gap-2">
-          <Layers className="w-5 h-5 text-indigo-600 dark:text-indigo-400 animate-pulse" />
-          <h4 className="font-display font-medium text-slate-800 dark:text-slate-200">
+    <div id="visualizer-container" className="bg-slate-50/90 dark:bg-slate-900/50 p-4 sm:p-6 rounded-2xl border border-slate-200/70 dark:border-slate-800/80 shadow-sm transition-colors">
+      <div className="flex items-center justify-between gap-3 mb-4 border-b border-slate-200/70 dark:border-slate-800 pb-3">
+        <div className="flex items-center gap-2 min-w-0">
+          <Layers className="w-5 h-5 text-indigo-600 dark:text-indigo-400 shrink-0" />
+          <h4 className="font-display font-semibold text-sm sm:text-base text-slate-900 dark:text-slate-100 truncate">
             Interactive Chapter Visualizer
           </h4>
         </div>
-        <div className="text-xs font-mono px-2.5 py-1 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 rounded-full font-medium">
-          Live Graph Mode
-        </div>
+        <span className="text-xs font-mono text-slate-500 dark:text-slate-400 font-medium whitespace-nowrap shrink-0">
+          Interactive Sandbox
+        </span>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
@@ -1126,19 +1126,20 @@ export default function Visualizer({ type }: VisualizerProps) {
               </div>
             </div>
 
-            <div className="flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-3">
+            <div className="flex flex-wrap items-center justify-between gap-2 border-t border-slate-100 dark:border-slate-800 pt-3">
               <div className="text-xs text-slate-600 dark:text-slate-400">
                 {inductionStep === 0 && 'Base case P(1) ready.'}
                 {inductionStep > 0 && inductionStep < inductionN && `Inductive Step: P(${inductionStep}) ⟹ P(${inductionStep + 1}) is active.`}
                 {inductionStep === inductionN && `Statement proved true for all n up to ${inductionN}!`}
               </div>
               <button
+                type="button"
                 onClick={startInduction}
                 disabled={inductionRunning}
-                className="flex items-center gap-1.5 px-4 py-1.5 bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 text-white font-medium text-xs rounded-lg shadow-sm transition"
+                className="inline-flex items-center gap-1.5 min-h-[38px] px-4 py-1.5 bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 text-white font-semibold text-xs rounded-lg shadow-2xs transition-colors cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40"
               >
                 <RefreshCw className={`w-3.5 h-3.5 ${inductionRunning ? 'animate-spin' : ''}`} />
-                {inductionStep > 0 ? 'Reset & Proof' : 'Trigger Proof'}
+                <span>{inductionStep > 0 ? 'Reset & Proof' : 'Trigger Proof'}</span>
               </button>
             </div>
           </div>
@@ -1180,7 +1181,7 @@ export default function Visualizer({ type }: VisualizerProps) {
         )}
 
         {/* Dynamic Controls Side-Bar */}
-        <div className={`lg:col-span-${type === 'induction-steps' || type === 'perm-comb' ? '12' : '5'} flex flex-col gap-4 bg-white dark:bg-slate-950 p-4 rounded-xl border border-slate-200 dark:border-slate-800/60`}>
+        <div className="lg:col-span-5 flex flex-col gap-4 bg-white dark:bg-slate-950 p-4 rounded-xl border border-slate-200 dark:border-slate-800/60">
           <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
             <Sliders className="w-3.5 h-3.5 text-indigo-500" />
             <span>Interactive Parameters</span>
@@ -1372,15 +1373,16 @@ export default function Visualizer({ type }: VisualizerProps) {
 
             {type === 'conic-explorer' && (
               <>
-                <div className="flex gap-1.5 p-1 bg-slate-100 dark:bg-slate-900 rounded-lg mb-2">
+                <div className="grid grid-cols-4 gap-1 p-1 bg-slate-100 dark:bg-slate-900 rounded-xl mb-2">
                   {(['circle', 'parabola', 'ellipse', 'hyperbola'] as const).map((mode) => (
                     <button
                       key={mode}
+                      type="button"
                       onClick={() => setConicType(mode)}
-                      className={`flex-1 text-[10px] uppercase tracking-wider py-1 font-medium rounded-md transition ${
+                      className={`min-h-[36px] text-[10px] capitalize py-1.5 font-semibold rounded-lg transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40 ${
                         conicType === mode
-                          ? 'bg-white dark:bg-slate-800 shadow-sm text-rose-600 dark:text-rose-400 font-semibold'
-                          : 'text-slate-500 hover:text-slate-800 hover:bg-white/40'
+                          ? 'bg-white dark:bg-slate-800 shadow-2xs text-rose-600 dark:text-rose-400'
+                          : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
                       }`}
                     >
                       {mode}
@@ -1510,15 +1512,16 @@ export default function Visualizer({ type }: VisualizerProps) {
               <>
                 <div>
                   <div className="text-xs text-slate-500 mb-1.5 font-medium">Visualizing Geometric Element</div>
-                  <div className="flex bg-slate-100 dark:bg-slate-900 p-1 rounded-lg">
+                  <div className="grid grid-cols-4 gap-1 bg-slate-100 dark:bg-slate-900 p-1 rounded-xl">
                     {(['point', 'line', 'plane', 'sphere'] as const).map((mode) => (
                       <button
                         key={mode}
+                        type="button"
                         onClick={() => setSolidMode(mode)}
-                        className={`flex-1 py-1 text-[10px] font-semibold rounded-md transition-all uppercase tracking-wider ${
+                        className={`min-h-[36px] py-1.5 text-[11px] font-semibold rounded-lg transition-colors capitalize cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${
                           solidMode === mode
-                            ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm'
-                            : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'
+                            ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-2xs'
+                            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
                         }`}
                       >
                         {mode}

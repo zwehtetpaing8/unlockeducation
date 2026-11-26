@@ -14,7 +14,7 @@
   "dependencies": {
     "@babel/core": "^8.0.1",
     "@babel/preset-react": "^8.0.1",
-    "@google/genai": "^2.4.0",
+    "@google/genai": "^3.6.1",
     "@tailwindcss/vite": "^4.1.14",
     "@vitejs/plugin-react": "^5.0.4",
     "acorn": "^8.17.0",

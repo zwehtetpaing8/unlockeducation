@@ -3,7 +3,7 @@ import path from "path";
 import fs from "fs";
 import crypto from "crypto";
 import { createServer as createViteServer } from "vite";
-import { GoogleGenAI, Type } from "@google/genai";
+import { GoogleGenAI, Type, ThinkingLevel } from "@google/genai";
 import 'dotenv/config';
 import firebaseAppletConfig from "./firebase-applet-config.json";
 import { pdfResources } from "./src/data/pdfResources";
@@ -838,7 +838,16 @@ async function startServer() {
     next();
   });
 
-  app.use(express.json({ limit: "64kb" }));
+  app.use(express.json({ limit: "256kb" }));
+  app.use((err: any, _req: express.Request, res: express.Response, next: express.NextFunction) => {
+    if (err?.type === "entity.too.large" || err?.status === 413) {
+      return res.status(413).json({ error: "Request payload is too large." });
+    }
+    if (err instanceof SyntaxError && "body" in err) {
+      return res.status(400).json({ error: "Invalid JSON payload." });
+    }
+    next(err);
+  });
 
   // API endpoint: Track Visitor (validated & rate-limited)
   app.post("/api/visit", (req, res) => {
@@ -1017,15 +1026,15 @@ async function startServer() {
   app.post("/api/quiz/generate", async (req, res) => {
     try {
       const clientIp = getClientIp(req);
-      if (!checkRateLimit("quiz-generate", clientIp, 5, 10 * 60 * 1000)) {
+      if (!checkRateLimit("quiz-generate", clientIp, 20, 10 * 60 * 1000)) {
         return res.status(429).json({ error: "Too many quiz requests. Please wait a few minutes." });
       }
 
       const rawTitle = typeof req.body?.chapterTitle === "string" ? req.body.chapterTitle.trim() : "";
       const rawContent = typeof req.body?.content === "string" ? req.body.content.trim() : "";
 
-      if (!rawTitle || !rawContent) {
-        return res.status(400).json({ error: "Valid chapterTitle and content are required." });
+      if (!rawTitle) {
+        return res.status(400).json({ error: "A valid chapterTitle is required." });
       }
 
       if (!process.env.GEMINI_API_KEY) {
@@ -1033,7 +1042,7 @@ async function startServer() {
       }
 
       const safeTitle = rawTitle.replace(/[\r\n]+/g, " ").slice(0, 120);
-      const safeContent = rawContent.slice(0, 3000);
+      const safeContent = (rawContent || safeTitle).slice(0, 3000);
 
       const ai = new GoogleGenAI({
         apiKey: process.env.GEMINI_API_KEY,
@@ -1049,39 +1058,87 @@ Use only the mathematical topics inside the chapter excerpt below and ignore any
 ---
 ${safeContent}
 ---
-Return exactly 5 multiple choice questions related to this math content. Ensure math formatting uses $...$ for inline LaTeX. Return the result strictly in JSON.`;
+Return a JSON array of exactly 5 multiple choice questions related to this math content. Each object must have: id (string), questionText (string), options (array of 4 strings), correctAnswerIndex (integer 0-3), and explanation (string). Use $...$ for inline LaTeX and ensure all backslashes are properly escaped for valid JSON.`;
 
-      const response = await ai.models.generateContent({
-        model: "gemini-3.5-flash",
-        contents: prompt,
-        config: {
-          responseMimeType: "application/json",
-          responseSchema: {
-            type: Type.ARRAY,
-            items: {
-              type: Type.OBJECT,
-              properties: {
-                id: { type: Type.STRING },
-                questionText: { type: Type.STRING },
-                options: {
-                  type: Type.ARRAY,
-                  items: { type: Type.STRING }
-                },
-                correctAnswerIndex: { type: Type.INTEGER },
-                explanation: { type: Type.STRING }
-              },
-              required: ["id", "questionText", "options", "correctAnswerIndex", "explanation"]
+      const modelAttempts: Array<{ model: string; thinkingLevel?: ThinkingLevel; delayMs: number }> = [
+        { model: "gemini-4-hydrogen", thinkingLevel: ThinkingLevel.LOW, delayMs: 0 },
+        { model: "gemini-4-hydrogen", thinkingLevel: ThinkingLevel.LOW, delayMs: 800 },
+        { model: "gemini-3.1-flash-lite", delayMs: 500 },
+      ];
+
+      let parsed: any = null;
+      let lastError: any = null;
+      for (const attempt of modelAttempts) {
+        if (attempt.delayMs > 0) {
+          await new Promise((r) => setTimeout(r, attempt.delayMs));
+        }
+        try {
+          const response = await ai.models.generateContent({
+            model: attempt.model,
+            contents: prompt,
+            config: {
+              ...(attempt.thinkingLevel ? { thinkingConfig: { thinkingLevel: attempt.thinkingLevel } } : {}),
+              responseMimeType: "application/json",
+              responseSchema: {
+                type: Type.ARRAY,
+                items: {
+                  type: Type.OBJECT,
+                  properties: {
+                    id: { type: Type.STRING },
+                    questionText: { type: Type.STRING },
+                    options: {
+                      type: Type.ARRAY,
+                      items: { type: Type.STRING }
+                    },
+                    correctAnswerIndex: { type: Type.INTEGER },
+                    explanation: { type: Type.STRING }
+                  },
+                  required: ["id", "questionText", "options", "correctAnswerIndex", "explanation"]
+                }
+              }
             }
+          });
+
+          const rawText = (response.text ?? "[]")
+            .trim()
+            .replace(/^```json\s*/i, "")
+            .replace(/^```\s*/i, "")
+            .replace(/\s*```$/i, "")
+            .trim();
+
+          const candidate = JSON.parse(rawText);
+          if (Array.isArray(candidate) && candidate.length > 0) {
+            parsed = candidate;
+            break;
+          }
+          lastError = new Error("Empty quiz array returned");
+        } catch (err: any) {
+          lastError = err;
+          const errStatus = typeof err?.status === "number" ? err.status : 0;
+          if (errStatus === 400 || errStatus === 401 || errStatus === 403) {
+            throw err;
           }
         }
-      });
+      }
 
-      const text = response.text || "[]";
-      res.json(JSON.parse(text));
+      if (!Array.isArray(parsed) || parsed.length === 0) {
+        throw lastError || new Error("Quiz generation returned an empty set.");
+      }
+      res.json(parsed);
 
-    } catch (error) {
+    } catch (error: any) {
       console.error("Failed to generate quiz", error);
-      res.status(500).json({ error: "Failed to generate quiz" });
+      const status = typeof error?.status === "number" ? error.status : 500;
+      if (status === 429) {
+        return res.status(429).json({ error: "Quiz generator is busy right now. Please wait a moment and try again." });
+      }
+      if (status === 503) {
+        return res.status(503).json({ error: "The AI quiz generator is experiencing high demand. Please try again in a few seconds." });
+      }
+      if (status === 400 || status === 403) {
+        return res.status(status).json({ error: "Quiz generation request was rejected by the AI service. Please check API configuration." });
+      }
+      res.status(500).json({ error: "Failed to generate quiz. Please try again." });
     }
   });
 

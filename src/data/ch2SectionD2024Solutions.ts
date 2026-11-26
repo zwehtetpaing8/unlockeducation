@@ -707,7 +707,7 @@ export const ch2SectionD2024Solutions: AnimatedProofQuestion[] = [
       {
         id: 'd2024-q6-1',
         kind: 'text',
-        content: 'Let $P(n)$ denote the statement $2^n \\ge 1 + n$.',
+        content: 'Let $P(n)$ denote the statement $2^n \\ge 1 + n$ for $n \\ge 1$.',
       },
       {
         id: 'd2024-q6-2',
@@ -729,7 +729,7 @@ export const ch2SectionD2024Solutions: AnimatedProofQuestion[] = [
       {
         id: 'd2024-q6-5',
         kind: 'text',
-        content: '**(2)** Assume that the statement is true for $n = k$, that is,',
+        content: '**(2)** Assume that the statement is true for $n = k$, where $k \\ge 1$, that is,',
       },
       {
         id: 'd2024-q6-6',
@@ -784,7 +784,7 @@ export const ch2SectionD2024Solutions: AnimatedProofQuestion[] = [
         id: 'd2024-q6-14',
         kind: 'text',
         content:
-          '**(3)** Hence, by the principle of mathematical induction, the statement $P(n)$ is true for all natural numbers $n$.',
+          '**(3)** Hence, by the principle of mathematical induction, $2^n \\ge 1 + n$ for all natural numbers $n \\ge 1$.',
       },
     ],
   },

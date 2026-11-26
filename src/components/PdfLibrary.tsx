@@ -75,13 +75,13 @@ export default function PdfLibrary() {
 
     return (
       <div className="max-w-3xl mx-auto w-full space-y-4 overflow-x-clip">
-        {/* Minimalist Top Bar: Back, File Title, Share & Download */}
-        <div className="bg-white dark:bg-slate-900 p-3 sm:px-4 sm:py-3 rounded-2xl border border-slate-200/80 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+        {/* Sticky Reader Top Bar: Back, File Title, Share & Download */}
+        <div className="sticky top-[62px] md:top-[72px] z-20 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md p-3 sm:px-4 sm:py-3 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
           <div className="flex items-center gap-2.5 min-w-0 flex-1">
             <button
               type="button"
               onClick={() => setViewingPdfId(null)}
-              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/70 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer shrink-0 whitespace-nowrap"
+              className="inline-flex items-center gap-1.5 px-3 min-h-[38px] rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800/80 hover:bg-slate-200/80 dark:hover:bg-slate-800 transition-colors cursor-pointer shrink-0 whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>All Files</span>
@@ -96,7 +96,7 @@ export default function PdfLibrary() {
             <button
               type="button"
               onClick={(e) => handleCopyShareLink(e, viewingPdf.id)}
-              className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap"
+              className="inline-flex items-center justify-center gap-1.5 px-3 min-h-[38px] bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40"
             >
               {isCopied ? (
                 <>
@@ -114,7 +114,7 @@ export default function PdfLibrary() {
             <a
               href={viewingPdf.pdfUrl}
               download={viewingPdf.downloadName}
-              className="inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold transition-colors whitespace-nowrap"
+              className="inline-flex items-center justify-center gap-1.5 px-3.5 min-h-[38px] bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold transition-colors whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40"
             >
               <Download className="w-3.5 h-3.5 shrink-0" />
               <span>Download</span>
@@ -129,10 +129,10 @@ export default function PdfLibrary() {
               key={idx}
               className="w-full bg-white rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-2xs overflow-hidden"
             >
-              <div className="bg-slate-50 dark:bg-slate-800/80 px-4 py-2 text-xs font-mono font-medium text-slate-500 dark:text-slate-400 flex items-center justify-between gap-2 border-b border-slate-200/70 dark:border-slate-800">
-                <span className="truncate">{viewingPdf.fileName}</span>
-                <span className="shrink-0 tabular-nums">
-                  Page {idx + 1} / {viewingPdf.pageCount}
+              <div className="bg-slate-50/90 dark:bg-slate-800/80 px-4 py-2 text-xs font-mono font-medium text-slate-500 dark:text-slate-400 flex items-center justify-between gap-2 border-b border-slate-200/70 dark:border-slate-800">
+                <span className="tabular-nums">Page {idx + 1}</span>
+                <span className="shrink-0 tabular-nums text-[11px]">
+                  {idx + 1} / {viewingPdf.pageCount}
                 </span>
               </div>
               <img
@@ -163,27 +163,28 @@ export default function PdfLibrary() {
   return (
     <div className="max-w-3xl mx-auto w-full space-y-4">
       {/* Header, Category Filter & Chapter Menu */}
-      <div className="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-800 space-y-3.5">
+      <div className="bg-white dark:bg-slate-900 p-4 sm:p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-2xs space-y-3.5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <h2 className="text-base sm:text-lg font-display font-bold text-slate-900 dark:text-white">
               PDF Files
             </h2>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              Grade 12 Mathematics Past Papers — Questions & Solutions
+            <p className="text-xs text-slate-500 dark:text-slate-400 tabular-nums">
+              Grade 12 Past Papers · {filteredFiles.length}{' '}
+              {filteredFiles.length === 1 ? 'file' : 'files'}
             </p>
           </div>
 
-          <div className="inline-flex items-center bg-slate-100 dark:bg-slate-800/90 p-1 rounded-xl self-start sm:self-auto">
+          <div className="grid grid-cols-3 sm:inline-flex items-center bg-slate-100 dark:bg-slate-800/90 p-1 rounded-xl w-full sm:w-auto">
             {(['all', 'questions', 'solutions'] as const).map((cat) => (
               <button
                 key={cat}
                 type="button"
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-3 py-1 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+                className={`px-3 min-h-[34px] rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${
                   selectedCategory === cat
-                    ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-2xs font-semibold'
-                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
+                    ? 'bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-2xs font-bold'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
                 }`}
               >
                 {cat === 'all' ? 'All Files' : cat === 'questions' ? 'Questions' : 'Solutions'}
@@ -192,15 +193,15 @@ export default function PdfLibrary() {
           </div>
         </div>
 
-        {/* Chapter Menu Pills */}
-        <div className="flex flex-wrap gap-1.5 pt-2 border-t border-slate-100 dark:border-slate-800">
+        {/* Chapter Filter Strip */}
+        <div className="flex items-center sm:flex-wrap gap-1.5 pt-2.5 border-t border-slate-100 dark:border-slate-800 overflow-x-auto pb-0.5 sm:pb-0 scrollbar-none">
           <button
             type="button"
             onClick={() => setSelectedChapterId('all')}
-            className={`px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${
+            className={`px-3 min-h-[36px] rounded-xl text-xs font-semibold transition-all cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${
               selectedChapterId === 'all'
-                ? 'bg-indigo-600 border-indigo-600 text-white shadow-2xs'
-                : 'bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:border-indigo-300'
+                ? 'bg-indigo-600 text-white shadow-2xs'
+                : 'bg-slate-100/80 dark:bg-slate-800/60 text-slate-700 dark:text-slate-200 hover:bg-slate-200/70 dark:hover:bg-slate-800'
             }`}
           >
             All Chapters
@@ -213,16 +214,16 @@ export default function PdfLibrary() {
                 key={ch.id}
                 type="button"
                 onClick={() => setSelectedChapterId(ch.id)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all cursor-pointer flex items-center gap-1 ${
+                className={`px-3 min-h-[36px] rounded-xl text-xs font-semibold transition-all cursor-pointer flex items-center gap-1 whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${
                   isSelected
-                    ? 'bg-indigo-600 border-indigo-600 text-white shadow-2xs'
+                    ? 'bg-indigo-600 text-white shadow-2xs'
                     : hasAvailable
-                    ? 'bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:border-indigo-300'
-                    : 'bg-slate-50/50 dark:bg-slate-950/40 border-slate-200/60 dark:border-slate-800/50 text-slate-400 dark:text-slate-500'
+                    ? 'bg-slate-100/80 dark:bg-slate-800/60 text-slate-700 dark:text-slate-200 hover:bg-slate-200/70 dark:hover:bg-slate-800'
+                    : 'bg-slate-50 dark:bg-slate-900/50 text-slate-400 dark:text-slate-500 border border-slate-200/50 dark:border-slate-800/60'
                 }`}
               >
                 <span>Ch {ch.id}</span>
-                <span className="hidden md:inline">: {ch.title}</span>
+                <span className="hidden md:inline">· {ch.title}</span>
               </button>
             );
           })}
@@ -231,7 +232,7 @@ export default function PdfLibrary() {
 
       {/* Minimalist File List */}
       {filteredFiles.length > 0 ? (
-        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 divide-y divide-slate-100 dark:divide-slate-800/80 overflow-hidden">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 divide-y divide-slate-100 dark:divide-slate-800/80 overflow-hidden shadow-2xs">
           {filteredFiles.map((file) => {
             const isCopied = copiedId === file.id;
             return (
@@ -256,18 +257,18 @@ export default function PdfLibrary() {
                     <p className="text-xs sm:text-sm font-mono font-semibold text-slate-900 dark:text-white break-all">
                       {file.fileName}
                     </p>
-                    <div className="flex items-center gap-2 text-[11px] text-slate-500 dark:text-slate-400 flex-wrap">
+                    <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 flex-wrap tabular-nums">
                       <span>Ch {file.chapterId}: {file.chapterTitle}</span>
-                      <span>•</span>
+                      <span aria-hidden="true">·</span>
                       <span>{file.category === 'questions' ? 'Questions Only' : 'Solutions'}</span>
                       {file.available ? (
                         <>
-                          <span>•</span>
+                          <span aria-hidden="true">·</span>
                           <span>{file.pageCount} Pages</span>
                         </>
                       ) : (
                         <>
-                          <span>•</span>
+                          <span aria-hidden="true">·</span>
                           <span className="text-amber-600 dark:text-amber-400 font-medium">
                             Coming Soon
                           </span>
@@ -286,7 +287,7 @@ export default function PdfLibrary() {
                         e.stopPropagation();
                         setViewingPdfId(file.id);
                       }}
-                      className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg text-xs font-medium transition-colors cursor-pointer"
+                      className="inline-flex items-center justify-center gap-1.5 px-3 min-h-[38px] text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40"
                     >
                       <Eye className="w-3.5 h-3.5" />
                       <span>View</span>
@@ -295,7 +296,7 @@ export default function PdfLibrary() {
                     <button
                       type="button"
                       onClick={(e) => handleCopyShareLink(e, file.id)}
-                      className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg text-xs font-medium transition-colors cursor-pointer"
+                      className="inline-flex items-center justify-center gap-1.5 px-3 min-h-[38px] text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40"
                     >
                       {isCopied ? (
                         <>
@@ -314,7 +315,7 @@ export default function PdfLibrary() {
                       href={file.pdfUrl}
                       download={file.downloadName}
                       onClick={(e) => e.stopPropagation()}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-semibold transition-colors"
+                      className="inline-flex items-center justify-center gap-1.5 px-3.5 min-h-[38px] bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold transition-colors whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40"
                     >
                       <Download className="w-3.5 h-3.5" />
                       <span>Download</span>

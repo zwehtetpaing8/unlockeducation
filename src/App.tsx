@@ -191,6 +191,19 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, [activeView, selectedChapterId]);
 
+  // Dismiss drawer or bug modal on Escape key
+  useEffect(() => {
+    if (!mobileMenuOpen && !isBugModalOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        if (isBugModalOpen) setIsBugModalOpen(false);
+        if (mobileMenuOpen) setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [mobileMenuOpen, isBugModalOpen]);
+
   // Filter chapters based on search query
   const filteredChapters = chapters.filter((ch) =>
     ch.title.toLowerCase().includes(sidebarSearch.toLowerCase()) ||
@@ -204,92 +217,99 @@ export default function App() {
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 print:bg-white print:text-black font-sans text-slate-800 dark:text-slate-200 antialiased flex flex-col pb-20 md:pb-0 transition-colors duration-200">
       {/* Top Main Navigation Header */}
       {!isReadingMode && (
-      <header className="print:hidden sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800 px-4 md:px-8 py-3 flex items-center justify-between shadow-2xs">
+      <header className="print:hidden sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800 px-4 md:px-8 h-14 md:h-16 flex items-center justify-between shadow-2xs">
         <button 
+          type="button"
           onClick={() => setActiveView('home')}
-          className="flex items-center gap-3 text-left cursor-pointer group focus:outline-none transition-all"
+          className="flex items-center gap-2.5 text-left cursor-pointer group rounded-xl py-1 pr-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 transition-all"
         >
-          <div className="w-10 h-10 rounded-xl overflow-hidden shadow-sm group-hover:scale-105 transition-transform duration-200 bg-transparent flex items-center justify-center">
+          <div className="w-9 h-9 rounded-xl overflow-hidden shadow-2xs group-hover:scale-105 transition-transform duration-200 bg-transparent flex items-center justify-center shrink-0">
             <img src="/logo.png" alt="Unlock Education Logo" className="w-full h-full object-contain" />
           </div>
-          <div>
-            <h1 className="font-display font-bold text-sm md:text-base tracking-tight text-slate-900 dark:text-white leading-tight group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+          <div className="min-w-0">
+            <h1 className="font-display font-bold text-sm md:text-base tracking-tight text-slate-900 dark:text-white leading-tight group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate">
               Unlock Education
             </h1>
-            <p className="text-[10px] text-slate-500 dark:text-slate-400 font-semibold tracking-wider uppercase">
-              ACADEMIC STUDY PORTAL
+            <p className="hidden sm:block text-[11px] text-slate-500 dark:text-slate-400 font-medium leading-tight">
+              Grade 12 Mathematics
             </p>
           </div>
         </button>
 
         {/* Desktop Controls (Tabs & Theme Selector) */}
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden md:flex items-center gap-3">
           {/* View selection tabs */}
-          <div className="flex items-center gap-1 p-1 bg-slate-100 dark:bg-slate-900 rounded-xl">
+          <nav aria-label="Primary navigation" className="flex items-center gap-1 p-1 bg-slate-100/90 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 rounded-xl">
             <button
+              type="button"
               onClick={() => setActiveView('home')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${
                 activeView === 'home'
-                  ? 'bg-white dark:bg-slate-800 shadow-sm text-indigo-600 dark:text-indigo-400 font-bold'
-                  : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
+                  ? 'bg-white dark:bg-slate-800 shadow-2xs text-indigo-600 dark:text-indigo-400 font-bold'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
               }`}
             >
               <Home className="w-3.5 h-3.5" />
               Home
             </button>
             <button
+              type="button"
               onClick={() => setActiveView('syllabus')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${
                 activeView === 'syllabus'
-                  ? 'bg-white dark:bg-slate-800 shadow-sm text-indigo-600 dark:text-indigo-400 font-bold'
-                  : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
+                  ? 'bg-white dark:bg-slate-800 shadow-2xs text-indigo-600 dark:text-indigo-400 font-bold'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
               }`}
             >
               <BookOpen className="w-3.5 h-3.5" />
               Syllabus
             </button>
             <button
+              type="button"
               onClick={() => {
                 setVideoNavTarget({});
                 setActiveView('videos');
               }}
-              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${
                 activeView === 'videos'
-                  ? 'bg-white dark:bg-slate-800 shadow-sm text-indigo-600 dark:text-indigo-400 font-bold'
-                  : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
+                  ? 'bg-white dark:bg-slate-800 shadow-2xs text-indigo-600 dark:text-indigo-400 font-bold'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
               }`}
             >
               <PlayCircle className="w-3.5 h-3.5" />
               Videos
             </button>
             <button
+              type="button"
               onClick={() => setActiveView('formulas')}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${
                 activeView === 'formulas'
-                  ? 'bg-white dark:bg-slate-800 shadow-sm text-indigo-600 dark:text-indigo-400 font-bold'
-                  : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
+                  ? 'bg-white dark:bg-slate-800 shadow-2xs text-indigo-600 dark:text-indigo-400 font-bold'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
               }`}
             >
               <Calculator className="w-3.5 h-3.5" />
               Formulas
             </button>
             <button
+              type="button"
               onClick={() => setActiveView(lastExamsView)}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${
                 activeView === 'past-questions' || activeView === 'pdfs'
-                  ? 'bg-white dark:bg-slate-800 shadow-sm text-indigo-600 dark:text-indigo-400 font-bold'
-                  : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
+                  ? 'bg-white dark:bg-slate-800 shadow-2xs text-indigo-600 dark:text-indigo-400 font-bold'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
               }`}
             >
               <FileText className="w-3.5 h-3.5" />
               Exams
             </button>
-          </div>
+          </nav>
 
           {activeView === 'syllabus' && (
             <button
+              type="button"
               onClick={() => setMobileMenuOpen(true)}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/50 dark:hover:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 border border-indigo-200/70 dark:border-indigo-800/60 rounded-xl text-xs font-bold transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/50 dark:hover:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 border border-indigo-200/70 dark:border-indigo-800/60 rounded-xl text-xs font-bold transition-colors cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40"
               title="Open Chapter Menu"
             >
               <Menu className="w-3.5 h-3.5" />
@@ -301,18 +321,19 @@ export default function App() {
         </div>
 
         {/* Mobile menu triggers & Theme Toggle */}
-        <div className="flex items-center gap-1.5 md:hidden">
-          <ThemeToggle />
+        <div className="flex items-center gap-2 md:hidden">
           {activeView === 'syllabus' && (
             <button
+              type="button"
               onClick={() => setMobileMenuOpen(true)}
-              className="p-2 bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-300 rounded-lg cursor-pointer flex items-center gap-1.5 font-semibold text-[11px] transition-colors"
+              className="min-h-[38px] px-2.5 py-1.5 bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-900 dark:hover:bg-slate-800 border border-slate-200/80 dark:border-slate-800 text-slate-700 dark:text-slate-200 rounded-xl cursor-pointer flex items-center gap-1.5 font-semibold text-xs transition-colors whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40"
               title="Open Chapter Menu"
             >
               <Menu className="w-4 h-4" />
               <span>Chapters</span>
             </button>
           )}
+          <ThemeToggle />
         </div>
       </header>
       )}
@@ -321,7 +342,7 @@ export default function App() {
       <div className={`flex-1 flex flex-col w-full mx-auto items-stretch ${isReadingMode ? 'max-w-5xl' : activeView === 'syllabus' ? 'max-w-[1440px]' : 'max-w-7xl'}`}>
         
         {/* Main Content Panel */}
-        <main className={`flex-1 p-4 md:p-6 lg:p-8 overflow-y-auto ${isReadingMode ? 'max-h-screen' : 'max-h-[calc(100vh-64px)]'}`}>
+        <main className="flex-1 w-full p-4 md:p-6 lg:p-8">
           <AnimatePresence mode="wait">
             {activeView === 'home' ? (
               <motion.div
@@ -439,7 +460,7 @@ export default function App() {
                     <button
                       type="button"
                       onClick={() => setActiveView('past-questions')}
-                      className={`inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+                      className={`inline-flex items-center justify-center gap-1.5 min-h-[40px] sm:min-h-[34px] px-3.5 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${
                         activeView === 'past-questions'
                           ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-2xs font-bold'
                           : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
@@ -451,7 +472,7 @@ export default function App() {
                     <button
                       type="button"
                       onClick={() => setActiveView('pdfs')}
-                      className={`inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+                      className={`inline-flex items-center justify-center gap-1.5 min-h-[40px] sm:min-h-[34px] px-3.5 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${
                         activeView === 'pdfs'
                           ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-2xs font-bold'
                           : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
@@ -484,6 +505,9 @@ export default function App() {
             />
             {/* Slide menu panel */}
             <motion.div
+              role="dialog"
+              aria-modal="true"
+              aria-label="Course Syllabus Chapters"
               initial={{ x: '-100%' }}
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
@@ -495,11 +519,12 @@ export default function App() {
                   <h3 className="font-display font-bold text-sm text-slate-900 dark:text-white">
                     Course Syllabus
                   </h3>
-                  <p className="text-[10px] text-slate-400">11 Mathematics Chapters</p>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 tabular-nums">11 Mathematics Chapters</p>
                 </div>
                 <button
+                  type="button"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-900 text-slate-500 dark:text-slate-400 rounded-lg transition cursor-pointer"
+                  className="w-10 h-10 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-900 text-slate-500 dark:text-slate-400 rounded-xl transition cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40"
                   aria-label="Close chapter menu"
                 >
                   <X className="w-4 h-4" />
@@ -507,7 +532,7 @@ export default function App() {
               </div>
               
               <div className="space-y-2 pb-1">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between tabular-nums">
                   <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
                     {completedChapters.length} of 11 Completed
                   </p>
@@ -525,38 +550,49 @@ export default function App() {
 
               {/* Quick Finder Search */}
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400 pointer-events-none" />
                 <input
                   type="text"
                   placeholder="Search chapters..."
                   value={sidebarSearch}
                   onChange={(e) => setSidebarSearch(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-1 focus:ring-indigo-500/30 focus:border-indigo-500"
+                  className="w-full min-h-[40px] pl-9 pr-8 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500"
                 />
+                {sidebarSearch && (
+                  <button
+                    type="button"
+                    onClick={() => setSidebarSearch('')}
+                    aria-label="Clear chapter search"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center rounded-md text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-slate-800 cursor-pointer transition-colors"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                )}
               </div>
 
               {/* Scrolling List */}
-              <nav className="flex-1 overflow-y-auto space-y-1.5 pr-1">
+              <nav aria-label="Chapter list" className="flex-1 overflow-y-auto space-y-1.5 pr-1">
                 {filteredChapters.length > 0 ? (
                   filteredChapters.map((ch) => {
                     const isSelected = selectedChapterId === ch.id;
                     return (
                       <button
                         key={ch.id}
+                        type="button"
                         onClick={() => {
                           setSelectedChapterId(ch.id);
                           setActiveView('syllabus');
                           setMobileMenuOpen(false);
                         }}
-                        className={`w-full flex items-start gap-3 p-3 rounded-xl text-left border transition-all cursor-pointer group ${
+                        className={`w-full min-h-[44px] flex items-start gap-3 p-3 rounded-xl text-left border transition-colors cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${
                           isSelected && activeView === 'syllabus'
                             ? 'bg-indigo-50 dark:bg-indigo-950/40 border-indigo-200 dark:border-indigo-900/50 text-indigo-700 dark:text-indigo-300 font-bold'
                             : 'bg-white dark:bg-transparent hover:bg-slate-50 dark:hover:bg-slate-900 border-slate-100 dark:border-slate-900 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
                         }`}
                       >
-                        <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-md self-start ${
+                        <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-md self-start tabular-nums ${
                           isSelected && activeView === 'syllabus'
-                            ? 'bg-indigo-600 text-white shadow-sm'
+                            ? 'bg-indigo-600 text-white shadow-2xs'
                             : 'bg-slate-100 dark:bg-slate-800 text-slate-500 group-hover:bg-slate-200 dark:group-hover:bg-slate-700'
                         }`}>
                           {ch.id}
@@ -568,7 +604,7 @@ export default function App() {
                               <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
                             )}
                           </div>
-                          <div className="text-[10px] text-slate-400 dark:text-slate-500 line-clamp-1">
+                          <div className="text-[11px] text-slate-400 dark:text-slate-500 line-clamp-1">
                             {ch.tagline.replace(/\$/g, '')}
                           </div>
                         </div>
@@ -622,9 +658,10 @@ export default function App() {
               <Send className="w-4 h-4" />
               <span className="hidden md:inline text-[10px] font-bold uppercase tracking-wide">Channel</span>
             </a>
-            <button 
+            <button
+              type="button"
               onClick={() => setIsBugModalOpen(true)}
-              className="text-slate-400 hover:text-emerald-500 transition-colors flex items-center gap-1.5 ml-2 cursor-pointer focus:outline-none"
+              className="text-slate-400 hover:text-emerald-500 transition-colors flex items-center gap-1.5 ml-2 cursor-pointer rounded-md py-1 px-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40"
             >
               <Bug className="w-4 h-4" />
               <span className="hidden md:inline text-[10px] font-bold uppercase tracking-wide">Report Bug</span>
@@ -648,6 +685,9 @@ export default function App() {
             {/* Modal Box */}
             <div className="fixed inset-0 flex items-center justify-center p-4 z-50 pointer-events-none">
               <motion.div
+                role="dialog"
+                aria-modal="true"
+                aria-label="Report a Bug or Feedback"
                 initial={{ scale: 0.95, opacity: 0, y: 15 }}
                 animate={{ scale: 1, opacity: 1, y: 0 }}
                 exit={{ scale: 0.95, opacity: 0, y: 15 }}
@@ -670,8 +710,10 @@ export default function App() {
                     </div>
                   </div>
                   <button
+                    type="button"
+                    aria-label="Close feedback modal"
                     onClick={() => setIsBugModalOpen(false)}
-                    className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg transition cursor-pointer"
+                    className="w-9 h-9 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg transition cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40"
                   >
                     <X className="w-4 h-4" />
                   </button>
@@ -764,8 +806,9 @@ export default function App() {
                 {/* Footer of modal */}
                 <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex justify-end">
                   <button
+                    type="button"
                     onClick={() => setIsBugModalOpen(false)}
-                    className="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold text-xs rounded-xl transition cursor-pointer"
+                    className="min-h-[40px] px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold text-xs rounded-xl transition cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40"
                   >
                     Close
                   </button>
@@ -795,75 +838,80 @@ export default function App() {
       </AnimatePresence>
 
       {/* Mobile Bottom Navigation Bar - Minimalist Sliding Pill (5 Clean Tabs) */}
-      <div className="print:hidden md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-[390px]" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
-        <nav className="relative bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl border border-slate-200/70 dark:border-slate-800/70 shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] rounded-2xl p-1.5 flex items-center justify-between mx-auto">
+      <div className="print:hidden md:hidden fixed bottom-3 inset-x-3 z-50 max-w-[420px] mx-auto" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
+        <nav aria-label="Mobile navigation" className="relative bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl border border-slate-200/80 dark:border-slate-800/80 shadow-[0_10px_30px_rgba(15,23,42,0.10)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.45)] rounded-2xl p-1.5 flex items-center justify-between">
           
           <button
+            type="button"
             onClick={() => setActiveView('home')}
-            className={`relative z-10 flex flex-col items-center justify-center w-1/5 h-12 rounded-xl transition-colors cursor-pointer ${
+            className={`relative z-10 flex flex-col items-center justify-center w-1/5 min-h-[46px] rounded-xl transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${
               activeView === 'home' ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
             }`}
           >
             {activeView === 'home' && (
               <motion.div layoutId="navPill" className="absolute inset-0 bg-indigo-50 dark:bg-indigo-500/20 rounded-xl -z-10" transition={{ type: "spring", stiffness: 350, damping: 30 }} />
             )}
-            <Home className="w-4 h-4 mb-1" />
-            <span className="text-[9px] font-bold tracking-wide">Home</span>
+            <Home className="w-[18px] h-[18px] mb-0.5" />
+            <span className="text-[10px] font-semibold tracking-tight">Home</span>
           </button>
           
           <button
+            type="button"
             onClick={() => setActiveView('syllabus')}
-            className={`relative z-10 flex flex-col items-center justify-center w-1/5 h-12 rounded-xl transition-colors cursor-pointer ${
+            className={`relative z-10 flex flex-col items-center justify-center w-1/5 min-h-[46px] rounded-xl transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${
               activeView === 'syllabus' ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
             }`}
           >
             {activeView === 'syllabus' && (
               <motion.div layoutId="navPill" className="absolute inset-0 bg-indigo-50 dark:bg-indigo-500/20 rounded-xl -z-10" transition={{ type: "spring", stiffness: 350, damping: 30 }} />
             )}
-            <BookOpen className="w-4 h-4 mb-1" />
-            <span className="text-[9px] font-bold tracking-wide">Learn</span>
+            <BookOpen className="w-[18px] h-[18px] mb-0.5" />
+            <span className="text-[10px] font-semibold tracking-tight">Learn</span>
           </button>
 
           <button
+            type="button"
             onClick={() => {
               setVideoNavTarget({});
               setActiveView('videos');
             }}
-            className={`relative z-10 flex flex-col items-center justify-center w-1/5 h-12 rounded-xl transition-colors cursor-pointer ${
+            className={`relative z-10 flex flex-col items-center justify-center w-1/5 min-h-[46px] rounded-xl transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${
               activeView === 'videos' ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
             }`}
           >
             {activeView === 'videos' && (
               <motion.div layoutId="navPill" className="absolute inset-0 bg-indigo-50 dark:bg-indigo-500/20 rounded-xl -z-10" transition={{ type: "spring", stiffness: 350, damping: 30 }} />
             )}
-            <PlayCircle className="w-4 h-4 mb-1" />
-            <span className="text-[9px] font-bold tracking-wide">Videos</span>
+            <PlayCircle className="w-[18px] h-[18px] mb-0.5" />
+            <span className="text-[10px] font-semibold tracking-tight">Videos</span>
           </button>
           
           <button
+            type="button"
             onClick={() => setActiveView('formulas')}
-            className={`relative z-10 flex flex-col items-center justify-center w-1/5 h-12 rounded-xl transition-colors cursor-pointer ${
+            className={`relative z-10 flex flex-col items-center justify-center w-1/5 min-h-[46px] rounded-xl transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${
               activeView === 'formulas' ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
             }`}
           >
             {activeView === 'formulas' && (
               <motion.div layoutId="navPill" className="absolute inset-0 bg-indigo-50 dark:bg-indigo-500/20 rounded-xl -z-10" transition={{ type: "spring", stiffness: 350, damping: 30 }} />
             )}
-            <Calculator className="w-4 h-4 mb-1" />
-            <span className="text-[9px] font-bold tracking-wide">Formulas</span>
+            <Calculator className="w-[18px] h-[18px] mb-0.5" />
+            <span className="text-[10px] font-semibold tracking-tight">Formulas</span>
           </button>
           
           <button
+            type="button"
             onClick={() => setActiveView(lastExamsView)}
-            className={`relative z-10 flex flex-col items-center justify-center w-1/5 h-12 rounded-xl transition-colors cursor-pointer ${
+            className={`relative z-10 flex flex-col items-center justify-center w-1/5 min-h-[46px] rounded-xl transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${
               activeView === 'past-questions' || activeView === 'pdfs' ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
             }`}
           >
             {(activeView === 'past-questions' || activeView === 'pdfs') && (
               <motion.div layoutId="navPill" className="absolute inset-0 bg-indigo-50 dark:bg-indigo-500/20 rounded-xl -z-10" transition={{ type: "spring", stiffness: 350, damping: 30 }} />
             )}
-            <FileText className="w-4 h-4 mb-1" />
-            <span className="text-[9px] font-bold tracking-wide">Exams</span>
+            <FileText className="w-[18px] h-[18px] mb-0.5" />
+            <span className="text-[10px] font-semibold tracking-tight">Exams</span>
           </button>
         </nav>
       </div>

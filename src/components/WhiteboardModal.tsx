@@ -6,6 +6,8 @@ import {
   Pause,
   ChevronRight,
   ChevronLeft,
+  ChevronUp,
+  ChevronDown,
   RotateCcw,
   CheckCheck,
   X,
@@ -418,6 +420,8 @@ export default function WhiteboardModal({
   const [visibleCount, setVisibleCount] = useState<number>(initialVisibleCount);
   const [isPlaying, setIsPlaying] = useState<boolean>(initialPlaying);
   const [speedIdx, setSpeedIdx] = useState<number>(1);
+  const [isQuestionCollapsed, setIsQuestionCollapsed] = useState<boolean>(false);
+  const [isSolutionScrolled, setIsSolutionScrolled] = useState<boolean>(false);
 
   const activeLineRef = useRef<HTMLDivElement | null>(null);
   const boardScrollRef = useRef<HTMLDivElement | null>(null);
@@ -431,6 +435,8 @@ export default function WhiteboardModal({
   useEffect(() => {
     if (!isOpen) return;
     scrollModeRef.current = 'top';
+    setIsQuestionCollapsed(false);
+    setIsSolutionScrolled(false);
     setVisibleCount(Math.min(Math.max(initialVisibleCount, 1), Math.max(totalLines, 1)));
     setIsPlaying(initialPlaying);
   }, [isOpen, problemKey, initialVisibleCount, initialPlaying, totalLines]);
@@ -585,115 +591,179 @@ export default function WhiteboardModal({
       aria-label={`Whiteboard: ${title}`}
       data-wb-surface={theme.isDark ? 'dark' : 'light'}
       data-wb-theme={theme.id}
-      className={`${theme.isDark ? 'dark' : ''} fixed inset-0 z-[100] h-dvh w-screen flex flex-col ${theme.shellBg} transition-colors duration-200`}
+      className={`${theme.isDark ? 'dark' : ''} fixed inset-0 z-[100] h-dvh w-full overflow-x-hidden flex flex-col ${theme.shellBg} transition-colors duration-200`}
     >
       {/* Slim Whiteboard Top Bar */}
-      <header
-        className={`shrink-0 backdrop-blur-md px-3 sm:px-6 py-2 flex items-center justify-between gap-2 sm:gap-4 ${theme.topBarBg}`}
-      >
-        {/* Left: Title + Optional Question Switcher */}
-        <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 overflow-x-auto">
-          <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold whitespace-nowrap shrink-0">
-            <span className="truncate max-w-[140px] sm:max-w-[260px]">{title}</span>
-            {subtitle && (
-              <>
-                <span className="opacity-35 hidden md:inline" aria-hidden="true">
-                  ·
-                </span>
-                <span className={`font-normal hidden md:inline ${theme.mutedText}`}>
-                  {subtitle}
-                </span>
-              </>
+      <header className={`shrink-0 backdrop-blur-md ${theme.topBarBg}`}>
+        <div className="px-3 sm:px-6 py-2 flex items-center justify-between gap-2 sm:gap-4">
+          {/* Left: Title + Desktop Question Switcher */}
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
+            <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold whitespace-nowrap min-w-0">
+              <span className="truncate">{title}</span>
+              {subtitle && (
+                <>
+                  <span className="opacity-35 hidden md:inline shrink-0" aria-hidden="true">
+                    ·
+                  </span>
+                  <span className={`font-normal hidden md:inline truncate ${theme.mutedText}`}>
+                    {subtitle}
+                  </span>
+                </>
+              )}
+            </div>
+
+            {questionTabs && questionTabs.length > 0 && (
+              <div className={`hidden md:flex items-center gap-1 p-0.5 rounded-lg shrink-0 ${theme.segmentedBg}`}>
+                {questionTabs.map((tab) => (
+                  <button
+                    key={tab.label}
+                    type="button"
+                    onClick={tab.onSelect}
+                    className={`px-2.5 py-1 rounded-md text-xs font-mono font-semibold tabular-nums transition-colors cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${
+                      tab.active ? theme.segmentedActive : `${theme.mutedText} hover:opacity-100`
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
             )}
           </div>
 
-          {questionTabs && questionTabs.length > 0 && (
-            <div className={`flex items-center gap-1 p-0.5 rounded-lg shrink-0 ${theme.segmentedBg}`}>
-              {questionTabs.map((tab) => (
-                <button
-                  key={tab.label}
-                  type="button"
-                  onClick={tab.onSelect}
-                  className={`px-2 py-1 rounded-md text-xs font-mono font-semibold tabular-nums transition-colors cursor-pointer whitespace-nowrap shrink-0 ${
-                    tab.active ? theme.segmentedActive : `${theme.mutedText} hover:opacity-100`
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              ))}
+          {/* Right: Board Theme Picker + Exit */}
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            {/* Board Surface Theme Selector */}
+            <div
+              role="group"
+              aria-label="Whiteboard theme"
+              className={`inline-flex items-center gap-1 p-1 rounded-lg ${theme.segmentedBg}`}
+            >
+              {WHITEBOARD_THEMES.map((t) => {
+                const active = t.id === themeId;
+                return (
+                  <button
+                    key={t.id}
+                    type="button"
+                    onClick={() => setThemeId(t.id)}
+                    title={t.label}
+                    aria-label={`${t.label} theme`}
+                    aria-pressed={active}
+                    className={`inline-flex items-center justify-center gap-1.5 px-2 py-1 min-h-[30px] rounded-md text-[11px] font-semibold transition-all cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${
+                      active ? theme.segmentedActive : `${theme.mutedText} hover:opacity-100`
+                    }`}
+                  >
+                    <span
+                      className="w-3.5 h-3.5 rounded-full shrink-0 border"
+                      style={{
+                        backgroundColor: t.swatchBg,
+                        borderColor: t.swatchBorder,
+                      }}
+                      aria-hidden="true"
+                    />
+                    <span className="hidden lg:inline">{t.label}</span>
+                  </button>
+                );
+              })}
             </div>
-          )}
-        </div>
 
-        {/* Right: Board Theme Picker + Exit */}
-        <div className="flex items-center gap-2 shrink-0">
-          {/* Board Surface Theme Selector */}
-          <div
-            role="group"
-            aria-label="Whiteboard theme"
-            className={`inline-flex items-center gap-1 p-1 rounded-lg ${theme.segmentedBg}`}
-          >
-            {WHITEBOARD_THEMES.map((t) => {
-              const active = t.id === themeId;
-              return (
-                <button
-                  key={t.id}
-                  type="button"
-                  onClick={() => setThemeId(t.id)}
-                  title={t.label}
-                  aria-label={`${t.label} theme`}
-                  aria-pressed={active}
-                  className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-[11px] font-semibold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
-                    active ? theme.segmentedActive : `${theme.mutedText} hover:opacity-100`
-                  }`}
-                >
-                  <span
-                    className="w-3.5 h-3.5 rounded-full shrink-0 border"
-                    style={{
-                      backgroundColor: t.swatchBg,
-                      borderColor: t.swatchBorder,
-                    }}
-                    aria-hidden="true"
-                  />
-                  <span className="hidden lg:inline">{t.label}</span>
-                </button>
-              );
-            })}
+            <button
+              type="button"
+              onClick={() => {
+                setIsPlaying(false);
+                onClose();
+              }}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap shrink-0 min-h-[38px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${theme.buttonSecondary}`}
+            >
+              <X className="w-4 h-4 shrink-0" />
+              <span>Exit</span>
+            </button>
           </div>
-
-          <button
-            type="button"
-            onClick={() => {
-              setIsPlaying(false);
-              onClose();
-            }}
-            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap shrink-0 min-h-[36px] ${theme.buttonSecondary}`}
-          >
-            <X className="w-4 h-4 shrink-0" />
-            <span>Exit</span>
-          </button>
         </div>
+
+        {/* Mobile Question Switcher Strip */}
+        {questionTabs && questionTabs.length > 0 && (
+          <div className={`md:hidden px-3 pb-2 pt-1.5 border-t ${theme.dividerBorder} flex items-center gap-1.5 overflow-x-auto scrollbar-none`}>
+            {questionTabs.map((tab) => (
+              <button
+                key={tab.label}
+                type="button"
+                onClick={tab.onSelect}
+                className={`px-3 min-h-[34px] rounded-lg text-xs font-mono font-semibold tabular-nums transition-colors cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${
+                  tab.active ? theme.segmentedActive : `${theme.segmentedBg} ${theme.mutedText}`
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        )}
       </header>
 
-      {/* Expansive Whiteboard Writing Canvas */}
+      {/* Pinned Problem Statement (stays visible while solution scrolls underneath) */}
+      {problemMarkdown && (
+        <div
+          className={`shrink-0 relative z-20 ${theme.canvasBg} border-b transition-shadow duration-200 ${
+            isSolutionScrolled
+              ? `${theme.dividerBorder} shadow-[0_10px_24px_-12px_rgba(15,23,42,0.28)]`
+              : 'border-transparent'
+          }`}
+          style={theme.canvasGridStyle}
+        >
+          <div className="max-w-4xl mx-auto px-3.5 sm:px-10 pt-3 sm:pt-5 pb-2.5 sm:pb-3">
+            <section className={`rounded-xl px-3.5 sm:px-6 py-2.5 sm:py-3.5 ${theme.questionBoxBg}`}>
+              <div className="flex items-center justify-between gap-2">
+                <span className={`text-xs font-medium truncate ${theme.mutedText}`}>
+                  {subtitle ? `${title} · ${subtitle}` : title}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setIsQuestionCollapsed((prev) => !prev)}
+                  aria-expanded={!isQuestionCollapsed}
+                  aria-label={isQuestionCollapsed ? 'Show question' : 'Minimize question'}
+                  className={`inline-flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-semibold transition-colors cursor-pointer shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${theme.mutedText} hover:opacity-100`}
+                >
+                  <span>{isQuestionCollapsed ? 'Show' : 'Hide'}</span>
+                  {isQuestionCollapsed ? (
+                    <ChevronDown className="w-3.5 h-3.5" />
+                  ) : (
+                    <ChevronUp className="w-3.5 h-3.5" />
+                  )}
+                </button>
+              </div>
+
+              <AnimatePresence initial={false}>
+                {!isQuestionCollapsed && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                    className="overflow-hidden"
+                  >
+                    <div className="mt-1.5 max-h-[24dvh] sm:max-h-[28dvh] overflow-y-auto overscroll-y-contain pr-1 text-[14px] sm:text-base leading-relaxed">
+                      <Latex text={problemMarkdown} insideSolution />
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </section>
+          </div>
+        </div>
+      )}
+
+      {/* Expansive Whiteboard Writing Canvas (scrolls smoothly beneath pinned question) */}
       <main
         ref={boardScrollRef}
-        className={`flex-1 overflow-y-auto overscroll-y-contain ${theme.canvasBg}`}
+        onScroll={(e) => {
+          const nextScrolled = e.currentTarget.scrollTop > 8;
+          if (nextScrolled !== isSolutionScrolled) {
+            setIsSolutionScrolled(nextScrolled);
+          }
+        }}
+        className={`relative z-10 flex-1 overflow-y-auto overscroll-y-contain scroll-smooth ${theme.canvasBg}`}
         style={theme.canvasGridStyle}
       >
-        <div className="max-w-4xl mx-auto px-4 sm:px-10 py-5 sm:py-8 space-y-6">
-          {/* Problem Statement on Board */}
-          {problemMarkdown && (
-            <section className={`rounded-xl px-4 sm:px-6 py-4 ${theme.questionBoxBg}`}>
-              <div className={`text-xs font-medium mb-1.5 ${theme.mutedText}`}>
-                {subtitle ? `${title} · ${subtitle}` : title}
-              </div>
-              <div className="text-[15px] sm:text-base leading-relaxed overflow-x-auto">
-                <Latex text={problemMarkdown} insideSolution />
-              </div>
-            </section>
-          )}
-
+        <div className={`max-w-4xl mx-auto px-4 sm:px-10 ${problemMarkdown ? 'pt-2 sm:pt-3 pb-6 sm:pb-8' : 'py-5 sm:py-8'} space-y-6`}>
           {/* Open Whiteboard Solution Writing Surface */}
           <section className="px-1 sm:px-2 py-1 space-y-3">
             <div className={`flex items-center justify-between gap-2 pb-2.5 border-b ${theme.dividerBorder}`}>
@@ -752,32 +822,74 @@ export default function WhiteboardModal({
         style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
       >
         {/* Slim Progress Indicator */}
-        <div className={`w-full h-1 overflow-hidden ${theme.progressTrack}`}>
+        <div className={`w-full h-1.5 overflow-hidden ${theme.progressTrack}`}>
           <div
             className={`h-full w-full origin-left transition-transform duration-200 ease-out ${theme.progressFill}`}
             style={{ transform: `scaleX(${progressRatio})` }}
           />
         </div>
 
-        <div className="max-w-4xl mx-auto px-3 sm:px-6 py-2.5 flex items-center justify-between gap-2">
+        <div className="max-w-4xl mx-auto px-3 sm:px-6 py-2 sm:py-2.5 space-y-2 sm:space-y-0 sm:flex sm:items-center sm:justify-between sm:gap-2">
+          {/* Mobile-only compact status, speed & Show All / Restart row */}
+          <div className="flex sm:hidden items-center justify-between gap-2">
+            <span className={`text-xs font-mono font-semibold tabular-nums whitespace-nowrap ${theme.mutedText}`}>
+              Step {Math.min(visibleCount, totalLines)} / {totalLines}
+            </span>
+
+            <div className="flex items-center gap-1.5">
+              <button
+                type="button"
+                onClick={handleCycleSpeed}
+                title={`Playback speed: ${currentSpeed.label}`}
+                aria-label={`Playback speed ${currentSpeed.label}, tap to change`}
+                className={`inline-flex items-center gap-1 px-2.5 min-h-[32px] rounded-lg text-xs font-mono font-semibold tabular-nums cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${theme.buttonSecondary}`}
+              >
+                <Gauge className="w-3.5 h-3.5 shrink-0" />
+                <span>{currentSpeed.shortLabel}</span>
+              </button>
+
+              {isComplete ? (
+                <button
+                  type="button"
+                  onClick={handleRestart}
+                  aria-label="Restart from step 1"
+                  className={`inline-flex items-center gap-1.5 px-2.5 min-h-[32px] rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${theme.buttonSecondary}`}
+                >
+                  <RotateCcw className="w-3.5 h-3.5 shrink-0" />
+                  <span>Restart</span>
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={handleShowAll}
+                  aria-label="Show all steps"
+                  className={`inline-flex items-center gap-1.5 px-2.5 min-h-[32px] rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${theme.buttonSecondary}`}
+                >
+                  <CheckCheck className="w-3.5 h-3.5 shrink-0" />
+                  <span>Show All</span>
+                </button>
+              )}
+            </div>
+          </div>
+
           {/* Primary Step & Playback Controls */}
-          <div className="flex items-center gap-1.5 sm:gap-2">
+          <div className="flex items-center gap-2 w-full sm:w-auto">
             <button
               type="button"
               onClick={handlePrev}
               disabled={visibleCount <= 1}
               aria-label="Previous step"
-              className={`inline-flex items-center justify-center gap-1 px-2.5 sm:px-3.5 py-2 min-h-[40px] rounded-lg text-xs font-semibold disabled:opacity-40 disabled:cursor-not-allowed transition-colors cursor-pointer whitespace-nowrap shrink-0 ${theme.buttonSecondary}`}
+              className={`inline-flex items-center justify-center gap-1 px-3 sm:px-3.5 py-2 min-h-[44px] sm:min-h-[40px] rounded-xl sm:rounded-lg text-xs font-semibold disabled:opacity-40 disabled:cursor-not-allowed transition-colors cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${theme.buttonSecondary}`}
             >
               <ChevronLeft className="w-4 h-4 shrink-0" />
-              <span className="hidden sm:inline">Prev</span>
+              <span>Prev</span>
             </button>
 
             <button
               type="button"
               onClick={handleNext}
               disabled={isComplete}
-              className={`inline-flex items-center justify-center gap-1 px-3.5 sm:px-5 py-2 min-h-[40px] rounded-lg text-xs font-semibold disabled:opacity-40 disabled:cursor-not-allowed transition-colors cursor-pointer whitespace-nowrap shrink-0 ${theme.buttonPrimary}`}
+              className={`flex-1 sm:flex-initial inline-flex items-center justify-center gap-1 px-3.5 sm:px-5 py-2 min-h-[44px] sm:min-h-[40px] rounded-xl sm:rounded-lg text-xs font-semibold disabled:opacity-40 disabled:cursor-not-allowed transition-colors cursor-pointer whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${theme.buttonPrimary}`}
             >
               <span>Next Step</span>
               <ChevronRight className="w-4 h-4 shrink-0" />
@@ -787,17 +899,17 @@ export default function WhiteboardModal({
               type="button"
               onClick={handleTogglePlay}
               aria-label={isPlaying ? 'Pause animation' : isComplete ? 'Replay animation' : 'Play animation'}
-              className={`inline-flex items-center justify-center gap-1.5 px-2.5 sm:px-3.5 py-2 min-h-[40px] rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap shrink-0 ${theme.buttonSecondary}`}
+              className={`inline-flex items-center justify-center gap-1.5 px-3 sm:px-3.5 py-2 min-h-[44px] sm:min-h-[40px] rounded-xl sm:rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${theme.buttonSecondary}`}
             >
               {isPlaying ? (
                 <>
                   <Pause className="w-4 h-4 shrink-0" />
-                  <span className="hidden sm:inline">Pause</span>
+                  <span>Pause</span>
                 </>
               ) : (
                 <>
                   <Play className="w-4 h-4 shrink-0" />
-                  <span className="hidden sm:inline">{isComplete ? 'Replay' : 'Play'}</span>
+                  <span>{isComplete ? 'Replay' : 'Play'}</span>
                 </>
               )}
             </button>
@@ -807,43 +919,39 @@ export default function WhiteboardModal({
                 type="button"
                 onClick={handleRestart}
                 aria-label="Restart from step 1"
-                className={`inline-flex items-center justify-center gap-1.5 px-2.5 sm:px-3.5 py-2 min-h-[40px] rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap shrink-0 ${theme.buttonSecondary}`}
+                className={`hidden sm:inline-flex items-center justify-center gap-1.5 px-3.5 py-2 min-h-[40px] rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${theme.buttonSecondary}`}
               >
                 <RotateCcw className="w-4 h-4 shrink-0" />
-                <span className="hidden sm:inline">Restart</span>
+                <span>Restart</span>
               </button>
             ) : (
               <button
                 type="button"
                 onClick={handleShowAll}
                 aria-label="Show all steps"
-                className={`inline-flex items-center justify-center gap-1.5 px-2.5 sm:px-3.5 py-2 min-h-[40px] rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap shrink-0 ${theme.buttonSecondary}`}
+                className={`hidden sm:inline-flex items-center justify-center gap-1.5 px-3.5 py-2 min-h-[40px] rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${theme.buttonSecondary}`}
               >
                 <CheckCheck className="w-4 h-4 shrink-0" />
-                <span className="hidden sm:inline">Show All</span>
+                <span>Show All</span>
               </button>
             )}
           </div>
 
-          {/* Speed & Step Counter */}
-          <div className="flex items-center gap-2 shrink-0">
-            <button
-              type="button"
-              onClick={handleCycleSpeed}
-              title={`Speed: ${currentSpeed.label}`}
-              className={`sm:hidden inline-flex items-center gap-1 px-2 py-2 min-h-[40px] rounded-lg text-xs font-mono font-semibold tabular-nums cursor-pointer whitespace-nowrap shrink-0 ${theme.segmentedBg}`}
-            >
-              <Gauge className="w-3.5 h-3.5 shrink-0" />
-              <span>{currentSpeed.shortLabel}</span>
-            </button>
+          {/* Desktop Speed, Keyboard Hints & Step Counter */}
+          <div className="hidden sm:flex items-center gap-2.5 shrink-0">
+            <span className={`hidden lg:inline-flex items-center gap-1.5 text-[11px] font-mono ${theme.mutedText}`}>
+              <kbd className="px-1.5 py-0.5 rounded border border-current/25 text-[10px]">←</kbd>
+              <kbd className="px-1.5 py-0.5 rounded border border-current/25 text-[10px]">→</kbd>
+              <kbd className="px-1.5 py-0.5 rounded border border-current/25 text-[10px]">Space</kbd>
+            </span>
 
-            <div className={`hidden sm:inline-flex items-center rounded-lg p-0.5 ${theme.segmentedBg}`}>
+            <div className={`inline-flex items-center rounded-lg p-0.5 ${theme.segmentedBg}`}>
               {SPEED_OPTIONS.map((opt, idx) => (
                 <button
                   key={opt.label}
                   type="button"
                   onClick={() => setSpeedIdx(idx)}
-                  className={`px-2.5 py-1 rounded-md text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap shrink-0 ${
+                  className={`px-2.5 py-1 rounded-md text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${
                     speedIdx === idx ? theme.segmentedActive : `${theme.mutedText} hover:opacity-100`
                   }`}
                 >

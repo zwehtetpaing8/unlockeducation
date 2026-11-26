@@ -166,7 +166,7 @@ export const pdfResources: PdfResource[] = [
     category: 'solutions',
     fileName: 'G12 Ch2 Past Papers 2024 Section D (Solutions)',
     description: 'Chapter 2: Mathematical Induction — 2024 Past Papers Section D (Questions 1–6 Worked Solutions)',
-    pdfUrl: '/assets/aistudio/G12-Ch2-PP-SecD-2024-Solutions_9ff7984f.pdf',
+    pdfUrl: '/assets/aistudio/G12-Ch2-PP-SecD-2024-Solutions_df4955d2.pdf',
     downloadName: 'G12 Ch2 Past Papers 2024 Section D (Solutions).pdf',
     pageCount: 10,
     pages: [

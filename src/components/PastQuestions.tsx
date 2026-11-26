@@ -12,6 +12,7 @@ import {
   Play,
   Eye,
   CheckCheck,
+  X,
 } from 'lucide-react';
 import Latex from './Latex';
 import {
@@ -313,10 +314,10 @@ export default function PastQuestions() {
             <button
               type="button"
               onClick={() => setDisplayMode('questions-only')}
-              className={`inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer whitespace-nowrap shrink-0 tabular-nums ${
+              className={`inline-flex items-center justify-center gap-1.5 px-3 min-h-[38px] rounded-lg text-xs font-semibold transition-all cursor-pointer whitespace-nowrap shrink-0 tabular-nums focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${
                 displayMode === 'questions-only'
                   ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-2xs font-bold'
-                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
               }`}
             >
               <FileText className="w-3.5 h-3.5 shrink-0" />
@@ -325,10 +326,10 @@ export default function PastQuestions() {
             <button
               type="button"
               onClick={() => setDisplayMode('practice')}
-              className={`inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer whitespace-nowrap shrink-0 tabular-nums ${
+              className={`inline-flex items-center justify-center gap-1.5 px-3 min-h-[38px] rounded-lg text-xs font-semibold transition-all cursor-pointer whitespace-nowrap shrink-0 tabular-nums focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${
                 displayMode === 'practice'
                   ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-2xs font-bold'
-                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
               }`}
             >
               <Sparkles className="w-3.5 h-3.5 shrink-0" />
@@ -346,15 +347,25 @@ export default function PastQuestions() {
               placeholder="Search questions, formulas, chapter, or year (e.g. divisible, trigonometric, 2026)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs sm:text-sm text-slate-700 dark:text-slate-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/25 focus:border-indigo-500 transition-all"
+              className={`w-full pl-10 ${searchQuery ? 'pr-9' : 'pr-4'} min-h-[42px] bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs sm:text-sm text-slate-700 dark:text-slate-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/25 focus:border-indigo-500 transition-all`}
             />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery('')}
+                aria-label="Clear search"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            )}
           </div>
 
           {displayMode === 'practice' && answeredCount > 0 && (
             <button
               type="button"
               onClick={resetQuiz}
-              className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold rounded-xl transition-colors cursor-pointer whitespace-nowrap shrink-0"
+              className="inline-flex items-center justify-center gap-1.5 px-3.5 min-h-[42px] bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold rounded-xl transition-colors cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40"
             >
               <RefreshCw className="w-3.5 h-3.5" />
               Reset Answers
@@ -364,19 +375,19 @@ export default function PastQuestions() {
 
         {/* Row 3: Chapter Filter */}
         <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 scrollbar-none">
-          <span className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mr-1 shrink-0">
+          <span className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 mr-1 shrink-0">
             Chapter
           </span>
           <button
             type="button"
             onClick={() => setSelectedChapter('all')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer whitespace-nowrap shrink-0 border tabular-nums ${
+            className={`px-3 min-h-[36px] rounded-xl text-xs font-semibold transition-all cursor-pointer whitespace-nowrap shrink-0 tabular-nums focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${
               selectedChapter === 'all'
-                ? 'bg-indigo-600 text-white border-indigo-600'
-                : 'bg-slate-50 dark:bg-slate-950 text-slate-600 dark:text-slate-300 border-slate-200/80 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
+                ? 'bg-indigo-600 text-white shadow-2xs'
+                : 'bg-slate-100/80 dark:bg-slate-800/60 text-slate-600 dark:text-slate-300 hover:bg-slate-200/70 dark:hover:bg-slate-800'
             }`}
           >
-            All Chapters ({modePool.length})
+            All ({modePool.length})
           </button>
           {availableChapters.map((ch) => {
             const isSelected = selectedChapter === ch.id;
@@ -385,10 +396,10 @@ export default function PastQuestions() {
                 key={ch.id}
                 type="button"
                 onClick={() => setSelectedChapter(ch.id)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer whitespace-nowrap shrink-0 border tabular-nums ${
+                className={`px-3 min-h-[36px] rounded-xl text-xs font-semibold transition-all cursor-pointer whitespace-nowrap shrink-0 tabular-nums focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${
                   isSelected
-                    ? 'bg-indigo-600 text-white border-indigo-600'
-                    : 'bg-slate-50 dark:bg-slate-950 text-slate-600 dark:text-slate-300 border-slate-200/80 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
+                    ? 'bg-indigo-600 text-white shadow-2xs'
+                    : 'bg-slate-100/80 dark:bg-slate-800/60 text-slate-600 dark:text-slate-300 hover:bg-slate-200/70 dark:hover:bg-slate-800'
                 }`}
               >
                 Ch {ch.id}: {ch.title} ({ch.count})
@@ -398,13 +409,13 @@ export default function PastQuestions() {
         </div>
 
         {/* Row 4: Section & Year Filters */}
-        <div className="flex flex-wrap items-center gap-3 pt-1">
+        <div className="flex flex-wrap items-center gap-2.5 pt-0.5">
           {/* Section Filter */}
           <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-950 p-1 rounded-xl overflow-x-auto max-w-full scrollbar-none">
             <button
               type="button"
               onClick={() => setSelectedSection('all')}
-              className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+              className={`px-2.5 min-h-[32px] rounded-lg text-xs font-semibold transition-all cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${
                 selectedSection === 'all'
                   ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-2xs'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
@@ -421,7 +432,7 @@ export default function PastQuestions() {
                   type="button"
                   onClick={() => setSelectedSection(sec)}
                   disabled={count === 0 && !isSelected}
-                  className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer whitespace-nowrap shrink-0 tabular-nums disabled:opacity-40 disabled:cursor-not-allowed ${
+                  className={`px-2.5 min-h-[32px] rounded-lg text-xs font-semibold transition-all cursor-pointer whitespace-nowrap shrink-0 tabular-nums disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${
                     isSelected
                       ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-2xs'
                       : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
@@ -434,11 +445,11 @@ export default function PastQuestions() {
           </div>
 
           {/* Year Filter */}
-          <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-950 p-1 rounded-xl">
+          <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-950 p-1 rounded-xl overflow-x-auto max-w-full scrollbar-none">
             <button
               type="button"
               onClick={() => setSelectedYear('all')}
-              className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+              className={`px-2.5 min-h-[32px] rounded-lg text-xs font-semibold transition-all cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${
                 selectedYear === 'all'
                   ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-2xs'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
@@ -451,7 +462,7 @@ export default function PastQuestions() {
                 key={yr}
                 type="button"
                 onClick={() => setSelectedYear(yr)}
-                className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer whitespace-nowrap shrink-0 tabular-nums ${
+                className={`px-2.5 min-h-[32px] rounded-lg text-xs font-semibold transition-all cursor-pointer whitespace-nowrap shrink-0 tabular-nums focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${
                   selectedYear === yr
                     ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-2xs'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
@@ -466,7 +477,7 @@ export default function PastQuestions() {
             <button
               type="button"
               onClick={resetFilters}
-              className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer whitespace-nowrap shrink-0 ml-auto"
+              className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer whitespace-nowrap shrink-0 ml-auto px-2 py-1 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40"
             >
               Clear filters
             </button>
@@ -638,7 +649,7 @@ export default function PastQuestions() {
                                   key={optIdx}
                                   type="button"
                                   onClick={() => handleSelectOption(q.id, optIdx)}
-                                  className={`flex items-center gap-3 p-3 rounded-xl border text-left transition-all text-xs sm:text-sm cursor-pointer ${btnStyle}`}
+                                  className={`flex items-center gap-3 p-3 min-h-[46px] rounded-xl border text-left transition-all text-xs sm:text-sm cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 ${btnStyle}`}
                                 >
                                   <span
                                     className={`w-6 h-6 flex items-center justify-center rounded-lg text-xs font-mono font-bold shrink-0 ${
@@ -668,45 +679,45 @@ export default function PastQuestions() {
                         )}
 
                         {/* Whiteboard Teaching Controls + Quick Inline Preview */}
-                        <div className="pt-2.5 flex flex-wrap items-center justify-between gap-2.5 border-t border-slate-100 dark:border-slate-800/80">
-                          <div className="flex flex-wrap items-center gap-2">
+                        <div className="pt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 border-t border-slate-100 dark:border-slate-800/80">
+                          <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2 w-full sm:w-auto">
                             <button
                               type="button"
                               onClick={() => launchWhiteboard(group.questions, q.id, 'step')}
-                              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white transition-colors cursor-pointer whitespace-nowrap shrink-0"
+                              className="inline-flex items-center justify-center gap-1.5 px-3 min-h-[40px] sm:min-h-[36px] rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white transition-colors cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40"
                             >
-                              <Eye className="w-3.5 h-3.5" />
-                              Check Solution
+                              <Eye className="w-3.5 h-3.5 shrink-0" />
+                              <span>Check Solution</span>
                             </button>
 
                             <button
                               type="button"
                               onClick={() => launchWhiteboard(group.questions, q.id, 'play')}
-                              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-colors cursor-pointer whitespace-nowrap shrink-0"
+                              className="inline-flex items-center justify-center gap-1.5 px-3 min-h-[40px] sm:min-h-[36px] rounded-xl text-xs font-semibold bg-indigo-50 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-colors cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40"
                             >
-                              <Play className="w-3.5 h-3.5 fill-current" />
-                              Play Animation
+                              <Play className="w-3.5 h-3.5 fill-current shrink-0" />
+                              <span>Play Animation</span>
                             </button>
 
                             <button
                               type="button"
                               onClick={() => launchWhiteboard(group.questions, q.id, 'all')}
-                              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer whitespace-nowrap shrink-0"
+                              className="inline-flex items-center justify-center gap-1.5 px-3 min-h-[40px] sm:min-h-[36px] rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40"
                             >
-                              <CheckCheck className="w-3.5 h-3.5" />
-                              Show All
+                              <CheckCheck className="w-3.5 h-3.5 shrink-0" />
+                              <span>Show All</span>
                             </button>
 
                             <button
                               type="button"
                               onClick={() => toggleSolution(q.id)}
-                              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors cursor-pointer whitespace-nowrap shrink-0"
+                              className="inline-flex items-center justify-center gap-1 px-3 min-h-[40px] sm:min-h-[36px] rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/40 sm:bg-transparent hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/70 transition-colors cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40"
                             >
                               <span>{isSolutionOpen ? 'Hide' : 'Inline'}</span>
                               {isSolutionOpen ? (
-                                <ChevronUp className="w-3.5 h-3.5" />
+                                <ChevronUp className="w-3.5 h-3.5 shrink-0" />
                               ) : (
-                                <ChevronDown className="w-3.5 h-3.5" />
+                                <ChevronDown className="w-3.5 h-3.5 shrink-0" />
                               )}
                             </button>
                           </div>
@@ -832,7 +843,7 @@ export default function PastQuestions() {
           isOpen={true}
           onClose={() => setWhiteboard(null)}
           title={`Question ${activeWbQuestion.questionNumber}`}
-          subtitle={`Chapter ${activeWbQuestion.chapterId}: ${activeWbQuestion.chapterTitle} · Section (${activeWbQuestion.section}) · ${getQuestionYears(activeWbQuestion).join(' / ')}`}
+          subtitle={`Chapter ${activeWbQuestion.chapterId} Section (${activeWbQuestion.section})`}
           problemMarkdown={activeWbQuestion.questionText}
           steps={activeWbSteps}
           initialVisibleCount={whiteboard.initialVisibleCount}
